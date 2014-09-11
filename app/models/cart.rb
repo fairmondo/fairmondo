@@ -30,6 +30,16 @@ class Cart < ActiveRecord::Base
     line_item_groups.where(seller: seller).first || LineItemGroup.create(cart: self, seller: seller)
   end
 
+  def contains_all_available_line_items_for? article
+    line_item = line_item_for article
+    line_item ? line_item.requested_quantity >= article.quantity_available : false
+  end
+
+  def line_item_for article
+    items = line_items.select{ |item| item.article_id == article.id }
+    items.any? ? items.first : nil
+  end
+
   def buy
     Article.transaction do
       locked_article_ids_with_quantities = {}
