@@ -16,7 +16,8 @@ class LineItemGroup < ActiveRecord::Base
   belongs_to :payment_address, class_name: 'Address', foreign_key: 'payment_address_id'
   has_one :rating
 
-  delegate :email, :bank_account_owner, :iban, :bic, :bank_name, :nickname, :paypal_account,
+  delegate :email, :bank_account_owner, :iban, :bic, :bank_name, :nickname,
+           :paypal_account, :free_transport_at_price,
            to: :seller, prefix: true
 
   delegate :email, :nickname,
