@@ -53,13 +53,11 @@ describe ArticleMailer do
     mail = ArticleMailer.article_activation_message(article)
 
     mail.must deliver_to article.seller_email
-    mail.must have_body_text 'Widerrufsbelehrung'
   end
 
   it '#mass_upload_activation_message' do
     mail = ArticleMailer.mass_upload_activation_message(mass_upload)
 
     mail.must deliver_to mass_upload.user.email
-    mail.must have_body_text 'Widerrufsbelehrung'
   end
 end

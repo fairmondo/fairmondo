@@ -54,7 +54,7 @@ class ArticleMailer < ActionMailer::Base
     @mass_upload = MassUpload.find mass_upload_id
     @user = @mass_upload.user
 
-    mail(to: @user.email, subject: "[Fairnopoly] Du hast Artikel per CSV Datei aktiviert")
+    mail(to: @user.email, subject: "[Fairnopoly] Du hast Deine per CSV-Datein eingestellten Artikel eingestellt")
   end
 
   private
