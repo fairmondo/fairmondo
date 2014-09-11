@@ -29,10 +29,11 @@
   = f.semantic_errors
 
   = f.inputs do
-    = f.input :nickname, label: 'Dein Nutzername', tooltip: false, required: true
-    = f.input :type, label: false, as: :boolean, required: true, tooltip: true, collection: [[t('users.legal_status.new.private_user'),"PrivateUser"], [t('users.legal_status.new.legal_entity'),"LegalEntity"]]
-    = f.input :email, label: 'Deine E-Mail-Adresse', tooltip: false, required: true
-    = f.input :password, label: 'Dein Passwort (mind. 6 Zeichen)', tooltip: true
+    = f.input :nickname, label: 'Dein Nutzername', tooltip: false
+    = f.input :type, label: false, as: :boolean, required: true, tooltip: false, collection: [[t('users.legal_status.new.private_user'),"PrivateUser"], [t('users.legal_status.new.legal_entity'),"LegalEntity"]]
+    = f.input :email, label: 'Deine E-Mail-Adresse', tooltip: false
+    = f.input :password, label: 'Dein Passwort (mind. 6 Zeichen)', tooltip: false
+    -#= f.input :password_confirmation, tooltip: false
     -# render partial: "/devise/registrations/password_complexity"
     -# onclick javascript because icheck causes click on link to fail
     - legal_link = link_to t('users.legal'), "/agb", target: "_blank", onclick: on_click_open_link_in_label('/agb')
