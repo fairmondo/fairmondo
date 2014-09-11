@@ -1,0 +1,1 @@
+$('.line-item-<%= @line_item.id %>').replaceWith("<%= escape_javascript render 'line_items/shared/line_item_list_view', line_item: @line_item, cart_abacus: @cart_abacus %>");

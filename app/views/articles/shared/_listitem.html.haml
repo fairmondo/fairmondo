@@ -20,7 +20,9 @@
 -# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
 - actions = false unless local_assigns.has_key? :actions
-%div{class: actions ? 'ArticleListview-item-with-actions' :'ArticleListview-item'}
+- div_class = actions ? 'ArticleListview-item-with-actions' : 'ArticleListview-item'
+- div_class += " #{outer_class}" if local_assigns.has_key? :outer_class
+%div{class: div_class}
   .ArticleListview-image
     = link_to image_tag(article.title_image_url(:thumb)), article_path(article)
   .ArticleListview-details
