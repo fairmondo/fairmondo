@@ -3,16 +3,33 @@
 
 // Login and registration form
 
-form.formtastic.user {
+#registration_form {
+  margin-bottom: 1.5em;
+
+  #user_nickname {
+    width: 20em;
+  }
+
+  #user_email {
+    width: 25em;
+  }
+
+  #user_password {
+    width: 15em;
+  }
+
+
+  // Responsive stuff
   @include at-breakpoint($bp-tablet) {
 		@include span(3 of 4);
 	}
 	@include at-breakpoint($bp-tablet-horizontal) {
 		@include span(2 of 4);
 	}
-
-  margin-bottom: 2em;
 }
+
+
+
 
 /*
 .registrations-grid > ol > li {
