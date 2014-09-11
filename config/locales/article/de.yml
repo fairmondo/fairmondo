@@ -38,7 +38,7 @@ de:
     vat: "Mehrwertsteuer"
     price_label: "Verkaufspreis"
     vat_included: "inkl. %{mwst}% MwSt."
-    free_transport_at: "Verkäufer*in bietet <strong>kostenlosen Versand ab %{price}</strong>"
+    free_transport_at: "Verkäufer*in bietet kostenlosen Versand ab %{price}"
     free_transport: "Kostenloser Versand"
     included_short: "Inkl."
     transport:

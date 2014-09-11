@@ -79,7 +79,7 @@
         - if resource.seller_free_transport_available
           .free-transport
             - if resource.price < resource.seller_free_transport_at_price
-              = t('article.free_transport_at', price: money(resource.seller_free_transport_at_price)).html_safe
+              = t('article.free_transport_at', price: money(resource.seller_free_transport_at_price))
             - else
               %strong= t('article.free_transport')
         .transport

@@ -1,8 +1,7 @@
 class PreviewAbacus
 
   attr_reader :transports, :unified_transport, :unified_transport_price,
-              :number_of_shipments, :free_transport, :free_transport_at_price,
-              :
+              :number_of_shipments, :free_transport, :free_transport_at_price
 
   def initialize line_item_group
     @line_item_group = line_item_group
