@@ -11,10 +11,9 @@ class CartMailer < ActionMailer::Base
 
       if lig.seller.terms && lig.seller.cancellation
         filename = "#{ lig.seller_nickname }_agb_und_widerrruf.pdf"
-        attachments.inline[filename] = {
+        attachments[filename] = {
           data: TermsAndCancellationPdf.new(lig).render,
-          mime_type: "application/pdf",
-          encoding: "base64"
+          mime_type: "application/pdf"
         }
       end
     end
