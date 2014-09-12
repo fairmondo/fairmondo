@@ -29,10 +29,9 @@ class RegistrationsController < Devise::RegistrationsController
     @user = User.new
 
     # Check if parameters have been provided by a landing page and set object attributes accordingly
-    @user.nickname = params[:username] if params[:username]
-    @user.email = params[:email] if params[:email]
-    @user.type = "LegalEntity" if params[:legal_entity]
-    @user.newsletter = true if params[:newsletter]
+    @user.assign_attributes(params[:user].for(@user).on(:create).refine) if params[:user]
+
+    render layout: "application_reduced"
   end
 
 

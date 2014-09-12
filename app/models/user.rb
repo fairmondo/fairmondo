@@ -92,7 +92,6 @@ class User < ActiveRecord::Base
   validates_inclusion_of :type, in: ["PrivateUser", "LegalEntity"]
   validates :nickname , presence: true, uniqueness: true
   validates :legal, acceptance: true, on: :create
-  validates :agecheck, acceptance: true , on: :create
 
 
   # validations
