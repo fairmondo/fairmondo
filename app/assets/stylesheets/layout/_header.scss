@@ -80,13 +80,20 @@ $header-nav-link-color-hover: $blue;
   border-radius: 0 0.4em 0.4em;
   line-height: 1.5em;
 }
+
 .l-header-nav-dropdown--login {
   width: 17em;
 }
-.l-header-nav-dropdown > li {
+
+.l-header-nav-dropdown > li, .l-header-nav-dropdown ul#session_links > li {
   list-style-type: none;
-  line-height: 2em;
+  margin: 0.5em 0;
 }
+
+.l-header-nav-dropdown ul#session_links {
+  padding: 0;
+}
+
 .l-header-nav-dropdown.is-active {
   display: block;
 }
