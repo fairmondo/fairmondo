@@ -9,7 +9,7 @@ class CartMailer < ActionMailer::Base
     cart.line_item_groups.each do |lig|
       add_image_attachments_for lig
 
-      if lig.seller.is_a? LegalEntity && lig.seller.terms && lig.seller.cancellation
+      if lig.seller.is_a?(LegalEntity) && lig.seller.terms && lig.seller.cancellation
         filename = "#{ lig.seller_nickname }_agb_und_widerrruf.pdf"
         attachments[filename] = TermsAndCancellationPdf.new(lig).render
       end
