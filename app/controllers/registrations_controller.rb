@@ -25,6 +25,17 @@ class RegistrationsController < Devise::RegistrationsController
   before_filter :configure_permitted_parameters
   skip_before_filter :authenticate_user!, only: [ :create, :new ]
 
+  def new
+    @user = User.new
+
+    # Check if parameters have been provided by a landing page and set object attributes accordingly
+    @user.nickname = params[:username] if params[:username]
+    @user.email = params[:email] if params[:email]
+    @user.type = "LegalEntity" if params[:legal_entity]
+    @user.newsletter = true if params[:newsletter]
+  end
+
+
   def edit
     @user = User.find current_user.id
     check_incomplete_profile! @user
