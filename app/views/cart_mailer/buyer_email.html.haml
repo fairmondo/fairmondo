@@ -22,7 +22,7 @@
     - if lig.seller.is_a? LegalEntity
       .pdf
         %center
-          = link_to "AGB und Widerrufserklärung von #{lig.seller_nickname}", profile_user_url(lig.seller,print: :terms)
+          = link_to "AGB und Widerrufserklärung von #{lig.seller_nickname}", profile_user_url(lig.seller,format: :pdf, print: :terms)
           %br
           = link_to 'Hier kostenloses PDF-Anzeigeprogramm herunterladen.', 'http://get.adobe.com/reader/otherversions/'
     = render 'total_price', lig: lig
