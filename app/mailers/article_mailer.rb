@@ -24,7 +24,6 @@ class ArticleMailer < ActionMailer::Base
 
   default from: $email_addresses['default']
   before_filter :inline_logos, except: :report_article
-  before_filter :inline_terms_pdf, only: [:article_activation_message, :mass_upload_activation_message]
   layout 'email', except: :report_article
 
 
@@ -46,24 +45,21 @@ class ArticleMailer < ActionMailer::Base
   def article_activation_message article_id
     @article = Article.find article_id
     @user    = @article.user
-
+    terms_pdf
     mail(to: @user.email, subject: "[Fairnopoly] Du hast einen Artikel auf Fairnopoly eingestellt")
   end
 
   def mass_upload_activation_message mass_upload_id
     @mass_upload = MassUpload.find mass_upload_id
     @user = @mass_upload.user
-
+    terms_pdf
     mail(to: @user.email, subject: "[Fairnopoly] Du hast Deine per CSV-Datein eingestellten Artikel eingestellt")
   end
 
   private
 
     # attaches terms pdf to emails
-    def inline_terms_pdf
-      attachments['AGB.pdf'] = {
-        data: File.read(Rails.root.join('app/assets/docs/AGB_Fairnopoly_FINAL.pdf')),
-        mime_type: 'application/pdf'
-      }
+    def terms_pdf
+      attachments['AGB.pdf'] = File.read(Rails.root.join('app/assets/docs/AGB_Fairnopoly_FINAL.pdf'))
     end
 end
