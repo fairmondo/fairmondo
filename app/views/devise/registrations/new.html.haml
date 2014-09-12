@@ -29,7 +29,7 @@
     = f.input :nickname, label: 'Dein Nutzername', tooltip: false
     = f.input :type, as: :boolean, required: false, tooltip: true, unchecked_value: "PrivateUser", checked_value: "LegalEntity"
     = f.input :email, label: 'Deine E-Mail-Adresse', tooltip: false
-    = f.input :password, label: 'Dein Passwort (mind. 6 Zeichen)', tooltip: true
+    = f.input :password, label: 'Dein Passwort', tooltip: true
     -#= f.input :password_confirmation, tooltip: false
     -# render partial: "/devise/registrations/password_complexity"
     -# onclick javascript because icheck causes click on link to fail
