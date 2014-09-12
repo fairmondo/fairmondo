@@ -1,4 +1,4 @@
-= semantic_form_for(User.new, as: :user, url: session_path(:user), html: { id: 'sessions_form' }) do |f|
+= semantic_form_for(User.new, as: :user, url: session_path(:user)) do |f|
   = f.semantic_errors
   = f.inputs do
     = f.input :email, required: false, tooltip: false
