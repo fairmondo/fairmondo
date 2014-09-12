@@ -27,7 +27,7 @@
 
   = f.inputs do
     = f.input :nickname, label: 'Dein Nutzername', tooltip: false
-    = f.input :type, as: :boolean, required: true, tooltip: true, unchecked_value: "PrivateUser", checked_value: "LegalEntity"
+    = f.input :type, as: :boolean, required: false, tooltip: true, unchecked_value: "PrivateUser", checked_value: "LegalEntity"
     = f.input :email, label: 'Deine E-Mail-Adresse', tooltip: false
     = f.input :password, label: 'Dein Passwort (mind. 6 Zeichen)', tooltip: true
     -#= f.input :password_confirmation, tooltip: false
@@ -37,7 +37,7 @@
     - privacy_link = link_to t('users.privacy'), "/privacy", target: "_blank", onclick: on_click_open_link_in_label('/privacy')
     -# f.input :agecheck, as: :boolean, required: true
     = f.input :legal, as: :boolean, required: true, label: t("users.i_accept_both", legal: legal_link, privacy: privacy_link).html_safe
-    = f.input :newsletter, as: :boolean, tooltip: false
+    = f.input :newsletter, as: :boolean, required: false, tooltip: false
 
   = f.actions do
     = f.action :submit, button_html: { class: "Button", id: "sign_up" }, label: :sign_up

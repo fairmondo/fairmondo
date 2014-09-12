@@ -3,7 +3,7 @@ de:
   formtastic:
     :yes: Ja
     :no: Nein
-    required: Pflicht
+    required: Angabe notwendig
     labels:
       questionnaire:
         explanation: Erläuterung
