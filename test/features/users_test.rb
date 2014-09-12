@@ -51,7 +51,6 @@ feature 'User registration' do
       fill_in 'user_password_confirmation', with: 'password'
       choose 'user_type_legalentity'
       check 'user_legal'
-      check 'user_agecheck'
     end
     assert_difference 'User.count', 1 do
       click_button 'sign_up'

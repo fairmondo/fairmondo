@@ -163,7 +163,6 @@ describe User do
     end
 
     describe "on create" do
-      it { subject.must validate_acceptance_of :agecheck }
       it { subject.must validate_acceptance_of :legal }
     end
 

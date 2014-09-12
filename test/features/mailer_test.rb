@@ -15,7 +15,6 @@ feature 'User Mailer' do
       fill_in 'user_password_confirmation', with: 'password'
       choose 'user_type_legalentity'
       check 'user_legal'
-      check 'user_agecheck'
       click_button 'sign_up'
     end
     last_delivery = ActionMailer::Base.deliveries.last
