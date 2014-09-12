@@ -30,7 +30,6 @@
     = f.input :type, as: :boolean, required: false, tooltip: true, unchecked_value: "PrivateUser", checked_value: "LegalEntity"
     = f.input :email, label: 'Deine E-Mail-Adresse', tooltip: false
     = f.input :password, label: 'Dein Passwort', tooltip: true
-    -#= f.input :password_confirmation, tooltip: false
     -# render partial: "/devise/registrations/password_complexity"
     -# onclick javascript because icheck causes click on link to fail
     - legal_link = link_to t('users.legal_abbr'), "/agb", target: "_blank", onclick: on_click_open_link_in_label('/agb')
