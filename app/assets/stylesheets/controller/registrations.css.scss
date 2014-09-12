@@ -6,6 +6,10 @@
 #registration_form {
   margin-bottom: 1.5em;
 
+  #user_nickname_input, #user_type_input, #user_email_input, #user_password_input {
+    width: 22.5em;
+    max-width: 100%;
+  }
 
   #user_email {
     width: 22.5em;
@@ -17,19 +21,8 @@
   }
 
 
-  /*
-  hr {
-    margin: 1em 0;
-    border: 1px solid $gray;
-  }
-  */
-
   // Responsive stuff
   @include at-breakpoint($bp-tablet) {
-		@include span(3 of 4);
-	}
-
-	@include at-breakpoint($bp-tablet-horizontal) {
 		@include span(1 of 2);
 	}
 }
@@ -39,7 +32,7 @@
   // Responsive stuff
   display: none;
 
-  @include at-breakpoint($bp-tablet-horizontal) {
+  @include at-breakpoint($bp-tablet) {
     display: block;
     margin-top: 4.5em;
     @include span(1 of 2);
