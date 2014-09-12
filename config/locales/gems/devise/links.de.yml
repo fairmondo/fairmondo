@@ -4,8 +4,8 @@ de:
       sign_in: "Anmelden"
       sign_up: "Registrieren"
       forgot_password: "Passwort vergessen?"
-      confirmation_instruction: "Keine Bestätigungsanweisung erhalten?"
-      unlock_instruction: "Keine Anweisungen zur Freischaltung erhalten?"
+      confirmation_instruction: "Keine E-Mail nach der Registrierung erhalten?"
+      unlock_instruction: "Keine E-Mail zur Freischaltung erhalten?"
       sign_in_with: "Mit anderem Account anmelden #{provider.to_s.titleize}"
     actions:
-      unlock: "Email-Anweisungen zur Freischaltung erneut senden"
+      unlock: "E-Mail zur Freischaltung erneut senden"
