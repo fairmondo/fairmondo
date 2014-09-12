@@ -12,7 +12,6 @@ feature 'User Mailer' do
       fill_in 'user_nickname',              with: 'nickname'
       fill_in 'user_email',                 with: 'email@example.com'
       fill_in 'user_password',              with: 'password'
-      fill_in 'user_password_confirmation', with: 'password'
       choose 'user_type_legalentity'
       check 'user_legal'
       click_button 'sign_up'

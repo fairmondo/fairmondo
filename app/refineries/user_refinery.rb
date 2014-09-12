@@ -5,7 +5,7 @@ class UserRefinery < ApplicationRefinery
 
   def create
     [
-      :email, :password, :password_confirmation, :new_terms_confirmed,
+      :email, :password, :new_terms_confirmed,
       # and custom fields apart from devise internal stuff:
       :nickname, :type, :newsletter, :legal, :privacy
     ]
