@@ -1,6 +1,6 @@
 .article
   .article-image
-    - if attachments[bt.article.title_image.image_file_name]
+    - if bt.article.title_image && attachments[bt.article.title_image.image_file_name]
       = link_to image_tag(attachments[bt.article.title_image.image_file_name].url), article_url(bt.article_id)
   .article-info-container
     .article-title
