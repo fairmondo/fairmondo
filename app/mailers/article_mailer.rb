@@ -60,6 +60,6 @@ class ArticleMailer < ActionMailer::Base
 
     # attaches terms pdf to emails
     def terms_pdf
-      attachments['AGB.pdf'] = File.read(Rails.root.join('app/assets/docs/AGB_Fairnopoly_FINAL.pdf'))
+      attachments['AGB.pdf'] = File.read(Rails.root.join('app/assets/docs/AGB.pdf'))
     end
 end
