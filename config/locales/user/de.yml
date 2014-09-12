@@ -83,7 +83,7 @@ de:
       head: "Suche nach Benutzern"
     print:
       terms: "AGB von %{name}"
-      cancellation: "Widerrufsbelehrung und Rücknahmeerklärung von %{name}"
+      cancellation: "Widerrufsbelehrung von %{name}"
     states:
       vacationing: "Diese*r Anbieter*in ist derzeit im Urlaub."
     ratings:
