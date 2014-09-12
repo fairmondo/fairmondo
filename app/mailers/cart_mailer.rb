@@ -12,7 +12,7 @@ class CartMailer < ActionMailer::Base
       if lig.seller.terms && lig.seller.cancellation
         filename = "#{ lig.seller_nickname }_agb_und_widerrruf.pdf"
         attachments[filename] = {
-          data: TermsAndCancellationPdf.new(lig).render,
+          content: TermsAndCancellationPdf.new(lig).render,
           mime_type: "application/pdf"
         }
       end
@@ -42,7 +42,7 @@ class CartMailer < ActionMailer::Base
     def add_image_attachments_for line_item_group
       line_item_group.business_transactions.each do |bt|
         attachment = image_attachment_for bt
-        attachments.inline[bt.article_id.to_s] = attachment if attachment
+        attachments.inline[bt.article.title_image.image_file_name] = attachment if attachment
       end
     end
 
@@ -50,9 +50,10 @@ class CartMailer < ActionMailer::Base
       image = business_transaction.article.title_image
       if image
         attachment = {
-          data: File.read("#{ Rails.root }/#{ image.image.path(:thumb) }"),
+          content: File.read("#{ Rails.root }/#{ image.image.path(:thumb) }"),
           mime_type: image.image.content_type
         }
+        file_ext = File.extname image.image.path
         attachment
       end
     end
