@@ -21,7 +21,7 @@
   display: none;
 
   @include at-breakpoint($bp-tablet) {
-    margin-top: 1em;
+    margin-top: 0.5em;
     display: block;
     @include span(1 of 2);
     @include omega;
