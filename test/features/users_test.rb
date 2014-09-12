@@ -44,12 +44,12 @@ feature 'User registration' do
   scenario "guest registers a new user" do
     visit new_user_registration_path
 
-    within '.registrations-form' do
+    within '#registration_form' do
       fill_in 'user_nickname',              with: 'nickname'
       fill_in 'user_email',                 with: 'email@example.com'
       fill_in 'user_password',              with: 'password'
       fill_in 'user_password_confirmation', with: 'password'
-      choose 'user_type_legalentity'
+      check 'user_type'
       check 'user_legal'
     end
     assert_difference 'User.count', 1 do
