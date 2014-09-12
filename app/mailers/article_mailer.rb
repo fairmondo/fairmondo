@@ -61,7 +61,7 @@ class ArticleMailer < ActionMailer::Base
 
     # attaches terms pdf to emails
     def inline_terms_pdf
-      attachments.inline['AGB'] = {
+      attachments['AGB.pdf'] = {
         data: File.read(Rails.root.join('app/assets/docs/AGB_Fairnopoly_FINAL.pdf')),
         mime_type: 'application/pdf'
       }
