@@ -72,7 +72,6 @@ describe RegistrationsController do
           password: "password",
           password_confirmation: "password",
           legal:    "1",
-          agecheck: "1",
           type:     "PrivateUser"
         }
       }

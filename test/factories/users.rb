@@ -29,7 +29,6 @@ FactoryGirl.define do
     surname     { Faker::Name.last_name }
     forename    { Faker::Name.first_name }
     legal       "1"
-    agecheck    "1"
 
     about_me    { Faker::Lorem.paragraph( rand(7)+1 ) }
     terms    { Faker::Lorem.paragraph( rand(7)+1 ) }

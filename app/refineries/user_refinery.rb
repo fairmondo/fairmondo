@@ -7,7 +7,7 @@ class UserRefinery < ApplicationRefinery
     [
       :email, :password, :password_confirmation, :new_terms_confirmed,
       # and custom fields apart from devise internal stuff:
-      :nickname, :type, :agecheck, :newsletter, :legal, :privacy
+      :nickname, :type, :newsletter, :legal, :privacy
     ]
   end
 
@@ -15,7 +15,7 @@ class UserRefinery < ApplicationRefinery
     permitted = [
       :current_password, #<- update specific
       :email, :password, :password_confirmation, :remember_me, :type,
-      :nickname, :forename, :surname, :legal, :agecheck, :paypal_account,
+      :nickname, :forename, :surname, :legal, :paypal_account,
       :invitor_id, :banned, :about_me, :bank_code, #:trustcommunity,
       :title, :country, :street, :address_suffix, :city, :zip, :phone, :mobile, :fax, :direct_debit,
       :bank_account_number, :bank_name, :bank_account_owner, :company_name, :max_value_of_goods_cents_bonus,
