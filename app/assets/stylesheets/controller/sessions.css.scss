@@ -23,8 +23,14 @@
 
 #sessions_marketing {
   display: none;
+}
 
-  @include at-breakpoint($bp-tablet) {
+@include at-breakpoint($bp-tablet) {
+  #registration_link {
+    display: none;
+  }
+
+  #sessions_marketing {
     margin-top: 0.5em;
     display: block;
     @include span(1 of 2);
