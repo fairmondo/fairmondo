@@ -8,6 +8,7 @@ Button--green    - Green Button
 Button--red      - Red Button
 Button--gray     - Gray Button
 Button--disabled - Disable Button via css class
+Button--action   - Button for most important actions
 
 Styleguide Buttons
 */
@@ -66,4 +67,14 @@ a.Button {
 .Button span[class^="sprite_"] {
   float:left;
   margin-right:0.5em;
+}
+
+.Button--action {
+  font-size: 1.1em !important;
+  font-weight: bold !important;
+  background-color: $turquoise-green;
+
+  &:hover {
+    background-color: lighten($turquoise-green, 5%);
+  }
 }
