@@ -56,10 +56,11 @@
 
 
 // Reduced layout
-.l-reduced .l-footer {
+.l-reduced.l-footer {
+
   text-align: left;
   font-size: 0.7em;
-  background-color: transparent;
-  height: 3rem;
-  margin-top: 0;
+  background-color: $sand;
+  height: $footer-height-reduced;
+  margin-top: -$footer-height-reduced;
 }
