@@ -20,11 +20,11 @@ de:
 
       www.fairnopoly.de
       dreh' das Spiel um
-    header:
-      support_button: 'Fairnopoly unterstützen'
-
+    pdf_reader_link: 'Hier kostenloses PDF-Anzeigeprogramm herunterladen.'
     facebook: Fairnopoly bei Facebook
     buy_shares: 'Anteile zeichnen'
+    header:
+      support_button: 'Fairnopoly unterstützen'
     footer:
       contact: 'Kontakt'
       registration_court: 'Registergericht'
@@ -64,7 +64,7 @@ de:
         your_purchase: 'Dein Einkauf bei'
         your_message: 'Deine Nachricht an den*die Verkäufer*in'
         view_and_pay: 'Bestellung ansehen und bezahlen'
-
+        terms_and_cancellation: "AGB und Widerrufserklärung von %{name}"
 
     line_item_group:
       seller:
