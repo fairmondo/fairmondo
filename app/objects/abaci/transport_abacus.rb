@@ -1,11 +1,12 @@
 class TransportAbacus
-  attr_reader :single_transports, :unified_transport, :free_transport, :free_transport_at_price
+  attr_reader :single_transports, :unified_transport, :total_transport, :free_transport, :free_transport_at_price
 
   def self.calculate business_transaction_abacus
     abacus = TransportAbacus.new(business_transaction_abacus)
     abacus.check_free_transport
     abacus.calculate_single_transports
     abacus.calculate_unified_transport if business_transaction_abacus.line_item_group.unified_transport?
+    abacus.calculate_total_transport
     abacus
   end
 
@@ -35,6 +36,12 @@ class TransportAbacus
       transport_price: transport_price,
       total: total_retail_price + transport_price
     }
+  end
+
+  def calculate_total_transport
+    @total_transport = Money.new(0)
+    @single_transports.each_pair { |k, v| @total_transport += v[:transport_price] }
+    @total_transport += @unified_transport[:transport_price] if @unified_transport
   end
 
   def self.number_of_shipments quantity, maximum_per_shipment
