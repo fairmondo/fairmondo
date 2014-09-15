@@ -54,13 +54,11 @@
   }
 }
 
-
 // Reduced layout
-.l-reduced.l-footer {
-
+.l-footer.l-reduced {
   text-align: left;
   font-size: 0.7em;
   background-color: $sand;
   height: $footer-height-reduced;
-  margin-top: -$footer-height-reduced;
+  margin-top: $footer-height-reduced;
 }
