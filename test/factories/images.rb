@@ -41,5 +41,10 @@ FactoryGirl.define do
       after(:create) { |image| image.image_processing = true } # for create()
     end
 
+    trait :processed do
+      image_processing true
+      after(:create) { |image| image.image.reprocess_without_delay! }
+    end
+
   end
 end

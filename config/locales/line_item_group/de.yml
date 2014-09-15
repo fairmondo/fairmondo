@@ -5,6 +5,9 @@ de:
       transports: Versand
       rating: Bewertung
     texts:
+      message:
+        to: "Nachricht zum Auftrag an Dich"
+        from: "Deine Nachricht an den*die Anbieter*in."
       sold_to: "Dein Verkauf an %{buyer}"
       bank_transfer_purpose: "Verwendungszweck"
       purchase_id: "Transaktionsnummer"

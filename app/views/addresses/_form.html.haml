@@ -16,7 +16,7 @@
     = f.inputs class: 'Address-form-city' do
       = f.input :zip, required: true
       = f.input :city, required: true
-      = f.input :country, required: true, as: :select, collection: [t('users.countries.germany')], wrapper_html: { class: "small-selectboxit"}
+      = f.input :country, required: true, as: :select, collection: [t('users.countries.germany')], wrapper_html: { class: "small-selectboxit"}, include_blank: false
     = f.inputs do
       = hidden_field_tag :radio, params[:radio]
 

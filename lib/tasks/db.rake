@@ -98,7 +98,7 @@ namespace :db do
       print "Creating an article for each entry."
       articles.each_pair do |name, description|
         print "."
-        @article = FactoryGirl.build :article, :without_image, :seller => user.sample,
+        @article = FactoryGirl.build :article, :seller => user.sample,
                                      :title => name, :content => description, :categories => [category.sample]
         article_list << @article
         count += 1
