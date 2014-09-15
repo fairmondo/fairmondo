@@ -49,7 +49,7 @@ class CartMailer < ActionMailer::Base
         attachment = {
           content: File.read("#{ Rails.root }/#{ image.image.path(:thumb) }"),
           mime_type: image.image.content_type
-        }
+        } rescue nil
         file_ext = File.extname image.image.path
         attachment
       end

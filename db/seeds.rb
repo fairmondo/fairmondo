@@ -53,18 +53,18 @@ include CategorySeedData
 seed_categories
 
 15.times do
-  FactoryGirl.create :article, :without_image, :categories => [@categories.sample]
+  FactoryGirl.create :article, :categories => [@categories.sample]
 end
 15.times do
-  FactoryGirl.create :article, :without_image, :with_larger_quantity, :categories => [@categories.sample]
+  FactoryGirl.create :article, :with_larger_quantity, :categories => [@categories.sample]
 end
 # Different articles to test transactions
-FactoryGirl.create :article, :without_image, :with_larger_quantity, :with_all_transports,
+FactoryGirl.create :article, :with_larger_quantity, :with_all_transports,
                    :with_all_payments, :with_private_user, title: 'Tester By Private User', :categories => [@categories.sample]
-FactoryGirl.create :article, :without_image, :with_larger_quantity, :with_all_transports,
+FactoryGirl.create :article, :with_larger_quantity, :with_all_transports,
                    :with_all_payments, :with_legal_entity,  title: 'Tester By Legal Entity', :categories => [@categories.sample]
 5.times do |number|
-  FactoryGirl.create :article, :without_image, :with_larger_quantity, :with_all_transports,
+  FactoryGirl.create :article, :with_larger_quantity, :with_all_transports,
                      :with_all_payments, :with_private_user , categories: [@categories.sample],
                      title: "Cart Tester #{number}", seller: user_legal
 end

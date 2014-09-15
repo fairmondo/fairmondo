@@ -24,7 +24,7 @@ require_relative '../test_helper'
 describe Article do
 
   let(:article) { Article.new }
-  let(:db_article) { FactoryGirl.create(:article) }
+  let(:db_article) { FactoryGirl.create(:article, :with_fixture_image) }
   let(:ngo_article) { FactoryGirl.create :article, :with_ngo }
 
   subject { article }
@@ -263,11 +263,11 @@ describe Article do
     describe "methods" do
       describe "#title_image_url" do
         it "should return the first image's URL when one exists" do
-          db_article.title_image_url.must_match %r#/system/images/000/000/001/original/test2.png#
+          db_article.title_image_url.must_match %r#/system/images/000/000/001/original/test.png#
         end
 
         it "should return the missing-image-url when no image is set" do
-          article = FactoryGirl.create :article, :without_image
+          article = FactoryGirl.create :article
           article.title_image_url.must_equal 'missing.png'
         end
 
@@ -296,7 +296,7 @@ describe Article do
       end
 
       describe "#add_image" do
-        let(:article) { FactoryGirl.create :article,:without_image }
+        let(:article) { FactoryGirl.create :article }
         before {
           @url = "http://www.test.com/test.png"
           article # We need to call it nowbecause else URI.stub :parse will Conflict with Fakeweb/Tire

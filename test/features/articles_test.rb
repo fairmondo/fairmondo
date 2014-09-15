@@ -117,7 +117,7 @@ feature 'Article creation' do
   end
 
   scenario "get article from template" do
-    template = FactoryGirl.create :article_template, :without_image, seller: @user
+    template = FactoryGirl.create :article_template, seller: @user
     visit new_article_path template: { article_id: template.id }
     page.must_have_content I18n.t('template.notices.applied', name: template.template_name)
   end
