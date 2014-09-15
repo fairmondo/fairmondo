@@ -24,7 +24,7 @@
   = semantic_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
     = f.semantic_errors
     = f.inputs do
-      = f.input :email, required: false, tooltip: false
+      = f.input :email, required: false, tooltip: false, input_html: { autofocus: true }
     = f.actions do
       = f.action :submit, button_html: { class: "Button", value: t('devise.reset.request') }
   = render "links"
