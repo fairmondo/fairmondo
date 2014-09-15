@@ -36,11 +36,7 @@ class WelcomeController < ApplicationController
 
     # Personalized section
     if user_signed_in?
-      @last_hearted_libraries = current_user.hearted_libraries.
-                                published.no_admins.min_elem(2).
-                                includes(:user).
-                                where('users.id != ?', current_user.id).
-                                reorder('hearts.created_at DESC').limit(2)
+      @last_hearted_libraries = User.hearted_libraries_current(current_user).includes(:user).limit(2)
     end
   end
 
