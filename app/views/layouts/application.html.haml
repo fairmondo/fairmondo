@@ -44,18 +44,14 @@
           .l-header-logo
             %a{href: "/"}
               %span.sprite_logo
-          .l-header-nav
-            = render "/layouts/partials/header_nav"
+          = render "/layouts/partials/header_nav"
         .l-header-bottom
-          .l-header-categories
-            = render "/layouts/partials/header_categories"
-          .l-header-search
-            = render "/layouts/partials/header_search"
+          = render "/layouts/partials/header_categories"
+          = render "/layouts/partials/header_search"
       .l-main{role: "main"}
         = yield
 
-    - cache_if (!(User.is_admin? current_user)),"footer" do
-      .l-footer
-        = render "/layouts/partials/footer"
+    - cache_if (!(User.is_admin? current_user)), "footer" do
+      = render "/layouts/partials/footer"
 
     = render "/layouts/partials/additional_assets"
