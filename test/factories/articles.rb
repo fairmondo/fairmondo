@@ -46,11 +46,6 @@ FactoryGirl.define do
 
     payment_details "payment_details"
 
-    after(:build) do |article|
-      article.images << FactoryGirl.build(:article_image)
-      article.activate
-    end
-
     factory :article_template do
       template_name { Faker::Lorem.words( rand(3)+2 ) * " " }
       state :template
@@ -125,12 +120,6 @@ FactoryGirl.define do
 
     trait :with_3_categories do # This should fail validation, so only use with FactoryGirl.build
       categories {|c| [c.association(:category), c.association(:category), c.association(:category)] }
-    end
-
-    trait :without_image do
-      after(:build) do |article|
-        article.images = []
-      end
     end
 
     trait :with_fixture_image do

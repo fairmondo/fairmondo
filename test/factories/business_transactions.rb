@@ -30,7 +30,7 @@ FactoryGirl.define do
       article_all_attributes { article_attributes.merge({ seller: seller, quantity: (quantity_bought + 1) }) }
     end
 
-    article { FactoryGirl.create :article, :with_all_payments, :with_all_transports, article_all_attributes }
+    article { FactoryGirl.create :article, :with_fixture_image, :with_all_payments, :with_all_transports, article_all_attributes }
     line_item_group { FactoryGirl.create :line_item_group, :sold, seller: seller, buyer: buyer }
 
     selected_transport 'type1'

@@ -155,7 +155,7 @@ feature "Uploading a CSV" do
     a1 = FactoryGirl.create :article, seller: @user
     a2 = FactoryGirl.create :preview_article, seller: @user
     a3 = FactoryGirl.create :article, seller: @user
-    a4 = FactoryGirl.create :article, :without_image, seller: @user # problems with dup and images while testing
+    a4 = FactoryGirl.create :article, seller: @user # problems with dup and images while testing
     a5 = FactoryGirl.create :preview_article, seller: @user
 
     attach_file('mass_upload_file','test/fixtures/mass_upload_correct_multiple_action.csv')
