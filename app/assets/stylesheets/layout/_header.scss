@@ -100,17 +100,11 @@ $header-nav-link-color-hover: $blue;
 
 
 // Reduced layout
-.l-reduced {
+.l-reduced .l-header {
+  padding: 1em 0 1.4em;
   background-color: $sand;
 
-  .l-header {
-    padding: 1.5em 0 2em;
-    margin-left: -2.5em;
-
-    .l-header-logo {
-      span {
-        margin: 0;
-      }
-    }
+  .l-header-logo span {
+    margin: 0;
   }
 }
