@@ -36,7 +36,8 @@ class WelcomeController < ApplicationController
 
     # Personalized section
     if user_signed_in?
-      @last_hearted_libraries = User.hearted_libraries_current(current_user).includes(:user).limit(2)
+      @last_hearted_libraries = User.hearted_libraries_current(current_user).
+                                     includes(:user).limit(2)
     end
   end
 

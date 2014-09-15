@@ -229,12 +229,12 @@ class User < ActiveRecord::Base
   end
 
   # get hearted libraries of current user
-  def self.hearted_libraries_current current_user
+  def self.hearted_libraries_current(current_user)
     if current_user
       current_user.hearted_libraries.published.
                    no_admins.min_elem(2).
                    where('users.id != ?', current_user.id).
-                   reorder('hearts.created_at DESC');
+                   reorder('hearts.created_at DESC')
     end
   end
 
@@ -306,7 +306,6 @@ class User < ActiveRecord::Base
     self.wants_to_sell = false
     can_sell
   end
-
 
   # Notify the user of an asynchron event
   # @api public
