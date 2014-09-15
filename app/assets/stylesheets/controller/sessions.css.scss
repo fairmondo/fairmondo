@@ -10,23 +10,25 @@
     max-width: 100%;
     margin-bottom: 2em;
   }
+}
 
-  ul {
-    list-style-type: none;
-    padding: 0;
+// Style Devise links
+ul#devise_links {
+  list-style-type: none;
+  padding: 0;
 
-    li {
-      margin: 0.5em 0;
-    }
+  li {
+    margin: 0.5em 0;
   }
 }
+
 
 #sessions_marketing {
   display: none;
 }
 
 @include at-breakpoint($bp-tablet) {
-  #registration_link {
+  #sessions_form #registration_link {
     display: none;
   }
 

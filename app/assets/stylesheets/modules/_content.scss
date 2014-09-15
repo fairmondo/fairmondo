@@ -13,3 +13,14 @@ Styleguide Contents
 .Content--center {
     text-align:center;
 }
+
+
+// Style Devise links
+.Content ul#devise_links {
+  list-style-type: none;
+  padding: 0;
+
+  li {
+    margin: 0.5em 0;
+  }
+}

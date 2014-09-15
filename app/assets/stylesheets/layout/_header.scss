@@ -85,12 +85,12 @@ $header-nav-link-color-hover: $blue;
   width: 17em;
 }
 
-.l-header-nav-dropdown > li, .l-header-nav-dropdown ul#session_links > li {
+.l-header-nav-dropdown > li, .l-header-nav-dropdown ul#devise_links > li {
   list-style-type: none;
   margin: 0.5em 0;
 }
 
-.l-header-nav-dropdown ul#session_links {
+.l-header-nav-dropdown ul#devise_links {
   padding: 0;
 }
 
