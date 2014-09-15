@@ -9,3 +9,6 @@
   - pickups = abacus.transport_listing.single_transports.select{ |bt,transport| transport[:method] == :pickup }
   - unless pickups.empty?
     = render 'line_item_groups/show/pickups', pickups: pickups, line_item_group: line_item_group
+- if line_item_group.message.present?
+  = gray_box t("line_item_group.texts.message.#{ line_item_group.buyer == current_user ? 'from' : 'to' }") , frame_class: 'message' do
+    = simple_format line_item_group.message
