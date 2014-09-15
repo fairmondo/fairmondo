@@ -47,8 +47,10 @@
       .l-main{role: "main"}
         = yield
 
-    %p.l-footer.l-reduced
-      &copy; Copyright 2014 Fairnopoly eG,
-      = link_to t('footer.imprint'), '/imprint', target: 'blank'
+    .l-footer.l-reduced
+      %p.l-footer-top
+        &copy; Copyright 2014 Fairnopoly eG,
+        = link_to t('footer.imprint'), '/imprint', target: '_blank'
+      %p.l-footer-bottom
 
     = render "/layouts/partials/additional_assets"
