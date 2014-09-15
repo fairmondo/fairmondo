@@ -7,3 +7,9 @@
     padding-right: $screen-padding;
   }
 }
+
+.l-reduced .l-main {
+  background-color: $white;
+  box-shadow: 3px 3px 0 $light-gray;
+  padding-bottom: 1rem;
+}

@@ -97,3 +97,20 @@ $header-nav-link-color-hover: $blue;
 .l-header-nav-dropdown.is-active {
   display: block;
 }
+
+
+// Reduced layout
+.l-reduced {
+  background-color: $sand;
+
+  .l-header {
+    padding: 1.5em 0 2em;
+    margin-left: -2.5em;
+
+    .l-header-logo {
+      span {
+        margin: 0;
+      }
+    }
+  }
+}
