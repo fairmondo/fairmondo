@@ -1,3 +1,4 @@
 = stylesheet_link_tag asset_path(controller_specific_css_path)
 = content_for :view_specific_scripts
+- wiselinks_title ( @page_title || title )
 = yield
