@@ -16,10 +16,6 @@ class ArticleImage < Image
 
     belongs_to :article, foreign_key: "imageable_id"
 
-    def self.title_image
-      where(is_title: true).first
-    end
-
     def original_image_url_while_processing
       Paperclip::Interpolations.interpolate ArticleImage.paperclip_definitions[:image][:url] , self.image, :original
     end

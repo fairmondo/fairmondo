@@ -1,4 +1,4 @@
-$(document).ready ->
+touchHover = ->
 
   $(document).bind 'touchstart', (e) ->
     currentlyClickedElement = $(e.target).closest('li.JS-touch-hover')[0]
@@ -11,3 +11,5 @@ $(document).ready ->
       e.preventDefault()
       $(@).addClass('touch-hover')
 
+$(document).ready touchHover
+$(document).ajaxStop touchHover

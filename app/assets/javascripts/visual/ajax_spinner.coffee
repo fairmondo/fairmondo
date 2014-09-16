@@ -4,3 +4,4 @@ $ ->
 
   $(document).ajaxStop ->
     $('.l-ajax-spinner').fadeOut 200
+

@@ -20,6 +20,11 @@
  along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 ###
 
-$(document).ready ($) ->
+socialshareprivacy = ->
   if $('.socialshareprivacy').length > 0
     $('.socialshareprivacy').socialSharePrivacy()
+
+
+
+$(document).ready socialshareprivacy
+$(document).ajaxStop socialshareprivacy

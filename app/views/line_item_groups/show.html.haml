@@ -16,15 +16,15 @@
     = "#{I18n.t('line_item_group.texts.purchase_id')}: #{@line_item_group.purchase_id}"
   %ul.Tabs
     %li.Tab{class: @tab == :payments ? 'active': ''}
-      = link_to line_item_group_path(@line_item_group, tab: "payments"), remote:true do
+      = link_to line_item_group_path(@line_item_group, tab: "payments"), data: {  push: true  } do
         %i.fa.fa-euro.Tab_icon
         = t('line_item_group.tabs.payments')
     %li.Tab{class: @tab == :transports ? 'active': ''}
-      = link_to line_item_group_path(@line_item_group, tab: "transports"), remote:true do
+      = link_to line_item_group_path(@line_item_group, tab: "transports"), data: { push: true   } do
         %i.fa.fa-paper-plane.Tab_icon
         = t('line_item_group.tabs.transports')
     %li.Tab{class: @tab == :rating ? 'active': ''}
-      = link_to line_item_group_path(@line_item_group, tab: "ratings"), remote:true do
+      = link_to line_item_group_path(@line_item_group, tab: "ratings"), data: {  push: true  } do
         %i.fa.fa-thumbs-up.Tab_icon
         = t('line_item_group.tabs.rating')
 

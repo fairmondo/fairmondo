@@ -1,5 +1,8 @@
-$ ->
+remoteValidate = ->
   $('.l-main').on 'blur', '.JS-remote-validate-blur', validateRemotely
+
+$(document).ready remoteValidate
+$(document).ajaxStop remoteValidate
 
 validateRemotely = (event) ->
   setTimeout -> # to allow JS-enforce-input-constraints to do it's thang

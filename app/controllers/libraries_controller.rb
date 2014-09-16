@@ -39,7 +39,6 @@ class LibrariesController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.js { render layout: 'ajax_replace' }
     end
   end
 

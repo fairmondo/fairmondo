@@ -42,7 +42,7 @@ module Article::Images
     # @api public
     # @return [Image, nil]
     def title_image
-      images.title_image || images[0]
+      images.to_a.select{|i| i.is_title == true}.first || images[0]
     end
 
     def title_image_url style = nil

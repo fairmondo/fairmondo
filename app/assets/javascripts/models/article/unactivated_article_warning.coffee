@@ -5,6 +5,10 @@ window.onbeforeunload = ->
 unobstructedNavigation = (e) ->
   window.onbeforeunload = null
 
-$(document).ready ->
+unobstructedNavigationBinds = ->
   $('.l-main input.Button').on 'click', unobstructedNavigation
   $('.l-main a.Button').on 'click', unobstructedNavigation
+
+
+$(document).ready unobstructedNavigationBinds
+$(document).ajaxStop unobstructedNavigationBinds

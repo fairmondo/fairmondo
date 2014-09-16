@@ -53,8 +53,7 @@ gem 'tinymce-rails'
 gem 'tinymce-rails-langs'
 gem 'jquery-rails'
 gem 'rails-timeago'
-# gem 'turbolinks'
-# gem 'jquery-turbolinks'
+gem 'wiselinks'
 
 ## Forms
 

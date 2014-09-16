@@ -20,7 +20,7 @@
 -# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 
 .User-rating
-  = link_to  user_ratings_path(user) do
+  = link_to  user_ratings_path(user), data: { push: true } do
     = t('rating.show.nr_of_ratings')
     = user.ratings.count
   .User-rating-images

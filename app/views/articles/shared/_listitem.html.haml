@@ -27,7 +27,7 @@
     = link_to image_tag(article.title_image_url(:thumb)), article_path(article)
   .ArticleListview-details
     .ArticleListview-title
-      = link_to  article_path(article), :title => article.title do
+      = link_to  article_path(article), :title => article.title , data: { push: true } do
         = article.title
     .ArticleListview-price_detail
       = humanized_money_with_symbol article.price
