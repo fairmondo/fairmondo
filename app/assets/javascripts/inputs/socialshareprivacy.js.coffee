@@ -22,8 +22,8 @@
 
 socialshareprivacy = ->
   if $('.socialshareprivacy').length > 0
-    $('.socialshareprivacy').socialSharePrivacy()
-
+    $('.socialshareprivacy').not('.socialshareprivacy--loaded').socialSharePrivacy()
+    $('.socialshareprivacy').addClass('socialshareprivacy--loaded')
 
 
 $(document).ready socialshareprivacy
