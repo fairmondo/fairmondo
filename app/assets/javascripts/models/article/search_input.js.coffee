@@ -20,8 +20,7 @@
  along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 ###
 
-$ ->
-
+$(document).on 'focus.autocomplete', '#search_input', ->
   if $( "#search_input" ).length isnt 0
     $( "#search_input" ).autocomplete
       serviceUrl: $("#search_input").data('autocomplete')

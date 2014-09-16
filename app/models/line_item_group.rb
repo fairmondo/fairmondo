@@ -73,6 +73,12 @@ class LineItemGroup < ActiveRecord::Base
     self.update_column(:purchase_id, self.id.to_s.rjust(8, '0').prepend('F'))
   end
 
+  def seller_has_other_articles?
+    ids = line_items.map(&:article_id)
+    return true if seller.articles.active.where('id NOT IN (?)', ids).first
+    false
+  end
+
   private
     def self.can_be_unified_for? record, type
       if type == :unified_transport
