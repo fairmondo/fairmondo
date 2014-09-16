@@ -7,6 +7,8 @@
       .ArticleListview
         - group.line_items.each do |line_item|
           = render '/line_items/shared/line_item_list_view', line_item: line_item, cart_abacus: cart_abacus
+      - if group.seller_has_other_articles?
+        = link_to 'Weiter bei dieser Händler*in einkaufen', user_path(group.seller), class: 'Button Button--small Button--gray'
   .checkout
     .total_price
       = t('cart.texts.total')
