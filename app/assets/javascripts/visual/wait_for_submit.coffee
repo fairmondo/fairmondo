@@ -1,4 +1,4 @@
-$(document).ready ->
+visualSubmit = ->
   $(".js-visual-submit").submit ->
     btn = $("input[type=submit][data-clicked=true]")
     btn.attr "disabled", "disabled"
@@ -9,3 +9,6 @@ $(document).ready ->
   $("form input[type=submit]").click ->
     $("input[type=submit]", $(@).parents("form")).removeAttr "data-clicked"
     $(@).attr "data-clicked", "true"
+
+$(document).ready visualSubmit
+$(document).ajaxStop visualSubmit

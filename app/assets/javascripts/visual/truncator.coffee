@@ -1,6 +1,9 @@
-$(document).ready ->
+truncate = ->
   $('div[data-truncate]').each (index,element) ->
     $(element).truncate
       max_length: $(element).data "truncate"
       more: I18n.t "javascript.truncate.more"
       less: I18n.t "javascript.truncate.less"
+
+$(document).ready truncate
+$(document).ajaxStop truncate

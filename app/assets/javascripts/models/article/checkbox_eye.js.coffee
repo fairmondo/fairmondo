@@ -23,7 +23,7 @@
 # Click-Handler setzen fürs Auge
 # Klassenstatus abfragen, Auge und Formularstatus entsprechend ändern
 
-$(document).ready ->
+library_checkboxes =  ->
   $('#libraries_popup').on 'click', '#eye_checkbox', ->
     if not $('#eye_checkbox').hasClass('fa-eye')
       $('#eye_checkbox').addClass 'fa-eye'
@@ -35,3 +35,7 @@ $(document).ready ->
       $('#eye_checkbox').removeClass 'fa-eye'
       $('#eye_checkbox').attr 'title', 'Private Sammlung'
       $('#library_public').attr 'value', '0'
+
+
+$(document).ready library_checkboxes
+$(document).ajaxStop library_checkboxes

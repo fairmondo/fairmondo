@@ -42,9 +42,5 @@ describe LineItemGroupsController do
       flash[:error].must_equal I18n.t('line_item_group.notices.paypal_cancel')
     end
 
-    it "should respond to ajax calls" do
-      xhr :get, :show, id: lig.id
-      assert_template layout: 'ajax_replace'
-    end
   end
 end

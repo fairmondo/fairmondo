@@ -25,7 +25,7 @@
         %span.sprite_box
         = t 'common.text.libraries'
       - if user_resource.is_a? LegalEntity
-        %a.Button{:href => profile_user_path(user_resource)}
+        %a.Button{:href => profile_user_path(user_resource), data: { push: true }}
           %span.sprite_paper
           = t 'common.text.about_terms'
   .user-extra

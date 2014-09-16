@@ -28,12 +28,12 @@ module HeartsHelper
   # @return [String] The compiled HTML of the button element
   def heart_button(heartable_resource)
     if user_signed_in?
-      heart = Heart.where(heartable: heartable_resource, user: current_user)
+      heart = Heart.where(heartable: heartable_resource, user: current_user).limit 1
     else
-      heart = Heart.where(heartable: heartable_resource, user_token: generate_user_token)
+      heart = Heart.where(heartable: heartable_resource, user_token: generate_user_token).limit 1
     end
 
-    if heart.any?
+    if !heart.to_a.empty?
       if user_signed_in?
         render partial: "hearts/heart_button", locals: {
           heartable_resource: heartable_resource,
