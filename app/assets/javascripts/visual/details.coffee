@@ -2,7 +2,8 @@ $ ->
   $('.l-main').on 'click', 'summary', onSummaryClick
 
 setDetails = ->
-  $('details').details()
+  $('details').not('.details--loaded').details()
+  $('details').addClass('details--loaded')
 
 onSummaryClick = (evt) ->
     [target, summary, details] = [evt.target, evt.currentTarget, evt.currentTarget.parentElement]
