@@ -2,9 +2,9 @@ de:
   devise:
     links:
       sign_in: "Anmelden"
-      sign_up: "Registrieren"
+      sign_up: "Noch kein Konto? Registrieren"
       forgot_password: "Passwort vergessen?"
-      confirmation_instruction: "Keine E-Mail nach der Registrierung erhalten?"
+      confirmation_instruction: "Registrierungs-E-Mail nicht erhalten?"
       unlock_instruction: "Keine E-Mail zur Freischaltung erhalten?"
       sign_in_with: "Mit anderem Account anmelden #{provider.to_s.titleize}"
     actions:

@@ -1,8 +1,11 @@
-.l-footer
+- reduced = false unless local_assigns.has_key? :reduced
+
+.l-footer{class: ('l-reduced' if reduced)}
   .l-footer-top
-    .l-footer-logo
-      %a{href: "/"}
-        %span.sprite_logo_small
+    - unless reduced
+      .l-footer-logo
+        %a{href: "/"}
+          %span.sprite_logo_small
     %ul.l-footer-nav
       %li.l-feedback
         %a.l-feedback-button{href: new_feedback_path(variety: :get_help)}
@@ -14,21 +17,22 @@
         %a.l-feedback-button.l-feedback-button--green{href: 'http://info.fairnopoly.de/anteile-zeichnen/', target: '_blank'}
           %i.icon-shares
           = t('common.text.shares')
-      %li= link_to t('footer.faq'), '/faq', target: '_blank'
-      %li= link_to t('footer.forum'), 'https://info.fairnopoly.de/forum/', target: '_blank'
-      %li= link_to t('footer.contact'), '/contact', target: '_blank'
-      %li= link_to t('footer.about_us'), '/about_us', target: '_blank'
-      %li= link_to t('footer.transparency'), 'https://transparenz.fairnopoly.de/', target: '_blank'
-      %li= link_to t('footer.press'), "https://info.fairnopoly.de/pressekit/", target: '_blank'
-      %li= link_to t('footer.team'), "https://info.fairnopoly.de/team/", target: '_blank'
-      %li= link_to t('footer.jobs'), "https://info.fairnopoly.de/stellenausschreibungen/", target: '_blank'
-      - if User.is_admin? current_user
-        %li= link_to t('users.menu.admin'), "/admin"
-        %li= link_to 'Manage Pages', "/contents"
-        %li= link_to 'Statistics', "/statistics/general"
-      %li= link_to t('footer.pr_material'), 'http://info.fairnopoly.de/fairnopoly-werbematerial/', target: '_blank'
-      %li= link_to t('footer.blog'), "https://info.fairnopoly.de", target: '_blank'
-      %li= link_to t('footer.newsletter'), "http://50856.seu1.cleverreach.com/f/50856-129361/", target: '_blank'
+      - unless reduced
+        %li= link_to t('footer.faq'), '/faq', target: '_blank'
+        %li= link_to t('footer.forum'), 'https://info.fairnopoly.de/forum/', target: '_blank'
+        %li= link_to t('footer.contact'), '/contact', target: '_blank'
+        %li= link_to t('footer.about_us'), '/about_us', target: '_blank'
+        %li= link_to t('footer.transparency'), 'https://transparenz.fairnopoly.de/', target: '_blank'
+        %li= link_to t('footer.press'), "https://info.fairnopoly.de/pressekit/", target: '_blank'
+        %li= link_to t('footer.team'), "https://info.fairnopoly.de/team/", target: '_blank'
+        %li= link_to t('footer.jobs'), "https://info.fairnopoly.de/stellenausschreibungen/", target: '_blank'
+        - if User.is_admin? current_user
+          %li= link_to t('users.menu.admin'), "/admin"
+          %li= link_to 'Manage Pages', "/contents"
+          %li= link_to 'Statistics', "/statistics/general"
+        %li= link_to t('footer.pr_material'), 'http://info.fairnopoly.de/fairnopoly-werbematerial/', target: '_blank'
+        %li= link_to t('footer.blog'), "https://info.fairnopoly.de", target: '_blank'
+        %li= link_to t('footer.newsletter'), "http://50856.seu1.cleverreach.com/f/50856-129361/", target: '_blank'
 
   .l-footer-bottom
     %ul.l-footer-nav
