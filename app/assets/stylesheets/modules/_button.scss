@@ -72,9 +72,4 @@ a.Button {
 .Button--action {
   font-size: 1.1em !important;
   font-weight: bold !important;
-  background-color: $turquoise-green;
-
-  &:hover {
-    background-color: lighten($turquoise-green, 5%);
-  }
 }
