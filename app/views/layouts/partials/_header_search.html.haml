@@ -2,7 +2,7 @@
   = semantic_form_for search_cache, :url => articles_path(search_cache.search_form_attributes), :html => { :method => 'get', :class => ".l-header-search-form", id: 'js-search-params' }, data: { push:true }, :builder => ::Fairtastic::FormBuilder do |f|
     .l-header-search-query
       = f.inputs do
-        - search_cache.search_form_attributes.each do |k|
+        - search_cache.search_form_attributes.keys.each do |k|
           = f.input k, as: :hidden
       = f.inputs do
         = f.input :q, :label => false, :tooltip => false ,:input_html => { :id => "search_input", :placeholder =>  t('welcome.search_fair'),  "data-autocomplete" => autocomplete_articles_path }
