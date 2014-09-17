@@ -31,10 +31,10 @@
 
   = simple_format(t('email.article.activation.cancellation_text'))
 
+  %hr
   %h4
     = t('email.article.activation.cancellation_form_heading')
   = simple_format t('email.article.activation.cancellation_form')
-  %hr
 
 - content_for 'sidebar' do
   = render 'shared/email/social_buttons'
