@@ -18,5 +18,3 @@
         = link_to t("enumerize.exhibit.queue.more_articles"), articles_path
     - if articles.total_count <= 4
       = render "/articles/shared/iframe"
-:javascript
-  $('html,body').animate({scrollTop: $(".Search").offset().top}, 200);

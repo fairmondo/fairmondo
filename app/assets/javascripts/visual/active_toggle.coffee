@@ -1,4 +1,4 @@
-active_toggle = ->
+$ ->
   ## GENERAL
   $('body').on('click', '.JS-active-toggle--trigger', (e) ->
     if (max = $(@).attr('data-maxsize')) and $(window).width() > max
@@ -38,6 +38,3 @@ active_toggle = ->
             if container[0] != active_container
               $(item).toggleClass 'is-active'
   )
-
-$(document).ready active_toggle
-$(document).ajaxStop active_toggle
