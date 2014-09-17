@@ -1,7 +1,6 @@
 -# Partial for showing a library
 - single_view = false unless local_assigns.has_key? :single_view
 - header_comments = true unless local_assigns.has_key? :header_comments
-
 - if single_view
   %div{ id: "library#{library.id.to_s}" }
     = render "library_header", library: library, comments: false
@@ -11,11 +10,10 @@
       .socialshareprivacy{ data: { uri: library_url(library), title: library.name } }
 
     = render "library_buttons", library: library
-    = render "library_body", library: library
+    = render "library_body", library: library, remote_paginate: false, element_count: 24
 - else
-  - focussed = (library.id.to_s == params[:focus])
   - if library.has_elements? || (library.user == current_user)
-    %details{ id: "library#{library.id}", class: 'Library', open: focussed, data: { library_page: focussed ? params[:library_page] || 1 : 1 } }
+    %details{ id: "library#{library.id}", class: 'Library'}
       %summary
         = render "libraries/library_header", library: library, comments: header_comments
       .Library-details
@@ -24,4 +22,4 @@
           .socialshareprivacy{ data: { uri: library_url(library), title: library.name } }
 
         = render "libraries/library_buttons", library: library
-        = render "libraries/library_body", library: library
+        = render "libraries/library_body", library: library, remote_paginate: true

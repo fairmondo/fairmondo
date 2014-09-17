@@ -2,7 +2,10 @@
   .Search-dropdown.JS-active-toggle--trigger{data: {clickable: true}}
     - val = search_cache.format_price_range
     = val ? val : title
-  = semantic_form_for search_cache, url: articles_path(article_search_form: search_cache.keep), html: { method: 'get', class: "l-header-search-form JS-active-toggle--target" }, remote: true, builder: ::Fairtastic::FormBuilder do |f|
+  = semantic_form_for search_cache, url: articles_path, html: { method: 'get', class: "l-header-search-form JS-active-toggle--target" }, data: { push: true }, builder: ::Fairtastic::FormBuilder do |f|
+    = f.inputs do
+      - search_cache.keep.keys.select{|k| k != :price_from && k!= :price_to}.each do |k|
+        = f.input k, as: :hidden
     = f.inputs do
       = f.input :price_from, tooltip: false, required: false
       = f.input :price_to, tooltip: false, required: false

@@ -6,4 +6,4 @@
 -#    per_page:      number of items to fetch per page
 -#    remote:        data-remote
 %li.first{:class => "#{'active' if current_page.first?}"}
-  = link_to_unless current_page.first?, "1", url, :remote => remote
+  = link_to_unless current_page.first?, "1", url, data: (remote ? { remote: true} : { push: true } )

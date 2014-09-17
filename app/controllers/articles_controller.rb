@@ -23,7 +23,6 @@ class ArticlesController < ApplicationController
 
   responders :location
   respond_to :html
-  respond_to :js, only: :index, if: lambda { request.xhr? }
 
   # Authorization
   skip_before_filter :authenticate_user!, only: [:show, :index, :autocomplete]

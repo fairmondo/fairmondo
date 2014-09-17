@@ -25,17 +25,17 @@
   .User-image
     - if user.is_pioneer?
       %span.sprite_pioneerbutton
-    %a{:href => user_path(user)}
+    %a{:href => user_path(user), data: { push: true }}
       = image_tag(user.image_url(:profile))
   .User-name
-    = link_to user.name, user_path(user)
+    = link_to user.name, user_path(user), data: { push: true }
   .User-type
     - if user.is_a?(LegalEntity) && !user.ngo
       %span.sprite_briefcase
-      = link_to(t('users.legal_status.show.legal_entity'), profile_user_path(user))
+      = link_to t('users.legal_status.show.legal_entity'), profile_user_path(user), data: { push: true }
     - elsif user.ngo
       %span.sprite_briefcase
-      = link_to(t('users.legal_status.show.ngo'), profile_user_path(user))
+      = link_to t('users.legal_status.show.ngo'), profile_user_path(user), data: { push: true }
     - else
       %span.sprite_user
       = t('users.legal_status.show.private_user')

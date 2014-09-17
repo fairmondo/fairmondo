@@ -37,16 +37,18 @@
     = canonical_tag # for SEO - canonical URL from gem
 
     %meta{:content => "width=device-width", :name => "viewport"}
-
     = csrf_meta_tags
+    = wiselinks_meta_tag
     = favicon_link_tag "favicon.ico" , :rel => "shortcut icon", :type => "image/x-icon"
     = stylesheet_link_tag 'application'
-    = stylesheet_link_tag asset_path(controller_specific_css_path)
+    = stylesheet_link_tag asset_path(controller_specific_css_path), id: 'controller_css'
+    = javascript_include_tag 'https://widget.wegreen.de/js/easyXDM.min.js'
+    = content_for :view_specific_scripts
 
     %link{:href => "https://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,700italic,400,700,600", :rel => "stylesheet", :type => "text/css"}
 
     = javascript_include_tag :application
-    = content_for :view_specific_scripts
+
     :javascript
       I18n.defaultLocale = "#{I18n.default_locale}";
       I18n.locale = "#{I18n.locale}";
@@ -62,7 +64,6 @@
 
 
   %body{class: "pages-#{controller.controller_name} page-#{controller.action_name}"}
-
     .l-wrapper
       - if !flash.empty?
         - flash.each do |type, msg|

@@ -14,7 +14,6 @@ class LineItemGroupsController < ApplicationController
     end
     respond_with @line_item_group do |format|
       format.html
-      format.js { render layout: 'ajax_replace' }
     end
   end
 

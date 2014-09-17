@@ -55,6 +55,8 @@ class ApplicationController < ActionController::Base
 
   protected
 
+
+
     # Pundit checker
 
     def verify_authorized_with_exceptions

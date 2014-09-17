@@ -1,4 +1,4 @@
-$(document).ready ->
+colorbox_links =  ->
 
   $('.remote-link').on 'click', (e) ->
     $.colorbox
@@ -6,3 +6,7 @@ $(document).ready ->
       opacity: 0.4
       href: $(@).attr 'href'
     false
+
+
+$(document).ready colorbox_links
+$(document).ajaxStop colorbox_links
