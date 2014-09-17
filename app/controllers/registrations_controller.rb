@@ -24,14 +24,18 @@ class RegistrationsController < Devise::RegistrationsController
   before_filter :dont_cache, only: [ :edit ]
   before_filter :configure_permitted_parameters
   skip_before_filter :authenticate_user!, only: [ :create, :new ]
+  layout 'application_reduced', only: :new
 
+  # GET /resource/sign_up
   def new
-    @user = User.new
-
+    build_resource({})
     # Check if parameters have been provided by a landing page and set object attributes accordingly
-    @user.assign_attributes(params[:user].for(@user).on(:create).refine) if params[:user]
-
-    render layout: "application_reduced"
+    resource.assign_attributes(params[:external_user].for(resource).on(:create).refine) if params[:external_user]
+    @validatable = devise_mapping.validatable?
+    if @validatable
+      @minimum_password_length = resource_class.password_length.min
+    end
+    respond_with self.resource
   end
 
 
@@ -41,7 +45,6 @@ class RegistrationsController < Devise::RegistrationsController
     @user.valid?
     super
   end
-
 
   def update
     self.resource = resource_class.to_adapter.get!(send(:"current_#{resource_name}").to_key)
