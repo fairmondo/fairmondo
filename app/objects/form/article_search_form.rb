@@ -150,10 +150,7 @@ class ArticleSearchForm
   end
 
   def search_form_attributes
-    ret = {}
-    hash = clean_hash(self.attributes.reject { |k, v| [:q, :category_id].include?(k) })
-    ret[:article_search_form] = hash unless hash.empty?
-    ret
+    clean_hash(self.attributes.reject { |k, v| [:q, :category_id].include?(k) })
   end
 
   def category_collection
