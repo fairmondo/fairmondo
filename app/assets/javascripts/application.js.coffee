@@ -22,6 +22,7 @@
 #= require setup
 
 #= require jquery
+#= require wiselinks
 #= require jquery_ujs
 
 #= require jquery.ui.accordion
@@ -39,6 +40,8 @@
 #= require rails-timeago
 #= require locales/jquery.timeago.de.js
 
+#= require lazy/feed
+#= require lazy/wiselinks
 
 #= require vendor/jquery.slides.min.js
 #= require vendor/jquery.complexify
@@ -50,7 +53,7 @@
 #= require vendor/jquery.autocomplete
 #= require vendor/jquery.caret
 #= require vendor/jquery.details
-#= require vendor/jquery.history
+## require vendor/jquery.history
 
 #= require models/article/categories
 #= require models/article/search_input
@@ -81,11 +84,8 @@
 #= require visual/remote_validation
 #= require visual/input_enforcement
 #= require visual/details
-#= require visual/history
 
 #= require inputs/password_complexify
 #= require inputs/socialshareprivacy
 
 #= require customize/rails-confirm
-
-#= require lazy/feed

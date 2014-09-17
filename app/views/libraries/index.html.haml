@@ -54,5 +54,3 @@
     - else
       %p= t('libraries.no_library')
 
-- content_for :after_ajax_replace do
-  $('html,body').animate({scrollTop: $("#library#{params[:focus]}").offset().top}, 200);

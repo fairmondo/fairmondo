@@ -1,4 +1,4 @@
-$ ->
+input_enforcement = ->
   $('.JS-enforce-input-constraints').on 'keypress', (event) ->
     target = event.target
     $target = $(target)
@@ -40,3 +40,6 @@ $ ->
 
 future_input_value = (state, caret, new_char) ->
   state.substring(0, caret.start) + new_char + state.substring(caret.end)
+
+$(document).ready input_enforcement
+$(document).ajaxStop input_enforcement
