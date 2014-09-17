@@ -1,4 +1,6 @@
-= stylesheet_link_tag asset_path(controller_specific_css_path)
+:javascript
+  $('#controller_css').replaceWith("#{j stylesheet_link_tag asset_path(controller_specific_css_path), id: 'controller_css' }");
+  $("html, body").animate({ scrollTop: 0 }, "slow");
 = content_for :view_specific_scripts
-- wiselinks_title ( @page_title || title )
+- wiselinks_title ( @page_title || t('common.fairnopoly') )
 = yield
