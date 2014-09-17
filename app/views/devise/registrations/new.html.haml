@@ -20,6 +20,9 @@
 -# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
 
+-# Check if parameters have been provided by a landing page and set object attributes accordingly
+- resource.assign_attributes(params[:user].for(resource).on(:create).refine) if params[:user]
+
 %h1= t('common.actions.sign_up')
 = semantic_form_for(resource, as: resource_name, url: registration_path(resource_name), builder: ::Fairtastic::FormBuilder,
                     html: { id: 'registration_form' }) do |f|
