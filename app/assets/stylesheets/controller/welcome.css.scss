@@ -70,8 +70,8 @@
     @include omega;
   }
 
-  // Remove one article from the used teaser for layout reasons
-  #teaser--used {
+  // Remove one article from a teaser for layout reasons
+  .teaser--reducible {
     .teaser-queue {
       &:first-child {
         @include omega;
@@ -172,6 +172,14 @@
 .teaser--full {
   clear: both;
   width: 100%;
+}
+
+.teaser--hearted_libraries {
+  h2 {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
 }
 
 // Arrows for slides
@@ -362,7 +370,7 @@
   }
 }
 
-#teaser--clear-after-bluebox {
+.teaser--clear {
   clear: both;
 }
 
