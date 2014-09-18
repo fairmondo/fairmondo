@@ -66,7 +66,8 @@
   .right
     %h2.title
       = resource.title
-
+    - if user_signed_in? && resource.active?
+      = render "libraries/shared/control_panel", article: resource, libraries: user_libraries
     .details
       - cache [resource, resource.seller, "basic_information"] do
         %h3.price
@@ -98,10 +99,6 @@
           - elsif resource.quantity > 1
             = t('formtastic.labels.article.quantity_with_numbers', quantities: resource.quantity_available_without_article_state)
     .buyer-controls
-      -# Collect button and libraries list
-      - if user_signed_in? && resource.active?
-        = render "libraries/shared/control_panel", article: resource, libraries: user_libraries
-
       = render "articles/show/buy", resource: resource
 
 .socialshareprivacy{data: {uri: article_url(resource), title: resource.title}}
