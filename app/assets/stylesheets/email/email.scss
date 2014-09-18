@@ -180,6 +180,11 @@ hr {
   margin-bottom: 1.3em;
 }
 
+.seller-imprint {
+  @include shadowless_whitebox;
+  margin-bottom: 0.5em;
+}
+
 .article {
   @include shadowless_whitebox;
   background: $lighter-gray;

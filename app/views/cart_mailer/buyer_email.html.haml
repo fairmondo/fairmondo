@@ -12,6 +12,8 @@
     %h3
       = t('email.cart.buyer.your_purchase')
       = link_to lig.seller.nickname, profile_user_url(lig.seller.id)
+    = render 'seller_imprint', lig: lig
+
     - lig.business_transactions.find_each do |bt|
       = render 'article', bt: bt
     - unless lig.message.empty?
@@ -23,7 +25,7 @@
       .pdf
         %center
           = link_to t('email.cart.buyer.terms_and_cancellation', name: lig.seller_nickname), profile_user_url(lig.seller, format: :pdf, print: :terms)
-          %br
+          %p
           = link_to t('email.pdf_reader_link'), 'http://get.adobe.com/reader/otherversions/'
     = render 'total_price', lig: lig
 

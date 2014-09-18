@@ -4,18 +4,28 @@
   %table
     %tr
       %td
-        Gesamtwarenwert:
+        Zwischensumme:
       %td
         = humanized_money_with_symbol abacus.business_transaction_listing.total_retail_price
     %tr
       %td
-        Gesamtversandkosten:
+        Verpackung und Versand:
       %td
         = humanized_money_with_symbol abacus.transport_listing.total_transport
     %tr
       %td
+        Zwischensumme ohne USt.:
+      %td
+        = humanized_money_with_symbol abacus.business_transaction_listing.total_net_price
+    %tr
+      %td
+        Umsatzsteuer:
+      %td
+        = humanized_money_with_symbol abacus.business_transaction_listing.total_vat
+    %tr
+      %td
         %strong
-          Gesamt:
+          Gesamtpreis:
       %td
         %strong
           = humanized_money_with_symbol abacus.total
