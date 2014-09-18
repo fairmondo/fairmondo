@@ -20,7 +20,7 @@
       = I18n.t('cart.texts.before_checkout_helper')
     .to_checkout
       - if line_items_valid
-        = link_to t('cart.actions.checkout'), edit_cart_path(cart), class: "Button"
+        = link_to t('cart.actions.checkout'), edit_cart_path(cart), class: "Button" #, data: { push: true }
       - else
         .Button.Button--disabled= t('cart.actions.checkout')
 - else
