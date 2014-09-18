@@ -31,6 +31,12 @@ de:
       board: 'Vorstand'
 
     quartal_fee: 'Zzgl. der Quartalsgebühr von 1,- Euro (inkl. 19% MwSt) bei erfolgreichem Verkauf.'
+    payments:
+      cash_on_delivery: 'Nachnahme'
+      paypal: 'PayPal'
+      bank_transfer: 'Überweisung'
+      invoice: 'Rechnung'
+      cash: 'Barzahlung bei Abholung'
     article:
       contact:
         text_beginning: 'Ein*e Fairnopoly-Nutzer*in hat dir eine Rückfrage zu deinem Artikel'
