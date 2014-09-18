@@ -169,11 +169,11 @@ ul.category-selected-list {
 
 // article title image
 
-.contents >.image {
+.contents > .info > .left > .image {
   margin: 0;
 }
 
-.contents > .image img {
+.contents > .info > .left > .image img {
   width:100%;
   border-radius: 0.5em;
 }
