@@ -25,12 +25,14 @@ class Address < ActiveRecord::Base
     exclude_field :connected_user
   end
 
+  attr_accessor :set_as_standard_address
 
   # if the record is referenced somewhere we need to
   # duplicate and stash it
   def duplicate_if_referenced!
     if self.changed_attributes.any? && self.is_referenced?
       new_address = self.amoeba_dup
+      new_address.set_as_standard_address = true if self.is_standard_address?
       self.stash!
       return new_address
     end

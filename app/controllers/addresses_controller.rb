@@ -27,10 +27,8 @@ class AddressesController < ApplicationController
   def update
     authorize @address
     @address.assign_attributes(params.for(Address).refine)
-    set_standard = (@address.is_referenced? && @address.is_standard_address?)
     @address = @address.duplicate_if_referenced!
     if @address.save
-      @address.user.update_column(:standard_address_id, @address.id) if set_standard
       render :update
     else
       render :edit
