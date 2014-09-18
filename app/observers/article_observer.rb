@@ -32,7 +32,7 @@ class ArticleObserver < ActiveRecord::Observer
     if article.save_as_template?
       cloned_article = article.amoeba_dup #duplicate the article
       cloned_article.save_as_template = "0" #no loops
-      article.update_column(:template_name, nil)
+      article.update_column(:article_template_name, nil)
       cloned_article.templatify
       cloned_article.save #save the cloned article
     end

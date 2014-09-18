@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 
 # Rails
-gem 'rails', '~> 4.1.3'
+gem 'rails', '~> 4.1.6'
 gem 'rails-observers' # observers got extracted since rails 4
 gem 'activerecord-session_store' # sessions in activerecord
 
@@ -16,11 +16,11 @@ end
 # ----------  Model ----------
 
 gem "paperclip", ">= 3.0" # image uploads
-gem 'money-rails' # dealing with money in activerecord
+gem 'money-rails', '~> 0.12.0' # dealing with money in activerecord
 gem 'monetize' # parsing money
 gem 'enumerize', '>= 0.5.1' # enums as symbols in ar
 gem 'state_machine' # State Machines in Rails
-gem 'amoeba', github: 'rocksolidwebdesign/amoeba' # copy ar-models # https://github.com/rocksolidwebdesign/amoeba/pull/33 waiting release
+gem 'amoeba'
 gem 'sanitize' # Parser based sanitization
 gem 'awesome_nested_set' , ">= 3.0.0.rc.4"# tree structure for categories
 gem "friendly_id", ">= 4.0.9" # Friendly_id for beautiful links
