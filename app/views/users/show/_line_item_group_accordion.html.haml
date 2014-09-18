@@ -18,4 +18,4 @@
               %li
                 = link_to t("articles.export.#{time_range}"), exports_show_path(kind_of_article: item_name, time_range: time_range, format: "csv"), class: 'JS-active-toggle--trigger', data: { clickable: true }
 
-    = paginate line_item_groups, params: { active_accordion: item_name }, param_name: "#{item_name}_page", remote: true
+    = paginate line_item_groups, params: { active_accordion: item_name }, param_name: "#{item_name}_page"
