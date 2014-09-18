@@ -68,8 +68,24 @@
             %a{href: "http://www.projektzehntausend.de/projektzehntausend/", target: '_blank'} Projekt 10.000
 
 
+
+-# Personalized library section, only shown if @last_hearted_libraries is set
+- if @last_hearted_libraries && @last_hearted_libraries.length == 2
+  - @last_hearted_libraries.each_with_index do |library, index|
+    %div.teaser.teaser--double.teaser--hearted_libraries{class: index == 0 ? 'teaser--clear' : 'teaser--collapsible teaser--reducible'}
+      .teaser-inner
+        %h2
+          = link_to(library.name, library_path(library))
+          = " #{t('common.text.glue.from')} "
+          = link_to(library.user_nickname, user_path(library.user))
+        - library.articles.includes(:images, :seller).reverse_order.limit(2).each do |article|
+          .teaser-queue
+            = render 'articles/shared/show_article', article: article
+
+
+
 -# Article queue 3
-.teaser.teaser--double#teaser--clear-after-bluebox
+.teaser.teaser--double.teaser--clear
   .teaser-inner
     %h2
       = link_to(tinycms_content_body_sanitized("heading_features2"), featured_library_path(@queue3[:library]))
@@ -79,7 +95,7 @@
 
 
 -# Article queue 'used/old'
-.teaser.teaser--double.teaser--collapsible#teaser--used
+.teaser.teaser--double.teaser--collapsible.teaser--reducible
   .teaser-inner
     %h2
       = link_to(tinycms_content_body_sanitized('heading_features3'), featured_library_path(@old[:library]))

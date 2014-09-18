@@ -228,6 +228,15 @@ class User < ActiveRecord::Base
     self.order(:nickname).where("ngo = ? AND id != ?", true, current_user.id)
   end
 
+  # get hearted libraries of current user
+  def self.hearted_libraries_current(current_user)
+    if current_user
+      current_user.hearted_libraries.published.
+                   no_admins.min_elem(2).
+                   where('users.id != ?', current_user.id).
+                   reorder('hearts.created_at DESC')
+    end
+  end
 
   state_machine :seller_state, initial: :standard_seller do
     after_transition any => :bad_seller, do: :send_bad_seller_notification
