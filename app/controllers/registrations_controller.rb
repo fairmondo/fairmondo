@@ -29,8 +29,10 @@ class RegistrationsController < Devise::RegistrationsController
   # GET /resource/sign_up
   def new
     build_resource({})
+
     # Check if parameters have been provided by a landing page and set object attributes accordingly
     resource.assign_attributes(params[:external_user].for(resource).on(:create).refine) if params[:external_user]
+
     @validatable = devise_mapping.validatable?
     if @validatable
       @minimum_password_length = resource_class.password_length.min
