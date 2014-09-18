@@ -10,6 +10,7 @@ FactoryGirl.define do
     tos_accepted false
     transport_address { buyer.standard_address }
     payment_address { FactoryGirl.create :address, user_id: buyer.id }
+    purchase_id 'F00000012'
 
     ignore do
       sold { false }
