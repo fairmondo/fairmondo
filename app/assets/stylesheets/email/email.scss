@@ -180,9 +180,25 @@ hr {
   margin-bottom: 1.3em;
 }
 
-.seller-imprint {
+.seller-imprint-container {
   @include shadowless_whitebox;
   margin-bottom: 0.5em;
+  margin-top: 0.5em;
+  overflow: hidden;
+  padding-top: 0;
+}
+
+.seller-imprint-container > .seller-imprint-header {
+  text-align: center;
+}
+
+.seller-imprint-container > .seller-imprint {
+  @include span( 1 of 3 );
+}
+
+.seller-imprint-container > .pdf {
+  @include span( 2 of 3 );
+  @include omega;
 }
 
 .article {
@@ -234,11 +250,6 @@ hr {
     margin-top: 0em;
     margin-bottom: 0.2em;
   }
-}
-
-.pdf {
-  @include shadowless_whitebox;
-  margin-bottom: 0.5em;
 }
 
 .total {
