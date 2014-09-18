@@ -8,7 +8,7 @@ de:
       contains_all_available_line_items: "Alle verfügbaren Artikel sind bereits im Warenkorb."
       contains_line_item: "Artikel ist bereits im Warenkorb."
       number_of_line_items: "Menge im Warenkorb: %{count}"
-      total: Gesamtpreis
+      total: Gesamtbetrag
       without_transport: "(zuzüglich Versandkosten)"
       empty_cart: Dein Warenkorb ist leer.
       line_item_group_by: "Dein Einkauf bei %{seller}"
@@ -50,11 +50,17 @@ de:
         cash: 'Gesamter Barzahlungswert'
         cash_on_delivery: ' Gesamte Kosten der Nachnahmesendung'
         invoice: 'Gesamter Rechnungsbetrag'
+      totals:
+        total_net_price: 'Zwischensumme ohne USt.:'
+        total_vat: 'Umsatzsteuer:'
+        total_retail_price: 'Zwischensumme:'
+        total_transport: 'Verpackung und Versand:'
+        total: 'Gesamtbetrag:'
     steps:
       step1: '1. Schritt: Bezahlung und Versand'
       step2: '2. Schritt: Überprüfen und Bestellen'
     actions:
-      confirm_purchase: "Artikel für %{total} verbindlich kaufen"
+      confirm_purchase: "Zahlungspflichtig bestellen für %{total} "
       checkout: Zur Kasse
       pay: Zur Bezahlung
       back: Zurück
