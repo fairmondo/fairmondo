@@ -9,7 +9,7 @@
     %br
   = lig.seller.standard_address_address_line_1
   %br
-  - if lig.seller.standard_address_address_line_2
+  - unless lig.seller.standard_address_address_line_2 == ''
     = lig.seller.standard_address_address_line_2
     %br
   = lig.seller.standard_address_zip + ' ' + lig.seller.standard_address_city
