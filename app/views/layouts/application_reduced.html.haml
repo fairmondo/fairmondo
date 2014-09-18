@@ -31,26 +31,23 @@
   = render "/layouts/partials/head_tag"
 
   %body{class: "pages-#{controller.controller_name} page-#{controller.action_name}"}
-    .l-wrapper
+
+    .l-wrapper.l-reduced
       - if !flash.empty?
         - flash.each do |type, msg|
           - if msg && type != "timedout" && !msg.empty?
             = render layout: "notice_layout", locals: { type: type }  do
               = msg
-      = render "/layouts/partials/news_header"
+      -#= render "/layouts/partials/news_header"
       .l-header
         .l-header-top
           .l-header-logo
             %a{href: "/"}
               %span.sprite_logo
-          = render "/layouts/partials/header_nav"
-        .l-header-bottom
-          = render "/layouts/partials/header_categories"
-          = render "/layouts/partials/header_search"
       .l-main{role: "main"}
         = yield
 
-    - cache_if (!(User.is_admin? current_user)), "footer" do
-      = render "/layouts/partials/footer"
+    - cache "footer_reduced" do
+      = render "/layouts/partials/footer", reduced: true
 
     = render "/layouts/partials/additional_assets"

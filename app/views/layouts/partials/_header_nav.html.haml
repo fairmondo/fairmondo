@@ -1,34 +1,31 @@
-%ul.JS-active-toggle--exclusive-container
-  %li
-    = link_to t('header.sell'), new_article_path
-  %li
-    = link_to t('header.libraries.title'), libraries_path, title: t('header.libraries.tooltip'), data: { push: true }
+.l-header-nav
+  %ul.JS-active-toggle--exclusive-container
+    %li= link_to t('header.sell'), new_article_path
+    %li= link_to t('header.libraries.title'), libraries_path, title: t('header.libraries.tooltip'), data: { push: true }
 
-  %li.JS-active-toggle--container
-    = link_to t('header.community.title'), 'https://info.fairnopoly.de/forum/', target: '_blank', class: 'JS-active-toggle--trigger JS-active-toggle--target'
-    %ul.l-header-nav-dropdown.JS-active-toggle--target
-      %li= link_to t('header.community.forum'), 'https://info.fairnopoly.de/forum/', target: '_blank'
-      %li= link_to t('header.community.hero'), 'http://helden.fairnopoly.de/', target: '_blank'
-      %li= link_to t('header.community.facebook'), 'https://www.facebook.com/fairmondo', target: '_blank'
-      %li= link_to t('header.community.developer'), 'https://github.com/fairnopoly/fairnopoly', target: '_blank'
-
-  - if user_signed_in?
-    %li
-      = link_to t('header.profile'), user_path(current_user), data: { push: true }
-    %li
-      = link_to t('common.actions.logout'), destroy_user_session_path
-
-  - elsif controller_name != "sessions"
     %li.JS-active-toggle--container
-      = link_to t('common.actions.login'), new_user_session_path, :id => "login-link", class: 'JS-active-toggle--trigger JS-active-toggle--target'
-      .l-header-nav-dropdown.l-header-nav-dropdown--login.JS-active-toggle--target
-        = render "devise/sessions/shared"
+      = link_to t('header.community.title'), 'https://info.fairnopoly.de/forum/', target: '_blank', class: 'JS-active-toggle--trigger JS-active-toggle--target'
+      %ul.l-header-nav-dropdown.JS-active-toggle--target
+        %li= link_to t('header.community.forum'), 'https://info.fairnopoly.de/forum/', target: '_blank'
+        %li= link_to t('header.community.hero'), 'http://helden.fairnopoly.de/', target: '_blank'
+        %li= link_to t('header.community.facebook'), 'https://www.facebook.com/fairmondo', target: '_blank'
+        %li= link_to t('header.community.developer'), 'https://github.com/fairnopoly/fairnopoly', target: '_blank'
 
-  - if current_cart && policy(current_cart).show?(cookies.signed[:cart]) && !current_cart.line_items.empty?
-    %li.JS-active-toggle--container
-      = link_to t('header.cart.title', count: current_cart.line_item_count), current_cart , data: { push: true }#, class: 'JS-active-toggle--trigger JS-active-toggle--target'
-      -# .l-header-cart.l-header-nav-dropdown.JS-active-toggle--target
-      -#   %ul.l-header-cart-list
-      -#     - current_cart.line_items.each do |line_item|
-      -#       = render "layouts/partials/header_nav_cart_item", line_item: line_item
-      -#     = link_to t('header.cart.button'), current_cart, class: 'Button'
+    - if user_signed_in?
+      %li= link_to t('header.profile'), user_path(current_user), data: { push: true }
+      %li= link_to t('common.actions.logout'), destroy_user_session_path
+    - elsif controller_name != "sessions"
+      %li.JS-active-toggle--container
+        = link_to t('common.actions.login'), new_user_session_path, id: "login-link", class: 'JS-active-toggle--trigger JS-active-toggle--target'
+        .l-header-nav-dropdown.l-header-nav-dropdown--login.JS-active-toggle--target
+          = render "devise/sessions/shared"
+          = render "devise/links"
+
+    - if current_cart && policy(current_cart).show?(cookies.signed[:cart]) && !current_cart.line_items.empty?
+      %li.JS-active-toggle--container
+        = link_to t('header.cart.title', count: current_cart.line_item_count), current_cart , data: { push: true }#, class: 'JS-active-toggle--trigger JS-active-toggle--target'
+        -# .l-header-cart.l-header-nav-dropdown.JS-active-toggle--target
+        -#   %ul.l-header-cart-list
+        -#     - current_cart.line_items.each do |line_item|
+        -#       = render "layouts/partials/header_nav_cart_item", line_item: line_item
+        -#     = link_to t('header.cart.button'), current_cart, class: 'Button'
