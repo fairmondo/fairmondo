@@ -28,12 +28,15 @@ class LineItemsController < ApplicationController
 
   def create
     @line_item = LineItem.find_or_new params.for(LineItem).refine, find_or_create_cart.id
-    @line_item.prepare_line_item_group_or_assign @cart, params['line_item']['requested_quantity']
-    authorize @line_item
 
-    if @line_item.save
+    begin
+      @line_item.transaction do
+        @line_item.prepare_line_item_group_or_assign @cart, params['line_item']['requested_quantity']
+        authorize @line_item
+        @line_item.save!
+      end
       flash[:notice] = I18n.t('line_item.notices.success_create', href: cart_path(@cart)).html_safe
-    else
+    rescue
       flash[:error] = I18n.t('line_item.notices.error_quantity')
     end
 

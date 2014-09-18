@@ -29,6 +29,7 @@ class UsersController < ApplicationController
   before_filter :show_notice, only: [:show]
   before_filter :set_user
   before_filter :dont_cache, only: [:show]
+  before_filter :sanitize_print_param, only: [:profile]
   skip_before_filter :authenticate_user!, only: [:show, :profile]
 
   def profile
@@ -59,5 +60,13 @@ class UsersController < ApplicationController
         end
       end
     end
+
+    def sanitize_print_param
+      if params[:print] && ['terms','cancellation'].include?(params[:print])
+        @print = params[:print]
+      end
+    end
+
+
 
 end
