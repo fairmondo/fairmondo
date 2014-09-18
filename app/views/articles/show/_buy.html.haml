@@ -6,9 +6,6 @@
       - else
         = t('cart.texts.contains_line_item')
   - else
-    .cart-info
-      - if current_cart && (line_item = current_cart.line_item_for(resource)) && resource.quantity > 1
-        = t('cart.texts.number_of_line_items', count: line_item.requested_quantity)
     = semantic_form_for LineItem.new do |f|
       = f.inputs do
         = f.input :article_id, as: :hidden, input_html: { value: resource.id }
@@ -18,6 +15,9 @@
           = f.button class: "Button" do
             = t('common.actions.to_cart')
   - if current_cart && policy(current_cart).show?(cookies.signed[:cart]) && !current_cart.line_items.empty?
+    .cart-info
+      - if current_cart && (line_item = current_cart.line_item_for(resource)) && resource.quantity > 1
+        = t('cart.texts.number_of_line_items', count: line_item.requested_quantity)
     .to-cart
       = link_to current_cart do
         = t('cart.texts.go_to_cart')
