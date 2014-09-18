@@ -90,7 +90,7 @@ de:
         your_purchase: 'Dein Einkauf bei'
         your_message: 'Deine Nachricht an den*die Verkäufer*in'
         view_and_pay: 'Bestellung ansehen und bezahlen'
-        terms_and_cancellation: "AGB und Widerrufserklärung von %{name}"
+        terms_and_cancellation: "AGB, Widerrufsbelehrung für Verbraucher sowie Muster-Widerrufsformular von %{name}"
 
     line_item_group:
       seller:
