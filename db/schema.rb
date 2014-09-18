@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140905113617) do
+ActiveRecord::Schema.define(version: 20140918164020) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -84,7 +84,7 @@ ActiveRecord::Schema.define(version: 20140905113617) do
     t.integer  "transport_type2_number",                           default: 1
     t.integer  "discount_id"
     t.integer  "friendly_percent_organisation_id",       limit: 8
-    t.string   "template_name"
+    t.string   "article_template_name"
     t.string   "transport_time"
     t.boolean  "swappable",                                        default: false
     t.boolean  "borrowable",                                       default: false
@@ -503,8 +503,8 @@ ActiveRecord::Schema.define(version: 20140905113617) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.datetime "created_at",                                                   null: false
-    t.datetime "updated_at",                                                   null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "forename"
     t.string   "surname"
     t.boolean  "admin",                                        default: false

@@ -52,7 +52,7 @@ describe Article do
     it { subject.must_respond_to :payment_details }
     it { subject.must_respond_to :friendly_percent }
     it { subject.must_respond_to :friendly_percent_organisation }
-    it { subject.must_respond_to :template_name }
+    it { subject.must_respond_to :article_template_name }
     it { subject.must_respond_to :calculated_fair_cents }
     it { subject.must_respond_to :calculated_friendly_cents }
     it { subject.must_respond_to :calculated_fee_cents }
@@ -370,7 +370,7 @@ describe Article do
 
   describe "::Template" do
     before do
-      @article = FactoryGirl.build :article, :with_private_user, template_name: 'Vorlage', state: :template
+      @article = FactoryGirl.build :article, :with_private_user, article_template_name: 'Vorlage', state: :template
     end
 
     describe "#save_as_template?" do

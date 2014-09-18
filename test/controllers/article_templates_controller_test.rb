@@ -33,7 +33,7 @@ describe ArticleTemplatesController do
   end
 
   def invalid_attributes
-    valid_attributes.merge template_name: nil
+    valid_attributes.merge article_template_name: nil
   end
 
   let :valid_update_attributes do

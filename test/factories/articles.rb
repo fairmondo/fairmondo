@@ -47,7 +47,7 @@ FactoryGirl.define do
     payment_details "payment_details"
 
     factory :article_template do
-      template_name { Faker::Lorem.words( rand(3)+2 ) * " " }
+      article_template_name { Faker::Lorem.words( rand(3)+2 ) * " " }
       state :template
     end
 

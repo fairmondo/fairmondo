@@ -158,7 +158,7 @@ de:
         friendly_percent_organisation: Organisation
         friendly_percent_calculated: "Das entspricht:"
         save_as_template: "Eingaben als Vorlage speichern"
-        template_name: Vorlage
+        article_template_name: Vorlage
       fair_trust_questionnaire:
         support: >
           1. Werden vom Weltmarkt marginalisierte Produzent*innen/Arbeiter*innen unterstützt und gefördert?
