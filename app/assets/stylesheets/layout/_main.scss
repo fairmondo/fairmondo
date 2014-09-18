@@ -7,3 +7,7 @@
     padding-right: $screen-padding;
   }
 }
+
+.l-reduced .l-main {
+  padding-bottom: ($footer-height-reduced + 1rem);
+}
