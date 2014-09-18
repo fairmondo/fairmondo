@@ -46,7 +46,7 @@ class Library < ActiveRecord::Base
   scope :not_empty, -> { where("libraries.library_elements_count > 0") }
   scope :min_elem, -> (num) { where("libraries.library_elements_count >= ?", num) }
   scope :published, -> { where(public: true) }
-  scope :personal, -> { where(public: false) }
+  scope :no_admins, -> { joins(:user).where("users.admin = ?", false) }
   scope :most_popular, -> { reorder("libraries.popularity DESC, libraries.updated_at DESC") }
   scope :most_recent, -> { reorder(created_at: :desc)}
   scope :trending, -> { most_popular.not_empty.published }
