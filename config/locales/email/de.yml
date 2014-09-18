@@ -1,13 +1,13 @@
 de:
   email:
     greeting: "Hallo %{name},"
-    close: 'Dein Fairnopoly Team'
+    close: 'Dein Fairnopoly Team.'
     greeting_nickname: "Hallo %{nickname},"
     security_warning: "Sicherheitshinweis: Der Kaufvertrag kommt zwischen Dir und dem Anbieter zustande. Fairnopoly ist bekanntlich nur Plattformbetreiberin. Um Dich gegen Betrugsfälle zu schützen, empfiehlt Fairnopoly - insbesondere bei hochwertigen Artikeln und Käufen von Privatpersonen - Dir die Daten des Anbieters bestätigen zu lassen. In Einzelfällen kann es bspw. auch sinnvoll sein, Dir die Eigentümerstellung bzw. Nachweise der Echtheit (z.B. Software) oder Unversehrtheit (durch Fotos bei Gebrauchtartikeln) zusenden zu lassen."
     transport_address: 'Lieferadresse'
     payment_address: 'Rechungsadresse'
     social_button: "Wir bei %{network}"
-    imprint_heading: Impressum
+    imprint_heading: Impressum von Fairnopoly
     imprint: |
       Fairnopoly eG
       Glogauer Str. 21
@@ -53,6 +53,31 @@ de:
           Wenn Sie diesen Vertrag widerrufen, haben wir Ihnen alle Zahlungen, die wir von Ihnen erhalten haben, einschließlich der Lieferkosten (mit Ausnahme der zusätzlichen Kosten, die sich daraus ergeben, dass Sie eine andere Art der Lieferung als die von uns angebotene, günstigste Standardlieferung gewählt haben), unverzüglich und spätestens binnen vierzehn Tagen ab dem Tag zurückzuzahlen, an dem die Mitteilung über Ihren Widerruf dieses Vertrags bei uns eingegangen ist. Für diese Rückzahlung verwenden wir dasselbe Zahlungsmittel, das Sie bei der ursprünglichen Transaktion eingesetzt haben, es sei denn, mit Ihnen wurde ausdrücklich etwas anderes vereinbart; in keinem Fall werden Ihnen wegen dieser Rückzahlung Entgelte berechnet.
 
           Haben Sie verlangt, dass die Dienstleistung während der Widerrufsfrist beginnen soll, so haben Sie uns einen angemessenen Betrag zu zahlen, der dem Anteil der bis zu dem Zeitpunkt, zu dem Sie uns von der Ausübung des Widerrufsrechts hinsichtlich dieses Vertrags unterrichten, bereits erbrachten Dienstleistungen im Vergleich zum Gesamtumfang der im Vertrag vorgesehenen Dienstleistungen entspricht.
+        cancellation_form_heading: Musterwiderrufsformular
+        cancellation_form: |
+          '(Wenn Sie den Vertrag widerrufen wollen, dann füllen Sie bitte dieses Formular
+          aus und senden Sie es zurück.)
+
+          An
+          Fairnopoly eG
+          Glogauer Str. 21
+          10999 Berlin
+          Telefax: 030/89615845,
+          E-Mail: kundenservice@fairnopoly.de
+
+          Hiermit widerrufe(n) ich/wir (*) den von mir/uns (*) abgeschlossenen Vertrag
+          über den Kauf der folgenden Waren (*)/die Erbringung der folgenden
+          Dienstleistung (*)
+
+          Bestellt am (*)/erhalten am (*)
+
+          Name des/der Verbraucher*in
+
+          Anschrift des/der Verbraucher*in
+
+          Unterschrift des/der Verbraucher*in (nur bei Mitteilung auf Papier)
+
+          Datum'
     mass_activation:
         text: 'Du hast erfolgreich per CSV-Upload eingestellte Artikel aktiviert.'
         to_csv: 'Hier kommst Du zu Deinem CSV-Upload: '
@@ -65,7 +90,7 @@ de:
         your_purchase: 'Dein Einkauf bei'
         your_message: 'Deine Nachricht an den*die Verkäufer*in'
         view_and_pay: 'Bestellung ansehen und bezahlen'
-        terms_and_cancellation: "AGB und Widerrufserklärung von %{name}"
+        terms_and_cancellation: "AGB, Widerrufsbelehrung für Verbraucher sowie Muster-Widerrufsformular von %{name}"
 
     line_item_group:
       seller:

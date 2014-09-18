@@ -5,12 +5,16 @@ class BusinessTransactionAbacus
   :single_transports,
   :unified_transport,
   :total_retail_price,
+  :total_net_price,
+  :total_vat,
   :line_item_group
 
   def self.calculate line_item_group
      abacus = BusinessTransactionAbacus.new(line_item_group)
      abacus.prepare_and_sort_business_transactions
      abacus.calculate_total_retail_price
+     abacus.calculate_total_net_price
+     abacus.calculate_total_vat
      abacus
   end
 
@@ -27,6 +31,14 @@ class BusinessTransactionAbacus
 
   def calculate_total_retail_price
     @total_retail_price = @prices.values.map{ |prices| prices[:retail_price] }.sum
+  end
+
+  def calculate_total_net_price
+    @total_net_price = @prices.values.map{ |prices| prices[:net_price] }.sum
+  end
+
+  def calculate_total_vat
+    @total_vat = @total_retail_price - @total_net_price
   end
 
   private

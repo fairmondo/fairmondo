@@ -12,19 +12,19 @@
     %h3
       = t('email.cart.buyer.your_purchase')
       = link_to lig.seller.nickname, profile_user_url(lig.seller.id)
-    - lig.business_transactions.find_each do |bt|
-      = render 'article', bt: bt
+    = 'Bestellnr.: ' + lig.purchase_id
+
+    = render 'seller_imprint', lig: lig
+
     - unless lig.message.empty?
       .message
         %h4
           = t('email.cart.buyer.your_message')
         = lig.message
-    - if lig.seller.is_a? LegalEntity
-      .pdf
-        %center
-          = link_to t('email.cart.buyer.terms_and_cancellation', name: lig.seller_nickname), profile_user_url(lig.seller,format: :pdf, print: :terms)
-          %br
-          = link_to t('email.pdf_reader_link'), 'http://get.adobe.com/reader/otherversions/'
+
+    - lig.business_transactions.find_each do |bt|
+      = render 'article', bt: bt
+
     = render 'total_price', lig: lig
 
     %center
