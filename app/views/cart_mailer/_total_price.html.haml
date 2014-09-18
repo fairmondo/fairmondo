@@ -29,3 +29,8 @@
       %td
         %strong
           = humanized_money_with_symbol abacus.total
+    %tr
+      %td
+        Gewählte Zahlungsart(en):
+      %td
+        = abacus.payment_listing.payments.keys.uniq.map{ |p| t("email.payments.#{ p.to_s }") }.to_sentence(options = { two_words_connector: 'und', last_word_connector: ' und ' })
