@@ -4,11 +4,6 @@
   %table
     %tr
       %td
-        Zwischensumme:
-      %td
-        = humanized_money_with_symbol abacus.business_transaction_listing.total_retail_price
-    %tr
-      %td
         Zwischensumme ohne USt.:
       %td
         = humanized_money_with_symbol abacus.business_transaction_listing.total_net_price
@@ -19,13 +14,23 @@
         = humanized_money_with_symbol abacus.business_transaction_listing.total_vat
     %tr
       %td
+        Zwischensumme:
+      %td
+        = humanized_money_with_symbol abacus.business_transaction_listing.total_retail_price
+    %tr
+      %td
         Verpackung und Versand:
       %td
         = humanized_money_with_symbol abacus.transport_listing.total_transport
     %tr
       %td
         %strong
-          Gesamtpreis:
+          Gesamtbetrag:
       %td
         %strong
           = humanized_money_with_symbol abacus.total
+    %tr
+      %td
+        Gewählte Zahlungsart(en):
+      %td
+        = abacus.payment_listing.payments.keys.uniq.map{ |p| t("email.payments.#{ p.to_s }") }.to_sentence(options = { two_words_connector: ' und ', last_word_connector: ' und ' })
