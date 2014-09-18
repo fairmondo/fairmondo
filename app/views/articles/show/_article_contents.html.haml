@@ -32,17 +32,16 @@
     - if policy(resource).destroy?
       = button_to t('common.actions.destroy'),  article_path(resource) , confirm: t('article.delete_confirm', name: article.title) ,method: :delete, class: "Button"
 
-
-%figure.image
-  - cache [resource, resource.title_image] do
-    - if resource.title_image_present?
-      / The next line is for providing the proper title image to facebook
-      - provide( :title_image, resource.title_image_url(:medium) )
-      = link_to image_tag(resource.title_image_url(:medium), :class=> "title_image",style: "max-width: #{resource.title_image.geometry(:original).width}px"), resource.title_image_url(:original) , {class: "colorbox", rel: "gallery"}
-    - else
-      = link_to image_tag("missing.png", :class=> "title_image") , "#"
 .info
   .left
+    %figure.image
+      - cache [resource, resource.title_image] do
+        - if resource.title_image_present?
+          / The next line is for providing the proper title image to facebook
+          - provide( :title_image, resource.title_image_url(:medium) )
+          = link_to image_tag(resource.title_image_url(:medium), :class=> "title_image",style: "max-width: #{resource.title_image.geometry(:original).width}px"), resource.title_image_url(:original) , {class: "colorbox", rel: "gallery"}
+        - else
+          = link_to image_tag("missing.png", :class=> "title_image") , "#"
     .thumbnails
       - resource.thumbnails.each do |image|
         - cache [resource,image,"thumbnail"] do
