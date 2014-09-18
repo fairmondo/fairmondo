@@ -27,7 +27,7 @@ accordion = ->
     active: target
 
   $(".Accordion--scrollToActive").on "accordionactivate", (event,ui) ->
-    if ui.newHeader.length isnt 0
+    if ui.newHeader.length isnt 0 && target
       $('html, body').animate
         scrollTop: ui.newHeader.offset().top
       , 100
