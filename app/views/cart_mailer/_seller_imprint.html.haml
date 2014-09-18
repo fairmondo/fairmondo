@@ -1,0 +1,27 @@
+.seller-imprint-container
+  .seller-imprint-header
+    %h4
+      = 'Impressum von ' + lig.seller.nickname
+  .seller-imprint
+    = lig.seller.standard_address_first_name + ' ' + lig.seller.standard_address_last_name
+    %br
+    - if lig.seller.standard_address_company_name
+      = lig.seller.standard_address_company_name
+      %br
+    = lig.seller.standard_address_address_line_1
+    %br
+    - unless lig.seller.standard_address_address_line_2 == ''
+      = lig.seller.standard_address_address_line_2
+      %br
+    = lig.seller.standard_address_zip + ' ' + lig.seller.standard_address_city
+    %br
+    = lig.seller.standard_address_country
+    %br
+    = mail_to lig.seller.email, lig.seller.email
+  - if lig.seller.is_a? LegalEntity
+    .pdf
+      %center
+        = link_to t('email.cart.buyer.terms_and_cancellation', name: lig.seller_nickname), profile_user_url(lig.seller, format: :pdf, print: :terms)
+        %p
+        = link_to t('email.pdf_reader_link'), 'http://get.adobe.com/reader/otherversions/'
+
