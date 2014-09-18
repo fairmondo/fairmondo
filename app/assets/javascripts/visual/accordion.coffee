@@ -2,6 +2,8 @@ accordion = ->
   target = 0
   if window.location.hash
     target = $(window.location.hash).siblings().andSelf().index($(window.location.hash))
+  else
+    target = $('.Accordion-item--active').index() if $('.Accordion-item--active').length > 0
 
   $(".accordion-anchor").click ->
     link = $(event.target).attr('href')
