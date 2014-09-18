@@ -1,7 +1,7 @@
 de:
   devise:
     confirmation:
-      resend: "Bestätigungsanweisungen erneut schicken"
+      resend: "Registrierungs-E-Mail erneut schicken"
       text: >
         Vielen Dank für Deine Registrierung bei Fairnopoly, dem fairen Online-Marktplatz in Hand der Nutzer*innen!
         Durch Deine Registrierung hast Du Dich bereit erklärt, die angehängten AGB und die Datenschutzerklärung von Fairnopoly zu akzeptieren.
