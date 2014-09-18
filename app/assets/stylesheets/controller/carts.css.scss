@@ -273,14 +273,14 @@ form.change_quantity > .inputs >  ol > li.action {
   }
 }
 
-.addresses_forms{
+.addresses_forms, .addresses_preview {
   @include clearfix;
   @include at-breakpoint($bp-tablet-horizontal) {
     > .payment_address {
-      @include span(1 of 2 0.1);
+      @include span(1 of 2 0.05);
     }
     > .transport_address {
-      @include span(1 of 2 0.1);
+      @include span(1 of 2 0.05);
       @include omega;
     }
   }
@@ -296,12 +296,28 @@ form.change_quantity > .inputs >  ol > li.action {
 .bt-totals {
   margin-bottom: rem(15);
 }
+.total_overview .total_table {
+  width: 100%;
+  border-collapse: collapse;
+  display: table;
+  margin-bottom: 0.5em;
+}
+.total_overview .total_table > .row {
+  display: table-row;
+  border-bottom: 1px solid $lighter-gray;
+  > .label { width: 70%; }
+  > .value { width: 30%; text-align:right; }
+  &:last-child { border-bottom: 0px;}
+}
+.total_overview .total_table > .row > .value, .total_overview .total_table > .row > .label {
+  display: table-cell;
+  font-size: 0.9em;
+  padding: 0.1em;
 
-.total_big {
-  text-align: center;
-  font-size: 1.5em;
 }
 
-
+.checkout_button {
+  font-size: 1.2em;
+}
 
 /* --------------------- Post Checkout Cart --------------------- */
