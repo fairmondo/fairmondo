@@ -5,9 +5,10 @@ de:
       text: >
         Vielen Dank für Deine Registrierung bei Fairnopoly, dem fairen Online-Marktplatz in Hand der Nutzer*innen!
         Durch Deine Registrierung hast Du Dich bereit erklärt, die angehängten AGB und die Datenschutzerklärung von Fairnopoly zu akzeptieren.
-        Bitte bestätige Deine Emailadresse, um den Registrierungsvorgang abzuschließen.
+        Bitte bestätige Deine Emailadresse sowie den Erhalt und die Lesbarkeit der beigefügten AGB und Datenschutzbestimmungen um den Registrierungsvorgang abzuschließen.
         Für die Bestätigung der Registrierung gehe bitte auf den folgenden Link:
-      link: "Meine Registrierung bestätigen."
+      link: "Meine Registrierung sowie den Erhalt und die Lesbarkeit der AGB und Datenschutzbestimmungen bestätigen."
+      link_if_newsletter: 'Meine Registrierung sowie den Erhalt und die Lesbarkeit der AGB und Datenschutzbestimmungen und die Anmeldung zum Newsletter bestätigen.'
       ignoremail: "Falls Du diese Email nicht angefordert hast, wende Dich bitte an unseren Kundenservice: kundenservice@fairnopoly.de oder ignoriere einfach diese Email."
       email_change_info: "(Falls Du deine Email geändert hast, wird diese nach Bestätigung durch Klick auf den Link geändert.)"
       email:
