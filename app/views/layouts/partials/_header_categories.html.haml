@@ -3,10 +3,10 @@
     %ul
       - Category.other_category_last.weighted.includes(:children).sorted.roots.each do |category|
         %li.JS-touch-hover
-          = link_to category.name, category_path(category), data: { push: true }}
+          = link_to category.name, category_path(category), data: { push: true }
           - if category.children.present?
             %ul.l-header-categories-children
               - category.children_with_active_articles.each_slice(category.view_columns) do |children|
                 %li
                   - children.each do |child|
-                    = link_to child.name, category_path(child), data: { push: true }}
+                    = link_to child.name, category_path(child), data: { push: true }
