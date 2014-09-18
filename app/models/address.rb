@@ -45,4 +45,8 @@ class Address < ActiveRecord::Base
     self.payment_address_references.any? || self.transport_address_references.any?
   end
 
+  def is_standard_address?
+    connected_user.present?
+  end
+
 end
