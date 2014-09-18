@@ -44,8 +44,9 @@ class Library < ActiveRecord::Base
   has_many :hearts, as: :heartable
 
   scope :not_empty, -> { where("libraries.library_elements_count > 0") }
+  scope :min_elem, -> (num) { where("libraries.library_elements_count >= ?", num) }
   scope :published, -> { where(public: true) }
-  #scope :no_admins, -> { joins(:user).where("users.admin = ?", false) }  # scope not in use at the moment
+  scope :no_admins, -> { joins(:user).where("users.admin = ?", false) }
   scope :most_popular, -> { reorder("libraries.popularity DESC, libraries.updated_at DESC") }
   scope :most_recent, -> { reorder(created_at: :desc)}
   scope :trending, -> { most_popular.not_empty.published }
