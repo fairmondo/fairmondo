@@ -5,9 +5,10 @@ $(document).ready remoteValidate
 $(document).ajaxStop remoteValidate
 
 validateRemotely = (event) ->
-  setTimeout -> # to allow JS-enforce-input-constraints to do it's thang
+  $(@).doTimeout 'typing', 250, -> # to allow JS-enforce-input-constraints to do it's thang
     target = event.target
     $target = $(target)
+    $target.prop("readonly",true) if $target.attr('data-validation-save-on-success') is 'true'
     params_from_name = target.name.slice(0, -1).split('[') # e.g. line_item[requested_quantity] => ['line_item', 'requested_quantity']
     value = target.value
     unless value is $target.attr('data-validation-allow') or value is '' # allow specific inputs. maybe make this regex compatible
@@ -22,6 +23,7 @@ validateRemotely = (event) ->
         dataType: 'json'
         global: false
         success: (response) ->
+
           # reset in case error messages get chained
           $target.parent().removeClass 'error'
           $target.siblings('.inline-errors').remove()
