@@ -26,7 +26,7 @@ validateRemotely = (event) ->
           # reset in case error messages get chained
           $target.parent().removeClass 'error'
           $target.siblings('.inline-errors').remove()
-
+          $target.parent().qtip('destroy', true);
           if response.errors.length > 0 # add an error message if one exists
             #$.each response.errors, (index, error) -> console.log "#{target.name}: #{error}"
             $target.parent().addClass 'error'
