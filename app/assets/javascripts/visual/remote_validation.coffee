@@ -1,5 +1,5 @@
 remoteValidate = ->
-  $('.l-main').on 'input', '.JS-remote-validate-blur', validateRemotely
+  $('.l-main').on 'change keyup', '.JS-remote-validate-blur', validateRemotely
 
 $(document).ready remoteValidate
 $(document).ajaxStop remoteValidate
@@ -8,7 +8,6 @@ validateRemotely = (event) ->
   $(@).doTimeout 'typing', 250, -> # to allow JS-enforce-input-constraints to do it's thang
     target = event.target
     $target = $(target)
-    $target.prop("readonly",true) if $target.attr('data-validation-save-on-success') is 'true'
     params_from_name = target.name.slice(0, -1).split('[') # e.g. line_item[requested_quantity] => ['line_item', 'requested_quantity']
     value = target.value
     unless value is $target.attr('data-validation-allow') or value is '' # allow specific inputs. maybe make this regex compatible
@@ -28,13 +27,10 @@ validateRemotely = (event) ->
           $target.parent().removeClass 'error'
           $target.siblings('.inline-errors').remove()
 
-          if $target.attr('data-validation-save-on-success') is 'true' and response.errors.length < 1
-            $target.parents('form').submit()
-          else if response.errors.length > 0 # add an error message if one exists
+          if response.errors.length > 0 # add an error message if one exists
             #$.each response.errors, (index, error) -> console.log "#{target.name}: #{error}"
             $target.parent().addClass 'error'
             new_error = $("<p class='inline-errors hidden'>#{response.errors[0]}</p>")
             $target.after new_error
             document.Fairnopoly.setQTipError new_error
 
-  , 1 # setTimeout: 1 millisecond wait
