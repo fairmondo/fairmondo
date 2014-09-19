@@ -65,6 +65,7 @@
 #= require models/library/libraries
 #= require models/user/colorbox_links
 #= require models/cart/unified
+#= require models/cart/quantity
 
 #= require visual/accordion
 #= require visual/tooltip
