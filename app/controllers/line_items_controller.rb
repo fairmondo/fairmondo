@@ -76,7 +76,7 @@ class LineItemsController < ApplicationController
     end
 
     def find_and_authorize_line_item
-      @line_item = LineItem.find(params[:id])
+      @line_item = LineItem.lock(true).find(params[:id])
       @line_item.cart_cookie = cookies.signed[:cart]
       authorize @line_item
     end

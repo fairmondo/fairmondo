@@ -44,6 +44,7 @@
 #= require lazy/wiselinks
 
 #= require vendor/jquery.slides.min.js
+#= require vendor/jquery.ba-dotimeout.min.js
 #= require vendor/jquery.complexify
 #= require vendor/jquery.socialshareprivacy
 #= require vendor/jquery.selectBoxIt
@@ -64,6 +65,7 @@
 #= require models/library/libraries
 #= require models/user/colorbox_links
 #= require models/cart/unified
+#= require models/cart/quantity
 
 #= require visual/accordion
 #= require visual/tooltip
