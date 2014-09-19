@@ -17,7 +17,7 @@ class CartMailer < ActionMailer::Base
 
     @cart = cart
     @buyer = cart.user
-    @subject = "[Fairnopoly] #{ t('transaction.notifications.buyer.buyer_subject') } Einkauf Nr: #{ cart.id }"
+    @subject = "[Fairnopoly] #{ t('transaction.notifications.buyer.buyer_subject') } vom #{ @cart.line_item_groups.first.sold_at.strftime('%d.%m.%Y %H:%M') }"
 
     mail(to: @buyer.email, subject: @subject)
   end

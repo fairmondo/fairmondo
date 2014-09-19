@@ -26,7 +26,7 @@
 
   %dl
     %dt
-      = t('article.preview.fees_and_donations.fee', :fee => (resource.fair ? "3%" : "6%"), :max => (resource.fair ? "€15" : "€30")  )
+      = simple_format t('article.preview.fees_and_donations.fee', :fee => (resource.fair ? "3%" : "6%"), :max => (resource.fair ? "€15" : "€30")  )
       %span.sprite_helper{title: "Bei erfolgreichem Verkauf gehen 6% des Artikelendpreises an Fairnopoly. Bei Artikeln unter dem Filter fair fallen lediglich 3% an."}
     %dd
       = humanized_money_with_symbol resource.calculated_fee
