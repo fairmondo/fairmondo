@@ -29,7 +29,7 @@ class LineItemPolicy < Struct.new(:user, :line_item)
   end
 
   def destroy?
-    line_item.cart_id == line_item.cart_cookie
+    line_item.cart_id == line_item.cart_cookie || user == line_item.cart.user
   end
 
   private
