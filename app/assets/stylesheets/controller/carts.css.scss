@@ -67,7 +67,11 @@ form.change_quantity > .inputs  > ol > li.input {
   margin:0;
   padding:0;
   .label { display: inline; margin-right: 1em; }
-  input { width: 5em; line-height: 0.9em; font-size: 0.9em;}
+  input { width: 4em; padding: 0.3em 0.5em;}
+}
+
+.delete_line_item {
+  margin-left: 0.5em;
 }
 
 form.change_quantity > .inputs >  ol > li.action {
@@ -104,7 +108,7 @@ form.change_quantity > .inputs >  ol > li.action {
 @include at-breakpoint($bp-tablet-horizontal) {
   .line_item_actions-inner { padding: 1.8em 1em; }
   .change_quantity { @include span(2 of 6 0.1); }
-  .delete_line_item {  @include span(2 of 6 0.1); }
+  .delete_line_item {  @include span(2 of 6 0.1); margin-left: 0; }
   .line_item_total { @include span(2 of 6 0.1); @include omega; }
 
    .to_checkout > .Button {
