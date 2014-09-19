@@ -81,8 +81,8 @@ form.change_quantity > .inputs >  ol > li.action {
 
 @include at-breakpoint($bp-tablet-horizontal) {
   .line_item_actions-inner { padding: 1.8em 1em; }
-  .change_quantity { @include span(3 of 6 0.1); }
-  .delete_line_item {  @include span(1 of 6 0.1); }
+  .change_quantity { @include span(2 of 6 0.1); }
+  .delete_line_item {  @include span(2 of 6 0.1); }
   .line_item_total { @include span(2 of 6 0.1); @include omega; }
 
    .to_checkout > .Button {
