@@ -1,5 +1,5 @@
 remoteValidate = ->
-  $('.l-main').on 'blur', '.JS-remote-validate-blur', validateRemotely
+  $('.l-main').on 'change keyup', '.JS-remote-validate-blur', validateRemotely
 
 $(document).ready remoteValidate
 $(document).ajaxStop remoteValidate
