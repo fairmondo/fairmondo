@@ -57,8 +57,9 @@ de:
         total_transport: 'Verpackung und Versand:'
         total: 'Gesamtbetrag:'
     steps:
-      step1: '1. Schritt: Bezahlung und Versand'
-      step2: '2. Schritt: Überprüfen und Bestellen'
+      step1: '1. Schritt: Artikel auswählen'
+      step2: '2. Schritt: Bezahlung und Versand'
+      step3: '3. Schritt: Überprüfen und Bestellen'
     actions:
       confirm_purchase: "Zahlungspflichtig bestellen für %{total} "
       checkout: Zur Kasse
