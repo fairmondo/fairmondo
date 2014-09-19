@@ -1,4 +1,4 @@
-= visual_checkout_steps :step1, @cart
+= visual_checkout_steps :step2, @cart
 = semantic_form_for @cart_checkout_form, as: :cart_checkout_form,  url: cart_path(@cart), method: :put do |f|
   = semantic_relation_field_for f, :line_item_groups, @cart.line_item_groups do |group, group_fields|
     - seller = group.seller
@@ -60,7 +60,7 @@
                           = t('cart.texts.unified_transport_impossible')
       .warning
         = I18n.t('cart.texts.security_warning')
-  %h2= t('cart.texts.addresses.forms')
+
   .addresses_forms
 
     .payment_address
