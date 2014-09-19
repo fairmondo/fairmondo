@@ -26,8 +26,8 @@
     = f.semantic_errors :reset_password_token
     = f.hidden_field :reset_password_token
     = f.inputs do
-      = f.input :password,:label=>t('devise.reset.new'), :autofocus => true
-      = f.input :password_confirmation, :label=>t('devise.reset.new_confirm')
+      = f.input :password,:label=>t('devise.reset.new'), :autofocus => true, autocomplete: "off"
+      = f.input :password_confirmation, :label=>t('devise.reset.new_confirm'), autocomplete: "off"
     = f.actions do
       = f.action :submit, :button_html => {:class => "Button", :value => t('devise.reset.new_submit')}
   = render "links"
