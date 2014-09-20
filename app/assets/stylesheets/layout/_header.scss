@@ -80,13 +80,44 @@ $header-nav-link-color-hover: $blue;
   border-radius: 0 0.4em 0.4em;
   line-height: 1.5em;
 }
+
+ul.l-header-nav-dropdown > li, ul#devise_links > li {
+  margin: 0.5em 0;
+  list-style-type: none;
+}
+
+
 .l-header-nav-dropdown--login {
   width: 17em;
+
+  form {
+      margin-bottom: 1.5em;
+  }
+
+  ul#devise_links {
+    padding: 0;
+
+    li {
+      &#registration_link {
+        font-weight: bold;
+        margin-bottom: 1em
+      }
+    }
+  }
 }
-.l-header-nav-dropdown > li {
-  list-style-type: none;
-  line-height: 2em;
-}
+
+
 .l-header-nav-dropdown.is-active {
   display: block;
+}
+
+
+// Reduced layout
+.l-reduced .l-header {
+  padding: 0.7em 0 1em;
+  background-color: $sand;
+
+  .l-header-logo span {
+    margin: 0;
+  }
 }

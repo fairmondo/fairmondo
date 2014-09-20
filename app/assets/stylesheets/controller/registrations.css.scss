@@ -3,18 +3,65 @@
 
 // Login and registration form
 
-.registrations-form {
-  @include at-breakpoint($bp-tablet) {
-		@include span(3 of 4);
-	}
-	@include at-breakpoint($bp-tablet-horizontal) {
-		@include span(2 of 4);
-	}
-  @include whitebox;
-  margin-bottom: 3em;
+#registration_form {
+  margin-bottom: 1.5em;
 
+
+  #user_email {
+    width: 22.5em;
+    max-width: 100%;
+  }
+
+  #user_nickname, #user_password {
+    width: 17.5em;
+  }
+
+
+  // Responsive stuff
+  @include at-breakpoint($bp-tablet) {
+		@include span(1 of 2);
+	}
 }
 
+
+#registration_marketing {
+  // Responsive stuff
+  display: none;
+
+  @include at-breakpoint($bp-tablet) {
+    display: block;
+    margin-top: 4.5em;
+    @include span(1 of 2);
+    @include omega;
+  }
+}
+
+
+ul.checklist {
+  list-style: none;
+  padding: 0;
+  margin-top: 2em;
+
+  li {
+    padding-left: 1.5em;
+    font-size: 1em;
+    margin-bottom: 1em;
+
+    &:before {
+      content: '\f046'; /*fontawesome char code inside the '' */
+      font-family: FontAwesome;
+      color: $green;
+      display: inline-block;
+      margin-left: -1.5em; /*same as padding-left set on li*/
+      width: 1.5em; /*same as padding-left set on li*/
+    }
+  }
+}
+
+
+
+
+/*
 .registrations-grid > ol > li {
   @include at-breakpoint($bp-tablet-horizontal) {
     @include span(2 of 4);
@@ -22,8 +69,8 @@
     @include omega;
     }
   }
-
 }
+*/
 
 // Password jquery-complexify
 .formtastic {

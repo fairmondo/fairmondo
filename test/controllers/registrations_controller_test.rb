@@ -53,9 +53,9 @@ describe RegistrationsController do
       end
 
       it "should sucessfully update a user" do
-        @attr = {:country => "Deutschland" , :zip => "87666", :email => @user.email}
+        @attr = { country: "Deutschland", zip: "87666", email: @user.email }
 
-        put :update, :user => @attr
+        put :update, user: @attr
 
         assert_redirected_to @user.reload
         @controller.instance_variable_get(:@user).zip.must_equal @attr[:zip]
@@ -70,9 +70,7 @@ describe RegistrationsController do
           nickname: "johndoe",
           email:    "jdoe@example.com",
           password: "password",
-          password_confirmation: "password",
           legal:    "1",
-          agecheck: "1",
           type:     "PrivateUser"
         }
       }

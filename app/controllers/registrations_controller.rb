@@ -25,13 +25,27 @@ class RegistrationsController < Devise::RegistrationsController
   before_filter :configure_permitted_parameters
   skip_before_filter :authenticate_user!, only: [ :create, :new ]
 
+  # GET /resource/sign_up
+  def new
+    build_resource({})
+
+    # Check if parameters have been provided by a landing page and set object attributes accordingly
+    resource.assign_attributes(params[:external_user].for(resource).on(:create).refine) if params[:external_user]
+
+    @validatable = devise_mapping.validatable?
+    if @validatable
+      @minimum_password_length = resource_class.password_length.min
+    end
+    respond_with self.resource
+  end
+
+
   def edit
     @user = User.find current_user.id
     check_incomplete_profile! @user
     @user.valid?
     super
   end
-
 
   def update
     self.resource = resource_class.to_adapter.get!(send(:"current_#{resource_name}").to_key)

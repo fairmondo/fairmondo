@@ -52,5 +52,19 @@
       margin-right: 0em;
     }
   }
+}
 
+// Reduced layout
+.l-footer.l-reduced {
+  background-color: $sand;
+  height: $footer-height-reduced;
+  margin-top: $footer-height-reduced;
+
+  .l-footer-top {
+    padding-top: 0;
+  }
+
+  .l-footer-bottom {
+    font-size: 0.8em;
+  }
 }
