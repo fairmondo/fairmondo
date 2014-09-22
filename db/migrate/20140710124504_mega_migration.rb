@@ -143,12 +143,10 @@ class MegaMigration < ActiveRecord::Migration
     rename_column :business_transactions, :type, :type_fix
 
     Rails.logger.info 'mfps start'
+    GC.enable
     count = 0
-    BusinessTransaction.where(type_fix: 'MultipleFixedPriceTransaction').joins(:article).select('business_transactions.id','business_transactions.quantity_available','articles.quantity_available','business_transactions.article_id','articles.id').find_each  batch_size: 100 do |mfp|
-      if mfp.article
-        mfp.article.update_column(:quantity_available, mfp.quantity_available)
-      end
-      mfp.destroy
+    BusinessTransaction.where(type_fix: 'MultipleFixedPriceTransaction').select('business_transactions.id','business_transactions.quantity_available','business_transactions.article_id').find_each  batch_size: 100 do |mfp|
+      Article.where(id: mfp.article_id).update_all(:quantity_available =>  mfp.quantity_available)
       count = count+1
       if ((count % 100) == 0)
         Rails.logger.info "start gc - #{count}"
@@ -156,19 +154,19 @@ class MegaMigration < ActiveRecord::Migration
         sleep 1 if ((count % 10000) == 0)
       end
     end
+    BusinessTransaction.where(type_fix: 'MultipleFixedPriceTransaction').destroy_all
     count = 0
     Rails.logger.info 'mfps done'
-
+    Rails.logger.info GC.stat
     BusinessTransaction.where(type_fix: 'PreviewTransaction').destroy_all
 
     BusinessTransaction.where(state: 'available').destroy_all
 
     Rails.logger.info 'dropped available transactions'
 
-    BusinessTransaction.where(type_fix: 'SingleFixedPriceTransaction').joins(:article).select('business_transactions.id','business_transactions.quantity_available','articles.quantity_available','business_transactions.article_id','articles.id').find_each batch_size: 100  do |sfp|
-      if sfp.article
-        sfp.article.update_column(:quantity_available, 0 )
-      end
+    BusinessTransaction.where(type_fix: 'SingleFixedPriceTransaction').select('business_transactions.id','business_transactions.article_id').find_each batch_size: 100  do |sfp|
+      Article.where(id: sfp.article_id).update_all(:quantity_available =>  0)
+
        count = count+1
       if ((count % 100) == 0)
         Rails.logger.info "start gc - #{count}"
