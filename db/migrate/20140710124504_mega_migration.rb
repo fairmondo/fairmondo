@@ -146,8 +146,8 @@ class MegaMigration < ActiveRecord::Migration
     mfps.find_each do |mfp|
       if mfp.article
         mfp.article.update_column(:quantity_available, mfp.quantity_available)
-        mfp.destroy
       end
+      mfp.destroy
     end
 
 
@@ -159,7 +159,9 @@ class MegaMigration < ActiveRecord::Migration
 
     sfpt = BusinessTransaction.where(type_fix: 'SingleFixedPriceTransaction')
     sfpt.find_each do |sfp|
-      sfp.article.update_column(:quantity_available, 0 )
+      if sfp.article
+        sfp.article.update_column(:quantity_available, 0 )
+      end
     end
 
 
