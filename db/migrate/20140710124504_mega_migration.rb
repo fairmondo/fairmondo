@@ -142,14 +142,16 @@ class MegaMigration < ActiveRecord::Migration
     # Make Transaction Model Ready For Battle
     rename_column :business_transactions, :type, :type_fix
 
-    mfps = BusinessTransaction.where(type_fix: 'MultipleFixedPriceTransaction')
-    mfps.find_each  batch_size: 100 do |mfp|
+    puts 'mfps start'
+
+    BusinessTransaction.where(type_fix: 'MultipleFixedPriceTransaction').find_each  batch_size: 100 do |mfp|
       if mfp.article
         mfp.article.update_column(:quantity_available, mfp.quantity_available)
       end
       mfp.destroy
     end
 
+    puts 'mfps done'
 
     BusinessTransaction.where(type_fix: 'PreviewTransaction').destroy_all
 
@@ -157,13 +159,15 @@ class MegaMigration < ActiveRecord::Migration
       t.destroy
     end
 
-    sfpt = BusinessTransaction.where(type_fix: 'SingleFixedPriceTransaction')
-    sfpt.find_each batch_size: 100  do |sfp|
+    puts 'dropped available transactions'
+
+    BusinessTransaction.where(type_fix: 'SingleFixedPriceTransaction').find_each batch_size: 100  do |sfp|
       if sfp.article
         sfp.article.update_column(:quantity_available, 0 )
       end
     end
 
+     puts 'sfps done'
 
     BusinessTransaction.all.find_each batch_size: 100  do |t|
       lig = LineItemGroup.create(message: t.message, tos_accepted: true, seller_id: t.seller_id, buyer_id: t.buyer_id,created_at: t.created_at, updated_at: t.updated_at, purchase_id: t.id, sold_at: t.sold_at)
@@ -174,6 +178,7 @@ class MegaMigration < ActiveRecord::Migration
       end
     end
 
+    puts 'ligs done'
 
     # MoveAddressesFromUserModelToAddressModel
     PseudoUser.find_each batch_size: 100  do |user|
@@ -230,6 +235,8 @@ class MegaMigration < ActiveRecord::Migration
       end
     end
   end
+
+  puts 'users done'
 
   def down
     raise ActiveRecord::IrreversibleMigration
