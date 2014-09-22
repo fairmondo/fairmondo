@@ -144,7 +144,7 @@ class MegaMigration < ActiveRecord::Migration
 
     puts 'mfps start'
 
-    BusinessTransaction.where(type_fix: 'MultipleFixedPriceTransaction').includes(:article).select('business_transactions.id','business_transactions.quantity_available','articles.quantity_available','business_transactions.article_id','articles.id').find_each  batch_size: 100 do |mfp|
+    BusinessTransaction.where(type_fix: 'MultipleFixedPriceTransaction').joins(:article).select('business_transactions.id','business_transactions.quantity_available','articles.quantity_available','business_transactions.article_id','articles.id').find_each  batch_size: 100 do |mfp|
       if mfp.article
         mfp.article.update_column(:quantity_available, mfp.quantity_available)
       end
@@ -159,7 +159,7 @@ class MegaMigration < ActiveRecord::Migration
 
     puts 'dropped available transactions'
 
-    BusinessTransaction.where(type_fix: 'SingleFixedPriceTransaction').includes(:article).select('business_transactions.id','business_transactions.quantity_available','articles.quantity_available','business_transactions.article_id','articles.id').find_each batch_size: 100  do |sfp|
+    BusinessTransaction.where(type_fix: 'SingleFixedPriceTransaction').joins(:article).select('business_transactions.id','business_transactions.quantity_available','articles.quantity_available','business_transactions.article_id','articles.id').find_each batch_size: 100  do |sfp|
       if sfp.article
         sfp.article.update_column(:quantity_available, 0 )
       end
