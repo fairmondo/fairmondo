@@ -154,13 +154,13 @@ class MegaMigration < ActiveRecord::Migration
         sleep 1 if ((count % 10000) == 0)
       end
     end
-    BusinessTransaction.where(type_fix: 'MultipleFixedPriceTransaction').destroy_all
+    BusinessTransaction.where(type_fix: 'MultipleFixedPriceTransaction').delete_all
     count = 0
     Rails.logger.info 'mfps done'
     Rails.logger.info GC.stat
-    BusinessTransaction.where(type_fix: 'PreviewTransaction').destroy_all
+    BusinessTransaction.where(type_fix: 'PreviewTransaction').delete_all
 
-    BusinessTransaction.where(state: 'available').destroy_all
+    BusinessTransaction.where(state: 'available').delete_all
 
     Rails.logger.info 'dropped available transactions'
 
