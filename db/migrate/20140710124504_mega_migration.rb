@@ -124,7 +124,7 @@ class MegaMigration < ActiveRecord::Migration
     add_column :business_transactions, :unified_transport_price_cents, :integer, limit: 8, default: 0
     add_column :business_transactions, :unified_transport_free_at_price_cents, :integer, limit: 8, default: 0
 
-    add_index :business_transactions, :line_item_group_id, name: 'index_business_transactions_on_line_item_group_id'
+
 
 
     # Change Articles
@@ -143,12 +143,14 @@ class MegaMigration < ActiveRecord::Migration
     rename_column :business_transactions, :type, :type_fix
 
     puts 'mfps start'
-
+    count = 0
     BusinessTransaction.where(type_fix: 'MultipleFixedPriceTransaction').joins(:article).select('business_transactions.id','business_transactions.quantity_available','articles.quantity_available','business_transactions.article_id','articles.id').find_each  batch_size: 100 do |mfp|
       if mfp.article
         mfp.article.update_column(:quantity_available, mfp.quantity_available)
       end
       mfp.destroy
+      count++
+      GC.start if ((count % 100) == 0)
     end
 
     puts 'mfps done'
@@ -163,6 +165,8 @@ class MegaMigration < ActiveRecord::Migration
       if sfp.article
         sfp.article.update_column(:quantity_available, 0 )
       end
+      count++
+      GC.start if ((count % 100) == 0)
     end
 
      puts 'sfps done'
@@ -174,6 +178,8 @@ class MegaMigration < ActiveRecord::Migration
       if t.rating
         t.rating.update_column(:line_item_group_id, t.line_item_group_id)
       end
+      count++
+      GC.start if ((count % 100) == 0)
     end
 
     puts 'ligs done'
@@ -231,10 +237,14 @@ class MegaMigration < ActiveRecord::Migration
         bt.line_item_group.update_column(:transport_address_id, address.id)
         bt.line_item_group.update_column(:payment_address_id, address.id)
       end
+      count++
+      GC.start if ((count % 100) == 0)
     end
+    add_index :business_transactions, :line_item_group_id, name: 'index_business_transactions_on_line_item_group_id'
+    puts 'users done'
   end
 
-  puts 'users done'
+
 
   def down
     raise ActiveRecord::IrreversibleMigration
