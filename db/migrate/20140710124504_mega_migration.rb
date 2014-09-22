@@ -142,7 +142,7 @@ class MegaMigration < ActiveRecord::Migration
     # Make Transaction Model Ready For Battle
     rename_column :business_transactions, :type, :type_fix
 
-    puts 'mfps start'
+    Rails.logger.info 'mfps start'
     count = 0
     BusinessTransaction.where(type_fix: 'MultipleFixedPriceTransaction').joins(:article).select('business_transactions.id','business_transactions.quantity_available','articles.quantity_available','business_transactions.article_id','articles.id').find_each  batch_size: 100 do |mfp|
       if mfp.article
@@ -150,27 +150,35 @@ class MegaMigration < ActiveRecord::Migration
       end
       mfp.destroy
       count = count+1
-      GC.start if ((count % 100) == 0)
+      if ((count % 100) == 0)
+        Rails.logger.info "start gc - #{count}"
+        GC.start
+        sleep 1 if ((count % 10000) == 0)
+      end
     end
-
-    puts 'mfps done'
+    count = 0
+    Rails.logger.info 'mfps done'
 
     BusinessTransaction.where(type_fix: 'PreviewTransaction').destroy_all
 
     BusinessTransaction.where(state: 'available').destroy_all
 
-    puts 'dropped available transactions'
+    Rails.logger.info 'dropped available transactions'
 
     BusinessTransaction.where(type_fix: 'SingleFixedPriceTransaction').joins(:article).select('business_transactions.id','business_transactions.quantity_available','articles.quantity_available','business_transactions.article_id','articles.id').find_each batch_size: 100  do |sfp|
       if sfp.article
         sfp.article.update_column(:quantity_available, 0 )
       end
        count = count+1
-      GC.start if ((count % 100) == 0)
+      if ((count % 100) == 0)
+        Rails.logger.info "start gc - #{count}"
+        GC.start
+        sleep 1 if ((count % 10000) == 0)
+      end
     end
 
-     puts 'sfps done'
-
+     Rails.logger.info 'sfps done'
+    count = 0
     BusinessTransaction.all.find_each batch_size: 100  do |t|
       lig = LineItemGroup.create(message: t.message, tos_accepted: true, seller_id: t.seller_id, buyer_id: t.buyer_id,created_at: t.created_at, updated_at: t.updated_at, purchase_id: t.id, sold_at: t.sold_at)
       t.update_column :line_item_group_id, lig.id
@@ -179,10 +187,14 @@ class MegaMigration < ActiveRecord::Migration
         t.rating.update_column(:line_item_group_id, t.line_item_group_id)
       end
       count = count+1
-      GC.start if ((count % 100) == 0)
+      if ((count % 100) == 0)
+        Rails.logger.info "start gc - #{count}"
+        GC.start
+        sleep 1 if ((count % 10000) == 0)
+      end
     end
 
-    puts 'ligs done'
+    Rails.logger.info 'ligs done'
 
     # MoveAddressesFromUserModelToAddressModel
     PseudoUser.find_each batch_size: 100  do |user|
@@ -237,11 +249,15 @@ class MegaMigration < ActiveRecord::Migration
         bt.line_item_group.update_column(:transport_address_id, address.id)
         bt.line_item_group.update_column(:payment_address_id, address.id)
       end
-       count = count+1
-      GC.start if ((count % 100) == 0)
+      count = count+1
+      if ((count % 100) == 0)
+        Rails.logger.info 'start gc'
+        GC.start
+        sleep 1 if ((count % 10000) == 0)
+      end
     end
     add_index :business_transactions, :line_item_group_id, name: 'index_business_transactions_on_line_item_group_id'
-    puts 'users done'
+    Rails.logger.info 'users done'
   end
 
 
