@@ -149,7 +149,7 @@ class MegaMigration < ActiveRecord::Migration
         mfp.article.update_column(:quantity_available, mfp.quantity_available)
       end
       mfp.destroy
-      count++
+      count = count+1
       GC.start if ((count % 100) == 0)
     end
 
@@ -165,7 +165,7 @@ class MegaMigration < ActiveRecord::Migration
       if sfp.article
         sfp.article.update_column(:quantity_available, 0 )
       end
-      count++
+       count = count+1
       GC.start if ((count % 100) == 0)
     end
 
@@ -178,7 +178,7 @@ class MegaMigration < ActiveRecord::Migration
       if t.rating
         t.rating.update_column(:line_item_group_id, t.line_item_group_id)
       end
-      count++
+      count = count+1
       GC.start if ((count % 100) == 0)
     end
 
@@ -237,7 +237,7 @@ class MegaMigration < ActiveRecord::Migration
         bt.line_item_group.update_column(:transport_address_id, address.id)
         bt.line_item_group.update_column(:payment_address_id, address.id)
       end
-      count++
+       count = count+1
       GC.start if ((count % 100) == 0)
     end
     add_index :business_transactions, :line_item_group_id, name: 'index_business_transactions_on_line_item_group_id'
