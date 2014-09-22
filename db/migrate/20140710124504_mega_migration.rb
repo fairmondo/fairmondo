@@ -144,8 +144,10 @@ class MegaMigration < ActiveRecord::Migration
 
     mfps = BusinessTransaction.where(type_fix: 'MultipleFixedPriceTransaction')
     mfps.find_each do |mfp|
-      mfp.article.update_column(:quantity_available, mfp.quantity_available)
-      mfp.destroy
+      if mfp.article
+        mfp.article.update_column(:quantity_available, mfp.quantity_available)
+        mfp.destroy
+      end
     end
 
 
