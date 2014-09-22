@@ -73,6 +73,7 @@ class Cart < ActiveRecord::Base
 
     return :checked_out
   rescue => e
+    Rails.logger.info "cart_error #{e.inspect} - #{e.message}"
     return :checkout_failed
   end
 
