@@ -141,3 +141,5 @@ de:
       destroy:
         notice: "%{resource_name} wurde gelöscht."
         alert: "%{resource_name} konnte nicht gelöscht werden."
+
+  noscript: "Du hast JavaScript ausgeschaltet oder verwendest einen Browser, der kein JavaScript unterstützt. Um Fairnopoly optimal zu nutzen, schalte bitte JavaScript ein."
