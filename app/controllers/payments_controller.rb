@@ -29,6 +29,7 @@ class PaymentsController < ApplicationController
     if @payment.init && !@payment.errored?
       redirect_to PaypalAPI.checkout_url @payment.pay_key
     else
+      Rails.logger.info "paypal_error #{@payment.error}"
       redirect_to :back, flash: { error: I18n.t('paypal_api.controller_error', email: @payment.line_item_group_seller_paypal_account).html_safe }
     end
   end
