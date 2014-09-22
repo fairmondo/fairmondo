@@ -143,7 +143,7 @@ class MegaMigration < ActiveRecord::Migration
     rename_column :business_transactions, :type, :type_fix
 
     mfps = BusinessTransaction.where(type_fix: 'MultipleFixedPriceTransaction')
-    mfps.find_each do |mfp|
+    mfps.find_each  batch_size: 100 do |mfp|
       if mfp.article
         mfp.article.update_column(:quantity_available, mfp.quantity_available)
       end
@@ -153,19 +153,19 @@ class MegaMigration < ActiveRecord::Migration
 
     BusinessTransaction.where(type_fix: 'PreviewTransaction').destroy_all
 
-    BusinessTransaction.where(state: 'available').find_each do |t|
+    BusinessTransaction.where(state: 'available').find_each batch_size: 100  do |t|
       t.destroy
     end
 
     sfpt = BusinessTransaction.where(type_fix: 'SingleFixedPriceTransaction')
-    sfpt.find_each do |sfp|
+    sfpt.find_each batch_size: 100  do |sfp|
       if sfp.article
         sfp.article.update_column(:quantity_available, 0 )
       end
     end
 
 
-    BusinessTransaction.all.find_each do |t|
+    BusinessTransaction.all.find_each batch_size: 100  do |t|
       lig = LineItemGroup.create(message: t.message, tos_accepted: true, seller_id: t.seller_id, buyer_id: t.buyer_id,created_at: t.created_at, updated_at: t.updated_at, purchase_id: t.id, sold_at: t.sold_at)
       t.update_column :line_item_group_id, lig.id
       # Move Ratings from BusinessTransaction to LineItemGroup
@@ -176,7 +176,7 @@ class MegaMigration < ActiveRecord::Migration
 
 
     # MoveAddressesFromUserModelToAddressModel
-    PseudoUser.find_each do |user|
+    PseudoUser.find_each batch_size: 100  do |user|
       user = user.becomes(PseudoUser)
       std_add = Address.create(
         title: user.title,
@@ -193,11 +193,11 @@ class MegaMigration < ActiveRecord::Migration
       std_add.reload
       user.update_column :standard_address_id, std_add.id
 
-      user.bought_business_transactions.find_each do |bt|
+      user.bought_business_transactions.find_each batch_size: 100  do |bt|
         new_address = true
         address = nil
 
-        user.addresses.find_each do |add|
+        user.addresses.find_each batch_size: 100  do |add|
           if (add.first_name == bt.forename) &&
               (add.last_name == bt.surname) &&
                 (add.address_line_1 == bt.street) &&
