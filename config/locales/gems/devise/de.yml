@@ -23,6 +23,8 @@ de:
     sessions:
       signed_in: 'Erfolgreich angemeldet.'
       signed_out: 'Erfolgreich abgemeldet.'
+      user:
+        already_signed_out: 'Du bist bereits abgemeldet.'
     passwords:
       send_instructions: 'Du erhältst in wenigen Minuten eine Email mit einer Anleitung, wie Du Dein Passwort zurücksetzen kannst.'
       updated: 'Dein Passwort wurde geändert. Du bist jetzt angemeldet.'
