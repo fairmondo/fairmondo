@@ -73,7 +73,7 @@ module Article::State
 
   def remove_from_libraries
     # delete the article from the collections
-    self.library_elements.delete_all
+    self.library_elements.destroy_all
   end
 
   def deactivate_without_validation
