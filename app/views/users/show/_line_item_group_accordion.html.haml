@@ -7,7 +7,8 @@
         %strong= t("users.text.no_#{item_name}")
   - else
     - line_item_groups.each do |group|
-      = render 'line_item_groups/shared/listitem' , line_item_group: group
+      - if group.articles.any?
+        = render 'line_item_groups/shared/listitem' , line_item_group: group
     -# if current_user.type == 'LegalEntity' && item_name == 'seller_line_item_groups'
       .export.JS-active-toggle--container
         .Button.JS-active-toggle--trigger{data: {clickable: true}}
