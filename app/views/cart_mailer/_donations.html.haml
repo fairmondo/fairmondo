@@ -1,0 +1,24 @@
+- if abacus.donation_listing.donation_total > 0
+  .total
+    %table
+      %th{colspan: 2}
+        %small
+          - if role == 'buyer'
+            Der/die Verkäufer*in spendet für Deinen Einkauf
+          - else
+            Für Deinen Verkauf fallen folgende Spenden an
+      - abacus.donation_listing.donation_per_organisation.each_pair do |k, v|
+        %tr
+          %td
+            %small
+              = "an #{k}:"
+          %td
+            %small
+              = humanized_money_with_symbol v
+      %tr
+        %td
+          %small
+            Gesamt:
+        %td
+          %small
+            = humanized_money_with_symbol abacus.donation_listing.donation_total
