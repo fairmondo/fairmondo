@@ -20,8 +20,22 @@
  along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 ###
 
-$(document).on 'focus.autocomplete', '#search_input', ->
+autocomplete_hook = ->
   if $( "#search_input" ).length isnt 0
     $( "#search_input" ).autocomplete
-      serviceUrl: $("#search_input").data('autocomplete-remote-url')
-      paramName: 'q'
+      serviceUrl: $("#search_input").data('autocomplete-remote-url'),
+      paramName: 'q',
+      preventBadQueries: false,
+      triggerSelectOnValidInput: false,
+
+      formatResult: (suggestion,currentValue) ->
+        title = $.Autocomplete.formatResult(suggestion,currentValue)
+        if suggestion['data']['type'] == 'suggest'
+          "<span class=\"autocomplete-title\">" + title + "</span>"
+        else if suggestion['data']['type'] == 'result'
+          "<a href="+suggestion['data']['url']+" data-push='true'><span class=\"autocomplete-thumbnail\">"+suggestion['data']['thumb']+"</span><span class=\"autocomplete-title\">" + title + "</span></a>"
+        else if suggestion['data']['type'] == 'more'
+          "<a href=\"/articles/?q="+suggestion.value+"\" data-push=true><span class=\"autocomplete-title\"> Alle " + suggestion['data']['count'] + " Ergebnisse für <strong>"+ suggestion.value + "</strong></span></a>"
+
+$(document).ready autocomplete_hook
+$(document).on 'autocompletereload', autocomplete_hook

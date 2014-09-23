@@ -1,4 +1,5 @@
 class ArticleSearchForm
+  include Rails.application.routes.url_helpers
   extend ActiveModel::Naming
   extend Enumerize
   include Virtus.model
@@ -95,18 +96,20 @@ class ArticleSearchForm
 
   def autocomplete
     query = self
+    max_results = 5
     search = Article.search do
+      size max_results
       query do
         match "title.decomp", query.q, fuzziness: 0.9
       end
-      highlight "title.decomp", :options => { number_of_fragments: 0, pre_tags: ["<b>"], post_tags: ["</b>"]}
       suggest :typos do
         text query.q
         term "title.decomp", :suggest_mode => 'popular', :sort => 'frequency' , :analyzer => :simple, size: 3
       end
     end
-    suggestions = search.suggestions.texts.map { |suggest|  suggest }
-    suggestions += search.results.map{ |result|  result.title }
+    suggestions = search.suggestions.texts.map { |suggest|  {value: suggest, data: {type: :suggest}} }
+    suggestions += search.results.map{ |result|  {value: result.title, data: { type: :result, url: article_path(result.slug), thumb: ActionController::Base.helpers.image_tag(result.title_image_url_thumb)}}}
+    suggestions += [{ value: query.q, data: { type: :more, count: search.total }}] if search.total > max_results
     return { query: query.q, suggestions: suggestions }
   end
 
