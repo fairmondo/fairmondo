@@ -51,8 +51,14 @@ textarea {
   @include placeholder {
     color: $gray;
   }
-
 }
+
+
+// Needed for Firefox Mobile
+input[type='number'] {
+  min-width: 3.5em;
+}
+
 
 .formtastic textarea {
   padding: 0.5em;

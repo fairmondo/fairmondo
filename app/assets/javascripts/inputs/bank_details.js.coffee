@@ -1,24 +1,8 @@
 ####### Still needs refactoring! #######
 
 $(document).ready ->
-  account = $('#bank_account_number').value
-  bank_code = $('#bank_code').value
   iban = $('#iban').value
   bic = $('#bic').value
-
-  $('#bank_code').focusout ->
-    bank_code = this.value
-    removeWarning '#user_bank_code_input'
-    if bank_code isnt ''
-      getBankName bank_code
-
-  $('#bank_account_number').focusout ->
-    account = this.value
-    removeWarning '#user_bank_account_number_input'
-    if $('#user_bank_code_input .inline-errors').length > 0
-      addWarning '#user_bank_account_number_input', 'Die Kontonummer kann ohne gültige BLZ nicht überprüft werden.'
-    else
-      checkBankDetails account, bank_code
 
   $('#iban').focusout ->
     iban = this.value

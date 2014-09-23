@@ -82,4 +82,13 @@ module ApplicationHelper
   def current_cart
     @current_cart ||= ::Cart.where(user_id: current_user ? current_user.id : nil).open.find_by_id cookies.signed[:cart]
   end
+
+  def on_login_page?
+    controller_name == "sessions"
+  end
+
+  def navigation_push
+    on_login_page? ? { } : { push: true }
+  end
+
 end
