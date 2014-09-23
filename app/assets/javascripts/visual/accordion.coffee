@@ -41,6 +41,6 @@ accordion = ->
 $(document).on(
   'page:done'
   (event, $target, status, url, data) ->
-    accordion
+    accordion()
 )
 $(document).ready accordion
