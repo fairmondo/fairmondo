@@ -10,7 +10,7 @@ class PaypalAPI
       Timeout::timeout(15) do #15 second timeout
         paypal_client.pay(
           "returnUrl" => line_item_group_url(payment.line_item_group, paid: true),
-          "requestEnvelope" => {"errorLanguage" => "de_DE"},
+          "requestEnvelope" => {"errorLanguage" => "en_US"},
           "currencyCode" => "EUR",
           "receiverList" => {
             "receiver" => [{"email" => payment.line_item_group_seller_email, "amount" => payment.total_price.to_f.to_s}]},
