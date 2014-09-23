@@ -9,6 +9,11 @@
     %span.Search-arrow.sprite_up_arrow.JS-active-toggle--target
   %ul.Search-tree.JS-active-toggle--target
     - ancestor = (category && category.children.empty? && category.parent) ? category.parent : category
+    - if category
+      %li
+        %span{ title: 'Alle Kategorien' }
+          %i.fa.fa-caret-left
+          = link_to 'Alle Kategorien', articles_path(article_search_form: search_cache.change(category_id: nil)), data: { push: true }
     - if ancestor
       - ancestor.ancestors.each do |c|
         %li

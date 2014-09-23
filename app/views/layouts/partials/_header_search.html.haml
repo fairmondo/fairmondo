@@ -2,7 +2,7 @@
   - cache_if search_cache.fresh?, 'article_search_form' do
     = semantic_form_for search_cache, url: articles_path(search_cache.search_form_attributes),
                                       html: { method: 'get', class: ".l-header-search-form", id: 'js-search-params' },
-                                      data: { push: true }, builder: ::Fairtastic::FormBuilder do |f|
+                                      data: navigation_push, builder: ::Fairtastic::FormBuilder do |f|
       .l-header-search-query
         = f.inputs do
           - search_cache.search_form_attributes.keys.each do |k|

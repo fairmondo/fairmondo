@@ -97,7 +97,7 @@ de:
         your_message: 'Deine Nachricht an den*die Verkäufer*in'
         view_and_pay: 'Bestellung ansehen und bezahlen'
         terms_and_cancellation: "AGB, Widerrufsbelehrung für Verbraucher sowie Muster-Widerrufsformular von %{name}"
-
+        selected_payment: 'Gewählte Zahlungsart(en):'
     line_item_group:
       seller:
         heading: 'Dein Verkauf auf Fairnopoly'

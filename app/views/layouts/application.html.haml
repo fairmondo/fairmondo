@@ -32,6 +32,7 @@
 
   %body{class: "pages-#{controller.controller_name} page-#{controller.action_name}"}
     .l-wrapper
+      = render "/layouts/partials/noscript_notice"
       - if !flash.empty?
         - flash.each do |type, msg|
           - if msg && type != "timedout" && !msg.empty?

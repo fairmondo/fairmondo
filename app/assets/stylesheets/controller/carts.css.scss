@@ -4,9 +4,31 @@
 
 .visual_checkout_steps {
   margin-bottom: 1em;
+  @include at-breakpoint($bp-tablet-horizontal) {
+    margin: 0.5em 0 1.5em;
+  }
 }
 
-.visual_checkout_step {
+.visual_checkout_steps .between_checkout_steps {
+  @include till-breakpoint($bp-tablet) {
+    display:none;
+  }
+  @include at-breakpoint($bp-tablet-horizontal) {
+    font-size: 1.28em;
+  }
+}
+
+.visual_checkout_steps .visual_checkout_step {
+  @include till-breakpoint($bp-tablet) {
+    display:block;
+    padding: 0.3em;
+  }
+  @include  till-breakpoint($bp-tablet-horizontal) {
+    font-size: 0.9em;
+  }
+  @include at-breakpoint($bp-tablet-horizontal) {
+    font-size: 1.2em;
+  }
   white-space:nowrap;
   padding: 0.5em;
   color: $gray;
@@ -45,7 +67,12 @@ form.change_quantity > .inputs  > ol > li.input {
   margin:0;
   padding:0;
   .label { display: inline; margin-right: 1em; }
-  input { width: 5em; line-height: 0.9em; font-size: 0.9em;}
+  input { width: 4em; padding: 0.3em 0.5em;}
+}
+
+.delete_line_item {
+  margin-left: 0.5em;
+  line-height: 2.3em;
 }
 
 form.change_quantity > .inputs >  ol > li.action {
@@ -81,8 +108,8 @@ form.change_quantity > .inputs >  ol > li.action {
 
 @include at-breakpoint($bp-tablet-horizontal) {
   .line_item_actions-inner { padding: 1.8em 1em; }
-  .change_quantity { @include span(3 of 6 0.1); }
-  .delete_line_item {  @include span(1 of 6 0.1); }
+  .change_quantity { @include span(2 of 6 0.1); }
+  .delete_line_item {  @include span(2 of 6 0.1); margin-left: 0; }
   .line_item_total { @include span(2 of 6 0.1); @include omega; }
 
    .to_checkout > .Button {
@@ -272,15 +299,17 @@ form.change_quantity > .inputs >  ol > li.action {
     padding-left: 0em;
   }
 }
-
-.addresses_forms{
+.addresses_forms {
+  margin-top: 1em;
+}
+.addresses_forms, .addresses_preview {
   @include clearfix;
   @include at-breakpoint($bp-tablet-horizontal) {
     > .payment_address {
-      @include span(1 of 2 0.1);
+      @include span(1 of 2 0.05);
     }
     > .transport_address {
-      @include span(1 of 2 0.1);
+      @include span(1 of 2 0.05);
       @include omega;
     }
   }
@@ -296,12 +325,28 @@ form.change_quantity > .inputs >  ol > li.action {
 .bt-totals {
   margin-bottom: rem(15);
 }
+.total_overview .total_table {
+  width: 100%;
+  border-collapse: collapse;
+  display: table;
+  margin-bottom: 0.5em;
+}
+.total_overview .total_table > .row {
+  display: table-row;
+  border-bottom: 1px solid $lighter-gray;
+  > .label { width: 70%; }
+  > .value { width: 30%; text-align:right; }
+  &:last-child { border-bottom: 0px;}
+}
+.total_overview .total_table > .row > .value, .total_overview .total_table > .row > .label {
+  display: table-cell;
+  font-size: 0.9em;
+  padding: 0.1em;
 
-.total_big {
-  text-align: center;
-  font-size: 1.5em;
 }
 
-
+.checkout_button {
+  font-size: 1.2em;
+}
 
 /* --------------------- Post Checkout Cart --------------------- */

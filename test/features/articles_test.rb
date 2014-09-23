@@ -85,7 +85,7 @@ feature 'Article creation' do
 
     # Template
     check 'article_save_as_template'
-    fill_in 'article_template_name', with: 'template'
+    fill_in 'article_article_template_name', with: 'template'
     assert_difference 'Article.unscoped.count', 2 do
       click_button I18n.t("article.labels.continue_to_preview")
     end
@@ -119,7 +119,7 @@ feature 'Article creation' do
   scenario "get article from template" do
     template = FactoryGirl.create :article_template, seller: @user
     visit new_article_path template: { article_id: template.id }
-    page.must_have_content I18n.t('template.notices.applied', name: template.template_name)
+    page.must_have_content I18n.t('template.notices.applied', name: template.article_template_name)
   end
 
   scenario 'new private user wants to use bank_transfer for article that costs more than 100Euro' do

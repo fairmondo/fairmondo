@@ -67,7 +67,7 @@ class ArticleRefinery < ApplicationRefinery
       :original_id,
       # Template attrs
       :save_as_template,
-      :template_name
+      :article_template_name
 
     ]
   end
