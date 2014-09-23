@@ -121,7 +121,7 @@ class User < ActiveRecord::Base
 
   with_options if: :wants_to_sell? do |seller|
     seller.validates :direct_debit, acceptance: {accept: true}, on: :update
-    seller.validates :bank_account_owner, :iban,:bic,  presence: true
+    seller.validates :bank_account_owner, :iban, :bic,  presence: true
     seller.validates :standard_address, presence: true
   end
 
