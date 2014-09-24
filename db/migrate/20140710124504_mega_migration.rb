@@ -124,7 +124,7 @@ class MegaMigration < ActiveRecord::Migration
     add_column :business_transactions, :unified_transport_price_cents, :integer, limit: 8, default: 0
     add_column :business_transactions, :unified_transport_free_at_price_cents, :integer, limit: 8, default: 0
 
-    add_index :business_transactions, :line_item_group_id, name: 'index_business_transactions_on_line_item_group_id'
+
 
 
     # Change Articles
@@ -142,37 +142,60 @@ class MegaMigration < ActiveRecord::Migration
     # Make Transaction Model Ready For Battle
     rename_column :business_transactions, :type, :type_fix
 
-    mfps = BusinessTransaction.where(type_fix: 'MultipleFixedPriceTransaction')
-    mfps.find_each do |mfp|
-      mfp.article.update_column(:quantity_available, mfp.quantity_available)
-      mfp.destroy
+    Rails.logger.info 'mfps start'
+    GC.enable
+    count = 0
+    BusinessTransaction.where(type_fix: 'MultipleFixedPriceTransaction').select('business_transactions.id','business_transactions.quantity_available','business_transactions.article_id').find_each  batch_size: 100 do |mfp|
+      Article.where(id: mfp.article_id).update_all(:quantity_available =>  mfp.quantity_available)
+      count = count+1
+      if ((count % 100) == 0)
+        Rails.logger.info "start gc - #{count}"
+        GC.start
+        sleep 1 if ((count % 10000) == 0)
+      end
+    end
+    BusinessTransaction.where(type_fix: 'MultipleFixedPriceTransaction').delete_all
+    count = 0
+    Rails.logger.info 'mfps done'
+    Rails.logger.info GC.stat
+    BusinessTransaction.where(type_fix: 'PreviewTransaction').delete_all
+
+    BusinessTransaction.where(state: 'available').delete_all
+
+    Rails.logger.info 'dropped available transactions'
+
+    BusinessTransaction.where(type_fix: 'SingleFixedPriceTransaction').select('business_transactions.id','business_transactions.article_id').find_each batch_size: 100  do |sfp|
+      Article.where(id: sfp.article_id).update_all(:quantity_available =>  0)
+
+       count = count+1
+      if ((count % 100) == 0)
+        Rails.logger.info "start gc - #{count}"
+        GC.start
+        sleep 1 if ((count % 10000) == 0)
+      end
     end
 
-
-    BusinessTransaction.where(type_fix: 'PreviewTransaction').destroy_all
-
-    BusinessTransaction.where(state: 'available').find_each do |t|
-      t.destroy
-    end
-
-    sfpt = BusinessTransaction.where(type_fix: 'SingleFixedPriceTransaction')
-    sfpt.find_each do |sfp|
-      sfp.article.update_column(:quantity_available, 0 )
-    end
-
-
-    BusinessTransaction.all.find_each do |t|
+     Rails.logger.info 'sfps done'
+    count = 0
+    BusinessTransaction.all.find_each batch_size: 100  do |t|
       lig = LineItemGroup.create(message: t.message, tos_accepted: true, seller_id: t.seller_id, buyer_id: t.buyer_id,created_at: t.created_at, updated_at: t.updated_at, purchase_id: t.id, sold_at: t.sold_at)
       t.update_column :line_item_group_id, lig.id
       # Move Ratings from BusinessTransaction to LineItemGroup
       if t.rating
         t.rating.update_column(:line_item_group_id, t.line_item_group_id)
       end
+      count = count+1
+      if ((count % 100) == 0)
+        Rails.logger.info "start gc - #{count}"
+        GC.start
+        sleep 1 if ((count % 10000) == 0)
+      end
     end
 
+    Rails.logger.info 'ligs done'
 
     # MoveAddressesFromUserModelToAddressModel
-    PseudoUser.find_each do |user|
+    PseudoUser.find_each batch_size: 100  do |user|
       user = user.becomes(PseudoUser)
       std_add = Address.create(
         title: user.title,
@@ -189,11 +212,11 @@ class MegaMigration < ActiveRecord::Migration
       std_add.reload
       user.update_column :standard_address_id, std_add.id
 
-      user.bought_business_transactions.find_each do |bt|
+      user.bought_business_transactions.find_each batch_size: 100  do |bt|
         new_address = true
         address = nil
 
-        user.addresses.find_each do |add|
+        user.addresses.find_each batch_size: 100  do |add|
           if (add.first_name == bt.forename) &&
               (add.last_name == bt.surname) &&
                 (add.address_line_1 == bt.street) &&
@@ -224,8 +247,18 @@ class MegaMigration < ActiveRecord::Migration
         bt.line_item_group.update_column(:transport_address_id, address.id)
         bt.line_item_group.update_column(:payment_address_id, address.id)
       end
+      count = count+1
+      if ((count % 100) == 0)
+        Rails.logger.info 'start gc'
+        GC.start
+        sleep 1 if ((count % 10000) == 0)
+      end
     end
+    add_index :business_transactions, :line_item_group_id, name: 'index_business_transactions_on_line_item_group_id'
+    Rails.logger.info 'users done'
   end
+
+
 
   def down
     raise ActiveRecord::IrreversibleMigration

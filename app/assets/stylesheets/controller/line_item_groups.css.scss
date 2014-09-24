@@ -1,6 +1,6 @@
 @import "mixins/all";
 
-.bank_account_table, .transport_table, .business_transaction_table {
+.bank_account_table, .transport_table, .business_transaction_table, .donation_table {
   margin-bottom: 1em;
   > .line {  margin-bottom: 0.5em; }
   > .line:last-child { margin-bottom:0; }

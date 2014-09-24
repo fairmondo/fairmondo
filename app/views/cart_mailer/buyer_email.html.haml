@@ -24,8 +24,9 @@
 
     - lig.business_transactions.find_each do |bt|
       = render 'article', bt: bt
-
-    = render 'total_price', lig: lig
+    - abacus = Abacus.new(lig)
+    = render 'donations', abacus: abacus, role: 'buyer'
+    = render 'total_price', abacus: abacus
 
     %center
       = link_to t('email.cart.buyer.view_and_pay'), line_item_group_url(lig.id), class: 'Button'

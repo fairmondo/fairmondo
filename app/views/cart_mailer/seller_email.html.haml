@@ -9,6 +9,9 @@
   %h3
     = link_to @line_item_group.buyer_nickname, profile_user_url(@line_item_group.buyer.id)
     = t('email.line_item_group.seller.bought_from_you')
+  = "Käufer*in kontaktieren: "
+  = mail_to @line_item_group.buyer.email
+  %br
   = 'Auftragsnr.: ' + @line_item_group.purchase_id
   - unless @line_item_group.message.empty?
     .message
@@ -17,7 +20,9 @@
       = @line_item_group.message
   - @line_item_group.business_transactions.each do |bt|
     = render 'article', bt: bt
-  = render 'total_price', lig: @line_item_group
+  - abacus = Abacus.new(@line_item_group)
+  = render 'donations', abacus: abacus, role: 'seller'
+  = render 'total_price', abacus: abacus
   %center
     = link_to t('email.line_item_group.seller.view_and_pay'), line_item_group_url(@line_item_group.id), class: 'Button'
 
