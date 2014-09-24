@@ -27,8 +27,8 @@ class DonationAbacus
       articles.each do |article|
         if article.friendly_percent_organisation_id
           organisation = User.find article.friendly_percent_organisation_id
-          @donations[organisation.nickname] = [] unless @donations[organisation.nickname]
-          @donations[organisation.nickname] << article.calculated_friendly_cents
+          @donations[organisation] = [] unless @donations[organisation.nickname]
+          @donations[organisation] << article.calculated_friendly_cents
         end
       end
     end
