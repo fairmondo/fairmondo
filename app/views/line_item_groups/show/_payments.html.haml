@@ -11,4 +11,9 @@
           = render '/line_item_groups/abacus/total_row', total: hash[:total], payment: payment
       = render '/line_item_groups/show/payment', total: hash[:total], payment: payment, line_item_group: line_item_group
 
-
+- if current_user == line_item_group.buyer
+  = gray_box 'Für diesen Einkauf spendet der/die Verkäufer*in' do
+    = render '/line_item_groups/show/donations', abacus: abacus, role: 'buyer'
+- else
+  = gray_box 'Für diesen Verkauf fallen folgende Spenden an' do
+    = render '/line_item_groups/show/donations', abacus: abacus, role: 'seller'

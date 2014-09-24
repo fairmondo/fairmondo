@@ -11,7 +11,9 @@
         %tr
           %td
             %small
-              = "an #{k}:"
+              = 'an '
+              = link_to k.nickname, profile_user_url(k)
+              = ':'
           %td
             %small
               = humanized_money_with_symbol v

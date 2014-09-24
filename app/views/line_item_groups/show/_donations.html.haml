@@ -1,0 +1,34 @@
+.donations
+  %table
+    - abacus.donation_listing.donation_per_organisation.each_pair do |organisation, amount|
+      %tr
+        %td
+          = link_to organisation.nickname, profile_user_path(organisation)
+        %td
+          = humanized_money_with_symbol amount
+      - if role == 'seller'
+        %tr{colspan: 2}
+          %td
+            %table
+              %th{ colspan: 1 }
+                Bitte überweise Deine Spende auf folgendes Konto:
+              %tr
+                %td
+                  Kontoinhaber:
+                %td
+                  = organisation.bank_account_owner
+              %tr
+                %td
+                  IBAN:
+                %td
+                  = organisation.iban
+              %tr
+                %td
+                  BIC:
+                %td
+                  = organisation.bic
+    %tr
+      %td
+        Gesamt:
+      %td
+        = humanized_money_with_symbol abacus.donation_listing.donation_total
