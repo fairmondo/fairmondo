@@ -38,5 +38,9 @@ accordion = ->
   $(".Accordion-header span").removeClass("ui-accordion-header-icon ui-icon ui-icon-triangle-1-s")
 
 
+$(document).on(
+  'page:done'
+  (event, $target, status, url, data) ->
+    accordion()
+)
 $(document).ready accordion
-$(document).ajaxStop accordion

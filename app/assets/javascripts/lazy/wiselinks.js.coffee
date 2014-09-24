@@ -11,7 +11,7 @@ $(document).ready ->
           if $('#page_error').length == 0
             $('.l-wrapper').prepend("<div class='Notice Notice--error' id='page_error'> <div class='Notice-inner'>" + text + "</div><a class='Notice-close'><i class='fa fa-times-circle fa-lg'></i></a/></div>")
     )
-    $(document).off('page:done').on(
+    $(document).on(
       'page:done'
       (event, $target, status, url, data) ->
         _paq.push ['trackPageView']
