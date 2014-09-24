@@ -100,6 +100,9 @@ module Fairnopoly
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
 
+    # Enable fonts directory
+    config.assets.paths << Rails.root.join("app", "assets", "fonts")
+
     # controller based assets
     config.assets.precompile += Dir["app/assets/stylesheets/controller/*.scss"].map{|file| "controller/#{File.basename file,'.scss'}" }
     # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
