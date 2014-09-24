@@ -16,11 +16,11 @@
               = ':'
           %td
             %small
-              = humanized_money_with_symbol v
+              = humanized_money_with_symbol Money.new(v)
       %tr
         %td
           %small
             Gesamt:
         %td
           %small
-            = humanized_money_with_symbol abacus.donation_listing.donation_total
+            = humanized_money_with_symbol Money.new(abacus.donation_listing.donation_total)
