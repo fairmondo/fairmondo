@@ -1,34 +1,39 @@
 .donations
-  %table
+  .donation_table
     - abacus.donation_listing.donation_per_organisation.each_pair do |organisation, amount|
-      %tr
-        %td
-          = link_to organisation.nickname, profile_user_path(organisation)
-        %td
-          = humanized_money_with_symbol amount
       - if role == 'seller'
-        %tr{colspan: 2}
-          %td
-            %table
-              %th{ colspan: 1 }
-                Bitte überweise Deine Spende auf folgendes Konto:
-              %tr
-                %td
-                  Kontoinhaber:
-                %td
-                  = organisation.bank_account_owner
-              %tr
-                %td
-                  IBAN:
-                %td
-                  = organisation.iban
-              %tr
-                %td
-                  BIC:
-                %td
-                  = organisation.bic
-    %tr
-      %td
-        Gesamt:
-      %td
-        = humanized_money_with_symbol abacus.donation_listing.donation_total
+        .line
+          .heading
+            %h3
+              = 'an '
+              = link_to organisation.nickname, profile_user_path(organisation)
+          .value
+            %h3
+              = humanized_money_with_symbol Money.new(amount)
+
+        .line
+          .heading
+            = "Bitte überweise den Betrag von #{ humanized_money_with_symbol(Money.new(amount)) }:"
+        = bank_account_line(organisation, :bank_account_owner)
+        = bank_account_line(organisation, :iban)
+        = bank_account_line(organisation, :bic)
+        = bank_account_line(organisation, :bank_name)
+
+      - elsif role == 'buyer'
+        .line
+          .heading
+            %h4
+              = 'an '
+              = link_to organisation.nickname, profile_user_path(organisation)
+          .value
+            %h4
+              = humanized_money_with_symbol(Money.new(amount))
+
+    .line
+      .heading
+        %h4
+          Gesamtspende:
+      .value
+        %h4
+          = humanized_money_with_symbol Money.new(abacus.donation_listing.donation_total)
+
