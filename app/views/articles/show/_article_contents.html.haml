@@ -36,7 +36,12 @@
   .left
     %figure.image
       - cache [resource, resource.title_image] do
-        - if resource.title_image_present?
+        - image_accessible = true
+        - begin
+          - Paperclip.io_adapters.for(resource.title_image.image).read
+        - rescue
+          - image_accessible = false
+        - if resource.title_image_present? && image_accessible
           / The next line is for providing the proper title image to facebook
           - provide( :title_image, resource.title_image_url(:medium) )
           = link_to image_tag(resource.title_image_url(:medium), :class=> "title_image",style: "max-width: #{resource.title_image.geometry(:original).width}px"), resource.title_image_url(:original) , {class: "colorbox", rel: "gallery"}
