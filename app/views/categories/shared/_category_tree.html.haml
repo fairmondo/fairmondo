@@ -8,35 +8,34 @@
     %span.Search-arrow.sprite_down_arrow.JS-active-toggle--target
     %span.Search-arrow.sprite_up_arrow.JS-active-toggle--target
   %ul.Search-tree.JS-active-toggle--target
-    - ancestor = (category && category.children.empty? && category.parent) ? category.parent : category
-    - if category
+    - if category  # If category is selected
+      -# Show link to all categories on top
       %li
         %span{ title: 'Alle Kategorien' }
           %i.fa.fa-caret-left
           = link_to 'Alle Kategorien', articles_path(article_search_form: search_cache.change(category_id: nil)), data: { push: true }
-    - if ancestor
-      - ancestor.ancestors.each do |c|
-        %li
-          %h3.Search-ancestor
-            %a.Search-colored-link{href: category_path(c, article_search_form: search_cache.change( category_id: c.id )), data: { push: 'true' }}
-              = c.name
-    - if category
+
+      -# Show ancestors of the category as h3s
+      - ancestor = (category.children.empty? && category.parent) ? category.parent : category
+      - if ancestor
+        - ancestor.ancestors.each do |c|
+          %li
+            %h3.Search-ancestor
+              = link_to c.name, category_path(c, article_search_form: search_cache.change(category_id: c.id)),
+                                class: 'Search-colored-link', data: { push: 'true' }
+
       - if category.children.empty? && category.parent
-        %li
-          = render 'categories/shared/category_tree_leaf', category: category.parent
-          %ul.Search-tree
-            - category.self_and_sorted_siblings.each do |sibling|
-              %li= render 'categories/shared/category_tree_leaf', category: sibling
-        - category.parent.sorted_siblings.each do |sibling|
-          %li= render 'categories/shared/category_tree_leaf', category: sibling
+        -# If category has no children, show it among its siblings with its parent category and the parent's siblings
+        = render partial: 'categories/shared/category_tree_leaf', object: category.parent, as: :category,
+                 locals: { subtree: category.self_and_sorted_siblings }
+        = render partial: 'categories/shared/category_tree_leaf', collection: category.parent.sorted_siblings, as: :category
+
       - else
-        %li
-          = render 'categories/shared/category_tree_leaf', category: category
-          %ul.Search-tree
-            - category.sorted_children.each do |child|
-              %li= render 'categories/shared/category_tree_leaf', category: child
-        - category.sorted_siblings.each do |sibling|
-          %li= render 'categories/shared/category_tree_leaf', category: sibling
-    - else
-      - Category.other_category_last.sorted.roots.each do |child|
-        %li= render 'categories/shared/category_tree_leaf', category: child
+        -# Else, show the category with its children (if any) and its siblings
+        = render partial: 'categories/shared/category_tree_leaf', object: category, as: :category,
+                 locals: { subtree: category.sorted_children }
+        = render partial: 'categories/shared/category_tree_leaf', collection: category.sorted_siblings, as: :category
+
+    - else  # If no category is selected
+      -# Show top categories
+      = render partial: 'categories/shared/category_tree_leaf', collection: Category.other_category_last.sorted.roots, as: :category
