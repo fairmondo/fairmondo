@@ -20,30 +20,29 @@
 -# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
 
-.registrations-form
-  %h1
-    = t('common.actions.sign_up')
-    %span.sprite_helper{ title: 'Sobald Du registriert bist, kannst Du alle Funktionen von Fairnopoly nutzen.' }
-  = tinycms_content "register_info"
-  = semantic_form_for(resource, as: resource_name, url: registration_path(resource_name) , builder: ::Fairtastic::FormBuilder) do |f|
-    = f.semantic_errors
+%h1= t('common.actions.sign_up')
+= semantic_form_for(resource, as: resource_name, url: registration_path(resource_name), builder: ::Fairtastic::FormBuilder,
+                    html: { id: 'registration_form' }) do |f|
+  = f.semantic_errors
 
-    = f.inputs do
-      = f.input :type, label: false, as: :radio, required: true, tooltip: true, collection: [[t('users.legal_status.new.private_user'),"PrivateUser"], [t('users.legal_status.new.legal_entity'),"LegalEntity"]]
-    = f.inputs class: "registrations-grid" do
-      = f.input :nickname,  tooltip: true, required: true
-      = f.input :email,  tooltip: true, required: true
-      = f.input :password, tooltip: true
-      = f.input :password_confirmation, tooltip: true, required: true
-      = render partial: "/devise/registrations/password_complexity"
+  = f.inputs do
+    = f.input :nickname, label: 'Dein Nutzername', tooltip: false
+    = f.input :type, as: :boolean, required: false, tooltip: true, unchecked_value: "PrivateUser", checked_value: "LegalEntity"
+    = f.input :email, label: 'Deine E-Mail-Adresse', tooltip: false
+    = f.input :password, label: 'Dein Passwort', tooltip: true
+    -# render partial: "/devise/registrations/password_complexity"
+    -# onclick javascript because icheck causes click on link to fail
+    - legal_link = checkbox_link_helper t('users.legal_abbr'), '/agb'
+    - privacy_link = checkbox_link_helper t('users.privacy'), '/privacy'
+    = f.input :legal, as: :boolean, required: true, label: t("users.i_accept_both", legal: legal_link, privacy: privacy_link).html_safe
+    = f.input :newsletter, as: :boolean, label: 'Ich möchte den monatlichen Newsletter mit besonderen Produktvorstellungen erhalten (jederzeit abbestellbar).', required: false, tooltip: false
 
-    = f.inputs do
-      -# onclick javascript because icheck causes click on link to fail
-      - legal_link = checkbox_link_helper t('users.legal'), '/agb'
-      - privacy_link = checkbox_link_helper t('users.privacy'), '/privacy'
-      = f.input :agecheck, as: :boolean, required: true
-      = f.input :newsletter, as: :boolean, tooltip: true
-      = f.input :legal, as: :boolean, required: true, label: t("users.i_accept_both", legal: legal_link, privacy: privacy_link).html_safe
+  = f.actions do
+    = f.action :submit, button_html: { class: "Button Button--action", id: "sign_up" }, label: :sign_up
 
-    = f.actions do
-      = f.action :submit, button_html: {class: "Button", id: "sign_up"}, label: :sign_up
+#registration_marketing
+  %h2 Darum solltest Du Dich jetzt registrieren:
+  %ul.checklist
+    %li Die schönsten und fairsten Produkte im Netz entdecken
+    %li Fördere sozialen und ressourcenschonenden Konsum
+    %li Mit Käufen & Verkäufen einfach Hilfsprojekte unterstützen

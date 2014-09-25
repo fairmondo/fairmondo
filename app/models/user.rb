@@ -116,7 +116,6 @@ class User < ActiveRecord::Base
   validates_inclusion_of :type, in: ["PrivateUser", "LegalEntity"]
   validates :nickname , presence: true, uniqueness: true
   validates :legal, acceptance: true, on: :create
-  validates :agecheck, acceptance: true , on: :create
   validates_associated :standard_address
 
   with_options if: :wants_to_sell? do |seller|
