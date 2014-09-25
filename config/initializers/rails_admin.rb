@@ -66,9 +66,6 @@ RailsAdmin.config do |config|
     field :seller do
       read_only true
     end
-    field :business_transaction do
-      read_only true
-    end
     field :title
     field :content
     field :created_at
@@ -506,10 +503,16 @@ RailsAdmin.config do |config|
   #     # using `field` instead of `configure` will exclude all other fields and force the ordering
   # end
 
+  config.model LineItemGroup do
+  end
+
 
   ###  User  ###
 
   config.model 'User' do
+    configure :seller_line_item_groups, :has_many_association
+    configure :buyer_line_item_groups, :has_many_association
+
     field :id do
      read_only true
     end
@@ -595,13 +598,19 @@ RailsAdmin.config do |config|
     field :articles do
       read_only true
     end
-    field :bought_articles do
+    #field :bought_articles do
+      #read_only true
+    #end
+    #field :bought_business_transactions do
+    #  read_only true
+    #end
+    #field :sold_business_transactions do
+    #  read_only true
+    #end
+    field :buyer_line_item_groups do
       read_only true
     end
-    field :bought_business_transactions do
-      read_only true
-    end
-    field :sold_business_transactions do
+    field :seller_line_item_groups do
       read_only true
     end
 
