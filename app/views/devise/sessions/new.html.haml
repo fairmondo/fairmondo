@@ -21,5 +21,13 @@
 -#
 
 %h1= t('common.actions.login')
-= render "/devise/sessions/shared"
 
+#sessions_form
+  = render "/devise/sessions/shared"
+  = render "/devise/links"
+
+- if devise_mapping.registerable? && controller_name != 'registrations'
+  #sessions_marketing
+    %h2 Noch kein Konto?
+    %p Dein Zugang zu den schönsten & fairsten Produkten im Netz in weniger als einer Minute.
+    = link_to 'Neu registrieren', new_registration_path(:user), class: 'Button Button--action'

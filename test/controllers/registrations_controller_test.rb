@@ -70,9 +70,7 @@ describe RegistrationsController do
           nickname: "johndoe",
           email:    "jdoe@example.com",
           password: "password",
-          password_confirmation: "password",
           legal:    "1",
-          agecheck: "1",
           type:     "PrivateUser"
         }
       }

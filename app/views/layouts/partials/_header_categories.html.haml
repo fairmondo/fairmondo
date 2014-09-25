@@ -1,12 +1,12 @@
-- cache 'category_navigation' do
-  %ul
-    - Category.other_category_last.weighted.includes(:children).sorted.roots.each do |category|
-      %li.JS-touch-hover
-        %a{href: category_path(category), data: navigation_push }
-          = category.name
-        - if category.children.present?
-          %ul.l-header-categories-children
-            - category.children_with_active_articles.each_slice(category.view_columns) do |children|
-              %li
-                - children.each do |child|
-                  %a{ :href => category_path(child), data: navigation_push }= child.name
+.l-header-categories
+  - cache 'category_navigation' do
+    %ul
+      - Category.other_category_last.weighted.includes(:children).sorted.roots.each do |category|
+        %li.JS-touch-hover
+          = link_to category.name, category_path(category), data: navigation_push
+          - if category.children.present?
+            %ul.l-header-categories-children
+              - category.children_with_active_articles.each_slice(category.view_columns) do |children|
+                %li
+                  - children.each do |child|
+                    = link_to child.name, category_path(child), data: navigation_push

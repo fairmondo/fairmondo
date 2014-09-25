@@ -27,7 +27,6 @@ FactoryGirl.define do
     password    'password'
     sequence(:nickname) {|n| "#{Faker::Internet.user_name}#{n}" }
     legal       "1"
-    agecheck    "1"
 
     about_me    { Faker::Lorem.paragraph( rand(7)+1 ) }
     terms    { Faker::Lorem.paragraph( rand(7)+1 ) }
