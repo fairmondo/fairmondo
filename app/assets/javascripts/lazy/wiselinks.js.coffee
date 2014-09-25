@@ -1,6 +1,6 @@
 
 $(document).ready ->
-    window.wiselinks = new Wiselinks('.l-main')
+    window.wiselinks = new Wiselinks('.l-main', html4: false)
     $(document).off('page:fail').on(
         'page:fail'
         (event, $target, status, url, error, code) ->
