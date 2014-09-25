@@ -225,15 +225,16 @@
 		font-size: 1.1rem;
   }
 
-	.teaser-quotesource {
-		text-align: right;
-	}
-
-	.teaser-quote {
-		font-weight: 600;
-		font-size: 1.5em;
-		line-height: 0.8rem;
+  .teaser-quotesource {
+	text-align: right;
+    text-transform: uppercase;
   }
+
+  .teaser-quote {
+	font-weight: 600;
+	font-size: 1.5em;
+	line-height: 0.8rem;
+   }
 
   img {
     float: left;
@@ -384,8 +385,31 @@
 }
 
 .teaser--known_from {
-  span {
-    display:inline-block;
-    margin: 1em;
+  h5 {
+    text-align: center;
+    text-transform: uppercase;
+    margin-top: 0;
+  }
+
+  ul {
+    text-align: justify;
+    margin: 0;
+    padding: 0;
+
+    li {
+      display: inline-block;
+      margin: 0 1em;
+
+      a {
+        display: inline-block;
+      }
+    }
+
+    &:after {
+      content: '';
+      width: 100%; /* Ensures there are at least 2 lines of text, so justification works */
+      height: 0;
+      display: inline-block;
+    }
   }
 }

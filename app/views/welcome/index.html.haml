@@ -47,7 +47,7 @@
         .bluebox-content
           .bluebox-text Fairnopoly ist ein neuer Online-Marktplatz mit einem konse&shy;quent fairen Unter&shy;nehmen dahinter.
           .bluebox-link
-            %a{href: "/about_us"} Mehr erfahren
+            = link_to 'Mehr erfahren', '/about_us'
     #bluebox2
       %h3.bluebox-header Für alle
       .bluebox-inner
@@ -56,7 +56,7 @@
         .bluebox-content
           .bluebox-text Privat&shy;personen und gewerb&shy;liche Händler*innen kön&shy;nen hier alles verkaufen.
           .bluebox-link
-            %a{href: "/articles/new"} Selbst verkaufen
+            = link_to 'Selbst verkaufen', '/articles/new'
     #bluebox3
       %h3.bluebox-header Dein Anteil
       .bluebox-inner
@@ -65,7 +65,7 @@
         .bluebox-content
           .bluebox-text Auch Du kannst in die Genos&shy;sen&shy;schaft ein&shy;steigen oder Dich aktiv ein&shy;bringen:
           .bluebox-link
-            %a{href: "http://www.projektzehntausend.de/projektzehntausend/", target: '_blank'} Projekt 10.000
+            = link_to 'Projekt 10.000', 'http://www.projektzehntausend.de/projektzehntausend/', target: '_blank'
 
 
 
@@ -102,6 +102,12 @@
     - @old[:exhibits].each do |article|
       .teaser-queue
         = render 'articles/shared/show_article', article: article
+
+
+-# known from / press information
+- cache "known_from" do
+  = render 'welcome/index/known_from'
+
 
 -# Trending libraries
 - if @trending_libraries.to_a.any?
@@ -141,11 +147,8 @@
 .teaser.teaser--double
   .teaser-inner.teaser--center
     %h2 Aktiv mitwirken
-    %p
-      Unterstütze Fairnopoly mit Deinem Einsatz und werde am Erfolg beteiligt.
-    %p
-      %a{ href: "http://helden.fairnopoly.de/helden/", class: "Button", target: "_blank" }
-        Held*in werden
+    %p Unterstütze Fairnopoly mit Deinem Einsatz und werde am Erfolg beteiligt.
+    %p= link_to 'Held*in werden', 'http://helden.fairnopoly.de/helden/', class: 'Button', target: '_blank'
 
 
 -# Blog
@@ -161,46 +164,31 @@
         %span.teaser-arrow.teaser-arrow--left.sprite_left_arrow
       %a{href: '#', class: 'slidesjs-next slidesjs-navigation'}
         %span.teaser-arrow.teaser-arrow--right.sprite_right_arrow
-      #slide1
-        = image_tag "slides/users/0.jpg"
-        %p.teaser-quotation
-          %span.teaser-quote> &bdquo;
-          Für Veränderungen in der Gesellschaft benötigt es mehr Mut – bei Fairnopoly erleben wir viele junge mutige Menschen. Wir freuen uns auf die Zusammenarbeit mit Fairnopoly, wünschen der Genossenschaft einen erfolgreichen Start, viele Mitglieder und viel Erfolg auf dem Weg zu mehr Transparenz in Onlinehandel und Gesellschaft!
-          %span.teaser-quote> &ldquo;
-          .teaser-quotesource JORGE INOSTROZA, GEPA
-      #slide2
-        = image_tag "slides/users/1.jpg"
-        %p.teaser-quotation
-          %span.teaser-quote> &bdquo;
-          Ich bin Genossenschafts-Mitglied bei Fairnopoly, weil es uns Spaß macht, Fairnopoly mitzuentwickeln. Für uns ist Fairnopoly eine super Plattform, um unsere ethisch produzierten Produkte zu vermarkten.
-          %span.teaser-quote> &ldquo;
-          .teaser-quotesource ISABELLE DECHAMPS, BE ABLE
-      #slide3
-        %p.teaser-quotation
-          = image_tag "slides/users/2.jpg"
-          %span.teaser-quote> &bdquo;
-          Bei Fairnopoly finde ich genial, dass die Struktur eine Genossenschaft ist. Das heißt, ich bin Genosse dort, ich kann mitentscheiden, was da passiert - und was mit der Firma passiert.
-          %span.teaser-quote> &ldquo;
-          .teaser-quotesource VAN BO LE-MENTZEL, ARCHITEKT
-      #slide4
-        %p.teaser-quotation
-          = image_tag "slides/users/3.jpg"
-          %span.teaser-quote> &bdquo;
-          Ich bin Genossin bei Fairnopoly, weil ich glaube, dass wir alle bewusster konsumieren sollten. Fairnopoly gibt uns online die Chance dazu - und deswegen bin ich gerne ein Teil davon.
-          %span.teaser-quote> &ldquo;
-          .teaser-quotesource MARIA GROSS, SOCIAL IMPACT LAB
-      #slide5
-        %p.teaser-quotation
-          = image_tag "slides/users/4.jpg"
-          %span.teaser-quote> &bdquo;
-          Ich bin in die Genossenschaft Fairnopoly eingestiegen, weil ich die Idee sehr überzeugend finde. Ich hab' das Team auch kennengelernt und ich sehe, dass die wirklich mit Enthusiasmus und viel Elan dabei sind. Wir handeln auf Fairnopoly, weil wir darin eine Chance sehen, faire und Bio-Produkte weiter zu verbreiten.
-          %span.teaser-quote> &ldquo;
-          .teaser-quotesource THOMAS KAPPAUF, BLACK STAR
+
+      = render 'welcome/index/user_slide', number: 1,
+                             quote: 'Für Veränderungen in der Gesellschaft benötigt es mehr Mut – bei Fairnopoly erleben wir viele junge mutige Menschen. Wir freuen uns auf die Zusammenarbeit mit Fairnopoly, wünschen der Genossenschaft einen erfolgreichen Start, viele Mitglieder und viel Erfolg auf dem Weg zu mehr Transparenz in Onlinehandel und Gesellschaft!',
+                             source: 'Jorge Inostroza, Gepa'
+
+      = render 'welcome/index/user_slide', number: 2,
+                                   quote: 'Ich bin Genossenschafts-Mitglied bei Fairnopoly, weil es uns Spaß macht, Fairnopoly mitzuentwickeln. Für uns ist Fairnopoly eine super Plattform, um unsere ethisch produzierten Produkte zu vermarkten.',
+                                   source: 'Isabelle Dechamps, Be Able'
+
+      = render 'welcome/index/user_slide', number: 3,
+                                   quote: 'Bei Fairnopoly finde ich genial, dass die Struktur eine Genossenschaft ist. Das heißt, ich bin Genosse dort, ich kann mitentscheiden, was da passiert – und was mit der Firma passiert.',
+                                   source: 'Van Bo Le-Mentzel, Architekt'
+
+      = render 'welcome/index/user_slide', number: 4,
+                                   quote: 'Ich bin Genossin bei Fairnopoly, weil ich glaube, dass wir alle bewusster konsumieren sollten. Fairnopoly gibt uns online die Chance dazu – und deswegen bin ich gerne ein Teil davon.',
+                                   source: 'Maria Gross, Social Impact Lab'
+
+      = render 'welcome/index/user_slide', number: 5,
+                                   quote: 'Ich bin in die Genossenschaft Fairnopoly eingestiegen, weil ich die Idee sehr überzeugend finde. Ich hab\' das Team auch kennengelernt und ich sehe, dass die wirklich mit Enthusiasmus und viel Elan dabei sind. Wir handeln auf Fairnopoly, weil wir darin eine Chance sehen, faire und Bio-Produkte weiter zu verbreiten.',
+                                   source: 'Thomas Kappauf, Black Star'
+
 
 -# Social media buttons
 .socialshareprivacy{data: {uri: "http://www.fairnopoly.de/", title: "Dreh' das spiel um!"}}
 
--# NGO and press information ("known from")
-- cache "ngo_logosand_known_from" do
+-# ngos
+- cache "ngo_logos" do
   = render 'welcome/index/ngos'
-  = render 'welcome/index/known_from'
