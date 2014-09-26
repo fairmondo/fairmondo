@@ -104,15 +104,9 @@
     @include omega;
   }
 
-  #teaser--first {
+  #billboard {
     @include span(6 of 8);
 
-    .teaser-queue {
-      @include span(2 of 6);
-      &:last-child {
-        @include omega;
-      }
-    }
   }
 
   #teaser_registration {
@@ -181,6 +175,93 @@
     text-overflow: ellipsis;
   }
 }
+
+
+
+// Billboard
+#billboard {
+  #billboard-inner {
+    @include whitebox;
+    background: #ec5400;
+    padding: 0;
+    height: 410px;
+
+    color: $white;
+
+    h1 {
+      font-size: 3em;
+      font-weight: bold;
+    }
+
+  }
+}
+
+
+
+
+// Teaser Registration
+#teaser_registration {
+  margin-bottom: 1em;
+
+  #teaser_registration-inner {
+    @include whitebox;
+    background: #65aef3 image-url('welcome/logo.png') no-repeat 50% 10%;
+    padding: 0;
+    height: 410px;
+    position: relative;
+
+    color: $white;
+
+    p:first-child {
+      margin: 100px auto 20px;
+      width: 220px;
+      font-size: 1.1em;
+      font-weight: bold;
+    }
+
+    ul {
+      width: 80%;
+      min-width: 200px;
+      max-width: 300px;
+      margin: 1em auto;
+      list-style: none;
+      padding: 0;
+      overflow: hidden;
+
+      li {
+        font-size: 0.9em;
+        font-weight: 300;
+        float: left;
+        padding-left: 0;
+        margin-bottom: 1em;
+
+        &:before {
+          content: '\f111'; /*fontawesome char code inside the '' */
+          font-family: FontAwesome;
+          font-size: 3em;
+          padding-right: 0.25em;
+          display: block;
+          clear: left;
+          float: left;
+
+          //margin-left: -3em; /*same as padding-left set on li*/
+          //width: 3em; /*same as padding-left set on li*/
+        }
+      }
+    }
+
+    p:last-child {
+      position: absolute;
+      margin-bottom: 0;
+      width: 100%;
+      bottom: 15px;
+    }
+  }
+}
+
+
+
+
 
 // Arrows for slides
 
@@ -291,66 +372,6 @@
 }
 
 
-
-// Teaser Registration
-#teaser_registration {
-  margin-bottom: 1em;
-
-  #teaser_registration-inner {
-    @include whitebox;
-    background: #65aef3 image-url('welcome/logo.png') no-repeat 50% 10%;
-    padding: 0;
-    height: 410px;
-    position: relative;
-
-    color: $white;
-
-    p:first-child {
-      margin: 100px auto 20px;
-      width: 220px;
-      font-size: 1.1em;
-      font-weight: bold;
-    }
-
-    ul {
-      width: 80%;
-      min-width: 200px;
-      max-width: 300px;
-      margin: 1em auto;
-      list-style: none;
-      padding: 0;
-      overflow: hidden;
-
-      li {
-        font-size: 0.9em;
-        font-weight: 300;
-        float: left;
-        padding-left: 0;
-        margin-bottom: 1em;
-
-        &:before {
-          content: '\f111'; /*fontawesome char code inside the '' */
-          font-family: FontAwesome;
-          font-size: 3em;
-          padding-right: 0.25em;
-          display: block;
-          clear: left;
-          float: left;
-
-          //margin-left: -3em; /*same as padding-left set on li*/
-          //width: 3em; /*same as padding-left set on li*/
-        }
-      }
-    }
-
-    p:last-child {
-      position: absolute;
-      margin-bottom: 0;
-      width: 100%;
-      bottom: 15px;
-    }
-  }
-}
 
 
 
