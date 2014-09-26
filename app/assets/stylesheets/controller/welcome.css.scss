@@ -384,32 +384,41 @@
   }
 }
 
-.teaser--known_from {
-  h5 {
-    text-align: center;
-    text-transform: uppercase;
-    margin-top: 0;
+
+h5 {
+  text-align: center;
+  text-transform: uppercase;
+  margin-top: 0;
+}
+
+
+ul.image_list {
+  text-align: justify;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  li {
+    display: inline-block;
+    position: relative;
+    top: 1.2em; /* our line-height */
+
+    a {
+      display: inline-block;
+    }
   }
 
-  ul {
-    text-align: justify;
-    margin: 0;
-    padding: 0;
+  &:before{
+    content: '';
+    display: block;
+    width: 100%;
+    margin-bottom: -1.2em; /* our line-height */
+  }
 
-    li {
-      display: inline-block;
-      margin: 0 1em;
-
-      a {
-        display: inline-block;
-      }
-    }
-
-    &:after {
-      content: '';
-      width: 100%; /* Ensures there are at least 2 lines of text, so justification works */
-      height: 0;
-      display: inline-block;
-    }
+  &:after {
+    content: '';
+    display: inline-block;
+    width: 100%;
   }
 }
+
