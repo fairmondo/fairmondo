@@ -30,16 +30,33 @@
 - cache 'billboard' do
   #billboard
     #billboard-inner
+ 
       %h1 600.000 Bücher
-      %p Unser Top-Händler ecobookstore
-      %ul
-        %li Riesige Auswahl an Büchern
-        %li Anteil des Umsatzes für den Regenwald
-        %li
-          CO
-          %sub> 2
-          \-neutraler Versand
 
+      #billboard-text
+        %p Einer unserer Händler ecobookstore
+        %ul
+          %li Riesige Auswahl an Büchern
+          %li Anteil des Umsatzes für den Regenwald
+          %li
+            CO
+            %sub> 2
+            \-neutraler Versand
+
+      #billboard-image_map
+        %ul
+          %li.panem
+            = link_to 'Die Tribute von Panem', '', title: 'Die Tribute von Panem', class: 'book'
+            = link_to 'mehr Fantasy', '', class: 'section'
+          %li.upcycling
+            = link_to 'Upcycling', '', title: 'Upcycling', class: 'book'
+            = link_to 'mehr Upcycling', '', class: 'section'
+          %li.circle
+            = link_to 'Der Circle', '', title: 'Der Circle', class: 'book'
+            = link_to 'mehr Bestseller', '', class: 'section'
+          %li.arbeit
+            = link_to 'Arbeit ist nicht unser Leben', '', title: 'Arbeit ist nicht unser Leben', class: 'book'
+            = link_to 'mehr Gesellschaft', '', class: 'section'
 
 
 -# Teaser with registration link
