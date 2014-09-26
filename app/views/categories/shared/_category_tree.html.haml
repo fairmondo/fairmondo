@@ -41,5 +41,4 @@
 
     - else  # If no category is selected
       -# Show top categories
-      -# binding.pry
       = render partial: 'categories/shared/category_tree_leaf', collection: Category.other_category_last.sorted.roots, as: :category
