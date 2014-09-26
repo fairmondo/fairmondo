@@ -26,14 +26,20 @@
     = render 'categories/shared/category_tree'
 
 
--# Article queue 1
-.teaser.teaser--double#teaser--first
-  .teaser-inner
-    %h2
-      = link_to(tinycms_content_body_sanitized("heading_features"), featured_library_path(@queue1[:library]))
-    - @queue1[:exhibits].each_with_index do |article, index|
-      %div{class: 'teaser-queue' + (index == 1 ? ' teaser-queue-before-hidden' : '')}
-        = render 'articles/shared/show_article', article: article
+-# Billboard
+- cache 'billboard' do
+  #billboard
+    #billboard-inner
+      %h1 600.000 Bücher
+      %p Unser Top-Händler ecobookstore
+      %ul
+        %li Riesige Auswahl an Büchern
+        %li Anteil des Umsatzes für den Regenwald
+        %li
+          CO
+          %sub> 2
+          \-neutraler Versand
+
 
 
 -# Teaser with registration link
