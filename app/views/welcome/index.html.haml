@@ -106,7 +106,18 @@
 
 -# known from / press information
 - cache "known_from" do
-  = render 'welcome/index/known_from'
+  - names = { hochschulanzeiger: 'Hochschulanzeiger',
+              taz: 'Taz',
+              sueddeutsche: 'Süddeutsche Zeitung',
+              arte: 'Arte',
+              deutschlandfunk: 'Deutschlandfunk' }
+  .teaser.teaser--full.teaser--known_from
+    .teaser-inner
+      %h5 Bekannt aus
+      %ul
+        - names.each do |key, value|
+          %li= link_to '', 'http://info.fairnopoly.de/fairnopoly-in-der-presse/',
+          class: "sprite_#{key}", title: value, target: '_blank'
 
 
 -# Trending libraries
@@ -143,19 +154,6 @@
         = render 'articles/shared/show_article', article: article
 
 
--# Hero teaser
-.teaser.teaser--double
-  .teaser-inner.teaser--center
-    %h2 Aktiv mitwirken
-    %p Unterstütze Fairnopoly mit Deinem Einsatz und werde am Erfolg beteiligt.
-    %p= link_to 'Held*in werden', 'http://helden.fairnopoly.de/helden/', class: 'Button', target: '_blank'
-
-
--# Blog
-.teaser.teaser--double.teaser--news
-  .teaser-inner.teaser--hide#js-teaser-news-placeholder
-
-
 -# User comment slides
 .teaser.teaser--full.teaser--userslides
   .teaser-inner
@@ -186,9 +184,27 @@
                                    source: 'Thomas Kappauf, Black Star'
 
 
+-# Hero teaser
+.teaser.teaser--double
+  .teaser-inner.teaser--center
+    %h2 Aktiv mitwirken
+    %p Unterstütze Fairnopoly mit Deinem Einsatz und werde am Erfolg beteiligt.
+    %p= link_to 'Held*in werden', 'http://helden.fairnopoly.de/helden/', class: 'Button', target: '_blank'
+
+
+-# Blog
+.teaser.teaser--double.teaser--news
+  .teaser-inner.teaser--hide#js-teaser-news-placeholder
+
+
 -# Social media buttons
 .socialshareprivacy{data: {uri: "http://www.fairnopoly.de/", title: "Dreh' das spiel um!"}}
 
--# ngos
+
+-# NGOs
 - cache "ngo_logos" do
-  = render 'welcome/index/ngos'
+  .teaser.teaser--full.teaser--ngos
+    .teaser-inner
+      %h5= "Spendenpartner*innen"
+      - User.ngo_with_profile_image.each do |ngo|
+        = link_to image_tag(ngo.image_url(:profile)), user_path(ngo), title: ngo.name
