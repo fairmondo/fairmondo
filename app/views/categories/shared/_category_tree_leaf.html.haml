@@ -1,6 +1,7 @@
 - count = search_cache.category_article_count category.id rescue nil
-- if count && count > 0
-  - displayed_name = "#{category.name} (#{count})"
+- displayed_name = category.name
+- displayed_name += " (#{count})" if count
+- if count != 0
   %li
     %span{ title: displayed_name }
       - if search_cache && search_cache.searched_category == category
