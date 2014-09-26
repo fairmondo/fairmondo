@@ -6,35 +6,25 @@
  */
 
 @include till-breakpoint($bp-tablet-horizontal) {
-  #teaser--first {
-    .teaser-queue {
-      &:last-child {
-        display: none;
-      }
+  #billboard {
+    #billboard-image_map {
+      background-image: image-url('welcome/billboard-small.png');  
     }
   }
 }
 
 // mobile-horizontal
 @include between-breakpoints($bp-mobile-horizontal, $bp-tablet) {
+  #billboard {
+    @include span(2 of 4);
+  }
+
   #teaser_registration {
-    ul {
-      width: 70%;
-      margin: 0 auto;
-    }
+    @include span(2 of 4);
+    @include omega;
   }
 }
 
-@include between-breakpoints($bp-mobile-horizontal, $bp-tablet-horizontal) {
-  #teaser--first {
-    .teaser-queue {
-      @include span(2 of 4);
-      &.teaser-queue-before-hidden {  // Name????
-        @include omega;
-      }
-    }
-  }
-}
 
 @include at-breakpoint($bp-mobile-horizontal) {
   .teaser--double {
@@ -63,6 +53,10 @@
       float: none;
       margin-bottom: 1em;
     }
+  }
+
+  #billboard {
+    @include span(4 of 6);
   }
 
   #teaser_registration {
@@ -106,6 +100,10 @@
 
   #billboard {
     @include span(6 of 8);
+
+    #billboard-image_map {
+      background-image: image-url('welcome/billboard-big.png');
+    }
 
   }
 
@@ -180,19 +178,127 @@
 
 // Billboard
 #billboard {
+  margin-bottom: 1em;
+
   #billboard-inner {
     @include whitebox;
-    background: #ec5400;
+    background-color: #ec5400;
     padding: 0;
     height: 410px;
+    position: relative;
+    overflow: hidden;
 
     color: $white;
-
+    
     h1 {
+      position: absolute;
+      z-index: 10;
+      top: 0;
+      left: 10px;
       font-size: 3em;
       font-weight: bold;
     }
 
+    #billboard-text {
+      position: absolute;
+      top: 100px;
+      left: 10px;
+      width: 200px;
+      z-index: 10;
+      color: $yellow;
+    }
+
+    #billboard-image_map {
+      background-repeat: no-repeat;
+      background-position: center top;
+      background-size: auto;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      margin: 0 auto;
+      width: 698px;  // minimum width of this thing
+      height: 410px;
+
+      ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+
+        a.book {
+          position: absolute;
+          display: block;
+          width: 115px;
+          height: 160px;
+          text-indent: -1000em;
+
+          &:hover, &:focus {
+            border: 1px dotted $white;
+          }
+        }
+
+        a.section {
+          position: absolute;
+          font-weight: 300;
+          font-size: 0.9em;
+          color: $white;
+          border-bottom: 1px solid $white;
+
+          &:before {
+            content: '+';
+            margin-right: 0.5em;
+          }
+
+          &:hover {
+            text-decoration: none;
+          }
+        }
+
+        .panem {
+          a.book {
+            top: 144px;
+            left: 202px;
+          }
+          a.section {
+            top: 325px;
+            left: 202px;
+          }
+        }
+
+        .upcycling {
+          a.book {
+            top: 144px;
+            left: 353px;
+          }
+          a.section {
+            top: 325px;
+            left: 353px;
+          }
+        }
+
+        .circle {
+          a.book {
+            top: 144px;
+            left: 505px;
+          }
+          a.section {
+            top: 325px;
+            left: 505px;
+          }
+        }
+
+        .arbeit {
+          a.book {
+            top: 144px;
+            left: 656px;
+          }
+          a.section {
+            top: 325px;
+            left: 656px;
+          }
+        }
+      }
+    }
   }
 }
 
@@ -206,6 +312,7 @@
   #teaser_registration-inner {
     @include whitebox;
     background: #65aef3 image-url('welcome/logo.png') no-repeat 50% 10%;
+    background-size: 70%;
     padding: 0;
     height: 410px;
     position: relative;
@@ -215,7 +322,7 @@
     p:first-child {
       margin: 100px auto 20px;
       width: 220px;
-      font-size: 1.1em;
+      font-size: 1em;
       font-weight: bold;
     }
 
@@ -243,9 +350,6 @@
           display: block;
           clear: left;
           float: left;
-
-          //margin-left: -3em; /*same as padding-left set on li*/
-          //width: 3em; /*same as padding-left set on li*/
         }
       }
     }
