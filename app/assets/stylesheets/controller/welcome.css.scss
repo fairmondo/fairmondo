@@ -363,7 +363,7 @@ ul.image_list {
 }
 
 
-#billboard-inner-imagemap {
+.billboard-imagemap {
   background-repeat: no-repeat;
   background-position: center top;
   background-size: auto;
@@ -376,41 +376,74 @@ ul.image_list {
   height: 410px;
 
   width: 697px;  // minimum width of this thing
-  background-image: image-url('welcome/billboard-1-big.png');
-  
   @include till-breakpoint($bp-tablet-horizontal) {
     width: 208px;
+  }
+}
+
+
+#billboard1 .billboard-imagemap {
+  background-image: image-url('welcome/billboard-1-big.png');
+
+  @include till-breakpoint($bp-tablet-horizontal) {
     background-image: image-url('welcome/billboard-1-small.png');  
   }
 }
 
 
-#billboard-inner-imagemap section {
+#billboard2 .billboard-imagemap {
+  background-image: image-url('welcome/billboard-2-big.png');
+
+  @include till-breakpoint($bp-tablet-horizontal) {
+    background-image: image-url('welcome/billboard-2-small.png');  
+  } 
+}
+
+
+#billboard1 .billboard-imagemap section {
   position: absolute;
   top: 55px;
 
-  &#section1 { left: 103px; }
-  &#section2 { left: 254px; }
-  &#section3 { left: 406px; }
-  &#section4 { left: 557px; }
+  &.section1 { left: 103px; }
+  &.section2 { left: 254px; }
+  &.section3 { left: 406px; }
+  &.section4 { left: 557px; }
 
   @include till-breakpoint($bp-tablet-horizontal) {
-    &#section1 { left: 72px; }
-    &#section2 { display: none; }
-    &#section3 { display: none; }
-    &#section4 { display: none; }
+    &.section1 { left: 72px; }
+    &.section2 { display: none; }
+    &.section3 { display: none; }
+    &.section4 { display: none; }
   }
 }
 
 
-#billboard-inner-imagemap h3 {
+#billboard2 .billboard-imagemap section {
+  position: absolute;
+  top: 55px;
+
+  &.section1 { left: 103px; }
+  &.section2 { left: 254px; }
+  &.section3 { left: 406px; }
+  &.section4 { left: 557px; }
+
+  @include till-breakpoint($bp-tablet-horizontal) {
+    &.section1 { left: 72px; }
+    &.section2 { display: none; }
+    &.section3 { display: none; }
+    &.section4 { display: none; }
+  }
+}
+
+
+.billboard-imagemap h3 {
   position: absolute;
   top: 0px;
   left: 0;
 }
 
 
-#billboard-inner-imagemap a.articlelink {
+.billboard-imagemap a.articlelink {
   position: absolute;
   top: 89px;
   left: 0;
@@ -425,7 +458,7 @@ ul.image_list {
 }
 
 
-#billboard-inner-imagemap a.librarylink {
+.billboard-imagemap a.librarylink {
   position: absolute;
   top: 258px;
   left: 0;

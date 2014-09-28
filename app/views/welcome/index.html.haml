@@ -30,26 +30,51 @@
 - cache 'billboard' do
   #billboard
     #billboard-inner
- 
-      %h2 600.000 Bücher
+      #js-billboardslides
+        %a{href: '#', class: 'slidesjs-previous slidesjs-navigation'}
+          %span.teaser-arrow.teaser-arrow--left.sprite_left_arrow
+        %a{href: '#', class: 'slidesjs-next slidesjs-navigation'}
+          %span.teaser-arrow.teaser-arrow--right.sprite_right_arrow
 
-      #billboard-inner-imagemap
-        %section#section1
-          %h3 Heiße Fantasy Romane
-          = link_to 'Die Tribute von Panem', '', title: 'Die Tribute von Panem', class: 'articlelink'
-          = link_to 'mehr Fantasy', '', class: 'librarylink'
-        %section#section2
-          %h3 Upcycling &amp; DIY Ratgeber
-          = link_to 'Upcycling', '', title: 'Upcycling', class: 'articlelink'
-          = link_to 'mehr Upcycling', '', class: 'librarylink'
-        %section#section3
-          %h3 SPIEGEL Bestseller
-          = link_to 'Der Circle', '', title: 'Der Circle', class: 'articlelink'
-          = link_to 'mehr Bestseller', '', class: 'librarylink'
-        %section#section4
-          %h3 Gesellschaft &amp; Wirtschaft
-          = link_to 'Arbeit ist nicht unser Leben', '', title: 'Arbeit ist nicht unser Leben', class: 'articlelink'
-          = link_to 'mehr Gesellschaft', '', class: 'librarylink'
+        %article#billboard1
+          %h2 600.000 Bücher
+          .billboard-imagemap
+            %section.section1
+              %h3 Heiße Fantasy Romane
+              = link_to 'Die Tribute von Panem', '', title: 'Die Tribute von Panem', class: 'articlelink'
+              = link_to 'mehr Fantasy', '', class: 'librarylink'
+            %section.section2
+              %h3 Upcycling &amp; DIY Ratgeber
+              = link_to 'Upcycling', '', title: 'Upcycling', class: 'articlelink'
+              = link_to 'mehr Upcycling', '', class: 'librarylink'
+            %section.section3
+              %h3 SPIEGEL Bestseller
+              = link_to 'Der Circle', '', title: 'Der Circle', class: 'articlelink'
+              = link_to 'mehr Bestseller', '', class: 'librarylink'
+            %section.section4
+              %h3 Gesellschaft &amp; Wirtschaft
+              = link_to 'Arbeit ist nicht unser Leben', '', title: 'Arbeit ist nicht unser Leben', class: 'articlelink'
+              = link_to 'mehr Gesellschaft', '', class: 'librarylink'
+
+        %article#billboard2
+          %h2 Mehr Bücher
+          .billboard-imagemap
+            %section.section1
+              %h3 Sci-Fi
+              = link_to '1984', '', title: '1984', class: 'articlelink'
+              = link_to 'mehr Sci-Fi', '', class: 'librarylink'
+            %section.section2
+              %h3 Sachbücher
+              = link_to 'Spieltheorie', '', title: 'Spieltheorie', class: 'articlelink'
+              = link_to 'mehr Sachbücher', '', class: 'librarylink'
+            %section.section3
+              %h3 Romane
+              = link_to 'Freiheit', '', title: 'Freiheit', class: 'articlelink'
+              = link_to 'mehr Romane', '', class: 'librarylink'
+            %section.section4
+              %h3 Fremdsprachige Bücher
+              = link_to 'Freedom', '', title: 'Freedom', class: 'articlelink'
+              = link_to 'mehr fremdsprachige Bücher', '', class: 'librarylink'
 
 
 -# USP Teaser with registration link
@@ -137,10 +162,10 @@
         %span.teaser-arrow.teaser-arrow--right.sprite_right_arrow
       - 8.times do |i|
         = image_tag "slides/cards/#{i}.png"
-      %a{href: '#', class: 'slidesjs-next slidesjs-navigation'}
-        %i.icon-left_arrow
-      %a{href: '#', class: 'slidesjs-previous slidesjs-navigation'}
-        %i.icon-right_arrow
+      -#%a{href: '#', class: 'slidesjs-next slidesjs-navigation'}  # Do we need these?
+      -#  %i.icon-left_arrow
+      -#%a{href: '#', class: 'slidesjs-previous slidesjs-navigation'}
+      -#  %i.icon-right_arrow
 
 
 -# Article queue 'donation'
