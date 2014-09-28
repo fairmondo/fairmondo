@@ -394,8 +394,8 @@ ul.image_list {
   &#section3 { left: 406px; }
   &#section4 { left: 557px; }
 
-  @include till-breakpoint($bp-mobile-horizontal) {
-    &#section1 { left: 34px; }
+  @include till-breakpoint($bp-tablet-horizontal) {
+    &#section1 { left: 72px; }
     &#section2 { display: none; }
     &#section3 { display: none; }
     &#section4 { display: none; }
