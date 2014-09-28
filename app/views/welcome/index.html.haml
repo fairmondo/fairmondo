@@ -31,44 +31,37 @@
   #billboard
     #billboard-inner
  
-      %h1 600.000 Bücher
+      %h2 600.000 Bücher
 
-      #billboard-text
-        %p Einer unserer Händler ecobookstore
-        %ul
-          %li Riesige Auswahl an Büchern
-          %li Anteil des Umsatzes für den Regenwald
-          %li
-            CO
-            %sub> 2
-            \-neutraler Versand
-
-      #billboard-image_map
-        %ul
-          %li.panem
-            = link_to 'Die Tribute von Panem', '', title: 'Die Tribute von Panem', class: 'book'
-            = link_to 'mehr Fantasy', '', class: 'section'
-          %li.upcycling
-            = link_to 'Upcycling', '', title: 'Upcycling', class: 'book'
-            = link_to 'mehr Upcycling', '', class: 'section'
-          %li.circle
-            = link_to 'Der Circle', '', title: 'Der Circle', class: 'book'
-            = link_to 'mehr Bestseller', '', class: 'section'
-          %li.arbeit
-            = link_to 'Arbeit ist nicht unser Leben', '', title: 'Arbeit ist nicht unser Leben', class: 'book'
-            = link_to 'mehr Gesellschaft', '', class: 'section'
+      #billboard-inner-imagemap
+        %section#section1
+          %h3 Heiße Fantasy Romane
+          = link_to 'Die Tribute von Panem', '', title: 'Die Tribute von Panem', class: 'articlelink'
+          = link_to 'mehr Fantasy', '', class: 'librarylink'
+        %section#section2
+          %h3 Upcycling &amp; DIY Ratgeber
+          = link_to 'Upcycling', '', title: 'Upcycling', class: 'articlelink'
+          = link_to 'mehr Upcycling', '', class: 'librarylink'
+        %section#section3
+          %h3 SPIEGEL Bestseller
+          = link_to 'Der Circle', '', title: 'Der Circle', class: 'articlelink'
+          = link_to 'mehr Bestseller', '', class: 'librarylink'
+        %section#section4
+          %h3 Gesellschaft &amp; Wirtschaft
+          = link_to 'Arbeit ist nicht unser Leben', '', title: 'Arbeit ist nicht unser Leben', class: 'articlelink'
+          = link_to 'mehr Gesellschaft', '', class: 'librarylink'
 
 
--# Teaser with registration link
-- cache 'teaser_registration' do
-  #teaser_registration
-    #teaser_registration-inner
+-# USP Teaser with registration link
+- cache 'uspteaser' do
+  #uspteaser
+    #uspteaser-inner
       %p Was uns besonders macht:
       %ul
         %li Die schöns&shy;ten und fairs&shy;ten Pro&shy;dukte im Netz ent&shy;decken
         %li Fördere sozialen &amp; ressourcen&shy;schonend&shy;en Konsum
         %li Mit Käufen &amp; Verkäufen einfach Hilfs&shy;projekte unter&shy;stützen
-      %p{style: 'text-align: center;'}
+      %p
         = link_to new_registration_path(:user), class: 'Button Button--action' do
           Jetzt registr&shy;ieren &amp;
           %br/
