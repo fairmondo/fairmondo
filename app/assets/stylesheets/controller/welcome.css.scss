@@ -5,13 +5,6 @@
  * Responsive stuff
  */
 
-@include till-breakpoint($bp-tablet-horizontal) {
-  #billboard {
-    #billboard-image_map {
-      background-image: image-url('welcome/billboard-small.png');  
-    }
-  }
-}
 
 // mobile-horizontal
 @include between-breakpoints($bp-mobile-horizontal, $bp-tablet) {
@@ -19,7 +12,7 @@
     @include span(2 of 4);
   }
 
-  #teaser_registration {
+  #uspteaser {
     @include span(2 of 4);
     @include omega;
   }
@@ -59,7 +52,7 @@
     @include span(4 of 6);
   }
 
-  #teaser_registration {
+  #uspteaser {
     @include span(2 of 6);
     @include omega;
   }
@@ -79,13 +72,6 @@
   }
 }
 
-@include between-breakpoints($bp-tablet, $bp-desktop) {
-  #teaser--first {
-    .teaser-inner {
-      padding-bottom: 3.5em;
-    }
-  }
-}
 
 // tablet-horizontal
 @include at-breakpoint($bp-tablet-horizontal) {
@@ -100,14 +86,9 @@
 
   #billboard {
     @include span(6 of 8);
-
-    #billboard-image_map {
-      background-image: image-url('welcome/billboard-big.png');
-    }
-
   }
 
-  #teaser_registration {
+  #uspteaser {
     @include span(2 of 8);
     @include omega;
   }
@@ -121,14 +102,6 @@
   }
 }
 
-// bp-desktop
-@include at-breakpoint($bp-desktop) {
-  #teaser--first {
-    .teaser-inner {
-      padding-bottom: 2.7em;
-    }
-  }
-}
 
 
 
@@ -174,194 +147,6 @@
   }
 }
 
-
-
-// Billboard
-#billboard {
-  margin-bottom: 1em;
-
-  #billboard-inner {
-    @include whitebox;
-    background-color: #ec5400;
-    padding: 0;
-    height: 410px;
-    position: relative;
-    overflow: hidden;
-
-    color: $white;
-    
-    h1 {
-      position: absolute;
-      z-index: 10;
-      top: 0;
-      left: 10px;
-      font-size: 3em;
-      font-weight: bold;
-    }
-
-    #billboard-text {
-      position: absolute;
-      top: 100px;
-      left: 10px;
-      width: 200px;
-      z-index: 10;
-      color: $yellow;
-    }
-
-    #billboard-image_map {
-      background-repeat: no-repeat;
-      background-position: center top;
-      background-size: auto;
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      margin: 0 auto;
-      width: 698px;  // minimum width of this thing
-      height: 410px;
-
-      ul {
-        margin: 0;
-        padding: 0;
-        list-style: none;
-
-        a.book {
-          position: absolute;
-          display: block;
-          width: 115px;
-          height: 160px;
-          text-indent: -1000em;
-
-          &:hover, &:focus {
-            border: 1px dotted $white;
-          }
-        }
-
-        a.section {
-          position: absolute;
-          font-weight: 300;
-          font-size: 0.9em;
-          color: $white;
-          border-bottom: 1px solid $white;
-
-          &:before {
-            content: '+';
-            margin-right: 0.5em;
-          }
-
-          &:hover {
-            text-decoration: none;
-          }
-        }
-
-        .panem {
-          a.book {
-            top: 144px;
-            left: 202px;
-          }
-          a.section {
-            top: 325px;
-            left: 202px;
-          }
-        }
-
-        .upcycling {
-          a.book {
-            top: 144px;
-            left: 353px;
-          }
-          a.section {
-            top: 325px;
-            left: 353px;
-          }
-        }
-
-        .circle {
-          a.book {
-            top: 144px;
-            left: 505px;
-          }
-          a.section {
-            top: 325px;
-            left: 505px;
-          }
-        }
-
-        .arbeit {
-          a.book {
-            top: 144px;
-            left: 656px;
-          }
-          a.section {
-            top: 325px;
-            left: 656px;
-          }
-        }
-      }
-    }
-  }
-}
-
-
-
-
-// Teaser Registration
-#teaser_registration {
-  margin-bottom: 1em;
-
-  #teaser_registration-inner {
-    @include whitebox;
-    background: #65aef3 image-url('welcome/logo.png') no-repeat 50% 10%;
-    background-size: 70%;
-    padding: 0;
-    height: 410px;
-    position: relative;
-
-    color: $white;
-
-    p:first-child {
-      margin: 100px auto 20px;
-      width: 220px;
-      font-size: 1em;
-      font-weight: bold;
-    }
-
-    ul {
-      width: 80%;
-      min-width: 200px;
-      max-width: 300px;
-      margin: 1em auto;
-      list-style: none;
-      padding: 0;
-      overflow: hidden;
-
-      li {
-        font-size: 0.9em;
-        font-weight: 300;
-        float: left;
-        padding-left: 0;
-        margin-bottom: 1em;
-
-        &:before {
-          content: '\f111'; /*fontawesome char code inside the '' */
-          font-family: FontAwesome;
-          font-size: 3em;
-          padding-right: 0.25em;
-          display: block;
-          clear: left;
-          float: left;
-        }
-      }
-    }
-
-    p:last-child {
-      position: absolute;
-      margin-bottom: 0;
-      width: 100%;
-      bottom: 15px;
-    }
-  }
-}
 
 
 
@@ -540,6 +325,190 @@ ul.image_list {
     content: '';
     display: inline-block;
     width: 100%;
+  }
+}
+
+
+
+
+
+/*
+ * Billboard
+ */
+
+
+#billboard {
+  margin-bottom: 1em;
+}
+
+
+#billboard-inner {
+  @include whitebox;
+  //background-color: #ec5400;
+  padding: 0;
+  height: 410px;
+  position: relative;
+  overflow: hidden;
+  color: $white;
+}
+    
+
+#billboard-inner h2 {
+  position: absolute;
+  z-index: 10;
+  top: 0;
+  left: 10px;
+  font-size: 2em;
+  font-weight: bold;
+}
+
+
+#billboard-inner-imagemap {
+  background-repeat: no-repeat;
+  background-position: center top;
+  background-size: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+
+  height: 410px;
+
+  width: 697px;  // minimum width of this thing
+  background-image: image-url('welcome/billboard-1-big.png');
+  
+  @include till-breakpoint($bp-tablet-horizontal) {
+    width: 208px;
+    background-image: image-url('welcome/billboard-1-small.png');  
+  }
+}
+
+
+#billboard-inner-imagemap section {
+  position: absolute;
+  top: 55px;
+
+  &#section1 { left: 103px; }
+  &#section2 { left: 254px; }
+  &#section3 { left: 406px; }
+  &#section4 { left: 557px; }
+
+  @include till-breakpoint($bp-mobile-horizontal) {
+    &#section1 { left: 34px; }
+    &#section2 { display: none; }
+    &#section3 { display: none; }
+    &#section4 { display: none; }
+  }
+}
+
+
+#billboard-inner-imagemap h3 {
+  position: absolute;
+  top: 0px;
+  left: 0;
+}
+
+
+#billboard-inner-imagemap a.articlelink {
+  position: absolute;
+  top: 89px;
+  left: 0;
+  display: block;  
+  width: 115px;
+  height: 160px;
+  text-indent: -1000em;
+
+  &:hover, &:focus {
+    border: 1px dotted $white;
+  }
+}
+
+
+#billboard-inner-imagemap a.librarylink {
+  position: absolute;
+  top: 258px;
+  left: 0;
+  font-weight: 300;
+  font-size: 0.9em;
+  color: $white;
+  border-bottom: 1px solid $white;
+
+  &:before {
+    content: '+';
+    margin-right: 0.5em;
+  }
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+
+
+
+
+
+
+
+/*
+ * USP Teaser
+ */
+
+#uspteaser {
+  margin-bottom: 1em;
+}
+
+#uspteaser-inner {
+  @include whitebox;
+  background: #65aef3 image-url('welcome/logo.png') no-repeat 50% 10%;
+  background-size: 70%;
+  padding: 0;
+  height: 410px;
+  position: relative;
+  color: $white;
+}
+
+#uspteaser-inner p:first-child {
+  margin: 100px auto 20px;
+  width: 220px;
+  font-size: 1em;
+  font-weight: bold;
+}
+
+#uspteaser-inner p:last-child {
+  position: absolute;
+  margin-bottom: 0;
+  width: 100%;
+  bottom: 15px;
+  text-align: center;
+}
+
+#uspteaser-inner ul {
+  width: 80%;
+  min-width: 200px;
+  max-width: 300px;
+  margin: 1em auto;
+  list-style: none;
+  padding: 0;
+  overflow: hidden;
+
+  li {
+    font-size: 0.9em;
+    font-weight: 300;
+    float: left;
+    padding-left: 0;
+    margin-bottom: 1em;
+
+    &:before {
+      content: '\f111'; /*fontawesome char code inside the '' */
+      font-family: FontAwesome;
+      font-size: 3em;
+      padding-right: 0.25em;
+      display: block;
+      clear: left;
+      float: left;
+    }
   }
 }
 
