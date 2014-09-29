@@ -351,7 +351,7 @@ ul.image_list {
   overflow: hidden;
   color: $white;
 }
-    
+
 
 #billboard-inner h2 {
   position: absolute;
@@ -386,17 +386,17 @@ ul.image_list {
   background-image: image-url('welcome/billboard-1-big.png');
 
   @include till-breakpoint($bp-tablet-horizontal) {
-    background-image: image-url('welcome/billboard-1-small.png');  
+    background-image: image-url('welcome/billboard-1-small.png');
   }
 }
 
 
 #billboard2 .billboard-imagemap {
-  background-image: image-url('welcome/billboard-2-big.png');
+  background-image: image-url('welcome/gutes-big.jpg');
 
-  @include till-breakpoint($bp-tablet-horizontal) {
-    background-image: image-url('welcome/billboard-2-small.png');  
-  } 
+  //@include till-breakpoint($bp-tablet-horizontal) {
+  //  background-image: image-url('welcome/billboard-2-small.png');
+  //}
 }
 
 
@@ -420,12 +420,12 @@ ul.image_list {
 
 #billboard2 .billboard-imagemap section {
   position: absolute;
-  top: 55px;
+  left: 569px;
 
-  &.section1 { left: 103px; }
-  &.section2 { left: 254px; }
-  &.section3 { left: 406px; }
-  &.section4 { left: 557px; }
+  &.section1 { top: 5px; }
+  &.section2 { top: 106px; }
+  &.section3 { top: 207px; }
+  &.section4 { top: 308px; }
 
   @include till-breakpoint($bp-tablet-horizontal) {
     &.section1 { left: 72px; }
@@ -447,13 +447,25 @@ ul.image_list {
   position: absolute;
   top: 89px;
   left: 0;
-  display: block;  
+  display: block;
   width: 115px;
   height: 160px;
   text-indent: -1000em;
 
   &:hover, &:focus {
     border: 1px dotted $white;
+  }
+}
+
+
+#billboard2 .billboard-imagemap a.articlelink {
+  top: 0;
+  left: 0;
+  width: 119px;
+  height: 95px;
+
+  &:hover, &:focus {
+    border: 1px dotted $black;
   }
 }
 
