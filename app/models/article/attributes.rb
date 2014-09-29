@@ -55,7 +55,7 @@ module Article::Attributes
     validates :vat , presence: true , inclusion: { in: [0,7,19] },  if: :belongs_to_legal_entity?
 
 
-    validates :basic_price_cents, :numericality => { greater_than_or_equal_to: 0, less_than_or_equal_to: 1000000 } , :allow_nil => true
+    validates :basic_price_cents, :numericality => { greater_than_or_equal_to: 0, less_than_or_equal_to: 1000000 } , :allow_nil => false
 
     monetize :basic_price_cents
 
