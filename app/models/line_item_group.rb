@@ -5,10 +5,7 @@ class LineItemGroup < ActiveRecord::Base
   belongs_to :buyer, class_name: 'User', foreign_key: 'buyer_id', inverse_of: :buyer_line_item_groups
   belongs_to :cart, inverse_of: :line_item_groups
   has_many :line_items, dependent: :destroy, inverse_of: :line_item_group
-  #has_many :articles through either :line_items or :business_transactions
-  def articles
-    (business_transactions.any? ? business_transactions : line_items).map(&:article)
-  end
+  has_many :articles, through: :line_items
   has_many :business_transactions, inverse_of: :line_item_group
   has_many :payments, inverse_of: :line_item_group
   has_one :paypal_payment, -> { where type: 'PaypalPayment' }, class_name: 'Payment'
