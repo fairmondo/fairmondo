@@ -9,7 +9,7 @@ class FileNormalizerWorker
     article = Article.find article_id
 
     article.images.each do |image|
-      if image_not_accesible(image)
+      if image_not_accessible(image)
         path = "var/www/fairnopoly/shared/#{image.path(:cut_here)}"
         index = path.index('cut_here') - 1
         path = path[0..index]
@@ -23,11 +23,11 @@ class FileNormalizerWorker
     end
   end
 
-  def self.file_logger
+  def file_logger
     Logger.new("#{Rails.root}/log/filerename.log")
   end
 
-  def self.image_not_accesible(image)
+  def image_not_accessible(image)
     Paperclip.io_adapters.for(image.image).read
     return false
   rescue
