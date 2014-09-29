@@ -32,5 +32,4 @@ module Assets
       File.extname(@name).downcase
     end
   end
-
 end
