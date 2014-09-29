@@ -16,8 +16,8 @@ class FileNormalizerWorker
         files = Dir.glob("#{path}*/*")
 
         files.each do |file|
-          file_logger.log(Assets::Filename.normalize(file[file.rindex('/') + 1, file.length]))
-          #File.rename(file, Assets::Filename.normalize(file[file.rindex('/') + 1, file.length]))
+          #file_logger.log(Assets::Filename.normalize(file[file.rindex('/') + 1, file.length]))
+          File.rename(file, Assets::Filename.normalize(file[file.rindex('/') + 1, file.length]))
         end
       end
     end
