@@ -506,26 +506,37 @@ ul.image_list {
 
 #uspteaser-inner {
   @include whitebox;
-  background: #65aef3 image-url('welcome/logo.png') no-repeat 50% 10%;
-  background-size: 70%;
+  background: #65aef3 image-url('welcome/logo-background.png') no-repeat top left;
   padding: 0;
   height: 410px;
   position: relative;
   color: $white;
 }
 
-#uspteaser-inner p:first-child {
-  margin: 100px auto 20px;
-  width: 220px;
-  font-size: 1em;
-  font-weight: bold;
+#uspteaser-inner h2 {
+  width: 80%;
+  min-width: 200px;
+  margin: 15px auto 10px;
+  font-size: 1.5em;
 }
 
-#uspteaser-inner p:last-child {
+#uspteaser-inner h3 {
+  margin: 10px auto 10px;
+  width: 80%;
+  min-width: 200px;
+  font-size: 1em;
+
+  a {
+    color: $white;
+    text-decoration: underline;
+  }
+}
+
+#uspteaser-inner p {
   position: absolute;
   margin-bottom: 0;
   width: 100%;
-  bottom: 15px;
+  bottom: 10px;
   text-align: center;
 }
 
@@ -533,7 +544,7 @@ ul.image_list {
   width: 80%;
   min-width: 200px;
   max-width: 300px;
-  margin: 1em auto;
+  margin: 0.7em auto;
   list-style: none;
   padding: 0;
   overflow: hidden;
@@ -543,7 +554,7 @@ ul.image_list {
     font-weight: 300;
     float: left;
     padding-left: 0;
-    margin-bottom: 1em;
+    margin-bottom: 0.8em;
 
     &:before {
       content: '\f111'; /*fontawesome char code inside the '' */

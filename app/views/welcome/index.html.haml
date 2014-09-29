@@ -72,13 +72,21 @@
 - cache 'uspteaser' do
   #uspteaser
     #uspteaser-inner
-      %p Was uns besonders macht:
+      %hgroup
+        %h2 Aus Fair&shy;no&shy;poly wird Fair&shy;mondo
+        %h3
+          =link_to 'warum/' do
+            Erfahre warum wir uns um&shy;benen&shy;nen
+          und
+          = link_to new_registration_path(:user) do
+            re&shy;gist&shy;riere Dich jetzt
+          mit der Chance auf ein neues Fair&shy;phone!
       %ul
         %li Die schöns&shy;ten und fairs&shy;ten Pro&shy;dukte im Netz ent&shy;decken
         %li Fördere sozialen &amp; ressourcen&shy;schonend&shy;en Konsum
         %li Mit Käufen &amp; Verkäufen einfach Hilfs&shy;projekte unter&shy;stützen
       %p
-        = link_to new_registration_path(:user), class: 'Button Button--action' do
+        = link_to new_registration_path(:user), class: 'Button Button--action' do  # link zur Landingpage
           Jetzt registr&shy;ieren &amp;
           %br/
           Fairphone gewinnen!
