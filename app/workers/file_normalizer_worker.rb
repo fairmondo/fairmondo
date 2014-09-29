@@ -22,7 +22,7 @@ class FileNormalizerWorker
   end
 
   def self.file_logger
-    Logger.new("#{Rails.root}/public/log/filerename.log")
+    Logger.new("#{Rails.root}/log/filerename.log")
   end
 
   def self.image_not_accesible(image)
