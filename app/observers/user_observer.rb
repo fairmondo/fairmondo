@@ -41,6 +41,14 @@ class UserObserver < ActiveRecord::Observer
       cr = CleverreachAPI
       user.newsletter? ? cr.add(user) : cr.remove(user)
     end
+
+    # deactivates and closes all active articles of banned user
+    if user.banned_changed? && user.banned && user.articles.active.limit(1) > 0
+      user.articles.active.find_each do |article|
+        article.deactivate
+        article.close
+      end
+    end
   end
 
   def after_create user
