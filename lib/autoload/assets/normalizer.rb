@@ -16,5 +16,4 @@ module Assets
       end
     end
   end
-
 end
