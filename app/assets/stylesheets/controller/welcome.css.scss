@@ -516,12 +516,12 @@ ul.image_list {
 #uspteaser-inner h2 {
   width: 80%;
   min-width: 200px;
-  margin: 15px auto 10px;
+  margin: 5% auto;
   font-size: 1.5em;
 }
 
 #uspteaser-inner h3 {
-  margin: 10px auto 10px;
+  margin: 5% auto 5%;
   width: 80%;
   min-width: 200px;
   font-size: 1em;
@@ -534,17 +534,21 @@ ul.image_list {
 
 #uspteaser-inner p {
   position: absolute;
-  margin-bottom: 0;
+  bottom: 0;
+  margin: 0 0 5%;
   width: 100%;
-  bottom: 10px;
   text-align: center;
+
+  a {
+    margin: 0 5%;
+  }
 }
 
 #uspteaser-inner ul {
   width: 80%;
   min-width: 200px;
   max-width: 300px;
-  margin: 0.7em auto;
+  margin: 7.5% auto;
   list-style: none;
   padding: 0;
   overflow: hidden;
@@ -554,13 +558,13 @@ ul.image_list {
     font-weight: 300;
     float: left;
     padding-left: 0;
-    margin-bottom: 0.8em;
+    margin-bottom: 5%;
 
     &:before {
       content: '\f111'; /*fontawesome char code inside the '' */
       font-family: FontAwesome;
       font-size: 3em;
-      padding-right: 0.25em;
+      margin-right: 2.5%;
       display: block;
       clear: left;
       float: left;
