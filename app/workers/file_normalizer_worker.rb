@@ -5,7 +5,9 @@ class FileNormalizerWorker
                   retry: 5,
                   backtrace: true
 
-  def perform article
+  def perform article_id
+    article = Article.find article_id
+
     article.images.each do |image|
       if image_not_accesible(image)
         path = "var/www/fairnopoly/shared/#{image.path(:cut_here)}"
