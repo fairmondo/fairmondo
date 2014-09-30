@@ -14,7 +14,7 @@ class FileNormalizerWorker
         path = "/var/www/fairnopoly/shared/#{image.image.path(:cut_here)}"
 
         # get the filename of the image as referenced in image object
-        orig_filename = path[rindex('/') + 1..-1]
+        orig_filename = path[path.rindex('/') + 1..-1]
 
         # get the base directory before the style directories
         index = path.index('cut_here') - 1
