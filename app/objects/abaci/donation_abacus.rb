@@ -19,7 +19,7 @@ class DonationAbacus
     def initialize line_item_group
       @line_item_group = line_item_group
       @donations = {}
-      @donation_total = 0
+      @donation_total = Money.new(0)
       @donation_per_organisation = {}
     end
 
@@ -28,7 +28,7 @@ class DonationAbacus
         if article.friendly_percent_organisation_id && article.friendly_percent_organisation_id != 0
           organisation = User.find article.friendly_percent_organisation_id
           @donations[organisation] = [] unless @donations[organisation]
-          @donations[organisation] << article.calculated_friendly_cents
+          @donations[organisation] << Money.new(article.calculated_friendly_cents)
         end
       end
     end

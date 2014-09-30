@@ -84,8 +84,11 @@ de:
           Unterschrift des/der Verbraucher*in (nur bei Mitteilung auf Papier)
 
           Datum'
-    mass_activation:
+      mass_activation:
         text: 'Du hast erfolgreich per CSV-Upload eingestellte Artikel aktiviert.'
+        to_csv: 'Hier kommst Du zu Deinem CSV-Upload: '
+      mass_deletion:
+        text: 'Du hast erfolgreich Artikel gelöscht.'
         to_csv: 'Hier kommst Du zu Deinem CSV-Upload: '
     cart:
       buyer:
