@@ -53,7 +53,13 @@ class ArticleMailer < ActionMailer::Base
     @mass_upload = MassUpload.find mass_upload_id
     @user = @mass_upload.user
     terms_pdf
-    mail(to: @user.email, subject: "[Fairnopoly] Du hast Deine per CSV-Datein eingestellten Artikel eingestellt")
+    mail(to: @user.email, subject: "[Fairnopoly] Du hast Deine per CSV-Dateien eingestellten Artikel aktiviert")
+  end
+
+  def mass_upload_deletion_message mass_upload_id
+    @mass_upload = MassUpload.find mass_upload_id
+    @user = @mass_upload.user
+    mail(to: @user.email, subject: "[Fairnopoly] Du hast Artikel per CSV-Datei gelöscht")
   end
 
   private
