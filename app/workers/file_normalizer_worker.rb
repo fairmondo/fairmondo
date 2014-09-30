@@ -9,27 +9,14 @@ class FileNormalizerWorker
     article = Article.find article_id
 
     article.images.each do |image|
-      if image_not_accessible(image)
-        path = "/var/www/fairnopoly/shared/#{image.image.path(:cut_here)}"
-        index = path.index('cut_here') - 1
-        path = path[0..index]
-        files = Dir.glob("#{path}*/*")
+      path = "/var/www/fairnopoly/shared/#{image.image.path(:cut_here)}"
+      index = path.index('cut_here') - 1
+      path = path[0..index]
+      files = Dir.glob("#{path}*/*")
 
-        files.each do |file|
-          File.rename(file, file[0..file.rindex('/')] + Assets::Filename.normalize(file[file.rindex('/') + 1..-1]))
-        end
+      files.each do |file|
+        File.rename(file, file[0..file.rindex('/')] + Assets::Filename.normalize(file[file.rindex('/') + 1..-1]))
       end
     end
-  end
-
-  def file_logger
-    Logger.new("#{Rails.root}/log/filerename.log")
-  end
-
-  def image_not_accessible(image)
-    Paperclip.io_adapters.for(image.image).read
-    return false
-  rescue
-    return true
   end
 end
