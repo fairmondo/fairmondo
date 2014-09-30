@@ -554,7 +554,7 @@ ul.image_list {
   overflow: hidden;
 
   li {
-    font-size: 0.9em;
+    font-size: 1em;
     font-weight: 300;
     float: left;
     padding-left: 0;
@@ -572,3 +572,13 @@ ul.image_list {
   }
 }
 
+// Responsiveness
+@include till-breakpoint($bp-mobile-horizontal) {
+  #uspteaser-inner {
+    height: 80px;
+
+    hgroup, ul {
+      display: none;
+    }
+  }
+}
