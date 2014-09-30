@@ -19,6 +19,7 @@
 -# You should have received a copy of the GNU Affero General Public License
 -# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
+
 / The next line is for providing the proper title image to facebook
 - provide( :title_image, image_path('fairnopoly_social_media.png') )
 - cache 'category-dropdown-welcome' do
@@ -86,7 +87,7 @@
         %li Fördere sozialen &amp; ressourcen&shy;schonend&shy;en Konsum
         %li Mit Käufen &amp; Verkäufen einfach Hilfs&shy;projekte unter&shy;stützen
       %p
-        = link_to new_registration_path(:user), class: 'Button Button--action' do  # link zur Landingpage
+        = link_to new_registration_path(:user), class: 'Button' do  # link zur Landingpage
           Jetzt registr&shy;ieren &amp; Fairphone gewinnen!
 
 
