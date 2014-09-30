@@ -239,8 +239,6 @@ de:
     errors:
       <<: *errors
   activerecord:
-    # Why do you think these aliases are obsolete, or rather, why is active_record a full-featured alias?
-    # I don't receive a warning and the following won't work in active_record namespace (Micha)
     models:
       address:
         one: Adresse
@@ -257,15 +255,27 @@ de:
       articles_category:
         one: Artikel zu Kategoriezuordnung
         other: Artikel zu Kategoriezuordnungen
-      content:
-        one: "CMS-Seite"
-        other: "CMS-Seiten"
+      cart:
+        one: Warenkorb
+        other: Warenkörbe
       category:
         one: "Kategorie"
         other: "Kategorien"
+      comment:
+        one: "Kommentar"
+        other: "Kommentare"
+      content:
+        one: "CMS-Seite"
+        other: "CMS-Seiten"
+      discount:
+        one: "Rabatt"
+        other: "Rabatte"
       fair_trust_questionnaire:
         one: "Fair Trust Fragebogen"
         other: "Fair Trust Fragebögen"
+      feedback:
+        one: Feedback-Anfrage
+        other: Feedback-Anfragen
       image:
         one: "Bild"
         other: "Bilder"
@@ -278,12 +288,30 @@ de:
       library:
         one: Sammlung
         other: Sammlungen
+      line_item:
+        one: Line Item
+        other: Line Items
+      line_item_group:
+        one: Line Item Group
+        other: Line Item Groups
+      mass_upload:
+        one: CSV-Upload
+        other: CSV-Uploads
+      payment:
+        one: Zahlung
+        other: Zahlungen
       preview_transaction:
         one: Transaktionsobjekt (Vorschau)
         other: Transaktionsobjekte (Vorschau)
       private_user:
         one: Privatprofil
         other: Privatprofile
+      rating:
+        one: Bewertung
+        other: Bewertungen
+      refund:
+        one: Rückerstattung
+        other: Rückerstattungen
       social_producer_questionnaire:
         one: "Sozialer Produzent Fragebogen"
         other: "Sozialer Produzent Fragebögen"
