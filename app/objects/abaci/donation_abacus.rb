@@ -25,7 +25,7 @@ class DonationAbacus
 
     def add_donation_organisations_to_donations articles
       articles.each do |article|
-        if article.friendly_percent_organisation_id
+        if article.friendly_percent_organisation_id && article.friendly_percent_organisation_id != 0
           organisation = User.find article.friendly_percent_organisation_id
           @donations[organisation] = [] unless @donations[organisation]
           @donations[organisation] << article.calculated_friendly_cents
