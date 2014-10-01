@@ -51,8 +51,7 @@ de:
         unified_transport_price: Versandkosten (€)
         free_transport_available: Ich versende ab einem
         free_transport_at_price: Bestellwert von
-        tos_accepted: "Ich stimme den %{legal} und der %{privacy} zu."
-
+        tos_accepted: "Ich stimme %{legal} und %{privacy} zu."
       private_user:
         <<: *user
       legal_entity:
