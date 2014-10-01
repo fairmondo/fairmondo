@@ -43,7 +43,10 @@ describe ArticlePolicy do
     # it { subject.must_deny(:show)              }
 
     describe "on an active article" do
-      before { article.activate }
+      before do
+        article.tos_accepted = '1'
+        article.activate
+      end
       it { subject.must_permit(:show)          }
       it { subject.must_permit(:report)        }
     end
@@ -79,7 +82,10 @@ describe ArticlePolicy do
     end
 
     describe "on an active article" do
-      before { article.activate  }
+      before  do
+        article.tos_accepted = '1'
+        article.activate
+      end
       it { subject.must_permit(:deactivate) }
       it { subject.must_deny(:activate)     }
       it { subject.must_deny(:destroy)      }
@@ -93,6 +99,7 @@ describe ArticlePolicy do
 
     describe "on a locked article" do
       before do
+        article.tos_accepted = '1'
         article.activate
         article.deactivate
       end

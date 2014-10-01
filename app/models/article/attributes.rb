@@ -117,6 +117,11 @@ module Article::Attributes
     validates_numericality_of :quantity_available, greater_than_or_equal_to: 0, less_than_or_equal_to: 10000
 
     validate :payment_method_checked
+
+
+    ### ACTIVATE ###
+    attr_accessor :tos_accepted, :changing_state
+    validates :tos_accepted, acceptance: true, presence: true, on: :update, if: :changing_state
   end
 
 

@@ -360,6 +360,7 @@ describe Article do
           article.calculated_fair_cents = 0
           article.calculated_fee_cents = 0
           article.save
+          article.tos_accepted = '1'
           article.activate
           article.reload.calculated_fee.must_be :>, 0
           article.calculated_fair.must_be :>, 0

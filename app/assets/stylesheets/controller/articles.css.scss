@@ -427,6 +427,9 @@ ul.category-selected-list {
     border-top: 1px solid $lighter-gray;
     padding:0.5em 2.5em 0.5em;
   }
+  dt.reduced_padding {
+    padding:0.5em 1.5em 0.5em;
+  }
 
   dt,
   dd {

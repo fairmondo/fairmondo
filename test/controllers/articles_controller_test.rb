@@ -57,7 +57,7 @@ describe ArticlesController do
         @controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.sort.must_equal [@second_hand_article,@hardware_article,@no_second_hand_article].map(&:id).sort
 
         #should find the article with content 'meer' when searching for meer
-        get :index, article_search_form: {q: "meer" , :search_in_content => "1"}
+        get :index, article_search_form: {q: "meer" , search_in_content: "1"}
         @controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.sort.must_equal [@second_hand_article].map(&:id).sort
 
         #should find the article with price 1 when filtering <= 1
@@ -261,7 +261,7 @@ describe ArticlesController do
       it "should not be able to edit other users articles" do
         @article = FactoryGirl.create :preview_article, seller: (FactoryGirl.create(:user))
 
-        -> { get :edit, :id => @article.id }.must_raise Pundit::NotAuthorizedError
+        -> { get :edit, id: @article.id }.must_raise Pundit::NotAuthorizedError
       end
     end
   end
@@ -294,14 +294,14 @@ describe ArticlesController do
 
       it "should save images even if article is invalid" do
         @article_attrs = FactoryGirl.attributes_for :article, :invalid, categories: [FactoryGirl.create(:category).id]
-        @article_attrs[:images_attributes] = { "0" => { :image => fixture_file_upload("/test.png", 'image/png') }}
+        @article_attrs[:images_attributes] = { "0" => { image: fixture_file_upload("/test.png", 'image/png') }}
         assert_difference 'Image.count', 1 do
           post :create, article: @article_attrs
         end
       end
 
       it "should not raise an error for very high quantity values" do
-        post :create, :article => @article_attrs.merge(quantity: "100000000000000000000000")
+        post :create, article: @article_attrs.merge(quantity: "100000000000000000000000")
         assert_template :new
       end
 
@@ -339,16 +339,16 @@ describe ArticlesController do
 
       it "should delete the preview article" do
         assert_difference 'Article.count', -1 do
-          put :destroy, :id => @article.id
+          put :destroy, id: @article.id
           assert_redirected_to(user_path(user))
         end
       end
 
       it "should softdelete the locked article" do
         assert_no_difference 'Article.count' do
-          put :update, id: @article.id, :activate => true
-          put :update, id: @article.id, :deactivate => true
-          put :destroy, :id => @article.id
+          put :update, id: @article.id, activate: true, article: { tos_accepted: '1' }
+          put :update, id: @article.id, deactivate: true
+          put :destroy, id: @article.id
         end
       end
 
@@ -383,7 +383,7 @@ describe ArticlesController do
       end
 
       it "should work" do
-        put :update, id: @article.id, :activate => true
+        put :update, id: @article.id, article: { tos_accepted: '1' }, activate: true
         assert_redirected_to @article
         flash[:notice].must_equal I18n.t 'article.notices.create_html'
       end
@@ -392,8 +392,8 @@ describe ArticlesController do
         @article.title = nil
         @article.save validate: false
         ## we now have an invalid record
-        put :update, id: @article.id, :activate => true
-        assert_redirected_to new_article_path(:edit_as_new => @article.id)
+        put :update, id: @article.id, article: { tos_accepted: '1' }, activate: true
+        assert_redirected_to new_article_path(edit_as_new: @article.id)
       end
     end
 
@@ -404,7 +404,7 @@ describe ArticlesController do
       end
 
       it "should work" do
-        put :update, id: @article.id, :deactivate => true
+        put :update, id: @article.id, deactivate: true
         assert_redirected_to  @article
         flash[:notice].must_equal(I18n.t 'article.notices.deactivated')
       end
@@ -413,7 +413,7 @@ describe ArticlesController do
         @article.title = nil
         @article.save validate: false
         ## we now have an invalid record
-         put :update, id: @article.id, :deactivate => true
+         put :update, id: @article.id, deactivate: true
         assert_redirected_to @article
         @article.reload.locked?.must_equal true
       end
@@ -432,7 +432,17 @@ describe ArticlesController do
       Article.index.refresh
       get :autocomplete, q: 'chunky'
       assert_response :success
-      response.body.must_equal({ query: 'chunky', suggestions: ['chunky bacon'] }.to_json)
+      response.body.must_equal({
+        query: 'chunky',
+        suggestions: [{
+          value: 'chunky bacon',
+          data: {
+            type: 'result',
+            url: '/articles/chunky-bacon',
+            thumb: '<img alt="Missing" src="/assets/missing.png" />'
+          }
+        }]
+      }.to_json)
       TireTest.off
     end
 
