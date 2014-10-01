@@ -87,7 +87,7 @@ de:
         small_and_precious: 'klein&edle'
         article: 'Artikel'
       comments:
-        legal_entity_publish_info: "Achtung: Kommentare für Artikel gewerblicher Nutzer werden nur zwischen 10 und 17 Uhr veröffentlicht."
+        legal_entity_publish_info: "Achtung: Neue Kommentare für Artikel von gewerblichen Nutzern werden nur zwischen 10 und 17 Uhr veröffentlicht."
     hero:
       search: "Suche nach"
       filter: "Filter nach"
@@ -136,6 +136,7 @@ de:
     notices:
       mass_upload_create_html: "Die Artikel wurden erfolgreich eingestellt!"
       create_html: "Artikel wurde erfolgreich eingestellt!"
+      activation_failed: "Du musst den AGB und der Datenschutzerklärung zustimmen, damit Dein Artikel auf den Marktplatz eingestellt werden kann."
       confirm_to_buy: "Artikel wurde erfolgreich zum Verkauf eingestellt!"
       update: "Artikel wurde erfolgreich aktualisiert."
       image: "Bild wurde erfolgreich hochgeladen."
@@ -174,7 +175,7 @@ de:
         fair_percent: "Das faire Prozent (1%):"
         mass_upload_fair_percent: "Das faire Prozent (1%) bei Verkauf aller Artikel (gemäß der angegebenen Stückzahl):"
         friendly_percent: "Deine Spende:"
-        fee: "Gebühr bei Verkauf/n(%{fee} - max. %{max}, min. € 0,10):"
+        fee: "Gebühr bei Verkauf\n(%{fee} - max. %{max}, min. € 0,10):"
         total_fee_mass_upload: "Gebühr bei Verkauf aller Artikel (gemäß der angegebenen Stückzahl)"
         total: "Gesamtpreis bei Verkauf, inkl. 19% MwSt:"
         total_mass_upload: "Gesamtpreis bei Verkauf des Artikels (gemäß der angegebenen Stückzahl), inkl. 19% MwSt:"
