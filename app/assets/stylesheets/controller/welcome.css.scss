@@ -363,44 +363,46 @@ ul.image_list {
 }
 
 
-.billboard-imagemap {
+#billboard article {
   background-repeat: no-repeat;
   background-position: center top;
-  background-size: auto;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  margin: 0 auto;
+  position: relative;
 
   height: 410px;
-
-  width: 697px;  // minimum width of this thing
-  @include till-breakpoint($bp-tablet-horizontal) {
-    width: 208px;
-  }
-}
-
-
-#billboard1 .billboard-imagemap {
-  background-image: image-url('welcome/billboard-1-big.png');
-
-  @include till-breakpoint($bp-tablet-horizontal) {
-    background-image: image-url('welcome/billboard-1-small.png');
-  }
-}
-
-
-#billboard2 .billboard-imagemap {
-  background-image: image-url('welcome/gutes-big.jpg');
-
+  //width: 697px;  // minimum width of this thing
   //@include till-breakpoint($bp-tablet-horizontal) {
-  //  background-image: image-url('welcome/billboard-2-small.png');
+  //  width: 208px;
   //}
 }
 
 
-#billboard1 .billboard-imagemap section {
+#billboard1 {
+  background-image: image-url('welcome/billboard-books-big.png');
+
+  @include till-breakpoint($bp-tablet-horizontal) {
+    background-image: image-url('welcome/billboard-books-small.png');
+  }
+
+  @include between-breakpoints($bp-tablet, $bp-tablet-horizontal) {
+    background-image: image-url('welcome/billboard-books-medium.png');
+  }
+}
+
+
+#billboard2 {
+  background-image: image-url('welcome/billboard-design-big.png');
+
+  @include till-breakpoint($bp-tablet-horizontal) {
+    background-image: image-url('welcome/billboard-design-small.png');
+  }
+
+  @include between-breakpoints($bp-tablet, $bp-tablet-horizontal) {
+    background-image: image-url('welcome/billboard-design-medium.png');
+  }
+}
+
+
+#billboard1 section {
   position: absolute;
   top: 55px;
 
@@ -418,7 +420,15 @@ ul.image_list {
 }
 
 
-#billboard2 .billboard-imagemap section {
+#billboard2 h2 {
+  font-weight: 400;
+  font-size: 2.9em;
+  text-align: right;
+  text-transform: uppercase;
+  text-shadow: 2px 2px $dark-gray;
+}
+
+#billboard2 section {
   position: absolute;
   left: 569px;
 
@@ -436,14 +446,14 @@ ul.image_list {
 }
 
 
-.billboard-imagemap h3 {
+#billboard h3 {
   position: absolute;
   top: 0px;
   left: 0;
 }
 
 
-.billboard-imagemap a.articlelink {
+#billboard a.articlelink {
   position: absolute;
   top: 89px;
   left: 0;
@@ -458,7 +468,7 @@ ul.image_list {
 }
 
 
-#billboard2 .billboard-imagemap a.articlelink {
+#billboard2 a.articlelink {
   top: 0;
   left: 0;
   width: 119px;
@@ -470,7 +480,7 @@ ul.image_list {
 }
 
 
-.billboard-imagemap a.librarylink {
+#billboard a.librarylink {
   position: absolute;
   top: 258px;
   left: 0;
@@ -510,7 +520,7 @@ ul.image_list {
   max-height: 410px;
 }
 
-.container {
+#billboard-inner {  // like .container in slidejs example
   width: auto;
   height: 410px;
   min-height: 410px;
