@@ -528,6 +528,7 @@ ul.image_list {
   color: $white;
 }
 
+/*
 #uspteaser-inner h2 {
   width: 80%;
   min-width: 200px;
@@ -546,6 +547,7 @@ ul.image_list {
     text-decoration: underline;
   }
 }
+*/
 
 #uspteaser-inner p {
   position: absolute;
@@ -563,23 +565,22 @@ ul.image_list {
   width: 80%;
   min-width: 200px;
   max-width: 300px;
-  margin: 7.5% auto;
+  margin: 115px auto 0;
   list-style: none;
   padding: 0;
   overflow: hidden;
 
   li {
     font-size: 1em;
-    font-weight: 300;
     float: left;
     padding-left: 0;
-    margin-bottom: 5%;
+    margin-bottom: 10%;
 
     &:before {
       content: '\f111'; /*fontawesome char code inside the '' */
       font-family: FontAwesome;
-      font-size: 3em;
-      margin-right: 2.5%;
+      font-size: 2em;
+      margin: 0.3em 2.5% 0.3em 0;
       display: block;
       clear: left;
       float: left;
@@ -588,6 +589,7 @@ ul.image_list {
 }
 
 // Responsiveness
+/*
 @include till-breakpoint($bp-mobile-horizontal) {
   #uspteaser-inner {
     height: 80px;
@@ -597,3 +599,4 @@ ul.image_list {
     }
   }
 }
+*/
