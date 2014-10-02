@@ -211,6 +211,8 @@ RailsAdmin.config do |config|
       field :type
       field :verified
       field :banned
+      field :created_at
+      field :updated_at
     end
 
     configure :seller_line_item_groups, :has_many_association

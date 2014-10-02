@@ -68,11 +68,12 @@ class ArticleRefinery < ApplicationRefinery
       # Template attrs
       :save_as_template,
       :article_template_name
-
     ]
   end
 
   def update
-    create
+    create + [
+      :tos_accepted
+    ]
   end
 end
