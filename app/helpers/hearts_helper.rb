@@ -33,11 +33,19 @@ module HeartsHelper
       heart = Heart.where(heartable: heartable_resource, user_token: generate_user_token).limit 1
     end
 
-    if !heart.to_a.empty?
+    if heart.to_a.empty?
+      render partial: "hearts/heart_button", locals: {
+        heartable_resource: heartable_resource,
+        filled: false,
+        path: library_hearts_path(heartable_resource),
+        method: :post,
+        disabled: false
+      }
+    else
       if user_signed_in?
         render partial: "hearts/heart_button", locals: {
           heartable_resource: heartable_resource,
-          icon: "fa-minus",
+          filled: true,
           path: library_heart_path(heartable_resource, heart.first),
           method: :delete,
           disabled: false
@@ -48,14 +56,6 @@ module HeartsHelper
           disabled: true
         }
       end
-    else
-      render partial: "hearts/heart_button", locals: {
-        heartable_resource: heartable_resource,
-        icon: "fa-plus",
-        path: library_hearts_path(heartable_resource),
-        method: :post,
-        disabled: false
-      }
     end
   end
 
