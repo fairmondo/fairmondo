@@ -9,6 +9,7 @@ de:
       trending: 'Trends'
       updated: 'Neu'
       favorites: 'Meine Favoriten'
+      own: 'Meine Sammlungen'
   library:
     new: "Neue Sammlung"
     default: "Standardsammlung"
