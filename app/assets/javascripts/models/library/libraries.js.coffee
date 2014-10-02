@@ -34,5 +34,7 @@ $(document).ready ->
     $(e.target).parent().parent().find('.js-library-settings').show()
     $(e.target).hide()
 
-
-
+  $('#library-form-link a').click ->
+    $('html, body').animate
+      scrollTop: $('#library-form').offset().top, 'slow'
+    $('#library-form #library_name').focus()
