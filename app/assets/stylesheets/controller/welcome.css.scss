@@ -344,9 +344,10 @@ ul.image_list {
 
 #billboard-inner {
   @include whitebox;
-  //background-color: #ec5400;
   padding: 0;
+  width: auto;
   height: 410px;
+  min-height: 410px;
   position: relative;
   overflow: hidden;
   color: $white;
@@ -367,12 +368,8 @@ ul.image_list {
   background-repeat: no-repeat;
   background-position: center top;
   position: relative;
-
+  border-radius: 0.5em;  // Circumvent bug in Webkit browsers that would hide the rounded border from #billboard-inner
   height: 410px;
-  //width: 697px;  // minimum width of this thing
-  //@include till-breakpoint($bp-tablet-horizontal) {
-  //  width: 208px;
-  //}
 }
 
 
@@ -425,7 +422,7 @@ ul.image_list {
   font-size: 2.9em;
   text-align: right;
   text-transform: uppercase;
-  text-shadow: 2px 2px $dark-gray;
+  text-shadow: 1px 1px $dark-gray;
 }
 
 #billboard2 section {
@@ -500,32 +497,18 @@ ul.image_list {
 }
 
 
-.slidejs-container {
-  height: 410px;
-  min-height: 410px;
-  max-height: 410px;
+// CSS for SlidesJS
+#js-billboardslides {
+  display: none;
+}
+
+#billboard {
+  .slidejs-container, .slidejs-control, .slidejs-slide {
+    min-height: 410px;
+  }
 }
 
 
-.slidejs-control {
-  height: 410px;
-  min-height: 410px;
-  max-height: 410px;
-}
-
-
-.slidejs-slide {
-  height: 410px;
-  min-height: 410px;
-  max-height: 410px;
-}
-
-#billboard-inner {  // like .container in slidejs example
-  width: auto;
-  height: 410px;
-  min-height: 410px;
-  max-height: 410px;
-}
 
 
 /*
