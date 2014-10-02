@@ -33,7 +33,7 @@ class LibrariesController < ApplicationController
     # Build empty Library object if user creates a new library
     @library = @user.libraries.build if user_signed_in? && @user
 
-    if current_user or index_mode != 'myfavorite'
+    if user_signed_in? or index_mode != 'myfavorite'
       @libraries = LibraryPolicy::Scope.new(current_user, @user, focus.includes(user: [:image])).resolve.page(params[:page])
     end
 

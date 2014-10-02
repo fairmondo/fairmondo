@@ -19,26 +19,15 @@
 -# You should have received a copy of the GNU Affero General Public License
 -# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
-.Title-next-to-tab
-  %h1 Sammlungen
+%h1.Title-next-to-tab Sammlungen
 
--# Form to create a new library at the top of the page
-- if @library && policy(@library).create?
-  .library-form
-    %h3= t('library.new')
-    = semantic_form_for @library, url: user_libraries_path(current_user) do |f|
-      = f.inputs do
-        = f.input :name
-        = f.input :public, label: false
-      = f.actions do
-        = f.action :submit , value: t('library.create'), button_html: {:class => "Button"}
+%ul.Tabs
+  = render 'mode_menu_item', text: t('libraries.tabs.trending'), path: libraries_path, selected: (@mode == 'trending'), icon: 'line-chart'
+  = render 'mode_menu_item', text: t('libraries.tabs.updated'), path: new_libraries_path, selected: (@mode == 'new'), icon: 'refresh'
+  = render 'mode_menu_item', text: t('libraries.tabs.favorites'), path: myfavorite_libraries_path, selected: (@mode == 'myfavorite'), icon: 'heart'
+  - if user_signed_in?
+    = render 'mode_menu_item', text: t('libraries.tabs.own'), path: user_libraries_path(current_user), selected: (@user != nil), icon: 'user'
 
--# If user is not focused, show library view menu
-- unless @user
-  %ul.Tabs
-    = render 'mode_menu_item', text: t('libraries.tabs.trending'), path: libraries_path, selected: (@mode == 'trending'), icon: 'line-chart'
-    = render 'mode_menu_item', text: t('libraries.tabs.updated'), path: new_libraries_path, selected: (@mode == 'new'), icon: 'refresh'
-    = render 'mode_menu_item', text: t('libraries.tabs.favorites'), path: myfavorite_libraries_path, selected: (@mode == 'myfavorite'), icon: 'heart'
 
 .libraries
   - if !user_signed_in? and @mode == 'myfavorite'
@@ -54,3 +43,13 @@
     - else
       %p= t('libraries.no_library')
 
+-# Form to create a new library at the top of the page
+- if @library && policy(@library).create?
+  .library-form
+    %h3= t('library.new')
+    = semantic_form_for @library, url: user_libraries_path(current_user) do |f|
+      = f.inputs do
+        = f.input :name, required: false
+        = f.input :public, label: false
+      = f.actions do
+        = f.action :submit , value: t('library.create'), button_html: {:class => "Button"}
