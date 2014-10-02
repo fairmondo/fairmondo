@@ -43,10 +43,22 @@ module Fairnopoly
     # -- all .rb files in that directory are automatically loaded.
 
     # Custom directories with classes and modules you want to be autoloadable.
-    config.autoload_paths += %W(#{config.root}/lib/autoload/ #{config.root}/app/models/business_transactions/ #{config.root}/app/models/images/ #{config.root}/app/models/users/ #{config.root}/app/models/payments/)
-    config.autoload_paths += %W(#{config.root}/app/objects/decorator/ #{config.root}/app/objects/form/ #{config.root}/app/objects/query/ #{config.root}/app/objects/service/ #{config.root}/app/objects/value/ #{config.root}/app/objects/view/ #{config.root}/app/objects/coercers/  #{config.root}/app/objects/abaci/ #{config.root}/app/observers #{config.root}/app/objects/pdf/)
+    config.autoload_paths += %W(
+      #{config.root}/lib/autoload/ #{config.root}/app/models/business_transactions/
+      #{config.root}/app/models/images/ #{config.root}/app/models/users/
+      #{config.root}/app/models/payments/
+    )
+    config.autoload_paths += %W(
+      #{config.root}/app/objects/decorator/ #{config.root}/app/objects/form/
+      #{config.root}/app/objects/query/ #{config.root}/app/objects/service/
+      #{config.root}/app/objects/value/ #{config.root}/app/objects/view/
+      #{config.root}/app/objects/coercers/  #{config.root}/app/objects/abaci/
+      #{config.root}/app/observers #{config.root}/app/objects/pdf/
+    )
 
-    config.autoload_paths += %W(#{config.root}/config/initializers/sidekiq_pro.rb)
+    config.autoload_paths += %W(
+      #{config.root}/config/initializers/sidekiq_pro.rb
+    )
 
 
     # Only load the plugins named here, in the order given (default is alphabetical).
@@ -106,7 +118,9 @@ module Fairnopoly
     # controller based assets
     config.assets.precompile += Dir["app/assets/stylesheets/controller/*.scss"].map{|file| "controller/#{File.basename file,'.scss'}" }
     # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
-    config.assets.precompile += %w( session_expire.js )
+    config.assets.precompile += %w(
+      session_expire.js unactivated_article_warning.js
+    )
 
     config.generators.assets :controller_based_assets
     config.generators.test_framework :minitest, spec: true

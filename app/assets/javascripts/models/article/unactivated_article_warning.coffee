@@ -1,4 +1,3 @@
-
 window.onbeforeunload = ->
   'Achtung, Du hast Deinen Artikel noch nicht eingestellt. Um das zu tun, klicke auf "Angebot gebührenpflichtig einstellen".'
 

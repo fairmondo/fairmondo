@@ -5,6 +5,9 @@
    @include buttonize;
    @include bubbleize;
 }
+.formtastic input.Button--large {
+  font-size: 1.2em;
+}
 
 // Have the labels on top
 
@@ -102,10 +105,15 @@ input[type='number'] {
    margin:0.5em;
 }
 
+
 // Helper tooltip
 
 .formtastic .input{
    position:relative;
+}
+.formtastic .input.no-margin {
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
 span.sprite_helper {

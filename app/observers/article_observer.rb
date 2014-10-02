@@ -41,6 +41,7 @@ class ArticleObserver < ActiveRecord::Observer
   end
 
   def before_activate(article, transition)
+    article.changing_state = true
     article.calculate_fees_and_donations
   end
 
