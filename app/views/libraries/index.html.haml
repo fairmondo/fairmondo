@@ -30,6 +30,9 @@
 
 
 .libraries
+  - if user_signed_in? and @user and @libraries.length > 5
+    %p#library-form-link= link_to t('libraries.create_new'), '#library-form'
+
   - if !user_signed_in? and @mode == 'myfavorite'
     -# When the user is not signed in and myfavorite is selected, render a message
     %p
@@ -45,7 +48,7 @@
 
 -# Form to create a new library at the top of the page
 - if @library && policy(@library).create?
-  .library-form
+  #library-form
     %h3= t('library.new')
     = semantic_form_for @library, url: user_libraries_path(current_user) do |f|
       = f.inputs do
