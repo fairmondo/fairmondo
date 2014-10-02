@@ -50,9 +50,9 @@
 - if @library && policy(@library).create?
   #library-form
     %h3= t('library.new')
-    = semantic_form_for @library, url: user_libraries_path(current_user) do |f|
+    = semantic_form_for(@library, url: user_libraries_path(current_user), namespace: 'new') do |f|
       = f.inputs do
         = f.input :name, required: false, input_html: { autocomplete: 'off' }
         = f.input :public, label: false
       = f.actions do
-        = f.action :submit , value: t('library.create'), button_html: {:class => "Button"}
+        = f.action :submit , value: t('library.create'), button_html: { class: 'Button' }
