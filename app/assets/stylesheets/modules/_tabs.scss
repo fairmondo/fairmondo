@@ -63,8 +63,12 @@
   .Title-next-to-tab { padding: 0.5em; }
 }
 
-@include at-breakpoint($bp-tablet) {
-  .Title-next-to-tab { float: left; width: 45%; }
-  .Tabs { float:left; }
+.Title-next-to-tab {
+  float: left;
+  margin-right: 2em;
+}
+
+.Tabs {
+  float: right;
 }
 
