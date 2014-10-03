@@ -19,21 +19,28 @@
 -# You should have received a copy of the GNU Affero General Public License
 -# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
+
+- content_for :view_specific_scripts do
+  = javascript_include_tag 'models/library/libraries'
+
+
 %h1.Title-next-to-tab Sammlungen
 
-%ul.Tabs
-  = render 'mode_menu_item', text: t('libraries.tabs.trending'), path: libraries_path, selected: (@mode == 'trending'), icon: 'line-chart'
-  = render 'mode_menu_item', text: t('libraries.tabs.updated'), path: new_libraries_path, selected: (@mode == 'new'), icon: 'refresh'
-  = render 'mode_menu_item', text: t('libraries.tabs.favorites'), path: myfavorite_libraries_path, selected: (@mode == 'myfavorite'), icon: 'heart'
-  - if user_signed_in?
-    = render 'mode_menu_item', text: t('libraries.tabs.own'), path: user_libraries_path(current_user), selected: (@user != nil), icon: 'user'
+
+- if !user_focused? || @user == current_user
+  %ul.Tabs
+    = render 'mode_menu_item', text: t('libraries.tabs.trending'), path: libraries_path, selected: (@mode == 'trending'), icon: 'line-chart'
+    = render 'mode_menu_item', text: t('libraries.tabs.updated'), path: new_libraries_path, selected: (@mode == 'new'), icon: 'refresh'
+    = render 'mode_menu_item', text: t('libraries.tabs.favorites'), path: myfavorite_libraries_path, selected: (@mode == 'myfavorite'), icon: 'heart'
+    - if user_signed_in?
+      = render 'mode_menu_item', text: t('libraries.tabs.own'), path: user_libraries_path(current_user), selected: user_focused?, icon: 'user'
 
 
 .libraries
-  - if user_signed_in? and @user and @libraries.length > 5
+  - if user_signed_in? && user_focused? && @libraries.length > 5
     %p#library-form-link= link_to t('libraries.create_new'), '#library-form'
 
-  - if !user_signed_in? and @mode == 'myfavorite'
+  - if !user_signed_in? && @mode == 'myfavorite'
     -# When the user is not signed in and myfavorite is selected, render a message
     %p
       = link_to(t('libraries.sign_in'), new_session_path(:user)) + ', '
