@@ -13,7 +13,7 @@ $(document).ready tooltip
 $(document).ajaxStop tooltip
 $(document).on 'socialshareprivacyinserted', tooltip
 
-document.Fairnopoly.setQTipError = ->
+document.Fairmondo.setQTipError = ->
   $(".inline-errors").hide()
   $(".inline-errors").each (index, element) ->
     error = $(element).text()
@@ -34,5 +34,5 @@ document.Fairnopoly.setQTipError = ->
         event: 'click'
         fixed: false
 
-$(document).ready document.Fairnopoly.setQTipError
-$(document).ajaxComplete document.Fairnopoly.setQTipError
+$(document).ready document.Fairmondo.setQTipError
+$(document).ajaxComplete document.Fairmondo.setQTipError

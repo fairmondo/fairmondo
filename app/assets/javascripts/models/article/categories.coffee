@@ -46,7 +46,7 @@ add_new_selectbox = (selected_category_id,selected_value = null) ->
 
         # Add style and preselect a value
         #jq_selecttag.selectBoxIt({autoWidth:false});
-        document.Fairnopoly.selectboxit()
+        document.Fairmondo.selectboxit()
 
         # add handler
         jq_selecttag.change changed_select_box

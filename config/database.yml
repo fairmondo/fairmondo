@@ -11,7 +11,7 @@
 development:
   adapter: postgresql
   encoding: unicode
-  database: fairnopoly_development
+  database: fairmondo_development
   pool: 50
   host: localhost
 
@@ -25,5 +25,5 @@ test:
 #test:
 #  adapter: postgresql
 #  encoding: unicode
-#  database: fairnopoly_test
+#  database: fairmondo_test
 #  pool: 27

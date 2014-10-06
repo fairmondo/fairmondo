@@ -32,5 +32,5 @@ validateRemotely = (event) ->
             $target.parent().addClass 'error'
             new_error = $("<p class='inline-errors hidden'>#{response.errors[0]}</p>")
             $target.after new_error
-            document.Fairnopoly.setQTipError new_error
+            document.Fairmondo.setQTipError new_error
 

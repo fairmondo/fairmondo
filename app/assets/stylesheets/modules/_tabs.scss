@@ -59,14 +59,12 @@
   }
 }
 
-@include at-breakpoint($bp-tablet) {
-  .Tabs { float:right; width: 50%;  }
-}
 
 @include till-breakpoint($bp-tablet) {
   .Title-next-to-tab { padding: 0.5em; }
 }
 
 @include at-breakpoint($bp-tablet) {
-  .Title-next-to-tab { float: left; width: 50%; }
+  .Tabs { float:right; min-width: 50%; }
+  .Title-next-to-tab { float: left; margin-right: 2em; }
 }

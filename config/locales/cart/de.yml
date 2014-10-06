@@ -15,7 +15,7 @@ de:
       purchase_from: "Deine Bestellungen vom %{date}"
       your_order_for: "Deine Bestellung bei"
       terms: "AGB"
-      explain: "Eine Bestellbestätigung wurde per Email an Deine Adresse versand. Du hast Bestellungen bei mehreren Anbietern getätigt. Die unten angezeigten Bestellungen kannst du auch über Dein Profil abrufen."
+      explain: "Eine Bestellbestätigung wurde per Email an Deine Adresse versandt. Du hast Bestellungen bei mehreren Anbietern getätigt. Die unten angezeigten Bestellungen kannst du auch über Dein Profil abrufen."
       cancellation: "Widerrufsbelehrung"
       terms_and_cancellation_label: "Ich akzeptiere die %{terms} und %{cancellation} des/der Anbieter*in."
       unified_transport: "Möglichst alle Artikel mit %{provider} für %{price} zusammen versenden (Kombiversand)."
@@ -27,8 +27,8 @@ de:
       free_transport_notice: "(Verkäufer*in bietet kostenfreien Versand ab %{price})"
       same_address: Lieferadresse wie Rechungsadresse
       next_step_explanation: "Im nächsten Schritt kannst Du alle Deine Angaben noch einmal überprüfen, bevor Du Deine Bestellung abschickst."
-      security_warning: "Sicherheitshinweis: Insbesondere bei Artikeln ab einem Wert von 100 Euro empfiehlt Fairnopoly eine sichere Bezahlmethode wie PayPal, die einen Käuferschutz beinhaltet, oder Barzahlung bei Abholung."
-      long_security_warning: "Sicherheitshinweis: \n Der Kaufvertrag kommt zwischen Dir und dem/der Anbieter*in zustande. Fairnopoly ist bekanntlich nur Plattformbetreiberin.\n Um Dich gegen Betrugsfälle zu schützen, empfiehlt Fairnopoly - insbesondere bei hochwertigen Artikeln und Käufen von Privatpersonen - Dir die Daten des Anbieters bestätigen zu lassen. In Einzelfällen kann es auch sinnvoll sein, Dir die Eigentümerstellung bzw. Nachweise der Echtheit (z.B. Software) oder Unversehrtheit (durch Fotos) nachweisen zu lassen. "
+      security_warning: "Sicherheitshinweis: Insbesondere bei Artikeln ab einem Wert von 100 Euro empfiehlt Fairmondo eine sichere Bezahlmethode wie PayPal, die einen Käuferschutz beinhaltet, oder Barzahlung bei Abholung."
+      long_security_warning: "Sicherheitshinweis: \n Der Kaufvertrag kommt zwischen Dir und dem/der Anbieter*in zustande. Fairmondo ist bekanntlich nur Plattformbetreiberin.\n Um Dich gegen Betrugsfälle zu schützen, empfiehlt Fairmondo - insbesondere bei hochwertigen Artikeln und Käufen von Privatpersonen - Dir die Daten des Anbieters bestätigen zu lassen. In Einzelfällen kann es auch sinnvoll sein, Dir die Eigentümerstellung bzw. Nachweise der Echtheit (z.B. Software) oder Unversehrtheit (durch Fotos) nachweisen zu lassen. "
       addresses:
         forms: "Deine Liefer- und Rechnungsadresse"
         payment: "Rechnungsadresse"

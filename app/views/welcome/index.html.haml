@@ -1,27 +1,27 @@
 -#
 -#
 -# == License:
--# Fairnopoly - Fairnopoly is an open-source online marketplace.
--# Copyright (C) 2013 Fairnopoly eG
+-# Fairmondo - Fairmondo is an open-source online marketplace.
+-# Copyright (C) 2013 Fairmondo eG
 -#
--# This file is part of Fairnopoly.
+-# This file is part of Fairmondo.
 -#
--# Fairnopoly is free software: you can redistribute it and/or modify
+-# Fairmondo is free software: you can redistribute it and/or modify
 -# it under the terms of the GNU Affero General Public License as
 -# published by the Free Software Foundation, either version 3 of the
 -# License, or (at your option) any later version.
 -#
--# Fairnopoly is distributed in the hope that it will be useful,
+-# Fairmondo is distributed in the hope that it will be useful,
 -# but WITHOUT ANY WARRANTY; without even the implied warranty of
 -# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 -# GNU Affero General Public License for more details.
 -#
 -# You should have received a copy of the GNU Affero General Public License
--# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
+-# along with Fairmondo.  If not, see <http://www.gnu.org/licenses/>.
 -#
 
 / The next line is for providing the proper title image to facebook
-- provide( :title_image, image_path('fairnopoly_social_media.png') )
+- provide( :title_image, image_path('fairmondo_social_media.png') )
 - cache 'category-dropdown-welcome' do
   .category-dropdown
     = render 'categories/shared/category_tree'
@@ -129,7 +129,7 @@
       %ul.image_list
         - names.each do |key, value|
           %li
-            %span= link_to '', 'http://info.fairnopoly.de/fairnopoly-in-der-presse/',
+            %span= link_to '', 'http://info.fairmondo.de/fairmondo-in-der-presse/',
             class: "sprite_#{key}", title: value, target: '_blank'
 
 
@@ -201,8 +201,8 @@
 .teaser.teaser--double
   .teaser-inner.teaser--center
     %h2 Aktiv mitwirken
-    %p Unterstütze Fairnopoly mit Deinem Einsatz und werde am Erfolg beteiligt.
-    %p= link_to 'Held*in werden', 'http://helden.fairnopoly.de/helden/', class: 'Button', target: '_blank'
+    %p Unterstütze Fairmondo mit Deinem Einsatz und werde am Erfolg beteiligt.
+    %p= link_to 'Held*in werden', 'http://helden.fairmondo.de/helden/', class: 'Button', target: '_blank'
 
 
 -# Blog
@@ -211,7 +211,7 @@
 
 
 -# Social media buttons
-.socialshareprivacy{data: {uri: "http://www.fairnopoly.de/", title: "Dreh' das spiel um!"}}
+.socialshareprivacy{data: {uri: "http://www.fairmondo.de/", title: "Gutes einfach entdecken"}}
 
 
 -# NGOs
