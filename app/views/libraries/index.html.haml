@@ -19,29 +19,28 @@
 -# You should have received a copy of the GNU Affero General Public License
 -# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
-.Title-next-to-tab
-  %h1 Sammlungen
 
--# Form to create a new library at the top of the page
-- if @library && policy(@library).create?
-  .library-form
-    %h3= t('library.new')
-    = semantic_form_for @library, url: user_libraries_path(current_user) do |f|
-      = f.inputs do
-        = f.input :name
-        = f.input :public, label: false
-      = f.actions do
-        = f.action :submit , value: t('library.create'), button_html: {:class => "Button"}
+- content_for :view_specific_scripts do
+  = javascript_include_tag 'models/library/libraries'
 
--# If user is not focused, show library view menu
-- unless @user
+
+%h1.Title-next-to-tab Sammlungen
+
+
+- if !user_focused? || @user == current_user
   %ul.Tabs
     = render 'mode_menu_item', text: t('libraries.tabs.trending'), path: libraries_path, selected: (@mode == 'trending'), icon: 'line-chart'
     = render 'mode_menu_item', text: t('libraries.tabs.updated'), path: new_libraries_path, selected: (@mode == 'new'), icon: 'refresh'
     = render 'mode_menu_item', text: t('libraries.tabs.favorites'), path: myfavorite_libraries_path, selected: (@mode == 'myfavorite'), icon: 'heart'
+    - if user_signed_in?
+      = render 'mode_menu_item', text: t('libraries.tabs.own'), path: user_libraries_path(current_user), selected: user_focused?, icon: 'user'
+
 
 .libraries
-  - if !user_signed_in? and @mode == 'myfavorite'
+  - if user_signed_in? && user_focused? && @libraries.length > 5
+    %p#library-form-link= link_to t('libraries.create_new'), '#library-form'
+
+  - if !user_signed_in? && @mode == 'myfavorite'
     -# When the user is not signed in and myfavorite is selected, render a message
     %p
       = link_to(t('libraries.sign_in'), new_session_path(:user)) + ', '
@@ -54,3 +53,13 @@
     - else
       %p= t('libraries.no_library')
 
+-# Form to create a new library at the top of the page
+- if @library && policy(@library).create?
+  #library-form
+    %h3= t('library.new')
+    = semantic_form_for(@library, url: user_libraries_path(current_user), namespace: 'new') do |f|
+      = f.inputs do
+        = f.input :name, required: false, input_html: { autocomplete: 'off' }
+        = f.input :public, label: false
+      = f.actions do
+        = f.action :submit , value: t('library.create'), button_html: { class: 'Button' }

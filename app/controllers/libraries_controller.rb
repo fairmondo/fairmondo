@@ -21,6 +21,8 @@
 # along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
 class LibrariesController < ApplicationController
+  helper_method :user_focused?
+
   respond_to :html
 
   before_filter :set_user, if: :user_focused?, only: :index
@@ -31,10 +33,10 @@ class LibrariesController < ApplicationController
 
   def index
     # Build empty Library object if user creates a new library
-    @library = @user.libraries.build if user_signed_in? && @user
+    @library = @user.libraries.build if user_signed_in? && user_focused?
 
-    if current_user or index_mode != 'myfavorite'
-      @libraries = LibraryPolicy::Scope.new(current_user, @user, focus.includes(user: [:image])).resolve.page(params[:page])
+    if user_signed_in? || index_mode != 'myfavorite'
+      @libraries = LibraryPolicy::Scope.new(current_user, @user, focus.includes(user: [:image])).resolve.page(params[:page]).per(12)
     end
 
     respond_to do |format|

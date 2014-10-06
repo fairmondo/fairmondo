@@ -81,7 +81,7 @@ feature "Libraries on welcome page" do
     page.must_have_content I18n.t 'library.auditing.user_warning'
 
     # User changes the name of an enabled library after which it gets disabled
-    fill_in 'library_name', with: 'notanymore'
+    fill_in "library#{@library.id}_library_name", with: 'notanymore'
     click_button I18n.t 'formtastic.actions.update'
 
     # visit welcome page
@@ -101,7 +101,7 @@ feature 'Library management' do
     visit user_libraries_path @user
     page.must_have_content I18n.t 'library.new'
     within '#new_library' do
-      fill_in 'library_name', with: 'foobar'
+      fill_in 'new_library_name', with: 'foobar'
       click_button I18n.t('library.create')
     end
     page.must_have_selector 'a', text: 'foobar'
@@ -117,7 +117,7 @@ feature 'Library management' do
     library = FactoryGirl.create :library, name: 'foobar', user: @user
     visit user_libraries_path @user
     within "#edit_library_#{library.id}" do
-      fill_in 'library_name', with: 'bazfuz'
+      fill_in "library#{library.id}_library_name", with: 'bazfuz'
       click_button I18n.t 'formtastic.actions.update'
     end
     page.must_have_selector 'a', text: 'bazfuz'
@@ -128,7 +128,7 @@ feature 'Library management' do
     library = FactoryGirl.create :library, name: 'foobar', user: @user
     visit user_libraries_path @user
     within "#edit_library_#{library.id}" do
-      fill_in 'library_name', with: ''
+      fill_in "library#{library.id}_library_name", with: ''
       click_button I18n.t 'formtastic.actions.update'
     end
 
