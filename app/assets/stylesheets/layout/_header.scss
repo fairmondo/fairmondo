@@ -16,6 +16,18 @@ $header-nav-link-color-hover: $blue;
   }
 }
 
+// Temporary rename message
+p.l-header-rename {
+  float: left;
+  margin-top: 0.8em;
+  font-weight: 300;
+
+  @include till-breakpoint($bp-mobile-horizontal-big) {
+    display: none;
+  }
+}
+
+
 .l-header-bottom {
   background: $header-highlight-color;
   padding: 0.5em 0;
