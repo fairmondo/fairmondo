@@ -17,7 +17,7 @@ feature 'User Mailer' do
       click_button 'sign_up'
     end
     last_delivery = ActionMailer::Base.deliveries.last
-    last_delivery.body.must_include("-- Diese Nachricht wurde von Fairnopoly, https://beta.fairnopoly.de/, gesendet.")
+    last_delivery.body.must_include("-- Diese Nachricht wurde von Fairmondo, https://beta.fairmondo.de/, gesendet.")
     last_delivery.body.must_include("Aufsichtsratsvorsitzender: Kim Stattaus")
 
   end
@@ -29,7 +29,7 @@ feature 'User Mailer' do
       click_button 'sign_up'
     end
     last_delivery = ActionMailer::Base.deliveries.last
-    last_delivery.body.must_include("-- Diese Nachricht wurde von Fairnopoly, https://beta.fairnopoly.de/, gesendet.")
+    last_delivery.body.must_include("-- Diese Nachricht wurde von Fairmondo, https://beta.fairmondo.de/, gesendet.")
     last_delivery.body.must_include("Aufsichtsratsvorsitzender: Kim Stattaus")
 
   end
@@ -42,7 +42,7 @@ feature 'User Mailer' do
       click_button 'sign_up'
     end
     last_delivery = ActionMailer::Base.deliveries.last
-    last_delivery.encoded.must_include("-- Diese Nachricht wurde von Fairnopoly, https://beta.fairnopoly.de/, gesendet.")
+    last_delivery.encoded.must_include("-- Diese Nachricht wurde von Fairmondo, https://beta.fairmondo.de/, gesendet.")
     last_delivery.encoded.must_include("Aufsichtsratsvorsitzender: Kim Stattaus")
 
   end

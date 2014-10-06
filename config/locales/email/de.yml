@@ -1,30 +1,30 @@
 de:
   email:
     greeting: "Hallo %{name},"
-    close: 'Dein Fairnopoly Team.'
+    close: 'Dein Fairmondo Team.'
     greeting_nickname: "Hallo %{nickname},"
-    security_warning: "Sicherheitshinweis: Der Kaufvertrag kommt zwischen Dir und dem Anbieter zustande. Fairnopoly ist bekanntlich nur Plattformbetreiberin. Um Dich gegen Betrugsfälle zu schützen, empfiehlt Fairnopoly - insbesondere bei hochwertigen Artikeln und Käufen von Privatpersonen - Dir die Daten des Anbieters bestätigen zu lassen. In Einzelfällen kann es bspw. auch sinnvoll sein, Dir die Eigentümerstellung bzw. Nachweise der Echtheit (z.B. Software) oder Unversehrtheit (durch Fotos bei Gebrauchtartikeln) zusenden zu lassen."
+    security_warning: "Sicherheitshinweis: Der Kaufvertrag kommt zwischen Dir und dem Anbieter zustande. Fairmondo ist bekanntlich nur Plattformbetreiberin. Um Dich gegen Betrugsfälle zu schützen, empfiehlt Fairmondo - insbesondere bei hochwertigen Artikeln und Käufen von Privatpersonen - Dir die Daten des Anbieters bestätigen zu lassen. In Einzelfällen kann es bspw. auch sinnvoll sein, Dir die Eigentümerstellung bzw. Nachweise der Echtheit (z.B. Software) oder Unversehrtheit (durch Fotos bei Gebrauchtartikeln) zusenden zu lassen."
     transport_address: 'Lieferadresse'
     payment_address: 'Rechungsadresse'
     social_button: "Wir bei %{network}"
-    imprint_heading: Impressum von Fairnopoly
+    imprint_heading: Impressum von Fairmondo
     imprint: |
-      Fairnopoly eG
+      Fairmondo eG
       Glogauer Str. 21
       10999 Berlin
-      email@fairnopoly.de
+      email@fairmondo.de
 
       Registergericht: Amtsgericht Berlin-Charlottenburg, GnR 738 B; USt-IdNr: DE 290376380
       Vorstand: Felix Weth, Anna Kress, Bastian Neumann
       Aufsichtsratsvorsitzender: Kim Stattaus
 
-      www.fairnopoly.de
+      www.fairmondo.de
       dreh' das Spiel um
     pdf_reader_link: 'Hier kostenloses PDF-Anzeigeprogramm herunterladen.'
-    facebook: Fairnopoly bei Facebook
+    facebook: Fairmondo bei Facebook
     buy_shares: 'Anteile zeichnen'
     header:
-      support_button: 'Fairnopoly unterstützen'
+      support_button: 'Fairmondo unterstützen'
     footer:
       contact: 'Kontakt'
       registration_court: 'Registergericht'
@@ -39,12 +39,12 @@ de:
       cash: 'Barzahlung bei Abholung'
     article:
       contact:
-        text_beginning: 'Ein*e Fairnopoly-Nutzer*in hat dir eine Rückfrage zu deinem Artikel'
+        text_beginning: 'Ein*e Fairmondo-Nutzer*in hat dir eine Rückfrage zu deinem Artikel'
         text_end: 'gesandt:'
         reply_button: 'Anfrage beantworten'
         article_link_text: 'Den Artikel zu der Rückfrage findest Du unter '
       activation:
-        text: 'Du hast erfolgreich einen Artikel auf Fairnopoly eingestellt.'
+        text: 'Du hast erfolgreich einen Artikel auf Fairmondo eingestellt.'
         fees: 'Bei erfolgreichem Verkauf fallen folgende Gebühren an (inkl. 19% MwSt.):)'
         cancellation_heading: 'Widerrufsbelehrung'
         cancellation_text: |
@@ -52,7 +52,7 @@ de:
 
           Sie haben das Recht, binnen vierzehn Tagen ohne Angabe von Gründen diesen Vertrag zu widerrufen.
 
-          Die Widerrufsfrist beträgt vierzehn Tage ab dem Tag des Vertragsabschlusses. Um Ihr Widerrufsrecht auszuüben, müssen Sie uns (Fairnopoly eG, Glogauer Str. 21, 10999 Berlin, Telefon: 030/91462560, Telefax: 030/89615845, E-Mail: kundenservice@fairnopoly.de) mittels einer eindeutigen Erklärung (z.B. ein mit der Post versandter Brief, Telefax oder E-Mail) über Ihren Entschluss, diesen Vertrag zu widerrufen, informieren. Sie können dafür das beigefügte Muster-Widerrufsformular verwenden, das jedoch nicht vorgeschrieben ist. Zur Wahrung der Widerrufsfrist reicht es aus, dass Sie die Mitteilung über die Ausübung des Widerrufsrechts vor Ablauf der Widerrufsfrist absenden.
+          Die Widerrufsfrist beträgt vierzehn Tage ab dem Tag des Vertragsabschlusses. Um Ihr Widerrufsrecht auszuüben, müssen Sie uns (Fairmondo eG, Glogauer Str. 21, 10999 Berlin, Telefon: 030/91462560, Telefax: 030/89615845, E-Mail: kundenservice@fairmondo.de) mittels einer eindeutigen Erklärung (z.B. ein mit der Post versandter Brief, Telefax oder E-Mail) über Ihren Entschluss, diesen Vertrag zu widerrufen, informieren. Sie können dafür das beigefügte Muster-Widerrufsformular verwenden, das jedoch nicht vorgeschrieben ist. Zur Wahrung der Widerrufsfrist reicht es aus, dass Sie die Mitteilung über die Ausübung des Widerrufsrechts vor Ablauf der Widerrufsfrist absenden.
 
           Folgen des Widerrufs
 
@@ -65,11 +65,11 @@ de:
           aus und senden Sie es zurück.)
 
           An
-          Fairnopoly eG
+          Fairmondo eG
           Glogauer Str. 21
           10999 Berlin
           Telefax: 030/89615845,
-          E-Mail: kundenservice@fairnopoly.de
+          E-Mail: kundenservice@fairmondo.de
 
           Hiermit widerrufe(n) ich/wir (*) den von mir/uns (*) abgeschlossenen Vertrag
           über den Kauf der folgenden Waren (*)/die Erbringung der folgenden
@@ -92,8 +92,8 @@ de:
         to_csv: 'Hier kommst Du zu Deinem CSV-Upload: '
     cart:
       buyer:
-        heading: 'Dein Einkauf auf Fairnopoly'
-        text: "Vielen Dank für Deinen Einkauf! Alle Bestelldaten sind unten für Dich zusammengefasst.\n\nDein Fairnopoly-Team."
+        heading: 'Dein Einkauf auf Fairmondo'
+        text: "Vielen Dank für Deinen Einkauf! Alle Bestelldaten sind unten für Dich zusammengefasst.\n\nDein Fairmondo-Team."
         visit_your_profile: 'Um die gekauften Artikel zu bezahlen, besuche bitte Dein'
         user_profile: 'Nutzer*innen-Profil'
         your_purchase: 'Dein Einkauf bei'
@@ -103,8 +103,8 @@ de:
         selected_payment: 'Gewählte Zahlungsart(en):'
     line_item_group:
       seller:
-        heading: 'Dein Verkauf auf Fairnopoly'
-        text: 'Herzlichen Glückwunsch! Du hast erfolgreich Artikel auf Fairnopoly verkauft. Hier findest Du eine Übersicht aller Artikel Deines Auftrags.'
+        heading: 'Dein Verkauf auf Fairmondo'
+        text: 'Herzlichen Glückwunsch! Du hast erfolgreich Artikel auf Fairmondo verkauft. Hier findest Du eine Übersicht aller Artikel Deines Auftrags.'
         bought_from_you: 'hat bei Dir gekauft:'
         buyer_message: 'Nachricht des*der Käufer*in'
         view_and_pay: 'Bestellung ansehen und versenden'

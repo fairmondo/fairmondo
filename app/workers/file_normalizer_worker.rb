@@ -6,12 +6,12 @@ class FileNormalizerWorker
     backtrace: true
 
   def perform article_id
-    article = Article.find article_id
+    article = Article.unscoped.find article_id
 
     unless article.title_image_present?
       article.images.each do |image|
         # get the path to the image
-        path = "/var/www/fairnopoly/shared/#{image.image.path(:cut_here)}"
+        path = "/var/www/fairmondo/shared/#{image.image.path(:cut_here)}"
 
         # get the filename of the image as referenced in image object
         orig_filename = path[path.rindex('/') + 1..-1]
