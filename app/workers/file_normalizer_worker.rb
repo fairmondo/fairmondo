@@ -6,7 +6,7 @@ class FileNormalizerWorker
     backtrace: true
 
   def perform article_id
-    article = Article.find article_id
+    article = Article.unscoped.find article_id
 
     unless article.title_image_present?
       article.images.each do |image|
