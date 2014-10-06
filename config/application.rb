@@ -1,23 +1,23 @@
 #
 #
 # == License:
-# Fairnopoly - Fairnopoly is an open-source online marketplace.
-# Copyright (C) 2013 Fairnopoly eG
+# Fairmondo - Fairmondo is an open-source online marketplace.
+# Copyright (C) 2013 Fairmondo eG
 #
-# This file is part of Fairnopoly.
+# This file is part of Fairmondo.
 #
-# Fairnopoly is free software: you can redistribute it and/or modify
+# Fairmondo is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as
 # published by the Free Software Foundation, either version 3 of the
 # License, or (at your option) any later version.
 #
-# Fairnopoly is distributed in the hope that it will be useful,
+# Fairmondo is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU Affero General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
-# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
+# along with Fairmondo.  If not, see <http://www.gnu.org/licenses/>.
 #
 require File.expand_path('../boot', __FILE__)
 
@@ -35,7 +35,7 @@ if defined?(Bundler)
   # Bundler.require(:default, :assets, Rails.env)
 end
 
-module Fairnopoly
+module Fairmondo
   class Application < Rails::Application
 
     # Settings in config/environments/* take precedence over those specified here.
@@ -43,10 +43,22 @@ module Fairnopoly
     # -- all .rb files in that directory are automatically loaded.
 
     # Custom directories with classes and modules you want to be autoloadable.
-    config.autoload_paths += %W(#{config.root}/lib/autoload/ #{config.root}/app/models/business_transactions/ #{config.root}/app/models/images/ #{config.root}/app/models/users/ #{config.root}/app/models/payments/)
-    config.autoload_paths += %W(#{config.root}/app/objects/decorator/ #{config.root}/app/objects/form/ #{config.root}/app/objects/query/ #{config.root}/app/objects/service/ #{config.root}/app/objects/value/ #{config.root}/app/objects/view/ #{config.root}/app/objects/coercers/  #{config.root}/app/objects/abaci/ #{config.root}/app/observers #{config.root}/app/objects/pdf/)
+    config.autoload_paths += %W(
+      #{config.root}/lib/autoload/ #{config.root}/app/models/business_transactions/
+      #{config.root}/app/models/images/ #{config.root}/app/models/users/
+      #{config.root}/app/models/payments/
+    )
+    config.autoload_paths += %W(
+      #{config.root}/app/objects/decorator/ #{config.root}/app/objects/form/
+      #{config.root}/app/objects/query/ #{config.root}/app/objects/service/
+      #{config.root}/app/objects/value/ #{config.root}/app/objects/view/
+      #{config.root}/app/objects/coercers/  #{config.root}/app/objects/abaci/
+      #{config.root}/app/observers #{config.root}/app/objects/pdf/
+    )
 
-    config.autoload_paths += %W(#{config.root}/config/initializers/sidekiq_pro.rb)
+    config.autoload_paths += %W(
+      #{config.root}/config/initializers/sidekiq_pro.rb
+    )
 
 
     # Only load the plugins named here, in the order given (default is alphabetical).
@@ -106,7 +118,9 @@ module Fairnopoly
     # controller based assets
     config.assets.precompile += Dir["app/assets/stylesheets/controller/*.scss"].map{|file| "controller/#{File.basename file,'.scss'}" }
     # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
-    config.assets.precompile += %w( session_expire.js )
+    config.assets.precompile += %w(
+      session_expire.js unactivated_article_warning.js
+    )
 
     config.generators.assets :controller_based_assets
     config.generators.test_framework :minitest, spec: true
@@ -115,6 +129,6 @@ module Fairnopoly
 
     # Rack-Rewrite paths
     require "#{config.root}/config/rewrites.rb"
-    config.middleware.insert_before(Rack::Runtime, Rack::Rewrite, klass: Rack::Rewrite::FairnopolyRuleSet)
+    config.middleware.insert_before(Rack::Runtime, Rack::Rewrite, klass: Rack::Rewrite::FairmondoRuleSet)
   end
 end

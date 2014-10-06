@@ -1,23 +1,23 @@
 #
 #
 # == License:
-# Fairnopoly - Fairnopoly is an open-source online marketplace.
-# Copyright (C) 2013 Fairnopoly eG
+# Fairmondo - Fairmondo is an open-source online marketplace.
+# Copyright (C) 2013 Fairmondo eG
 #
-# This file is part of Fairnopoly.
+# This file is part of Fairmondo.
 #
-# Fairnopoly is free software: you can redistribute it and/or modify
+# Fairmondo is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as
 # published by the Free Software Foundation, either version 3 of the
 # License, or (at your option) any later version.
 #
-# Fairnopoly is distributed in the hope that it will be useful,
+# Fairmondo is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 # GNU Affero General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
-# along with Fairnopoly. If not, see <http://www.gnu.org/licenses/>.
+# along with Fairmondo. If not, see <http://www.gnu.org/licenses/>.
 #
 
 class UserObserver < ActiveRecord::Observer
@@ -40,6 +40,14 @@ class UserObserver < ActiveRecord::Observer
     if user.newsletter_changed?
       cr = CleverreachAPI
       user.newsletter? ? cr.add(user) : cr.remove(user)
+    end
+
+    # deactivates and closes all active articles of banned user
+    if user.banned_changed? && user.banned && user.articles.active.limit(1).any?
+      user.articles.active.find_each do |article|
+        article.deactivate
+        article.close
+      end
     end
   end
 

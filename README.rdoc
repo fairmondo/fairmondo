@@ -1,12 +1,12 @@
-= Welcome to the Fairnopoly repository
+= Welcome to the Fairmondo repository
 
-{Burndown}[http://radekstepan.com/github-burndown-chart/#!/fairnopoly/fairnopoly]
+{Burndown}[http://radekstepan.com/github-burndown-chart/#!/fairmondo/fairmondo]
 
-{<img src="https://travis-ci.org/fairnopoly/fairnopoly.png" />}[https://travis-ci.org/fairnopoly/fairnopoly] {<img src="https://coveralls.io/repos/fairnopoly/fairnopoly/badge.png?branch=master" alt="Coverage Status" />}[https://coveralls.io/r/fairnopoly/fairnopoly?branch=master] {<img src="https://codeclimate.com/github/fairnopoly/fairnopoly.png" />}[https://codeclimate.com/github/fairnopoly/fairnopoly] {<img src="https://gemnasium.com/fairnopoly/fairnopoly.svg" alt="Dependency Status" />}[https://gemnasium.com/fairnopoly/fairnopoly] {<img src="http://inch-ci.org/github/fairnopoly/fairnopoly.png" alt="Inline docs" />}[http://inch-ci.org/github/fairnopoly/fairnopoly]
+{<img src="https://travis-ci.org/fairmondo/fairmondo.png" />}[https://travis-ci.org/fairmondo/fairmondo] {<img src="https://coveralls.io/repos/fairmondo/fairmondo/badge.png?branch=master" alt="Coverage Status" />}[https://coveralls.io/r/fairmondo/fairmondo?branch=master] {<img src="https://codeclimate.com/github/fairmondo/fairmondo.png" />}[https://codeclimate.com/github/fairmondo/fairmondo] {<img src="https://gemnasium.com/fairmondo/fairmondo.svg" alt="Dependency Status" />}[https://gemnasium.com/fairmondo/fairmondo] {<img src="http://inch-ci.org/github/fairmondo/fairmondo.png" alt="Inline docs" />}[http://inch-ci.org/github/fairmondo/fairmondo]
 
-Fairnopoly is a free market place in the hand of the users.
+Fairmondo is a free market place in the hand of the users.
 
-Read more about it at: http://www.fairnopoly.de
+Read more about it at: http://www.fairmondo.de
 
 Please help us out by contributing code.
 
@@ -19,30 +19,30 @@ If you are not sure how to <em>install Ruby and the Ruby on Rails framework</em>
 
 Make sure you install <em>2.1</em>. and not <em>ruby 1.9.3-p392</em>.
 
-=== Fairnopoly Project Setup (automated)
+=== Fairmondo Project Setup (automated)
 
 Note: the automated process won't work under Windows.
-To run Fairnopoly locally in development mode, install ruby and rails. Then open up a console and <em>copy & paste</em> in the following line:
+To run Fairmondo locally in development mode, install ruby and rails. Then open up a console and <em>copy & paste</em> in the following line:
 
-    git clone git@github.com:fairnopoly/fairnopoly.git && cd fairnopoly/ && git checkout develop && ruby setup.rb
+    git clone git@github.com:fairmondo/fairmondo.git && cd fairmondo/ && git checkout develop && ruby setup.rb
 
 What this does:
 * It sets up a local git repository,
-    git clone git@github.com:fairnopoly/fairnopoly.git
-* switches to the fairnopoly root path,
-    cd fairnopoly/
+    git clone git@github.com:fairmondo/fairmondo.git
+* switches to the fairmondo root path,
+    cd fairmondo/
 * switches the git branch to "develop"
     git checkout develop
-* runs the Fairnopoly setup script
+* runs the Fairmondo setup script
     ruby setup.rb
 
-=== Fairnopoly Project Setup (manually)
+=== Fairmondo Project Setup (manually)
 
 If the automated script doesn't work for you, try going through these steps one by one:
 
 * Set up a local git repository and switch to branch "develop"
-    git clone git@github.com:fairnopoly/fairnopoly.git
-    cd fairnopoly/
+    git clone git@github.com:fairmondo/fairmondo.git
+    cd fairmondo/
     git checkout develop
 
 * Install required gems
@@ -52,7 +52,7 @@ If the automated script doesn't work for you, try going through these steps one 
     cp config/environments/development.example.rb config/environments/development.rb
     cp config/initializers/secret_token.example config/initializers/secret_token.rb
     
-* {set up Postgres for development environment}[https://github.com/fairnopoly/fairnopoly/wiki/postgres]
+* {set up Postgres for development environment}[https://github.com/fairmondo/fairmondo/wiki/postgres]
 
 * set up database, load schema and seed
     rake db:create && rake db:schema:load && rake db:seed
@@ -110,7 +110,7 @@ If you update your branch from before, you may have to migrate the test database
 
   RAILS_ENV=test rake db:migrate
 
-{Click here}[https://github.com/fairnopoly/fairnopoly/wiki/Testing-and-BDD] to read more about testing in our wiki.
+{Click here}[https://github.com/fairmondo/fairmondo/wiki/Testing-and-BDD] to read more about testing in our wiki.
 
 
 === Workflow
@@ -124,7 +124,7 @@ If you want to help out with programming new features or fixing bugs, please con
 * If you have access to our repository, please create a new git branch before making changes when coding a larger feature
     git checkout -b feature-[featurename]
 
-* We use BDD (Behavior Driven Development). Please read our {wiki page on the subject}[https://github.com/fairnopoly/fairnopoly/wiki/Testing-and-BDD].
+* We use BDD (Behavior Driven Development). Please read our {wiki page on the subject}[https://github.com/fairmondo/fairmondo/wiki/Testing-and-BDD].
 
 * When finished with a task:
     git add [corresponding files OR simply --all for everything]
@@ -171,7 +171,7 @@ Aftwerwards start sidekiq with:
 
 == Contributing
 
-Share the idea, take part at http://www.fairnopoly.de/ and make the world a better place!
+Share the idea, take part at http://www.fairmondo.de/ and make the world a better place!
 
 Regarding the source, there are two ways to contribute.
 
@@ -181,5 +181,5 @@ Regarding the source, there are two ways to contribute.
 
 2. Want to help out and join feature development?
    * Have a look at our issue list and work on whatever you like. Mainly look at [Milestone] Backlog [Label] free4all
-   * Send us an email at {email@fairnopoly.de}[mailto:email@fairnopoly.de] and work with us to make the world a better place
-   * or make a github account and click on the button called "Fork" in the upper right corner of {our repository}[https://github.com/fairnopoly/fairnopoly]. Then code a few cool features, commit and push your changes, and submit a "Pull Request" so we can implement your work.
+   * Send us an email at {email@fairmondo.de}[mailto:email@fairmondo.de] and work with us to make the world a better place
+   * or make a github account and click on the button called "Fork" in the upper right corner of {our repository}[https://github.com/fairmondo/fairmondo]. Then code a few cool features, commit and push your changes, and submit a "Pull Request" so we can implement your work.

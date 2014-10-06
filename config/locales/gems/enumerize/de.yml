@@ -177,8 +177,8 @@ de:
       exhibition_name:
         donation_articles: '*Spendenanteil*-Artikel'
         dream_team: '(Dream Team)'
-        old: '*Gebraucht bei Fairnopoly*-Artikel'
-        fairnopoly_likes: '*Fairnopoly mag*-Artikel'
+        old: '*Gebraucht bei Fairmondo*-Artikel'
+        fairmondo_likes: '*Fairmondo mag*-Artikel'
         fair_highlights: '*Besonders & fair*-Artikel'
         ecologic_highlights: '*Besonders & öko*-Artikel'
         small_and_precious_highlights: '*Besonders & edel*-Artikel'
@@ -207,7 +207,7 @@ de:
         cooperative: "Genossenschaft"
         hero: "Heldenprogramm"
         ngo: "Organisation & Spenden"
-        honor: "Fairnopoly Auszeichnungen"
+        honor: "Fairmondo Auszeichnungen"
         other: "Anderes"
         trust_community: "Trust Community"
       help_subject:
@@ -220,7 +220,7 @@ de:
         cooperative: "Genossenschaft"
         hero: "Heldenprogramm"
         ngo: "Organisation & Spenden"
-        honor: "Fairnopoly Auszeichnungen"
+        honor: "Fairmondo Auszeichnungen"
         other: "Anderes"
         trust_community: "Trust Community"
     refund:

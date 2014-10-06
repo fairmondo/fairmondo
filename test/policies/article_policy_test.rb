@@ -1,23 +1,23 @@
 #
 #
 # == License:
-# Fairnopoly - Fairnopoly is an open-source online marketplace.
-# Copyright (C) 2013 Fairnopoly eG
+# Fairmondo - Fairmondo is an open-source online marketplace.
+# Copyright (C) 2013 Fairmondo eG
 #
-# This file is part of Fairnopoly.
+# This file is part of Fairmondo.
 #
-# Fairnopoly is free software: you can redistribute it and/or modify
+# Fairmondo is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as
 # published by the Free Software Foundation, either version 3 of the
 # License, or (at your option) any later version.
 #
-# Fairnopoly is distributed in the hope that it will be useful,
+# Fairmondo is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU Affero General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
-# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
+# along with Fairmondo.  If not, see <http://www.gnu.org/licenses/>.
 #
 require_relative '../test_helper'
 
@@ -43,7 +43,10 @@ describe ArticlePolicy do
     # it { subject.must_deny(:show)              }
 
     describe "on an active article" do
-      before { article.activate }
+      before do
+        article.tos_accepted = '1'
+        article.activate
+      end
       it { subject.must_permit(:show)          }
       it { subject.must_permit(:report)        }
     end
@@ -79,7 +82,10 @@ describe ArticlePolicy do
     end
 
     describe "on an active article" do
-      before { article.activate  }
+      before  do
+        article.tos_accepted = '1'
+        article.activate
+      end
       it { subject.must_permit(:deactivate) }
       it { subject.must_deny(:activate)     }
       it { subject.must_deny(:destroy)      }
@@ -93,6 +99,7 @@ describe ArticlePolicy do
 
     describe "on a locked article" do
       before do
+        article.tos_accepted = '1'
         article.activate
         article.deactivate
       end

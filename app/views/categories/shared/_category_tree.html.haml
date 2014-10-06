@@ -24,17 +24,20 @@
               = link_to c.name, category_path(c, article_search_form: search_cache.change(category_id: c.id)),
                                 class: 'Search-colored-link', data: { push: 'true' }
 
+      -# Display either the selected category or its parent at the top of the hierarchy
       - if category.children.empty? && category.parent
-        -# If category has no children, show it among its siblings with its parent category and the parent's siblings
-        = render partial: 'categories/shared/category_tree_leaf', object: category.parent, as: :category,
-                 locals: { subtree: category.self_and_sorted_siblings }
-        = render partial: 'categories/shared/category_tree_leaf', collection: category.parent.sorted_siblings, as: :category
-
+        - displayed_category = category.parent
+        - displayed_subtree = category.self_and_sorted_siblings
       - else
-        -# Else, show the category with its children (if any) and its siblings
-        = render partial: 'categories/shared/category_tree_leaf', object: category, as: :category,
-                 locals: { subtree: category.sorted_children }
-        = render partial: 'categories/shared/category_tree_leaf', collection: category.sorted_siblings, as: :category
+        - displayed_category = category
+        - displayed_subtree = category.sorted_children
+
+      -# Render the category/parent and its siblings
+      = render partial: 'categories/shared/category_tree_leaf',
+               object: displayed_category, as: :category,
+               locals: { subtree: displayed_subtree }
+      = render partial: 'categories/shared/category_tree_leaf',
+               collection: displayed_category.sorted_siblings, as: :category
 
     - else  # If no category is selected
       -# Show top categories

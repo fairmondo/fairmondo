@@ -1,23 +1,23 @@
 #
 #
 # == License:
-# Fairnopoly - Fairnopoly is an open-source online marketplace.
-# Copyright (C) 2013 Fairnopoly eG
+# Fairmondo - Fairmondo is an open-source online marketplace.
+# Copyright (C) 2013 Fairmondo eG
 #
-# This file is part of Fairnopoly.
+# This file is part of Fairmondo.
 #
-# Fairnopoly is free software: you can redistribute it and/or modify
+# Fairmondo is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as
 # published by the Free Software Foundation, either version 3 of the
 # License, or (at your option) any later version.
 #
-# Fairnopoly is distributed in the hope that it will be useful,
+# Fairmondo is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU Affero General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
-# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
+# along with Fairmondo.  If not, see <http://www.gnu.org/licenses/>.
 #
 require 'json'
 
@@ -45,7 +45,7 @@ def brakeman
 end
 
 def format obj
-  # {"warning_type"=>"Mass Assignment", "warning_code"=>17, "fingerprint"=>"27beb3195178f4d43c35b1c282a079319d44adec7cea1ed0f157905a92c92501", "message"=>"Unprotected mass assignment", "file"=>"/Users/tino/ruby/rails_projects/fairnopoly/app/controllers/articles_controller.rb", "line"=>192, "link"=>"http://brakemanscanner.org/docs/warning_types/mass_assignment/", "code"=>"Article.new(params[:article])", "render_path"=>nil, "location"=>{"type"=>"method", "class"=>"ArticlesController", "method"=>"collection"}, "user_input"=>"params[:article]", "confidence"=>"High"}
+  # {"warning_type"=>"Mass Assignment", "warning_code"=>17, "fingerprint"=>"27beb3195178f4d43c35b1c282a079319d44adec7cea1ed0f157905a92c92501", "message"=>"Unprotected mass assignment", "file"=>"/Users/tino/ruby/rails_projects/fairmondo/app/controllers/articles_controller.rb", "line"=>192, "link"=>"http://brakemanscanner.org/docs/warning_types/mass_assignment/", "code"=>"Article.new(params[:article])", "render_path"=>nil, "location"=>{"type"=>"method", "class"=>"ArticlesController", "method"=>"collection"}, "user_input"=>"params[:article]", "confidence"=>"High"}
   if obj['line']
     "#{obj['message']} near line #{obj['line']}: #{obj['code']}\n#{obj['file']}\nConfidence: #{obj['confidence']}"
   else

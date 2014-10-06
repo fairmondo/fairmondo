@@ -9,11 +9,11 @@
               = link_to organisation.nickname, profile_user_path(organisation)
           .value
             %h3
-              = humanized_money_with_symbol Money.new(amount)
+              = humanized_money_with_symbol amount
 
         .line
           .heading
-            = "Bitte überweise den Betrag von #{ humanized_money_with_symbol(Money.new(amount)) }:"
+            = "Bitte überweise den Betrag von #{ humanized_money_with_symbol(amount) }:"
         = bank_account_line(organisation, :bank_account_owner)
         = bank_account_line(organisation, :iban)
         = bank_account_line(organisation, :bic)
@@ -27,7 +27,7 @@
               = link_to organisation.nickname, profile_user_path(organisation)
           .value
             %h4
-              = humanized_money_with_symbol(Money.new(amount))
+              = humanized_money_with_symbol(amount)
 
     .line
       .heading
@@ -35,5 +35,5 @@
           Gesamtspende:
       .value
         %h4
-          = humanized_money_with_symbol Money.new(abacus.donation_listing.donation_total)
+          = humanized_money_with_symbol abacus.donation_listing.donation_total
 

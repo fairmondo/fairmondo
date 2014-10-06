@@ -13,7 +13,7 @@ class MassUploadsController < ApplicationController
 
     respond_with @mass_upload do |format|
       format.csv { send_data ArticleExporter.export_erroneous_articles(@mass_upload.erroneous_articles),
-                   {filename: "Fairnopoly_export_errors_#{Time.now.strftime("%Y-%d-%m %H:%M:%S")}.csv"} }
+                   {filename: "Fairmondo_export_errors_#{Time.now.strftime("%Y-%d-%m %H:%M:%S")}.csv"} }
     end
   end
 
@@ -36,7 +36,7 @@ class MassUploadsController < ApplicationController
     activation_ids = articles_to_activate.map{ |article| article.id }
     articles_to_activate.update_all({:state => 'active'})
     Indexer.delay.index_articles activation_ids
-    ArticleMailer.delay.mass_upload_activation_message(@mass_upload.id)
+    send_emails_for @mass_upload
     flash[:notice] = I18n.t('article.notices.mass_upload_create_html').html_safe
     redirect_to user_path(@mass_upload.user)
   end
@@ -45,5 +45,15 @@ class MassUploadsController < ApplicationController
 
     def set_mass_upload
       @mass_upload = current_user.mass_uploads.find(params[:id])
+    end
+
+    def send_emails_for mass_upload
+      if mass_upload.activated_articles.any?
+        ArticleMailer.delay.mass_upload_activation_message(mass_upload.id)
+      end
+
+      if mass_upload.deleted_articles.any?
+        ArticleMailer.delay.mass_upload_deletion_message(mass_upload.id)
+      end
     end
 end

@@ -17,10 +17,12 @@ de:
     legal: "Allgemeinen Geschäftsbedingungen"
     legal_abbr: "AGB"
     legal_new: "Allgemeinen Geschäftsbedingungen."
+    legal_link: "den AGB, der Widerrufsbelehrung"
+    privacy: "Datenschutzerklärung"
+    privacy_link: "der Datenschutzerklärung"
     i_accept_both: "Ich bin über 18 Jahre alt und stimme den %{legal} und der %{privacy} zu."
     terms_new_info: "die Allgemeinen Geschäftsbedingungen und Datenschutzerklährung haben sich geändert. Diese müssen akzeptiert werden, bevor du weiter machen kannst."
-    activate_all_articles: "Du kannst in diesem Schritt alle bisher eingestellten Artikel zum Verkauf auf Fairnopoly freischalten."
-    privacy: "Datenschutzerklärung"
+    activate_all_articles: "Du kannst in diesem Schritt alle bisher eingestellten Artikel zum Verkauf auf Fairmondo freischalten."
     complexify: Passwortstärke
     visibility:
       public: "Öffentlich"

@@ -1,23 +1,23 @@
 #
 #
 # == License:
-# Fairnopoly - Fairnopoly is an open-source online marketplace.
-# Copyright (C) 2013 Fairnopoly eG
+# Fairmondo - Fairmondo is an open-source online marketplace.
+# Copyright (C) 2013 Fairmondo eG
 #
-# This file is part of Fairnopoly.
+# This file is part of Fairmondo.
 #
-# Fairnopoly is free software: you can redistribute it and/or modify
+# Fairmondo is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as
 # published by the Free Software Foundation, either version 3 of the
 # License, or (at your option) any later version.
 #
-# Fairnopoly is distributed in the hope that it will be useful,
+# Fairmondo is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU Affero General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
-# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
+# along with Fairmondo.  If not, see <http://www.gnu.org/licenses/>.
 #
 class ArticlesController < ApplicationController
 
@@ -128,14 +128,18 @@ class ArticlesController < ApplicationController
     end
 
     def change_state!
-
       # For changing the state of an article
       # Refer to Article::State
       if params[:activate]
+        @article.assign_attributes params.for(@article).refine
         authorize @article, :activate?
         if @article.activate
           flash[:notice] = I18n.t('article.notices.create_html')
           redirect_to @article
+        elsif @article.errors.keys.include? :tos_accepted
+          # TOS weren't accepted, redirect back to the form
+          flash[:error] = I18n.t('article.notices.activation_failed')
+          render :show
         else
           # The article became invalid so please try a new one
           redirect_to new_article_path(:edit_as_new => @article.id)
@@ -163,7 +167,7 @@ class ArticlesController < ApplicationController
       @article.images.each_with_index do |image,index|
         if image.new_record?
           # strange HACK because paperclip will now rollback uploaded files and we want the file to be saved anyway
-          # if you find aout a way to break out a running transaction please refactor to images_attributes
+          # if you find out a way to break out a running transaction please refactor to images_attributes
           image.image = params[:article][:images_attributes][index.to_s][:image]
         end
         image.save
