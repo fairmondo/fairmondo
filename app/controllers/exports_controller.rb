@@ -17,7 +17,7 @@ class ExportsController < ApplicationController
 
      respond_to do |format|
        format.csv { send_file csv.path,
-                   { type: 'text/csv; charset=utf-8' , filename: "Fairnopoly_export_#{Time.now.strftime("%Y-%d-%m %H:%M:%S")}.csv"} }
+                   { type: 'text/csv; charset=utf-8' , filename: "Fairmondo_export_#{Time.now.strftime("%Y-%d-%m %H:%M:%S")}.csv"} }
      end
   end
 end

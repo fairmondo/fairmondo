@@ -17,7 +17,7 @@ class CartMailer < ActionMailer::Base
 
     @cart = cart
     @buyer = cart.user
-    @subject = "[Fairnopoly] #{ t('transaction.notifications.buyer.buyer_subject') } vom #{ @cart.line_item_groups.first.sold_at.strftime('%d.%m.%Y %H:%M') }"
+    @subject = "[Fairmondo] #{ t('transaction.notifications.buyer.buyer_subject') } vom #{ @cart.line_item_groups.first.sold_at.strftime('%d.%m.%Y %H:%M') }"
 
     mail(to: @buyer.email, subject: @subject)
   end
@@ -29,7 +29,7 @@ class CartMailer < ActionMailer::Base
     @line_item_group = line_item_group
     @buyer = line_item_group.buyer
     @seller = line_item_group.seller
-    @subject = "[Fairnopoly] #{ t('transaction.notifications.seller.seller_subject') } Verkauf Nr: #{ line_item_group.purchase_id }"
+    @subject = "[Fairmondo] #{ t('transaction.notifications.seller.seller_subject') } Verkauf Nr: #{ line_item_group.purchase_id }"
 
     mail(to: @seller.email, subject: @subject)
   end

@@ -1,6 +1,6 @@
 #
-# Farinopoly - Fairnopoly is an open-source online marketplace.
-# Copyright (C) 2013 Fairnopoly eG
+# Farinopoly - Fairmondo is an open-source online marketplace.
+# Copyright (C) 2013 Fairmondo eG
 #
 # This file is part of Farinopoly.
 #

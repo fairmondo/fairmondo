@@ -62,20 +62,20 @@
     <iframe id="search_frame"></iframe>
 
     <div id="content"><div id='filecontents'>
-<h1>Welcome to the Fairnopoly repository</h1>
+<h1>Welcome to the Fairmondo repository</h1>
 
-<p><a href="https://travis-ci.org/fairnopoly/fairnopoly"><img
-src="https://travis-ci.org/fairnopoly/fairnopoly.png" /></a> <a
-href="https://coveralls.io/r/fairnopoly/fairnopoly?branch=release"><img
-src="https://coveralls.io/repos/fairnopoly/fairnopoly/badge.png?branch=release"
+<p><a href="https://travis-ci.org/fairmondo/fairmondo"><img
+src="https://travis-ci.org/fairmondo/fairmondo.png" /></a> <a
+href="https://coveralls.io/r/fairmondo/fairmondo?branch=release"><img
+src="https://coveralls.io/repos/fairmondo/fairmondo/badge.png?branch=release"
 alt="Coverage Status" /></a> <a
-href="https://codeclimate.com/github/fairnopoly/fairnopoly"><img
-src="https://codeclimate.com/github/fairnopoly/fairnopoly.png" /></a></p>
+href="https://codeclimate.com/github/fairmondo/fairmondo"><img
+src="https://codeclimate.com/github/fairmondo/fairmondo.png" /></a></p>
 
-<p>Fairnopoly is a free market place in the hand of the users.</p>
+<p>Fairmondo is a free market place in the hand of the users.</p>
 
 <p>Read more about it at: <a
-href="http://www.fairnopoly.de">www.fairnopoly.de</a></p>
+href="http://www.fairmondo.de">www.fairmondo.de</a></p>
 
 <p>The development currently is in beta state. Please help us out by
 contributing code.</p>
@@ -92,43 +92,43 @@ on the subject.</p>
 
 <p>Make sure you install <em>ruby 1.9.3-p392</em> and not 2.0.0.</p>
 
-<h3>Fairnopoly Project Setup (automated)</h3>
+<h3>Fairmondo Project Setup (automated)</h3>
 
-<p>Note: the automated process won't work under Windows. To run Fairnopoly
+<p>Note: the automated process won't work under Windows. To run Fairmondo
 locally in development mode, install ruby and rails. Then open up a console
 and <em>copy &amp; paste</em> in the following line:</p>
 
-<pre class="code ruby"><code class="ruby">git clone git@github.com:fairnopoly/fairnopoly.git &amp;&amp; cd fairnopoly/ &amp;&amp; git checkout release &amp;&amp; ruby setup.rb</code></pre>
+<pre class="code ruby"><code class="ruby">git clone git@github.com:fairmondo/fairmondo.git &amp;&amp; cd fairmondo/ &amp;&amp; git checkout release &amp;&amp; ruby setup.rb</code></pre>
 
 <p>What this does:</p>
 <ul><li>
 <p>It sets up a local git repository,</p>
 
-<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_git'>git</span> <span class='id identifier rubyid_clone'>clone</span> <span class='id identifier rubyid_git'>git</span><span class='ivar'>@github</span><span class='period'>.</span><span class='id identifier rubyid_com'>com</span><span class='symbol'>:fairnopoly</span><span class='op'>/</span><span class='id identifier rubyid_fairnopoly'>fairnopoly</span><span class='period'>.</span><span class='id identifier rubyid_git'>git</span></code></pre>
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_git'>git</span> <span class='id identifier rubyid_clone'>clone</span> <span class='id identifier rubyid_git'>git</span><span class='ivar'>@github</span><span class='period'>.</span><span class='id identifier rubyid_com'>com</span><span class='symbol'>:fairmondo</span><span class='op'>/</span><span class='id identifier rubyid_fairmondo'>fairmondo</span><span class='period'>.</span><span class='id identifier rubyid_git'>git</span></code></pre>
 </li><li>
-<p>switches to the fairnopoly root path,</p>
+<p>switches to the fairmondo root path,</p>
 
-<pre class="code ruby"><code class="ruby">cd fairnopoly/</code></pre>
+<pre class="code ruby"><code class="ruby">cd fairmondo/</code></pre>
 </li><li>
 <p>switches the git branch to "release" (which is the branch we currently use
 for the beta version)</p>
 
 <pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_git'>git</span> <span class='id identifier rubyid_checkout'>checkout</span> <span class='id identifier rubyid_release'>release</span></code></pre>
 </li><li>
-<p>runs the Fairnopoly setup script</p>
+<p>runs the Fairmondo setup script</p>
 
 <pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_ruby'>ruby</span> <span class='id identifier rubyid_setup'>setup</span><span class='period'>.</span><span class='id identifier rubyid_rb'>rb</span></code></pre>
 </li></ul>
 
-<h3>Fairnopoly Project Setup (manually)</h3>
+<h3>Fairmondo Project Setup (manually)</h3>
 
 <p>If the automated script doesn't work for you, try going through these steps
 one by one:</p>
 <ul><li>
 <p>Set up a local git repository</p>
 
-<pre class="code ruby"><code class="ruby">git clone git@github.com:fairnopoly/fairnopoly.git
-cd fairnopoly/</code></pre>
+<pre class="code ruby"><code class="ruby">git clone git@github.com:fairmondo/fairmondo.git
+cd fairmondo/</code></pre>
 </li><li>
 <p>Install required gems (preface with rvmsudo if you are using rvm)</p>
 
@@ -207,7 +207,7 @@ database:</p>
 <pre class="code ruby"><code class="ruby"><span class='const'>RAILS_ENV</span><span class='op'>=</span><span class='id identifier rubyid_test'>test</span> <span class='id identifier rubyid_rake'>rake</span> <span class='label'>db:</span><span class='id identifier rubyid_migrate'>migrate</span></code></pre>
 
 <p><a
-href="https://github.com/fairnopoly/fairnopoly/wiki/Testing-and-BDD">Click
+href="https://github.com/fairmondo/fairmondo/wiki/Testing-and-BDD">Click
 here</a> to read more about testing in our wiki.</p>
 
 <h3>Workflow</h3>
@@ -224,7 +224,7 @@ making changes when coding a larger feature</p>
 <pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_git'>git</span> <span class='id identifier rubyid_branch'>branch</span> <span class='lbracket'>[</span><span class='id identifier rubyid_featurename'>featurename</span><span class='rbracket'>]</span></code></pre>
 </li><li>
 <p>We use BDD (Behavior Driven Development). Please read our <a
-href="https://github.com/fairnopoly/fairnopoly/wiki/Testing-and-BDD">wiki
+href="https://github.com/fairmondo/fairmondo/wiki/Testing-and-BDD">wiki
 page on the subject</a>.</p>
 </li><li>
 <p>When finished with a task:</p>
@@ -259,7 +259,7 @@ rake sunspot:solr:start</code></pre>
 <h2>Contributing</h2>
 
 <p>Share the idea, take part at <a
-href="http://www.fairnopoly.de">www.fairnopoly.de</a>/ and make the world a
+href="http://www.fairmondo.de">www.fairmondo.de</a>/ and make the world a
 better place!</p>
 
 <p>Regarding the source, there are two ways to contribute.</p>
@@ -272,11 +272,11 @@ better place!</p>
 <p>Want to help out and join feature development?</p>
 <ul><li>
 <p>Send us an email at <a
-href="mailto:email@fairnopoly.de">email@fairnopoly.de</a> and work with us
+href="mailto:email@fairmondo.de">email@fairmondo.de</a> and work with us
 to make the world a better place</p>
 </li><li>
 <p>or make a github account and click on the button called "Fork" in the upper
-right corner of <a href="https://github.com/fairnopoly/fairnopoly">our
+right corner of <a href="https://github.com/fairmondo/fairmondo">our
 repository</a>. Then code a few cool features, commit and push your
 changes, and submit a "Pull Request" so we can implement your work.</p>
 </li></ul>

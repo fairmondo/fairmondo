@@ -9,7 +9,7 @@
 #    resizeIframe document.getElementsByTagName("iframe")[0]
 #    # change to loop should we have more than one iframe that needs this
 
-document.Fairnopoly.placeIframe = (url) ->
+document.Fairmondo.placeIframe = (url) ->
   new easyXDM.Socket
     remote: url
     container: document.getElementById("WeGreen-iframe")
