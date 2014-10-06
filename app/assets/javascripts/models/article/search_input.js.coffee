@@ -23,10 +23,11 @@
 autocomplete_hook = ->
   if $( "#search_input" ).length isnt 0
     $( "#search_input" ).autocomplete
-      serviceUrl: $("#search_input").data('autocomplete-remote-url'),
-      paramName: 'q',
-      preventBadQueries: false,
-      triggerSelectOnValidInput: false,
+      serviceUrl: $("#search_input").data('autocomplete-remote-url')
+      paramName: 'q'
+      preventBadQueries: false
+      triggerSelectOnValidInput: false
+      appendTo: '.l-header-search-query'
 
       formatResult: (suggestion,currentValue) ->
         title = $.Autocomplete.formatResult(suggestion,currentValue)
