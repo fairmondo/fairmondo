@@ -38,7 +38,6 @@ class ArticleObserver < ActiveRecord::Observer
     end
 
     Indexer.index_article article
-    FileNormalizerWorker.perform_async article.id
   end
 
   def before_activate(article, transition)
