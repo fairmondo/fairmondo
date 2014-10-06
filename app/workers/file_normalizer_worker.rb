@@ -23,10 +23,17 @@ class FileNormalizerWorker
         # get the paths to the image files in the style directories
         files = Dir.glob("#{path}*/*")
 
+        # write the image path to deletions list
+        image.write_path_to_file_for('deletions')
+
         files.each do |file|
           File.rename(file, file[0..file.rindex('/')] + orig_filename)
         end
+        # index changed articles
         Indexer.index_article(article)
+
+        # write image path to additions list
+        image.write_path_to_file_for('additions')
       end
     end
   end
