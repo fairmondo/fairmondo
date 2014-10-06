@@ -45,6 +45,8 @@
 
 
 .l-header-search-query {
+  position: relative;
+
   @include till-breakpoint($bp-tablet) {
      @include span(3 of 4 0.1);
   }
