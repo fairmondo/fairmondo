@@ -24,6 +24,7 @@ class ConfirmationsController < Devise::ConfirmationsController
   private
 
   def after_confirmation_path_for(resource_name, resource)
+    # Set parameter 'just_confirmed' so that registrations can be tracked
     new_session_path(:user, just_confirmed: true)
   end
 
