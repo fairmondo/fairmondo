@@ -20,12 +20,14 @@
 # along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
 class ConfirmationsController < Devise::ConfirmationsController
-
   private
 
+  # Set parameter 'just_confirmed' so that registrations can be tracked
   def after_confirmation_path_for(resource_name, resource)
-    # Set parameter 'just_confirmed' so that registrations can be tracked
-    new_session_path(:user, just_confirmed: true)
+    if signed_in?(resource_name)
+      signed_in_root_path(resource)
+    else
+      new_session_path(resource_name, just_confirmed: true)
+    end
   end
-
 end
