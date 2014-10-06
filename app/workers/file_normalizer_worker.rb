@@ -26,6 +26,7 @@ class FileNormalizerWorker
         files.each do |file|
           File.rename(file, file[0..file.rindex('/')] + orig_filename)
         end
+        Indexer.index_article(article)
       end
     end
   end
