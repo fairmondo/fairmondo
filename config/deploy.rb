@@ -1,14 +1,14 @@
 # config valid only for Capistrano 3.1
 lock '3.2.1'
 
-set :application, 'fairnopoly'
-set :repo_url, 'git://github.com/fairnopoly/fairnopoly.git'
+set :application, 'fairmondo'
+set :repo_url, 'git://github.com/fairmondo/fairmondo.git'
 set :rbenv_ruby, '2.1.0'
 
 # Default branch is :master
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }
 
-set :deploy_to, "/var/www/fairnopoly"
+set :deploy_to, "/var/www/fairmondo"
 
 # Default value for :scm is :git
 set :scm, :git

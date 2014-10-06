@@ -114,4 +114,5 @@ sidekiq_pro_path.yml
 # Paypal
 paypal_adaptive.yml
 
-
+# mac DS_Store
+*.DS_Store
