@@ -128,8 +128,9 @@
       %h5 Bekannt aus
       %ul.image_list
         - names.each do |key, value|
-          %li= link_to '', 'http://info.fairnopoly.de/fairnopoly-in-der-presse/',
-          class: "sprite_#{key}", title: value, target: '_blank'
+          %li
+            %span= link_to '', 'http://info.fairnopoly.de/fairnopoly-in-der-presse/',
+            class: "sprite_#{key}", title: value, target: '_blank'
 
 
 -# Trending libraries
