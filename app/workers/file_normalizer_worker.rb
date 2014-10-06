@@ -9,7 +9,7 @@ class FileNormalizerWorker
     article = Article.find article_id
 
     article.images.each do |image|
-      path = "/var/www/fairnopoly/shared/#{image.image.path(:cut_here)}"
+      path = "/var/www/fairmondo/shared/#{image.image.path(:cut_here)}"
       index = path.index('cut_here') - 1
       path = path[0..index]
       files = Dir.glob("#{path}*/*")

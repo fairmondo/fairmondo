@@ -13,7 +13,7 @@ class MassUploadsController < ApplicationController
 
     respond_with @mass_upload do |format|
       format.csv { send_data ArticleExporter.export_erroneous_articles(@mass_upload.erroneous_articles),
-                   {filename: "Fairnopoly_export_errors_#{Time.now.strftime("%Y-%d-%m %H:%M:%S")}.csv"} }
+                   {filename: "Fairmondo_export_errors_#{Time.now.strftime("%Y-%d-%m %H:%M:%S")}.csv"} }
     end
   end
 

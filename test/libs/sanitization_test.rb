@@ -24,15 +24,15 @@ describe 'Sanitization' do
 
       describe "sanitizing links" do
         it "should allow http protocol" do
-          field = '<a href="http://www.fairnopoly.de">Test</a>'
+          field = '<a href="http://www.fairmondo.de">Test</a>'
           test_sanitize_mce(field, true).must_equal field
         end
         it "should allow https protocol" do
-          field = '<a href="https://www.fairnopoly.de">Test</a>'
+          field = '<a href="https://www.fairmondo.de">Test</a>'
           test_sanitize_mce(field, true).must_equal field
         end
         it "should allow mailto protocol" do
-          field = '<a href="mailto:info@fairnopoly.de">Test</a>'
+          field = '<a href="mailto:info@fairmondo.de">Test</a>'
           test_sanitize_mce(field, true).must_equal field
         end
         it "should allow relative links" do
