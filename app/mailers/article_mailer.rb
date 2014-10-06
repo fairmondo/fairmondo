@@ -1,23 +1,23 @@
 #
 #
 # == License:
-# Fairnopoly - Fairnopoly is an open-source online marketplace.
-# Copyright (C) 2013 Fairnopoly eG
+# Fairmondo - Fairmondo is an open-source online marketplace.
+# Copyright (C) 2013 Fairmondo eG
 #
-# This file is part of Fairnopoly.
+# This file is part of Fairmondo.
 #
-# Fairnopoly is free software: you can redistribute it and/or modify
+# Fairmondo is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as
 # published by the Free Software Foundation, either version 3 of the
 # License, or (at your option) any later version.
 #
-# Fairnopoly is distributed in the hope that it will be useful,
+# Fairmondo is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU Affero General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
-# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
+# along with Fairmondo.  If not, see <http://www.gnu.org/licenses/>.
 #
 class ArticleMailer < ActionMailer::Base
   include MailerHelper
@@ -46,20 +46,20 @@ class ArticleMailer < ActionMailer::Base
     @article = Article.find article_id
     @user    = @article.user
     terms_pdf
-    mail(to: @user.email, subject: "[Fairnopoly] Du hast einen Artikel auf Fairnopoly eingestellt")
+    mail(to: @user.email, subject: "[Fairmondo] Du hast einen Artikel auf Fairmondo eingestellt")
   end
 
   def mass_upload_activation_message mass_upload_id
     @mass_upload = MassUpload.find mass_upload_id
     @user = @mass_upload.user
     terms_pdf
-    mail(to: @user.email, subject: "[Fairnopoly] Du hast Deine per CSV-Dateien eingestellten Artikel aktiviert")
+    mail(to: @user.email, subject: "[Fairmondo] Du hast Deine per CSV-Dateien eingestellten Artikel aktiviert")
   end
 
   def mass_upload_deletion_message mass_upload_id
     @mass_upload = MassUpload.find mass_upload_id
     @user = @mass_upload.user
-    mail(to: @user.email, subject: "[Fairnopoly] Du hast Artikel per CSV-Datei gelöscht")
+    mail(to: @user.email, subject: "[Fairmondo] Du hast Artikel per CSV-Datei gelöscht")
   end
 
   private

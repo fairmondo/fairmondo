@@ -25,7 +25,7 @@
               - lib[:exhibits].each do |article|
                 .Grid-item
                   = render "/articles/shared/show_article", article: article
-      -# Individuelle Buchempfehlungen ++ Fairnopolys Bücherblog
+      -# Individuelle Buchempfehlungen ++ Fairmondos Bücherblog
 
       - lib = FeaturedLibraryQuery.new(:book3).find(2)
       - if lib[:library]
