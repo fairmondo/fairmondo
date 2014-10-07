@@ -7,10 +7,10 @@ namespace :code do
     require 'copyright_header'
 
     args = {
-      :license_file => 'lib/templates/erb/license/fairnopoly_license.erb',
-      :copyright_software => 'Fairnopoly',
-      :copyright_software_description => "Fairnopoly is an open-source online marketplace.",
-      :copyright_holders => ['Fairnopoly eG'],
+      :license_file => 'lib/templates/erb/license/fairmondo_license.erb',
+      :copyright_software => 'Fairmondo',
+      :copyright_software_description => "Fairmondo is an open-source online marketplace.",
+      :copyright_holders => ['Fairmondo eG'],
       :copyright_years => ['2013'],
       :add_path => '.',
       :output_dir => './'
@@ -28,10 +28,10 @@ namespace :code do
     require 'copyright_header'
 
     args = {
-      :license_file => 'lib/templates/erb/license/fairnopoly_license.erb',
-      :copyright_software => 'Fairnopoly',
-      :copyright_software_description => "Fairnopoly is an open-source online marketplace.",
-      :copyright_holders => ['Fairnopoly eG'],
+      :license_file => 'lib/templates/erb/license/fairmondo_license.erb',
+      :copyright_software => 'Fairmondo',
+      :copyright_software_description => "Fairmondo is an open-source online marketplace.",
+      :copyright_holders => ['Fairmondo eG'],
       :copyright_years => ['2013'],
       :remove_path => '.',
       :output_dir => './'

@@ -43,7 +43,7 @@ de:
         paypal_and_bank_account: "PayPal- und Bankkonto"
         paypal_account: "Deine Paypal E-Mail-Adresse"
         customer_number: "Kundennummer"
-        direct_debit1_html: "Ich ermächtige die Fairnopoly eG widerruflich, die fälligen "
+        direct_debit1_html: "Ich ermächtige die Fairmondo eG widerruflich, die fälligen "
         direct_debit2_html: " im Einzugsermächtigungsverfahren einzuziehen."
         seller_fees: "Verkaufsgebühren"
         unified_transport_maximum_articles: "Die Versandkosten gelten bis maximal"
@@ -256,7 +256,7 @@ de:
     tooltips:
       user: &tooltips_user
         new: &new_user
-          type: 'Wenn Du nicht sicher bist, ob Du ein Konto als Unternehmer*in benötigst, frage am Besten bei Deinem Finanzamt nach. Du kannst Dein Konto aber auch später umwandeln lassen. Mehr dazu in unserer <a href="https://www.fairnopoly.de/faq#b9" target= "_blank">FAQ</a>.'
+          type: 'Wenn Du nicht sicher bist, ob Du ein Konto als Unternehmer*in benötigst, frage am Besten bei Deinem Finanzamt nach. Du kannst Dein Konto aber auch später umwandeln lassen. Mehr dazu in unserer <a href="https://www.fairmondo.de/faq#b9" target= "_blank">FAQ</a>.'
           email:  "An diese Adresse verschicken wir die Anmeldebestätigung."
           nickname: "Diesen Namen sehen auch andere Nutzer*innen."
           password: "Dein Passwort muss mindestens 6 Zeichen haben. Dein Account wird sicherer, wenn Du auch Zahlen und Großbuchstaben fürs Passwort verwendest."
@@ -307,11 +307,11 @@ de:
 
         vat: Gib hier die im Preis enthaltene Mehrwertsteuer an.
 
-        basic_price: "Wenn Du z.B. Kirschen auf Fairnopoly verkaufen würdest, musst Du den Grundpreis, also den Preis pro Kilogramm (z.B. 1 Eur / kg) angeben. Mehr dazu <a href='/faq#geb4'>hier</a>"
+        basic_price: "Wenn Du z.B. Kirschen auf Fairmondo verkaufen würdest, musst Du den Grundpreis, also den Preis pro Kilogramm (z.B. 1 Eur / kg) angeben. Mehr dazu <a href='/faq#geb4'>hier</a>"
         basic_price_amount: Gib hier die Mengeneinheit des Grundpreises an.
 
-        swappable: 'Tauschen auf Fairnopoly ist kostenlos. Bitte gib Deine Tauschwünsche oben in der Artikelbeschreibung an. Lies bitte auch vorab unseren <a href="/faq#tausch" target="_blank">Hilfetext</a> zum Tauschen durch.'
-        borrowable: 'Leihen und Verleihen auf Fairnopoly ist kostenlos. Falls Du weitere Angaben wie Leihdauer machen möchtest, gib diese bitte in der Artikelbeschreibung an. Deine PLZ wird als Abholort übernommen, wenn Du bei Schritt 4 "Selbstabholung" angibst. Bitte lies vorab unseren <a href="/faq#leih" target="_blank">Hilfetext</a> dazu durch.'
+        swappable: 'Tauschen auf Fairmondo ist kostenlos. Bitte gib Deine Tauschwünsche oben in der Artikelbeschreibung an. Lies bitte auch vorab unseren <a href="/faq#tausch" target="_blank">Hilfetext</a> zum Tauschen durch.'
+        borrowable: 'Leihen und Verleihen auf Fairmondo ist kostenlos. Falls Du weitere Angaben wie Leihdauer machen möchtest, gib diese bitte in der Artikelbeschreibung an. Deine PLZ wird als Abholort übernommen, wenn Du bei Schritt 4 "Selbstabholung" angibst. Bitte lies vorab unseren <a href="/faq#leih" target="_blank">Hilfetext</a> dazu durch.'
 
         transport: >
           Trage hier Deine Versandoptionen mit den zugehörigen Kosten und weitere Versandangaben ein, wie z.B. wieviel Zeit Du für den Versand benötigst. Falls Du ein*e gewerbliche(r) Anbieter*in bist und diese Info in Deinem Profil eingetragen hast, ergänzen wir dieses Feld automatisch für Dich.
@@ -321,14 +321,14 @@ de:
         transport_type2_number: "Gib bitte an, wie viele Stück Du maximal zu diesen Versandkosten verschicken kannst, weil sie in dieselbe Sendung passen und keine zusätzlichen Kosten verursachen. Z.B.: Trage 3 ein, falls Folgendes gilt: Max. 3 Stück des Artikels können zu 5 € versendet werden; werden 4-6 Stück gekauft, fallen 2x 5€ Versandkosten an, usw."
         transport_time: "Gib bitte als einfache Zahl an, wie viele Tage der Versand vorraussichtlich dauern wird. Um einen Zeitraum anzugeben, kannst Du auch optional eine Zahl, dann einen Bindestrich und eine weitere Zahl eingeben. Die Zahlen sollten maximal zweistellig sein."
         unified_transport: "Deine Regeln für den Kombiversand kannst Du in Deinem Profil unter \" Angaben zu Versandrabatten\" angeben"
-        payment_bank_transfer: 'Deine Bankdaten kannst Du nur im Profil ändern. Achtung! Um Betrugsfällen vorzubeugen, haben wir uns dazu entschieden, dass Nutzer*innen, die weniger als einen Monat auf Fairnopoly.de aktiv sind, für Artikel mit einem Wert von mehr als 100 Euro nicht die Bezahlmethode "Vorkasse" wählen können.'
+        payment_bank_transfer: 'Deine Bankdaten kannst Du nur im Profil ändern. Achtung! Um Betrugsfällen vorzubeugen, haben wir uns dazu entschieden, dass Nutzer*innen, die weniger als einen Monat auf Fairmondo.de aktiv sind, für Artikel mit einem Wert von mehr als 100 Euro nicht die Bezahlmethode "Vorkasse" wählen können.'
         payment_paypal:  Deine PayPal-Daten kannst Du nur im Profil ändern.
-        commendation_input_step: "Bei Fairnopoly können alle rechtlich unbedenklichen Artikel eingestellt werden. Wenn Dein Artikel unter die Kriterien für einen oder mehrere unserer besonderen Filter fällt, kannst Du hier entsprechende Angaben zu Deinem Artikel machen. Dadurch wird Dein Artikel besonders ausgezeichnet. Nutzer*innen können gezielt nach solchen Artikeln suchen."
+        commendation_input_step: "Bei Fairmondo können alle rechtlich unbedenklichen Artikel eingestellt werden. Wenn Dein Artikel unter die Kriterien für einen oder mehrere unserer besonderen Filter fällt, kannst Du hier entsprechende Angaben zu Deinem Artikel machen. Dadurch wird Dein Artikel besonders ausgezeichnet. Nutzer*innen können gezielt nach solchen Artikeln suchen."
         upload_images_input_step: "Du kannst Bilder bis zu einer maximalen Größe von 2 MB pro Bild hochladen. Wir verwenden in der Kachelansicht die Maße 260x180 Pixel, und in der Artikelansicht 520x360 Pixel. Wenn Dein Bild von diesen Maßen abweicht, wird es beschnitten dargestellt."
         friendly_percent_input_step: >
-          Du kannst optional einen weiteren Prozentsatz des Verkaufspreises spenden – den Spendenanteil. Für die Weiterleitung des Spendenanteils an die Empfängerorganisation bist Du selbst verantwortlich. Es können ausschließlich Organisationen, die sich zu besonderer Transparenz verpflichten und von uns akkreditiert sind, Spenden erhalten. Mehr Informationen zum Ablauf und zum Spendenanteil findest Du <a href="https://www.fairnopoly.de/faq#spa2" target= "_blank">hier</a>.
+          Du kannst optional einen weiteren Prozentsatz des Verkaufspreises spenden – den Spendenanteil. Für die Weiterleitung des Spendenanteils an die Empfängerorganisation bist Du selbst verantwortlich. Es können ausschließlich Organisationen, die sich zu besonderer Transparenz verpflichten und von uns akkreditiert sind, Spenden erhalten. Mehr Informationen zum Ablauf und zum Spendenanteil findest Du <a href="https://www.fairmondo.de/faq#spa2" target= "_blank">hier</a>.
         friendly_percent_organisation: >
-          Du kannst hier aus Empfängerorganisationen wählen, die von Fairnopoly akkreditiert sind. Mehr Informationen dazu findest Du <a href="https://www.fairnopoly.de/faq#spa1" target= "_blank">hier</a>.Wenn Du eine Organisation anwählst, erhältst Du einen weiterführenden Link mit mehr Informationen zu der entsprechenden Organisation.
+          Du kannst hier aus Empfängerorganisationen wählen, die von Fairmondo akkreditiert sind. Mehr Informationen dazu findest Du <a href="https://www.fairmondo.de/faq#spa1" target= "_blank">hier</a>.Wenn Du eine Organisation anwählst, erhältst Du einen weiterführenden Link mit mehr Informationen zu der entsprechenden Organisation.
         article_template: "Speichere Deine Eingaben als Vorlage - so gelingt das Einstellen ähnlicher Artikel im Handumdrehen."
 
         date: "Datum (Tag/Monat/Jahr)"

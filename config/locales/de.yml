@@ -1,35 +1,35 @@
 de:
   welcome:
-    greetings: "Willkommen bei Fairnopoly"
+    greetings: "Willkommen bei Fairmondo"
     search_fair: "Artikel suchen"
     trending_libraries: "Trend-Sammlungen"
     boxes:
       active_old: "Bisher eingestellte Artikel"
 # Common Texts
   common:
-    brand: "www.fairnopoly.de"
-    fairnopoly: "Fairnopoly, der Online-Marktplatz für alle."
+    brand: "www.fairmondo.de"
+    fairmondo: "Fairmondo, der Online-Marktplatz für alle."
     claim: "dreh' das Spiel um"
-    fn_footer_greeting: "Dein Fairnopoly-Team"
+    fn_footer_greeting: "Dein Fairmondo-Team"
     fn_legal_footer:
-      crowd_funding: "Fairnopoly braucht Dich! Jetzt Anteile zeichnen:\nhttp://info.fairnopoly.de/anteile-zeichnen/"
+      crowd_funding: "Fairmondo braucht Dich! Jetzt Anteile zeichnen:\nhttp://info.fairmondo.de/anteile-zeichnen/"
       spacer: "----------"
-      intro: "Diese Nachricht wurde von Fairnopoly, www.fairnopoly.de, gesendet."
-      contact: "Kontakt: email@fairnopoly.de, Fairnopoly eG, Glogauer Str. 21, 10999 Berlin"
+      intro: "Diese Nachricht wurde von Fairmondo, www.fairmondo.de, gesendet."
+      contact: "Kontakt: email@fairmondo.de, Fairnopoly eG, Glogauer Str. 21, 10999 Berlin"
       footer_contact: |
-        Fairnopoly eG
+        Fairmondo eG
         Glogauer Str. 21
         10999 Berlin
-        email@fairnopoly.de
+        email@fairmondo.de
       registered: |
         Registergericht: Amtsgericht Berlin-Charlottenburg, GnR 738 B;
         USt-IdNr: DE 290376380
       board: "Vorstand: Felix Weth, Anna Kress, Bastian Neumann"
       ceo: "Vorstandsvorsitzender: Felix Weth"
       supervisory_board: "Aufsichtsratsvorsitzender: Kim Stattaus"
-      facebook: "Facebook: https://www.facebook.com/fairnopoly"
-      facebook_html: "<a href='https://www.facebook.com/fairnopoly'>Facebook</a>"
-      buy_shares: "Anteile zeichnen: https://info.fairnopoly.de/anteile-zeichnen/"
+      facebook: "Facebook: https://www.facebook.com/fairmondo"
+      facebook_html: "<a href='https://www.facebook.com/fairmondo'>Facebook</a>"
+      buy_shares: "Anteile zeichnen: https://info.fairmondo.de/anteile-zeichnen/"
     actions:
       continue: "Weiter"
       back: "Zurück"
@@ -77,7 +77,7 @@ de:
       surname: "Nachname"
       relation: "Beziehung"
       inserted: "Artikel wurden bereits eingestellt"
-      no_search_result_text: "Keine Suchergebnisse unter den Fairnopoly-Artikeln"
+      no_search_result_text: "Keine Suchergebnisse unter den Fairmondo-Artikeln"
       libraries: "Meine Sammlungen"
       about_terms: "Meine Firmendaten"
       more: "mehr anzeigen"
@@ -122,8 +122,8 @@ de:
       may_be_created: "Hier kannst Du sie erstellen"
 
   meta_tags:
-    description: "Kaufe, verkaufe, tausche und verleihe faire und nachhaltige Mode, Bücher, Lebensmittel, Spielzeug und Designartikel auf Fairnopoly, dem Online Marktplatz für Alle."
-    keywords: "Fairnopoly, Marktplatz, Fair, Genossenschaft"
+    description: "Kaufe, verkaufe, tausche und verleihe faire und nachhaltige Mode, Bücher, Lebensmittel, Spielzeug und Designartikel auf Fairmondo, dem Online Marktplatz für Alle."
+    keywords: "Fairmondo, Marktplatz, Fair, Genossenschaft"
 
   flash:
     ratings:
@@ -142,4 +142,4 @@ de:
         notice: "%{resource_name} wurde gelöscht."
         alert: "%{resource_name} konnte nicht gelöscht werden."
 
-  noscript: "Du hast JavaScript ausgeschaltet oder verwendest einen Browser, der kein JavaScript unterstützt. Um Fairnopoly optimal zu nutzen, schalte bitte JavaScript ein."
+  noscript: "Du hast JavaScript ausgeschaltet oder verwendest einen Browser, der kein JavaScript unterstützt. Um Fairmondo optimal zu nutzen, schalte bitte JavaScript ein."

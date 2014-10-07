@@ -14,13 +14,13 @@ default:
     - code
     - link
   style_formats :
-    - title : 'Fairnopoly - h1'
+    - title : 'Fairmondo - h1'
       block : 'h1'
-    - title : 'Fairnopoly - h2'
+    - title : 'Fairmondo - h2'
       block : 'h2'
-    - title : 'Fairnopoly - h3'
+    - title : 'Fairmondo - h3'
       block : 'h3'
-    - title : 'Fairnopoly - h4'
+    - title : 'Fairmondo - h4'
       block : 'h4'
 
 admin:
@@ -39,11 +39,11 @@ admin:
     - code
     - link
   style_formats :
-    - title : 'Fairnopoly - h1'
+    - title : 'Fairmondo - h1'
       block : 'h1'
-    - title : 'Fairnopoly - h2'
+    - title : 'Fairmondo - h2'
       block : 'h2'
-    - title : 'Fairnopoly - h3'
+    - title : 'Fairmondo - h3'
       block : 'h3'
-    - title : 'Fairnopoly - h4'
+    - title : 'Fairmondo - h4'
       block : 'h4'

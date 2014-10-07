@@ -9,7 +9,7 @@ push_left_if_necessary = (event) ->
     $(event.target)
   ul = li.children().filter('.l-header-categories-children')
 
-  document.Fairnopoly.push_left_if_necessary ul, ->
+  document.Fairmondo.push_left_if_necessary ul, ->
     li.on 'mouseleave', null, ul, reset_push_left # turn off the event listener, reset "left" attr
 
 reset_push_left = (event) ->
@@ -17,7 +17,7 @@ reset_push_left = (event) ->
   event.data.css 'left', '' # event.data => ul
 
 
-document.Fairnopoly.push_left_if_necessary = (target, resetCallback) ->
+document.Fairmondo.push_left_if_necessary = (target, resetCallback) ->
   window_width = $(window).width()
 
   if target?.offset()?.left + target.outerWidth() > window_width # if element would leave window

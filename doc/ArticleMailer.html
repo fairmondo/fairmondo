@@ -106,23 +106,23 @@
     
 <h2>License:</h2>
 
-<p>Fairnopoly - Fairnopoly is an open-source online marketplace. Copyright (C)
-2013 Fairnopoly eG</p>
+<p>Fairmondo - Fairmondo is an open-source online marketplace. Copyright (C)
+2013 Fairmondo eG</p>
 
-<p>This file is part of Fairnopoly.</p>
+<p>This file is part of Fairmondo.</p>
 
-<p>Fairnopoly is free software: you can redistribute it and/or modify it under
+<p>Fairmondo is free software: you can redistribute it and/or modify it under
 the terms of the GNU Affero General Public License as published by the Free
 Software Foundation, either version 3 of the License, or (at your option)
 any later version.</p>
 
-<p>Fairnopoly is distributed in the hope that it will be useful, but WITHOUT
+<p>Fairmondo is distributed in the hope that it will be useful, but WITHOUT
 ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
 FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Affero General Public
 License for more details.</p>
 
 <p>You should have received a copy of the GNU Affero General Public License
-along with Fairnopoly.  If not, see &lt;<a
+along with Fairmondo.  If not, see &lt;<a
 href="http://www.gnu.org/licenses">www.gnu.org/licenses</a>/&gt;.</p>
 
 
@@ -223,7 +223,7 @@ href="http://www.gnu.org/licenses">www.gnu.org/licenses</a>/&gt;.</p>
       <pre class="code"><span class="info file"># File 'app/mailers/article_mailer.rb', line 31</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_category_proposal'>category_proposal</span><span class='lparen'>(</span><span class='id identifier rubyid_category_proposal'>category_proposal</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_mail'>mail</span><span class='lparen'>(</span><span class='symbol'>:to</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>kundenservice@fairnopoly.de</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='symbol'>:subject</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Category proposal: </span><span class='tstring_end'>&quot;</span></span> <span class='op'>+</span> <span class='id identifier rubyid_category_proposal'>category_proposal</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_mail'>mail</span><span class='lparen'>(</span><span class='symbol'>:to</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>kundenservice@fairmondo.de</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='symbol'>:subject</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Category proposal: </span><span class='tstring_end'>&quot;</span></span> <span class='op'>+</span> <span class='id identifier rubyid_category_proposal'>category_proposal</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -257,7 +257,7 @@ href="http://www.gnu.org/licenses">www.gnu.org/licenses</a>/&gt;.</p>
 <span class='kw'>def</span> <span class='id identifier rubyid_report_article'>report_article</span><span class='lparen'>(</span><span class='id identifier rubyid_article'>article</span><span class='comma'>,</span><span class='id identifier rubyid_text'>text</span><span class='rparen'>)</span>
   <span class='ivar'>@text</span> <span class='op'>=</span> <span class='id identifier rubyid_text'>text</span>
   <span class='ivar'>@article</span> <span class='op'>=</span> <span class='id identifier rubyid_article'>article</span>
-  <span class='id identifier rubyid_mail'>mail</span><span class='lparen'>(</span><span class='symbol'>:to</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>melden@fairnopoly.de</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='symbol'>:subject</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Article reported with ID: </span><span class='tstring_end'>&quot;</span></span> <span class='op'>+</span> <span class='id identifier rubyid_article'>article</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_mail'>mail</span><span class='lparen'>(</span><span class='symbol'>:to</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>melden@fairmondo.de</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='symbol'>:subject</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Article reported with ID: </span><span class='tstring_end'>&quot;</span></span> <span class='op'>+</span> <span class='id identifier rubyid_article'>article</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
