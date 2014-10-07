@@ -11,6 +11,11 @@ class RewriteConfig
       from: /(.*)/,
       to: 'https://www.fairnopoly.de/categories/weitere-abf793c9-d94b-423c-947d-0d8cb7bbe3b9',
       if: /weitere\./i
+    },{
+      method: :r301,
+      from: /(:\/\/www\.)(fairmondo)(.*)/i,
+      to: 'https://www.fairnopoly$3',
+      if:  /(.*)/
     }]
   end
 end
