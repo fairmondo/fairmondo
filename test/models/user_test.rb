@@ -82,6 +82,7 @@ describe User do
     it { subject.must_respond_to :standard_address_id }
     it { subject.must_respond_to :receive_comments_notification }
     it { subject.must_respond_to :admin }
+    it { subject.must_respond_to :heavy_uploader }
 
   end
   describe "associations" do

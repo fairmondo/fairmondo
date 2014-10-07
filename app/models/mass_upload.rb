@@ -111,7 +111,13 @@ class MassUpload < ActiveRecord::Base
   end
 
   def process
-    ProcessMassUploadWorker.perform_async(self.id)
+    if self.user.heavy_uploader?
+      Sidekiq::Client.push('queue' => 'heavy_mass_upload',
+                           'class' => ProcessMassUploadWorker,
+                           'args' => [self.id])
+    else
+      ProcessMassUploadWorker.perform_async(self.id)
+    end
   end
 
 
