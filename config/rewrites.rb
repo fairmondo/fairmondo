@@ -5,17 +5,17 @@ class RewriteConfig
       method: :r301,
       from: /(.*)/,
       to: 'https://www.fairnopoly.de/categories/bucher',
-      if: /b(ü|u|ue)cher\./i
+      if: Proc.new { |rack_env| rack_env['SERVER_NAME'] =~ /b(ü|u|ue)cher\./i }
     },{
       method: :r301,
       from: /(.*)/,
       to: 'https://www.fairnopoly.de/categories/weitere-abf793c9-d94b-423c-947d-0d8cb7bbe3b9',
-      if: /weitere\./i
+      if: Proc.new { |rack_env| rack_env['SERVER_NAME'] =~ /weitere\./i }
     },{
       method: :r301,
-      from: /(:\/\/www\.)(fairmondo)(.*)/i,
-      to: 'https://www.fairnopoly$3',
-      if:  /(.*)/
+      from: %r{.*},
+      to: 'https://www.fairnopoly.de$&',
+      if:  Proc.new { |rack_env| rack_env['SERVER_NAME'] != 'www.fairnopoly.de' }
     }]
   end
 end
@@ -27,9 +27,7 @@ module Rack
 
       def initialize(options)
         @rules = RewriteConfig.list.map do |rule|
-          Rule.new(rule[:method], rule[:from], rule[:to], {if: Proc.new do |rack_env|
-            rack_env['SERVER_NAME'] =~ rule[:if]
-          end})
+          Rule.new(rule[:method], rule[:from], rule[:to], {if: rule[:if] })
         end
       end
     end
