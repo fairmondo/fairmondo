@@ -61,7 +61,7 @@ public/assets_test/*
 vendor/cache
 
 # Mac .DS_Stores
-.DS_Store
+*.DS_Store
 */.DS_Store
 **/.DS_Store
 
