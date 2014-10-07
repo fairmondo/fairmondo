@@ -79,7 +79,7 @@ class ToolboxController < ApplicationController
         Timeout::timeout(10) do #10 second timeout
           OpenSSL::SSL::SSLContext::DEFAULT_PARAMS[:ssl_version] = 'SSLv3' # See comment to http://stackoverflow.com/q/20169301/409087
                                                                            # TODO Set /etc/ssl/certs as sll_ca_folder to remove this hack
-          feed = open 'https://info.fairnopoly.de/?feed=rss', ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE
+          feed = open 'https://info.fairmondo.de/?feed=rss', ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE
           OpenSSL::SSL::SSLContext::DEFAULT_PARAMS[:ssl_version] = 'SSLv23'
 
           rss = RSS::Parser.parse(feed.read, false)

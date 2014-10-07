@@ -1,23 +1,23 @@
 -#
 -#
 -# == License:
--# Fairnopoly - Fairnopoly is an open-source online marketplace.
--# Copyright (C) 2013 Fairnopoly eG
+-# Fairmondo - Fairmondo is an open-source online marketplace.
+-# Copyright (C) 2013 Fairmondo eG
 -#
--# This file is part of Fairnopoly.
+-# This file is part of Fairmondo.
 -#
--# Fairnopoly is free software: you can redistribute it and/or modify
+-# Fairmondo is free software: you can redistribute it and/or modify
 -# it under the terms of the GNU Affero General Public License as
 -# published by the Free Software Foundation, either version 3 of the
 -# License, or (at your option) any later version.
 -#
--# Fairnopoly is distributed in the hope that it will be useful,
+-# Fairmondo is distributed in the hope that it will be useful,
 -# but WITHOUT ANY WARRANTY; without even the implied warranty of
 -# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 -# GNU Affero General Public License for more details.
 -#
 -# You should have received a copy of the GNU Affero General Public License
--# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
+-# along with Fairmondo.  If not, see <http://www.gnu.org/licenses/>.
 -#
 
 = semantic_form_for resource, url: article_path(activate: true) do |f|
@@ -33,7 +33,7 @@
           = f.input :tos_accepted, as: :boolean, required: false, wrapper_html: { class: 'no-margin' }, label: t("formtastic.labels.user.tos_accepted", legal: legal_link, privacy: privacy_link).html_safe
       %dt
         = simple_format t('article.preview.fees_and_donations.fee', fee: (resource.fair ? "3%" : "6%"), max: (resource.fair ? "€15" : "€30")  )
-        %span.sprite_helper{title: "Bei erfolgreichem Verkauf gehen 6% des Artikelendpreises an Fairnopoly. Bei Artikeln unter dem Filter fair fallen lediglich 3% an."}
+        %span.sprite_helper{title: "Bei erfolgreichem Verkauf gehen 6% des Artikelendpreises an Fairmondo. Bei Artikeln unter dem Filter fair fallen lediglich 3% an."}
       %dd
         = humanized_money_with_symbol resource.calculated_fee
       %dt

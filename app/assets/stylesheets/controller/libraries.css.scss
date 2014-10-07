@@ -3,10 +3,15 @@
 $border-color: $lighter-gray;
 $fill-color: $light-blue;
 
-.library-form {
+#library-form {
   @include whitebox;
   margin-bottom: 1em;
   clear: both;
+}
+
+#library-form-link {
+  margin: 1em 0;
+  text-align: right;
 }
 
 .libraries {

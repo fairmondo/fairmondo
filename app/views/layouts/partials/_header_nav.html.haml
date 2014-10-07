@@ -4,12 +4,12 @@
     %li= link_to t('header.libraries.title'), libraries_path, title: t('header.libraries.tooltip'), data: navigation_push
 
     %li.JS-active-toggle--container
-      = link_to t('header.community.title'), 'https://info.fairnopoly.de/forum/', target: '_blank', class: 'JS-active-toggle--trigger JS-active-toggle--target'
+      = link_to t('header.community.title'), 'https://info.fairmondo.de/forum/', target: '_blank', class: 'JS-active-toggle--trigger JS-active-toggle--target'
       %ul.l-header-nav-dropdown.JS-active-toggle--target
-        %li= link_to t('header.community.forum'), 'https://info.fairnopoly.de/forum/', target: '_blank'
-        %li= link_to t('header.community.hero'), 'http://helden.fairnopoly.de/', target: '_blank'
-        %li= link_to t('header.community.facebook'), 'https://www.facebook.com/fairnopoly', target: '_blank'
-        %li= link_to t('header.community.developer'), 'https://github.com/fairnopoly/fairnopoly', target: '_blank'
+        %li= link_to t('header.community.forum'), 'https://info.fairmondo.de/forum/', target: '_blank'
+        %li= link_to t('header.community.hero'), 'http://helden.fairmondo.de/', target: '_blank'
+        %li= link_to t('header.community.facebook'), 'https://www.facebook.com/fairmondo', target: '_blank'
+        %li= link_to t('header.community.developer'), 'https://github.com/fairmondo/fairmondo', target: '_blank'
 
     - if user_signed_in?
       %li= link_to t('header.profile'), user_path(current_user), data: navigation_push

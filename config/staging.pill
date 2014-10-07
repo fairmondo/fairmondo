@@ -1,7 +1,7 @@
 rails_root  = ENV['RAILS_ROOT'] || File.expand_path(".")
 rails_env = ENV['RAILS_ENV'] || 'staging'
 
-Bluepill.application("fairnopoly", log_file: "#{rails_root}/log/bluepill.log") do |app|
+Bluepill.application("fairmondo", log_file: "#{rails_root}/log/bluepill.log") do |app|
   app.working_dir = rails_root
 
   1.times do |i|
