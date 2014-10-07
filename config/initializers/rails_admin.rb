@@ -265,6 +265,7 @@ RailsAdmin.config do |config|
 
     field :ngo
     field :max_value_of_goods_cents_bonus
+    field :heavy_uploader
     field(:buyer_line_item_groups) { read_only true }
     field(:seller_line_item_groups) { read_only true }
 
