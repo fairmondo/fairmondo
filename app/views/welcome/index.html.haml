@@ -72,13 +72,14 @@
 - cache 'uspteaser' do
   #uspteaser
     #uspteaser-inner
+      %h2 Das macht uns anders
       %ul
         %li Die schöns&shy;ten und fairs&shy;ten Pro&shy;dukte im Netz ent&shy;decken
         %li Fördere sozialen &amp; ressourcen&shy;schonend&shy;en Konsum
         %li Mit Käufen &amp; Verkäufen einfach Hilfs&shy;projekte unter&shy;stützen
       %p
         = link_to new_registration_path(:user), class: 'Button' do  # link zur Landingpage
-          Jetzt registr&shy;ieren &amp; Fairphone gewinnen!
+          Jetzt registr&shy;ieren &amp; Preise gewinnen!
 
 
 -# Personalized library section, only shown if @last_hearted_libraries is set
@@ -129,8 +130,8 @@
       %ul.image_list
         - names.each do |key, value|
           %li
-            %span= link_to '', 'http://info.fairmondo.de/fairmondo-in-der-presse/',
-            class: "sprite_#{key}", title: value, target: '_blank'
+            = link_to 'http://info.fairmondo.de/fairmondo-in-der-presse/', title: value, target: '_blank' do
+              %span{class: "sprite_#{key}"}
 
 
 -# Trending libraries

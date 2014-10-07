@@ -521,24 +521,27 @@ ul.image_list {
 
 #uspteaser-inner {
   @include whitebox;
-  background: #65aef3 image-url('welcome/logo-background.png') no-repeat top left;
+  background: #195674; //#237aa5; //image-url('welcome/logo-background.png') no-repeat top left;
   padding: 0;
   height: 410px;
   position: relative;
   color: $white;
 }
 
-/*
+
 #uspteaser-inner h2 {
-  width: 80%;
+  width: 90%;
   min-width: 200px;
-  margin: 5% auto;
+  max-width: 300px;
+  margin: 6% auto;
   font-size: 1.5em;
+  font-weight: 600;
 }
 
+/*
 #uspteaser-inner h3 {
   margin: 5% auto 5%;
-  width: 80%;
+  width: 90%;
   min-width: 200px;
   font-size: 1em;
 
@@ -549,23 +552,11 @@ ul.image_list {
 }
 */
 
-#uspteaser-inner p {
-  position: absolute;
-  bottom: 0;
-  margin: 0 0 5%;
-  width: 100%;
-  text-align: center;
-
-  a {
-    margin: 0 5%;
-  }
-}
-
 #uspteaser-inner ul {
-  width: 80%;
+  width: 90%;
   min-width: 200px;
   max-width: 300px;
-  margin: 115px auto 0;
+  margin: 8% auto 0;
   list-style: none;
   padding: 0;
   overflow: hidden;
@@ -574,7 +565,7 @@ ul.image_list {
     font-size: 1em;
     float: left;
     padding-left: 0;
-    margin-bottom: 10%;
+    margin-bottom: 4%;
 
     &:before {
       content: '\f111'; /*fontawesome char code inside the '' */
@@ -588,15 +579,22 @@ ul.image_list {
   }
 }
 
-// Responsiveness
-/*
-@include till-breakpoint($bp-mobile-horizontal) {
-  #uspteaser-inner {
-    height: 80px;
+#uspteaser-inner p {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  margin: 0 0 5%;
 
-    hgroup, ul {
-      display: none;
-    }
+  font-size: 1.5em;
+  font-weight: 600;
+  text-align: center;
+
+  a {
+    display: block;
+    box-sizing: border-box;
+    width: 90%;
+    min-width: 200px;
+    max-width: 300px;
+    margin: 0 auto;
   }
 }
-*/
