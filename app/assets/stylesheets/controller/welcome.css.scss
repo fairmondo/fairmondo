@@ -420,9 +420,16 @@ ul.image_list {
 }
 
 
-#billboard-inner h2 {
+#billboard h2 {
   z-index: 10;
   margin: 0;
+}
+
+
+#billboard h3 {
+  position: absolute;
+  top: 0px;
+  left: 0;
 }
 
 
@@ -605,33 +612,183 @@ ul.image_list {
 }
 
 
+#billboard2 h2 {
+  font-weight: 400;
+  font-size: 2.5em;
+  text-shadow: 1px 1px $gray;
+  text-align: left;
 
-#billboard2 section {
   position: absolute;
-  top: 55px;
+  top: 18px;
 
-  &.section1 { left: 103px; }
-  &.section2 { left: 254px; }
-  &.section3 { left: 406px; }
-  &.section4 { left: 557px; }
+  @include till-breakpoint($bp-tablet) {
+    left: 2px;
+    font-size: 2em;
+  }
 
-  @include till-breakpoint($bp-tablet-horizontal) {
-    &.section1 { left: 72px; }
-    &.section2 { display: none; }
-    &.section3 { display: none; }
-    &.section4 { display: none; }
+  @include between-breakpoints($bp-tablet, $bp-tablet-horizontal) {
+    left: 55px;
+  }
+
+  @include at-breakpoint($bp-tablet-horizontal) {
+    left: 30px;
   }
 }
 
 
-
-#billboard h3 {
+#billboard2 section {
   position: absolute;
-  top: 0px;
-  left: 0;
+
+  h3 {
+    color: $white;
+    font-size: 1.2em;
+    font-weight: 400;
+    text-align: left;
+    margin: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  a.billboard-textlink {
+    text-decoration: underline;
+    font-size: 1em;
+    position: absolute;
+    left: 0;
+    width: 100%;
+    display: block;
+    text-align: center;
+  }
+
+  a.billboard-imagelink {
+    position: absolute;
+    left: 0;
+  }
+
+  @include till-breakpoint($bp-tablet) {
+    top: 130px;
+    width: 91px;
+
+    h3 { font-size: 1em; }
+
+    a.billboard-textlink {
+      font-size: 0.8em;
+      top: 199px;
+    }
+
+    a.billboard-imagelink {
+      top: 40px;
+    }
+
+    &.section1 {
+      left: 6px;
+    }
+
+    &.section2 {
+      left: 114px;
+    }
+
+    &.section3 { display: none; }
+    &.section4 { display: none; }
+  }
+
+  @include between-breakpoints($bp-tablet, $bp-tablet-horizontal) {
+    &.section1 { left: 72px; }
+    &.section4 { display: none; }
+  }
+
+  @include at-breakpoint($bp-tablet-horizontal) {
+
+  }
 }
 
 
+#billboard3 h2 {
+  font-weight: 400;
+  font-size: 2.5em;
+  text-shadow: 1px 1px $gray;
+  text-align: left;
+
+  position: absolute;
+  top: 18px;
+
+  @include till-breakpoint($bp-tablet) {
+    left: 13px;
+    font-size: 2em;
+  }
+
+  @include between-breakpoints($bp-tablet, $bp-tablet-horizontal) {
+    left: 55px;
+  }
+
+  @include at-breakpoint($bp-tablet-horizontal) {
+    left: 30px;
+  }
+}
+
+
+#billboard3 section {
+  position: absolute;
+
+  a.billboard-textlink {
+    text-decoration: underline;
+    font-size: 1em;
+    position: absolute;
+    left: 0;
+    width: 100%;
+    display: block;
+    text-align: center;
+  }
+
+  @include till-breakpoint($bp-tablet) {
+    left: 0;
+    right: 0;
+
+    &.section1 { display: none; }
+    &.section2 { top: 327px; }
+
+    a.billboard-textlink { font-size: 0.8em; }
+  }
+
+  @include between-breakpoints($bp-tablet, $bp-tablet-horizontal) {
+    left: 0;
+    right: 0;
+
+    &.section1 { display: none; }
+    &.section2 { top: 340px; }
+  }
+
+  @include at-breakpoint($bp-tablet-horizontal) {
+    &.section1 {
+      left: 35px;
+      top: 235px;
+      width: 242px;
+
+      p {
+        left: 0;
+        top: 80px;
+        color: $black;
+        text-align: justify;
+        text-align-last: center;
+        -moz-text-align-last: center;
+        -webkit-text-align-last: center;
+      }
+
+      a.billboard-textlink { top: 120px; }
+    }
+
+    &.section2 {
+      left: 360px;
+      top: 30px;
+      width: 270px;
+
+      a.billboard-textlink { top: 275px; }
+    }
+  }
+}
+
+
+/*
 #billboard a.articlelink {
   position: absolute;
   top: 89px;
@@ -678,6 +835,7 @@ ul.image_list {
   }
 }
 
+*/
 
 // CSS for SlidesJS
 #js-billboardslides {
