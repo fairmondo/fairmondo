@@ -1,4 +1,4 @@
-class FileNormalizerWorker
+class CancellationFormNormalizer
   include Sidekiq::Worker
 
   sidekiq_options queue: :cancellation_normalizer,
