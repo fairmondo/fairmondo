@@ -28,7 +28,7 @@ document.Fairmondo.copyCommentsToPreview = (commentable_selector) ->
   preview_element = $(commentable_selector + '.Library-comments')
   preview_element.html(first_two_comments)
 
-$(document).ready ->
+$(document).always ->
   $('.js-library-settings').hide()
   $('.js-library-show-settings').click (e) =>
     $(e.target).parent().parent().find('.js-library-settings').show()
