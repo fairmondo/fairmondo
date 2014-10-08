@@ -1,4 +1,3 @@
-
 $(document).ready ->
     window.wiselinks = new Wiselinks('.l-main', html4: false)
     $(document).off('page:fail').on(

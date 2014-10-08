@@ -7,7 +7,6 @@
       = link_to t('header.community.title'), 'https://info.fairmondo.de/forum/', target: '_blank', class: 'JS-active-toggle--trigger JS-active-toggle--target'
       %ul.l-header-nav-dropdown.JS-active-toggle--target
         %li= link_to t('header.community.forum'), 'https://info.fairmondo.de/forum/', target: '_blank'
-        %li= link_to t('header.community.hero'), 'http://helden.fairmondo.de/', target: '_blank'
         %li= link_to t('header.community.facebook'), 'https://www.facebook.com/fairmondo', target: '_blank'
         %li= link_to t('header.community.developer'), 'https://github.com/fairmondo/fairmondo', target: '_blank'
 
@@ -17,8 +16,8 @@
 
     - elsif !on_login_page?
       %li.JS-active-toggle--container
-        = link_to t('common.actions.login'), new_user_session_path, id: "login-link", class: 'JS-active-toggle--trigger JS-active-toggle--target'
-        .l-header-nav-dropdown.l-header-nav-dropdown--login.JS-active-toggle--target
+        = link_to t('common.actions.login'), new_user_session_path, id: "login-link" #, class: 'JS-active-toggle--trigger JS-active-toggle--target'
+        -#.l-header-nav-dropdown.l-header-nav-dropdown--login.JS-active-toggle--target
           = render "devise/sessions/shared"
           = render "devise/links"
 

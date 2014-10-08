@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140918164020) do
+ActiveRecord::Schema.define(version: 20141007083455) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -565,6 +565,7 @@ ActiveRecord::Schema.define(version: 20140918164020) do
     t.boolean  "free_transport_available"
     t.integer  "free_transport_at_price_cents",      limit: 8, default: 0
     t.boolean  "receive_comments_notification",                default: true
+    t.boolean  "heavy_uploader",                               default: false
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree

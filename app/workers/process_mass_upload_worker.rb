@@ -36,7 +36,13 @@ class ProcessMassUploadWorker
         row_count += 1
         row.delete '€' # delete encoding column
 
-        ProcessRowMassUploadWorker.perform_async( mass_upload_id, row.to_hash, row_count )
+        if mass_upload.user.heavy_uploader?
+          Sidekiq::Client.push('queue' => 'heavy_mass_upload_rows',
+                               'class' => ProcessRowMassUploadWorker,
+                               'args' => [mass_upload_id, row.to_hash, row_count])
+        else
+          ProcessRowMassUploadWorker.perform_async( mass_upload_id, row.to_hash, row_count )
+        end
 
       end
 
