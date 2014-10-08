@@ -7,6 +7,17 @@
 
 
 // mobile-horizontal
+@include till-breakpoint($bp-mobile-horizontal) {
+  #teaser--old {
+    .teaser-queue {
+      &:last-child {
+        display: none;
+      }
+    }
+  }
+}
+
+
 @include between-breakpoints($bp-mobile-horizontal, $bp-tablet) {
   #billboard {
     @include span(2 of 4);
@@ -15,6 +26,21 @@
   #uspteaser {
     @include span(2 of 4);
     @include omega;
+  }
+}
+
+
+@include between-breakpoints($bp-mobile-horizontal, $bp-tablet-horizontal) {
+  #teaser--filters {
+    .teaser-queue {
+      @include span(2 of 4);
+      &:last-child {
+        display: none;
+      }
+      &.teaser-queue-before-hidden {
+        @include omega;
+      }
+    }
   }
 }
 
@@ -57,6 +83,21 @@
     @include omega;
   }
 
+  #teaser--old {
+    @include span(2 of 6);
+    @include omega;
+    .teaser-queue {
+      @include span(2 of 2);
+
+      &:first-child {
+        @include omega;
+      }
+      &:last-child {
+        display: none;
+      }
+    }
+  }
+
   // Remove one article from a teaser for layout reasons
   .teaser--reducible {
     .teaser-queue {
@@ -91,6 +132,31 @@
   #uspteaser {
     @include span(2 of 8);
     @include omega;
+  }
+
+  #teaser--filters {
+    @include span(6 of 8);
+    .teaser-queue {
+      @include span(2 of 6);
+      &:last-child {
+        @include omega;
+      }
+    }
+  }
+
+  #teaser--old {
+    @include span(2 of 8);
+    @include omega;
+    .teaser-queue {
+      @include span(2 of 2);
+
+      &:first-child {
+        @include omega;
+      }
+      &:last-child {
+        display: none;
+      }
+    }
   }
 
   .teaser--news {
@@ -521,7 +587,7 @@ ul.image_list {
 
 #uspteaser-inner {
   @include whitebox;
-  background: #195674; //#237aa5; //image-url('welcome/logo-background.png') no-repeat top left;
+  background: $blue;
   padding: 0;
   height: 410px;
   position: relative;
@@ -533,30 +599,17 @@ ul.image_list {
   width: 90%;
   min-width: 200px;
   max-width: 300px;
-  margin: 6% auto;
+  margin: 8% auto;
   font-size: 1.5em;
   font-weight: 600;
 }
 
-/*
-#uspteaser-inner h3 {
-  margin: 5% auto 5%;
-  width: 90%;
-  min-width: 200px;
-  font-size: 1em;
-
-  a {
-    color: $white;
-    text-decoration: underline;
-  }
-}
-*/
 
 #uspteaser-inner ul {
   width: 90%;
   min-width: 200px;
   max-width: 300px;
-  margin: 8% auto 0;
+  margin: 10% auto 0;
   list-style: none;
   padding: 0;
   overflow: hidden;
@@ -565,13 +618,13 @@ ul.image_list {
     font-size: 1em;
     float: left;
     padding-left: 0;
-    margin-bottom: 4%;
+    margin-bottom: 5%;
 
     &:before {
       content: '\f111'; /*fontawesome char code inside the '' */
       font-family: FontAwesome;
       font-size: 2em;
-      margin: 0.3em 2.5% 0.3em 0;
+      margin: 0.1em 2.5% 0.5em 0;
       display: block;
       clear: left;
       float: left;
@@ -583,7 +636,7 @@ ul.image_list {
   width: 100%;
   position: absolute;
   bottom: 0;
-  margin: 0 0 5%;
+  margin: 0 0 8%;
 
   font-size: 1.5em;
   font-weight: 600;
@@ -592,9 +645,17 @@ ul.image_list {
   a {
     display: block;
     box-sizing: border-box;
+    -moz-box-sizing: border-box;  // For Fennec
     width: 90%;
     min-width: 200px;
     max-width: 300px;
     margin: 0 auto;
+
+    background-color: $white;
+    color: $blue !important;
+
+    &:hover, &:focus, &:active {
+      color: lighten($blue, 10%) !important;
+    }
   }
 }

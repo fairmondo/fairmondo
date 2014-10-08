@@ -86,8 +86,9 @@ Content.create key:'progress-ffps', body: '<div class="progress progress-landing
 Content.create key:'please-register', body: '<p><span style="font-family: arial, helvetica, sans-serif; font-size: small;"><span class="b" style="line-height: 16px; margin: 0px; padding: 0px 0px 1px; cursor: auto;"><strong style="margin: 0px; padding: 0px;">Bitte beachten:</strong></span><span style="line-height: 16px; margin: 0px; padding: 0px 0px 1px; cursor: auto;">&nbsp;&nbsp;</span><span style="line-height: 16px;">Dies ist eine reine Testversion, wir &uuml;bernehmen keinerlei Haftung oder Verantwortung f&uuml;r eingestellte Daten. Nach Ablauf des Tests werden alle Daten ohne Vorwarnung gel&ouml;scht.</span></span></p>'
 Content.create key:'about_us', body: '<h1>About</h1><p>Dummy Site</p>'
 # Startseite
-Content.create key:'heading_features', body: '<p>TOLLE DINGE</p>'
-Content.create key:'heading_features2', body: '<p>BÜCHERBOX</p>'
+Content.create key:'heading_features', body: 'Tolle Dinge'
+Content.create key:'heading_features2', body: 'Bücherbox'
+Content.create key:'heading_features3', body: 'Gutes Gebrauchtes'
 Content.create key:'heading_queue1', body: '<p>Mehr 1</p>'
 Content.create key:'heading_queue2', body: '<p>Mehr 2</p>'
 Content.create key:'heading_queue3', body: '<p>Mehr 3</p>'
