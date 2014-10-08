@@ -67,7 +67,7 @@ class Library < ActiveRecord::Base
 
   # Returns true if the library has no library elements
   def has_elements?
-    !library_elements.empty?
+    library_elements_count != 0
   end
 
   # Returns true if the library has comments

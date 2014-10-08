@@ -29,9 +29,10 @@ class LibraryElement < ActiveRecord::Base
   validates :library_id, presence: true
 
   # Relations
-  belongs_to :article
+  belongs_to :article, ->(o) { select('articles.state, articles.id, articles.title, articles.price_cents, articles.vat, articles.basic_price_cents ,articles.basic_price_amount, articles.condition, articles.fair, articles.ecologic, articles.small_and_precious, articles.currency, articles.user_id, articles.slug, articles.borrowable, articles.swappable, articles.friendly_percent, articles.friendly_percent_organisation_id') }
   belongs_to :library, counter_cache: true
   has_one :user, through: :library
+
 
   # Scopes
   default_scope -> { order(created_at: :asc) }

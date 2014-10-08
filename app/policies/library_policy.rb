@@ -60,9 +60,7 @@ class LibraryPolicy < Struct.new(:user, :library)
 
   class Scope < Struct.new(:current_user, :user, :scope)
     def resolve
-      included_scope = scope.
-        includes(library_elements: [:article]).
-        includes(comments: [:user, :commentable])
+      included_scope = scope.includes(comments: [:user, :commentable])
 
       if user && (user.is? current_user)
         included_scope
