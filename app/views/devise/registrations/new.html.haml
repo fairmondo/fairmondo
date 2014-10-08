@@ -35,7 +35,7 @@
     - legal_link = checkbox_link_helper t('users.legal_abbr'), '/agb'
     - privacy_link = checkbox_link_helper t('users.privacy'), '/privacy'
     = f.input :legal, as: :boolean, required: true, label: t("users.i_accept_both", legal: legal_link, privacy: privacy_link).html_safe
-    = f.input :newsletter, as: :boolean, label: 'Ich möchte den monatlichen Newsletter mit besonderen Produktvorstellungen erhalten (jederzeit abbestellbar).', required: false, tooltip: false
+    = f.input :newsletter, as: :boolean, label: 'Ich möchte an der kostenlosen Verlosung° teilnehmen und den monatlichen Newsletter mit besonderen Produktvorstellungen erhalten (jederzeit abbestellbar).', required: false, tooltip: false
 
   = f.actions do
     = f.action :submit, button_html: { class: "Button Button--action", id: "sign_up" }, label: :sign_up
@@ -46,3 +46,4 @@
     %li Die schönsten und fairsten Produkte im Netz entdecken
     %li Fördere sozialen und ressourcenschonenden Konsum
     %li Mit Käufen & Verkäufen einfach Hilfsprojekte unterstützen
+    %li Deine Chance, tolle Preise zu gewinnen
