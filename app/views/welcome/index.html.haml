@@ -74,41 +74,26 @@
     #uspteaser-inner
       %h2 Das macht uns anders
       %ul
-        %li Die schöns&shy;ten und fairs&shy;ten Pro&shy;dukte im Netz ent&shy;decken
-        %li Fördere sozialen &amp; ressourcen&shy;schonend&shy;en Konsum
+        %li Die schönsten und fairsten Produkte im Netz ent&shy;decken
+        %li Fördere sozialen &amp; ressourcen&shy;schonenden Konsum
         %li Mit Käufen &amp; Verkäufen einfach Hilfs&shy;projekte unter&shy;stützen
       %p
         = link_to new_registration_path(:user), class: 'Button' do  # link zur Landingpage
           Jetzt registr&shy;ieren &amp; Preise gewinnen!
 
 
--# Personalized library section, only shown if @last_hearted_libraries is set
-- if @last_hearted_libraries && @last_hearted_libraries.length == 2
-  - @last_hearted_libraries.each_with_index do |library, index|
-    %div.teaser.teaser--double.teaser--hearted_libraries{class: index == 0 ? 'teaser--clear' : 'teaser--collapsible teaser--reducible'}
-      .teaser-inner
-        %h2
-          = link_to(library.name, library_path(library))
-          = " #{t('common.text.glue.from')} "
-          = link_to(library.user_nickname, user_path(library.user))
-
-        - library.library_elements.includes(article: [:images, :seller]).reverse_order.limit(2).each do |library_element|
-          .teaser-queue
-            = render 'articles/shared/show_article', article: library_element.article
-
-
--# Article queue 3
-.teaser.teaser--double.teaser--clear
+-# Article queue 1
+.teaser.teaser--double.teaser--clear#teaser--filters
   .teaser-inner
     %h2
-      = link_to(tinycms_content_body_sanitized("heading_features2"), featured_library_path(@queue3[:library]))
-    - @queue3[:exhibits].each do |article|
-      .teaser-queue
+      = link_to(tinycms_content_body_sanitized("heading_features"), featured_library_path(@queue1[:library]))
+    - @queue1[:exhibits].each_with_index do |article, index|
+      %div{class: "teaser-queue#{index == 1 ? ' teaser-queue-before-hidden' : ''}"}
         = render 'articles/shared/show_article', article: article
 
 
 -# Article queue 'used/old'
-.teaser.teaser--double.teaser--collapsible.teaser--reducible
+.teaser.teaser--double#teaser--old
   .teaser-inner
     %h2
       = link_to(tinycms_content_body_sanitized('heading_features3'), featured_library_path(@old[:library]))
@@ -132,6 +117,21 @@
           %li
             = link_to 'http://info.fairmondo.de/fairmondo-in-der-presse/', title: value, target: '_blank' do
               %span{class: "sprite_#{key}"}
+
+
+-# Personalized library section, only shown if @last_hearted_libraries is set
+- if @last_hearted_libraries && @last_hearted_libraries.length == 2
+  - @last_hearted_libraries.each_with_index do |library, index|
+    %div.teaser.teaser--double.teaser--hearted_libraries{class: index == 0 ? 'teaser--clear' : 'teaser--collapsible teaser--reducible'}
+      .teaser-inner
+        %h2
+          = link_to(library.name, library_path(library))
+          = " #{t('common.text.glue.from')} "
+          = link_to(library.user_nickname, user_path(library.user))
+
+        - library.library_elements.includes(article: [:images, :seller]).reverse_order.limit(2).each do |library_element|
+          .teaser-queue
+            = render 'articles/shared/show_article', article: library_element.article
 
 
 -# Trending libraries
