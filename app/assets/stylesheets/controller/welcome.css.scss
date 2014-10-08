@@ -421,16 +421,12 @@ ul.image_list {
 
 
 #billboard-inner h2 {
-  position: absolute;
   z-index: 10;
-  top: 0;
-  left: 10px;
-  font-size: 2em;
-  font-weight: bold;
+  margin: 0;
 }
 
 
-#billboard article {
+.billboard {
   background-repeat: no-repeat;
   background-position: center top;
   position: relative;
@@ -440,32 +436,177 @@ ul.image_list {
 
 
 #billboard1 {
-  background-image: image-url('welcome/billboard-books-big.png');
+  background-image: image-url('welcome/billboard_discover_big.jpg');
 
   @include till-breakpoint($bp-tablet-horizontal) {
-    background-image: image-url('welcome/billboard-books-small.png');
+    background-image: image-url('welcome/billboard_discover_small.jpg');
   }
 
   @include between-breakpoints($bp-tablet, $bp-tablet-horizontal) {
-    background-image: image-url('welcome/billboard-books-medium.png');
+    background-image: image-url('welcome/billboard_discover_medium.jpg');
   }
 }
 
 
 #billboard2 {
-  background-image: image-url('welcome/billboard-design-big.png');
+  background-image: image-url('welcome/billboard_books_big.jpg');
 
   @include till-breakpoint($bp-tablet-horizontal) {
-    background-image: image-url('welcome/billboard-design-small.png');
+    background-image: image-url('welcome/billboard_books_small.jpg');
   }
 
   @include between-breakpoints($bp-tablet, $bp-tablet-horizontal) {
-    background-image: image-url('welcome/billboard-design-medium.png');
+    background-image: image-url('welcome/billboard_books_medium.jpg');
+  }
+}
+
+
+#billboard3 {
+  background-image: image-url('welcome/billboard_coffee_big.jpg');
+
+  @include till-breakpoint($bp-tablet-horizontal) {
+    background-image: image-url('welcome/billboard_coffee_small.jpg');
+  }
+
+  @include between-breakpoints($bp-tablet, $bp-tablet-horizontal) {
+    background-image: image-url('welcome/billboard_coffee_medium.jpg');
+  }
+}
+
+
+// Text layer in article element
+.billboard article {
+  position: relative;
+  margin: 0 auto;
+
+  @include till-breakpoint($bp-tablet) {
+    width: 210px;
+  }
+
+  @include between-breakpoints($bp-tablet, $bp-tablet-horizontal) {
+    width: 450px;
+  }
+
+  @include at-breakpoint($bp-tablet-horizontal) {
+    width: 700px;
+  }
+}
+
+
+#billboard1 h2 {
+  font-weight: 400;
+  font-size: 2.5em;
+  text-shadow: 1px 1px $gray;
+
+  position: absolute;
+  top: 10px;
+  left: 20px;
+
+
+  @include till-breakpoint($bp-tablet) {
+    display: none;
+  }
+
+  @include between-breakpoints($bp-tablet, $bp-tablet-horizontal) {
+    text-align: left;
+  }
+
+  @include at-breakpoint($bp-tablet-horizontal) {
+    top: 25px;
+    left: 35px;
+    width: 170px;
+    text-align: right;
   }
 }
 
 
 #billboard1 section {
+  position: absolute;
+
+  h3 {
+    color: #f1244f;
+    text-transform: uppercase;
+    font-size: 1.2em;
+    font-weight: 400;
+    margin: 0;
+    position: absolute;
+  }
+
+  a {
+    text-decoration: underline;
+    font-size: 0.9em;
+    position: absolute;
+  }
+
+  @include till-breakpoint($bp-tablet) {
+    left: 0;
+    right: 0;
+
+    &.section1 { top: 95px; }
+    &.section2 { top: 240px; }
+    &.section3 { top: 368px; }
+
+    h3 { display: none; }
+
+    a {
+      display: block;
+      width: 100%;
+      text-align: center;
+    }
+  }
+
+  @include between-breakpoints($bp-tablet, $bp-tablet-horizontal) {
+    left: 20px;
+    right: 20px;
+
+    &.section1 {
+      top: 80px;
+
+      h3 { left: 0; top: 0; }
+      a.billboard-textlink { left: 0; top: 20px; }
+    }
+    &.section2 {
+      top: 180px;
+
+      h3 { left: 258px; top: 20px; }
+      a.billboard-textlink { left: 258px; top: 40px; }
+    }
+    &.section3 {
+      top: 280px;
+
+      h3 { left: 0; top: 65px; }
+      a.billboard-textlink { left: 0; top: 85px; }
+    }
+  }
+
+  @include at-breakpoint($bp-tablet-horizontal) {
+    left: 240px;
+    right: 20px;
+
+    &.section1 {
+      top: 30px;
+
+      h3 { left: 0; top: 0; }
+      a.billboard-textlink { left: 0; top: 20px; }
+    }
+    &.section2 {
+      top: 180px;
+
+      h3 { left: 230px; top: 5px; }
+      a.billboard-textlink { left: 230px; top: 25px; }
+    }
+    &.section3 {
+      top: 280px;
+
+      h3 { left: 0; top: 65px; }
+      a.billboard-textlink { left: 0; top: 85px; }
+    }
+  }
+}
+
+
+
+#billboard2 section {
   position: absolute;
   top: 55px;
 
@@ -482,31 +623,6 @@ ul.image_list {
   }
 }
 
-
-#billboard2 h2 {
-  font-weight: 400;
-  font-size: 2.9em;
-  text-align: right;
-  text-transform: uppercase;
-  text-shadow: 1px 1px $dark-gray;
-}
-
-#billboard2 section {
-  position: absolute;
-  left: 569px;
-
-  &.section1 { top: 5px; }
-  &.section2 { top: 106px; }
-  &.section3 { top: 207px; }
-  &.section4 { top: 308px; }
-
-  @include till-breakpoint($bp-tablet-horizontal) {
-    &.section1 { left: 72px; }
-    &.section2 { display: none; }
-    &.section3 { display: none; }
-    &.section4 { display: none; }
-  }
-}
 
 
 #billboard h3 {
@@ -531,7 +647,7 @@ ul.image_list {
 }
 
 
-#billboard2 a.articlelink {
+#billboard1 a.articlelink {
   top: 0;
   left: 0;
   width: 119px;
