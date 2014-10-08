@@ -503,7 +503,7 @@ ul.image_list {
 #billboard1 h2 {
   font-weight: 400;
   font-size: 2.5em;
-  text-shadow: 1px 1px $gray;
+  text-shadow: 1px 1px $dark-gray;
 
   position: absolute;
   top: 10px;
@@ -615,7 +615,7 @@ ul.image_list {
 #billboard2 h2 {
   font-weight: 400;
   font-size: 2.5em;
-  text-shadow: 1px 1px $gray;
+  text-shadow: 1px 1px $dark-gray;
   text-align: left;
 
   position: absolute;
@@ -706,7 +706,7 @@ ul.image_list {
 #billboard3 h2 {
   font-weight: 400;
   font-size: 2.5em;
-  text-shadow: 1px 1px $gray;
+  text-shadow: 1px 1px $dark-gray;
   text-align: left;
 
   position: absolute;
@@ -870,18 +870,18 @@ ul.image_list {
 
 
 #uspteaser-inner h2 {
-  width: 90%;
-  min-width: 200px;
+  width: 80%;
+  min-width: 185px;
   max-width: 300px;
   margin: 8% auto;
   font-size: 1.5em;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 
 #uspteaser-inner ul {
-  width: 90%;
-  min-width: 200px;
+  width: 80%;
+  min-width: 185px;
   max-width: 300px;
   margin: 10% auto 0;
   list-style: none;
@@ -912,7 +912,7 @@ ul.image_list {
   bottom: 0;
   margin: 0 0 8%;
 
-  font-size: 1.5em;
+  font-size: 1.2em;
   font-weight: 600;
   text-align: center;
 
@@ -920,8 +920,8 @@ ul.image_list {
     display: block;
     box-sizing: border-box;
     -moz-box-sizing: border-box;  // For Fennec
-    width: 90%;
-    min-width: 200px;
+    width: 80%;
+    min-width: 185px;
     max-width: 300px;
     margin: 0 auto;
 
