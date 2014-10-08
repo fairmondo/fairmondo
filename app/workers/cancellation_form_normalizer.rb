@@ -7,23 +7,23 @@ class CancellationFormNormalizer
 
   def perform user_id
     user = User.find user_id
-    form = user.cancellation_form
+    form = ''
 
-    # get the path to the image
-    path = "#{form.path(:cut_here)}"
+    if user.cancellation_form
+      form = user.cancellation_form
 
-    # get the filename of the image as referenced in image object
-    orig_filename = path[path.rindex('/') + 1..-1]
+      path = "#{form.path(:cut_here)}"
 
-    # get the base directory before the style directories
-    index = path.index('cut_here') - 1
-    path = path[0..index]
+      orig_filename = path[path.rindex('/') + 1..-1]
 
-    # get the paths to the image files in the style directories
-    files = Dir.glob("#{path}*/*")
+      index = path.index('cut_here') - 1
+      path = path[0..index]
 
-    files.each do |file|
-      File.rename(file, file[0..file.rindex('/')] + orig_filename)
+      files = Dir.glob("#{path}*/*")
+
+      files.each do |file|
+        File.rename(file, file[0..file.rindex('/')] + orig_filename)
+      end
     end
   end
 end
