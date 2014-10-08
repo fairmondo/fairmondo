@@ -43,6 +43,8 @@
 #= require lazy/feed
 #= require lazy/wiselinks
 
+#= require customize/wiselinks_ready
+
 #= require vendor/jquery.slides.min.js
 #= require vendor/jquery.ba-dotimeout.min.js
 #= require vendor/jquery.complexify
