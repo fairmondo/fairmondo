@@ -37,35 +37,83 @@
         %a{href: '#', class: 'slidesjs-next slidesjs-navigation'}
           %span.teaser-arrow.teaser-arrow--right.sprite_right_arrow
 
-        %article#billboard1
-          %h2 600.000 Bücher
-          %section.section1
-            %h3 Heiße Fantasy Romane
-            = link_to 'Die Tribute von Panem', '', title: 'Die Tribute von Panem', class: 'articlelink'
-            = link_to 'mehr Fantasy', '', class: 'librarylink'
-          %section.section2
-            %h3 Upcycling &amp; DIY Ratgeber
-            = link_to 'Upcycling', '', title: 'Upcycling', class: 'articlelink'
-            = link_to 'mehr Upcycling', '', class: 'librarylink'
-          %section.section3
-            %h3 SPIEGEL Bestseller
-            = link_to 'Der Circle', '', title: 'Der Circle', class: 'articlelink'
-            = link_to 'mehr Bestseller', '', class: 'librarylink'
-          %section.section4
-            %h3 Gesellschaft &amp; Wirtschaft
-            = link_to 'Arbeit ist nicht unser Leben', '', title: 'Arbeit ist nicht unser Leben', class: 'articlelink'
-            = link_to 'mehr Gesellschaft', '', class: 'librarylink'
+        -# Gutes einfach entdecken
+        .billboard#billboard1
+          %article
+            %h2< Gutes einfach entdecken
+            %section.section1
+              %h3< Gutes unterstützen
+              = link_to 'Design aus sozialen Werkstätten',
+                        '/libraries/6867?pk_campaign=billboards&pk_kwd=entdecken_unterstuetzen',
+                        class: 'billboard-textlink'
+            %section.section2
+              %h3< Gutes gestalten
+              = link_to 'Mehr Stil im Alltag',
+                        '/libraries/6869?pk_campaign=billboards&pk_kwd=entdecken_gestalten',
+                        class: 'billboard-textlink'
+            %section.section3
+              %h3< Gutes mitnehmen
+              = link_to 'Nachhaltige Trinkflaschen und Brotboxen',
+                        '/libraries/6868?pk_campaign=billboards&pk_kwd=entdecken_mitnehmen',
+                        class: 'billboard-textlink'
 
-        %article#billboard2
-          %h2< Gutes<br/>Einfach<br/>Entdecken
-          %section.section1
-            = link_to 'Honig', '', title: 'Honig', class: 'articlelink'
-          %section.section2
-            = link_to 'Upcyclen', '', title: 'Upcyclen', class: 'articlelink'
-          %section.section3
-            = link_to 'Soulbottles', '', title: 'Soulbottles', class: 'articlelink'
-          %section.section4
-            = link_to 'Hefte', '', title: 'Hefte', class: 'articlelink'
+        -# Bücher
+        .billboard#billboard2
+          %article
+            %h2< Bücher, Bücher, Bücher!
+            %section.section1
+              %h3< Gebrauchte Krimis
+              = link_to 'Gebrauchte Krimis',
+                        '/articles?article_search_form[borrowable]=false&article_search_form[category_id]=115&article_search_form[condition]=old&article_search_form[swappable]=false?pk_campaign=billboards&pk_kwd=buecher_krimis',
+                        title: 'Gebrauchte Krimis',
+                        class: 'billboard-imagelink'
+              = link_to 'Mehr davon',
+                        '/articles?article_search_form[borrowable]=false&article_search_form[category_id]=115&article_search_form[condition]=old&article_search_form[swappable]=false?pk_campaign=billboards&pk_kwd=buecher_krimis',
+                        class: 'billboard-textlink'
+            %section.section2
+              %h3< Nachhaltig leben
+              = link_to 'Nachhaltig leben',
+                        '/libraries/6937?pk_campaign=billboards&pk_kwd=buecher_nachhaltig_leben',
+                        title: 'Nachhaltig leben',
+                        class: 'billboard-imagelink'
+              = link_to 'Mehr davon',
+                        '/libraries/6937?pk_campaign=billboards&pk_kwd=buecher_nachhaltig_leben',
+                        class: 'billboard-textlink'
+            %section.section3
+              %h3< Buchmesse 2014
+              = link_to 'Buchmesse 2014',
+                        '/libraries/6938?pk_campaign=billboards&pk_kwd=buecher_buchmesse',
+                        title: 'Buchmesse 2014',
+                        class: 'billboard-imagelink'
+              = link_to 'Mehr davon',
+                        '/libraries/6938?pk_campaign=billboards&pk_kwd=buecher_buchmesse',
+                        class: 'billboard-textlink'
+            %section.section4
+              %h3< Gebrauchte Kochbücher
+              = link_to 'Gebrauchte Kochbücher',
+                        '/categories/kochbucher-ernahrung?article_search_form[borrowable]=false&article_search_form[category_id]=183&article_search_form[condition]=old&article_search_form[swappable]=false?pk_campaign=billboards&pk_kwd=buecher_kochen',
+                        title: 'Gebrauchte Kochbücher',
+                        class: 'billboard-imagelink'
+              = link_to 'Mehr davon',
+                        '/categories/kochbucher-ernahrung?article_search_form[borrowable]=false&article_search_form[category_id]=183&article_search_form[condition]=old&article_search_form[swappable]=false?pk_campaign=billboards&pk_kwd=buecher_kochen',
+                        class: 'billboard-textlink'
+
+        -# Coffee Circle
+        .billboard#billboard3
+          %article
+            %h2< Gutes Genießen.
+            %section.section1
+              %p<
+                Die Menschen hinter Coffee&nbsp;Circle reisen jedes Jahr selbst nach Äthiopien, um dort die
+                faire Produktion ihrer ausge&shy;zeichneten Bio-Kaffees sicher&shy;zustellen.
+              = link_to 'Mehr erfahren',
+                        '/users/coffee-circle?pk_campaign=billboards&pk_kwd=kaffee',
+                        class: 'billboard-textlink'
+            %section.section2
+              = link_to 'Entdecke die neue Kaffee-Welt',
+                        '/users/coffee-circle?pk_campaign=billboards&pk_kwd=kaffee',
+                        class: 'billboard-textlink'
+
 
 
 -# USP Teaser with registration link
