@@ -612,21 +612,93 @@ ul.image_list {
 }
 
 
+#billboard2 h2 {
+  font-weight: 400;
+  font-size: 2.5em;
+  text-shadow: 1px 1px $gray;
+  text-align: left;
+
+  position: absolute;
+  top: 18px;
+
+  @include till-breakpoint($bp-tablet) {
+    left: 2px;
+    font-size: 2em;
+  }
+
+  @include between-breakpoints($bp-tablet, $bp-tablet-horizontal) {
+    left: 55px;
+  }
+
+  @include at-breakpoint($bp-tablet-horizontal) {
+    left: 30px;
+  }
+}
+
 
 #billboard2 section {
   position: absolute;
-  top: 55px;
 
-  &.section1 { left: 103px; }
-  &.section2 { left: 254px; }
-  &.section3 { left: 406px; }
-  &.section4 { left: 557px; }
+  h3 {
+    color: $white;
+    font-size: 1.2em;
+    font-weight: 400;
+    text-align: left;
+    margin: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
 
-  @include till-breakpoint($bp-tablet-horizontal) {
-    &.section1 { left: 72px; }
-    &.section2 { display: none; }
+  a.billboard-textlink {
+    text-decoration: underline;
+    font-size: 1em;
+    position: absolute;
+    left: 0;
+    width: 100%;
+    display: block;
+    text-align: center;
+  }
+
+  a.billboard-imagelink {
+    position: absolute;
+    left: 0;
+  }
+
+  @include till-breakpoint($bp-tablet) {
+    top: 130px;
+    width: 91px;
+
+    h3 { font-size: 1em; }
+
+    a.billboard-textlink {
+      font-size: 0.8em;
+      top: 199px;
+    }
+
+    a.billboard-imagelink {
+      top: 40px;
+    }
+
+    &.section1 {
+      left: 6px;
+    }
+
+    &.section2 {
+      left: 114px;
+    }
+
     &.section3 { display: none; }
     &.section4 { display: none; }
+  }
+
+  @include between-breakpoints($bp-tablet, $bp-tablet-horizontal) {
+    &.section1 { left: 72px; }
+    &.section4 { display: none; }
+  }
+
+  @include at-breakpoint($bp-tablet-horizontal) {
+
   }
 }
 
