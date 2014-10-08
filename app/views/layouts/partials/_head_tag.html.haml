@@ -14,9 +14,9 @@
   = stylesheet_link_tag 'application'
   = stylesheet_link_tag asset_path(controller_specific_css_path), id: 'controller_css'
   = javascript_include_tag 'https://widget.wegreen.de/js/easyXDM.min.js'
-  = content_for :view_specific_scripts
 
   = javascript_include_tag :application
+  = content_for :view_specific_scripts
 
   :javascript
     I18n.defaultLocale = "#{I18n.default_locale}";
