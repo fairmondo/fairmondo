@@ -19,3 +19,4 @@ production:
   - [file_normalizer, 2]
   - [heavy_mass_upload, 3]
   - [heavy_mass_upload_rows, 3]
+  - [cancellation_normalizer, 3]
