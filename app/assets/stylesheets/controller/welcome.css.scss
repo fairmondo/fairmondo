@@ -186,6 +186,9 @@
 .teaser > .teaser-inner > h2 {
   text-transform: uppercase;
 }
+.teaser > .teaser-inner > .teaser-commendations {
+  float: right;
+}
 
 .teaser--double {
   .teaser-inner {
@@ -358,14 +361,12 @@
 
 
 h5 {
-  text-align: center;
   text-transform: uppercase;
   margin-top: 0;
 }
 
 
 ul.image_list {
-  text-align: justify;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -377,6 +378,7 @@ ul.image_list {
 
     a {
       display: inline-block;
+      margin: 0 1em;
     }
   }
 
