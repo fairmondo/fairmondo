@@ -46,7 +46,7 @@ class Image < ActiveRecord::Base
   def write_path_to_file_for(type)
     if Rails.env == 'production'
       arr = []
-      File.open("/var/www/fairmondo/shared/backup_info/#{type}_#{Time.now.strftime('%Y_%m_%d')}", 'a') do |file|
+      File.open("/var/www/fairnopoly/shared/backup_info/#{type}_#{Time.now.strftime('%Y_%m_%d')}", 'a') do |file|
         self.image.styles.each_key do |style|
           unless arr.include?(style)
             file.write(self.image.path(style) + "\n")
