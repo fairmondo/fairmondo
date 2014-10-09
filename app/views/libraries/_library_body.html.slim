@@ -4,7 +4,7 @@
     - if library.has_elements?
       .Grid--wider
         - library_elements_page = params[:library_page]
-        - library_elements = library.library_elements.preload{article_reduced}.preload{article_reduced.title_image}.preload{article_reduced.seller}.page(library_elements_page).per(element_count)
+        - library_elements = library.library_elements.preload(article_reduced: [:title_image,:seller]).page(library_elements_page).per(element_count)
         - library_elements.each do |library_element|
           .Grid-item
             = render "libraries/library_element", library_element: library_element
