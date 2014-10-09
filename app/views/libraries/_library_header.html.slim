@@ -16,9 +16,9 @@
           = t('common.text.glue.from')
           = library.user_nickname
     .Library-info-thumbnails
-      - library.library_elements.preload{article.title_image}.first(10).each do |library_element|
-        - if library_element.article
-          = image_tag(library_element.article.title_image_url(:thumb), :title => library_element.article_title)
+      - library.library_elements.preload{article_reduced.title_image}.first(10).each do |library_element|
+        - if library_element.article_reduced
+          = image_tag(library_element.article_reduced.title_image_url(:thumb), :title => library_element.article_reduced_title)
 
 -# Show comments
 - if comments && library.has_comments?
