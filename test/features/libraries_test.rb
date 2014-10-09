@@ -1,23 +1,23 @@
 #
 #
 # == License:
-# Fairnopoly - Fairnopoly is an open-source online marketplace.
-# Copyright (C) 2013 Fairnopoly eG
+# Fairmondo - Fairmondo is an open-source online marketplace.
+# Copyright (C) 2013 Fairmondo eG
 #
-# This file is part of Fairnopoly.
+# This file is part of Fairmondo.
 #
-# Fairnopoly is free software: you can redistribute it and/or modify
+# Fairmondo is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as
 # published by the Free Software Foundation, either version 3 of the
 # License, or (at your option) any later version.
 #
-# Fairnopoly is distributed in the hope that it will be useful,
+# Fairmondo is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU Affero General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
-# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
+# along with Fairmondo.  If not, see <http://www.gnu.org/licenses/>.
 #
 require_relative '../test_helper'
 
@@ -81,7 +81,7 @@ feature "Libraries on welcome page" do
     page.must_have_content I18n.t 'library.auditing.user_warning'
 
     # User changes the name of an enabled library after which it gets disabled
-    fill_in 'library_name', with: 'notanymore'
+    fill_in "library#{@library.id}_library_name", with: 'notanymore'
     click_button I18n.t 'formtastic.actions.update'
 
     # visit welcome page
@@ -101,7 +101,7 @@ feature 'Library management' do
     visit user_libraries_path @user
     page.must_have_content I18n.t 'library.new'
     within '#new_library' do
-      fill_in 'library_name', with: 'foobar'
+      fill_in 'new_library_name', with: 'foobar'
       click_button I18n.t('library.create')
     end
     page.must_have_selector 'a', text: 'foobar'
@@ -117,7 +117,7 @@ feature 'Library management' do
     library = FactoryGirl.create :library, name: 'foobar', user: @user
     visit user_libraries_path @user
     within "#edit_library_#{library.id}" do
-      fill_in 'library_name', with: 'bazfuz'
+      fill_in "library#{library.id}_library_name", with: 'bazfuz'
       click_button I18n.t 'formtastic.actions.update'
     end
     page.must_have_selector 'a', text: 'bazfuz'
@@ -128,7 +128,7 @@ feature 'Library management' do
     library = FactoryGirl.create :library, name: 'foobar', user: @user
     visit user_libraries_path @user
     within "#edit_library_#{library.id}" do
-      fill_in 'library_name', with: ''
+      fill_in "library#{library.id}_library_name", with: ''
       click_button I18n.t 'formtastic.actions.update'
     end
 

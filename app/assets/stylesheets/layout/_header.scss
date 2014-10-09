@@ -8,13 +8,25 @@ $header-nav-link-color-hover: $blue;
 
 .l-header-top {
   @include container($screen-width);
-  padding: 0.5em 1rem 0.3em;
+  padding: 0.2em 1rem 0.1em;
 
   @include at-breakpoint($bp-tablet) {
     padding-left: $screen-padding;
     padding-right: $screen-padding;
   }
 }
+
+// Temporary rename message
+p.l-header-rename {
+  float: left;
+  margin-top: 0.8em;
+  font-weight: 300;
+
+  @include till-breakpoint($bp-mobile-horizontal-big) {
+    display: none;
+  }
+}
+
 
 .l-header-bottom {
   background: $header-highlight-color;
@@ -35,6 +47,7 @@ $header-nav-link-color-hover: $blue;
 }
 
 .l-header-nav {
+  margin-top: 0.2em;
   float: right;
   text-align: right;
 }

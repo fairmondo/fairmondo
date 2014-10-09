@@ -1,23 +1,23 @@
 #
 #
 # == License:
-# Fairnopoly - Fairnopoly is an open-source online marketplace.
-# Copyright (C) 2013 Fairnopoly eG
+# Fairmondo - Fairmondo is an open-source online marketplace.
+# Copyright (C) 2013 Fairmondo eG
 #
-# This file is part of Fairnopoly.
+# This file is part of Fairmondo.
 #
-# Fairnopoly is free software: you can redistribute it and/or modify
+# Fairmondo is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as
 # published by the Free Software Foundation, either version 3 of the
 # License, or (at your option) any later version.
 #
-# Fairnopoly is distributed in the hope that it will be useful,
+# Fairmondo is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU Affero General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
-# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
+# along with Fairmondo.  If not, see <http://www.gnu.org/licenses/>.
 #
 module Article::Images
   extend ActiveSupport::Concern
@@ -27,6 +27,7 @@ module Article::Images
     IMAGE_COUNT = 1 # when changing, remember to change article_refinery as well
 
     has_many :images, :class_name => "ArticleImage", foreign_key: "imageable_id"
+    has_one :title_image, -> { reorder 'is_title DESC' }, class_name: "ArticleImage", foreign_key: "imageable_id"
 
     delegate :external_url, to: :title_image, :prefix => true
 
@@ -37,13 +38,6 @@ module Article::Images
     validates :images, :size => {
       :in => 0..5 # lower to 3 if the old 5 article pics are all gone
     }
-
-    # Gives first image if there is one
-    # @api public
-    # @return [Image, nil]
-    def title_image
-      images.to_a.select{|i| i.is_title == true}.first || images[0]
-    end
 
     def title_image_url style = nil
       if title_image_present?
@@ -81,9 +75,8 @@ module Article::Images
     end
 
     def thumbnails
-      thumbnails = self.images.where(:is_title => false).to_a
-      thumbnails.reject! {|image| image.id == title_image.id if title_image}
-      thumbnails
+      thumbnails = self.images.to_a.reject! {|image| image.id == title_image.id if title_image}
+      thumbnails || []
     end
 
 

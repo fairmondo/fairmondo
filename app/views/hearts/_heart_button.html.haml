@@ -4,7 +4,6 @@
       %i.fa.fa-heart{disabled: true}>
   - else
     = link_to path, method: method, remote: true do
-      %i.fa.fa-heart{disabled: disabled}>
-      %i.fa{class: icon}>
+      %i.fa{class: filled ? 'fa-heart' : 'fa-heart-o', disabled: disabled}>
   %span.Hearts-count<
     = heartable_resource.hearts_count
