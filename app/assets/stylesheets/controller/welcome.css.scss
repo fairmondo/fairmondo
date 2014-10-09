@@ -486,33 +486,37 @@ ul.image_list {
   position: relative;
   margin: 0 auto;
 
+  h2 {
+    position: absolute;
+    text-shadow: 1px 1px $dark-gray;
+    font-weight: 400;
+  }
+
   @include till-breakpoint($bp-tablet) {
     width: 210px;
+
+    h2 { font-size: 2em; }
   }
 
   @include between-breakpoints($bp-tablet, $bp-tablet-horizontal) {
     width: 450px;
+
+    h2 { font-size: 2.5em; }
   }
 
   @include at-breakpoint($bp-tablet-horizontal) {
     width: 700px;
+
+    h2 { font-size: 2.9em; }
   }
 }
 
 
 #billboard1 h2 {
-  font-weight: 400;
-  font-size: 2.5em;
-  text-shadow: 1px 1px $gray;
-
-  position: absolute;
-  top: 10px;
+  top: 14px;
   left: 20px;
 
-
-  @include till-breakpoint($bp-tablet) {
-    display: none;
-  }
+  @include till-breakpoint($bp-tablet) { display: none; }
 
   @include between-breakpoints($bp-tablet, $bp-tablet-horizontal) {
     text-align: left;
@@ -520,8 +524,8 @@ ul.image_list {
 
   @include at-breakpoint($bp-tablet-horizontal) {
     top: 25px;
-    left: 35px;
-    width: 170px;
+    left: 0px;
+    width: 220px;
     text-align: right;
   }
 }
@@ -613,26 +617,13 @@ ul.image_list {
 
 
 #billboard2 h2 {
-  font-weight: 400;
-  font-size: 2.5em;
-  text-shadow: 1px 1px $gray;
   text-align: left;
 
-  position: absolute;
-  top: 18px;
+  top: 14px;
 
-  @include till-breakpoint($bp-tablet) {
-    left: 2px;
-    font-size: 2em;
-  }
-
-  @include between-breakpoints($bp-tablet, $bp-tablet-horizontal) {
-    left: 55px;
-  }
-
-  @include at-breakpoint($bp-tablet-horizontal) {
-    left: 30px;
-  }
+  @include till-breakpoint($bp-tablet) { left: 2px; }
+  @include between-breakpoints($bp-tablet, $bp-tablet-horizontal) { left: 33px; }
+  @include at-breakpoint($bp-tablet-horizontal) { left: 20px; }
 }
 
 
@@ -680,50 +671,64 @@ ul.image_list {
       top: 40px;
     }
 
-    &.section1 {
-      left: 6px;
-    }
-
-    &.section2 {
-      left: 114px;
-    }
-
+    &.section1 { left: 6px; }
+    &.section2 { left: 114px; }
     &.section3 { display: none; }
     &.section4 { display: none; }
   }
 
   @include between-breakpoints($bp-tablet, $bp-tablet-horizontal) {
-    &.section1 { left: 72px; }
+    top: 110px;
+    width: 113px;
+
+    h3 { font-size: 1.2em; }
+
+    a.billboard-imagelink {
+      top: 50px;
+    }
+
+    a.billboard-textlink {
+      font-size: 0.9em;
+      top: 235px;
+    }
+
+    &.section1 { left: 36px; }
+    &.section2 { left: 170px; }
+    &.section3 { left: 302px; }
     &.section4 { display: none; }
   }
 
   @include at-breakpoint($bp-tablet-horizontal) {
+    top: 125px;
+    width: 113px;
 
+    h3 { font-size: 1.2em; }
+
+    a.billboard-imagelink {
+      top: 50px;
+    }
+
+    a.billboard-textlink {
+      font-size: 0.9em;
+      top: 235px;
+    }
+
+    &.section1 { left: 114px; }
+    &.section2 { left: 268px; }
+    &.section3 { left: 421px; }
+    &.section4 { left: 574px; }
   }
 }
 
 
 #billboard3 h2 {
-  font-weight: 400;
-  font-size: 2.5em;
-  text-shadow: 1px 1px $gray;
   text-align: left;
 
-  position: absolute;
-  top: 18px;
+  top: 14px;
 
-  @include till-breakpoint($bp-tablet) {
-    left: 13px;
-    font-size: 2em;
-  }
-
-  @include between-breakpoints($bp-tablet, $bp-tablet-horizontal) {
-    left: 55px;
-  }
-
-  @include at-breakpoint($bp-tablet-horizontal) {
-    left: 30px;
-  }
+  @include till-breakpoint($bp-tablet) { left: 13px; }
+  @include between-breakpoints($bp-tablet, $bp-tablet-horizontal) { left: 55px; }
+  @include at-breakpoint($bp-tablet-horizontal) { left: 30px; }
 }
 
 
@@ -741,32 +746,39 @@ ul.image_list {
   }
 
   @include till-breakpoint($bp-tablet) {
-    left: 0;
-    right: 0;
+    left: 15px;
+    right: 10px;
 
     &.section1 { display: none; }
-    &.section2 { top: 327px; }
+    &.section2 { top: 125px; }
 
-    a.billboard-textlink { font-size: 0.8em; }
+    a.billboard-textlink {
+      top: 200px;
+      font-size: 0.8em;
+    }
   }
 
   @include between-breakpoints($bp-tablet, $bp-tablet-horizontal) {
-    left: 0;
-    right: 0;
+    left: 55px;
+    right: 50px;
 
     &.section1 { display: none; }
-    &.section2 { top: 340px; }
+    &.section2 { top: 50px; }
+
+    a.billboard-textlink { top: 290px; }
   }
 
   @include at-breakpoint($bp-tablet-horizontal) {
     &.section1 {
-      left: 35px;
-      top: 235px;
-      width: 242px;
+      left: 18px;
+      top: 110px;
+      width: 280px;
 
       p {
-        left: 0;
-        top: 80px;
+        position: absolute;
+        left: 25px;
+        right: 25px;
+        top: 110px;
         color: $black;
         text-align: justify;
         text-align-last: center;
@@ -774,15 +786,15 @@ ul.image_list {
         -webkit-text-align-last: center;
       }
 
-      a.billboard-textlink { top: 120px; }
+      a.billboard-textlink { top: 230px; }
     }
 
     &.section2 {
-      left: 360px;
-      top: 30px;
-      width: 270px;
+      left: 320px;
+      top: 20px;
+      width: 350px;
 
-      a.billboard-textlink { top: 275px; }
+      a.billboard-textlink { top: 285px; }
     }
   }
 }
@@ -803,13 +815,7 @@ ul.image_list {
   }
 }
 
-
 #billboard1 a.articlelink {
-  top: 0;
-  left: 0;
-  width: 119px;
-  height: 95px;
-
   &:hover, &:focus {
     border: 1px dotted $black;
   }
@@ -870,18 +876,18 @@ ul.image_list {
 
 
 #uspteaser-inner h2 {
-  width: 90%;
-  min-width: 200px;
+  width: 80%;
+  min-width: 185px;
   max-width: 300px;
   margin: 8% auto;
   font-size: 1.5em;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 
 #uspteaser-inner ul {
-  width: 90%;
-  min-width: 200px;
+  width: 80%;
+  min-width: 185px;
   max-width: 300px;
   margin: 10% auto 0;
   list-style: none;
@@ -912,7 +918,7 @@ ul.image_list {
   bottom: 0;
   margin: 0 0 8%;
 
-  font-size: 1.5em;
+  font-size: 1.2em;
   font-weight: 600;
   text-align: center;
 
@@ -920,8 +926,8 @@ ul.image_list {
     display: block;
     box-sizing: border-box;
     -moz-box-sizing: border-box;  // For Fennec
-    width: 90%;
-    min-width: 200px;
+    width: 80%;
+    min-width: 185px;
     max-width: 300px;
     margin: 0 auto;
 
