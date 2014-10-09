@@ -100,6 +100,6 @@ Fairmondo::Application.configure do
 
   # Rack-Rewrite paths
   require "#{config.root}/config/rewrites.rb"
-  config.middleware.insert_before(Rack::Runtime, Rack::Rewrite, klass: Rack::Rewrite::FairnopolyRuleSet)
+  config.middleware.insert_before(Rack::Runtime, Rack::Rewrite, klass: Rack::Rewrite::FairmondoRuleSet)
 
 end
