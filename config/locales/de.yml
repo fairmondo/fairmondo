@@ -94,12 +94,12 @@ de:
       about_terms: "AGB / Widerrufserklärung / Impressum"
       extended_search: "Erweiterte Suche"
       glue:
-        from: "von"
+        from: " von "
         and: " und "
-        by: "von"
+        by: " von "
         per: " pro "
         via: " per "
-        ago: "vor %{time}"
+        ago: " vor %{time}"
 
   form:
     select_from_list: Bitte wähle aus der Liste aus

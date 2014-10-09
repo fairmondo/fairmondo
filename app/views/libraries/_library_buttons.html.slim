@@ -1,9 +1,9 @@
 - if policy(library).update?
   .Library-details-user
     - if library.on_welcome_page?
-      %p.Library-details-user-warning= t('library.auditing.user_warning')
+      p.Library-details-user-warning= t('library.auditing.user_warning')
     .Library-details-user-actions
-      %a.Button.js-library-show-settings
+      a.Button.js-library-show-settings
         = t('common.actions.edit')
       - if policy(library).destroy?
         = link_to t('common.actions.destroy') , user_library_path(library.user.id, library.id.to_s) , class: "Button Button--red", confirm: t('library.delete_confirm', name: library.name), method: :delete
