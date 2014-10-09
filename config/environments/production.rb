@@ -1,25 +1,25 @@
 #
 #
 # == License:
-# Fairnopoly - Fairnopoly is an open-source online marketplace.
-# Copyright (C) 2013 Fairnopoly eG
+# Fairmondo - Fairmondo is an open-source online marketplace.
+# Copyright (C) 2013 Fairmondo eG
 #
-# This file is part of Fairnopoly.
+# This file is part of Fairmondo.
 #
-# Fairnopoly is free software: you can redistribute it and/or modify
+# Fairmondo is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as
 # published by the Free Software Foundation, either version 3 of the
 # License, or (at your option) any later version.
 #
-# Fairnopoly is distributed in the hope that it will be useful,
+# Fairmondo is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU Affero General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
-# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
+# along with Fairmondo.  If not, see <http://www.gnu.org/licenses/>.
 #
-Fairnopoly::Application.configure do
+Fairmondo::Application.configure do
 # Settings specified here will take precedence over those in config/application.rb
 
 # Code is not reloaded between requests
@@ -68,11 +68,11 @@ Fairnopoly::Application.configure do
   # config.cache_store = :mem_cache_store
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server
-  config.action_controller.asset_host = "assets%d.fairnopoly.de"
+  config.action_controller.asset_host = "assets%d.fairmondo.de"
 
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
-  config.action_mailer.default_url_options = { :host => 'www.fairnopoly.de' ,:protocol => 'https' }
+  config.action_mailer.default_url_options = { :host => 'www.fairmondo.de' ,:protocol => 'https' }
 
   config.dependency_loading = true if $rails_rake_task
   #http://stackoverflow.com/questions/4300240/rails-3-rake-task-cant-find-model-in-production
@@ -90,13 +90,13 @@ Fairnopoly::Application.configure do
   ActionMailer::Base.smtp_settings  = YAML.load(File.read(File.expand_path(File.join( Rails.root, 'config', 'actionmailer.yml')))).symbolize_keys
 
   # Premailer configuration
-  Premailer::Rails.config.merge!(base_url: "https://www.fairnopoly.de")
+  Premailer::Rails.config.merge!(base_url: "https://www.fairmondo.de")
 
   # Set host by default
-  Rails.application.routes.default_url_options[:host] = 'https://www.fairnopoly.de'
+  Rails.application.routes.default_url_options[:host] = 'https://www.fairmondo.de'
 
   #Memcached
-  config.cache_store = :dalli_store, '10.0.2.180', { :namespace => "fairnopoly", :expires_in => 1.day, :compress => true }
+  config.cache_store = :dalli_store, '10.0.2.180', { :namespace => "fairmondo", :expires_in => 1.day, :compress => true }
 
   # Rack-Rewrite paths
   require "#{config.root}/config/rewrites.rb"

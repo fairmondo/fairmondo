@@ -1,23 +1,23 @@
 #
 #
 # == License:
-# Fairnopoly - Fairnopoly is an open-source online marketplace.
-# Copyright (C) 2013 Fairnopoly eG
+# Fairmondo - Fairmondo is an open-source online marketplace.
+# Copyright (C) 2013 Fairmondo eG
 #
-# This file is part of Fairnopoly.
+# This file is part of Fairmondo.
 #
-# Fairnopoly is free software: you can redistribute it and/or modify
+# Fairmondo is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as
 # published by the Free Software Foundation, either version 3 of the
 # License, or (at your option) any later version.
 #
-# Fairnopoly is distributed in the hope that it will be useful,
+# Fairmondo is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU Affero General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
-# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
+# along with Fairmondo.  If not, see <http://www.gnu.org/licenses/>.
 #
 #
 
@@ -33,11 +33,19 @@ module HeartsHelper
       heart = Heart.where(heartable: heartable_resource, user_token: generate_user_token).limit 1
     end
 
-    if !heart.to_a.empty?
+    if heart.to_a.empty?
+      render partial: "hearts/heart_button", locals: {
+        heartable_resource: heartable_resource,
+        filled: false,
+        path: library_hearts_path(heartable_resource),
+        method: :post,
+        disabled: false
+      }
+    else
       if user_signed_in?
         render partial: "hearts/heart_button", locals: {
           heartable_resource: heartable_resource,
-          icon: "fa-minus",
+          filled: true,
           path: library_heart_path(heartable_resource, heart.first),
           method: :delete,
           disabled: false
@@ -48,14 +56,6 @@ module HeartsHelper
           disabled: true
         }
       end
-    else
-      render partial: "hearts/heart_button", locals: {
-        heartable_resource: heartable_resource,
-        icon: "fa-plus",
-        path: library_hearts_path(heartable_resource),
-        method: :post,
-        disabled: false
-      }
     end
   end
 

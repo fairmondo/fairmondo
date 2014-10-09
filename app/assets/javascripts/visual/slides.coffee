@@ -1,8 +1,18 @@
 $(document).ready ->
+  $("#js-billboardslides").slidesjs
+    #start: Math.floor(Math.random() * 2) + 1  # random number between 1 and 2
+    width: 205
+    height: 410
+    pagination:
+      active: false
+    navigation:
+      active: false
+
+
   $("#js-cardslides").slidesjs
     width: 490
     height: 490
-    start: Math.floor(Math.random() * 5)+1 # random number between 1 and 5
+    start: Math.floor(Math.random() * 5)+1  # random number between 1 and 5
     play:
       active: false
       auto: true
@@ -13,7 +23,7 @@ $(document).ready ->
       active: false
 
   $("#js-userslides").slidesjs
-    start: Math.floor(Math.random() * 5)+1 # random number between 1 and 5
+    start: Math.floor(Math.random() * 5)+1  # random number between 1 and 5
     pagination:
       active: false
     navigation:

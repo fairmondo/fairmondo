@@ -5,7 +5,7 @@
   @include till-breakpoint($bp-tablet-horizontal) {
     display: none;
   }
-  margin-bottom: 0.5em;
+  margin-top: 0.5em;
 }
 
 .l-header-categories > ul {
@@ -36,7 +36,7 @@
   list-style:none;
   position:absolute;
   left:-999em; /* Hides the drop down */
-  z-index: 2;
+  z-index: 12;  /* z-index should be higher than 10 because of SlideJS billboards */
   display:table;
   background: white;
   border-top-right-radius: 5px;

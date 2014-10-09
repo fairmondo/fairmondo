@@ -1,33 +1,33 @@
 #
 #
 # == License:
-# Fairnopoly - Fairnopoly is an open-source online marketplace.
-# Copyright (C) 2013 Fairnopoly eG
+# Fairmondo - Fairmondo is an open-source online marketplace.
+# Copyright (C) 2013 Fairmondo eG
 #
-# This file is part of Fairnopoly.
+# This file is part of Fairmondo.
 #
-# Fairnopoly is free software: you can redistribute it and/or modify
+# Fairmondo is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as
 # published by the Free Software Foundation, either version 3 of the
 # License, or (at your option) any later version.
 #
-# Fairnopoly is distributed in the hope that it will be useful,
+# Fairmondo is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU Affero General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
-# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
+# along with Fairmondo.  If not, see <http://www.gnu.org/licenses/>.
 #
-unless %x( pwd ) =~ /fairnopoly\n$/
-  puts "You need to run this setup script from the Fairnopoly root directory."
+unless %x( pwd ) =~ /fairmondo\n$/
+  puts "You need to run this setup script from the Fairmondo root directory."
   exit 1
 end
 
 system('clear')
-puts "Welcome to the Fairnopoly setup."
+puts "Welcome to the Fairmondo setup."
 puts "\n\n* This script requires you to already have the rails gem installed."
-puts "* Make sure you are in the fairnopoly root directory."
+puts "* Make sure you are in the fairmondo root directory."
 puts "* Please do not run this script more than once."
 puts "\nPress enter to continue (or type \"abort\" to exit)."
 
@@ -69,7 +69,7 @@ unless gets.chomp === "abort"
   puts "Copying email_addresses.yml..."
   %x( cp config/email_addresses.yml.example config/email_addresses.yml )
 
-  puts "Creating Fairnopoly database..."
+  puts "Creating Fairmondo database..."
   %x( rake db:create )
 
   puts "Migrating database..."

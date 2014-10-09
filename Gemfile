@@ -31,6 +31,7 @@ gem "tire"
 # ---------- View ----------
 
 gem 'haml'
+gem 'slim-rails'
 
 ## CSS
 gem 'susy' ,'~> 2.1.1' # Grid framework is susy

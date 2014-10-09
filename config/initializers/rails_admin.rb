@@ -7,7 +7,7 @@ RailsAdmin.config do |config|
   ################  Global configuration  ################
 
   # Set the admin name here (optional second array element will appear in red). For example:
-  config.main_app_name = ['Fairnopoly', 'Admin']
+  config.main_app_name = ['Fairmondo', 'Admin']
 
   # RailsAdmin may need a way to know who the current user is
   config.authorize_with do
