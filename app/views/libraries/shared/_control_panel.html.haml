@@ -6,8 +6,8 @@
     %span.sprite_helper{ title: t('library.control.main_tooltip') }
 
     -# Create two separate collections for public and private libraries
-    - libraries_public = libraries.select { |lib| lib.public }
-    - libraries_private = libraries.select { |lib| !lib.public }
+    - libraries_public = libraries.select { |lib| lib.public? }
+    - libraries_private = libraries.select { |lib| !lib.public? }
 
     #libraries_list
       %ul#libraries_public

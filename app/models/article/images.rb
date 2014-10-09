@@ -76,7 +76,7 @@ module Article::Images
 
     def thumbnails
       thumbnails = self.images.to_a.reject! {|image| image.id == title_image.id if title_image}
-      thumbnails
+      thumbnails || []
     end
 
 
