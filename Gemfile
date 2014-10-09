@@ -25,6 +25,8 @@ gem 'sanitize' # Parser based sanitization
 gem 'awesome_nested_set' , ">= 3.0.0.rc.4"# tree structure for categories
 gem "friendly_id", ">= 4.0.9" # Friendly_id for beautiful links
 
+gem "squeel"
+
 ## Indexing /Searching
 gem "tire"
 

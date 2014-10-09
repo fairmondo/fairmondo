@@ -98,4 +98,8 @@ Fairmondo::Application.configure do
   #Memcached
   config.cache_store = :dalli_store, '10.0.2.180', { :namespace => "fairmondo", :expires_in => 1.day, :compress => true }
 
+  # Rack-Rewrite paths
+  require "#{config.root}/config/rewrites.rb"
+  config.middleware.insert_before(Rack::Runtime, Rack::Rewrite, klass: Rack::Rewrite::FairnopolyRuleSet)
+
 end

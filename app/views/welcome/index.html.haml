@@ -19,6 +19,7 @@
 -# You should have received a copy of the GNU Affero General Public License
 -# along with Fairmondo.  If not, see <http://www.gnu.org/licenses/>.
 -#
+
 / The next line is for providing the proper title image to facebook
 - provide( :title_image, image_path('fairmondo_social_media.png') )
 - cache 'category-dropdown-welcome' do
@@ -26,47 +27,144 @@
     = render 'categories/shared/category_tree'
 
 
+-# Billboard
+- cache 'billboard' do
+  #billboard
+    #billboard-inner
+      #js-billboardslides
+        %a{href: '#', class: 'slidesjs-previous slidesjs-navigation'}
+          %span.teaser-arrow.teaser-arrow--left.sprite_left_arrow
+        %a{href: '#', class: 'slidesjs-next slidesjs-navigation'}
+          %span.teaser-arrow.teaser-arrow--right.sprite_right_arrow
+
+        -# Gutes einfach entdecken
+        .billboard#billboard1
+          %article
+            %h2< Gutes einfach entdecken
+            %section.section1
+              %h3< Gutes unterstützen
+              = link_to 'Design aus sozialen Werkstätten',
+                        '/libraries/6867?pk_campaign=billboards&pk_kwd=entdecken_unterstuetzen',
+                        class: 'billboard-textlink'
+            %section.section2
+              %h3< Gutes gestalten
+              = link_to 'Mehr Stil im Alltag',
+                        '/libraries/6869?pk_campaign=billboards&pk_kwd=entdecken_gestalten',
+                        class: 'billboard-textlink'
+            %section.section3
+              %h3< Gutes mitnehmen
+              = link_to 'Nachhaltige Trinkflaschen und Brotboxen',
+                        '/libraries/6868?pk_campaign=billboards&pk_kwd=entdecken_mitnehmen',
+                        class: 'billboard-textlink'
+
+        -# Bücher
+        .billboard#billboard2
+          %article
+            %h2< Bücher, Bücher, Bücher!
+            %section.section1
+              %h3< Gebrauchte Krimis
+              = link_to 'Gebrauchte Krimis',
+                        '/articles?article_search_form[borrowable]=false&article_search_form[category_id]=115&article_search_form[condition]=old&article_search_form[swappable]=false?pk_campaign=billboards&pk_kwd=buecher_krimis',
+                        title: 'Gebrauchte Krimis',
+                        class: 'billboard-imagelink'
+              = link_to 'Mehr davon',
+                        '/articles?article_search_form[borrowable]=false&article_search_form[category_id]=115&article_search_form[condition]=old&article_search_form[swappable]=false?pk_campaign=billboards&pk_kwd=buecher_krimis',
+                        class: 'billboard-textlink'
+            %section.section2
+              %h3< Nachhaltig leben
+              = link_to 'Nachhaltig leben',
+                        '/libraries/6937?pk_campaign=billboards&pk_kwd=buecher_nachhaltig_leben',
+                        title: 'Nachhaltig leben',
+                        class: 'billboard-imagelink'
+              = link_to 'Mehr davon',
+                        '/libraries/6937?pk_campaign=billboards&pk_kwd=buecher_nachhaltig_leben',
+                        class: 'billboard-textlink'
+            %section.section3
+              %h3< Buchmesse 2014
+              = link_to 'Buchmesse 2014',
+                        '/libraries/6938?pk_campaign=billboards&pk_kwd=buecher_buchmesse',
+                        title: 'Buchmesse 2014',
+                        class: 'billboard-imagelink'
+              = link_to 'Mehr davon',
+                        '/libraries/6938?pk_campaign=billboards&pk_kwd=buecher_buchmesse',
+                        class: 'billboard-textlink'
+            %section.section4
+              %h3< Gebrauchte Kochbücher
+              = link_to 'Gebrauchte Kochbücher',
+                        '/categories/kochbucher-ernahrung?article_search_form[borrowable]=false&article_search_form[category_id]=183&article_search_form[condition]=old&article_search_form[swappable]=false?pk_campaign=billboards&pk_kwd=buecher_kochen',
+                        title: 'Gebrauchte Kochbücher',
+                        class: 'billboard-imagelink'
+              = link_to 'Mehr davon',
+                        '/categories/kochbucher-ernahrung?article_search_form[borrowable]=false&article_search_form[category_id]=183&article_search_form[condition]=old&article_search_form[swappable]=false?pk_campaign=billboards&pk_kwd=buecher_kochen',
+                        class: 'billboard-textlink'
+
+        -# Coffee Circle
+        .billboard#billboard3
+          %article
+            %h2< Gutes Genießen.
+            %section.section1
+              %p<
+                Die Menschen hinter Coffee&nbsp;Circle reisen jedes Jahr selbst nach Äthiopien, um dort die
+                faire Produktion ihrer ausge&shy;zeichneten Bio-Kaffees sicher&shy;zustellen.
+              = link_to 'Mehr erfahren',
+                        '/users/coffee-circle?pk_campaign=billboards&pk_kwd=kaffee',
+                        class: 'billboard-textlink'
+            %section.section2
+              = link_to 'Entdecke die neue Kaffee-Welt',
+                        '/users/coffee-circle?pk_campaign=billboards&pk_kwd=kaffee',
+                        class: 'billboard-textlink'
+
+
+
+-# USP Teaser with registration link
+- cache 'uspteaser' do
+  #uspteaser
+    #uspteaser-inner
+      %h2 Das macht uns anders
+      %ul
+        %li Die schönsten und fairsten Produkte im Netz ent&shy;decken
+        %li Fördere sozialen &amp; ressourcen&shy;schonenden Konsum
+        %li Mit Käufen &amp; Verkäufen einfach Hilfs&shy;projekte unter&shy;stützen
+      %p
+        = link_to new_registration_path(:user), class: 'Button' do  # link zur Landingpage
+          Jetzt registr&shy;ieren &amp; Preise gewinnen!
+
+
 -# Article queue 1
-.teaser.teaser--double#teaser--first
+.teaser.teaser--double.teaser--clear#teaser--filters
   .teaser-inner
     %h2
       = link_to(tinycms_content_body_sanitized("heading_features"), featured_library_path(@queue1[:library]))
     - @queue1[:exhibits].each_with_index do |article, index|
-      %div{class: 'teaser-queue' + (index == 1 ? ' teaser-queue-before-hidden' : '')}
+      %div{class: "teaser-queue#{index == 1 ? ' teaser-queue-before-hidden' : ''}"}
         = render 'articles/shared/show_article', article: article
 
 
--# Bluebox
-#bluebox
-  #bluebox-container
-    #bluebox1
-      %h3.bluebox-header Konsequent fair
-      .bluebox-inner
-        .bluebox-ornament-right
-        .bluebox-ornament-left
-        .bluebox-content
-          .bluebox-text Fairmondo ist ein neuer Online-Marktplatz mit einem konse&shy;quent fairen Unter&shy;nehmen dahinter.
-          .bluebox-link
-            %a{href: "/about_us"} Mehr erfahren
-    #bluebox2
-      %h3.bluebox-header Für alle
-      .bluebox-inner
-        .bluebox-ornament-right
-        .bluebox-ornament-left
-        .bluebox-content
-          .bluebox-text Privat&shy;personen und gewerb&shy;liche Händler*innen kön&shy;nen hier alles verkaufen.
-          .bluebox-link
-            %a{href: "/articles/new"} Selbst verkaufen
-    #bluebox3
-      %h3.bluebox-header Dein Anteil
-      .bluebox-inner
-        .bluebox-ornament-right
-        .bluebox-ornament-left
-        .bluebox-content
-          .bluebox-text Auch Du kannst in die Genos&shy;sen&shy;schaft ein&shy;steigen oder Dich aktiv ein&shy;bringen:
-          .bluebox-link
-            %a{href: "http://www.projektzehntausend.de/projektzehntausend/", target: '_blank'} Projekt 10.000
+-# Article queue 'used/old'
+.teaser.teaser--double#teaser--old
+  .teaser-inner
+    %h2
+      = link_to(tinycms_content_body_sanitized('heading_features3'), featured_library_path(@old[:library]))
+    - @old[:exhibits].each do |article|
+      .teaser-queue
+        = render 'articles/shared/show_article', article: article
 
+
+-# known from / press information
+- cache "known_from" do
+  - names = { hochschulanzeiger: 'Hochschulanzeiger',
+              taz: 'Taz',
+              sueddeutsche: 'Süddeutsche Zeitung',
+              arte: 'Arte',
+              deutschlandfunk: 'Deutschlandfunk' }
+  .teaser.teaser--full.teaser--known_from
+    .teaser-inner
+      %h5 Bekannt aus
+      %ul.image_list
+        - names.each do |key, value|
+          %li
+            = link_to 'http://info.fairmondo.de/fairmondo-in-der-presse/', title: value, target: '_blank' do
+              %span{class: "sprite_#{key}"}
 
 
 -# Personalized library section, only shown if @last_hearted_libraries is set
@@ -83,25 +181,6 @@
           .teaser-queue
             = render 'articles/shared/show_article', article: library_element.article
 
-
--# Article queue 3
-.teaser.teaser--double.teaser--clear
-  .teaser-inner
-    %h2
-      = link_to(tinycms_content_body_sanitized("heading_features2"), featured_library_path(@queue3[:library]))
-    - @queue3[:exhibits].each do |article|
-      .teaser-queue
-        = render 'articles/shared/show_article', article: article
-
-
--# Article queue 'used/old'
-.teaser.teaser--double.teaser--collapsible.teaser--reducible
-  .teaser-inner
-    %h2
-      = link_to(tinycms_content_body_sanitized('heading_features3'), featured_library_path(@old[:library]))
-    - @old[:exhibits].each do |article|
-      .teaser-queue
-        = render 'articles/shared/show_article', article: article
 
 -# Trending libraries
 - if @trending_libraries.to_a.any?
@@ -121,36 +200,20 @@
         %span.teaser-arrow.teaser-arrow--right.sprite_right_arrow
       - 8.times do |i|
         = image_tag "slides/cards/#{i}.png"
-      %a{href: '#', class: 'slidesjs-next slidesjs-navigation'}
-        %i.icon-left_arrow
-      %a{href: '#', class: 'slidesjs-previous slidesjs-navigation'}
-        %i.icon-right_arrow
+      -#%a{href: '#', class: 'slidesjs-next slidesjs-navigation'}  # Do we need these?
+      -#  %i.icon-left_arrow
+      -#%a{href: '#', class: 'slidesjs-previous slidesjs-navigation'}
+      -#  %i.icon-right_arrow
 
 
 -# Article queue 'donation'
-.teaser.teaser--double.teaser--collapsible
+.teaser.teaser--double.teaser--collapsible.teaser--reducible
   .teaser-inner
     %h2
       = link_to('Mit Spendenanteil', featured_library_path(@donation_articles[:library]))
     - @donation_articles[:exhibits].each do |article|
       .teaser-queue
         = render 'articles/shared/show_article', article: article
-
-
--# Hero teaser
-.teaser.teaser--double
-  .teaser-inner.teaser--center
-    %h2 Aktiv mitwirken
-    %p
-      Unterstütze Fairmondo mit Deinem Einsatz und werde am Erfolg beteiligt.
-    %p
-      %a{ href: "http://helden.fairmondo.de/helden/", class: "Button", target: "_blank" }
-        Held*in werden
-
-
--# Blog
-.teaser.teaser--double.teaser--news
-  .teaser-inner.teaser--hide#js-teaser-news-placeholder
 
 
 -# User comment slides
@@ -161,46 +224,51 @@
         %span.teaser-arrow.teaser-arrow--left.sprite_left_arrow
       %a{href: '#', class: 'slidesjs-next slidesjs-navigation'}
         %span.teaser-arrow.teaser-arrow--right.sprite_right_arrow
-      #slide1
-        = image_tag "slides/users/0.jpg"
-        %p.teaser-quotation
-          %span.teaser-quote> &bdquo;
-          Für Veränderungen in der Gesellschaft benötigt es mehr Mut – bei Fairmondo erleben wir viele junge mutige Menschen. Wir freuen uns auf die Zusammenarbeit mit Fairmondo, wünschen der Genossenschaft einen erfolgreichen Start, viele Mitglieder und viel Erfolg auf dem Weg zu mehr Transparenz in Onlinehandel und Gesellschaft!
-          %span.teaser-quote> &ldquo;
-          .teaser-quotesource JORGE INOSTROZA, GEPA
-      #slide2
-        = image_tag "slides/users/1.jpg"
-        %p.teaser-quotation
-          %span.teaser-quote> &bdquo;
-          Ich bin Genossenschafts-Mitglied bei Fairmondo, weil es uns Spaß macht, Fairmondo mitzuentwickeln. Für uns ist Fairmondo eine super Plattform, um unsere ethisch produzierten Produkte zu vermarkten.
-          %span.teaser-quote> &ldquo;
-          .teaser-quotesource ISABELLE DECHAMPS, BE ABLE
-      #slide3
-        %p.teaser-quotation
-          = image_tag "slides/users/2.jpg"
-          %span.teaser-quote> &bdquo;
-          Bei Fairmondo finde ich genial, dass die Struktur eine Genossenschaft ist. Das heißt, ich bin Genosse dort, ich kann mitentscheiden, was da passiert - und was mit der Firma passiert.
-          %span.teaser-quote> &ldquo;
-          .teaser-quotesource VAN BO LE-MENTZEL, ARCHITEKT
-      #slide4
-        %p.teaser-quotation
-          = image_tag "slides/users/3.jpg"
-          %span.teaser-quote> &bdquo;
-          Ich bin Genossin bei Fairmondo, weil ich glaube, dass wir alle bewusster konsumieren sollten. Fairmondo gibt uns online die Chance dazu - und deswegen bin ich gerne ein Teil davon.
-          %span.teaser-quote> &ldquo;
-          .teaser-quotesource MARIA GROSS, SOCIAL IMPACT LAB
-      #slide5
-        %p.teaser-quotation
-          = image_tag "slides/users/4.jpg"
-          %span.teaser-quote> &bdquo;
-          Ich bin in die Genossenschaft Fairmondo eingestiegen, weil ich die Idee sehr überzeugend finde. Ich hab' das Team auch kennengelernt und ich sehe, dass die wirklich mit Enthusiasmus und viel Elan dabei sind. Wir handeln auf Fairmondo, weil wir darin eine Chance sehen, faire und Bio-Produkte weiter zu verbreiten.
-          %span.teaser-quote> &ldquo;
-          .teaser-quotesource THOMAS KAPPAUF, BLACK STAR
+
+      = render 'user_slide', number: 1,
+                             quote: 'Für Veränderungen in der Gesellschaft benötigt es mehr Mut – bei Fairnopoly erleben wir viele junge mutige Menschen. Wir freuen uns auf die Zusammenarbeit mit Fairnopoly, wünschen der Genossenschaft einen erfolgreichen Start, viele Mitglieder und viel Erfolg auf dem Weg zu mehr Transparenz in Onlinehandel und Gesellschaft!',
+                             source: 'Jorge Inostroza, Gepa'
+
+      = render 'user_slide', number: 2,
+                             quote: 'Ich bin Genossenschafts-Mitglied bei Fairnopoly, weil es uns Spaß macht, Fairnopoly mitzuentwickeln. Für uns ist Fairnopoly eine super Plattform, um unsere ethisch produzierten Produkte zu vermarkten.',
+                             source: 'Isabelle Dechamps, Be Able'
+
+      = render 'user_slide', number: 3,
+                             quote: 'Bei Fairnopoly finde ich genial, dass die Struktur eine Genossenschaft ist. Das heißt, ich bin Genosse dort, ich kann mitentscheiden, was da passiert – und was mit der Firma passiert.',
+                             source: 'Van Bo Le-Mentzel, Architekt'
+
+      = render 'user_slide', number: 4,
+                             quote: 'Ich bin Genossin bei Fairnopoly, weil ich glaube, dass wir alle bewusster konsumieren sollten. Fairnopoly gibt uns online die Chance dazu – und deswegen bin ich gerne ein Teil davon.',
+                             source: 'Maria Gross, Social Impact Lab'
+
+      = render 'user_slide', number: 5,
+                             quote: 'Ich bin in die Genossenschaft Fairnopoly eingestiegen, weil ich die Idee sehr überzeugend finde. Ich hab\' das Team auch kennengelernt und ich sehe, dass die wirklich mit Enthusiasmus und viel Elan dabei sind. Wir handeln auf Fairnopoly, weil wir darin eine Chance sehen, faire und Bio-Produkte weiter zu verbreiten.',
+                             source: 'Thomas Kappauf, Black Star'
+
+
+-# Hero teaser
+.teaser.teaser--double
+  .teaser-inner.teaser--center
+    %h2 Aktiv mitwirken
+    %p Unterstütze Fairmondo mit Deinem Einsatz und werde am Erfolg beteiligt.
+    %p= link_to 'Held*in werden', 'http://helden.fairmondo.de/helden/', class: 'Button', target: '_blank'
+
+
+-# Blog
+.teaser.teaser--double.teaser--news
+  .teaser-inner.teaser--hide#js-teaser-news-placeholder
+
 
 -# Social media buttons
-.socialshareprivacy{data: {uri: "http://www.fairmondo.de/", title: "Dreh' das spiel um!"}}
+.socialshareprivacy{data: {uri: "http://www.fairmondo.de/", title: "Gutes einfach entdecken"}}
 
--# NGO and press information ("known from")
-- cache "ngo_logosand_known_from" do
-  = render 'welcome/index/ngos'
-  = render 'welcome/index/known_from'
+
+-# NGOs
+- cache "ngo_logos" do
+  .teaser.teaser--full.teaser--ngos
+    .teaser-inner
+      %h5= "Spendenpartner*innen"
+      %ul.image_list
+        - User.ngo_with_profile_image.each do |ngo|
+          %li= link_to image_tag(ngo.image_url(:profile)), user_path(ngo), title: ngo.name
+

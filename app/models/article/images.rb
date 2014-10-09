@@ -27,6 +27,7 @@ module Article::Images
     IMAGE_COUNT = 1 # when changing, remember to change article_refinery as well
 
     has_many :images, :class_name => "ArticleImage", foreign_key: "imageable_id"
+    has_one :title_image, -> { reorder 'is_title DESC' }, class_name: "ArticleImage", foreign_key: "imageable_id"
 
     delegate :external_url, to: :title_image, :prefix => true
 
@@ -37,13 +38,6 @@ module Article::Images
     validates :images, :size => {
       :in => 0..5 # lower to 3 if the old 5 article pics are all gone
     }
-
-    # Gives first image if there is one
-    # @api public
-    # @return [Image, nil]
-    def title_image
-      images.to_a.select{|i| i.is_title == true}.first || images[0]
-    end
 
     def title_image_url style = nil
       if title_image_present?
@@ -81,8 +75,7 @@ module Article::Images
     end
 
     def thumbnails
-      thumbnails = self.images.where(:is_title => false).to_a
-      thumbnails.reject! {|image| image.id == title_image.id if title_image}
+      thumbnails = self.images.to_a.reject! {|image| image.id == title_image.id if title_image}
       thumbnails
     end
 
