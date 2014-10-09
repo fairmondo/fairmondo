@@ -87,6 +87,10 @@
         = f.input :vacationing,as: :boolean, tooltip: true
         = f.input :newsletter, as: :boolean, tooltip: true
         = f.input :receive_comments_notification, tooltip: true
+        %p#registration_tombola
+          = "**"
+          = t('users.tombola1')
+          = t('users.tombola2')
 
     - @user.standard_address ||= resource.addresses.build
     - @user.standard_address.valid?
