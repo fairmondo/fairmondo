@@ -117,6 +117,10 @@
 -# Article queue 1
 .teaser.teaser--double.teaser--clear#teaser--filters
   .teaser-inner
+    .teaser-commendations
+      = commendation_label(:fair, :small, nil, false)
+      = commendation_label(:ecologic, :small, nil, false)
+      = commendation_label(:small_and_precious, :small, nil, false)
     %h2
       = link_to(tinycms_content_body_sanitized("heading_features"), featured_library_path(@queue1[:library]))
     - @queue1[:exhibits].each_with_index do |article, index|
