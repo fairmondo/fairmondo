@@ -1,13 +1,13 @@
--#--------------- Additional Assets -----------------
+/--------------- Additional Assets -----------------
 
--# ajax spinner image
+/ ajax spinner image
 .l-ajax-spinner
 
--# When logged in, count down until session expires (needs to be reloaded on page change!)
+/ When logged in, count down until session expires (needs to be reloaded on page change!)
 = javascript_include_tag "session_expire" if current_user
 
 / Piwik
-:javascript
+javascript:
   var _paq = _paq || [];
   _paq.push(['trackPageView']);
   _paq.push(['enableLinkTracking']);
@@ -18,7 +18,7 @@
     var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0]; g.type='text/javascript';
     g.defer=true; g.async=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
   })();
-%noscript
-  %p
-    %img{ src: "http://kiwi.fairmondo.de/piwik.php?idsite=1", style: "border:0", alt: " " }
+noscript
+  p
+    img src="http://kiwi.fairmondo.de/piwik.php?idsite=1", style="border:0", alt=" " }
 / End Piwik Code
