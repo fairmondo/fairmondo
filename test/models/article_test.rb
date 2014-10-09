@@ -282,15 +282,15 @@ describe Article do
         end
 
         it "should return the processing image while processing when requested a thumb" do
-          title_image = FactoryGirl.build(:article_image, :processing)
-          article.images = [title_image]
-          article.title_image_url(:thumb).must_equal title_image.image.url(:thumb)
+          title_image = FactoryGirl.create(:article_image, :processing)
+          db_article.images = [title_image]
+          db_article.title_image_url(:thumb).must_equal title_image.image.url(:thumb)
         end
 
         it "should return the original image while processing when requested a medium image" do
-          title_image = FactoryGirl.build(:article_image, :processing)
-          article.images = [title_image]
-          article.title_image_url(:medium).must_equal title_image.original_image_url_while_processing
+          title_image = FactoryGirl.create(:article_image, :processing)
+          db_article.images = [title_image]
+          db_article.title_image_url(:medium).must_equal title_image.original_image_url_while_processing
         end
 
       end
