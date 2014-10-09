@@ -422,25 +422,59 @@ ul.image_list {
 }
 
 
-#billboard h2 {
-  z-index: 10;
-  margin: 0;
-}
-
-
-#billboard h3 {
-  position: absolute;
-  top: 0px;
-  left: 0;
-}
-
-
 .billboard {
   background-repeat: no-repeat;
   background-position: center top;
   position: relative;
   border-radius: 0.5em;  // Circumvent bug in Webkit browsers that would hide the rounded border from #billboard-inner
   height: 410px;
+}
+
+
+// Text layer in article element
+.billboard article {
+  position: relative;
+  margin: 0 auto;
+
+  h2 {
+    position: absolute;
+    text-shadow: 1px 1px $dark-gray;
+    font-weight: 400;
+    z-index: 10;
+    margin: 0;
+  }
+
+  h3 {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  @include till-breakpoint($bp-tablet) {
+    width: 210px;
+
+    h2 { font-size: 2em; }
+  }
+
+  @include between-breakpoints($bp-tablet, $bp-tablet-horizontal) {
+    width: 450px;
+
+    h2 { font-size: 2.5em; }
+  }
+
+  @include at-breakpoint($bp-tablet-horizontal) {
+    width: 700px;
+
+    h2 { font-size: 2.9em; }
+  }
+}
+
+
+.billboard a.billboard-imagelink {
+  position: absolute;
+  left: 0;
+  display: block;
+  text-indent: -1000em;
 }
 
 
@@ -483,36 +517,6 @@ ul.image_list {
 }
 
 
-// Text layer in article element
-.billboard article {
-  position: relative;
-  margin: 0 auto;
-
-  h2 {
-    position: absolute;
-    text-shadow: 1px 1px $dark-gray;
-    font-weight: 400;
-  }
-
-  @include till-breakpoint($bp-tablet) {
-    width: 210px;
-
-    h2 { font-size: 2em; }
-  }
-
-  @include between-breakpoints($bp-tablet, $bp-tablet-horizontal) {
-    width: 450px;
-
-    h2 { font-size: 2.5em; }
-  }
-
-  @include at-breakpoint($bp-tablet-horizontal) {
-    width: 700px;
-
-    h2 { font-size: 2.9em; }
-  }
-}
-
 
 #billboard1 h2 {
   top: 14px;
@@ -525,7 +529,7 @@ ul.image_list {
   }
 
   @include at-breakpoint($bp-tablet-horizontal) {
-    top: 25px;
+    top: 14px;
     left: 0px;
     width: 220px;
     text-align: right;
@@ -555,13 +559,21 @@ ul.image_list {
     left: 0;
     right: 0;
 
-    &.section1 { top: 95px; }
-    &.section2 { top: 240px; }
-    &.section3 { top: 368px; }
+    &.section1 { top: 0 }
+    &.section2 { top: 145px; }
+    &.section3 { top: 273px; }
 
     h3 { display: none; }
 
-    a {
+    a.billboard-imagelink {
+      left: 40px;
+      right: 40px;
+      top: 0;
+      height: 90px;
+     }
+
+    a.billboard-textlink {
+      top: 95px;
       display: block;
       width: 100%;
       text-align: center;
@@ -576,18 +588,42 @@ ul.image_list {
       top: 80px;
 
       h3 { left: 0; top: 0; }
+
+      a.billboard-imagelink {
+        left: 240px;
+        right: 0px;
+        top: 0;
+        height: 90px;
+       }
+
       a.billboard-textlink { left: 0; top: 20px; }
     }
     &.section2 {
       top: 180px;
 
       h3 { left: 258px; top: 20px; }
+
+      a.billboard-imagelink {
+        left: 30px;
+        right: 240px;
+        top: 0;
+        height: 120px;
+      }
+
       a.billboard-textlink { left: 258px; top: 40px; }
     }
     &.section3 {
       top: 280px;
 
       h3 { left: 0; top: 65px; }
+
+      a.billboard-imagelink {
+        left: 220px;
+        right: 10px;
+        top: 0;
+        height: 110px;
+      }
+
       a.billboard-textlink { left: 0; top: 85px; }
     }
   }
@@ -600,18 +636,42 @@ ul.image_list {
       top: 30px;
 
       h3 { left: 0; top: 0; }
+
+      a.billboard-imagelink {
+        left: 240px;
+        right: 0px;
+        top: 0;
+        height: 100px;
+       }
+
       a.billboard-textlink { left: 0; top: 20px; }
     }
     &.section2 {
-      top: 180px;
+      top: 150px;
 
-      h3 { left: 230px; top: 5px; }
-      a.billboard-textlink { left: 230px; top: 25px; }
+      h3 { left: 230px; top: 35px; }
+
+      a.billboard-imagelink {
+        left: 20px;
+        right: 240px;
+        top: 0;
+        height: 150px;
+      }
+
+      a.billboard-textlink { left: 230px; top: 55px; }
     }
     &.section3 {
       top: 280px;
 
       h3 { left: 0; top: 65px; }
+
+      a.billboard-imagelink {
+        left: 230px;
+        right: 0;
+        top: 0;
+        height: 110px;
+      }
+
       a.billboard-textlink { left: 0; top: 85px; }
     }
   }
@@ -653,24 +713,21 @@ ul.image_list {
     text-align: center;
   }
 
-  a.billboard-imagelink {
-    position: absolute;
-    left: 0;
-  }
-
   @include till-breakpoint($bp-tablet) {
     top: 130px;
     width: 91px;
 
     h3 { font-size: 1em; }
 
+    a.billboard-imagelink {
+      top: 38px;
+      width: 89px;
+      height: 142px;
+    }
+
     a.billboard-textlink {
       font-size: 0.8em;
       top: 199px;
-    }
-
-    a.billboard-imagelink {
-      top: 40px;
     }
 
     &.section1 { left: 6px; }
@@ -686,7 +743,9 @@ ul.image_list {
     h3 { font-size: 1.2em; }
 
     a.billboard-imagelink {
-      top: 50px;
+      top: 48px;
+      width: 112px;
+      height: 178px;
     }
 
     a.billboard-textlink {
@@ -707,12 +766,14 @@ ul.image_list {
     h3 { font-size: 1.2em; }
 
     a.billboard-imagelink {
-      top: 50px;
+      top: 47px;
+      width: 112px;
+      height: 178px;
     }
 
     a.billboard-textlink {
       font-size: 0.9em;
-      top: 235px;
+      top: 234px;
     }
 
     &.section1 { left: 114px; }
@@ -754,6 +815,13 @@ ul.image_list {
     &.section1 { display: none; }
     &.section2 { top: 125px; }
 
+    a.billboard-imagelink {
+      left: 10px;
+      right: 10px;
+      top: 10px;
+      height: 155px;
+    }
+
     a.billboard-textlink {
       top: 200px;
       font-size: 0.8em;
@@ -766,6 +834,13 @@ ul.image_list {
 
     &.section1 { display: none; }
     &.section2 { top: 50px; }
+
+    a.billboard-imagelink {
+      left: 20px;
+      right: 20px;
+      top: 45px;
+      height: 230px;
+    }
 
     a.billboard-textlink { top: 290px; }
   }
@@ -788,6 +863,13 @@ ul.image_list {
         -webkit-text-align-last: center;
       }
 
+      a.billboard-imagelink {
+        left: 80px;
+        right: 80px;
+        top: 30px;
+        height: 85px;
+      }
+
       a.billboard-textlink { top: 230px; }
     }
 
@@ -796,35 +878,22 @@ ul.image_list {
       top: 20px;
       width: 350px;
 
+      a.billboard-imagelink {
+        left: 20px;
+        right: 20px;
+        top: 45px;
+        height: 230px;
+      }
+
       a.billboard-textlink { top: 285px; }
     }
   }
 }
 
 
-/*
-#billboard a.articlelink {
-  position: absolute;
-  top: 89px;
-  left: 0;
-  display: block;
-  width: 115px;
-  height: 160px;
-  text-indent: -1000em;
-
-  &:hover, &:focus {
-    border: 1px dotted $white;
-  }
-}
-
-#billboard1 a.articlelink {
-  &:hover, &:focus {
-    border: 1px dotted $black;
-  }
-}
-
-
-#billboard a.librarylink {
+/* Use it later maybe - small arrow in front of links and nicer underline
+ * but links have to be not 100% wide like they are now
+.billboard a.textlink {
   position: absolute;
   top: 258px;
   left: 0;
@@ -834,7 +903,7 @@ ul.image_list {
   border-bottom: 1px solid $white;
 
   &:before {
-    content: '+';
+    content: '>';
     margin-right: 0.5em;
   }
 
@@ -842,8 +911,8 @@ ul.image_list {
     text-decoration: none;
   }
 }
-
 */
+
 
 // CSS for SlidesJS
 #js-billboardslides {
