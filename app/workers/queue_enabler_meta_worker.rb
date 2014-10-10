@@ -8,7 +8,7 @@ class QueueEnablerMetaWorker
                   retry: 5,
                   backtrace: true
 
-  NIGHT_WORKER = ['paperclip_background']
+  NIGHT_WORKER = ['paperclip_background', 'file_normalizer']
 
   def perform
     NIGHT_WORKER.each do |queue_name|
