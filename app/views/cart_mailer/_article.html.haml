@@ -5,6 +5,7 @@
   .article-info-container
     .article-title
       = link_to truncate(bt.article_title), article_url(bt.article_id)
+      %br= "Artikelnr.: " + bt.article_custom_seller_identifier if bt.article_custom_seller_identifier
     .article-quantity
       %h4
         Anzahl
