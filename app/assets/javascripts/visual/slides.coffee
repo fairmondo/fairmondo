@@ -1,8 +1,12 @@
-$(document).ready ->
+$(document).always ->
   $("#js-billboardslides").slidesjs
     #start: Math.floor(Math.random() * 2) + 1  # random number between 1 and 2
     width: 205
     height: 410
+    play:
+      active: false
+      auto: true
+      interval: 10000
     pagination:
       active: false
     navigation:
