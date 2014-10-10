@@ -25,6 +25,7 @@ class ApplicationController < ActionController::Base
 
   ## Global actions
   before_filter :unset_cart
+  before_filter :profile_request
 
   # Arcane
   include Arcane
@@ -123,5 +124,9 @@ class ApplicationController < ActionController::Base
         # if no user is logged in and there is a cart cookie but that cart can't be found / wasn't allowed
         cookies.delete :cart
       end
+    end
+
+    def profile_request
+      Rack::MiniProfiler.authorize_request if current_user && current_user.is_admin?
     end
 end

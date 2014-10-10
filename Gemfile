@@ -99,6 +99,7 @@ gem 'prawn_rails' # pdf generation
 
 # ---------- Monitoring ----------
 gem 'newrelic_rpm',  group: [:production,:staging]
+gem 'rack-mini-profiler'
 
 # ---------- API ----------
 
