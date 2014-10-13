@@ -2,6 +2,10 @@ de:
   # Article Model/Controller
 
   articles:
+    closed:
+      headline: "Artikel nicht mehr im Angebot"
+      text: "Der Anbieter dieses Artikels bietet diesen Artikel leider nicht mehr an."
+      similar: "Artikel mit ähnlichem Titel:"
     boxes:
       content: "Artikelbeschreibung"
       payment: "Versand und Bezahlung"

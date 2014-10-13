@@ -169,7 +169,8 @@ describe ArticlesController do
       it "should render 404 on closed article" do
         article.deactivate
         article.close
-        -> { get :show, id: article.id}.must_raise ActiveRecord::RecordNotFound
+        get :show, id: article.id
+        assert_template :article_closed
       end
     end
 

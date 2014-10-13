@@ -64,7 +64,8 @@ class ArticlesController < ApplicationController
     end
 
   rescue Pundit::NotAuthorizedError
-    render "article_closed", title: @article.title
+    @similar_articles = ArticleSearchForm.new(q: @article.title).search(1).results
+    render "article_closed"
   end
 
   def index
