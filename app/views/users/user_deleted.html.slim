@@ -1,0 +1,9 @@
+.user_deleted
+
+  h1
+    i.fa.fa-ban
+    = " "
+    = t('users.deleted.headline')
+  p
+    = t('users.deleted.text')
+  = link_to t('common.actions.back'), root_path, class: 'Button'

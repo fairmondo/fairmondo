@@ -35,6 +35,14 @@ describe UsersController do
         get :show , :id => @user
         assert_response :success
       end
+
+      it "render deleted user for banned users" do
+        @user.update_attribute(:banned,true)
+        get :show , :id => @user
+        assert_response :success
+        assert_template :user_deleted
+      end
+
     end
 
     describe "for signed-in users" do

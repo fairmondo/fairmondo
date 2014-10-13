@@ -6,6 +6,6 @@ FactoryGirl.define do
     line_item_group { FactoryGirl.create :line_item_group, seller: article.seller }
 
     requested_quantity 1
-
+    
   end
 end

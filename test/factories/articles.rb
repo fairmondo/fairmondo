@@ -38,6 +38,11 @@ FactoryGirl.define do
     basic_price_cents { Random.new.rand(500000)+1 }
     basic_price_amount {[:kilogram, :gram, :liter, :milliliter, :cubicmeter, :meter, :squaremeter, :portion].sample}
 
+    before :create do |article, evaluator|
+      article.calculate_fees_and_donations
+    end
+
+
     transport_type1 true
     transport_type1_provider "DHL Päckchen"
     transport_type1_price_cents { Random.new.rand(200)+1 }

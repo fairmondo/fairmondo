@@ -62,6 +62,14 @@ describe MassUploadsController do
         assert_redirected_to user_path(user, :anchor => 'my_mass_uploads')
         MassUpload.last.articles.count.must_equal(3)
       end
+      it "should create a mass-upload object for heavy uploaders" do
+        user.update_attribute(:heavy_uploader, true)
+        assert_difference 'MassUpload.count', 1 do
+          post :create, mass_upload: attributes
+        end
+        assert_redirected_to user_path(user, :anchor => 'my_mass_uploads')
+        MassUpload.last.articles.count.must_equal(3)
+      end
     end
 
     describe 'PUT ::update' do

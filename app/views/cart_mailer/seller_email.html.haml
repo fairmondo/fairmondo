@@ -10,7 +10,7 @@
     = link_to @line_item_group.buyer_nickname, profile_user_url(@line_item_group.buyer.id)
     = t('email.line_item_group.seller.bought_from_you')
   = "Käufer*in kontaktieren: "
-  = mail_to @line_item_group.buyer.email
+  = mail_to @line_item_group.buyer_email
   %br
   = 'Auftragsnr.: ' + @line_item_group.purchase_id
   - unless @line_item_group.message.empty?

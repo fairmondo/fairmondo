@@ -32,6 +32,8 @@ class UsersController < ApplicationController
   before_filter :sanitize_print_param, only: [:profile]
   skip_before_filter :authenticate_user!, only: [:show, :profile]
 
+  rescue_from Pundit::NotAuthorizedError, :with => :user_deleted
+
   def profile
     authorize @user
   end
@@ -41,6 +43,10 @@ class UsersController < ApplicationController
   end
 
   private
+
+    def user_deleted
+      render :user_deleted
+    end
 
     def set_user
       @user = User.find(params[:id])
