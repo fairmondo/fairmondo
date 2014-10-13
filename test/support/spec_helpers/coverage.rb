@@ -23,10 +23,12 @@
 
 require 'simplecov'
 require 'coveralls'
+require 'simplecov-json'
 
 SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
   SimpleCov::Formatter::HTMLFormatter,
-  Coveralls::SimpleCov::Formatter
+  Coveralls::SimpleCov::Formatter,
+  SimpleCov::Formatter::JSONFormatter
 ]
 
 SimpleCov.start 'rails' do
@@ -42,5 +44,3 @@ SimpleCov.start 'rails' do
   add_filter "lib/autoload/paypal_ipn.rb"
   minimum_coverage 100
 end
-
-
