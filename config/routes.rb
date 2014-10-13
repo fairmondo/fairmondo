@@ -29,7 +29,7 @@ Fairmondo::Application.routes.draw do
   end
 
   concern :commentable do
-    resources :comments, only: [:create, :destroy, :index]
+    resources :comments, only: [:create, :destroy, :index], constraints: {format: 'js'}
   end
 
   namespace :admin do

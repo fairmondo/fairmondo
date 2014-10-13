@@ -11,13 +11,16 @@ class CommentsController < ApplicationController
   def index
     @comment = Comment.new
     @comments = @commentable.comments
-
-    if params[:comments_page]
-      @comments = @comments.page(params[:comments_page])
-      render partial: "comments/index_paginated", locals: {
-        comments: @comments,
-        commentable: @commentable
-      }
+    respond_to do |format|
+      format.js do
+        if params[:comments_page]
+          @comments = @comments.page(params[:comments_page])
+          render partial: "comments/index_paginated", locals: {
+            comments: @comments,
+            commentable: @commentable
+          }
+        end
+      end
     end
   end
 
@@ -25,18 +28,21 @@ class CommentsController < ApplicationController
     comment_data = { user: current_user }.merge(params.for(Comment).refine)
     @comment = @commentable.comments.build(comment_data)
     authorize @comment
+    respond_to do |format|
+      format.js do
+        if @comment.save
+          # In the view we are using the comments_count counter cache, which is not automatically
+          # updated in the object, so we do it by hand.
+          # Please don't save this object from now on.
+          @commentable.comments_count += 1
 
-    if @comment.save
-      # In the view we are using the comments_count counter cache, which is not automatically
-      # updated in the object, so we do it by hand.
-      # Please don't save this object from now on.
-      @commentable.comments_count += 1
-
-      # if save was successful, please create a new comment object to render the input form with
-      @new_comment = Comment.new
-      render :create
-    else
-      render :new, comment: @comment, commentable: @commentable
+          # if save was successful, please create a new comment object to render the input form with
+          @new_comment = Comment.new
+          render :create
+        else
+          render :new, comment: @comment, commentable: @commentable
+        end
+      end
     end
   end
 
@@ -48,6 +54,9 @@ class CommentsController < ApplicationController
     # updated in the object, so we do it by hand.
     # Please don't save this object from now on.
     @commentable.comments_count -= 1
+    respond_to do |format|
+      format.js
+    end
   end
 
   private
