@@ -44,8 +44,9 @@
                 %q
                   = rating.text
         .Rating-profile
-          %a{:href => user_path(rating.rating_user)}
-            = image_tag(rating.rating_user.image_url(:profile))
+          - if rating.rating_user
+            %a{:href => user_path(rating.rating_user)}
+              = image_tag(rating.rating_user.image_url(:profile))
     = paginate @ratings
   - else # if no ratings
     .rating= t('users.ratings.no_ratings')
