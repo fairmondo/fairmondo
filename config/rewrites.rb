@@ -3,6 +3,11 @@ class RewriteConfig
   def self.list
     [{
       method: :r301,
+      from: '/warum',
+      to: 'https://info.fairmondo.de/ein-neuer-name-warum/',
+      if: Proc.new { |rack_env| true}
+    },{
+      method: :r301,
       from: /(.*)/,
       to: 'https://www.fairmondo.de/categories/bucher',
       if: Proc.new { |rack_env| rack_env['SERVER_NAME'] =~ /b(ü|u|ue)cher\./i }

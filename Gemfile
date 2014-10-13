@@ -171,6 +171,7 @@ group :development, :test do
 
   # Code Coverage
   gem 'simplecov'
+  gem 'simplecov-json', :require => false
   gem 'coveralls', require: false
   # Mutation Coverage
   # gem 'mutant-rails' ... check back to see if they got it working: https://github.com/mockdeep/mutant-rails
