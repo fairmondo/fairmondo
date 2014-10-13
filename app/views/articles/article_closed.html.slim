@@ -1,0 +1,18 @@
+.article_closed
+
+  h1
+    i.fa.fa-ban
+    = " "
+    = t('articles.closed.headline')
+  p
+    = t('articles.closed.text')
+  = link_to t('common.actions.back'), root_path, class: 'Button'
+- if @similar_articles.any?
+  .other_articles
+    h3
+      = t('articles.closed.similar')
+      i= "\"#{@article.title}\""
+    .Grid
+      - @similar_articles.each do |article|
+        .Grid-item
+          = render "/articles/shared/show_article", article: article
