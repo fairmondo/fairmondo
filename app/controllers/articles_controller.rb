@@ -64,7 +64,7 @@ class ArticlesController < ApplicationController
     end
 
   rescue Pundit::NotAuthorizedError
-    raise ActiveRecord::RecordNotFound # hide articles that can't be accessed to generate more friendly error messages
+    render "article_closed", title: @article.title
   end
 
   def index
