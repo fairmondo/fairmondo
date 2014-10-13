@@ -26,6 +26,10 @@ class Payment < ActiveRecord::Base
     # end
   end
 
+  def execute
+    self.init && !self.errored?
+  end
+
   def total_price
     Abacus.new(line_item_group).payment_listing.payments[:paypal][:total]
   end

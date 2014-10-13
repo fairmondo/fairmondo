@@ -158,13 +158,16 @@ describe 'Abacus' do
 
   end
 
-  it 'calculates a total price, transport prices and payment totals for unified transports and 2 single transports with cash_on_delivery' do
+  it 'calculates a total price, transport prices and payment totals for unified transports and 2 single transports with cash_on_delivery and a dontaion' do
     prices = [ Money.new(5000), Money.new(6543), Money.new(1111), Money.new(54321)]
     transport_prices = [Money.new(5000), Money.new(2000), Money.new(2000), Money.new(11)]
     transport_numbers = [1,1,1,5]
     traits = [[:bank_transfer, :bought_five], [:bank_transfer, :bought_five], [:cash_on_delivery, :bought_ten, :transport_type1],[:cash_on_delivery, :bought_ten, :transport_type2]]
     attributes = article_attributes_for prices, transport_prices, transport_numbers
     attributes.last(2).each{ |attr| attr[:unified_transport] = false} # set the last 2 articles to single transport
+    ngo = FactoryGirl.create :legal_entity, ngo: true
+    attributes.each { |attr| attr[:friendly_percent] = 75 }
+    attributes.each { |attr| attr[:friendly_percent_organisation] = ngo }
     abacus_for(traits, attributes, [:with_unified_transport, :with_free_transport_at_40])
 
     unified_shipments = 10.fdiv(@line_item_group.unified_transport_maximum_articles).ceil
@@ -188,6 +191,9 @@ describe 'Abacus' do
     @abacus.payment_listing.payments[:bank_transfer][:transport_total].must_equal Money.new(0)
     @abacus.payment_listing.payments[:bank_transfer][:total].must_equal 5 * prices[0] + 5 * prices[1]
     @abacus.total.must_equal @abacus.payment_listing.payments[:bank_transfer][:total] + @abacus.payment_listing.payments[:cash_on_delivery][:total]
+
+    #donations
+    @abacus.donation_listing.donation_per_organisation[ngo].must_equal(@line_item_group.business_transactions.map{|t| t.article.calculated_friendly_cents}.sum)
 
   end
 

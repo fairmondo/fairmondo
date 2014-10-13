@@ -9,7 +9,7 @@ class DonationAbacus
   end
 
   def calculate_donations
-    add_donation_organisations_to_donations @line_item_group.articles
+    add_donation_organisations_to_donations @line_item_group.business_transactions.map{|t| t.article}
     @donations.each_value{ |v| @donation_total += v.sum }
     @donations.each_pair{ |k, v| @donation_per_organisation[k] = v.sum }
   end
