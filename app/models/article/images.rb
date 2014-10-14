@@ -26,8 +26,9 @@ module Article::Images
     # ---- IMAGES ------
     IMAGE_COUNT = 1 # when changing, remember to change article_refinery as well
 
-    has_many :images, :class_name => "ArticleImage", foreign_key: "imageable_id"
-    has_one :title_image, -> { reorder 'is_title DESC' }, class_name: "ArticleImage", foreign_key: "imageable_id"
+    has_many :images, class_name: "ArticleImage", foreign_key: "imageable_id"
+    has_many :thumbnails, -> { reorder('is_title DESC,id ASC').offset(1) }, class_name: "ArticleImage", foreign_key: "imageable_id"
+    has_one :title_image, -> { reorder 'is_title DESC,id ASC' }, class_name: "ArticleImage", foreign_key: "imageable_id"
 
     delegate :external_url, to: :title_image, :prefix => true
 
@@ -73,12 +74,6 @@ module Article::Images
       define_method("image_#{number+2}_url=".to_sym, Proc.new{ |image_url|
                           add_image(image_url, false)})
     end
-
-    def thumbnails
-      thumbnails = self.images.to_a.reject! {|image| image.id == title_image.id if title_image}
-      thumbnails || []
-    end
-
 
     def only_one_title_image
       count_images = 0

@@ -104,16 +104,18 @@
 .socialshareprivacy data={ uri: article_url(resource), title: URI.encode(resource.title) }
 
 .Accordion.Accordion--activated
+
   - cache [resource, "contents"] do
     / Artikelbeschreibung
     = accordion_item "content" do
-      p
-        = resource.content.html_safe
-
+      .Accordion-step
+        p
+          = resource.content.html_safe
       - if resource.condition.old?
-        strong
-          = "#{t("formtastic.labels.article.condition")}: "
-        = resource.condition_extra_text
+        .Accordion-step
+          strong
+            = "#{t("formtastic.labels.article.condition")}: "
+          = resource.condition_extra_text
 
     = accordion_item "payment" do
 
