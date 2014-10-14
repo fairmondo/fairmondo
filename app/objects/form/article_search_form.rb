@@ -136,7 +136,7 @@ class ArticleSearchForm
   end
 
   def fresh?
-    self.attributes.empty?
+    self.attributes.select{ |a,v| v!=nil && v!=false }.empty?
   end
 
   def change changes
