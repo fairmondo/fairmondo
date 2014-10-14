@@ -82,7 +82,7 @@ module Article::Images
 
     def only_one_title_image
       count_images = 0
-      title_images = self.images.each do |image|
+      self.images.each do |image|
         count_images+=1 if image.is_title
       end
       if count_images > 1
