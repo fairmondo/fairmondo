@@ -56,17 +56,17 @@ module Article::Images
     end
 
     def title_image_present?
-      title_image && title_image.image.present? && image_accessible?
+      title_image && title_image.image.present? #&& image_accessible?
     end
 
-    def image_accessible?
-      begin
-        Paperclip.io_adapters.for(self.title_image.image).read
-        return true
-      rescue
-        return false
-      end
-    end
+    #def image_accessible?
+    #  begin
+    #    Paperclip.io_adapters.for(self.title_image.image).read
+    #    return true
+    #  rescue
+    #    return false
+    #  end
+    #end
 
 
     IMAGE_COUNT.times do |number|
@@ -82,7 +82,7 @@ module Article::Images
 
     def only_one_title_image
       count_images = 0
-      title_images = self.images.each do |image|
+      self.images.each do |image|
         count_images+=1 if image.is_title
       end
       if count_images > 1
