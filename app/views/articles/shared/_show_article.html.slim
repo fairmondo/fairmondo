@@ -21,7 +21,7 @@
 /
 - show_extra = (local_assigns.has_key? :extra) && extra
 .Article
-  - cache_if (article.title_image_url_thumb != ArticleImage::PROCESSING_IMAGE_URL && !show_extra && article.image_accessible?), ["articles", article.id, "tile"] do
+  - cache_if (article.title_image_url_thumb != ArticleImage::PROCESSING_IMAGE_URL && !show_extra), ["articles", article.id, "tile"] do
     figure.Article-image
       = link_to image_tag(article.title_image_url_thumb), article_path(article.slug), data: { push: true }
 
