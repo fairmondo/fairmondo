@@ -14,9 +14,10 @@ class ActiveUserArticles
 
   private
     def finder page, per
+      user = @user
       articles = Article.search(:page => page,:per_page => per) do
         query { all }
-        filter :term, :seller => @user.id
+        filter :term, :seller => user.id
       end
     rescue
       @user.articles.includes(:images).where(:state => 'active').page(page).per(per)
