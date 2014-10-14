@@ -110,10 +110,10 @@
       p
         = resource.content.html_safe
 
-    - if resource.condition.old?
-      strong
-        = "#{t("formtastic.labels.article.condition")}:"
-      = resource.condition_extra_text
+      - if resource.condition.old?
+        strong
+          = "#{t("formtastic.labels.article.condition")}: "
+        = resource.condition_extra_text
 
     = accordion_item "payment" do
 
