@@ -13,13 +13,12 @@
     = render "library_body", library: library, remote_paginate: false, element_count: 24
 - else
   - if library.has_elements? || (library.user == current_user)
-    details id="library#{library.id}" class='Library'
-      summary
-        = render "libraries/library_header", library: library, comments: header_comments
-      .Library-details
+    .Library id="library#{library.id}"
+      = render "libraries/library_header", library: library, comments: header_comments
+      /.Library-details
         -# Show social media buttons if it is a public library
         - if library.public?
           .socialshareprivacy data={ uri: library_url(library), title: library.name }
 
         = render "libraries/library_buttons", library: library
-        = render "libraries/library_body", library: library, remote_paginate: true
+/        = render "libraries/library_body", library: library, remote_paginate: true
