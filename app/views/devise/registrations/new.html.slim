@@ -1,0 +1,54 @@
+/
+/
+/ == License:
+/ Fairmondo - Fairmondo is an open-source online marketplace.
+/ Copyright (C) 2013 Fairmondo eG
+/
+/ This file is part of Fairmondo.
+/
+/ Fairmondo is free software: you can redistribute it and/or modify
+/ it under the terms of the GNU Affero General Public License as
+/ published by the Free Software Foundation, either version 3 of the
+/ License, or (at your option) any later version.
+/
+/ Fairmondo is distributed in the hope that it will be useful,
+/ but WITHOUT ANY WARRANTY; without even the implied warranty of
+/ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+/ GNU Affero General Public License for more details.
+/
+/ You should have received a copy of the GNU Affero General Public License
+/ along with Fairmondo.  If not, see <http://www.gnu.org/licenses/>.
+/
+
+h1= t('common.actions.sign_up')
+= semantic_form_for(resource, as: resource_name, url: registration_path(resource_name), builder: ::Fairtastic::FormBuilder, html: { id: 'registration_form' }) do |f|
+  = f.semantic_errors
+
+  = f.inputs do
+    = f.input :nickname, label: 'Dein Nutzername', tooltip: false
+    = f.input :type, as: :boolean, required: false, tooltip: true, unchecked_value: "PrivateUser", checked_value: "LegalEntity"
+    = f.input :email, label: 'Deine E-Mail-Adresse', tooltip: false
+    = f.input :password, label: 'Dein Passwort', tooltip: true
+    / render partial: "/devise/registrations/password_complexity"
+    / onclick javascript because icheck causes click on link to fail
+    - legal_link = checkbox_link_helper t('users.legal_abbr'), '/agb'
+    - privacy_link = checkbox_link_helper t('users.privacy'), '/privacy'
+    = f.input :legal, as: :boolean, required: true, label: t("users.i_accept_both", legal: legal_link, privacy: privacy_link).html_safe
+    = f.input :newsletter, as: :boolean, label: 'Ich möchte an der kostenlosen Verlosung** teilnehmen und den monatlichen Newsletter mit besonderen Produktvorstellungen erhalten (jederzeit abbestellbar).', required: false, tooltip: false
+
+  = f.actions do
+    = f.action :submit, button_html: { class: "Button Button--action", id: "sign_up" }, label: :sign_up
+
+#registration_marketing
+  h2 Darum solltest Du Dich jetzt registrieren:
+  ul.checklist
+    li Die schönsten und fairsten Produkte im Netz entdecken
+    li Fördere sozialen und ressourcenschonenden Konsum
+    li Mit Käufen & Verkäufen einfach Hilfsprojekte unterstützen
+    li Deine Chance, tolle Preise zu gewinnen
+
+#registration_tombola
+  p
+    = "**"
+    = t('users.tombola1')
+    = t('users.tombola2')
