@@ -20,11 +20,13 @@
 / along with Fairmondo.  If not, see <http://www.gnu.org/licenses/>.
 /
 
-- if article_template
-  tr
-    td= article_template.article_template_name
+h3= "#{t('common.text.hello')} #{@resource.nickname},"
+p= t('devise.confirmation.text')
+- if @resource.newsletter
+  p= link_to t('devise.confirmation.link_if_newsletter'), confirmation_url(@resource, :confirmation_token => @token)
+- else
+  p= link_to t('devise.confirmation.link'), confirmation_url(@resource, :confirmation_token => @token)
+p= t('devise.confirmation.ignoremail')
 
-    td= truncate(article_template.title, :length => 65)
-    td= link_to t('formtastic.actions.template.submit'), new_article_path(:template =>  article_id=article_template.id  ), :class => 'action'
-    td= link_to t('common.actions.edit'), edit_article_template_path(article_template), :class => 'Button', :title => t('common.actions.edit')
-    td= link_to t('common.actions.destroy'), article_template_path(article_template), method: :delete, data: {confirm: t('common.actions.confirm') } , :class => 'Button Button--red', :title => t('common.actions.destroy')
+- content_for 'sidebar' do
+  = render 'shared/email/social_buttons'

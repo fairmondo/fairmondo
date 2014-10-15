@@ -1,10 +1,10 @@
 = semantic_form_for feedback, url: feedbacks_path do |f|
   = t('article.show.report')
   = f.inputs do
-    -# hidden
+    / hidden
     = f.input :article_id, as: :hidden, input_html: { value: resource.id }
     = f.input :variety, as: :hidden, input_html: { value: 'report_article' }
-    -# user input
+    / user input
     = f.input :text, input_html: { rows: 4 }
   .captacha
     = render '/shared/recaptcha'

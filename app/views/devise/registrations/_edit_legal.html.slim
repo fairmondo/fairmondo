@@ -31,7 +31,7 @@
       = f.input :about, required: true, as: :text, input_html: {class: "tinymce"}, tooltip: true
 
     .Accordion-step
-      = f.input :cancellation_form, as: :file#, tooltip: true
+      = f.input :cancellation_form, as: :file
       - if resource.cancellation_form.exists?
         | Hochgeladen:
         = link_to resource.cancellation_form.original_filename, resource.cancellation_form.url, target: '_blank'

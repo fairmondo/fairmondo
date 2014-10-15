@@ -48,7 +48,7 @@ class MassUploadsController < ApplicationController
     end
 
     def send_emails_for mass_upload
-      if mass_upload.activated_articles.any?
+      if mass_upload.articles_for_mass_activation.any?
         ArticleMailer.delay.mass_upload_activation_message(mass_upload.id)
       end
 
