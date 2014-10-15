@@ -20,12 +20,12 @@
         - if library_element.article_reduced
           = image_tag(library_element.article_reduced.title_image_url(:thumb), :title => library_element.article_reduced_title)
 
--# Show comments
+/ Show comments
 - if comments && library.has_comments?
   .Library-comments
     = render library.comments.limit(2)
 
--# Show audit buttons for admins
+/ Show audit buttons for admins
 - if policy(library).admin_audit?
   .Library-auditing
     = link_to admin_audit_library_path(library), class: 'Button ' + (library.audited ? 'Button--green' : 'Button--red'), method: :patch, remote: true do
