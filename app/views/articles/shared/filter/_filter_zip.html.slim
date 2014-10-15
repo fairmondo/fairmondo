@@ -1,5 +1,5 @@
 .Search-filter.JS-active-toggle--container
-  .Search-dropdown.JS-active-toggle--trigger data: {clickable: true}
+  .Search-dropdown.JS-active-toggle--trigger data={clickable: true}
     - val = search_cache.zip
     = val.present? ? "PLZ: #{val.ljust(5, '.')}" : title
   = semantic_form_for search_cache, url: articles_path(article_search_form: search_cache.keep), html: { method: 'get', class: "l-header-search-form JS-active-toggle--target" }, data: { push: true} , builder: ::Fairtastic::FormBuilder do |f|

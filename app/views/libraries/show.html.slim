@@ -1,7 +1,7 @@
--# Render library
+/ Render library
 = render resource, single_view: true
 
--# Admin controls
+/ Admin controls
 - if User.is_admin?(current_user) && resource.public?
   .Admin-controls
     h2= "Administration:"
@@ -11,4 +11,4 @@
         = f.input :exhibition_name, as: :select, collection: Library.exhibition_name.options
       = f.actions do
         = f.action :submit, button_html: { class: "Btn", id: "select_exhibition_submit_action" }
-        -# this generates the same form id twice on that page which is annoying
+        / this generates the same form id twice on that page which is annoying

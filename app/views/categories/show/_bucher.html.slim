@@ -8,7 +8,7 @@
       - if lib[:library]
         .feature.feature--quadruple
           .feature-inner
-            %h2
+            h2
               = link_to "BESTSELLER", library_path(lib[:library])
             .Grid
               - lib[:exhibits].each do |article|
@@ -19,19 +19,19 @@
       - if lib[:library]
         .feature.feature--quadruple
           .feature-inner
-            %h2
+            h2
               = link_to "NEUIGKEITEN", library_path(lib[:library])
             .Grid
               - lib[:exhibits].each do |article|
                 .Grid-item
                   = render "/articles/shared/show_article", article: article
-      -# Individuelle Buchempfehlungen ++ Fairmondos Bücherblog
+      / Individuelle Buchempfehlungen ++ Fairmondos Bücherblog
 
       - lib = FeaturedLibraryQuery.new(:book3).find(2)
       - if lib[:library]
         .feature.feature--double
           .feature-inner
-            %h2
+            h2
               = link_to "HÖRBÜCHER", library_path(lib[:library])
             .Grid
               - lib[:exhibits].each do |article|
@@ -41,7 +41,7 @@
       - if lib[:library]
         .feature.feature--collapsible
           .feature-inner
-            %h2
+            h2
               = link_to "GEBRAUCHTE BÜCHER", library_path(lib[:library])
             .Grid
               - lib[:exhibits].each do |article|
@@ -52,7 +52,7 @@
       - if lib[:library]
         .feature.feature--double
           .feature-inner
-            %h2
+            h2
               = link_to "KRIMIS", library_path(lib[:library])
             .Grid
               - lib[:exhibits].each do |article|
@@ -63,7 +63,7 @@
       - if lib[:library]
         .feature.feature--collapsible
           .feature-inner
-            %h2
+            h2
               = link_to "KINDERBÜCHER", library_path(lib[:library])
             .Grid
               - lib[:exhibits].each do |article|
@@ -74,7 +74,7 @@
       - if lib[:library]
         .feature.feature--double
           .feature-inner
-            %h2
+            h2
               = link_to "KOCHBÜCHER", library_path(lib[:library])
             .Grid
               - lib[:exhibits].each do |article|
@@ -85,10 +85,9 @@
       - if lib[:library]
         .feature.feature--collapsible
           .feature-inner
-            %h2
+            h2
               = link_to "SACHBÜCHER", library_path(lib[:library])
             .Grid
               - lib[:exhibits].each do |article|
                 .Grid-item
                   = render "/articles/shared/show_article", article: article
-

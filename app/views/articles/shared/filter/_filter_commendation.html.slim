@@ -1,16 +1,16 @@
-- params_active = parameters.map { |p| search_cache.send(p) }.include?(true)
+- params_active = filter_parameters.map { |p| search_cache.send(p) }.include?(true)
 .Search-filter.JS-active-toggle--container
-  .Search-dropdown.JS-active-toggle--trigger data: {clickable: true}, class: params_active ? 'Search-dropdown--commendation' : ''
+  .Search-dropdown.JS-active-toggle--trigger data={clickable: true} class=(params_active ? 'Search-dropdown--commendation' : '')
     = title unless params_active
-    - parameters.each do |parameter|
-      - if search_cache && search_cache.send(parameter)
-        = commendation_label parameter, :small, false
+    - filter_parameters.each do |filter_parameter|
+      - if search_cache && search_cache.send(filter_parameter)
+        = commendation_label filter_parameter, :small, false
     ul.JS-active-toggle--target
-      - parameters.each do |parameter|
+      - filter_parameters.each do |filter_parameter|
         li
-          a.Search-colored-link href: articles_path(article_search_form: search_cache.flip(parameter) ), data: { push: 'true' }
-            - if search_cache && search_cache.send(parameter)
+          a.Search-colored-link href=articles_path(article_search_form: search_cache.flip(filter_parameter) ) data={ push: 'true' }
+            - if search_cache && search_cache.send(filter_parameter)
               = image_tag "icheck/checkbox_active.png"
             - else
               = image_tag "icheck/checkbox.png"
-            = t "enumerize.article_search_form.filter.#{parameter}"
+            = t "enumerize.article_search_form.filter.#{filter_parameter}"
