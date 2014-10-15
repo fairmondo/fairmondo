@@ -1,0 +1,8 @@
+div id="slide#{number}"
+  = image_tag "slides/users/#{ number - 1 }.jpg"
+  p.teaser-quotation
+    span.teaser-quote> &bdquo;
+    = quote
+    span.teaser-quote> &ldquo;
+  p.teaser-quotesource
+    = source
