@@ -1,0 +1,8 @@
+.banner
+  .banner-inner
+    h2
+      | CSV-Upload
+    p
+      | Du kannst jetzt Artikel per CSV hochladen und verwalten!
+      /Die CSV Schnittstelle ist aufgrund von Wartungsarbeiten zur Zeit leider ausser Betrieb.
+    = link_to t('users.boxes.import'), new_mass_upload_path, :class => "Button"

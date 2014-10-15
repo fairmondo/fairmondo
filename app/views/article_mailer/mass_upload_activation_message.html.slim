@@ -1,0 +1,16 @@
+h3
+  = t('email.greeting', name: @mass_upload.user_nickname)
+= t('email.article.mass_activation.text')
+p
+  = t('email.article.mass_activation.to_csv')
+  = link_to @mass_upload.file_file_name, mass_upload_url(@mass_upload)
+br
+  = t('email.close')
+
+.pdf
+  = link_to 'Unsere AGB', "#{root_url}/assets/AGB.pdf"
+  br
+  = link_to 'Kostenloses PDF Anzeigeprogramm herunter laden.', 'http://get.adobe.com/reader/otherversions/'
+
+- content_for 'sidebar' do
+  = render 'shared/email/social_buttons'

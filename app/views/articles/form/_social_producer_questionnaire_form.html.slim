@@ -1,0 +1,37 @@
+/
+/
+/ == License:
+/ Fairmondo - Fairmondo is an open-source online marketplace.
+/ Copyright (C) 2013 Fairmondo eG
+/
+/ This file is part of Fairmondo.
+/
+/ Fairmondo is free software: you can redistribute it and/or modify
+/ it under the terms of the GNU Affero General Public License as
+/ published by the Free Software Foundation, either version 3 of the
+/ License, or (at your option) any later version.
+/
+/ Fairmondo is distributed in the hope that it will be useful,
+/ but WITHOUT ANY WARRANTY; without even the implied warranty of
+/ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+/ GNU Affero General Public License for more details.
+/
+/ You should have received a copy of the GNU Affero General Public License
+/ along with Fairmondo.  If not, see <http://www.gnu.org/licenses/>.
+/
+
+- article_form.object.build_social_producer_questionnaire unless article_form.object.social_producer_questionnaire
+= article_form.nested_inputs_for :social_producer_questionnaire, :name => t('form.fill_in_questionnaire'), :tooltip => true do |f|
+  = article_form.semantic_errors :social_producer_questionnaire
+  = f.semantic_errors :base
+  = f.inputs do
+    = f.input :nonprofit_association,:as => :plain_radio, :label => true, :js_toggle => true
+    = f.inputs :id => 'true-nonprofit_association' do
+      = f.input :nonprofit_association_checkboxes, :as => :check_boxes, :label => t('form.fill_in_non_profit')
+    = f.input :social_businesses_muhammad_yunus,:as => :plain_radio, :label => true, :js_toggle => true
+    = f.inputs :id => 'true-social_businesses_muhammad_yunus' do
+      = f.input :social_businesses_muhammad_yunus_checkboxes, :as => :check_boxes, :label => false
+    = f.input :social_entrepreneur, :as => :plain_radio, :label => true, :js_toggle => true
+    = f.inputs :id => 'true-social_entrepreneur' do
+      = f.input :social_entrepreneur_checkboxes, :as => :check_boxes, :label => false
+      = f.input :social_entrepreneur_explanation

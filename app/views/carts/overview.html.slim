@@ -1,0 +1,61 @@
+= visual_checkout_steps :step3, @cart
+.prices_overview
+  - @abaci.each do |abacus|
+    - group = abacus.line_item_group
+    = gray_box line_item_group_title(group) do
+      - abacus.payment_listing.payments.each do |payment, hash|
+        .Payment
+          h3= t("enumerize.business_transaction.selected_payment.# payment ")
+          .Payment-table
+            - hash[:business_transactions].each do |bt|
+              = render '/line_item_groups/abacus/business_transaction_row', abacus: abacus, business_transaction: bt, refundable: false
+            - hash[:transports].each do |transport|
+              = render '/line_item_groups/abacus/transport_row', abacus: abacus, transport: transport
+            = render '/line_item_groups/abacus/cash_on_delivery_row', cash_on_delivery_total: hash[:cash_on_delivery_total]
+            = render '/line_item_groups/abacus/total_row', total: hash[:total], payment: payment
+  .addresses_preview
+    .payment_address
+      = gray_box t('cart.texts.addresses.payment') do
+        .Address
+          = render 'addresses/address_lines', address: @cart.line_item_groups.first.payment_address
+    .transport_address
+      = gray_box t('cart.texts.addresses.transport') do
+        .Address
+          = render 'addresses/address_lines', address: @cart.line_item_groups.first.transport_address
+.sidebar
+
+  .total_overview
+    = gray_box t('cart.texts.total') do
+      .total_table
+        .row
+          .label
+            = t('cart.texts.totals.total_net_price')
+          .value
+            = money @abaci.map{ |abacus| abacus.business_transaction_listing.total_net_price }.sum
+        .row
+          .label
+            = t('cart.texts.totals.total_vat')
+          .value
+            = money  @abaci.map{ |abacus| abacus.business_transaction_listing.total_vat }.sum
+        .row
+          .label
+            = t('cart.texts.totals.total_retail_price')
+          .value
+            = money  @abaci.map{ |abacus| abacus.business_transaction_listing.total_retail_price }.sum
+        .row
+          .label
+            = t('cart.texts.totals.total_transport')
+          .value
+            = money  @abaci.map{ |abacus| abacus.transport_listing.total_transport }.sum
+        .row
+          .label
+            strong
+              = t('cart.texts.totals.total')
+          .value
+            strong
+              = money(@total)
+      = button_to t('cart.actions.confirm_purchase', total: money(@total)), cart_path(@cart, checkout: true), method: :patch, class: 'Button checkout_button', form_class: 'js-visual-submit checkout-submit'
+    .warning
+      = I18n.t('cart.texts.long_security_warning')
+.checkout-actions
+  = link_to t('cart.actions.back'), edit_cart_path(@cart), class: 'Button Button--gray checkout-back'
