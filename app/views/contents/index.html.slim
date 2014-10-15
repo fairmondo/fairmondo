@@ -30,7 +30,7 @@ table
       td= content.key
       td= link_to 'Show', content
       td= link_to 'Edit', edit_content_path(content)
-      td= link_to 'Destroy', content, method: :delete, data:   confirm: 'Are you sure?'
+      td= link_to 'Destroy', content, method: :delete, data: { confirm: 'Are you sure?' }
 br/
 = link_to 'New Content', new_content_path
 br/

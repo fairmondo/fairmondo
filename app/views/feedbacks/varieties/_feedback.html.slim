@@ -1,10 +1,10 @@
-%h1= t('feedback.title.send_feedback')
+h1= t('feedback.title.send_feedback')
 = tinycms_content 'faq-teaser'
 = semantic_form_for resource, url: feedbacks_path, html: {multipart: true, class: 'js-visual-submit'} do |f|
   = f.inputs do
-    -# hidden
+    / hidden
     = f.input :variety, as: :hidden, input_html: { value: 'send_feedback' }
-    -# user-input
+    / user-input
 
     = f.input :from, required: false
     = f.input :subject, required: true
