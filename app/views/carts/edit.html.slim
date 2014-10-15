@@ -1,0 +1,102 @@
+= visual_checkout_steps :step2, @cart
+= semantic_form_for @cart_checkout_form, as: :cart_checkout_form,  url: cart_path(@cart), method: :put do |f|
+  = semantic_relation_field_for f, :line_item_groups, @cart.line_item_groups do |group, group_fields|
+    - seller = group.seller
+    - preview_abacus = PreviewAbacus.calculate group
+    = gray_box line_item_group_title(group), frame_class: "js-unified-toggle-group" do
+      = group_fields.inputs class: 'legal_inputs' do
+        = group_fields.input :tos_accepted, label: terms_and_cancellation_label_for(seller)
+        = group_fields.input :message, wrapper_html: {class: 'message-text'}
+      = group_fields.inputs class: 'unified_inputs' do
+        .unified_transport
+          = group_fields.input :unified_transport, input_html: {class: 'js-unified-transport--trigger'}, label: unified_transport_label_for(group, preview_abacus.unified_transport) if group.transport_can_be_unified?
+        - if group.payment_can_be_unified?
+          .unified_payment
+            = group_fields.input :unified_payment, input_html: {class: 'js-unified-payment--trigger'}
+            = group_fields.input :unified_payment_method, as: :select, include_blank: false, collection: checkout_options_for_payment(group.unified_payments_selectable), label: false, wrapper_html: { class: "small-selectboxit"}
+      .line_items
+        = semantic_relation_field_for f, :line_items, group.line_items.to_a.sort!{|a,b| unified_transport_first(a,b)} do |line_item, line_item_fields|
+          - article = line_item.business_transaction.article
+          - unified = line_item.business_transaction.article.unified_transport?
+          - unifiable = group.transport_can_be_unified?
+          .line_item data: { 'unified-transport' => unified.to_s, 'unifiable-transport' => (unifiable && unified).to_s }
+            .image
+              = link_to image_tag(article.title_image_url(:thumb)), article_path(article)
+            .details
+              .quantity
+                = line_item.requested_quantity
+                | x
+              .title
+                = link_to  article.title,  article_path(article), title: article.title, target: '_blank'
+              .price
+                = humanized_money_with_symbol article.price
+                - unless article.vat == 0
+                  = t('article.vat_included', :mwst => article.vat)
+                = render '/articles/show/basic_price', :article => article
+            .form
+              = line_item_fields.semantic_fields_for :business_transaction, line_item.business_transaction do |t|
+                = t.inputs class: 'payment' do
+                  = t.input :selected_payment, include_blank: false, required: false, wrapper_html: {class: 'js-unified-payment--target small-selectboxit'}, collection: checkout_options_for_payment(line_item.business_transaction.article.selectable_payments)
+                = t.inputs class: 'transport' do
+                  = t.input :selected_transport, include_blank: false, required: false, wrapper_html: {class: (unified ? "js-unified-transport--target small-selectboxit" : "small-selectboxit") }, collection: checkout_options_for_single_transport(line_item, preview_abacus.transports)
+                  - if unifiable
+                    .js-unified-transport--inversetarget.transport_notice
+                      - if unified
+                        = t('cart.texts.unified_transport_notice', price: money(preview_abacus.unified_transport))
+                        .transport_notice--details
+                          - if preview_abacus.free_transport
+                            = t('cart.texts.free_transport_notice', price: money(preview_abacus.free_transport_at_price))
+                          - else
+                            - if preview_abacus.number_of_shipments.to_i == 1
+                              = t('cart.texts.unified_transport_shipment')
+                            - else
+                              = t('cart.texts.unified_transport_shipments', shipments: preview_abacus.number_of_shipments)
+                              br
+                              = t('cart.texts.unified_transport_price', price: money(preview_abacus.unified_transport_price))
+
+
+                      - else
+                        span.unified_transport_impossible
+                          = t('cart.texts.unified_transport_impossible')
+      .warning
+        = I18n.t('cart.texts.security_warning')
+
+  .addresses_forms
+
+    .payment_address
+      = gray_box t('cart.texts.addresses.payment') do
+
+        - unless @cart_checkout_form.needs_new_payment_address?
+          = render 'addresses/address', address: @cart_checkout_form.payment_address, controls: true
+        - else
+          = f.semantic_fields_for @cart_checkout_form.payment_address do |baf|
+            = baf.inputs do
+              = baf.input :title, as: :select, collection: [t('common.title.woman'),t('common.title.man')]
+              = baf.input :first_name, required: true
+              = baf.input :last_name, required: true
+              = baf.input :company_name if current_user.is_a? LegalEntity
+              = baf.input :address_line_1, required: true
+              = baf.input :address_line_2
+              = baf.input :zip, required: true
+              = baf.input :city, required: true
+              = baf.input :country, required: true, as: :select, collection: [t('users.countries.germany')]
+
+    .transport_address
+      = gray_box t('cart.texts.addresses.transport') do
+        .Address
+          - transport_address_id_field = 'cart_checkout_form[transport_address_id]'
+          = label_tag transport_address_id_field, class: 'same_address_label' do
+            = radio_button_tag transport_address_id_field, "0" , @cart_checkout_form.same_transport_address?
+            = t('cart.texts.same_address')
+
+
+        fieldset.inputs#address_select
+          = render 'addresses/addresses', radio: true, controls: true, value: (@cart_checkout_form.same_transport_address? ? 0 :  @cart_checkout_form.transport_address.id)
+
+        = link_to new_user_address_path(current_user, radio: true), { class: 'colorbox' } do
+          .fa.fa-plus
+          = t('address.actions.new')
+  .next_step_explanation
+    = I18n.t('cart.texts.next_step_explanation')
+  = f.actions class: 'checkout-actions' do
+    = f.action :submit , label: t("common.actions.continue"), button_html: { class: 'Button'}
