@@ -1,0 +1,2 @@
+$(".Addresses").append("<%= j(render 'addresses/address', address: @address, radio: (params[:radio] == 'true' ? true : false), checked: @address.id)%>");
+$.colorbox.close();

@@ -1,0 +1,37 @@
+/
+/
+/ == License:
+/ Fairmondo - Fairmondo is an open-source online marketplace.
+/ Copyright (C) 2013 Fairmondo eG
+/
+/ This file is part of Fairmondo.
+/
+/ Fairmondo is free software: you can redistribute it and/or modify
+/ it under the terms of the GNU Affero General Public License as
+/ published by the Free Software Foundation, either version 3 of the
+/ License, or (at your option) any later version.
+/
+/ Fairmondo is distributed in the hope that it will be useful,
+/ but WITHOUT ANY WARRANTY; without even the implied warranty of
+/ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+/ GNU Affero General Public License for more details.
+/
+/ You should have received a copy of the GNU Affero General Public License
+/ along with Fairmondo.  If not, see <http://www.gnu.org/licenses/>.
+/
+
+.Grid
+  - articles.each do |article|
+    .Grid-item
+      = render '/articles/shared/show_article', article: article
+
+- if User.is_admin?(current_user)
+  .Grid-admin
+    h2 Administration:
+    h3 Sammlung befüllen
+    = semantic_form_for :library, url: admin_add_to_libraries_path, method: :post do |f|
+      = f.inputs do
+        = f.input :articles, as: :check_boxes, multiple: true,  :collection => Hash[ articles.map{|a| [ a.slug, a.id.to_s ]} ], :input_html => { :checked => true }
+        = f.input :exhibition_name, :as => :select, :collection => Library.exhibition_name.options
+      = f.actions do
+        = f.action :submit, label: t('article.show.add_as_exhibit') , button_html: {class: "Button"}

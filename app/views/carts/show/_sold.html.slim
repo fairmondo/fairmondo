@@ -1,0 +1,6 @@
+h2
+  = t 'cart.texts.purchase_from', date: I18n.l(cart.updated_at)
+p
+  = t 'cart.texts.explain'
+- cart.line_item_groups.each do |group|
+  = render 'line_item_groups/shared/listitem' , line_item_group: group
