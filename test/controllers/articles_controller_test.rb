@@ -172,6 +172,12 @@ describe ArticlesController do
         get :show, id: article.id
         assert_template :article_closed
       end
+
+      it "doen't throw an error when the search for other users articles breaks" do
+        Article.stubs(:search).raises(Errno::ECONNREFUSED)
+        get :show, id: article.id
+        assert_template :show
+      end
     end
 
     describe "for signed-in users" do

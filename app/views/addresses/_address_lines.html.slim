@@ -1,0 +1,15 @@
+.Address-lines
+  - if address.company_name? && address.user.is_a?(LegalEntity)
+    h3= address.company_name
+    = "#{ address.title } #{ address.first_name } #{ address.last_name }"
+  - else
+    h3= "#  address.title } #{ address.first_name } #{ address.last_name  "
+  p
+    = address.address_line_1
+    br
+    - if address.address_line_2?
+      = address.address_line_2
+      br
+    = "#{ address.zip } #{ address.city }"
+    br
+    = address.country

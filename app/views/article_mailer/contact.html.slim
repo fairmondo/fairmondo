@@ -1,0 +1,18 @@
+h3
+  = t('email.greeting', name: @article.seller.first_name)
+p
+  = t('email.article.contact.text_beginning')
+  = link_to "\"#{@article.title}\"", article_path(@article.id)
+  = t('email.article.contact.text_end')
+.message
+  = simple_format @text
+
+p
+  center
+    = mail_to @from, t('email.article.contact.reply_button'), class: 'Button'
+p
+  = t('email.article.contact.article_link_text')
+  = link_to article_url(@article), article_url(@article)
+
+- content_for 'sidebar' do
+  = render 'shared/email/social_buttons'
