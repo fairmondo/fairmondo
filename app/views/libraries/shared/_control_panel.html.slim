@@ -1,21 +1,21 @@
 .collect.JS-active-toggle--container
-  .Button.Button--gray.JS-active-toggle--trigger{ data: { clickable: true }}
+  .Button.Button--gray.JS-active-toggle--trigger data={ clickable: true }
     = t('common.actions.collect')
   .libraries.JS-active-toggle--target#libraries_popup
     = t('library.control.add')
-    %span.sprite_helper{ title: t('library.control.main_tooltip') }
+    span.sprite_helper*{ title: t('library.control.main_tooltip') }
 
     -# Create two separate collections for public and private libraries
     - libraries_public = libraries.select { |lib| lib.public? }
     - libraries_private = libraries.select { |lib| !lib.public? }
 
     #libraries_list
-      %ul#libraries_public
+      ul#libraries_public
         = render partial: 'libraries/shared/control_panel_list_element', collection: libraries_public, as: :library, locals: { visibility: :public, article: article }
-      %ul#libraries_private
+      ul#libraries_private
         = render partial: 'libraries/shared/control_panel_list_element', collection: libraries_private, as: :library, locals: { visibility: :private, article: article }
 
     = render 'libraries/shared/control_panel_form', library: current_user.libraries.build, article_id: resource.id
-    %ul#libraries_links
-      %li
+    ul#libraries_links
+      li
         = link_to t('library.control.further_link'), user_libraries_path(current_user)
