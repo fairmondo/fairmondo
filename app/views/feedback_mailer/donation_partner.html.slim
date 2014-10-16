@@ -24,20 +24,20 @@
 
 p
   | Vorname:
-  = @feedback.forename
+  =< @feedback.forename
 
 p
   | Nachname:
-  = @feedback.lastname
+  =< @feedback.lastname
 
 p
   | Name der Organisation:
-  = @feedback.organisation
+  =< @feedback.organisation
 
 - if @feedback.phone?
   p
     | Telefon:
-    = @feedback.phone
+    =< @feedback.phone
 
 |***
 
@@ -51,16 +51,16 @@ p
 
 p
   | User-Agent:
-  = @feedback.user_agent
+  =< @feedback.user_agent
 
 p
   | Feedback-ID:
-  = @feedback.id
+  =< @feedback.id
 
 p
   = t('feedback.details.last_uploaded_article_id')
-  = @last_article_id
+  =< @last_article_id
 
 p
   | Source-Pages:
-  = simple_format @feedback.source_page
+  =< simple_format @feedback.source_page
