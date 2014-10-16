@@ -17,7 +17,7 @@
       = t('cart.texts.net')
       = money business_transaction_listing[:net_price]
       - if business_transaction.article_basic_price_amount
-        %br
+        br
         = money business_transaction.article_basic_price
         = t('common.text.glue.per')
         = business_transaction.article_basic_price_amount_text

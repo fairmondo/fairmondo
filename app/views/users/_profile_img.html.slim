@@ -28,7 +28,7 @@
     .User-image
       - if user.is_pioneer?
         span.sprite_pioneerbutton
-      a href="#{ user_path(user) }", data={ push: true } = image_tag(user.image_url(:profile))
+      a href="#{ user_path(user) }" data={ push: true } = image_tag(user.image_url(:profile))
     .User-name
       = link_to user.name, user_path(user), data: { push: true }
     .User-type
