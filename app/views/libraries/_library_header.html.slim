@@ -10,10 +10,10 @@
   .Library-info
     .Library-info-text
       span.Library-info-text-title
-        = link_to library.name, library_path(library)
+        = link_to library.name, library_path(library), class: "library-link"
       span.Library-info-text-user
+        = t('common.text.glue.from')
         = link_to user_path(library.user) do
-          = t('common.text.glue.from')
           = library.user_nickname
     .Library-info-thumbnails
       - library.library_elements.preload(article_reduced: :title_image).first(10).each do |library_element|

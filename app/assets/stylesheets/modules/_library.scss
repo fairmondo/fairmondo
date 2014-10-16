@@ -12,25 +12,14 @@ Styleguide Library
 /* Use this class to mark the detail tags, the most outer tags of the library. */
 .Library {
   margin-bottom: 1em;
+  padding: 1em;
   // @include whitebox;
   border-radius: 0.5em;
   border: 1px solid $lighter-gray;
   box-shadow: $even-lighter-gray 0px 0px 2px 1px;
   display: block;
   &:hover {
-  }
-  summary::-webkit-details-marker {
-    display: none;
-  }
-  summary:focus {
-    outline: none !important; //prevent nasty linkish outlines
-  }
-  summary {
-    padding: em(10) em(20);
-    display: block;
-    &:hover {
-      background-color: $even-lighter-gray;
-    }
+    background-color: $even-lighter-gray;
   }
 }
 
@@ -118,6 +107,11 @@ Styleguide Library
     border-radius: 0.5em;
     background-color: white;
   }
+}
+
+/* Library-comments */
+.Library > .Library-comments {
+  margin-top: 0.5em;
 }
 
 /* User-specific section, only exists if the library belongs to the user */
