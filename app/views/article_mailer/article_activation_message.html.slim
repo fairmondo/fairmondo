@@ -2,7 +2,7 @@ h3
   = t('email.greeting', name: @user.nickname)
 = t('email.article.activation.text')
 p
-  | Hier kommst Du zu Deinem Artikel:
+  = "Hier kommst Du zu Deinem Artikel: "
   = link_to @article.title, article_url(@article)
 p
   = t('email.article.activation.fees')

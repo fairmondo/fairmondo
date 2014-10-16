@@ -5,13 +5,13 @@ p
   = simple_format t('email.cart.buyer.text')
   br
   = t('email.cart.buyer.visit_your_profile')
-  = link_to t('email.cart.buyer.user_profile'), user_url(@cart.user.id)
+  =< link_to t('email.cart.buyer.user_profile'), user_url(@cart.user.id)
   = '.'
 - @cart.line_item_groups.find_each do |lig|
   .line-item-group
     h3
       = t('email.cart.buyer.your_purchase')
-      = link_to lig.seller.nickname, profile_user_url(lig.seller.id)
+      =< link_to lig.seller.nickname, profile_user_url(lig.seller.id)
     = 'Bestellnr.: ' + lig.purchase_id
 
     = render 'seller_imprint', lig: lig

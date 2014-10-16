@@ -19,7 +19,7 @@
           - article = line_item.business_transaction.article
           - unified = line_item.business_transaction.article.unified_transport?
           - unifiable = group.transport_can_be_unified?
-          .line_item data: { 'unified-transport' => unified.to_s, 'unifiable-transport' => (unifiable && unified).to_s }
+          .line_item data={ 'unified-transport' => unified.to_s, 'unifiable-transport' => (unifiable && unified).to_s }
             .image
               = link_to image_tag(article.title_image_url(:thumb)), article_path(article)
             .details
@@ -95,7 +95,7 @@
 
         = link_to new_user_address_path(current_user, radio: true), { class: 'colorbox' } do
           .fa.fa-plus
-          = t('address.actions.new')
+          =< t('address.actions.new')
   .next_step_explanation
     = I18n.t('cart.texts.next_step_explanation')
   = f.actions class: 'checkout-actions' do

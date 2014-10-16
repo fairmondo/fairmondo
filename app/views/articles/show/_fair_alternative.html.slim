@@ -25,7 +25,7 @@
     - alternative = FairAlternative.find_for resource
     h3
       = t('article.show.alternative')
-      span.sprite_helper title: 'Hier kannst Du eine faire Alternative zu Deinem gewünschten Artikel sehen.'
+      span.sprite_helper title='Hier kannst Du eine faire Alternative zu Deinem gewünschten Artikel sehen.'
     - if alternative.present?
       = render '/articles/shared/show_article', article: alternative
     - else

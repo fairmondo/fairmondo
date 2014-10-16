@@ -10,7 +10,6 @@ platforms :ruby do
   gem 'sqlite3', group: :test # sqlite3 for inmemory testing db
   gem 'therubyracer' # js runtime
   gem 'pg', group: [:production,:staging,:development] # postgres
-  #gem 'byebug', group: [:test,:development] unless ENV["CI"] # debugger
 end
 
 # ----------  Model ----------
@@ -147,6 +146,7 @@ end
 
 group :development, :test do
   gem "parallel_tests"
+  gem "pry-rescue"
   gem 'pry-rails' # pry is awsome
   gem 'hirb' # hirb makes pry output even more awesome
   gem 'pry-byebug' # kickass debugging

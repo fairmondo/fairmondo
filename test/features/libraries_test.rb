@@ -116,6 +116,7 @@ feature 'Library management' do
   scenario "user updates name of exsisting Library" do
     library = FactoryGirl.create :library, name: 'foobar', user: @user
     visit user_libraries_path @user
+    click_link 'foobar'
     within "#edit_library_#{library.id}" do
       fill_in "library#{library.id}_library_name", with: 'bazfuz'
       click_button I18n.t 'formtastic.actions.update'
@@ -127,6 +128,7 @@ feature 'Library management' do
   scenario "user updates library with a blank name" do
     library = FactoryGirl.create :library, name: 'foobar', user: @user
     visit user_libraries_path @user
+    click_link 'foobar'
     within "#edit_library_#{library.id}" do
       fill_in "library#{library.id}_library_name", with: ''
       click_button I18n.t 'formtastic.actions.update'
@@ -140,6 +142,7 @@ feature 'Library management' do
   scenario "user deletes Library" do
     library = FactoryGirl.create :library, name: 'foobar', user: @user
     visit user_libraries_path @user
+    click_link 'foobar'
     assert_difference 'Library.count', -1 do
       within "#library#{library.id}" do
         click_link I18n.t('common.actions.destroy')
@@ -158,6 +161,7 @@ feature 'Library management' do
     page.has_css?("div.libraries_list a", :count == 0) # After adding the article, the library link should be removed
 
     visit user_libraries_path @user
+    click_link I18n.t 'library.default'
     page.must_have_content @article.title[0..10] # characters get cut off on page as well
   end
 
@@ -173,7 +177,7 @@ feature 'Library management' do
     click_button I18n.t('article.labels.deactivate')
 
     login_as buyer
-    visit user_libraries_path buyer
+    visit library_path library
 
     within("#library#{library.id}") do
       page.must_have_content I18n.t('library.no_products')

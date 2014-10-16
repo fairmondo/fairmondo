@@ -155,6 +155,7 @@ de:
       upload: "Hochladen"
     titles:
       new: "Artikel einstellen"
+      create_template: "Artikel als Vorlage speichern"
       edit: "Artikel bearbeiten"
       other-products: "Andere Artikel dieser Anbieter*in"
       libraries: "Öffentliche Sammlungen, die diesen Artikel enthalten"
