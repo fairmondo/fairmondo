@@ -1,5 +1,5 @@
 .markdown-beautify
-  :markdown
+  markdown:
     # Breakpoint mixins
     There are three Mixins ready for you to use in `mixins/breakpoints.scss`. You can use the variables in this file as arguments for the mixins.
 
@@ -11,7 +11,7 @@
          * Example: `@include till-breakpoint($bp-tablet) { display: none; }`
       * between-breakpoints
         * Will start and end the requested pixel widths
-         * Example: `@include between-breakpoints($bp-mobile, $bp-tablet) { display: block; }`
+        * Example: `@include between-breakpoints($bp-mobile, $bp-tablet) { display: block; }`
 
     Please only use the common breakpoints at the top of the file through the variables. If you really need other breakpoints place new variables in this file under uncommon breakpoints and name them accordingly.
 
@@ -48,5 +48,3 @@
             @include omega;
           }
         }
-
-
