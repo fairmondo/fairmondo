@@ -8,14 +8,13 @@
 = paginator.render do
   .pagination
     ul
-
-      = prev_page_tag unless current_page.first?
-      = first_page_tag
+      == prev_page_tag unless current_page.first?
+      == first_page_tag
       - each_page do |page|
         - if kaminari_display_page? page
-          = page_tag page
+          == page_tag page
         - elsif !page.was_truncated?
-          = gap_tag
-      = last_page_tag
-      = next_page_tag unless current_page.last?
+          == gap_tag
+      == last_page_tag
+      == next_page_tag unless current_page.last?
 

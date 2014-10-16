@@ -7,7 +7,7 @@
         = link_to "Dein Auftrag von #{line_item_group.buyer_nickname}", line_item_group_path(line_item_group), data: { push: true }
     span.Lineitemgroup-date
       vom
-      = line_item_group.sold_at.strftime('d.%m.%Y %H:%M')
+      = line_item_group.sold_at.strftime('%d.%m.%Y %H:%M')
   .Lineitemgroup-actions>
     - if line_item_group.buyer == current_user
       span>= link_to t('line_item_group.texts.show_order_and_pay'), line_item_group_path(line_item_group), class: 'Button', data: { push: true }

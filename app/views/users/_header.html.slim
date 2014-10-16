@@ -18,7 +18,7 @@
           = t 'users.text.add_desription'
     .user-menu
       - if user_resource.is? current_user
-        a.Button href="{# user_path(current_user) }"
+        a.Button href="#{ user_path(current_user) }"
           span.sprite_openbox
           = t 'common.text.my_articles'
       a.Button href="#{ user_libraries_path(user_resource) }"

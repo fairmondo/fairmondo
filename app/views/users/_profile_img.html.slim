@@ -34,13 +34,13 @@
     .User-type
       - if user.is_a?(LegalEntity) && !user.ngo
         span.sprite_briefcase
-        = link_to t('users.legal_status.show.legal_entity'), profile_user_path(user), data: { push: true }
+        =< link_to t('users.legal_status.show.legal_entity'), profile_user_path(user), data: { push: true }
       - elsif user.ngo
         span.sprite_briefcase
-        = link_to t('users.legal_status.show.ngo'), profile_user_path(user), data: { push: true }
+        =< link_to t('users.legal_status.show.ngo'), profile_user_path(user), data: { push: true }
       - else
         span.sprite_user
-        = t('users.legal_status.show.private_user')
+        =< t('users.legal_status.show.private_user')
     - if user.vacationing?
       .User-vacation
         = t 'users.states.vacationing'
