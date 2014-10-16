@@ -1,22 +1,22 @@
-%h1 Verkäufe nach Kategorien
+h1 Verkäufe nach Kategorien
 
-%h2 Artikel je Kategorie (Eingestellt / Verkäufe)
-%p
+h2 Artikel je Kategorie (Eingestellt / Verkäufe)
+p
   Anzeige von Artikelanzahl/Transaktionsanzahl. Artikel/Transaktionen in Überkategorien werden nicht mit denen in Kindkategorien zusammengerechnet. Beachte: Ein Artikel kann in mehreren Kategorien eingestellt sein. Ein Artikel kann also mehrfach in der Liste aufgeführt sein, aber nur einmal je Kategorie.
-%ul
+ul
   - Category.sorted.roots.includes(:children).each do |parent|
-    %li
-      %h3
+    li
+      h3
         = parent.name
         = '('
         = parent.articles.count
         = '/'
         = @statistics.statistics_category_sales(parent)
         = ')'
-      %ul
+      ul
         - parent.children.each do |child|
-          %li
-            %h4
+          li
+            h4
               = child.name
               = '('
               = child.articles.count

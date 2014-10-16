@@ -1,0 +1,53 @@
+/
+/
+/ == License:
+/ Fairmondo - Fairmondo is an open-source online marketplace.
+/ Copyright (C) 2013 Fairmondo eG
+/
+/ This file is part of Fairmondo.
+/
+/ Fairmondo is free software: you can redistribute it and/or modify
+/ it under the terms of the GNU Affero General Public License as
+/ published by the Free Software Foundation, either version 3 of the
+/ License, or (at your option) any later version.
+/
+/ Fairmondo is distributed in the hope that it will be useful,
+/ but WITHOUT ANY WARRANTY; without even the implied warranty of
+/ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+/ GNU Affero General Public License for more details.
+/
+/ You should have received a copy of the GNU Affero General Public License
+/ along with Fairmondo.  If not, see <http://www.gnu.org/licenses/>.
+/
+
+.user
+  = render '/users/profile_img', user: @user
+.ratings
+  - if @ratings.any?
+    - @ratings.each do |rating|
+      .Rating
+        .Rating-image
+          span class="sprite_#{ rating.value }"
+        .Rating-quote
+          - if rating.rating_user
+            - if rating.text.empty?
+              p
+                a href="#{ user_path(rating.rating_user) }"
+                  = rating.rating_user.nickname
+                = " am #{l rating.created_at, format: :short}"
+            - else
+              p
+                a href="#{ user_path(rating.rating_user) }"
+                  = rating.rating_user.nickname
+                = " schrieb am #{l rating.created_at, format: :short}:"
+          - unless rating.text.empty?
+            p
+              q
+                = rating.text
+        .Rating-profile
+          - if rating.rating_user
+            a href="#{ user_path(rating.rating_user) }"
+              = image_tag(rating.rating_user.image_url(:profile))
+    = paginate @ratings
+  - else # if no ratings
+    .rating= t('users.ratings.no_ratings')
