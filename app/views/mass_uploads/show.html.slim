@@ -17,7 +17,7 @@ p= resource.file_file_name
             - @erroneous_articles.each do |article|
               li
                 h4
-                  Zeile:
+                  | Zeile:
                   = article.row_index
                 = simple_format(article.validation_errors)
           = paginate @erroneous_articles, param_name: "erroneous_articles_page"
