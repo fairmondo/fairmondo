@@ -28,8 +28,6 @@ gem "friendly_id", ">= 4.0.9" # Friendly_id for beautiful links
 gem "tire"
 
 # ---------- View ----------
-
-gem 'haml'
 gem 'slim-rails'
 
 ## CSS
