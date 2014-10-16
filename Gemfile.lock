@@ -594,7 +594,6 @@ DEPENDENCIES
   font-awesome-rails (>= 4.2.0.0)
   formtastic (~> 2.3.0.rc3)
   friendly_id (>= 4.0.9)
-  haml
   hirb
   i18n-js
   ibanomat
