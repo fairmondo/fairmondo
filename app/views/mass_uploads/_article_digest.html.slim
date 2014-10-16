@@ -1,7 +1,7 @@
-%li
+li
   = t('formtastic.labels.article.title') + ": "
   - if article.closed?
-    = truncate(article.title, :length => 65)
+    = truncate(article.title, length: 65)
   - else
     = link_to truncate(article.title, :length => 65), article_path(article), target: "_blank", title: article.title
   = t('article.preview.fees_and_donations.title')

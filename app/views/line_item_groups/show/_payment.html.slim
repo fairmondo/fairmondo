@@ -22,7 +22,7 @@
         = render 'addresses/address_lines', address: line_item_group.seller.standard_address
     - when :invoice, :cash_on_delivery
     - when :bank_transfer
-      -#= button_tag t("line_item_group.payment_button.#{payment}"), class: 'Button'
+      /= button_tag t("line_item_group.payment_button.#{payment}"), class: 'Button'
     - when :paypal
       - if line_item_group.paypal_payment
         = link_to t("line_item_group.payment_button.#{payment}"), line_item_group_payment_path(line_item_group, line_item_group.paypal_payment), class: 'Button'

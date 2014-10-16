@@ -1,7 +1,6 @@
 - article = line_item.article
 = render layout: 'articles/shared/listitem', locals: { article: article, actions: true, outer_class: "line-item-#{line_item.id}" } do
   .line_item_actions-inner
-
     = semantic_form_for line_item, html: {class: 'change_quantity'}, remote: true do |f|
       = f.inputs do
         = f.input :requested_quantity, input_html: { min: 1 , max: line_item.article_quantity_available, step: 1, value: line_item.requested_quantity || 1, class: 'JS-remote-validate-blur JS-enforce-input-constraints', data: { validation_params: "id=#{line_item.id}", validation_allow: '0'} }

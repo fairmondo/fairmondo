@@ -20,21 +20,21 @@
 -# along with Fairmondo.  If not, see <http://www.gnu.org/licenses/>.
 -#
 .mass_uploads
-  %p
+  p
     = t('mass_uploads.tooltips.table_header')
-  %p
+  p
     = t('mass_uploads.tooltips.table_header2')
-  %table.mass_uploads-table
-    %tr
-      %th Dateiname
-      %th Hochgeladen vor
-      %th Status
-      %th
+  table.mass_uploads-table
+    tr
+      th Dateiname
+      th Hochgeladen vor
+      th Status
+      th
     - resource.mass_uploads.order("created_at DESC").limit(50).each do |mass_upload|
-      %tr
-        %td= mass_upload.file_file_name
-        %td= distance_of_time_in_words_to_now mass_upload.created_at
-        %td
+      tr
+        td= mass_upload.file_file_name
+        td= distance_of_time_in_words_to_now mass_upload.created_at
+        td
           - if mass_upload.pending?
             = "Wartet auf Bearbeitung" #TODO better text
           - elsif mass_upload.processing?
@@ -42,13 +42,13 @@
             .count
               - processed_articles = mass_upload.processed_articles_count
               - if processed_articles > 0
-                = "Bereits #{processed_articles} Artikel bearbeitet"
+                = "Bereits #{ processed_articles } Artikel bearbeitet"
               - else
                 = "Noch keine Artikel bearbeitet"
           - elsif mass_upload.finished?
             Abgeschlossen
           - elsif mass_upload.failed?
             = mass_upload.failure_reason
-        %td
+        td
           - if mass_upload.finished?
-            = link_to t("mass_uploads.labels.show_report_activate"), mass_upload_path(mass_upload), :class => 'Button'
+            = link_to t("mass_uploads.labels.show_report_activate"), mass_upload_path(mass_upload), class: 'Button'

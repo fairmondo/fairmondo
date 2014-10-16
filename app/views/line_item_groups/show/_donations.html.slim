@@ -4,11 +4,11 @@
       - if role == 'seller'
         .line
           .heading
-            %h3
+            h3
               = 'an '
               = link_to organisation.nickname, profile_user_path(organisation)
           .value
-            %h3
+            h3
               = humanized_money_with_symbol amount
 
         .line
@@ -22,18 +22,18 @@
       - elsif role == 'buyer'
         .line
           .heading
-            %h4
+            h4
               = 'an '
               = link_to organisation.nickname, profile_user_path(organisation)
           .value
-            %h4
+            h4
               = humanized_money_with_symbol(amount)
 
     .line
       .heading
-        %h4
+        h4
           Gesamtspende:
       .value
-        %h4
+        h4
           = humanized_money_with_symbol abacus.donation_listing.donation_total
 
