@@ -32,11 +32,11 @@ div class=div_class
     .ArticleListview-price_detail
       = humanized_money_with_symbol article.price
       - unless article.vat == 0
-        = t('article.vat_included', :mwst => article.vat)
+        =< t('article.vat_included', :mwst => article.vat)
       = render '/articles/show/basic_price', :article => article
     .ArticleListview-tags
       = condition_label article
-      = commendation_labels_for article
+      =< commendation_labels_for article
   - if actions
     .ArticleListview-actions
       = yield

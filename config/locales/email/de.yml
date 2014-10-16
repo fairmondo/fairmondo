@@ -45,7 +45,7 @@ de:
         article_link_text: 'Den Artikel zu der Rückfrage findest Du unter '
       activation:
         text: 'Du hast erfolgreich einen Artikel auf Fairmondo eingestellt.'
-        fees: 'Bei erfolgreichem Verkauf fallen folgende Gebühren an (inkl. 19% MwSt.):)'
+        fees: 'Bei erfolgreichem Verkauf fallen folgende Gebühren an (inkl. 19% MwSt.):'
         cancellation_heading: 'Widerrufsbelehrung'
         cancellation_text: |
           Widerrufsrecht

@@ -75,7 +75,7 @@
           span.price-label
             = t('article.price_label')
             - unless article.vat == 0
-              = t('article.vat_included', mwst: article.vat)
+              =< t('article.vat_included', mwst: article.vat)
         - if resource.seller_free_transport_available
           .free-transport
             - if resource.price < resource.seller_free_transport_at_price

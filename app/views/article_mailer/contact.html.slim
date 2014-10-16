@@ -2,8 +2,8 @@ h3
   = t('email.greeting', name: @article.seller.first_name)
 p
   = t('email.article.contact.text_beginning')
-  = link_to "\"#{@article.title}\"", article_path(@article.id)
-  = t('email.article.contact.text_end')
+  =< link_to "\"#{@article.title}\"", article_path(@article.id)
+  =< t('email.article.contact.text_end')
 .message
   = simple_format @text
 
