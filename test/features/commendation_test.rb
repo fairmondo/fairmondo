@@ -30,9 +30,11 @@ feature "Article commendations" do
   scenario "user visits ecologic article" do
     visit article_path(@article)
     page.must_have_link(I18n.t 'formtastic.labels.article.ecologic')
+
   end
 
   scenario "user visits seller with ecologic article" do
+    Article.stubs(:search).raises(Errno::ECONNREFUSED) # simulate connection error so that we dont have to use elastic
     visit user_path(@seller)
     page.must_have_link(I18n.t 'formtastic.labels.article.ecologic')
   end

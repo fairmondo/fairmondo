@@ -1,0 +1,45 @@
+- category = search_cache.searched_category
+.Search-categories.JS-active-toggle--container data={sustained: "true"}
+  h3.Search-heading.JS-active-toggle--trigger data={maxsize: "1024"}
+    - if category
+      = category.name
+    - else
+      | Alle Kategorien
+    span.Search-arrow.sprite_down_arrow.JS-active-toggle--target
+    span.Search-arrow.sprite_up_arrow.JS-active-toggle--target
+  ul.Search-tree.JS-active-toggle--target
+    - if category  # If category is selected
+      / Show link to all categories on top
+      li
+        span title= 'Alle Kategorien'
+          i.fa.fa-caret-left
+          | &nbsp;
+          = link_to 'Alle Kategorien', articles_path(article_search_form: search_cache.change(category_id: nil)), data: { push: true }
+
+      / Show ancestors of the category as h3s
+      - ancestor = (category.children.empty? && category.parent) ? category.parent : category
+      - if ancestor
+        - ancestor.ancestors.each do |c|
+          li
+            h3.Search-ancestor
+              = link_to c.name, category_path(c, article_search_form: search_cache.change(category_id: c.id)),
+                                 class: 'Search-colored-link', data: { push: 'true' }
+
+      / Display either the selected category or its parent at the top of the hierarchy
+      - if category.children.empty? && category.parent
+        - displayed_category = category.parent
+        - displayed_subtree = category.self_and_sorted_siblings
+      - else
+        - displayed_category = category
+        - displayed_subtree = category.sorted_children
+
+      / Render the category/parent and its siblings
+      = render partial: 'categories/shared/category_tree_leaf',
+                object: displayed_category, as: :category,
+                locals: { subtree: displayed_subtree }
+      = render partial: 'categories/shared/category_tree_leaf',
+                collection: displayed_category.sorted_siblings, as: :category
+
+    - else  # If no category is selected
+      / Show top categories
+      = render partial: 'categories/shared/category_tree_leaf', collection: Category.other_category_last.sorted.roots, as: :category

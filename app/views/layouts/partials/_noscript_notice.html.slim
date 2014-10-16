@@ -1,0 +1,4 @@
+/ Render notice if JavaScript is turned off or not available
+noscript
+  = render layout: "notice_layout", locals: { type: 'alert' } do
+    = t('noscript')

@@ -1,0 +1,262 @@
+/-#
+/-#
+/-# == License:
+/-# Fairmondo - Fairmondo is an open-source online marketplace.
+/-# Copyright (C) 2013 Fairmondo eG
+/-#
+/-# This file is part of Fairmondo.
+/-#
+/-# Fairmondo is free software: you can redistribute it and/or modify
+/-# it under the terms of the GNU Affero General Public License as
+/-# published by the Free Software Foundation, either version 3 of the
+/-# License, or (at your option) any later version.
+/-#
+/-# Fairmondo is distributed in the hope that it will be useful,
+/-# but WITHOUT ANY WARRANTY; without even the implied warranty of
+/-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+/-# GNU Affero General Public License for more details.
+/-#
+/-# You should have received a copy of the GNU Affero General Public License
+/-# along with Fairmondo.  If not, see <http://www.gnu.org/licenses/>.
+/-#
+/
+/ The next line is for providing the proper title image to facebook
+- provide( :title_image, image_path('fairmondo_social_media.png') )
+- cache 'category-dropdown-welcome' do
+  .category-dropdown
+    = render 'categories/shared/category_tree'
+
+
+-# Billboard
+- cache 'billboard' do
+  - linktargets_discover = ["/libraries/6867?pk_campaign=billboards&pk_kwd=entdecken_unterstuetzen",
+    "/libraries/6869?pk_campaign=billboards&pk_kwd=entdecken_gestalten",
+    "/libraries/6868?pk_campaign=billboards&pk_kwd=entdecken_mitnehmen"]
+  - linktargets_books = ["/articles?article_search_form[borrowable]=false&article_search_form[category_id]=115&article_search_form[condition]=old&article_search_form[swappable]=false?pk_campaign=billboards&pk_kwd=buecher_krimis",
+    "/libraries/6937?pk_campaign=billboards&pk_kwd=buecher_nachhaltig_leben",
+    "/libraries/6938?pk_campaign=billboards&pk_kwd=buecher_buchmesse",
+    "/categories/kochbucher-ernahrung?article_search_form[borrowable]=false&article_search_form[category_id]=183&article_search_form[condition]=old&article_search_form[swappable]=false?pk_campaign=billboards&pk_kwd=buecher_kochen"]
+  - linktargets_coffee = ["/users/coffee-circle?pk_campaign=billboards&pk_kwd=kaffee"]
+
+  #billboard
+    #billboard-inner
+      #js-billboardslides
+        a href='#' class='slidesjs-previous slidesjs-navigation'
+          span.teaser-arrow.teaser-arrow--left.sprite_left_arrow
+        a href='#' class='slidesjs-next slidesjs-navigation'
+          span.teaser-arrow.teaser-arrow--right.sprite_right_arrow
+
+        -# Gutes einfach entdecken
+        .billboard#billboard1
+          article
+            h2< Gutes einfach entdecken
+            section.section1
+              h3< Gutes unterstützen
+              = link_to 'Gutes unterstützen', linktargets_discover[0], title: 'Gutes unterstützen', class: 'billboard-imagelink'
+              = link_to 'Design aus sozialen Werkstätten', linktargets_discover[0], class: 'billboard-textlink'
+            section.section2
+              h3< Gutes gestalten
+              = link_to 'Gutes gestalten', linktargets_discover[1], title: 'Gutes gestalten', class: 'billboard-imagelink'
+              = link_to 'Mehr Stil im Alltag', linktargets_discover[1], class: 'billboard-textlink'
+            section.section3
+              h3< Gutes mitnehmen
+              = link_to 'Gutes mitnehmen', linktargets_discover[2], title: 'Gutes mitnehmen', class: 'billboard-imagelink'
+              = link_to 'Nachhaltige Trinkflaschen und Brotboxen', linktargets_discover[2], class: 'billboard-textlink'
+
+        -# Bücher
+        .billboard#billboard2
+          article
+            h2< Bücher, Bücher, Bücher!
+            section.section1
+              h3< Gebrauchte Krimis
+              = link_to 'Gebrauchte Krimis', linktargets_books[0], title: 'Gebrauchte Krimis', class: 'billboard-imagelink'
+              = link_to 'Mehr davon', linktargets_books[0], class: 'billboard-textlink'
+            section.section2
+              h3< Nachhaltig leben
+              = link_to 'Nachhaltig leben', linktargets_books[1], title: 'Nachhaltig leben', class: 'billboard-imagelink'
+              = link_to 'Mehr davon', linktargets_books[1], class: 'billboard-textlink'
+            section.section3
+              h3< Buchmesse 2014
+              = link_to 'Buchmesse 2014', linktargets_books[2], title: 'Buchmesse 2014', class: 'billboard-imagelink'
+              = link_to 'Mehr davon', linktargets_books[2], class: 'billboard-textlink'
+            section.section4
+              h3< Gebrauchte Kochbücher
+              = link_to 'Gebrauchte Kochbücher', linktargets_books[3], title: 'Gebrauchte Kochbücher', class: 'billboard-imagelink'
+              = link_to 'Mehr davon', linktargets_books[3], class: 'billboard-textlink'
+
+        -# Coffee Circle
+        .billboard#billboard3
+          article
+            h2< Gutes Genießen.
+            section.section1
+              = link_to 'Coffee Circle', linktargets_coffee[0], title: 'Coffee Circle', class: 'billboard-imagelink'
+              p<
+                Die Menschen hinter Coffee&nbsp;Circle reisen jedes Jahr selbst nach Äthiopien, um dort die
+                faire Produktion ihrer ausge&shy;zeichneten Bio-Kaffees sicher&shy;zustellen.
+              = link_to 'Mehr erfahren', linktargets_coffee[0], class: 'billboard-textlink'
+            section.section2
+              = link_to 'Coffee Circle', linktargets_coffee[0], title: 'Coffee Circle', class: 'billboard-imagelink'
+              = link_to 'Entdecke die neue Kaffee-Welt', linktargets_coffee[0], class: 'billboard-textlink'
+
+
+
+-# USP Teaser with registration link
+- cache 'uspteaser' do
+  #uspteaser
+    #uspteaser-inner
+      h2 Das macht uns anders:
+      ul
+        li Die schönsten und fairsten Produkte im Netz ent&shy;decken
+        li Fördere sozialen &amp; ressourcen&shy;schonenden Konsum
+        li Mit Käufen &amp; Verkäufen einfach Hilfs&shy;projekte unter&shy;stützen
+      p
+        = link_to 'http://wp3.fairnopoly.de/wp3/?pk_campaign=lp-verlosung&pk_kwd=start-regbutton', class: 'Button' do  # link zur Landingpage
+          Jetzt registr&shy;ieren &amp; Preise gewinnen!
+
+
+-# Article queue 1
+.teaser.teaser--double.teaser--clear#teaser--filters
+  .teaser-inner
+    .teaser-commendations
+      = commendation_label(:fair, :small, nil, false)
+      = commendation_label(:ecologic, :small, nil, false)
+      = commendation_label(:small_and_precious, :small, nil, false)
+    h2
+      = link_to(tinycms_content_body_sanitized("heading_features"), featured_library_path(@queue1[:library]))
+    - @queue1[:exhibits].each_with_index do |article, index|
+      div class="teaser-queue#{index == 1 ? ' teaser-queue-before-hidden' : ''}"
+        = render 'articles/shared/show_article', article: article
+
+
+-# Article queue 'used/old'
+.teaser.teaser--double#teaser--old
+  .teaser-inner
+    h2
+      = link_to(tinycms_content_body_sanitized('heading_features3'), featured_library_path(@old[:library]))
+    - @old[:exhibits].each do |article|
+      .teaser-queue
+        = render 'articles/shared/show_article', article: article
+
+
+-# known from / press information
+- cache "known_from" do
+  - names = { hochschulanzeiger: 'Hochschulanzeiger',
+              taz: 'Taz',
+              sueddeutsche: 'Süddeutsche Zeitung',
+              arte: 'Arte',
+              deutschlandfunk: 'Deutschlandfunk' }
+  .teaser.teaser--full.teaser--known_from
+    .teaser-inner
+      h5 Bekannt aus
+      ul.image_list
+        - names.each do |key, value|
+          li
+            = link_to 'http://info.fairmondo.de/fairmondo-in-der-presse/', title: value, target: '_blank' do
+              span class="sprite_#{key}"
+
+
+-# Personalized library section, only shown if @last_hearted_libraries is set
+- if @last_hearted_libraries && @last_hearted_libraries.length == 2
+  - @last_hearted_libraries.each_with_index do |library, index|
+    div.teaser.teaser--double.teaser--hearted_libraries class="#{ index == 0 ? 'teaser--clear' : 'teaser--collapsible teaser--reducible'}"
+      .teaser-inner
+        h2
+          = link_to(library.name, library_path(library))
+          = " #{t('common.text.glue.from')} "
+          = link_to(library.user_nickname, user_path(library.user))
+
+        - library.library_elements.includes(article: [:images, :seller]).reverse_order.limit(2).each do |library_element|
+          .teaser-queue
+            = render 'articles/shared/show_article', article: library_element.article
+
+
+-# Trending libraries
+- if @trending_libraries.to_a.any?
+  .teaser.teaser--full.libraries
+    .teaser-inner
+      h2= t('welcome.trending_libraries')
+      = render partial: "libraries/library", collection: @trending_libraries, locals: { header_comments: false }
+
+
+-# USPs
+.teaser.teaser--double.teaser--cardslides
+  .teaser-inner
+    #js-cardslides
+      a href='#' class='slidesjs-previous slidesjs-navigation'
+        span.teaser-arrow.teaser-arrow--left.sprite_left_arrow
+      a href='#' class='slidesjs-next slidesjs-navigation'
+        span.teaser-arrow.teaser-arrow--right.sprite_right_arrow
+      - 8.times do |i|
+        = image_tag "slides/cards/#{i}.png"
+      /-#a{href: '#', class: 'slidesjs-next slidesjs-navigation'}  # Do we need these?
+      /-#  i.icon-left_arrow
+      /-#a{href: '#', class: 'slidesjs-previous slidesjs-navigation'}
+      /-#  i.icon-right_arrow
+
+
+-# Article queue 'donation'
+.teaser.teaser--double.teaser--collapsible.teaser--reducible
+  .teaser-inner
+    h2
+      = link_to('Mit Spendenanteil', featured_library_path(@donation_articles[:library]))
+    - @donation_articles[:exhibits].each do |article|
+      .teaser-queue
+        = render 'articles/shared/show_article', article: article
+
+
+-# User comment slides
+.teaser.teaser--full.teaser--userslides
+  .teaser-inner
+    #js-userslides
+      a href='#' class='slidesjs-previous slidesjs-navigation'
+        span.teaser-arrow.teaser-arrow--left.sprite_left_arrow
+      a href='#' class='slidesjs-next slidesjs-navigation'
+        span.teaser-arrow.teaser-arrow--right.sprite_right_arrow
+
+      = render 'user_slide', number: 1,
+                             quote: 'Für Veränderungen in der Gesellschaft benötigt es mehr Mut – bei Fairnopoly erleben wir viele junge mutige Menschen. Wir freuen uns auf die Zusammenarbeit mit Fairnopoly, wünschen der Genossenschaft einen erfolgreichen Start, viele Mitglieder und viel Erfolg auf dem Weg zu mehr Transparenz in Onlinehandel und Gesellschaft!',
+                             source: 'Jorge Inostroza, Gepa'
+
+      = render 'user_slide', number: 2,
+                             quote: 'Ich bin Genossenschafts-Mitglied bei Fairnopoly, weil es uns Spaß macht, Fairnopoly mitzuentwickeln. Für uns ist Fairnopoly eine super Plattform, um unsere ethisch produzierten Produkte zu vermarkten.',
+                             source: 'Isabelle Dechamps, Be Able'
+
+      = render 'user_slide', number: 3,
+                             quote: 'Bei Fairnopoly finde ich genial, dass die Struktur eine Genossenschaft ist. Das heißt, ich bin Genosse dort, ich kann mitentscheiden, was da passiert – und was mit der Firma passiert.',
+                             source: 'Van Bo Le-Mentzel, Architekt'
+
+      = render 'user_slide', number: 4,
+                             quote: 'Ich bin Genossin bei Fairnopoly, weil ich glaube, dass wir alle bewusster konsumieren sollten. Fairnopoly gibt uns online die Chance dazu – und deswegen bin ich gerne ein Teil davon.',
+                             source: 'Maria Gross, Social Impact Lab'
+
+      = render 'user_slide', number: 5,
+                             quote: 'Ich bin in die Genossenschaft Fairnopoly eingestiegen, weil ich die Idee sehr überzeugend finde. Ich hab\' das Team auch kennengelernt und ich sehe, dass die wirklich mit Enthusiasmus und viel Elan dabei sind. Wir handeln auf Fairnopoly, weil wir darin eine Chance sehen, faire und Bio-Produkte weiter zu verbreiten.',
+                             source: 'Thomas Kappauf, Black Star'
+
+
+-# Hero teaser
+.teaser.teaser--double
+  .teaser-inner.teaser--center
+    h2 Unsere Genossenschaft
+    p Über 1800 Menschen haben sich bereits an unserer Genossenschaft beteiligt.
+    p= link_to 'Mehr erfahren', 'genossenschaft/', class: 'Button', target: '_blank'
+
+
+-# Blog
+.teaser.teaser--double.teaser--news
+  .teaser-inner.teaser--hide#js-teaser-news-placeholder
+
+
+-# Social media buttons
+.socialshareprivacy data={ uri: "http://www.fairmondo.de/", title: "Gutes einfach entdecken" }
+
+
+-# NGOs
+- cache "ngo_logos" do
+  .teaser.teaser--full.teaser--ngos
+    .teaser-inner
+      h5= "Spendenpartner*innen"
+      ul.image_list
+        - User.ngo_with_profile_image.each do |ngo|
+          li= link_to image_tag(ngo.image_url(:profile)), user_path(ngo), title: ngo.name
+

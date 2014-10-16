@@ -5,7 +5,7 @@
     = gray_box line_item_group_title(group) do
       - abacus.payment_listing.payments.each do |payment, hash|
         .Payment
-          h3= t("enumerize.business_transaction.selected_payment.# payment ")
+          h3= t("enumerize.business_transaction.selected_payment.#{payment}")
           .Payment-table
             - hash[:business_transactions].each do |bt|
               = render '/line_item_groups/abacus/business_transaction_row', abacus: abacus, business_transaction: bt, refundable: false

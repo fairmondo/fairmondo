@@ -1,0 +1,14 @@
+- count = search_cache.category_article_count category.id rescue nil
+- displayed_name = category.name
+- displayed_name += " (#{count})" if count
+- if count != 0
+  li
+    span title=displayed_name
+      - if search_cache && search_cache.searched_category == category
+        b= displayed_name
+      - else
+        = link_to displayed_name, category_path(category, article_search_form: search_cache.change(category_id: category.id)), data: { push: true }
+
+    - if local_assigns.has_key? :subtree
+      ul.Search-tree
+        = render partial: 'categories/shared/category_tree_leaf', collection: subtree, as: :category

@@ -23,6 +23,6 @@
 - if show_basic_price_for? article
   .Article-basicprice
     = t('formtastic.labels.article.basic_price_simple')
-    = humanize_money_or_cents article.basic_price
-    = t('formtastic.labels.article.per')
-    = t('enumerize.article.basic_price_amount.'+ article.basic_price_amount)
+    =< humanize_money_or_cents article.basic_price
+    =< t('formtastic.labels.article.per')
+    =< t('enumerize.article.basic_price_amount.'+ article.basic_price_amount)

@@ -1,0 +1,10 @@
+li
+  = t('formtastic.labels.article.title') + ": "
+  - if article.closed?
+    = truncate(article.title, length: 65)
+  - else
+    = link_to truncate(article.title, :length => 65), article_path(article), target: "_blank", title: article.title
+  =< t('article.preview.fees_and_donations.title')
+  =< t('article.preview.fees_and_donations.total_mass_upload',
+    fee: (article.fair ? "3% + 1%" : "6% + 1%")  )
+  = humanized_money_with_symbol(article.calculated_fees_and_donations_with_quantity)

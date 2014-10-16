@@ -1,0 +1,36 @@
+.Lineitemgroup
+  .Lineitemgroup-text
+    span.Lineitemgroup-title
+      - if line_item_group.buyer == current_user
+        = link_to "Deine Bestellung bei #{line_item_group.seller_nickname}", line_item_group_path(line_item_group), data: { push: true }
+      - elsif line_item_group.seller == current_user
+        = link_to "Dein Auftrag von #{line_item_group.buyer_nickname}", line_item_group_path(line_item_group), data: { push: true }
+    span.Lineitemgroup-date
+      vom
+      = line_item_group.sold_at.strftime('%d.%m.%Y %H:%M')
+  .Lineitemgroup-actions>
+    - if line_item_group.buyer == current_user
+      span>= link_to t('line_item_group.texts.show_order_and_pay'), line_item_group_path(line_item_group), class: 'Button', data: { push: true }
+      span>= link_to t('line_item_group.texts.rate'),line_item_group_path(line_item_group, tab: 'rating'), class: 'Button', data: { push: true }
+    - else
+      = link_to t('line_item_group.texts.show_order'), line_item_group_path(line_item_group), class: 'Button', data: { push: true }
+
+  .Lineitemgroup-images
+    - line_item_group.business_transactions.map(&:article).each do |article|
+      = image_tag(article.title_image_url(:thumb), :title => article.title)
+
+
+/p
+/  .Listview
+/    - line_item_group.business_transactions.each do |business_transaction|
+/      = render layout: '/shared/listview/listitem', locals: { article: business_transaction.article} do
+/        - if business_transaction && policy(Refund.new(business_transaction: business_transaction)).new?
+/          = link_to t( 'refund.button' ), new_business_transaction_refund_path(business_transaction), :class => "Button"
+/
+/  - if line_item_group.seller == current_user
+/    = link_to 'Auftrag ansehen', line_item_group_path(line_item_group), class: 'Button'
+/
+/  - if line_item_group.buyer == current_user
+/    = link_to 'Bestellung ansehen und bezahlen', line_item_group_path(line_item_group), class: 'Button'
+/  - if line_item_group.buyer == current_user && !line_item_group.rating
+/    = link_to t('transaction.completed.rate'), line_item_group_new_user_rating_path(line_item_group.seller, line_item_group), class: 'Button'
