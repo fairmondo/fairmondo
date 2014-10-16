@@ -10,7 +10,6 @@ platforms :ruby do
   gem 'sqlite3', group: :test # sqlite3 for inmemory testing db
   gem 'therubyracer' # js runtime
   gem 'pg', group: [:production,:staging,:development] # postgres
-  #gem 'byebug', group: [:test,:development] unless ENV["CI"] # debugger
 end
 
 # ----------  Model ----------
