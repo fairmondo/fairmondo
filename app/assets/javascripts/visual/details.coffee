@@ -1,4 +1,4 @@
-$ ->
+$(document).always ->
   $(".Library").click (e) ->
     if $(e.target).is('a, i')
       e.stopImmediatePropagation

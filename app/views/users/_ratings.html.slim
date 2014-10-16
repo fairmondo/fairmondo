@@ -1,0 +1,36 @@
+/
+/
+/ == License:
+/ Fairmondo - Fairmondo is an open-source online marketplace.
+/ Copyright (C) 2013 Fairmondo eG
+/
+/ This file is part of Fairmondo.
+/
+/ Fairmondo is free software: you can redistribute it and/or modify
+/ it under the terms of the GNU Affero General Public License as
+/ published by the Free Software Foundation, either version 3 of the
+/ License, or (at your option) any later version.
+/
+/ Fairmondo is distributed in the hope that it will be useful,
+/ but WITHOUT ANY WARRANTY; without even the implied warranty of
+/ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+/ GNU Affero General Public License for more details.
+/
+/ You should have received a copy of the GNU Affero General Public License
+/ along with Fairmondo.  If not, see <http://www.gnu.org/licenses/>.
+
+.User-rating
+  = link_to  user_ratings_path(user), data: { push: true } do
+    = t('rating.show.nr_of_ratings')
+    = user.ratings.count
+  .User-rating-images
+    - if user.ratings.count > 0
+      .User-rating-image
+        span.sprite_positive_small
+        = number_with_precision( user.percentage_of_positive_ratings, :precision => 1 ).to_s+"%"
+      .User-rating-image
+        span.sprite_neutral_small
+        = number_with_precision( user.percentage_of_neutral_ratings, :precision => 1 ).to_s+"%"
+      .User-rating-image
+        span.sprite_negative_small
+        = number_with_precision( user.percentage_of_negative_ratings, :precision => 1 ).to_s+"%"

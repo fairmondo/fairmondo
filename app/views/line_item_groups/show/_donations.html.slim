@@ -1,0 +1,39 @@
+.donations
+  .donation_table
+    - abacus.donation_listing.donation_per_organisation.each_pair do |organisation, amount|
+      - if role == 'seller'
+        .line
+          .heading
+            h3
+              = 'an '
+              = link_to organisation.nickname, profile_user_path(organisation)
+          .value
+            h3
+              = humanized_money_with_symbol amount
+
+        .line
+          .heading
+            = "Bitte überweise den Betrag von #{ humanized_money_with_symbol(amount) }:"
+        = bank_account_line(organisation, :bank_account_owner)
+        = bank_account_line(organisation, :iban)
+        = bank_account_line(organisation, :bic)
+        = bank_account_line(organisation, :bank_name)
+
+      - elsif role == 'buyer'
+        .line
+          .heading
+            h4
+              = 'an '
+              = link_to organisation.nickname, profile_user_path(organisation)
+          .value
+            h4
+              = humanized_money_with_symbol(amount)
+
+    .line
+      .heading
+        h4
+          Gesamtspende:
+      .value
+        h4
+          = humanized_money_with_symbol abacus.donation_listing.donation_total
+

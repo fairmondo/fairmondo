@@ -12,7 +12,6 @@ $(document).always ->
     navigation:
       active: false
 
-
   $("#js-cardslides").slidesjs
     width: 490
     height: 490

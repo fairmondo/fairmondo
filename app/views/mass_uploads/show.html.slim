@@ -1,0 +1,29 @@
+h1= t('mass_uploads.titles.upload_report')
+p= resource.file_file_name
+
+- if @erroneous_articles.empty? && resource.mass_upload_articles.where.not(action: :nothing).empty?
+  = t('mass_uploads.errors.no_activate_content')
+- else
+  .results
+    .Accordion.Accordion--activated.Accordion--scrollToActive
+      = render "result", result: resource.created_articles.page(params[:created_articles_page]), result_name: "created"
+      = render "result", result: resource.updated_articles.page(params[:updated_articles_page]), result_name: "updated"
+      = render "result", result: resource.activated_articles.page(params[:activated_articles_page]), result_name: "activated"
+      = render "result", result: resource.deactivated_articles.page(params[:deactiated_articles_page]), result_name: "deactivated"
+      = render "result", result: resource.deleted_articles.page(params[:deleted_articles_page]), result_name: "deleted"
+      - unless @erroneous_articles.empty?
+        = accordion_item "failed", item_class: "Accordion-item--errors" do
+          ul
+            - @erroneous_articles.each do |article|
+              li
+                h4
+                  | Zeile:
+                  = article.row_index
+                = simple_format(article.validation_errors)
+          = paginate @erroneous_articles, param_name: "erroneous_articles_page"
+          = link_to "Fehlerhafte Artikel exportieren", mass_upload_path(resource, format: "csv"), class: "Button Btn--overwrite"
+
+
+- unless resource.articles_for_mass_activation.empty?
+  .mass_activation
+    = render "mass_activation", articles: resource.articles_for_mass_activation

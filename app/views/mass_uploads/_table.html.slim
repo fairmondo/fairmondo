@@ -1,0 +1,54 @@
+/
+/
+/ == License:
+/ Fairmondo - Fairmondo is an open-source online marketplace.
+/ Copyright (C) 2013 Fairmondo eG
+/
+/ This file is part of Fairmondo.
+/
+/ Fairmondo is free software: you can redistribute it and/or modify
+/ it under the terms of the GNU Affero General Public License as
+/ published by the Free Software Foundation, either version 3 of the
+/ License, or (at your option) any later version.
+/
+/ Fairmondo is distributed in the hope that it will be useful,
+/ but WITHOUT ANY WARRANTY; without even the implied warranty of
+/ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+/ GNU Affero General Public License for more details.
+/
+/ You should have received a copy of the GNU Affero General Public License
+/ along with Fairmondo.  If not, see <http://www.gnu.org/licenses/>.
+/
+.mass_uploads
+  p
+    = t('mass_uploads.tooltips.table_header')
+  p
+    = t('mass_uploads.tooltips.table_header2')
+  table.mass_uploads-table
+    tr
+      th Dateiname
+      th Hochgeladen vor
+      th Status
+      th
+    - resource.mass_uploads.order("created_at DESC").limit(50).each do |mass_upload|
+      tr
+        td= mass_upload.file_file_name
+        td= distance_of_time_in_words_to_now mass_upload.created_at
+        td
+          - if mass_upload.pending?
+            | Wartet auf Bearbeitung
+          - elsif mass_upload.processing?
+            | Wird bearbeitet
+            .count
+              - processed_articles = mass_upload.processed_articles_count
+              - if processed_articles > 0
+                = "Bereits #{ processed_articles } Artikel bearbeitet"
+              - else
+                = "Noch keine Artikel bearbeitet"
+          - elsif mass_upload.finished?
+            | Abgeschlossen
+          - elsif mass_upload.failed?
+            = mass_upload.failure_reason
+        td
+          - if mass_upload.finished?
+            = link_to t("mass_uploads.labels.show_report_activate"), mass_upload_path(mass_upload), class: 'Button'
