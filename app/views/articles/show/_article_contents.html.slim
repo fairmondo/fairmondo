@@ -56,9 +56,9 @@
             span.sprite_helper title=t('article.preview.tooltips.fees_and_donations')
           =t('article.show.donate_html')
         - if show_friendly_percent_for? resource
-
-          =t('article.show.friendly_percent')
-          span.sprite_helper title=t('article.preview.tooltips.friendly_percent', percent: resource.friendly_percent, ngo: resource.friendly_percent_organisation_nickname)
+          h4.fair_percent
+            => t('article.show.friendly_percent')
+            span.sprite_helper title=t('article.preview.tooltips.friendly_percent', percent: resource.friendly_percent, ngo: resource.friendly_percent_organisation_nickname)
           = t('article.show.friendly_percent_html', percent: resource.friendly_percent , ngo: link_to(resource.friendly_percent_organisation_nickname, resource.friendly_percent_organisation))
         .tags
           = commendation_labels_for resource
