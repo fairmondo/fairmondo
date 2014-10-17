@@ -82,6 +82,9 @@
               = t('article.free_transport_at', price: money(resource.seller_free_transport_at_price))
             - else
               strong= t('article.free_transport')
+        - if resource.seller.unified_transport_available? && resource.unified_transport?
+          .unified-transport
+            strong= 'Kombiversand möglich'
         .transport
           = t('formtastic.labels.article.transport_method') + " :"
           ul
