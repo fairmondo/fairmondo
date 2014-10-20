@@ -29,10 +29,13 @@ class BusinessTransaction < ActiveRecord::Base
 
   belongs_to :line_item_group
 
+  has_one :seller, through: :line_item_group
+  has_one :buyer, through: :line_item_group
+
   enumerize :selected_transport, in: Article::TRANSPORT_TYPES
   enumerize :selected_payment, in: Article::PAYMENT_TYPES
 
-  delegate :title, :seller, :selectable_transports, :selectable_payments,
+  delegate :title, :selectable_transports, :selectable_payments,
            :payment_cash_on_delivery_price,
            :basic_price, :basic_price_amount, :basic_price_amount_text, :price,
            :quantity, :quantity_left,
@@ -54,7 +57,7 @@ class BusinessTransaction < ActiveRecord::Base
            to: :article_seller, prefix: true
   delegate :url, to: :article_seller_cancellation_form, prefix: true
   delegate :payment_address, :transport_address, to: :line_item_group
-  delegate :buyer, :seller, to: :line_item_group
+  #delegate :buyer, :seller, to: :line_item_group
 
 
 

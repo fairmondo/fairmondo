@@ -3,6 +3,7 @@ de:
 
   articles:
     closed:
+      warning: "Achtung! Dieser Artikel ist bereits nicht mehr verfügbar und wird nur noch für Dich angezeigt, da Du ihn entweder gekauft oder verkauft hast."
       headline: "Artikel nicht mehr im Angebot"
       text: "Der Anbieter dieses Artikels bietet diesen Artikel leider nicht mehr an."
       similar: "Artikel mit ähnlichem Titel:"
