@@ -14,6 +14,13 @@ Styleguide Contents
     text-align:center;
 }
 
+.Content--warning {
+    background-color: $red;
+    color: $white;
+    margin-bottom: 1em;
+    text-align: center;
+}
+
 
 // Style Devise links
 .Content ul#devise_links {
