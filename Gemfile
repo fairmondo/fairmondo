@@ -29,6 +29,7 @@ gem "tire"
 
 # ---------- View ----------
 gem 'slim-rails'
+gem 'jbuilder'
 
 ## CSS
 gem 'susy' ,'~> 2.1.1' # Grid framework is susy
