@@ -6,9 +6,11 @@ json.articles @articles do |article|
   json.title article.title
   json.price_cents(article.price.is_a?(Money) ? article.price_cents : article.price)
   if article.belongs_to_legal_entity?
-    json.vat article.vat
-    json.basic_price_cents (article.basic_price.is_a?(Money) ? article.basic_price_cents : article.basic_price)
-    json.basic_price_amount article.basic_price_amount
+    json.vat article.vat if article.vat != 0
+    if show_basic_price_for? article
+      json.basic_price_cents (article.basic_price.is_a?(Money) ? article.basic_price_cents : article.basic_price)
+      json.basic_price_amount article.basic_price_amount
+    end
   end
   json.tags do
     json.condition article.condition
