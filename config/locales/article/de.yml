@@ -3,6 +3,7 @@ de:
 
   articles:
     closed:
+      warning: "Achtung! Dieser Artikel ist bereits nicht mehr verfügbar und wird nur noch für Dich angezeigt, da Du ihn entweder gekauft oder verkauft hast."
       headline: "Artikel nicht mehr im Angebot"
       text: "Der Anbieter dieses Artikels bietet diesen Artikel leider nicht mehr an."
       similar: "Artikel mit ähnlichem Titel:"
@@ -32,8 +33,8 @@ de:
       fair: "fair"
       ecologic: "öko"
       small_and_precious: "klein&edel"
-      swappable: "tauschbar"
-      borrowable: "leihbar"
+      swappable: "tauschen"
+      borrowable: "leihen"
     activate_to_buy: "Ich will alle meine Artikel zum Verkauf freischalten"
     not_activate_to_buy: "Ich will meine Artikel nicht freischalten"
     delete_confirm: "Soll der Artikel '%{name}' wirklich gelöscht werden?"
