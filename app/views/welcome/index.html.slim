@@ -107,11 +107,14 @@
       h2 Das macht uns anders:
       ul
         li Die schönsten und fairsten Produkte im Netz ent&shy;decken
-        li Fördere sozialen &amp; ressourcen&shy;schonenden Konsum
-        li Mit Käufen &amp; Verkäufen einfach Hilfs&shy;projekte unter&shy;stützen
+        li Keine Einstell&shy;gebühren und nur 6% Verkaufs&shy;provision (3% für faire Artikel)
+        li
+          | Ein
+          =<>link_to 'faires Unternehmen', '/about_us'
+          | dahinter
       p
         = link_to 'http://landingpage.fairmondo.de/?pk_campaign=lp-verlosung&pk_kwd=start-regbutton', class: 'Button' do  # link zur Landingpage
-          Jetzt registr&shy;ieren &amp; Preise gewinnen!
+          Jetzt Registr&shy;ieren &amp; faire Preise gewinnen!
 
 
 -# Article queue 1
@@ -236,9 +239,9 @@
 
 -# Hero teaser
 .teaser.teaser--double
-  .teaser-inner.teaser--center
-    h2 Unsere Genossenschaft
-    p Über 1800 Menschen haben sich bereits an unserer Genossenschaft beteiligt.
+  .teaser-take_part
+    = image_tag 'genobox-360.png'
+    h2 haben sich bereits an der Fairmondo-Genossenschaft beteiligt.
     p= link_to 'Mehr erfahren', 'genossenschaft/', class: 'Button', target: '_blank'
 
 

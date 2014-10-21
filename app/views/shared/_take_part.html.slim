@@ -1,8 +1,5 @@
-.Content.Content--center
-  span.sprite_get_share
+.take_part
+  = image_tag 'genobox-360.png'
   h2
-    | Unsere Genossenschaft
-  p
-    | Über 1800 Menschen haben sich bereits an unserer Genossenschaft beteiligt.
-  a.Button href="https://www.fairmondo.de/genossenschaft" target='_blank'
-    | Mehr erfahren
+    | haben sich bereits an der Fairmondo-Genossenschaft beteiligt.
+  = link_to "Mehr erfahren", "https://www.fairmondo.de/genossenschaft", target:'_blank', class: "Button"
