@@ -186,8 +186,16 @@
 .teaser > .teaser-inner > h2 {
   text-transform: uppercase;
 }
+
 .teaser > .teaser-inner > .teaser-commendations {
   float: right;
+}
+
+.teaser > .teaser-take_part {
+  @include whitebox;
+  text-align: center;
+  background-color: #5F9537 !important;
+  color: $white;
 }
 
 .teaser--double {
@@ -970,6 +978,15 @@ ul.image_list {
     float: left;
     padding-left: 0;
     margin-bottom: 5%;
+
+    a {
+      color: $white !important;
+      text-decoration: underline !important;
+
+      &:hover, &:focus, &:active {
+        color: darken($white, 20%) !important;
+      }
+    }
 
     &:before {
       content: '\f111'; /*fontawesome char code inside the '' */

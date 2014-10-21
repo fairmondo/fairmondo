@@ -18,10 +18,10 @@
           i.icon-shares
           = t('common.text.shares')
       - unless reduced
+        li= link_to t('footer.about_us'), '/about_us', target: '_blank'
         li= link_to t('footer.faq'), '/faq', target: '_blank'
         li= link_to t('footer.forum'), 'https://info.fairmondo.de/forum/', target: '_blank'
         li= link_to t('footer.contact'), '/contact', target: '_blank'
-        li= link_to t('footer.about_us'), '/about_us', target: '_blank'
         li= link_to t('footer.transparency'), 'https://transparenz.fairmondo.de/', target: '_blank'
         li= link_to t('footer.press'), "https://info.fairmondo.de/pressekit/", target: '_blank'
         li= link_to t('footer.team'), "https://info.fairmondo.de/team/", target: '_blank'

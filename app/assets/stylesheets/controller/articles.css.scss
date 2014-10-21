@@ -402,8 +402,19 @@ ul.category-selected-list {
 
 // fair alternative
 
-.fair_alternative {
+.fair_company {
   @include whitebox;
+  background: #5F9537;
+  text-align: center;
+  color: $white;
+  padding-bottom: 0;
+
+  img {
+    display: block;
+    width: 105%;
+    height: 105%;
+    margin-bottom: 0;
+  }
 }
 
 // activation links
