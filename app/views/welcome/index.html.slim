@@ -126,7 +126,8 @@
     - @queue1[:exhibits].each_with_index do |article, index|
       div class="teaser-queue#{index == 1 ? ' teaser-queue-before-hidden' : ''}"
         = render 'articles/shared/show_article', article: article
-
+    p.more
+      = link_to t('common.actions.more'), featured_library_path(@queue1[:library])
 
 -# Article queue 'used/old'
 .teaser.teaser--double#teaser--old
@@ -136,6 +137,8 @@
     - @old[:exhibits].each do |article|
       .teaser-queue
         = render 'articles/shared/show_article', article: article
+    p.more
+      = link_to t('common.actions.more'), featured_library_path(@queue1[:library])
 
 
 -# known from / press information
