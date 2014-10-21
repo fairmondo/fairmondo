@@ -7,7 +7,7 @@ json.articles @articles do |article|
   json.price_cents(article.price.is_a?(Money) ? article.price_cents : article.price)
   if article.belongs_to_legal_entity?
     json.vat article.vat
-    json.basic_price_cents article.basic_price_cents
+    json.basic_price_cents (article.basic_price.is_a?(Money) ? article.basic_price_cents : article.basic_price)
     json.basic_price_amount article.basic_price_amount
   end
   json.tags do
