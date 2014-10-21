@@ -4,7 +4,7 @@ json.articles @articles do |article|
   json.title_image_url asset_url(article.title_image_url_thumb)
   json.html_url article_url(article)
   json.title article.title
-  json.price_cents article.price
+  json.price_cents(article.price.is_a?(Money) ? article.price_cents : article.price)
   json.seller_legal_entity article.belongs_to_legal_entity?
   if article.belongs_to_legal_entity?
     json.vat article.vat
@@ -25,7 +25,6 @@ json.articles @articles do |article|
       json.percent article.friendly_percent
       json.organization do
         json.name article.friendly_percent_organisation_nickname
-        json.slug article.friendly_percent_organisation.slug
         json.id article.friendly_percent_organisation_id
         json.html_url user_url(article.friendly_percent_organisation)
       end
