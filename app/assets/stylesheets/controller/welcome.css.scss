@@ -2,205 +2,46 @@
 
 
 /*
- * Responsive stuff
- */
-
-
-// mobile-horizontal
-@include till-breakpoint($bp-mobile-horizontal) {
-  #teaser--old {
-    .teaser-queue {
-      &:last-child {
-        display: none;
-      }
-    }
-  }
-}
-
-
-@include between-breakpoints($bp-mobile-horizontal, $bp-tablet) {
-  #billboard {
-    @include span(2 of 4);
-  }
-
-  #uspteaser {
-    @include span(2 of 4);
-    @include omega;
-  }
-}
-
-
-@include between-breakpoints($bp-mobile-horizontal, $bp-tablet-horizontal) {
-  #teaser--filters {
-    .teaser-queue {
-      @include span(2 of 4);
-      &:last-child {
-        display: none;
-      }
-      &.teaser-queue-before-hidden {
-        @include omega;
-      }
-    }
-  }
-}
-
-
-@include at-breakpoint($bp-mobile-horizontal) {
-  .teaser--double {
-    .teaser-queue {
-      @include span(2 of 4);
-      &:last-child {
-        @include omega;
-      }
-    }
-  }
-}
-
-// tablet
-@include between-breakpoints($bp-tablet, $bp-tablet-horizontal) {
-  .teaser--double {
-    @include span(4 of 6);
-  }
-
-  .teaser--collapsible {
-    @include span(2 of 6);
-    @include omega;
-
-    .teaser-queue {
-      margin: 0;
-      width: 100%;
-      float: none;
-      margin-bottom: 1em;
-    }
-  }
-
-  #billboard {
-    @include span(4 of 6);
-  }
-
-  #uspteaser {
-    @include span(2 of 6);
-    @include omega;
-  }
-
-  #teaser--old {
-    @include span(2 of 6);
-    @include omega;
-    .teaser-queue {
-      @include span(2 of 2);
-
-      &:first-child {
-        @include omega;
-      }
-      &:last-child {
-        display: none;
-      }
-    }
-  }
-
-  // Remove one article from a teaser for layout reasons
-  .teaser--reducible {
-    .teaser-queue {
-      &:first-child {
-        @include omega;
-      }
-    }
-    .teaser-queue {
-      &:last-child {
-        display: none;
-      }
-    }
-  }
-}
-
-
-// tablet-horizontal
-@include at-breakpoint($bp-tablet-horizontal) {
-  .teaser--double {
-    @include span(4 of 8);
-  }
-
-  .teaser--collapsible {
-    @include span(4 of 8);
-    @include omega;
-  }
-
-  #billboard {
-    @include span(6 of 8);
-  }
-
-  #uspteaser {
-    @include span(2 of 8);
-    @include omega;
-  }
-
-  #teaser--filters {
-    @include span(6 of 8);
-    .teaser-queue {
-      @include span(2 of 6);
-      &:last-child {
-        @include omega;
-      }
-    }
-  }
-
-  #teaser--old {
-    @include span(2 of 8);
-    @include omega;
-    .teaser-queue {
-      @include span(2 of 2);
-
-      &:first-child {
-        @include omega;
-      }
-      &:last-child {
-        display: none;
-      }
-    }
-  }
-
-  .teaser--news {
-    @include omega;
-  }
-
-  .category-dropdown {
-    display:none;
-  }
-}
-
-
-
-
-/*
- * Normal stuff
+ * General teaser classes
  */
 
 .teaser {
   margin-bottom: 1em;
 }
 
-.teaser-inner {
+.teaser > .teaser-inner {
   @include whitebox;
+  @include clearfix;
 }
 
 .teaser > .teaser-inner > h2 {
   text-transform: uppercase;
 }
+
+.teaser > .teaser-inner > h5 {
+  text-transform: uppercase;
+  margin-top: 0;
+}
+
+// List for press and ngo images
+.teaser > .teaser-inner > ul.image-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.teaser > .teaser-inner > ul.image-list > li {
+  display: inline-block;
+  margin: 0 1em;
+}
+
+// Article wrapper div
+.teaser > .teaser-inner > .teaser-queue {
+  margin-bottom: 1em;
+}
+
 .teaser > .teaser-inner > .teaser-commendations {
   float: right;
-}
-
-.teaser--double {
-  .teaser-inner {
-    @include clearfix;
-  }
-  .teaser-queue {
-    margin-bottom: 1em;
-  }
-}
-
-.teaser-queue > .Button {
-  margin:0.5em;
 }
 
 .teaser--full {
@@ -208,22 +49,33 @@
   width: 100%;
 }
 
-.teaser--hearted_libraries {
-  h2 {
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-  }
+.teaser--hearted_libraries > .teaser-inner > h2 {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.teaser--center {
+  text-align: center;
+}
+
+.teaser--clear {
+  clear: both;
 }
 
 
 
 
 
+/*
+ * General slides stuff
+ */
 
-// Arrows for slides
+.slides {
+  position: relative;
+}
 
-.teaser-arrow {
+.slides-arrow {
   display: block;
   position: absolute;
   margin-top: -14px; //half height of the arrows
@@ -231,28 +83,107 @@
   z-index: 100;
 }
 
-.teaser-arrow--left {
+.slides-arrow--left {
   left:1em;
 }
 
-.teaser-arrow--right {
+.slides-arrow--right {
   right:1em;
 }
 
 
-// Videos
 
-.teaser-inner {
-  iframe {
-   max-width:100%;
+
+
+/*
+ * Specific stuff
+ */
+
+
+// USP teaser
+#usp {
+  margin-bottom: 1em;
+}
+
+#usp-inner {
+  @include whitebox;
+  background: $blue;
+  padding: 0;
+  height: 410px;
+  position: relative;
+  color: $white;
+}
+
+
+#usp-inner h2 {
+  width: 80%;
+  min-width: 185px;
+  max-width: 300px;
+  margin: 8% auto;
+  font-size: 1.5em;
+  font-weight: 700;
+}
+
+
+#usp-inner ul {
+  width: 80%;
+  min-width: 185px;
+  max-width: 300px;
+  margin: 10% auto 0;
+  list-style: none;
+  padding: 0;
+  overflow: hidden;
+
+  li {
+    font-size: 1em;
+    float: left;
+    padding-left: 0;
+    margin-bottom: 5%;
+
+    &:before {
+      content: '\f111'; /*fontawesome char code inside the '' */
+      font-family: FontAwesome;
+      font-size: 2em;
+      margin: 0.2em 2.5% 0.5em 0;
+      display: block;
+      clear: left;
+      float: left;
+    }
   }
 }
 
-// User quotes slides
-.teaser--userslides {
-  overflow: hidden;
-  position: relative;
+#usp-inner p {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  margin: 0 0 8%;
 
+  font-size: 1.2em;
+  font-weight: 600;
+  text-align: center;
+
+  a {
+    display: block;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;  // For Fennec
+    width: 80%;
+    min-width: 185px;
+    max-width: 300px;
+    margin: 0 auto;
+
+    background-color: $white;
+    color: $blue !important;
+
+    &:hover, &:focus, &:active {
+      color: lighten($blue, 10%) !important;
+    }
+  }
+}
+
+
+
+// User quotes slides
+#userslides {
   .teaser-inner {
     padding: 1em 4em;
   }
@@ -265,7 +196,7 @@
   }
 
   .teaser-quotesource {
-	text-align: right;
+  	text-align: right;
     text-transform: uppercase;
   }
 
@@ -284,34 +215,26 @@
   .slidesjs-container,.slidesjs-control {
      height: auto !important;
   }
-
 }
+
 
 // Card slides
-
-.teaser--cardslides {
-  position: relative;
-
-}
-
-.teaser--cardslides >.teaser-inner > #js-cardslides {
+#cardslides > .teaser-inner > #js-cardslides {
   margin-left:auto;
   margin-right:auto;
   max-width: 28.15em;
 }
 
-// Rss Blog
 
-.teaser--hide {
-  border: none;
-  box-shadow:none;
-}
 
-.teaser-rss {
+// Blog
+#news > .teaser-inner > .blog-article-summary {
+  @include clearfix;
+
   p {
     margin: 0 0 0.5em 0;
   }
-  @include clearfix;
+
   img {
     float:left;
     border-radius: 0.9em;
@@ -320,37 +243,22 @@
     margin-bottom: 1em;
 
   }
-  &:nth-child(2n+1) {
-    img{
-      margin-left: 1em;
-      margin-right: 0em;
-      float: right;
-    }
+
+  &:nth-child(2n+1) > img {
+    margin-left: 1em;
+    margin-right: 0em;
+    float: right;
   }
 }
 
-
-
-
-
-
+#news > .teaser--hide {
+  border: none;
+  box-shadow: none;
+}
 
 
 // Others
-
-// Center text within teaser
-.teaser--center {
-  text-align: center;
-}
-
-
-
-
-.teaser--clear {
-  clear: both;
-}
-
-.teaser--ngos {
+#ngos {
   img {
     height:6em;
     width: 6em;
@@ -359,42 +267,6 @@
   }
 }
 
-
-h5 {
-  text-transform: uppercase;
-  margin-top: 0;
-}
-
-
-ul.image_list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-
-  li {
-    display: inline-block;
-    position: relative;
-    top: 1.2em; /* our line-height */
-
-    a {
-      display: inline-block;
-      margin: 0 1em;
-    }
-  }
-
-  &:before{
-    content: '';
-    display: block;
-    width: 100%;
-    margin-bottom: -1.2em; /* our line-height */
-  }
-
-  &:after {
-    content: '';
-    display: inline-block;
-    width: 100%;
-  }
-}
 
 
 
@@ -891,28 +763,6 @@ ul.image_list {
 }
 
 
-/* Use it later maybe - small arrow in front of links and nicer underline
- * but links have to be not 100% wide like they are now
-.billboard a.textlink {
-  position: absolute;
-  top: 258px;
-  left: 0;
-  font-weight: 300;
-  font-size: 0.9em;
-  color: $white;
-  border-bottom: 1px solid $white;
-
-  &:before {
-    content: '>';
-    margin-right: 0.5em;
-  }
-
-  &:hover {
-    text-decoration: none;
-  }
-}
-*/
-
 
 // CSS for SlidesJS
 #js-billboardslides {
@@ -928,85 +778,170 @@ ul.image_list {
 
 
 
+
 /*
- * USP Teaser
+ * Responsive stuff
  */
 
-#uspteaser {
-  margin-bottom: 1em;
-}
 
-#uspteaser-inner {
-  @include whitebox;
-  background: $blue;
-  padding: 0;
-  height: 410px;
-  position: relative;
-  color: $white;
-}
-
-
-#uspteaser-inner h2 {
-  width: 80%;
-  min-width: 185px;
-  max-width: 300px;
-  margin: 8% auto;
-  font-size: 1.5em;
-  font-weight: 700;
-}
-
-
-#uspteaser-inner ul {
-  width: 80%;
-  min-width: 185px;
-  max-width: 300px;
-  margin: 10% auto 0;
-  list-style: none;
-  padding: 0;
-  overflow: hidden;
-
-  li {
-    font-size: 1em;
-    float: left;
-    padding-left: 0;
-    margin-bottom: 5%;
-
-    &:before {
-      content: '\f111'; /*fontawesome char code inside the '' */
-      font-family: FontAwesome;
-      font-size: 2em;
-      margin: 0.2em 2.5% 0.5em 0;
-      display: block;
-      clear: left;
-      float: left;
+// mobile-horizontal
+@include till-breakpoint($bp-mobile-horizontal) {
+  #used {
+    .teaser-queue {
+      &:last-child {
+        display: none;
+      }
     }
   }
 }
 
-#uspteaser-inner p {
-  width: 100%;
-  position: absolute;
-  bottom: 0;
-  margin: 0 0 8%;
 
-  font-size: 1.2em;
-  font-weight: 600;
-  text-align: center;
+@include between-breakpoints($bp-mobile-horizontal, $bp-tablet) {
+  #billboard {
+    @include span(2 of 4);
+  }
 
-  a {
-    display: block;
-    box-sizing: border-box;
-    -moz-box-sizing: border-box;  // For Fennec
-    width: 80%;
-    min-width: 185px;
-    max-width: 300px;
-    margin: 0 auto;
+  #usp {
+    @include span(2 of 4);
+    @include omega;
+  }
+}
 
-    background-color: $white;
-    color: $blue !important;
 
-    &:hover, &:focus, &:active {
-      color: lighten($blue, 10%) !important;
+@include between-breakpoints($bp-mobile-horizontal, $bp-tablet-horizontal) {
+  #filters {
+    .teaser-queue {
+      @include span(2 of 4);
+      &:last-child {
+        display: none;
+      }
+      &.teaser-queue-before-hidden {
+        @include omega;
+      }
     }
+  }
+}
+
+
+@include at-breakpoint($bp-mobile-horizontal) {
+  .teaser--double {
+    .teaser-queue {
+      @include span(2 of 4);
+      &:last-child {
+        @include omega;
+      }
+    }
+  }
+}
+
+// tablet
+@include between-breakpoints($bp-tablet, $bp-tablet-horizontal) {
+  .teaser--double {
+    @include span(4 of 6);
+  }
+
+  .teaser--collapsible {
+    @include span(2 of 6);
+    @include omega;
+
+    .teaser-queue {
+      margin: 0;
+      width: 100%;
+      float: none;
+      margin-bottom: 1em;
+    }
+  }
+
+  #billboard {
+    @include span(4 of 6);
+  }
+
+  #usp {
+    @include span(2 of 6);
+    @include omega;
+  }
+
+  #used {
+    @include span(2 of 6);
+    @include omega;
+    .teaser-queue {
+      @include span(2 of 2);
+
+      &:first-child {
+        @include omega;
+      }
+      &:last-child {
+        display: none;
+      }
+    }
+  }
+
+  // Remove one article from a teaser for layout reasons
+  .teaser--reducible {
+    .teaser-queue {
+      &:first-child {
+        @include omega;
+      }
+    }
+    .teaser-queue {
+      &:last-child {
+        display: none;
+      }
+    }
+  }
+}
+
+
+// tablet-horizontal
+@include at-breakpoint($bp-tablet-horizontal) {
+  .teaser--double {
+    @include span(4 of 8);
+  }
+
+  .teaser--collapsible {
+    @include span(4 of 8);
+    @include omega;
+  }
+
+  #billboard {
+    @include span(6 of 8);
+  }
+
+  #usp {
+    @include span(2 of 8);
+    @include omega;
+  }
+
+  #filters {
+    @include span(6 of 8);
+    .teaser-queue {
+      @include span(2 of 6);
+      &:last-child {
+        @include omega;
+      }
+    }
+  }
+
+  #used {
+    @include span(2 of 8);
+    @include omega;
+    .teaser-queue {
+      @include span(2 of 2);
+
+      &:first-child {
+        @include omega;
+      }
+      &:last-child {
+        display: none;
+      }
+    }
+  }
+
+  #news {
+    @include omega;
+  }
+
+  .category-dropdown {
+    display:none;
   }
 }
