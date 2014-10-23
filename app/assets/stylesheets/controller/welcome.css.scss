@@ -22,6 +22,12 @@
   margin-top: 0;
 }
 
+.teaser > .teaser-inner > .more {
+  clear: both;
+  text-align: right;
+  padding-right: 1em;
+}
+
 // List for press and ngo images
 .teaser > .teaser-inner > ul.image-list {
   list-style: none;
@@ -73,8 +79,6 @@
 .slides-arrow--left { left:1em; }
 
 .slides-arrow--right { right:1em; }
-
-
 
 
 
@@ -321,7 +325,7 @@
 
 // mobile-horizontal
 @include till-breakpoint($bp-mobile-horizontal) {
-  #used .teaser-queue:last-child {
+  #used .teaser-queue:last-of-type {
     display: none;
   }
 }
@@ -342,7 +346,7 @@
 @include between-breakpoints($bp-mobile-horizontal, $bp-tablet-horizontal) {
   #filters .teaser-queue {
     @include span(2 of 4);
-    &:last-child {
+    &:last-of-type {
       display: none;
     }
     &.teaser-queue-before-hidden {
@@ -352,14 +356,16 @@
 }
 
 
+
 @include at-breakpoint($bp-mobile-horizontal) {
   .teaser--double .teaser-queue {
     @include span(2 of 4);
-    &:last-child {
+    &:last-of-type {
       @include omega;
     }
   }
 }
+
 
 
 // tablet
@@ -425,10 +431,11 @@
     &:first-child {
       @include omega;
     }
-    &:last-child {
+    &:last-of-type {
       display: none;
     }
   }
+
 
   // Remove one article from a teaser for layout reasons
   .teaser--reducible .teaser-queue {
@@ -481,7 +488,7 @@
 
   #filters .teaser-queue {
     @include span(2 of 6);
-    &:last-child {
+    &:last-of-type {
       @include omega;
     }
   }
@@ -498,10 +505,11 @@
     &:first-child {
       @include omega;
     }
-    &:last-child {
+    &:last-of-type {
       display: none;
     }
   }
+
 
   // Blog
   #news {

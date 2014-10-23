@@ -1,7 +1,8 @@
 class CategoriesController < ApplicationController
   layout false, :only => :select_category
   respond_to :html
-  respond_to :js, :json, only: :show, if: lambda { request.xhr? }
+  respond_to :json, only: [:index ,:show]
+  respond_to :js, only: :show, if: lambda { request.xhr? }
   before_filter :set_category, only: [:show, :select_category]
   before_filter :build_category_search_cache, only: :show
   skip_before_filter :authenticate_user!

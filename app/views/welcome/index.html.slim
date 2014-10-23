@@ -46,23 +46,6 @@
         a href='#' class='slidesjs-next slidesjs-navigation'
           span.slides-arrow.slides-arrow--right.sprite_right_arrow
 
-        / Gutes einfach entdecken
-        .billboard#billboard-discover
-          article
-            h2 Gutes einfach entdecken
-            section.section1
-              h3 Gutes unterstützen
-              = link_to 'Gutes unterstützen', linktargets_discover[0], title: 'Gutes unterstützen', class: 'billboard-imagelink'
-              = link_to 'Design aus sozialen Werkstätten', linktargets_discover[0], class: 'billboard-textlink'
-            section.section2
-              h3 Gutes gestalten
-              = link_to 'Gutes gestalten', linktargets_discover[1], title: 'Gutes gestalten', class: 'billboard-imagelink'
-              = link_to 'Mehr Stil im Alltag', linktargets_discover[1], class: 'billboard-textlink'
-            section.section3
-              h3 Gutes mitnehmen
-              = link_to 'Gutes mitnehmen', linktargets_discover[2], title: 'Gutes mitnehmen', class: 'billboard-imagelink'
-              = link_to 'Nachhaltige Trinkflaschen und Brotboxen', linktargets_discover[2], class: 'billboard-textlink'
-
         / Bücher
         .billboard#billboard-books
           article
@@ -96,6 +79,22 @@
               = link_to 'Coffee Circle', linktargets_coffee[0], title: 'Coffee Circle', class: 'billboard-imagelink'
               = link_to 'Entdecke die neue Kaffee-Welt', linktargets_coffee[0], class: 'billboard-textlink'
 
+        / Gutes einfach entdecken
+        .billboard#billboard-discover
+          article
+            h2 Gutes einfach entdecken
+            section.section1
+              h3 Gutes unterstützen
+              = link_to 'Gutes unterstützen', linktargets_discover[0], title: 'Gutes unterstützen', class: 'billboard-imagelink'
+              = link_to 'Design aus sozialen Werkstätten', linktargets_discover[0], class: 'billboard-textlink'
+            section.section2
+              h3 Gutes gestalten
+              = link_to 'Gutes gestalten', linktargets_discover[1], title: 'Gutes gestalten', class: 'billboard-imagelink'
+              = link_to 'Mehr Stil im Alltag', linktargets_discover[1], class: 'billboard-textlink'
+            section.section3
+              h3 Gutes mitnehmen
+              = link_to 'Gutes mitnehmen', linktargets_discover[2], title: 'Gutes mitnehmen', class: 'billboard-imagelink'
+              = link_to 'Nachhaltige Trinkflaschen und Brotboxen', linktargets_discover[2], class: 'billboard-textlink'
 
 
 / USP Teaser with registration link
@@ -124,7 +123,8 @@
     - @queue1[:exhibits].each_with_index do |article, index|
       div class="teaser-queue#{index == 1 ? ' teaser-queue-before-hidden' : ''}"
         = render 'articles/shared/show_article', article: article
-
+    p.more
+      = link_to t('common.actions.more'), featured_library_path(@queue1[:library])
 
 / Article queue 'used/old'
 .teaser.teaser--double#used
@@ -134,6 +134,8 @@
     - @old[:exhibits].each do |article|
       .teaser-queue
         = render 'articles/shared/show_article', article: article
+    p.more
+      = link_to t('common.actions.more'), featured_library_path(@old[:library])
 
 
 / known from / press information
@@ -149,7 +151,7 @@
       ul.image-list
         - names.each do |key, value|
           li
-            = link_to 'http://info.fairmondo.de/fairmondo-in-der-presse/', title: value, target: '_blank' do
+            = link_to 'http://info.fairmondo.de/fairnopoly-in-der-presse/', title: value, target: '_blank' do
               span class="sprite_#{key}"
 
 

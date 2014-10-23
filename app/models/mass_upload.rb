@@ -69,7 +69,7 @@ class MassUpload < ActiveRecord::Base
   delegate :nickname, to: :user, prefix: true
 
   validates_attachment :file, presence: true,
-    size: { in: 0..20.megabytes },
+    size: { in: 0..100.megabytes },
     content_type: { :content_type => ['text/csv','application/excel','application/vnd.msexcel','text/anytext','application/vnd.ms-excel', 'application/octet-stream', 'application/force-download', 'text/comma-separated-values'] }
 
   def self.article_attributes

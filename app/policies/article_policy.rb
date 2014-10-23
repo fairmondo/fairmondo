@@ -29,7 +29,7 @@ class ArticlePolicy < Struct.new(:user, :article)
     # Active or sold articles can be shown to anyone.
     # All other state except of closedcan be shown to the
     # user who owns this article.
-    article.active? || article.sold? || (own? && !article.closed?) || User.is_admin?(user)
+    res = article.active? || article.sold? || (own? && !article.closed?) || bought_or_sold? || User.is_admin?(user)
   end
 
   def new?
@@ -94,6 +94,10 @@ class ArticlePolicy < Struct.new(:user, :article)
 
     def owned_and_deactivated?
       own? && ( article.preview? || article.locked? )
+    end
+
+    def bought_or_sold?
+      LineItemGroup.where(id: article.business_transactions.pluck(:line_item_group_id)).where("seller_id = ? OR buyer_id = ?",user,user).limit(1).any?
     end
 
   class Scope < Struct.new(:user, :scope)

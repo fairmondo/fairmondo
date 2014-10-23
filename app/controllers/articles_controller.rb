@@ -23,6 +23,7 @@ class ArticlesController < ApplicationController
 
   responders :location
   respond_to :html
+  respond_to :json, only: [:show,:index]
 
   # Authorization
   skip_before_filter :authenticate_user!, only: [:show, :index, :autocomplete]
@@ -33,7 +34,7 @@ class ArticlesController < ApplicationController
 
   #search_cache
   before_filter :build_search_cache, only: :index
-  before_filter :category_specific_search, only: :index, unless: lambda { request.xhr? }
+  before_filter :category_specific_search, only: :index, unless: lambda { request.xhr? || request.format == :json }
 
   # Calculate value of active goods
   before_filter :check_value_of_goods, only: [:update], if: :activate_params_present?
@@ -62,9 +63,9 @@ class ArticlesController < ApplicationController
     if !flash.now[:notice] && @article.owned_by?(current_user) && at_least_one_image_processing?
       flash.now[:notice] = t('article.notices.image_processing')
     end
-
+    
   rescue Pundit::NotAuthorizedError
-    @similar_articles = ArticleSearchForm.new(q: @article.title).search(1).results
+    @similar_articles = ArticleSearchForm.new(q: @article.title).search(1)
     render "article_closed"
   end
 
