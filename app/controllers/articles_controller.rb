@@ -63,7 +63,7 @@ class ArticlesController < ApplicationController
     if !flash.now[:notice] && @article.owned_by?(current_user) && at_least_one_image_processing?
       flash.now[:notice] = t('article.notices.image_processing')
     end
-    
+
   rescue Pundit::NotAuthorizedError
     @similar_articles = ArticleSearchForm.new(q: @article.title).search(1)
     render "article_closed"
