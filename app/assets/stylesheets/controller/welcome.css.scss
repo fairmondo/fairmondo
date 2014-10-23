@@ -68,7 +68,7 @@
 
 
 /*
- * General slides stuff
+ * General slides classes
  */
 
 .slides {
@@ -97,7 +97,107 @@
 
 /*
  * Specific stuff
+ * Ordered after appearance on page
  */
+
+
+// Billboard
+
+#billboard {
+  margin-bottom: 1em;
+}
+
+
+#billboard-inner {
+  @include whitebox;
+  padding: 0;
+  width: auto;
+  height: 410px;
+  min-height: 410px;
+  position: relative;
+  overflow: hidden;
+  color: $white;
+}
+
+
+.billboard {
+  background-repeat: no-repeat;
+  background-position: center top;
+  position: relative;
+  border-radius: 0.5em;  // Circumvent bug in Webkit browsers that would hide the rounded border from #billboard-inner
+  height: 410px;
+}
+
+
+// Text layer in article element, general properties for all billboards
+.billboard > article {
+  position: relative;
+  margin: 0 auto;
+}
+
+.billboard > article > h2, .billboard > article > section, .billboard > article > section > h3, .billboard > article > section > a {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.billboard > article > h2 {
+  margin: 0;
+  z-index: 10;
+  text-align: left;
+  text-shadow: 1px 1px $dark-gray;
+  font-weight: 400;
+}
+
+.billboard > article > section > h3 {
+  margin: 0;
+  font-weight: 400;
+  font-size: 1.2em;
+  text-align: left;
+  color: $white;
+}
+
+.billboard > article > section > a.billboard-imagelink {
+  display: block;
+  text-indent: -1000em;
+}
+
+.billboard > article > section > a.billboard-textlink {
+  text-decoration: underline;
+  font-size: 0.9em;
+}
+
+
+// Specific properties for different billboards
+#billboard1 > article > section > h3 {
+  color: #f1244f;
+  text-transform: uppercase;
+}
+
+
+#billboard2 > article > section > a.billboard-textlink {
+  display: block;
+  width: 100%;
+  text-align: center;
+}
+
+#billboard3 > article > section > a.billboard-textlink {
+  display: block;
+  width: 100%;
+  text-align: center;
+  font-size: 1em;
+}
+
+#js-billboardslides {
+  display: none;
+}
+
+#billboard {
+  .slidejs-container, .slidejs-control, .slidejs-slide {
+    min-height: 410px;
+  }
+}
+
 
 
 // USP teaser
@@ -270,515 +370,6 @@
 
 
 
-
-
-/*
- * Billboard
- */
-
-
-#billboard {
-  margin-bottom: 1em;
-}
-
-
-#billboard-inner {
-  @include whitebox;
-  padding: 0;
-  width: auto;
-  height: 410px;
-  min-height: 410px;
-  position: relative;
-  overflow: hidden;
-  color: $white;
-}
-
-
-.billboard {
-  background-repeat: no-repeat;
-  background-position: center top;
-  position: relative;
-  border-radius: 0.5em;  // Circumvent bug in Webkit browsers that would hide the rounded border from #billboard-inner
-  height: 410px;
-}
-
-
-// Text layer in article element
-.billboard article {
-  position: relative;
-  margin: 0 auto;
-
-  h2 {
-    position: absolute;
-    text-shadow: 1px 1px $dark-gray;
-    font-weight: 400;
-    z-index: 10;
-    margin: 0;
-  }
-
-  h3 {
-    position: absolute;
-    top: 0;
-    left: 0;
-  }
-
-  @include till-breakpoint($bp-tablet) {
-    width: 210px;
-
-    h2 { font-size: 2em; }
-  }
-
-  @include between-breakpoints($bp-tablet, $bp-tablet-horizontal) {
-    width: 450px;
-
-    h2 { font-size: 2.5em; }
-  }
-
-  @include at-breakpoint($bp-tablet-horizontal) {
-    width: 700px;
-
-    h2 { font-size: 2.9em; }
-  }
-}
-
-
-.billboard a.billboard-imagelink {
-  position: absolute;
-  left: 0;
-  display: block;
-  text-indent: -1000em;
-}
-
-
-#billboard1 {
-  background-image: image-url('welcome/billboard_discover_big.jpg');
-
-  @include till-breakpoint($bp-tablet-horizontal) {
-    background-image: image-url('welcome/billboard_discover_small.jpg');
-  }
-
-  @include between-breakpoints($bp-tablet, $bp-tablet-horizontal) {
-    background-image: image-url('welcome/billboard_discover_medium.jpg');
-  }
-}
-
-
-#billboard2 {
-  background-image: image-url('welcome/billboard_books_big.jpg');
-
-  @include till-breakpoint($bp-tablet-horizontal) {
-    background-image: image-url('welcome/billboard_books_small.jpg');
-  }
-
-  @include between-breakpoints($bp-tablet, $bp-tablet-horizontal) {
-    background-image: image-url('welcome/billboard_books_medium.jpg');
-  }
-}
-
-
-#billboard3 {
-  background-image: image-url('welcome/billboard_coffee_big.jpg');
-
-  @include till-breakpoint($bp-tablet-horizontal) {
-    background-image: image-url('welcome/billboard_coffee_small.jpg');
-  }
-
-  @include between-breakpoints($bp-tablet, $bp-tablet-horizontal) {
-    background-image: image-url('welcome/billboard_coffee_medium.jpg');
-  }
-}
-
-
-
-#billboard1 h2 {
-  top: 14px;
-  left: 20px;
-
-  @include till-breakpoint($bp-tablet) { display: none; }
-
-  @include between-breakpoints($bp-tablet, $bp-tablet-horizontal) {
-    text-align: left;
-  }
-
-  @include at-breakpoint($bp-tablet-horizontal) {
-    top: 14px;
-    left: 0px;
-    width: 220px;
-    text-align: right;
-  }
-}
-
-
-#billboard1 section {
-  position: absolute;
-
-  h3 {
-    color: #f1244f;
-    text-transform: uppercase;
-    font-size: 1.2em;
-    font-weight: 400;
-    margin: 0;
-    position: absolute;
-  }
-
-  a {
-    text-decoration: underline;
-    font-size: 0.9em;
-    position: absolute;
-  }
-
-  @include till-breakpoint($bp-tablet) {
-    left: 0;
-    right: 0;
-
-    &.section1 { top: 0 }
-    &.section2 { top: 145px; }
-    &.section3 { top: 273px; }
-
-    h3 { display: none; }
-
-    a.billboard-imagelink {
-      left: 40px;
-      right: 40px;
-      top: 0;
-      height: 90px;
-     }
-
-    a.billboard-textlink {
-      top: 95px;
-      display: block;
-      width: 100%;
-      text-align: center;
-    }
-  }
-
-  @include between-breakpoints($bp-tablet, $bp-tablet-horizontal) {
-    left: 20px;
-    right: 20px;
-
-    &.section1 {
-      top: 80px;
-
-      h3 { left: 0; top: 0; }
-
-      a.billboard-imagelink {
-        left: 240px;
-        right: 0px;
-        top: 0;
-        height: 90px;
-       }
-
-      a.billboard-textlink { left: 0; top: 20px; }
-    }
-    &.section2 {
-      top: 180px;
-
-      h3 { left: 258px; top: 20px; }
-
-      a.billboard-imagelink {
-        left: 30px;
-        right: 240px;
-        top: 0;
-        height: 120px;
-      }
-
-      a.billboard-textlink { left: 258px; top: 40px; }
-    }
-    &.section3 {
-      top: 280px;
-
-      h3 { left: 0; top: 65px; }
-
-      a.billboard-imagelink {
-        left: 220px;
-        right: 10px;
-        top: 0;
-        height: 110px;
-      }
-
-      a.billboard-textlink { left: 0; top: 85px; }
-    }
-  }
-
-  @include at-breakpoint($bp-tablet-horizontal) {
-    left: 240px;
-    right: 20px;
-
-    &.section1 {
-      top: 30px;
-
-      h3 { left: 0; top: 0; }
-
-      a.billboard-imagelink {
-        left: 240px;
-        right: 0px;
-        top: 0;
-        height: 100px;
-       }
-
-      a.billboard-textlink { left: 0; top: 20px; }
-    }
-    &.section2 {
-      top: 150px;
-
-      h3 { left: 230px; top: 35px; }
-
-      a.billboard-imagelink {
-        left: 20px;
-        right: 240px;
-        top: 0;
-        height: 150px;
-      }
-
-      a.billboard-textlink { left: 230px; top: 55px; }
-    }
-    &.section3 {
-      top: 280px;
-
-      h3 { left: 0; top: 65px; }
-
-      a.billboard-imagelink {
-        left: 230px;
-        right: 0;
-        top: 0;
-        height: 110px;
-      }
-
-      a.billboard-textlink { left: 0; top: 85px; }
-    }
-  }
-}
-
-
-#billboard2 h2 {
-  text-align: left;
-
-  top: 14px;
-
-  @include till-breakpoint($bp-tablet) { left: 2px; }
-  @include between-breakpoints($bp-tablet, $bp-tablet-horizontal) { left: 33px; }
-  @include at-breakpoint($bp-tablet-horizontal) { left: 20px; }
-}
-
-
-#billboard2 section {
-  position: absolute;
-
-  h3 {
-    color: $white;
-    font-size: 1.2em;
-    font-weight: 400;
-    text-align: left;
-    margin: 0;
-    position: absolute;
-    top: 0;
-    left: 0;
-  }
-
-  a.billboard-textlink {
-    text-decoration: underline;
-    font-size: 1em;
-    position: absolute;
-    left: 0;
-    width: 100%;
-    display: block;
-    text-align: center;
-  }
-
-  @include till-breakpoint($bp-tablet) {
-    top: 130px;
-    width: 91px;
-
-    h3 { font-size: 1em; }
-
-    a.billboard-imagelink {
-      top: 38px;
-      width: 89px;
-      height: 142px;
-    }
-
-    a.billboard-textlink {
-      font-size: 0.8em;
-      top: 199px;
-    }
-
-    &.section1 { left: 6px; }
-    &.section2 { left: 114px; }
-    &.section3 { display: none; }
-    &.section4 { display: none; }
-  }
-
-  @include between-breakpoints($bp-tablet, $bp-tablet-horizontal) {
-    top: 110px;
-    width: 113px;
-
-    h3 { font-size: 1.2em; }
-
-    a.billboard-imagelink {
-      top: 48px;
-      width: 112px;
-      height: 178px;
-    }
-
-    a.billboard-textlink {
-      font-size: 0.9em;
-      top: 235px;
-    }
-
-    &.section1 { left: 36px; }
-    &.section2 { left: 170px; }
-    &.section3 { left: 302px; }
-    &.section4 { display: none; }
-  }
-
-  @include at-breakpoint($bp-tablet-horizontal) {
-    top: 125px;
-    width: 113px;
-
-    h3 { font-size: 1.2em; }
-
-    a.billboard-imagelink {
-      top: 47px;
-      width: 112px;
-      height: 178px;
-    }
-
-    a.billboard-textlink {
-      font-size: 0.9em;
-      top: 234px;
-    }
-
-    &.section1 { left: 114px; }
-    &.section2 { left: 268px; }
-    &.section3 { left: 421px; }
-    &.section4 { left: 574px; }
-  }
-}
-
-
-#billboard3 h2 {
-  text-align: left;
-
-  top: 14px;
-
-  @include till-breakpoint($bp-tablet) { left: 13px; }
-  @include between-breakpoints($bp-tablet, $bp-tablet-horizontal) { left: 55px; }
-  @include at-breakpoint($bp-tablet-horizontal) { left: 30px; }
-}
-
-
-#billboard3 section {
-  position: absolute;
-
-  a.billboard-textlink {
-    text-decoration: underline;
-    font-size: 1em;
-    position: absolute;
-    left: 0;
-    width: 100%;
-    display: block;
-    text-align: center;
-  }
-
-  @include till-breakpoint($bp-tablet) {
-    left: 15px;
-    right: 10px;
-
-    &.section1 { display: none; }
-    &.section2 { top: 125px; }
-
-    a.billboard-imagelink {
-      left: 10px;
-      right: 10px;
-      top: 10px;
-      height: 155px;
-    }
-
-    a.billboard-textlink {
-      top: 200px;
-      font-size: 0.8em;
-    }
-  }
-
-  @include between-breakpoints($bp-tablet, $bp-tablet-horizontal) {
-    left: 55px;
-    right: 50px;
-
-    &.section1 { display: none; }
-    &.section2 { top: 50px; }
-
-    a.billboard-imagelink {
-      left: 20px;
-      right: 20px;
-      top: 45px;
-      height: 230px;
-    }
-
-    a.billboard-textlink { top: 290px; }
-  }
-
-  @include at-breakpoint($bp-tablet-horizontal) {
-    &.section1 {
-      left: 18px;
-      top: 110px;
-      width: 280px;
-
-      p {
-        position: absolute;
-        left: 25px;
-        right: 25px;
-        top: 110px;
-        color: $black;
-        text-align: justify;
-        text-align-last: center;
-        -moz-text-align-last: center;
-        -webkit-text-align-last: center;
-      }
-
-      a.billboard-imagelink {
-        left: 80px;
-        right: 80px;
-        top: 30px;
-        height: 85px;
-      }
-
-      a.billboard-textlink { top: 230px; }
-    }
-
-    &.section2 {
-      left: 320px;
-      top: 20px;
-      width: 350px;
-
-      a.billboard-imagelink {
-        left: 20px;
-        right: 20px;
-        top: 45px;
-        height: 230px;
-      }
-
-      a.billboard-textlink { top: 285px; }
-    }
-  }
-}
-
-
-
-// CSS for SlidesJS
-#js-billboardslides {
-  display: none;
-}
-
-#billboard {
-  .slidejs-container, .slidejs-control, .slidejs-slide {
-    min-height: 410px;
-  }
-}
-
-
-
-
-
 /*
  * Responsive stuff
  */
@@ -834,7 +425,132 @@
   }
 }
 
+
 // tablet
+@include till-breakpoint($bp-tablet) {
+
+  // Billboard general properties
+  .billboard > article {
+    width: 210px;
+  }
+
+  .billboard > article > h2 {
+    font-size: 2em;
+  }
+
+  // Billboard background images
+  #billboard1 {
+    background-image: image-url('welcome/billboard_discover_small.jpg');
+  }
+  #billboard2 {
+    background-image: image-url('welcome/billboard_books_small.jpg');
+  }
+  #billboard3 {
+    background-image: image-url('welcome/billboard_coffee_small.jpg');
+  }
+
+  // Billboard h2s
+  #billboard1 > article > h2 {
+    display: none;
+  }
+
+  #billboard2 > article > h2 {
+    top: 14px;
+    left: 2px;
+  }
+
+  #billboard3 > article > h2 {
+    top: 14px;
+    left: 13px;
+  }
+
+  // Billboard sections
+  #billboard1 > article > section {
+    left: 0;
+    right: 0;
+  }
+
+  #billboard1 > article > section.section1 {
+    top: 0;
+  }
+
+  #billboard1 > article > section.section2 {
+    top: 145px;
+  }
+
+  #billboard1 > article > section.section3 {
+    top: 273px;
+  }
+
+  #billboard1 > article > section > h3 {
+    display: none;
+  }
+
+  #billboard1 > article > section > a.billboard-imagelink {
+    left: 40px;
+    right: 40px;
+    height: 90px;
+  }
+
+  #billboard1 > article > section > a.billboard-textlink {
+    display: block;
+    top: 95px;
+    width: 100%;
+    text-align: center;
+  }
+
+  #billboard2 > article > section {
+    top: 130px;
+    width: 91px;
+  }
+
+  #billboard2 > article > section.section1 { left: 6px; }
+
+  #billboard2 > article > section.section2 { left: 114px; }
+
+  #billboard2 > article > section.section3 { display: none; }
+
+  #billboard2 > article > section.section4 { display: none; }
+
+  #billboard2 > article > section > h3 {
+    font-size: 1em;
+  }
+
+  #billboard2 > article > section > a.billboard-imagelink {
+    top: 38px;
+    width: 89px;
+    height: 142px;
+  }
+
+  #billboard2 > article > section > a.billboard-textlink {
+    top: 199px;
+    font-size: 0.8em;
+  }
+
+  #billboard3 > article > section {
+    left: 15px;
+    right: 10px;
+  }
+
+  #billboard3 > article > section.section1 { display: none; }
+
+  #billboard3 > article > section.section2 { top: 125px; }
+
+
+  #billboard3 > article > section > a.billboard-imagelink {
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    height: 155px;
+  }
+
+  #billboard3 > article > section > a.billboard-textlink {
+    top: 200px;
+    font-size: 0.8em;
+  }
+}
+
+
 @include between-breakpoints($bp-tablet, $bp-tablet-horizontal) {
   .teaser--double {
     @include span(4 of 6);
@@ -852,8 +568,141 @@
     }
   }
 
+  // Billboard general properties
   #billboard {
     @include span(4 of 6);
+  }
+
+  .billboard > article {
+    width: 450px;
+  }
+
+  .billboard > article > h2 {
+    font-size: 2.5em;
+  }
+
+  // Billboard background images
+  #billboard1 {
+    background-image: image-url('welcome/billboard_discover_medium.jpg');
+  }
+  #billboard2 {
+    background-image: image-url('welcome/billboard_books_medium.jpg');
+  }
+  #billboard3 {
+    background-image: image-url('welcome/billboard_coffee_medium.jpg');
+  }
+
+  // Billboard h2s
+  #billboard1 > article > h2 {
+    top: 14px;
+    left: 20px;
+  }
+
+  #billboard2 > article > h2 {
+    top: 14px;
+    left: 33px;
+  }
+
+  #billboard3 > article > h2 {
+    top: 14px;
+    left: 55px;
+  }
+
+  // Billboard sections
+  #billboard1 > article > section {
+    left: 20px;
+    right: 20px;
+  }
+
+  #billboard1 > article > section.section1 { top: 80px; }
+
+  #billboard1 > article > section.section2 { top: 180px; }
+
+  #billboard1 > article > section.section3 { top: 280px; }
+
+  #billboard1 > article > section.section1 > a.billboard-imagelink {
+    left: 240px;
+    right: 0px;
+    height: 90px;
+  }
+
+  #billboard1 > article > section.section1 > a.billboard-textlink {
+    top: 20px;
+  }
+
+  #billboard1 > article > section.section2 > h3 {
+    top: 20px;
+    left: 258px;
+  }
+
+  #billboard1 > article > section.section2 > a.billboard-imagelink {
+    left: 30px;
+    right: 240px;
+    height: 120px;
+  }
+
+  #billboard1 > article > section.section2 > a.billboard-textlink {
+    top: 40px;
+    left: 258px;
+  }
+
+  #billboard1 > article > section.section3 > h3 {
+    top: 65px;
+  }
+
+  #billboard1 > article > section.section3 > a.billboard-imagelink {
+    left: 220px;
+    right: 10px;
+    height: 110px;
+  }
+
+  #billboard1 > article > section.section3 > a.billboard-textlink {
+    top: 85px;
+  }
+
+
+  #billboard2 > article > section {
+    top: 110px;
+    width: 113px;
+  }
+
+  #billboard2 > article > section.section1 { left: 36px; }
+
+  #billboard2 > article > section.section2 { left: 170px; }
+
+  #billboard2 > article > section.section3 { left: 302px; }
+
+  #billboard2 > article > section.section4 { display: none; }
+
+  #billboard2 > article > section > a.billboard-imagelink {
+    top: 48px;
+    width: 112px;
+    height: 178px;
+  }
+
+  #billboard2 > article > section > a.billboard-textlink {
+    top: 235px;
+    font-size: 0.9em;
+  }
+
+  #billboard3 > article > section {
+    left: 55px;
+    right: 50px;
+  }
+
+  #billboard3 > article > section.section1 { display: none; }
+
+  #billboard3 > article > section.section2 { top: 50px; }
+
+  #billboard3 > article > section > a.billboard-imagelink {
+    top: 45px;
+    left: 20px;
+    right: 20px;
+    height: 230px;
+  }
+
+  #billboard3 > article > section > a.billboard-textlink {
+    top: 290px;
   }
 
   #usp {
@@ -903,9 +752,178 @@
     @include omega;
   }
 
+  // Billboard general properties
   #billboard {
     @include span(6 of 8);
   }
+
+  .billboard > article {
+    width: 700px;
+  }
+
+  .billboard > article > h2 {
+    font-size: 2.9em;
+  }
+
+  // Billboard background images
+  #billboard1 {
+    background-image: image-url('welcome/billboard_discover_big.jpg');
+  }
+  #billboard2 {
+    background-image: image-url('welcome/billboard_books_big.jpg');
+  }
+  #billboard3 {
+    background-image: image-url('welcome/billboard_coffee_big.jpg');
+  }
+
+  // Billboard h2s
+  #billboard1 > article > h2 {
+    top: 14px;
+    left: 0px;
+    width: 220px;
+    text-align: right;
+  }
+
+  #billboard2 > article > h2 {
+    top: 14px;
+    left: 20px;
+  }
+
+  #billboard3 > article > h2 {
+    top: 14px;
+    left: 30px;
+  }
+
+
+// Billboard sections
+  #billboard1 > article > section {
+    left: 240px;
+    right: 20px;
+  }
+
+  #billboard1 > article > section.section1 {
+    top: 30px;
+  }
+
+  #billboard1 > article > section.section2 {
+    top: 150px;
+  }
+
+  #billboard1 > article > section.section3 {
+    top: 280px;
+  }
+
+  #billboard1 > article > section.section1 > a.billboard-imagelink {
+    left: 240px;
+    right: 0px;
+    height: 100px;
+  }
+
+  #billboard1 > article > section.section1 > a.billboard-textlink {
+    top: 20px;
+  }
+
+  #billboard1 > article > section.section2 > h3 {
+    top: 35px;
+    left: 230px;
+  }
+
+  #billboard1 > article > section.section2 > a.billboard-imagelink {
+    left: 20px;
+    right: 240px;
+    height: 150px;
+   }
+
+  #billboard1 > article > section.section2 > a.billboard-textlink {
+    top: 55px;
+    left: 230px;
+  }
+
+  #billboard1 > article > section.section3 > h3 {
+    top: 65px;
+  }
+
+  #billboard1 > article > section.section3 > a.billboard-imagelink {
+    left: 230px;
+    right: 0;
+    height: 110px;
+  }
+
+  #billboard1 > article > section.section3 > a.billboard-textlink {
+    top: 85px;
+  }
+
+
+  #billboard2 > article > section {
+    top: 125px;
+    width: 113px;
+  }
+
+  #billboard2 > article > section.section1 { left: 114px; }
+
+  #billboard2 > article > section.section2 { left: 268px; }
+
+  #billboard2 > article > section.section3 { left: 421px; }
+
+  #billboard2 > article > section.section4 { left: 574px; }
+
+  #billboard2 > article > section > a.billboard-imagelink {
+    top: 47px;
+    width: 112px;
+    height: 178px;
+  }
+
+  #billboard2 > article > section > a.billboard-textlink {
+    top: 234px;
+    font-size: 0.9em;
+  }
+
+  #billboard3 > article > section.section1 {
+    top: 110px;
+    left: 18px;
+    width: 280px;
+  }
+
+  #billboard3 > article > section.section2 {
+    top: 20px;
+    left: 320px;
+    width: 350px;
+  }
+
+  #billboard3 > article > section.section1 > p {
+    position: absolute;
+    top: 110px;
+    left: 25px;
+    right: 25px;
+    color: $black;
+    text-align: justify;
+    text-align-last: center;
+    -moz-text-align-last: center;
+    -webkit-text-align-last: center;
+  }
+
+  #billboard3 > article > section.section1 > a.billboard-imagelink {
+    top: 30px;
+    left: 80px;
+    right: 80px;
+    height: 85px;
+  }
+
+  #billboard3 > article > section.section1 > a.billboard-textlink {
+    top: 230px;
+  }
+
+  #billboard3 > article > section.section2 > a.billboard-imagelink {
+    top: 45px;
+    left: 20px;
+    right: 20px;
+    height: 230px;
+  }
+
+  #billboard3 > article > section.section2 > a.billboard-textlink {
+    top: 285px;
+  }
+
 
   #usp {
     @include span(2 of 8);
