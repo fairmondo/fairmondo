@@ -58,6 +58,6 @@
           = f.action :submit, label: t('article.show.contact.action'), button_html: {class: "Button"}
     - else
       | Um eine Rückfrage stellen zu können, musst Du dich bei Fairmondo
-      = link_to 'registrieren', new_user_registration_path
+      =<> link_to 'registrieren', new_user_registration_path
       | und
-      = link_to('einloggen', new_user_session_path) + '.'
+      =<> link_to('einloggen', new_user_session_path) + '.'
