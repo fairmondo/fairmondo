@@ -1,4 +1,7 @@
 @import "mixins/all";
+@import "billboards/billboard-discover";
+@import "billboards/billboard-books";
+@import "billboards/billboard-coffee";
 
 
 /*
@@ -53,8 +56,6 @@
 
 
 
-
-
 /*
  * General slides classes
  */
@@ -83,10 +84,11 @@
  */
 
 
-// Billboard
+// Billboards
+// (Specific properties for different billboards
+// are defined in the respective SASS partials.)
 
 #billboard { margin-bottom: 1em; }
-
 
 #billboard-inner {
   @include whitebox;
@@ -99,7 +101,6 @@
   color: $white;
 }
 
-
 .billboard {
   background-repeat: no-repeat;
   background-position: center top;
@@ -108,8 +109,6 @@
   height: 410px;
 }
 
-
-// Text layer in article element, general properties for all billboards
 .billboard > article {
   position: relative;
   margin: 0 auto;
@@ -147,33 +146,11 @@
   font-size: 0.9em;
 }
 
-
-// Specific properties for different billboards
-#billboard-discover > article > section > h3 {
-  color: #f1244f;
-  text-transform: uppercase;
-}
-
-
-#billboard-books > article > section > a.billboard-textlink {
-  display: block;
-  width: 100%;
-  text-align: center;
-}
-
-#billboard-coffee > article > section > a.billboard-textlink {
-  display: block;
-  width: 100%;
-  text-align: center;
-  font-size: 1em;
-}
-
 #js-billboardslides { display: none; }
 
 #billboard .slidejs-container, #billboard .slidejs-control, #billboard .slidejs-slide {
   min-height: 410px;
 }
-
 
 
 // USP teaser
@@ -253,7 +230,6 @@
 }
 
 
-
 // User quotes slides
 #userslides {
   .teaser-inner {
@@ -296,7 +272,6 @@
   margin-right:auto;
   max-width: 28.15em;
 }
-
 
 
 // Blog
@@ -389,7 +364,6 @@
 
 // tablet
 @include till-breakpoint($bp-tablet) {
-
   // Billboard general properties
   .billboard > article {
     width: 210px;
@@ -397,116 +371,6 @@
 
   .billboard > article > h2 {
     font-size: 2em;
-  }
-
-  // Billboard background images
-  #billboard-discover {
-    background-image: image-url('welcome/billboard_discover_small.jpg');
-  }
-  #billboard-books {
-    background-image: image-url('welcome/billboard_books_small.jpg');
-  }
-  #billboard-coffee {
-    background-image: image-url('welcome/billboard_coffee_small.jpg');
-  }
-
-  // Billboard h2s
-  #billboard-discover > article > h2 {
-    display: none;
-  }
-
-  #billboard-books > article > h2 {
-    @include billboard-position($top: 14px, $left: 2px);
-  }
-
-  #billboard-coffee > article > h2 {
-    @include billboard-position($top: 14px, $left: 13px);
-  }
-
-  // Billboard sections
-  #billboard-discover > article > section {
-    @include billboard-position($left: 0, $width: 210px);
-  }
-
-  #billboard-discover > article > section.section1 {
-    @include billboard-position($top: 0);
-  }
-
-  #billboard-discover > article > section.section2 {
-    @include billboard-position($top: 145px);
-  }
-
-  #billboard-discover > article > section.section3 {
-    @include billboard-position($top: 273px);
-  }
-
-  #billboard-discover > article > section > h3 {
-    display: none;
-  }
-
-  #billboard-discover > article > section > a.billboard-imagelink {
-    @include billboard-position($left: 40px, $height: 90px, $width: 130px);
-  }
-
-  #billboard-discover > article > section > a.billboard-textlink {
-    @include billboard-position($top: 95px, $width: 100%);
-    display: block;
-    text-align: center;
-  }
-
-  #billboard-books > article > section {
-    @include billboard-position($top: 130px, $width: 91px);
-  }
-
-  #billboard-books > article > section.section1 {
-    @include billboard-position($left: 6px);
-  }
-
-  #billboard-books > article > section.section2 {
-    @include billboard-position($left: 114px);
-  }
-
-  #billboard-books > article > section.section3 {
-    display: none;
-  }
-
-  #billboard-books > article > section.section4 {
-    display: none;
-  }
-
-  #billboard-books > article > section > h3 {
-    font-size: 1em;
-  }
-
-  #billboard-books > article > section > a.billboard-imagelink {
-    @include billboard-position($top: 38px, $height: 142px, $width: 89px);
-  }
-
-  #billboard-books > article > section > a.billboard-textlink {
-    @include billboard-position($top: 199px);
-    font-size: 0.8em;
-  }
-
-  #billboard-coffee > article > section {
-    @include billboard-position($left: 15px, $width: 185px);
-  }
-
-  #billboard-coffee > article > section.section1 {
-    display: none;
-  }
-
-  #billboard-coffee > article > section.section2 {
-    @include billboard-position($top: 125px);
-  }
-
-
-  #billboard-coffee > article > section > a.billboard-imagelink {
-    @include billboard-position($top: 10px, $left: 10px, $height: 155px, $width: 190px);
-  }
-
-  #billboard-coffee > article > section > a.billboard-textlink {
-    @include billboard-position($top: 200px);
-    font-size: 0.8em;
   }
 }
 
@@ -539,129 +403,6 @@
 
   .billboard > article > h2 {
     font-size: 2.5em;
-  }
-
-  // Billboard background images
-  #billboard-discover {
-    background-image: image-url('welcome/billboard_discover_medium.jpg');
-  }
-  #billboard-books {
-    background-image: image-url('welcome/billboard_books_medium.jpg');
-  }
-  #billboard-coffee {
-    background-image: image-url('welcome/billboard_coffee_medium.jpg');
-  }
-
-  // Billboard h2s
-  #billboard-discover > article > h2 {
-    @include billboard-position($top: 14px, $left: 20px);
-  }
-
-  #billboard-books > article > h2 {
-    @include billboard-position($top: 14px, $left: 33px);
-  }
-
-  #billboard-coffee > article > h2 {
-    @include billboard-position($top: 14px, $left: 55px);
-  }
-
-  // Billboard sections
-  #billboard-discover > article > section {
-    @include billboard-position($left: 20px, $width: 410px);
-  }
-
-  #billboard-discover > article > section.section1 {
-    @include billboard-position($top: 80px);
-  }
-
-  #billboard-discover > article > section.section2 {
-    @include billboard-position($top: 180px);
-  }
-
-  #billboard-discover > article > section.section3 {
-    @include billboard-position($top: 280px);
-  }
-
-  #billboard-discover > article > section.section1 > a.billboard-imagelink {
-    @include billboard-position($left: 240px, $height: 90px, $width: 210px);
-  }
-
-  #billboard-discover > article > section.section1 > a.billboard-textlink {
-    @include billboard-position($top: 20px);
-  }
-
-  #billboard-discover > article > section.section2 > h3 {
-    @include billboard-position($top: 20px, $left: 258px);
-  }
-
-  #billboard-discover > article > section.section2 > a.billboard-imagelink {
-    @include billboard-position($left: 30px, $height: 120px, $width: 180px);
-  }
-
-  #billboard-discover > article > section.section2 > a.billboard-textlink {
-    @include billboard-position($top: 40px, $left: 258px);
-  }
-
-  #billboard-discover > article > section.section3 > h3 {
-    @include billboard-position($top: 65px);
-  }
-
-  #billboard-discover > article > section.section3 > a.billboard-imagelink {
-    @include billboard-position($left: 220px, $height: 110px, $width: 220px);
-  }
-
-  #billboard-discover > article > section.section3 > a.billboard-textlink {
-    @include billboard-position($top: 85px);
-  }
-
-
-  #billboard-books > article > section {
-    @include billboard-position($top: 110px, $width: 113px);
-  }
-
-  #billboard-books > article > section.section1 {
-    @include billboard-position($left: 36px);
-  }
-
-  #billboard-books > article > section.section2 {
-    @include billboard-position($left: 170px);
-  }
-
-  #billboard-books > article > section.section3 {
-    @include billboard-position($left: 302px);
-  }
-
-  #billboard-books > article > section.section4 {
-    display: none;
-  }
-
-  #billboard-books > article > section > a.billboard-imagelink {
-    @include billboard-position($top: 48px, $height: 178px, $width: 112px);
-  }
-
-  #billboard-books > article > section > a.billboard-textlink {
-    @include billboard-position($top: 235px);
-    font-size: 0.9em;
-  }
-
-  #billboard-coffee > article > section {
-    @include billboard-position($left: 55px, $width: 345px);
-  }
-
-  #billboard-coffee > article > section.section1 {
-    display: none;
-  }
-
-  #billboard-coffee > article > section.section2 {
-    @include billboard-position($top: 50px);
-  }
-
-  #billboard-coffee > article > section > a.billboard-imagelink {
-    @include billboard-position($top: 45px, $left: 20px, $height: 230px, $width: 305px);
-  }
-
-  #billboard-coffee > article > section > a.billboard-textlink {
-    @include billboard-position($top: 290px);
   }
 
 
@@ -712,6 +453,7 @@
     @include omega;
   }
 
+
   // Billboard general properties
   #billboard {
     @include span(6 of 8);
@@ -725,144 +467,6 @@
     font-size: 2.9em;
   }
 
-  // Billboard background images
-  #billboard-discover {
-    background-image: image-url('welcome/billboard_discover_big.jpg');
-  }
-  #billboard-books {
-    background-image: image-url('welcome/billboard_books_big.jpg');
-  }
-  #billboard-coffee {
-    background-image: image-url('welcome/billboard_coffee_big.jpg');
-  }
-
-  // Billboard h2s
-  #billboard-discover > article > h2 {
-    @include billboard-position($top: 14px, $left: 0, $width: 220px);
-    text-align: right;
-  }
-
-  #billboard-books > article > h2 {
-    @include billboard-position($top: 14px, $left: 20px);
-  }
-
-  #billboard-coffee > article > h2 {
-    @include billboard-position($top: 14px, $left: 30px);
-  }
-
-
-// Billboard sections
-  #billboard-discover > article > section {
-    @include billboard-position($left: 240px, $width: 440px);
-  }
-
-  #billboard-discover > article > section.section1 {
-    @include billboard-position($top: 30px);
-  }
-
-  #billboard-discover > article > section.section2 {
-    @include billboard-position($top: 150px);
-  }
-
-  #billboard-discover > article > section.section3 {
-    @include billboard-position($top: 280px);
-  }
-
-  #billboard-discover > article > section.section1 > a.billboard-imagelink {
-    @include billboard-position($left: 240px, $height: 100px, $width: 200px);
-  }
-
-  #billboard-discover > article > section.section1 > a.billboard-textlink {
-    @include billboard-position($top: 20px);
-  }
-
-  #billboard-discover > article > section.section2 > h3 {
-    @include billboard-position($top: 35px, $left: 230px);
-  }
-
-  #billboard-discover > article > section.section2 > a.billboard-imagelink {
-    @include billboard-position($left: 20px, $height: 150px, $width: 180px);
-   }
-
-  #billboard-discover > article > section.section2 > a.billboard-textlink {
-    @include billboard-position($top: 55px, $left: 230px);
-  }
-
-  #billboard-discover > article > section.section3 > h3 {
-    @include billboard-position($top: 65px);
-  }
-
-  #billboard-discover > article > section.section3 > a.billboard-imagelink {
-    @include billboard-position($left: 230px, $height: 110px, $width: 210px);
-  }
-
-  #billboard-discover > article > section.section3 > a.billboard-textlink {
-    @include billboard-position($top: 85px);
-  }
-
-
-  #billboard-books > article > section {
-    @include billboard-position($top: 125px, $width: 113px);
-  }
-
-  #billboard-books > article > section.section1 {
-    @include billboard-position($left: 114px);
-  }
-
-  #billboard-books > article > section.section2 {
-    @include billboard-position($left: 268px);
-  }
-
-  #billboard-books > article > section.section3 {
-    @include billboard-position($left: 421px);
-  }
-
-  #billboard-books > article > section.section4 {
-    @include billboard-position($left: 574px);
-  }
-
-  #billboard-books > article > section > a.billboard-imagelink {
-    @include billboard-position($top: 47px, $height: 178px, $width: 112px);
-  }
-
-  #billboard-books > article > section > a.billboard-textlink {
-    @include billboard-position($top: 234px);
-    font-size: 0.9em;
-  }
-
-  #billboard-coffee > article > section.section1 {
-    @include billboard-position($top: 110px, $left: 18px, $width: 280px);
-  }
-
-  #billboard-coffee > article > section.section2 {
-    @include billboard-position($top: 20px, $left: 320px, $width: 350px);
-  }
-
-  #billboard-coffee > article > section.section1 > p {
-    position: absolute;
-    @include billboard-position($top: 110px, $left: 25px, $width: 230px);
-    color: $black;
-    text-align: justify;
-    text-align-last: center;
-    -moz-text-align-last: center;
-    -webkit-text-align-last: center;
-  }
-
-  #billboard-coffee > article > section.section1 > a.billboard-imagelink {
-    @include billboard-position($top: 30px, $left: 80px, $height: 85px, $width: 120px);
-  }
-
-  #billboard-coffee > article > section.section1 > a.billboard-textlink {
-    @include billboard-position($top: 230px);
-  }
-
-  #billboard-coffee > article > section.section2 > a.billboard-imagelink {
-    @include billboard-position($top: 45px, $left: 20px, $height: 230px, $width: 310px);
-  }
-
-  #billboard-coffee > article > section.section2 > a.billboard-textlink {
-    @include billboard-position($top: 285px);
-  }
 
   // USP teaser
   #usp {
