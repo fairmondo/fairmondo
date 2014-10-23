@@ -1,43 +1,53 @@
-- reduced = false unless local_assigns.has_key? :reduced
+.l-footer
+  / Logo
+  a#l-footer-logo href="/"
+    span.sprite_logo_small
 
-.l-footer class=('l-reduced' if reduced)
-  .l-footer-top
-    - unless reduced
-      .l-footer-logo
-        a href="/"
-          span.sprite_logo_small
-    ul.l-footer-nav
-      li.l-feedback
-        a.l-feedback-button href=new_feedback_path(variety: :get_help)
-          i.icon-help
-          = t('common.text.help')
-        a.l-feedback-button href=new_feedback_path(variety: :send_feedback)
-          i.icon-feedback
-          = t('common.text.feedback')
-        a.l-feedback-button.l-feedback-button--green href='http://mitmachen.fairmondo.de/anteile-zeichnen/' target='_blank'
-          i.icon-shares
-          = t('common.text.shares')
-      - unless reduced
-        li= link_to t('footer.faq'), '/faq', target: '_blank'
-        li= link_to t('footer.forum'), 'https://info.fairmondo.de/forum/', target: '_blank'
-        li= link_to t('footer.contact'), '/contact', target: '_blank'
-        li= link_to t('footer.about_us'), '/about_us', target: '_blank'
-        li= link_to t('footer.transparency'), 'https://transparenz.fairmondo.de/', target: '_blank'
-        li= link_to t('footer.press'), "https://info.fairmondo.de/pressekit/", target: '_blank'
-        li= link_to t('footer.team'), "https://info.fairmondo.de/team/", target: '_blank'
-        li= link_to t('footer.jobs'), "https://info.fairmondo.de/stellenausschreibungen/", target: '_blank'
-        - if User.is_admin? current_user
-          li= link_to t('users.menu.admin'), "/admin"
-          li= link_to 'Manage Pages', "/contents"
-          li= link_to 'Statistics', "/statistics/general"
-        li= link_to t('footer.pr_material'), 'http://mitmachen.fairmondo.de/materialecke/bildarchiv/', target: '_blank'
-        li= link_to t('footer.blog'), "https://info.fairmondo.de", target: '_blank'
-        li= link_to t('footer.newsletter'), "http://50856.seu1.cleverreach.com/f/50856-129361/", target: '_blank'
+  / Feedback links
+  ul#l-feedback
+    li
+      a.l-feedback-button href=new_feedback_path(variety: :get_help)
+        i.icon-help
+        = t('common.text.help')
+    li
+      a.l-feedback-button href=new_feedback_path(variety: :send_feedback)
+        i.icon-feedback
+        = t('common.text.feedback')
+    li
+      a.l-feedback-button.l-feedback-button--green href='http://mitmachen.fairmondo.de/anteile-zeichnen/' target='_blank'
+        i.icon-shares
+        = t('common.text.shares')
 
-  .l-footer-bottom
-    ul.l-footer-nav
-      li= link_to t('footer.agb'), "/agb", target: '_blank'
-      li= link_to t('footer.privacy'), "/privacy", target: '_blank'
-      li= link_to t('footer.imprint'), "/imprint", target: '_blank'
-    .l-footer-copyright
+  / Main navigation links
+  #l-footer-nav-main
+    / Fairmondo
+    ul
+      li= link_to t('footer.about_us'), '/about_us', target: '_blank'
+      li= link_to t('footer.team'), "https://info.fairmondo.de/team/", target: '_blank'
+      li= link_to t('footer.transparency'), 'https://transparenz.fairmondo.de/', target: '_blank'
+      li= link_to t('footer.jobs'), "https://info.fairmondo.de/stellenausschreibungen/", target: '_blank'
+      li= link_to t('footer.press'), "https://info.fairmondo.de/pressekit/", target: '_blank'
+      / li= link_to t('footer.pr_material'), 'http://mitmachen.fairmondo.de/materialecke/bildarchiv/', target: '_blank'
+    / Fragen
+    ul
+      li= link_to t('footer.contact'), '/contact', target: '_blank'
+      li= link_to t('footer.forum'), 'https://info.fairmondo.de/forum/', target: '_blank'
+      li= link_to t('footer.faq'), '/faq', target: '_blank'
+    / Neuigkeiten
+    ul
+      li= link_to t('footer.blog'), "https://info.fairmondo.de", target: '_blank'
+      li= link_to t('footer.newsletter'), "http://50856.seu1.cleverreach.com/f/50856-129361/", target: '_blank'
+    - if User.is_admin? current_user
+      / Admins
+      ul
+        li= link_to t('users.menu.admin'), "/admin"
+        li= link_to 'Manage Pages', "/contents"
+        li= link_to 'Statistics', "/statistics/general"
+
+  ul#l-footer-nav-legal
+    li= link_to t('footer.agb'), "/agb", target: '_blank'
+    li= link_to t('footer.privacy'), "/privacy", target: '_blank'
+    li= link_to t('footer.imprint'), "/imprint", target: '_blank'
+
+  p#l-footer-copyright
       | &copy; Copyright 2014 Fairnopoly eG
