@@ -1,0 +1,10 @@
+// Billboards mixins
+
+// Position an element absolutely.
+// If an argument is omitted, it is assumed that it is set elsewhere and left alone.
+@mixin billboard-position($top: null, $left: null, $height: null, $width: null) {
+  @if $top { top: $top; }
+  @if $left { left: $left; }
+  @if $height { height: $height; }
+  @if $width { width: $width; }
+}

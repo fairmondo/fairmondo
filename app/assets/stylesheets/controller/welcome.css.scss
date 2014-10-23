@@ -5,18 +5,14 @@
  * General teaser classes
  */
 
-.teaser {
-  margin-bottom: 1em;
-}
+.teaser { margin-bottom: 1em; }
 
 .teaser > .teaser-inner {
   @include whitebox;
   @include clearfix;
 }
 
-.teaser > .teaser-inner > h2 {
-  text-transform: uppercase;
-}
+.teaser > .teaser-inner > h2 { text-transform: uppercase; }
 
 .teaser > .teaser-inner > h5 {
   text-transform: uppercase;
@@ -36,13 +32,9 @@
 }
 
 // Article wrapper div
-.teaser > .teaser-inner > .teaser-queue {
-  margin-bottom: 1em;
-}
+.teaser > .teaser-inner > .teaser-queue { margin-bottom: 1em; }
 
-.teaser > .teaser-inner > .teaser-commendations {
-  float: right;
-}
+.teaser > .teaser-inner > .teaser-commendations { float: right; }
 
 .teaser--full {
   clear: both;
@@ -55,13 +47,9 @@
   text-overflow: ellipsis;
 }
 
-.teaser--center {
-  text-align: center;
-}
+.teaser--center { text-align: center; }
 
-.teaser--clear {
-  clear: both;
-}
+.teaser--clear { clear: both; }
 
 
 
@@ -71,25 +59,19 @@
  * General slides classes
  */
 
-.slides {
-  position: relative;
-}
+.slides { position: relative; }
 
 .slides-arrow {
   display: block;
   position: absolute;
   margin-top: -14px; //half height of the arrows
   top: 50%;
-  z-index: 100;
+  z-index: 11;
 }
 
-.slides-arrow--left {
-  left:1em;
-}
+.slides-arrow--left { left:1em; }
 
-.slides-arrow--right {
-  right:1em;
-}
+.slides-arrow--right { right:1em; }
 
 
 
@@ -103,9 +85,7 @@
 
 // Billboard
 
-#billboard {
-  margin-bottom: 1em;
-}
+#billboard { margin-bottom: 1em; }
 
 
 #billboard-inner {
@@ -169,41 +149,35 @@
 
 
 // Specific properties for different billboards
-#billboard1 > article > section > h3 {
+#billboard-discover > article > section > h3 {
   color: #f1244f;
   text-transform: uppercase;
 }
 
 
-#billboard2 > article > section > a.billboard-textlink {
+#billboard-books > article > section > a.billboard-textlink {
   display: block;
   width: 100%;
   text-align: center;
 }
 
-#billboard3 > article > section > a.billboard-textlink {
+#billboard-coffee > article > section > a.billboard-textlink {
   display: block;
   width: 100%;
   text-align: center;
   font-size: 1em;
 }
 
-#js-billboardslides {
-  display: none;
-}
+#js-billboardslides { display: none; }
 
-#billboard {
-  .slidejs-container, .slidejs-control, .slidejs-slide {
-    min-height: 410px;
-  }
+#billboard .slidejs-container, #billboard .slidejs-control, #billboard .slidejs-slide {
+  min-height: 410px;
 }
 
 
 
 // USP teaser
-#usp {
-  margin-bottom: 1em;
-}
+#usp { margin-bottom: 1em; }
 
 #usp-inner {
   @include whitebox;
@@ -225,7 +199,7 @@
 }
 
 
-#usp-inner ul {
+#usp-inner > ul {
   width: 80%;
   min-width: 185px;
   max-width: 300px;
@@ -233,50 +207,48 @@
   list-style: none;
   padding: 0;
   overflow: hidden;
+}
 
-  li {
-    font-size: 1em;
+#usp-inner > ul > li {
+  font-size: 1em;
+  float: left;
+  padding-left: 0;
+  margin-bottom: 5%;
+
+  &:before {
+    content: '\f111'; /*fontawesome char code inside the '' */
+    font: normal 2em FontAwesome;
+    margin: 0.2em 2.5% 0.5em 0;
+    display: block;
+    clear: left;
     float: left;
-    padding-left: 0;
-    margin-bottom: 5%;
-
-    &:before {
-      content: '\f111'; /*fontawesome char code inside the '' */
-      font-family: FontAwesome;
-      font-size: 2em;
-      margin: 0.2em 2.5% 0.5em 0;
-      display: block;
-      clear: left;
-      float: left;
-    }
   }
 }
 
-#usp-inner p {
-  width: 100%;
+#usp-inner > p {
   position: absolute;
   bottom: 0;
+  width: 100%;
   margin: 0 0 8%;
-
   font-size: 1.2em;
   font-weight: 600;
   text-align: center;
+}
 
-  a {
-    display: block;
-    box-sizing: border-box;
-    -moz-box-sizing: border-box;  // For Fennec
-    width: 80%;
-    min-width: 185px;
-    max-width: 300px;
-    margin: 0 auto;
+#usp-inner > p > a {
+  display: block;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;  // For Fennec
+  width: 80%;
+  min-width: 185px;
+  max-width: 300px;
+  margin: 0 auto;
 
-    background-color: $white;
-    color: $blue !important;
+  background-color: $white;
+  color: $blue !important;
 
-    &:hover, &:focus, &:active {
-      color: lighten($blue, 10%) !important;
-    }
+  &:hover, &:focus, &:active {
+    color: lighten($blue, 10%) !important;
   }
 }
 
@@ -301,10 +273,10 @@
   }
 
   .teaser-quote {
-	font-weight: 600;
-	font-size: 1.5em;
-	line-height: 0.8rem;
-   }
+    font-weight: 600;
+    font-size: 1.5em;
+    line-height: 0.8rem;
+  }
 
   img {
     float: left;
@@ -313,7 +285,7 @@
   }
 
   .slidesjs-container,.slidesjs-control {
-     height: auto !important;
+    height: auto !important;
   }
 }
 
@@ -358,15 +330,12 @@
 
 
 // Others
-#ngos {
-  img {
-    height:6em;
-    width: 6em;
-    margin-left: 1em;
-    border-radius: 0.9em;
-  }
+#ngos img {
+  height:6em;
+  width: 6em;
+  margin-left: 1em;
+  border-radius: 0.9em;
 }
-
 
 
 
@@ -377,12 +346,8 @@
 
 // mobile-horizontal
 @include till-breakpoint($bp-mobile-horizontal) {
-  #used {
-    .teaser-queue {
-      &:last-child {
-        display: none;
-      }
-    }
+  #used .teaser-queue:last-child {
+    display: none;
   }
 }
 
@@ -400,27 +365,23 @@
 
 
 @include between-breakpoints($bp-mobile-horizontal, $bp-tablet-horizontal) {
-  #filters {
-    .teaser-queue {
-      @include span(2 of 4);
-      &:last-child {
-        display: none;
-      }
-      &.teaser-queue-before-hidden {
-        @include omega;
-      }
+  #filters .teaser-queue {
+    @include span(2 of 4);
+    &:last-child {
+      display: none;
+    }
+    &.teaser-queue-before-hidden {
+      @include omega;
     }
   }
 }
 
 
 @include at-breakpoint($bp-mobile-horizontal) {
-  .teaser--double {
-    .teaser-queue {
-      @include span(2 of 4);
-      &:last-child {
-        @include omega;
-      }
+  .teaser--double .teaser-queue {
+    @include span(2 of 4);
+    &:last-child {
+      @include omega;
     }
   }
 }
@@ -439,113 +400,112 @@
   }
 
   // Billboard background images
-  #billboard1 {
+  #billboard-discover {
     background-image: image-url('welcome/billboard_discover_small.jpg');
   }
-  #billboard2 {
+  #billboard-books {
     background-image: image-url('welcome/billboard_books_small.jpg');
   }
-  #billboard3 {
+  #billboard-coffee {
     background-image: image-url('welcome/billboard_coffee_small.jpg');
   }
 
   // Billboard h2s
-  #billboard1 > article > h2 {
+  #billboard-discover > article > h2 {
     display: none;
   }
 
-  #billboard2 > article > h2 {
-    top: 14px;
-    left: 2px;
+  #billboard-books > article > h2 {
+    @include billboard-position($top: 14px, $left: 2px);
   }
 
-  #billboard3 > article > h2 {
-    top: 14px;
-    left: 13px;
+  #billboard-coffee > article > h2 {
+    @include billboard-position($top: 14px, $left: 13px);
   }
 
   // Billboard sections
-  #billboard1 > article > section {
-    left: 0;
-    right: 0;
+  #billboard-discover > article > section {
+    @include billboard-position($left: 0, $width: 210px);
   }
 
-  #billboard1 > article > section.section1 {
-    top: 0;
+  #billboard-discover > article > section.section1 {
+    @include billboard-position($top: 0);
   }
 
-  #billboard1 > article > section.section2 {
-    top: 145px;
+  #billboard-discover > article > section.section2 {
+    @include billboard-position($top: 145px);
   }
 
-  #billboard1 > article > section.section3 {
-    top: 273px;
+  #billboard-discover > article > section.section3 {
+    @include billboard-position($top: 273px);
   }
 
-  #billboard1 > article > section > h3 {
+  #billboard-discover > article > section > h3 {
     display: none;
   }
 
-  #billboard1 > article > section > a.billboard-imagelink {
-    left: 40px;
-    right: 40px;
-    height: 90px;
+  #billboard-discover > article > section > a.billboard-imagelink {
+    @include billboard-position($left: 40px, $height: 90px, $width: 130px);
   }
 
-  #billboard1 > article > section > a.billboard-textlink {
+  #billboard-discover > article > section > a.billboard-textlink {
+    @include billboard-position($top: 95px, $width: 100%);
     display: block;
-    top: 95px;
-    width: 100%;
     text-align: center;
   }
 
-  #billboard2 > article > section {
-    top: 130px;
-    width: 91px;
+  #billboard-books > article > section {
+    @include billboard-position($top: 130px, $width: 91px);
   }
 
-  #billboard2 > article > section.section1 { left: 6px; }
+  #billboard-books > article > section.section1 {
+    @include billboard-position($left: 6px);
+  }
 
-  #billboard2 > article > section.section2 { left: 114px; }
+  #billboard-books > article > section.section2 {
+    @include billboard-position($left: 114px);
+  }
 
-  #billboard2 > article > section.section3 { display: none; }
+  #billboard-books > article > section.section3 {
+    display: none;
+  }
 
-  #billboard2 > article > section.section4 { display: none; }
+  #billboard-books > article > section.section4 {
+    display: none;
+  }
 
-  #billboard2 > article > section > h3 {
+  #billboard-books > article > section > h3 {
     font-size: 1em;
   }
 
-  #billboard2 > article > section > a.billboard-imagelink {
-    top: 38px;
-    width: 89px;
-    height: 142px;
+  #billboard-books > article > section > a.billboard-imagelink {
+    @include billboard-position($top: 38px, $height: 142px, $width: 89px);
   }
 
-  #billboard2 > article > section > a.billboard-textlink {
-    top: 199px;
+  #billboard-books > article > section > a.billboard-textlink {
+    @include billboard-position($top: 199px);
     font-size: 0.8em;
   }
 
-  #billboard3 > article > section {
-    left: 15px;
-    right: 10px;
+  #billboard-coffee > article > section {
+    @include billboard-position($left: 15px, $width: 185px);
   }
 
-  #billboard3 > article > section.section1 { display: none; }
-
-  #billboard3 > article > section.section2 { top: 125px; }
-
-
-  #billboard3 > article > section > a.billboard-imagelink {
-    top: 10px;
-    left: 10px;
-    right: 10px;
-    height: 155px;
+  #billboard-coffee > article > section.section1 {
+    display: none;
   }
 
-  #billboard3 > article > section > a.billboard-textlink {
-    top: 200px;
+  #billboard-coffee > article > section.section2 {
+    @include billboard-position($top: 125px);
+  }
+
+
+  #billboard-coffee > article > section > a.billboard-imagelink {
+    @include billboard-position($top: 10px, $left: 10px, $height: 155px, $width: 190px);
+  }
+
+  #billboard-coffee > article > section > a.billboard-textlink {
+    @include billboard-position($top: 200px);
     font-size: 0.8em;
   }
 }
@@ -582,160 +542,160 @@
   }
 
   // Billboard background images
-  #billboard1 {
+  #billboard-discover {
     background-image: image-url('welcome/billboard_discover_medium.jpg');
   }
-  #billboard2 {
+  #billboard-books {
     background-image: image-url('welcome/billboard_books_medium.jpg');
   }
-  #billboard3 {
+  #billboard-coffee {
     background-image: image-url('welcome/billboard_coffee_medium.jpg');
   }
 
   // Billboard h2s
-  #billboard1 > article > h2 {
-    top: 14px;
-    left: 20px;
+  #billboard-discover > article > h2 {
+    @include billboard-position($top: 14px, $left: 20px);
   }
 
-  #billboard2 > article > h2 {
-    top: 14px;
-    left: 33px;
+  #billboard-books > article > h2 {
+    @include billboard-position($top: 14px, $left: 33px);
   }
 
-  #billboard3 > article > h2 {
-    top: 14px;
-    left: 55px;
+  #billboard-coffee > article > h2 {
+    @include billboard-position($top: 14px, $left: 55px);
   }
 
   // Billboard sections
-  #billboard1 > article > section {
-    left: 20px;
-    right: 20px;
+  #billboard-discover > article > section {
+    @include billboard-position($left: 20px, $width: 410px);
   }
 
-  #billboard1 > article > section.section1 { top: 80px; }
-
-  #billboard1 > article > section.section2 { top: 180px; }
-
-  #billboard1 > article > section.section3 { top: 280px; }
-
-  #billboard1 > article > section.section1 > a.billboard-imagelink {
-    left: 240px;
-    right: 0px;
-    height: 90px;
+  #billboard-discover > article > section.section1 {
+    @include billboard-position($top: 80px);
   }
 
-  #billboard1 > article > section.section1 > a.billboard-textlink {
-    top: 20px;
+  #billboard-discover > article > section.section2 {
+    @include billboard-position($top: 180px);
   }
 
-  #billboard1 > article > section.section2 > h3 {
-    top: 20px;
-    left: 258px;
+  #billboard-discover > article > section.section3 {
+    @include billboard-position($top: 280px);
   }
 
-  #billboard1 > article > section.section2 > a.billboard-imagelink {
-    left: 30px;
-    right: 240px;
-    height: 120px;
+  #billboard-discover > article > section.section1 > a.billboard-imagelink {
+    @include billboard-position($left: 240px, $height: 90px, $width: 210px);
   }
 
-  #billboard1 > article > section.section2 > a.billboard-textlink {
-    top: 40px;
-    left: 258px;
+  #billboard-discover > article > section.section1 > a.billboard-textlink {
+    @include billboard-position($top: 20px);
   }
 
-  #billboard1 > article > section.section3 > h3 {
-    top: 65px;
+  #billboard-discover > article > section.section2 > h3 {
+    @include billboard-position($top: 20px, $left: 258px);
   }
 
-  #billboard1 > article > section.section3 > a.billboard-imagelink {
-    left: 220px;
-    right: 10px;
-    height: 110px;
+  #billboard-discover > article > section.section2 > a.billboard-imagelink {
+    @include billboard-position($left: 30px, $height: 120px, $width: 180px);
   }
 
-  #billboard1 > article > section.section3 > a.billboard-textlink {
-    top: 85px;
+  #billboard-discover > article > section.section2 > a.billboard-textlink {
+    @include billboard-position($top: 40px, $left: 258px);
+  }
+
+  #billboard-discover > article > section.section3 > h3 {
+    @include billboard-position($top: 65px);
+  }
+
+  #billboard-discover > article > section.section3 > a.billboard-imagelink {
+    @include billboard-position($left: 220px, $height: 110px, $width: 220px);
+  }
+
+  #billboard-discover > article > section.section3 > a.billboard-textlink {
+    @include billboard-position($top: 85px);
   }
 
 
-  #billboard2 > article > section {
-    top: 110px;
-    width: 113px;
+  #billboard-books > article > section {
+    @include billboard-position($top: 110px, $width: 113px);
   }
 
-  #billboard2 > article > section.section1 { left: 36px; }
-
-  #billboard2 > article > section.section2 { left: 170px; }
-
-  #billboard2 > article > section.section3 { left: 302px; }
-
-  #billboard2 > article > section.section4 { display: none; }
-
-  #billboard2 > article > section > a.billboard-imagelink {
-    top: 48px;
-    width: 112px;
-    height: 178px;
+  #billboard-books > article > section.section1 {
+    @include billboard-position($left: 36px);
   }
 
-  #billboard2 > article > section > a.billboard-textlink {
-    top: 235px;
+  #billboard-books > article > section.section2 {
+    @include billboard-position($left: 170px);
+  }
+
+  #billboard-books > article > section.section3 {
+    @include billboard-position($left: 302px);
+  }
+
+  #billboard-books > article > section.section4 {
+    display: none;
+  }
+
+  #billboard-books > article > section > a.billboard-imagelink {
+    @include billboard-position($top: 48px, $height: 178px, $width: 112px);
+  }
+
+  #billboard-books > article > section > a.billboard-textlink {
+    @include billboard-position($top: 235px);
     font-size: 0.9em;
   }
 
-  #billboard3 > article > section {
-    left: 55px;
-    right: 50px;
+  #billboard-coffee > article > section {
+    @include billboard-position($left: 55px, $width: 345px);
   }
 
-  #billboard3 > article > section.section1 { display: none; }
-
-  #billboard3 > article > section.section2 { top: 50px; }
-
-  #billboard3 > article > section > a.billboard-imagelink {
-    top: 45px;
-    left: 20px;
-    right: 20px;
-    height: 230px;
+  #billboard-coffee > article > section.section1 {
+    display: none;
   }
 
-  #billboard3 > article > section > a.billboard-textlink {
-    top: 290px;
+  #billboard-coffee > article > section.section2 {
+    @include billboard-position($top: 50px);
   }
 
+  #billboard-coffee > article > section > a.billboard-imagelink {
+    @include billboard-position($top: 45px, $left: 20px, $height: 230px, $width: 305px);
+  }
+
+  #billboard-coffee > article > section > a.billboard-textlink {
+    @include billboard-position($top: 290px);
+  }
+
+
+  // USP teaser
   #usp {
     @include span(2 of 6);
     @include omega;
   }
 
+
+  // Used teaser
   #used {
     @include span(2 of 6);
     @include omega;
-    .teaser-queue {
-      @include span(2 of 2);
+  }
 
-      &:first-child {
-        @include omega;
-      }
-      &:last-child {
-        display: none;
-      }
+  #used .teaser-queue {
+    @include span(2 of 2);
+
+    &:first-child {
+      @include omega;
+    }
+    &:last-child {
+      display: none;
     }
   }
 
   // Remove one article from a teaser for layout reasons
-  .teaser--reducible {
-    .teaser-queue {
-      &:first-child {
-        @include omega;
-      }
+  .teaser--reducible .teaser-queue {
+    &:first-child {
+      @include omega;
     }
-    .teaser-queue {
-      &:last-child {
-        display: none;
-      }
+    &:last-child {
+      display: none;
     }
   }
 }
@@ -766,135 +726,121 @@
   }
 
   // Billboard background images
-  #billboard1 {
+  #billboard-discover {
     background-image: image-url('welcome/billboard_discover_big.jpg');
   }
-  #billboard2 {
+  #billboard-books {
     background-image: image-url('welcome/billboard_books_big.jpg');
   }
-  #billboard3 {
+  #billboard-coffee {
     background-image: image-url('welcome/billboard_coffee_big.jpg');
   }
 
   // Billboard h2s
-  #billboard1 > article > h2 {
-    top: 14px;
-    left: 0px;
-    width: 220px;
+  #billboard-discover > article > h2 {
+    @include billboard-position($top: 14px, $left: 0, $width: 220px);
     text-align: right;
   }
 
-  #billboard2 > article > h2 {
-    top: 14px;
-    left: 20px;
+  #billboard-books > article > h2 {
+    @include billboard-position($top: 14px, $left: 20px);
   }
 
-  #billboard3 > article > h2 {
-    top: 14px;
-    left: 30px;
+  #billboard-coffee > article > h2 {
+    @include billboard-position($top: 14px, $left: 30px);
   }
 
 
 // Billboard sections
-  #billboard1 > article > section {
-    left: 240px;
-    right: 20px;
+  #billboard-discover > article > section {
+    @include billboard-position($left: 240px, $width: 440px);
   }
 
-  #billboard1 > article > section.section1 {
-    top: 30px;
+  #billboard-discover > article > section.section1 {
+    @include billboard-position($top: 30px);
   }
 
-  #billboard1 > article > section.section2 {
-    top: 150px;
+  #billboard-discover > article > section.section2 {
+    @include billboard-position($top: 150px);
   }
 
-  #billboard1 > article > section.section3 {
-    top: 280px;
+  #billboard-discover > article > section.section3 {
+    @include billboard-position($top: 280px);
   }
 
-  #billboard1 > article > section.section1 > a.billboard-imagelink {
-    left: 240px;
-    right: 0px;
-    height: 100px;
+  #billboard-discover > article > section.section1 > a.billboard-imagelink {
+    @include billboard-position($left: 240px, $height: 100px, $width: 200px);
   }
 
-  #billboard1 > article > section.section1 > a.billboard-textlink {
-    top: 20px;
+  #billboard-discover > article > section.section1 > a.billboard-textlink {
+    @include billboard-position($top: 20px);
   }
 
-  #billboard1 > article > section.section2 > h3 {
-    top: 35px;
-    left: 230px;
+  #billboard-discover > article > section.section2 > h3 {
+    @include billboard-position($top: 35px, $left: 230px);
   }
 
-  #billboard1 > article > section.section2 > a.billboard-imagelink {
-    left: 20px;
-    right: 240px;
-    height: 150px;
+  #billboard-discover > article > section.section2 > a.billboard-imagelink {
+    @include billboard-position($left: 20px, $height: 150px, $width: 180px);
    }
 
-  #billboard1 > article > section.section2 > a.billboard-textlink {
-    top: 55px;
-    left: 230px;
+  #billboard-discover > article > section.section2 > a.billboard-textlink {
+    @include billboard-position($top: 55px, $left: 230px);
   }
 
-  #billboard1 > article > section.section3 > h3 {
-    top: 65px;
+  #billboard-discover > article > section.section3 > h3 {
+    @include billboard-position($top: 65px);
   }
 
-  #billboard1 > article > section.section3 > a.billboard-imagelink {
-    left: 230px;
-    right: 0;
-    height: 110px;
+  #billboard-discover > article > section.section3 > a.billboard-imagelink {
+    @include billboard-position($left: 230px, $height: 110px, $width: 210px);
   }
 
-  #billboard1 > article > section.section3 > a.billboard-textlink {
-    top: 85px;
+  #billboard-discover > article > section.section3 > a.billboard-textlink {
+    @include billboard-position($top: 85px);
   }
 
 
-  #billboard2 > article > section {
-    top: 125px;
-    width: 113px;
+  #billboard-books > article > section {
+    @include billboard-position($top: 125px, $width: 113px);
   }
 
-  #billboard2 > article > section.section1 { left: 114px; }
-
-  #billboard2 > article > section.section2 { left: 268px; }
-
-  #billboard2 > article > section.section3 { left: 421px; }
-
-  #billboard2 > article > section.section4 { left: 574px; }
-
-  #billboard2 > article > section > a.billboard-imagelink {
-    top: 47px;
-    width: 112px;
-    height: 178px;
+  #billboard-books > article > section.section1 {
+    @include billboard-position($left: 114px);
   }
 
-  #billboard2 > article > section > a.billboard-textlink {
-    top: 234px;
+  #billboard-books > article > section.section2 {
+    @include billboard-position($left: 268px);
+  }
+
+  #billboard-books > article > section.section3 {
+    @include billboard-position($left: 421px);
+  }
+
+  #billboard-books > article > section.section4 {
+    @include billboard-position($left: 574px);
+  }
+
+  #billboard-books > article > section > a.billboard-imagelink {
+    @include billboard-position($top: 47px, $height: 178px, $width: 112px);
+  }
+
+  #billboard-books > article > section > a.billboard-textlink {
+    @include billboard-position($top: 234px);
     font-size: 0.9em;
   }
 
-  #billboard3 > article > section.section1 {
-    top: 110px;
-    left: 18px;
-    width: 280px;
+  #billboard-coffee > article > section.section1 {
+    @include billboard-position($top: 110px, $left: 18px, $width: 280px);
   }
 
-  #billboard3 > article > section.section2 {
-    top: 20px;
-    left: 320px;
-    width: 350px;
+  #billboard-coffee > article > section.section2 {
+    @include billboard-position($top: 20px, $left: 320px, $width: 350px);
   }
 
-  #billboard3 > article > section.section1 > p {
+  #billboard-coffee > article > section.section1 > p {
     position: absolute;
-    top: 110px;
-    left: 25px;
-    right: 25px;
+    @include billboard-position($top: 110px, $left: 25px, $width: 230px);
     color: $black;
     text-align: justify;
     text-align-last: center;
@@ -902,59 +848,58 @@
     -webkit-text-align-last: center;
   }
 
-  #billboard3 > article > section.section1 > a.billboard-imagelink {
-    top: 30px;
-    left: 80px;
-    right: 80px;
-    height: 85px;
+  #billboard-coffee > article > section.section1 > a.billboard-imagelink {
+    @include billboard-position($top: 30px, $left: 80px, $height: 85px, $width: 120px);
   }
 
-  #billboard3 > article > section.section1 > a.billboard-textlink {
-    top: 230px;
+  #billboard-coffee > article > section.section1 > a.billboard-textlink {
+    @include billboard-position($top: 230px);
   }
 
-  #billboard3 > article > section.section2 > a.billboard-imagelink {
-    top: 45px;
-    left: 20px;
-    right: 20px;
-    height: 230px;
+  #billboard-coffee > article > section.section2 > a.billboard-imagelink {
+    @include billboard-position($top: 45px, $left: 20px, $height: 230px, $width: 310px);
   }
 
-  #billboard3 > article > section.section2 > a.billboard-textlink {
-    top: 285px;
+  #billboard-coffee > article > section.section2 > a.billboard-textlink {
+    @include billboard-position($top: 285px);
   }
 
-
+  // USP teaser
   #usp {
     @include span(2 of 8);
     @include omega;
   }
 
+  // Filters teaser
   #filters {
     @include span(6 of 8);
-    .teaser-queue {
-      @include span(2 of 6);
-      &:last-child {
-        @include omega;
-      }
+  }
+
+  #filters .teaser-queue {
+    @include span(2 of 6);
+    &:last-child {
+      @include omega;
     }
   }
 
+  // Used teaser
   #used {
     @include span(2 of 8);
     @include omega;
-    .teaser-queue {
-      @include span(2 of 2);
+  }
 
-      &:first-child {
-        @include omega;
-      }
-      &:last-child {
-        display: none;
-      }
+  #used .teaser-queue {
+    @include span(2 of 2);
+
+    &:first-child {
+      @include omega;
+    }
+    &:last-child {
+      display: none;
     }
   }
 
+  // Blog
   #news {
     @include omega;
   }
