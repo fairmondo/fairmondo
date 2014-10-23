@@ -166,4 +166,4 @@
       = render 'feedbacks/varieties/report', feedback: Feedback.new
 
   - # Comment Area
-  = render "comments/commentable_comments", commentable: resource
+  = render "comments/commentable_comments", commentable: resource, comments: resource.seller.is_a?(LegalEntity) ? resource.comments.legal_entity_publishable : resource.comments

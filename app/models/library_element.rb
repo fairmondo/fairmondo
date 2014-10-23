@@ -34,7 +34,7 @@ class LibraryElement < ActiveRecord::Base
   belongs_to :library, counter_cache: true
   has_one :user, through: :library
 
-
+  scope :active, -> { where.not(inactive: true) }
   # Scopes
   default_scope -> { order(created_at: :asc) }
 end

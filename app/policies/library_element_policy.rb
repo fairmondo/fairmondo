@@ -22,7 +22,7 @@
 class LibraryElementPolicy < Struct.new(:user, :library_element)
 
   def show?
-    own? || active?
+    own? && active?
   end
 
   def create?
