@@ -1,0 +1,1 @@
+HTTPI.logger = Rails.logger

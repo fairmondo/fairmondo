@@ -273,9 +273,15 @@ feature 'Checkout' do
 
     click_button I18n.t('common.actions.continue')
     totals = page.all('.Payment-value--total')
-    #binding.pry
-    totals.first.must_have_content(articles[0..2].map(&:price).sum + unified_seller.unified_transport_price + articles[2].transport_type1_price)
-    totals.last.must_have_content(articles[3..4].map(&:price).sum + articles[3..4].map(&:transport_type1_price).sum)
+
+    totals_expected =
+      [articles[0..2].map(&:price).sum + unified_seller.unified_transport_price + articles[2].transport_type1_price,
+      articles[3..4].map(&:price).sum + articles[3..4].map(&:transport_type1_price).sum].map{|t| t.format_with_settings(symbol_position: :after)}.sort
+
+    totals.map(&:text).sort.each_with_index do |total, i|
+      total.must_equal totals_expected[i]
+    end
+
 
     # checkout
 
@@ -433,5 +439,3 @@ feature 'Checkout' do
   end
 
 end
-
-
