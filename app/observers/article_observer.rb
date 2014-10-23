@@ -57,7 +57,7 @@ class ArticleObserver < ActiveRecord::Observer
 
   def after_close(article, transition)
     article.remove_from_libraries
-    article.cleanup_images
+    article.cleanup_images unless article.business_transactions.any?
   end
 
   def after_create article
