@@ -82,7 +82,7 @@ class Article < ActiveRecord::Base
   include Tire::Model::Search
 
   settings Indexer.settings do
-    mapping do
+    mapping :_source => { :excludes => ['content'] } do
       indexes :id,           :index => :not_analyzed
       indexes :title,  type: 'multi_field'  , :fields => {
          :search => { type: 'string', analyzer: "decomp_stem_analyzer"},
