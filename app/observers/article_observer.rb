@@ -53,6 +53,7 @@ class ArticleObserver < ActiveRecord::Observer
   # without validation when you implement it in article/state.rb
 
   def after_deactivate(article, transition)
+    article.library_elements.update_all(inactive: true)
   end
 
   def after_close(article, transition)
@@ -72,7 +73,7 @@ class ArticleObserver < ActiveRecord::Observer
         comment.update_column :commentable_id, article.id
       end
 
-      original_article.library_elements.update_all(article_id: article.id)
+      original_article.library_elements.update_all(article_id: article.id, inactive:false)
 
       #do not remove sold articles, we want to keep them
       #if the old article has errors we still want to remove it from the marketplace

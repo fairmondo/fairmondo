@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141015125438) do
+ActiveRecord::Schema.define(version: 20141023135723) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -328,9 +328,10 @@ ActiveRecord::Schema.define(version: 20141015125438) do
   create_table "library_elements", force: true do |t|
     t.integer  "article_id",      limit: 8
     t.integer  "library_id",      limit: 8
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.datetime "created_at",                                null: false
+    t.datetime "updated_at",                                null: false
     t.datetime "exhibition_date"
+    t.boolean  "inactive",                  default: false
   end
 
   add_index "library_elements", ["article_id"], name: "index_library_elements_on_article_id", using: :btree

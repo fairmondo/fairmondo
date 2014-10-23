@@ -223,15 +223,5 @@ class Article < ActiveRecord::Base
   end
 
 
-  # overwrite has_many(:comments) getter to only return publishable comments for LegalEntities
-  def comments_with_publishable_mod
-    if seller.is_a? LegalEntity
-      comments_without_publishable_mod.legal_entity_publishable
-    else
-      comments_without_publishable_mod
-    end
-  end
-  alias :comments_without_publishable_mod :comments
-  alias :comments :comments_with_publishable_mod
 
 end

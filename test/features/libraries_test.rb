@@ -175,7 +175,7 @@ feature 'Library management' do
     login_as seller
     visit article_path article
     click_button I18n.t('article.labels.deactivate')
-
+    logout(:user)
     login_as buyer
     visit library_path library
 
