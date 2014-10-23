@@ -131,6 +131,10 @@ group :development do
   # Quiet Assets to disable asset pipeline in log
   gem 'quiet_assets'
 
+  # er diagramm generation
+  gem "rails-erd"
+  gem 'thin' # Replace Webrick
+
 end
 
 group :test do
@@ -175,14 +179,10 @@ group :development, :test do
   # Mutation Coverage
   # gem 'mutant-rails' ... check back to see if they got it working: https://github.com/mockdeep/mutant-rails
 
-  # er diagramm generation
-  gem "rails-erd"
-
   # test suite additions
   gem "rails_best_practices"
   gem 'brakeman'  # security test: execute with 'brakeman'
 
-  gem 'thin' # Replace Webrick
   gem 'bullet' # Notify about n+1 queries
 end
 
