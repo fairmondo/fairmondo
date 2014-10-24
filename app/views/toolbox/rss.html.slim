@@ -1,12 +1,12 @@
 -if @items
   h2 Fairmondo schreibt
   - @items.each do |item|
-    .teaser-rss
+    .blog-article-summary
       = rss_image_extractor item.description
       p
         b
           = item.title
-        = " - "
+        = " – "
         = truncate(Sanitize.clean(item.description), length: 150, separator: " ")
         = link_to "(mehr lesen)", item.link, target: '_blank'
   = link_to "Zu unserem Blog", "http://info.fairmondo.de/", target: '_blank'

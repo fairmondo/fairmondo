@@ -1,4 +1,335 @@
 @import "mixins/all";
+@import "billboards/billboard-discover";
+@import "billboards/billboard-books";
+@import "billboards/billboard-coffee";
+
+
+/*
+ * General teaser classes
+ */
+
+.teaser { margin-bottom: 1em; }
+
+.teaser > .teaser-inner {
+  @include whitebox;
+  @include clearfix;
+}
+
+.teaser > .teaser-inner > h2 { text-transform: uppercase; }
+
+.teaser > .teaser-inner > h5 {
+  text-transform: uppercase;
+  margin-top: 0;
+}
+
+.teaser > .teaser-inner > .more {
+  clear: both;
+  text-align: right;
+  padding-right: 1em;
+}
+
+// List for press and ngo images
+.teaser > .teaser-inner > ul.image-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.teaser > .teaser-inner > ul.image-list > li {
+  display: inline-block;
+  margin: 0 1em;
+}
+
+// Article wrapper div
+.teaser > .teaser-inner > .teaser-queue { margin-bottom: 1em; }
+
+.teaser > .teaser-inner > .teaser-commendations { float: right; }
+
+.teaser--full {
+  clear: both;
+  width: 100%;
+}
+
+.teaser--hearted_libraries > .teaser-inner > h2 {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.teaser--center { text-align: center; }
+
+.teaser--clear { clear: both; }
+
+
+
+/*
+ * General slides classes
+ */
+
+.slides { position: relative; }
+
+.slides-arrow {
+  display: block;
+  position: absolute;
+  margin-top: -14px; //half height of the arrows
+  top: 50%;
+  z-index: 11;
+}
+
+.slides-arrow--left { left:1em; }
+
+.slides-arrow--right { right:1em; }
+
+
+
+/*
+ * Specific stuff
+ * Ordered after appearance on page
+ */
+
+
+// Billboards
+// (Specific properties for different billboards
+// are defined in the respective SASS partials.)
+
+#billboard { margin-bottom: 1em; }
+
+#billboard-inner {
+  @include whitebox;
+  padding: 0;
+  width: auto;
+  height: 410px;
+  min-height: 410px;
+  position: relative;
+  overflow: hidden;
+  color: $white;
+}
+
+.billboard {
+  background-repeat: no-repeat;
+  background-position: center top;
+  position: relative;
+  border-radius: 0.5em;  // Circumvent bug in Webkit browsers that would hide the rounded border from #billboard-inner
+  height: 410px;
+}
+
+.billboard > article {
+  position: relative;
+  margin: 0 auto;
+}
+
+.billboard > article > h2, .billboard > article > section, .billboard > article > section > h3, .billboard > article > section > a {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.billboard > article > h2 {
+  margin: 0;
+  z-index: 10;
+  text-align: left;
+  text-shadow: 1px 1px $dark-gray;
+  font-weight: 400;
+}
+
+.billboard > article > section > h3 {
+  margin: 0;
+  font-weight: 400;
+  font-size: 1.2em;
+  text-align: left;
+  color: $white;
+}
+
+.billboard > article > section > a.billboard-imagelink {
+  display: block;
+  text-indent: -1000em;
+}
+
+.billboard > article > section > a.billboard-textlink {
+  text-decoration: underline;
+  font-size: 0.9em;
+}
+
+#js-billboardslides { display: none; }
+
+#billboard .slidejs-container, #billboard .slidejs-control, #billboard .slidejs-slide {
+  min-height: 410px;
+}
+
+
+// USP teaser
+#usp { margin-bottom: 1em; }
+
+#usp-inner {
+  @include whitebox;
+  background: $blue;
+  padding: 0;
+  height: 410px;
+  position: relative;
+  color: $white;
+}
+
+
+#usp-inner h2 {
+  width: 80%;
+  min-width: 185px;
+  max-width: 300px;
+  margin: 8% auto;
+  font-size: 1.5em;
+  font-weight: 700;
+}
+
+
+#usp-inner > ul {
+  width: 80%;
+  min-width: 185px;
+  max-width: 300px;
+  margin: 10% auto 0;
+  list-style: none;
+  padding: 0;
+  overflow: hidden;
+}
+
+#usp-inner > ul > li {
+  font-size: 1em;
+  float: left;
+  padding-left: 0;
+  margin-bottom: 5%;
+
+  &:before {
+    content: '\f111'; /*fontawesome char code inside the '' */
+    font: normal 2em FontAwesome;
+    margin: 0.2em 2.5% 0.5em 0;
+    display: block;
+    clear: left;
+    float: left;
+  }
+}
+
+#usp-inner > ul > li > a {
+  color: $white !important;
+  text-decoration: underline !important;
+
+  &:hover, &:focus, &:active {
+    color: darken($white, 20%) !important;
+  }
+}
+
+#usp-inner > p {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  margin: 0 0 8%;
+  font-size: 1.2em;
+  font-weight: 600;
+  text-align: center;
+}
+
+#usp-inner > p > a {
+  display: block;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;  // For Fennec
+  width: 80%;
+  min-width: 185px;
+  max-width: 300px;
+  margin: 0 auto;
+
+  background-color: $white;
+  color: $blue !important;
+
+  &:hover, &:focus, &:active {
+    color: lighten($blue, 10%) !important;
+  }
+}
+
+
+// User quotes slides
+#userslides {
+  .teaser-inner {
+    padding: 1em 4em;
+  }
+
+  .teaser-quotation {
+    margin:0;
+		font-weight: 600;
+		font-style: italic;
+		font-size: 1.1rem;
+  }
+
+  .teaser-quotesource {
+  	text-align: right;
+    text-transform: uppercase;
+  }
+
+  .teaser-quote {
+    font-weight: 600;
+    font-size: 1.5em;
+    line-height: 0.8rem;
+  }
+
+  img {
+    float: left;
+    margin-right: 1em;
+    border-radius: 0.5em;
+  }
+
+  .slidesjs-container,.slidesjs-control {
+    height: auto !important;
+  }
+}
+
+
+// Card slides
+#cardslides > .teaser-inner > #js-cardslides {
+  margin-left:auto;
+  margin-right:auto;
+  max-width: 28.15em;
+}
+
+
+// Blog
+#news > .teaser-inner > .blog-article-summary {
+  @include clearfix;
+
+  p {
+    margin: 0 0 0.5em 0;
+  }
+
+  img {
+    float:left;
+    border-radius: 0.9em;
+    width: 4em;
+    margin-right: 1em;
+    margin-bottom: 1em;
+
+  }
+
+  &:nth-child(2n+1) > img {
+    margin-left: 1em;
+    margin-right: 0em;
+    float: right;
+  }
+}
+
+#news > .teaser--hide {
+  border: none;
+  box-shadow: none;
+}
+
+#coop > .teaser-inner {
+  background-color: #5F9537;
+  color: $white;
+}
+
+
+// Others
+#ngos img {
+  height:6em;
+  width: 6em;
+  margin-left: 1em;
+  border-radius: 0.9em;
+}
+
 
 
 /*
@@ -8,12 +339,8 @@
 
 // mobile-horizontal
 @include till-breakpoint($bp-mobile-horizontal) {
-  #teaser--old {
-    .teaser-queue {
-      &:last-of-type {
-        display: none;
-      }
-    }
+  #used .teaser-queue:last-of-type {
+    display: none;
   }
 }
 
@@ -23,7 +350,7 @@
     @include span(2 of 4);
   }
 
-  #uspteaser {
+  #usp {
     @include span(2 of 4);
     @include omega;
   }
@@ -31,32 +358,43 @@
 
 
 @include between-breakpoints($bp-mobile-horizontal, $bp-tablet-horizontal) {
-  #teaser--filters {
-    .teaser-queue {
-      @include span(2 of 4);
-      &:last-of-type {
-        display: none;
-      }
-      &.teaser-queue-before-hidden {
-        @include omega;
-      }
+  #filters .teaser-queue {
+    @include span(2 of 4);
+    &:last-of-type {
+      display: none;
+    }
+    &.teaser-queue-before-hidden {
+      @include omega;
     }
   }
 }
+
 
 
 @include at-breakpoint($bp-mobile-horizontal) {
-  .teaser--double {
-    .teaser-queue {
-      @include span(2 of 4);
-      &:last-of-type {
-        @include omega;
-      }
+  .teaser--double .teaser-queue {
+    @include span(2 of 4);
+    &:last-of-type {
+      @include omega;
     }
   }
 }
 
+
+
 // tablet
+@include till-breakpoint($bp-tablet) {
+  // Billboard general properties
+  .billboard > article {
+    width: 210px;
+  }
+
+  .billboard > article > h2 {
+    font-size: 2em;
+  }
+}
+
+
 @include between-breakpoints($bp-tablet, $bp-tablet-horizontal) {
   .teaser--double {
     @include span(4 of 6);
@@ -74,41 +412,52 @@
     }
   }
 
+  // Billboard general properties
   #billboard {
     @include span(4 of 6);
   }
 
-  #uspteaser {
+  .billboard > article {
+    width: 450px;
+  }
+
+  .billboard > article > h2 {
+    font-size: 2.5em;
+  }
+
+
+  // USP teaser
+  #usp {
     @include span(2 of 6);
     @include omega;
   }
 
-  #teaser--old {
+
+  // Used teaser
+  #used {
     @include span(2 of 6);
     @include omega;
-    .teaser-queue {
-      @include span(2 of 2);
+  }
 
-      &:first-child {
-        @include omega;
-      }
-      &:last-of-type {
-        display: none;
-      }
+  #used .teaser-queue {
+    @include span(2 of 2);
+
+    &:first-child {
+      @include omega;
+    }
+    &:last-of-type {
+      display: none;
     }
   }
+
 
   // Remove one article from a teaser for layout reasons
-  .teaser--reducible {
-    .teaser-queue {
-      &:first-child {
-        @include omega;
-      }
+  .teaser--reducible .teaser-queue {
+    &:first-child {
+      @include omega;
     }
-    .teaser-queue {
-      &:last-child {
-        display: none;
-      }
+    &:last-child {
+      display: none;
     }
   }
 }
@@ -125,912 +474,63 @@
     @include omega;
   }
 
+
+  // Billboard general properties
   #billboard {
     @include span(6 of 8);
   }
 
-  #uspteaser {
+  .billboard > article {
+    width: 700px;
+  }
+
+  .billboard > article > h2 {
+    font-size: 2.9em;
+  }
+
+
+  // USP teaser
+  #usp {
     @include span(2 of 8);
     @include omega;
   }
 
-  #teaser--filters {
+  // Filters teaser
+  #filters {
     @include span(6 of 8);
-    .teaser-queue {
-      @include span(2 of 6);
-      &:last-of-type {
-        @include omega;
-      }
+  }
+
+  #filters .teaser-queue {
+    @include span(2 of 6);
+    &:last-of-type {
+      @include omega;
     }
   }
 
-  #teaser--old {
+  // Used teaser
+  #used {
     @include span(2 of 8);
     @include omega;
-    .teaser-queue {
-      @include span(2 of 2);
+  }
 
-      &:first-child {
-        @include omega;
-      }
-      &:last-of-type {
-        display: none;
-      }
+  #used .teaser-queue {
+    @include span(2 of 2);
+
+    &:first-child {
+      @include omega;
+    }
+    &:last-of-type {
+      display: none;
     }
   }
 
-  .teaser--news {
+
+  // Blog
+  #news {
     @include omega;
   }
 
   .category-dropdown {
     display:none;
   }
-}
-
-
-
-
-/*
- * Normal stuff
- */
-
-.teaser {
-  margin-bottom: 1em;
-}
-
-.teaser-inner {
-  @include whitebox;
-}
-
-.teaser > .teaser-inner > h2 {
-  text-transform: uppercase;
-}
-
-.teaser > .teaser-inner > .teaser-commendations {
-  float: right;
-}
-
-.teaser > .teaser-take_part {
-  @include whitebox;
-  background-color: #5F9537;
-  color: $white;
-  text-align: center;
-}
-
-.teaser--double {
-  .teaser-inner {
-    @include clearfix;
-  }
-  .teaser-queue {
-    margin-bottom: 1em;
-  }
-}
-
-.teaser-queue > .Button {
-  margin:0.5em;
-}
-
-.teaser--full {
-  clear: both;
-  width: 100%;
-}
-
-.teaser--hearted_libraries {
-  h2 {
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-  }
-}
-
-
-
-
-
-
-// Arrows for slides
-
-.teaser-arrow {
-  display: block;
-  position: absolute;
-  margin-top: -14px; //half height of the arrows
-  top: 50%;
-  z-index: 100;
-}
-
-.teaser-arrow--left {
-  left:1em;
-}
-
-.teaser-arrow--right {
-  right:1em;
-}
-
-
-// Videos
-
-.teaser-inner {
-  iframe {
-   max-width:100%;
-  }
-}
-
-// User quotes slides
-.teaser--userslides {
-  overflow: hidden;
-  position: relative;
-
-  .teaser-inner {
-    padding: 1em 4em;
-  }
-
-  .teaser-quotation {
-    margin:0;
-		font-weight: 600;
-		font-style: italic;
-		font-size: 1.1rem;
-  }
-
-  .teaser-quotesource {
-	text-align: right;
-    text-transform: uppercase;
-  }
-
-  .teaser-quote {
-	font-weight: 600;
-	font-size: 1.5em;
-	line-height: 0.8rem;
-   }
-
-  img {
-    float: left;
-    margin-right: 1em;
-    border-radius: 0.5em;
-  }
-
-  .slidesjs-container,.slidesjs-control {
-     height: auto !important;
-  }
-
-}
-
-// Card slides
-
-.teaser--cardslides {
-  position: relative;
-
-}
-
-.teaser--cardslides >.teaser-inner > #js-cardslides {
-  margin-left:auto;
-  margin-right:auto;
-  max-width: 28.15em;
-}
-
-// Rss Blog
-
-.teaser--hide {
-  border: none;
-  box-shadow:none;
-}
-
-.teaser-rss {
-  p {
-    margin: 0 0 0.5em 0;
-  }
-  @include clearfix;
-  img {
-    float:left;
-    border-radius: 0.9em;
-    width: 4em;
-    margin-right: 1em;
-    margin-bottom: 1em;
-
-  }
-  &:nth-child(2n+1) {
-    img{
-      margin-left: 1em;
-      margin-right: 0em;
-      float: right;
-    }
-  }
-}
-
-
-
-
-
-
-
-
-// Others
-
-// Center text within teaser
-.teaser--center {
-  text-align: center;
-}
-
-
-
-
-.teaser--clear {
-  clear: both;
-}
-
-.teaser--ngos {
-  img {
-    height:6em;
-    width: 6em;
-    margin-left: 1em;
-    border-radius: 0.9em;
-  }
-}
-
-
-h5 {
-  text-transform: uppercase;
-  margin-top: 0;
-}
-
-
-ul.image_list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-
-  li {
-    display: inline-block;
-    position: relative;
-    top: 1.2em; /* our line-height */
-
-    a {
-      display: inline-block;
-      margin: 0 1em;
-    }
-  }
-
-  &:before{
-    content: '';
-    display: block;
-    width: 100%;
-    margin-bottom: -1.2em; /* our line-height */
-  }
-
-  &:after {
-    content: '';
-    display: inline-block;
-    width: 100%;
-  }
-}
-
-
-
-
-
-/*
- * Billboard
- */
-
-
-#billboard {
-  margin-bottom: 1em;
-}
-
-
-#billboard-inner {
-  @include whitebox;
-  padding: 0;
-  width: auto;
-  height: 410px;
-  min-height: 410px;
-  position: relative;
-  overflow: hidden;
-  color: $white;
-}
-
-
-.billboard {
-  background-repeat: no-repeat;
-  background-position: center top;
-  position: relative;
-  border-radius: 0.5em;  // Circumvent bug in Webkit browsers that would hide the rounded border from #billboard-inner
-  height: 410px;
-}
-
-
-// Text layer in article element
-.billboard article {
-  position: relative;
-  margin: 0 auto;
-
-  h2 {
-    position: absolute;
-    text-shadow: 1px 1px $dark-gray;
-    font-weight: 400;
-    z-index: 10;
-    margin: 0;
-  }
-
-  h3 {
-    position: absolute;
-    top: 0;
-    left: 0;
-  }
-
-  @include till-breakpoint($bp-tablet) {
-    width: 210px;
-
-    h2 { font-size: 2em; }
-  }
-
-  @include between-breakpoints($bp-tablet, $bp-tablet-horizontal) {
-    width: 450px;
-
-    h2 { font-size: 2.5em; }
-  }
-
-  @include at-breakpoint($bp-tablet-horizontal) {
-    width: 700px;
-
-    h2 { font-size: 2.9em; }
-  }
-}
-
-
-.billboard a.billboard-imagelink {
-  position: absolute;
-  left: 0;
-  display: block;
-  text-indent: -1000em;
-}
-
-
-#billboard1 {
-  background-image: image-url('welcome/billboard_discover_big.jpg');
-
-  @include till-breakpoint($bp-tablet-horizontal) {
-    background-image: image-url('welcome/billboard_discover_small.jpg');
-  }
-
-  @include between-breakpoints($bp-tablet, $bp-tablet-horizontal) {
-    background-image: image-url('welcome/billboard_discover_medium.jpg');
-  }
-}
-
-
-#billboard2 {
-  background-image: image-url('welcome/billboard_books_big.jpg');
-
-  @include till-breakpoint($bp-tablet-horizontal) {
-    background-image: image-url('welcome/billboard_books_small.jpg');
-  }
-
-  @include between-breakpoints($bp-tablet, $bp-tablet-horizontal) {
-    background-image: image-url('welcome/billboard_books_medium.jpg');
-  }
-}
-
-
-#billboard3 {
-  background-image: image-url('welcome/billboard_coffee_big.jpg');
-
-  @include till-breakpoint($bp-tablet-horizontal) {
-    background-image: image-url('welcome/billboard_coffee_small.jpg');
-  }
-
-  @include between-breakpoints($bp-tablet, $bp-tablet-horizontal) {
-    background-image: image-url('welcome/billboard_coffee_medium.jpg');
-  }
-}
-
-
-
-#billboard1 h2 {
-  top: 14px;
-  left: 20px;
-
-  @include till-breakpoint($bp-tablet) { display: none; }
-
-  @include between-breakpoints($bp-tablet, $bp-tablet-horizontal) {
-    text-align: left;
-  }
-
-  @include at-breakpoint($bp-tablet-horizontal) {
-    top: 14px;
-    left: 0px;
-    width: 220px;
-    text-align: right;
-  }
-}
-
-
-#billboard1 section {
-  position: absolute;
-
-  h3 {
-    color: #f1244f;
-    text-transform: uppercase;
-    font-size: 1.2em;
-    font-weight: 400;
-    margin: 0;
-    position: absolute;
-  }
-
-  a {
-    text-decoration: underline;
-    font-size: 0.9em;
-    position: absolute;
-  }
-
-  @include till-breakpoint($bp-tablet) {
-    left: 0;
-    right: 0;
-
-    &.section1 { top: 0 }
-    &.section2 { top: 145px; }
-    &.section3 { top: 273px; }
-
-    h3 { display: none; }
-
-    a.billboard-imagelink {
-      left: 40px;
-      right: 40px;
-      top: 0;
-      height: 90px;
-     }
-
-    a.billboard-textlink {
-      top: 95px;
-      display: block;
-      width: 100%;
-      text-align: center;
-    }
-  }
-
-  @include between-breakpoints($bp-tablet, $bp-tablet-horizontal) {
-    left: 20px;
-    right: 20px;
-
-    &.section1 {
-      top: 80px;
-
-      h3 { left: 0; top: 0; }
-
-      a.billboard-imagelink {
-        left: 240px;
-        right: 0px;
-        top: 0;
-        height: 90px;
-       }
-
-      a.billboard-textlink { left: 0; top: 20px; }
-    }
-    &.section2 {
-      top: 180px;
-
-      h3 { left: 258px; top: 20px; }
-
-      a.billboard-imagelink {
-        left: 30px;
-        right: 240px;
-        top: 0;
-        height: 120px;
-      }
-
-      a.billboard-textlink { left: 258px; top: 40px; }
-    }
-    &.section3 {
-      top: 280px;
-
-      h3 { left: 0; top: 65px; }
-
-      a.billboard-imagelink {
-        left: 220px;
-        right: 10px;
-        top: 0;
-        height: 110px;
-      }
-
-      a.billboard-textlink { left: 0; top: 85px; }
-    }
-  }
-
-  @include at-breakpoint($bp-tablet-horizontal) {
-    left: 240px;
-    right: 20px;
-
-    &.section1 {
-      top: 30px;
-
-      h3 { left: 0; top: 0; }
-
-      a.billboard-imagelink {
-        left: 240px;
-        right: 0px;
-        top: 0;
-        height: 100px;
-       }
-
-      a.billboard-textlink { left: 0; top: 20px; }
-    }
-    &.section2 {
-      top: 150px;
-
-      h3 { left: 230px; top: 35px; }
-
-      a.billboard-imagelink {
-        left: 20px;
-        right: 240px;
-        top: 0;
-        height: 150px;
-      }
-
-      a.billboard-textlink { left: 230px; top: 55px; }
-    }
-    &.section3 {
-      top: 280px;
-
-      h3 { left: 0; top: 65px; }
-
-      a.billboard-imagelink {
-        left: 230px;
-        right: 0;
-        top: 0;
-        height: 110px;
-      }
-
-      a.billboard-textlink { left: 0; top: 85px; }
-    }
-  }
-}
-
-
-#billboard2 h2 {
-  text-align: left;
-
-  top: 14px;
-
-  @include till-breakpoint($bp-tablet) { left: 2px; }
-  @include between-breakpoints($bp-tablet, $bp-tablet-horizontal) { left: 33px; }
-  @include at-breakpoint($bp-tablet-horizontal) { left: 20px; }
-}
-
-
-#billboard2 section {
-  position: absolute;
-
-  h3 {
-    color: $white;
-    font-size: 1.2em;
-    font-weight: 400;
-    text-align: left;
-    margin: 0;
-    position: absolute;
-    top: 0;
-    left: 0;
-  }
-
-  a.billboard-textlink {
-    text-decoration: underline;
-    font-size: 1em;
-    position: absolute;
-    left: 0;
-    width: 100%;
-    display: block;
-    text-align: center;
-  }
-
-  @include till-breakpoint($bp-tablet) {
-    top: 130px;
-    width: 91px;
-
-    h3 { font-size: 1em; }
-
-    a.billboard-imagelink {
-      top: 38px;
-      width: 89px;
-      height: 142px;
-    }
-
-    a.billboard-textlink {
-      font-size: 0.8em;
-      top: 199px;
-    }
-
-    &.section1 { left: 6px; }
-    &.section2 { left: 114px; }
-    &.section3 { display: none; }
-    &.section4 { display: none; }
-  }
-
-  @include between-breakpoints($bp-tablet, $bp-tablet-horizontal) {
-    top: 110px;
-    width: 113px;
-
-    h3 { font-size: 1.2em; }
-
-    a.billboard-imagelink {
-      top: 48px;
-      width: 112px;
-      height: 178px;
-    }
-
-    a.billboard-textlink {
-      font-size: 0.9em;
-      top: 235px;
-    }
-
-    &.section1 { left: 36px; }
-    &.section2 { left: 170px; }
-    &.section3 { left: 302px; }
-    &.section4 { display: none; }
-  }
-
-  @include at-breakpoint($bp-tablet-horizontal) {
-    top: 125px;
-    width: 113px;
-
-    h3 { font-size: 1.2em; }
-
-    a.billboard-imagelink {
-      top: 47px;
-      width: 112px;
-      height: 178px;
-    }
-
-    a.billboard-textlink {
-      font-size: 0.9em;
-      top: 234px;
-    }
-
-    &.section1 { left: 114px; }
-    &.section2 { left: 268px; }
-    &.section3 { left: 421px; }
-    &.section4 { left: 574px; }
-  }
-}
-
-
-#billboard3 h2 {
-  text-align: left;
-
-  top: 14px;
-
-  @include till-breakpoint($bp-tablet) { left: 13px; }
-  @include between-breakpoints($bp-tablet, $bp-tablet-horizontal) { left: 55px; }
-  @include at-breakpoint($bp-tablet-horizontal) { left: 30px; }
-}
-
-
-#billboard3 section {
-  position: absolute;
-
-  a.billboard-textlink {
-    text-decoration: underline;
-    font-size: 1em;
-    position: absolute;
-    left: 0;
-    width: 100%;
-    display: block;
-    text-align: center;
-  }
-
-  @include till-breakpoint($bp-tablet) {
-    left: 15px;
-    right: 10px;
-
-    &.section1 { display: none; }
-    &.section2 { top: 125px; }
-
-    a.billboard-imagelink {
-      left: 10px;
-      right: 10px;
-      top: 10px;
-      height: 155px;
-    }
-
-    a.billboard-textlink {
-      top: 200px;
-      font-size: 0.8em;
-    }
-  }
-
-  @include between-breakpoints($bp-tablet, $bp-tablet-horizontal) {
-    left: 55px;
-    right: 50px;
-
-    &.section1 { display: none; }
-    &.section2 { top: 50px; }
-
-    a.billboard-imagelink {
-      left: 20px;
-      right: 20px;
-      top: 45px;
-      height: 230px;
-    }
-
-    a.billboard-textlink { top: 290px; }
-  }
-
-  @include at-breakpoint($bp-tablet-horizontal) {
-    &.section1 {
-      left: 18px;
-      top: 110px;
-      width: 280px;
-
-      p {
-        position: absolute;
-        left: 25px;
-        right: 25px;
-        top: 110px;
-        color: $black;
-        text-align: justify;
-        text-align-last: center;
-        -moz-text-align-last: center;
-        -webkit-text-align-last: center;
-      }
-
-      a.billboard-imagelink {
-        left: 80px;
-        right: 80px;
-        top: 30px;
-        height: 85px;
-      }
-
-      a.billboard-textlink { top: 230px; }
-    }
-
-    &.section2 {
-      left: 320px;
-      top: 20px;
-      width: 350px;
-
-      a.billboard-imagelink {
-        left: 20px;
-        right: 20px;
-        top: 45px;
-        height: 230px;
-      }
-
-      a.billboard-textlink { top: 285px; }
-    }
-  }
-}
-
-
-/* Use it later maybe - small arrow in front of links and nicer underline
- * but links have to be not 100% wide like they are now
-.billboard a.textlink {
-  position: absolute;
-  top: 258px;
-  left: 0;
-  font-weight: 300;
-  font-size: 0.9em;
-  color: $white;
-  border-bottom: 1px solid $white;
-
-  &:before {
-    content: '>';
-    margin-right: 0.5em;
-  }
-
-  &:hover {
-    text-decoration: none;
-  }
-}
-*/
-
-
-// CSS for SlidesJS
-#js-billboardslides {
-  display: none;
-}
-
-#billboard {
-  .slidejs-container, .slidejs-control, .slidejs-slide {
-    min-height: 410px;
-  }
-}
-
-
-
-
-/*
- * USP Teaser
- */
-
-#uspteaser {
-  margin-bottom: 1em;
-}
-
-#uspteaser-inner {
-  @include whitebox;
-  background: $blue;
-  padding: 0;
-  height: 410px;
-  position: relative;
-  color: $white;
-}
-
-
-#uspteaser-inner h2 {
-  width: 80%;
-  min-width: 185px;
-  max-width: 300px;
-  margin: 8% auto;
-  font-size: 1.5em;
-  font-weight: 700;
-}
-
-
-#uspteaser-inner ul {
-  width: 80%;
-  min-width: 185px;
-  max-width: 300px;
-  margin: 10% auto 0;
-  list-style: none;
-  padding: 0;
-  overflow: hidden;
-
-  li {
-    font-size: 1em;
-    float: left;
-    padding-left: 0;
-    margin-bottom: 5%;
-
-    a {
-      color: $white !important;
-      text-decoration: underline !important;
-
-      &:hover, &:focus, &:active {
-        color: darken($white, 20%) !important;
-      }
-    }
-
-    &:before {
-      content: '\f111'; /*fontawesome char code inside the '' */
-      font-family: FontAwesome;
-      font-size: 2em;
-      margin: 0.2em 2.5% 0.5em 0;
-      display: block;
-      clear: left;
-      float: left;
-    }
-  }
-}
-
-#uspteaser-inner p {
-  width: 100%;
-  position: absolute;
-  bottom: 0;
-  margin: 0 0 8%;
-
-  font-size: 1.2em;
-  font-weight: 600;
-  text-align: center;
-
-  a {
-    display: block;
-    box-sizing: border-box;
-    -moz-box-sizing: border-box;  // For Fennec
-    width: 80%;
-    min-width: 185px;
-    max-width: 300px;
-    margin: 0 auto;
-
-    background-color: $white;
-    color: $blue !important;
-
-    &:hover, &:focus, &:active {
-      color: lighten($blue, 10%) !important;
-    }
-  }
-}
-
-
-.more {
-  clear:both;
-  text-align: right;
-  padding-right: 1em;
 }
