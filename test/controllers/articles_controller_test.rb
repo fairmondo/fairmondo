@@ -83,32 +83,32 @@ describe ArticlesController do
         # order by condition old
         get :index, article_search_form: { order_by: "old", q: "muscheln" }
         result = @controller.instance_variable_get(:@articles)
-        result.last.id.to_i.must_equal @no_second_hand_article.id
+        result.map{|a| a.id.to_i }.last.must_equal @no_second_hand_article.id
         result.size.must_equal 3
 
         # order by condition new"
         get :index, article_search_form: { order_by: "new", q: "muscheln" }
         result = @controller.instance_variable_get(:@articles)
-        result.first.id.to_i.must_equal @no_second_hand_article.id
+        result.map{|a| a.id.to_i }.first.must_equal @no_second_hand_article.id
         result.size.must_equal 3
 
         # order by fair
         get :index, article_search_form: { order_by: "fair" }
         @controller.instance_variable_get(:@articles)
         result = @controller.instance_variable_get(:@articles)
-        result.first.id.to_i.must_equal @hardware_article.id
+        result.map{|a| a.id.to_i }.first.must_equal @hardware_article.id
         result.size.must_equal 4
 
         # order by ecologic
         get :index, article_search_form: { order_by: "ecologic" }
         result = @controller.instance_variable_get(:@articles)
-        result.first.id.to_i.must_equal @hardware_article.id
+        result.map{|a| a.id.to_i }.first.must_equal @hardware_article.id
         result.size.must_equal 4
 
         # order by small_and_precious
         get :index, article_search_form: { order_by: "small_and_precious" }
         result = @controller.instance_variable_get(:@articles)
-        result.first.id.to_i.must_equal @hardware_article.id
+        result.map{|a| a.id.to_i }.first.must_equal @hardware_article.id
         result.size.must_equal 4
 
         # order by price desc
@@ -118,7 +118,7 @@ describe ArticlesController do
         # order by friendly_percent desc
         get :index, article_search_form: { order_by: "most_donated" }
         result = @controller.instance_variable_get(:@articles)
-        result.first.id.to_i.must_equal @hardware_article.id
+        result.map{|a| a.id.to_i }.first.must_equal @hardware_article.id
         result.size.must_equal 4
 
         search_params = { article_search_form: { category_id: @hardware_category.id } }
