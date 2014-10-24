@@ -404,6 +404,8 @@ ul.category-selected-list {
 
 .fair_company {
   @include whitebox;
+  background-color: #5F9537 !important;
+  color: $white !important;
   text-align: center;
   padding-bottom: 0;
 
