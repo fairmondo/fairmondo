@@ -1,4 +1,4 @@
-json.(@article,:title,:price_cents,:quantity_available)
+json.(@article,:id,:slug,:title,:price_cents,:quantity_available)
 json.partial! 'articles/show/legal_entity', article: @article
 json.partial! 'articles/show/tags', article: @article
 json.partial! 'articles/show/donation', article: @article

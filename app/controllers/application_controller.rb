@@ -38,6 +38,7 @@ class ApplicationController < ActionController::Base
   after_filter :store_location
 
   protect_from_forgery
+  skip_before_action :verify_authenticity_token, if: :json_request?
 
   helper :all
 
@@ -54,9 +55,12 @@ class ApplicationController < ActionController::Base
     end
   end
 
+
   protected
 
-
+    def json_request?
+      request.format.json?
+    end
 
     # Pundit checker
 
