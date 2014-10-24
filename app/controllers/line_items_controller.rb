@@ -21,6 +21,7 @@
 #
 class LineItemsController < ApplicationController
   respond_to :html
+  respond_to :json, only: [:create]
   responders :location
 
   skip_before_filter :authenticate_user!, only: [:create, :update, :destroy]
@@ -40,7 +41,7 @@ class LineItemsController < ApplicationController
       flash[:error] = I18n.t('line_item.notices.error_quantity')
     end
 
-    redirect_to @line_item.article
+    respond_with @line_item.article
   end
 
   def update
