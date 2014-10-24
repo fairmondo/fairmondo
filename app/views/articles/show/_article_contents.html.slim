@@ -61,7 +61,7 @@
             span.sprite_helper title=t('article.preview.tooltips.friendly_percent', percent: resource.friendly_percent, ngo: resource.friendly_percent_organisation_nickname)
           = t('article.show.friendly_percent_html', percent: resource.friendly_percent , ngo: link_to(resource.friendly_percent_organisation_nickname, resource.friendly_percent_organisation))
         .tags
-          = commendation_labels_for resource
+          = render 'articles/show/commendation_labels', article: resource
           = condition_label resource
   .right
     h2.title
@@ -143,7 +143,7 @@
 
     - if resource.has_commendation?
       = accordion_item "commendation" do
-        = render 'articles/show/commendation', article: resource
+        = render 'articles/show/commendation'
 
   - cache [resource.seller,"legal_info"] do
     / Only legal sellers
