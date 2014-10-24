@@ -39,6 +39,7 @@
 
 #l-footer-nav-main > section > h4 {
   margin: 0 0 0.5em;
+  color: #666//$gray;
 }
 
 #l-footer-nav-main > section > ul {
@@ -53,6 +54,37 @@
 
 p#l-footer-copyright {
   font-size: 0.8em;
+  color: #666;//$gray;
+}
+
+
+
+/**
+ * Reduced layout
+ */
+
+.l-footer-reduced {
+  min-height: $footer-height-reduced;
+  margin-top: $footer-height-reduced;
+  background-color: $even-lighter-gray;
+  clear: both;
+}
+
+.l-footer-reduced  > .l-footer-inner > ul#l-footer-nav-legal {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  float: right;
+  font-size: 0.8em;
+
+  li {
+    display: inline-block;
+    margin-left: 1em;
+  }
+}
+
+.l-footer-reduced  > .l-footer-inner > p#l-footer-copyright {
+  margin: 0;
 }
 
 
@@ -90,7 +122,7 @@ p#l-footer-copyright {
   #l-footer-nav-main > section {
     @include span(1 of 4);
 
-    &:last-child {
+    &#l-footer-nav-legal {
       @include omega;
     }
   }
@@ -101,7 +133,11 @@ p#l-footer-copyright {
     display: none;
   }
 
-  p#l-footer-copyright {
+  #l-footer-nav-main > section > ul > li {
+    margin-bottom: 0.5em;
+  }
+
+  .l-footer > .l-footer-inner > p#l-footer-copyright {
     position: static;
     margin: 0.5em 0;
     clear: both;
@@ -109,7 +145,7 @@ p#l-footer-copyright {
 }
 
 @include at-breakpoint($bp-tablet) {
-  p#l-footer-copyright {
+  .l-footer p#l-footer-copyright {
     position: absolute;
     left: 1rem;
     bottom: 1rem;
@@ -125,7 +161,7 @@ p#l-footer-copyright {
   #l-footer-nav-main > section {
     @include span(1 of 6);
 
-    &:last-child {
+    &#l-footer-nav-legal {
       @include omega;
     }
   }
@@ -139,23 +175,8 @@ p#l-footer-copyright {
   #l-footer-nav-main > section {
     @include span(1 of 8);
 
-    &:last-child {
+    &#l-footer-nav-legal {
       @include omega;
     }
-  }
-}
-
-
-/**
- * Reduced layout
- */
-
-.l-footer.l-reduced {
-  height: $footer-height-reduced;
-  margin-top: $footer-height-reduced;
-
-  .l-footer-inner {
-    padding-top: 0;
-    font-size: 0.8em;
   }
 }
