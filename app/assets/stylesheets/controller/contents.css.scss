@@ -24,6 +24,21 @@
   margin-bottom: 1em;
 }
 
+.content-share > .take_part  {
+  @include whitebox;
+  background-color: #5F9537;
+  color: $white;
+  text-align: center;
+
+  .Button{
+    margin-bottom: 1em;
+  }
+
+  img {
+    width: 100%;
+  }
+}
+
 .content-nav {
   ul {
     list-style:none;
