@@ -100,7 +100,7 @@ describe CategoriesController do
       context "and searching for 'muscheln'" do
         it "should chain both filters" do
           get :show, id: @hardware_category.id, article_search_form: { q: "muscheln" }
-          @controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.must_equal [@hardware_article, @no_second_hand_article].map(&:id)
+          @controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.sort.must_equal [@hardware_article, @no_second_hand_article].map(&:id).sort
         end
 
         context "and filtering for condition" do

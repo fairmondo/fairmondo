@@ -19,7 +19,7 @@
 / You should have received a copy of the GNU Affero General Public License
 / along with Fairmondo.  If not, see <http://www.gnu.org/licenses/>.
 /
-
+- commendation_link = nil unless local_assigns.has_key? :commendation_link
 
 / Be careful, between case and when should not be a empty line
 .commendation
@@ -27,7 +27,7 @@
   / FAIR
   - if resource.fair
     h3
-      = commendation_label :fair,:big
+      = commendation_label :fair, :big, commendation_link
     - case resource.fair_kind
     - when "social_producer"
       - if resource.social_producer_questionnaire
@@ -58,7 +58,7 @@
   - if resource.ecologic
 
     h3
-      = commendation_label :ecologic,:big
+      = commendation_label :ecologic, :big, commendation_link
     h4
       = t('enumerize.article.ecologic_kind.' + resource.ecologic_kind)
     - if resource.ecologic_kind == "ecologic_seal"
@@ -71,7 +71,7 @@
   / SMALL AND PRECIOUS
   - if resource.small_and_precious
     h3
-      = commendation_label :small_and_precious,:big
+      = commendation_label :small_and_precious, :big, commendation_link
     h4
       = t('formtastic.labels.article.small_and_precious_eu_small_enterprise')
     p
