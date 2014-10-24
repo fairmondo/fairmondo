@@ -6,63 +6,156 @@
 
 .l-footer {
   background-color: $even-lighter-gray;
-  height: $footer-height;
+  min-height: $footer-height;
   margin-top: -$footer-height;
-  clear:both;
+  clear: both;
 }
+
+.l-footer-inner {
+  @include container($screen-width);
+  padding: 1em 1em 0 1em;
+  position: relative;
+}
+
+
+// Logo
+#l-footer-logo {
+  float: left;
+
+  span {
+    display: block;
+  }
+}
+
+
+// Main navigation section
+#l-footer-nav-main {
+  width: 100%;
+}
+
+#l-footer-nav-main > section {
+  margin: 0 0 1em;
+}
+
+#l-footer-nav-main > section > h4 {
+  margin: 0 0 0.5em;
+}
+
+#l-footer-nav-main > section > ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+#l-footer-nav-main > section > ul > li {
+
+}
+
+p#l-footer-copyright {
+  font-size: 0.8em;
+}
+
+
+
+/**
+ * Responsiveness
+ */
 
 @include till-breakpoint($bp-mobile) {
-  .l-wrapper {margin-bottom: 0;}
-  .l-footer { height:auto; margin-top:0; padding-bottom: 1em;}
-}
-
-.l-footer-top, .l-footer-bottom {
-  @include container($screen-width);
-  padding: 1em 1em 0;
-}
-
-.l-footer-logo {
-  @include till-breakpoint($bp-tablet) {
-    display:none;
+  .l-wrapper {
+    margin-bottom: 0;
+  }
+  .l-footer {
+    height: auto;
+    margin-top: 0;
+    padding-bottom: 1em;
   }
 }
 
-.l-footer-logo, .l-footer-copyright {
-  @include at-breakpoint($bp-tablet) {
-    float:left;
-  }
-  span {
-    display:block;
-  }
-}
+@include till-breakpoint($bp-mobile-horizontal) {
+  #l-footer-nav-main > section {
+    @include span(1 of 2);
 
-.l-footer-nav{
-  list-style: none;
-  margin:0;
-  padding:0;
+    &#l-footer-nav-fairmondo {
+      @include omega;
+    }
 
-  @include at-breakpoint($bp-tablet) {
-    float:right;
-  }
-
-  li {
-    margin-right: 1em;
-    .Feedback {
-      margin-right: 0em;
+    &#l-footer-nav-legal {
+      @include omega;
     }
   }
 }
 
-// Reduced layout
+@include between-breakpoints($bp-mobile-horizontal, $bp-tablet) {
+  #l-footer-nav-main > section {
+    @include span(1 of 4);
+
+    &:last-child {
+      @include omega;
+    }
+  }
+}
+
+@include till-breakpoint($bp-tablet) {
+  #l-footer-logo {
+    display: none;
+  }
+
+  p#l-footer-copyright {
+    position: static;
+    margin: 0.5em 0;
+    clear: both;
+  }
+}
+
+@include at-breakpoint($bp-tablet) {
+  p#l-footer-copyright {
+    position: absolute;
+    left: 1rem;
+    bottom: 1rem;
+    margin: 0;
+  }
+}
+
+@include between-breakpoints($bp-tablet, $bp-tablet-horizontal) {
+  #l-footer-logo {
+    @include span(2 of 6);
+  }
+
+  #l-footer-nav-main > section {
+    @include span(1 of 6);
+
+    &:last-child {
+      @include omega;
+    }
+  }
+}
+
+@include at-breakpoint($bp-tablet-horizontal) {
+  #l-footer-logo {
+    @include span(4 of 8);
+  }
+
+  #l-footer-nav-main > section {
+    @include span(1 of 8);
+
+    &:last-child {
+      @include omega;
+    }
+  }
+}
+
+
+/**
+ * Reduced layout
+ */
+
 .l-footer.l-reduced {
   height: $footer-height-reduced;
   margin-top: $footer-height-reduced;
 
-  .l-footer-top {
+  .l-footer-inner {
     padding-top: 0;
-  }
-
-  .l-footer-bottom {
     font-size: 0.8em;
   }
 }
