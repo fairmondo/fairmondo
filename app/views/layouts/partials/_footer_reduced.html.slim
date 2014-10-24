@@ -1,20 +1,26 @@
 .l-footer.l-reduced
-  .l-footer-top
-    ul.l-footer-nav
-      li.l-feedback
-        a.l-feedback-button href=new_feedback_path(variety: :get_help)
-          i.icon-help
+  .l-footer-inner
+    / Feedback links
+    ul#l-feedback
+      li
+        a href=new_feedback_path(variety: :get_help)
+          i.fa.fa-support &nbsp;
           = t('common.text.help')
-        a.l-feedback-button href=new_feedback_path(variety: :send_feedback)
-          i.icon-feedback
+      li
+        a href=new_feedback_path(variety: :send_feedback)
+          i.fa.fa-comment &nbsp;
           = t('common.text.feedback')
-        a.l-feedback-button.l-feedback-button--green href='http://mitmachen.fairmondo.de/anteile-zeichnen/' target='_blank'
-          i.icon-shares
+      li.l-feedback-button--green
+        a.l-feedback-button--green href='http://mitmachen.fairmondo.de/anteile-zeichnen/' target='_blank'
+          i.fa.fa-pie-chart &nbsp;
           = t('common.text.shares')
-  .l-footer-bottom
-    ul.l-footer-nav
+
+    / Legal links
+    ul#l-footer-nav-legal
       li= link_to t('footer.agb'), "/agb", target: '_blank'
       li= link_to t('footer.privacy'), "/privacy", target: '_blank'
       li= link_to t('footer.imprint'), "/imprint", target: '_blank'
-    .l-footer-copyright
+
+    / Copyright
+    p#l-footer-copyright
       | &copy; Copyright 2014 Fairnopoly eG
