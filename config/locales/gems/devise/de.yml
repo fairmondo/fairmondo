@@ -56,10 +56,10 @@ de:
       failure: 'Du konntest nicht mit Deinem %{kind}-Account angemeldet werden, weil "%{reason}".'
     mailer:
       welcome_mail:
-        subject: 'Fairmondo - Anleitung zur Bestätigung Deines Accounts'
+        subject: '[Fairmondo] Anleitung zur Bestätigung Deines Accounts'
       confirmation_instructions:
-        subject: 'Fairmondo - Anleitung zur Bestätigung Deines Accounts'
+        subject: '[Fairmondo] Du hast Deine E-Mail-Adresse geändert'
       reset_password_instructions:
-        subject: 'Fairmondo - Anleitung um Dein Passwort zurückzusetzen'
+        subject: '[Fairmondo] Anleitung um Dein Passwort zurückzusetzen'
       unlock_instructions:
-        subject: 'Fairmondo - Anleitung um Deinen Account freizuschalten'
+        subject: '[Fairmondo] Anleitung um Deinen Account freizuschalten'

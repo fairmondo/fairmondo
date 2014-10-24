@@ -63,12 +63,18 @@
   }
 }
 
-.user-header > .user-extra > .Content  {
-  span {
-    margin-top:1em;
-  }
+.user-header > .user-extra > .take_part  {
+  @include whitebox;
+  background-color: #5F9537;
+  color: $white;
+  text-align: center;
+
   .Button{
-    margin-bottom:1em;
+    margin-bottom: 1em;
+  }
+
+  img {
+    width: 100%;
   }
 }
 
