@@ -76,6 +76,8 @@ class ArticleSearchForm
     end
     @category_facets = Hash[articles.facets['categories']['terms'].map(&:values)] if articles.facets
     articles
+  rescue Tire::Search::SearchRequestFailed
+    articles = ArticlePolicy::Scope.new(nil, Article).resolve.page(page)
   rescue Errno::ECONNREFUSED
     articles = ArticlePolicy::Scope.new(nil, Article).resolve.page(page)
   end
