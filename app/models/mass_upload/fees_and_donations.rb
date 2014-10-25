@@ -22,21 +22,16 @@
 module MassUpload::FeesAndDonations
   extend ActiveSupport::Concern
 
-  def self.calculate_total_fees(articles)
-    total_fee = Money.new(0)
-    articles.each do |article|
-      total_fee += article.calculated_fee * article.quantity
+  # method for calculation of fee or fair percent
+  [:fees, :fair].each do |type|
+    define_singleton_method("calculate_total_#{type}") do |articles|
+      total = Money.new(0)
+      articles.each do |article|
+        total += article.send("calculated_#{type.to_s.singularize}") * article.quantity
+      end
+      total
     end
-    total_fee
   end
-
-  def self.calculate_total_fair(articles)
-    total_fair = Money.new(0)
-    articles.each do |article|
-      total_fair += article.calculated_fair * article.quantity
-    end
-    total_fair
-   end
 
   def self.calculate_total_fees_and_donations(articles)
     self.calculate_total_fees(articles) + self.calculate_total_fair(articles)
