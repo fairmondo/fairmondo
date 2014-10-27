@@ -61,7 +61,7 @@
             span.sprite_helper title=t('article.preview.tooltips.friendly_percent', percent: resource.friendly_percent, ngo: resource.friendly_percent_organisation_nickname)
           = t('article.show.friendly_percent_html', percent: resource.friendly_percent , ngo: link_to(resource.friendly_percent_organisation_nickname, resource.friendly_percent_organisation))
         .tags
-          = commendation_labels_for resource
+          = render 'articles/show/commendation_labels', article: resource
           = condition_label resource
   .right
     h2.title
@@ -121,29 +121,13 @@
           = resource.condition_extra_text
 
     = accordion_item "payment" do
+      = render "/articles/show/payment"
 
-      h4
-        = t('formtastic.labels.article.payment_methods')+':'
-      ul
-        = payment_format_for "bank_transfer"
-        = payment_format_for "cash"
-        = payment_format_for "paypal"
-        = payment_format_for "cash_on_delivery"
-        = payment_format_for "invoice"
-
-      = simple_format(resource.payment_details).html_safe
-      h4
-        = t('formtastic.labels.article.transport_method') + ':'
-      ul
-        = transport_format_for "pickup"
-        = transport_format_for "type1"
-        = transport_format_for "type2"
-
-      = simple_format(resource.transport_details).html_safe
+      = render "/articles/show/transport"
 
     - if resource.has_commendation?
       = accordion_item "commendation" do
-        = render 'articles/show/commendation', article: resource
+        = render 'articles/show/commendation'
 
   - cache [resource.seller,"legal_info"] do
     / Only legal sellers

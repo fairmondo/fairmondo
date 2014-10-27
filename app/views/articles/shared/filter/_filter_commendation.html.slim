@@ -4,7 +4,7 @@
     = title unless params_active
     - filter_parameters.each do |filter_parameter|
       - if search_cache && search_cache.send(filter_parameter)
-        = commendation_label filter_parameter, :small, false
+        = render 'articles/show/commendation_label', label: filter_parameter, size: :small, link: false
     ul.JS-active-toggle--target
       - filter_parameters.each do |filter_parameter|
         li

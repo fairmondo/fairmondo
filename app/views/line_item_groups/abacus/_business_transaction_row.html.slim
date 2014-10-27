@@ -5,17 +5,17 @@
       = image_tag(business_transaction.article.title_image_url_thumb)
     .Payment-article-title
       = business_transaction_listing[:quantity].to_s + 'x'
-      = business_transaction.article_title
+      =< business_transaction.article_title
   .Payment-value.Payment-value--prices
 
     .Payment-value-info.Payment-value-info--left
       = business_transaction_listing[:quantity].to_s + 'x'
-      = money(business_transaction.article_price) + ' ='
+      =< money(business_transaction.article_price) + ' ='
     = money( business_transaction_listing[:retail_price] )
 
     .Payment-value-info.Payment-value-info--right
       = t('cart.texts.net')
-      = money business_transaction_listing[:net_price]
+      =< money business_transaction_listing[:net_price]
       - if business_transaction.article_basic_price_amount
         br
         = money business_transaction.article_basic_price
