@@ -1,0 +1,8 @@
+h4
+  = t('formtastic.labels.article.transport_method') + ':'
+ul
+  = transport_format_for "pickup"
+  = transport_format_for "type1"
+  = transport_format_for "type2"
+
+= simple_format(resource.transport_details).html_safe
