@@ -1,9 +1,6 @@
 module FindPolymorphicTarget
   # This module sets the target for hearts and comments
 
-  HEARTABLE = ['Library']
-  COMMENTABLE = ['Library', 'Article']
-
   ['heartable', 'commentable'].each do |target|
     define_method("set_#{target}") do |klasses|
       target_key = params.keys.select { |p| p.match(/[a-z_]_id$/) }.last
