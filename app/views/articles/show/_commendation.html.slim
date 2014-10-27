@@ -19,68 +19,51 @@
 / You should have received a copy of the GNU Affero General Public License
 / along with Fairmondo.  If not, see <http://www.gnu.org/licenses/>.
 /
-
+- commendation_link = nil unless local_assigns.has_key? :commendation_link
 
 / Be careful, between case and when should not be a empty line
 .commendation
-
-  / FAIR
+  / Fair
   - if resource.fair
-    h3
-      = commendation_label :fair,:big
+    h3= render 'articles/show/commendation_label', label: :fair, size: :big, link: commendation_link
     - case resource.fair_kind
-    - when "social_producer"
+    - when 'social_producer'
       - if resource.social_producer_questionnaire
         h4= t('enumerize.article.fair_kind.social_producer')
-        = get_social_producer_questionaire_for :nonprofit_association, resource
-        = get_social_producer_questionaire_for :social_businesses_muhammad_yunus, resource
-        = get_social_producer_questionaire_for :social_entrepreneur, resource
+        = render 'articles/show/social_producer_questionnaire', article: resource, question: :nonprofit_association
+        = render 'articles/show/social_producer_questionnaire', article: resource, question: :social_businesses_muhammad_yunus
+        = render 'articles/show/social_producer_questionnaire', article: resource, question: :social_entrepreneur
+
         - unless resource.social_producer_questionnaire.social_entrepreneur_explanation.blank?
-          h5
-            = t('formtastic.labels.social_producer_questionnaire.social_entrepreneur_explanation')
-          p
-            = resource.social_producer_questionnaire.social_entrepreneur_explanation
-    - when "fair_trust"
+          h5= t('formtastic.labels.social_producer_questionnaire.social_entrepreneur_explanation')
+          p= resource.social_producer_questionnaire.social_entrepreneur_explanation
+    - when 'fair_trust'
       - if resource.fair_trust_questionnaire
         h4= t('enumerize.article.fair_kind.fair_trust')
-        = get_fair_trust_questionaire_for :support, resource
-        = get_fair_trust_questionaire_for :labor_conditions, resource
-        = get_fair_trust_questionaire_for :environment_protection, resource
-        = get_fair_trust_questionaire_for :controlling, resource
-        = get_fair_trust_questionaire_for :awareness_raising, resource
-    - when "fair_seal"
-      h4
-        = t('enumerize.article.fair_kind.fair_seal')
-      p
-        = t('enumerize.article.fair_seal.' + resource.fair_seal)
+        = render 'articles/show/fair_trust_questionnaire', article: resource, question: :support
+        = render 'articles/show/fair_trust_questionnaire', article: resource, question: :labor_conditions
+        = render 'articles/show/fair_trust_questionnaire', article: resource, question: :environment_protection
+        = render 'articles/show/fair_trust_questionnaire', article: resource, question: :controlling
+        = render 'articles/show/fair_trust_questionnaire', article: resource, question: :awareness_raising
+    - when 'fair_seal'
+      h4= t('enumerize.article.fair_kind.fair_seal')
+      p= t('enumerize.article.fair_seal.' + resource.fair_seal)
 
-  / ECOLOGIC
+  / Ecologic
   - if resource.ecologic
+    h3= render 'articles/show/commendation_label', label: :ecologic, size: :big, link: commendation_link
+    h4= t('enumerize.article.ecologic_kind.' + resource.ecologic_kind)
+    - if resource.ecologic_kind == 'ecologic_seal'
+      p= t('enumerize.article.ecologic_seal.' + resource.ecologic_seal)
+    - if resource.ecologic_kind == 'upcycling'
+      p= resource.upcycling_reason
 
-    h3
-      = commendation_label :ecologic,:big
-    h4
-      = t('enumerize.article.ecologic_kind.' + resource.ecologic_kind)
-    - if resource.ecologic_kind == "ecologic_seal"
-      p
-        = t('enumerize.article.ecologic_seal.' + resource.ecologic_seal)
-    - if resource.ecologic_kind == "upcycling"
-      p
-        = resource.upcycling_reason
-
-  / SMALL AND PRECIOUS
+  / Small and precious
   - if resource.small_and_precious
-    h3
-      = commendation_label :small_and_precious,:big
-    h4
-      = t('formtastic.labels.article.small_and_precious_eu_small_enterprise')
-    p
-      = resource.small_and_precious_eu_small_enterprise ? t('article.show.agree') : t('article.show.non_agree')
-    h4
-      = t('formtastic.labels.article.small_and_precious_reason')
-    p
-      = resource.small_and_precious_reason
-    h4
-      = t('formtastic.labels.article.small_and_precious_handmade')
-    p
-      = resource.small_and_precious_handmade ? t('article.show.agree') : t('article.show.non_agree')
+    h3= render 'articles/show/commendation_label', label: :small_and_precious, size: :big, link: commendation_link
+    h4= t('formtastic.labels.article.small_and_precious_eu_small_enterprise')
+    p= resource.small_and_precious_eu_small_enterprise ? t('article.show.agree') : t('article.show.non_agree')
+    h4= t('formtastic.labels.article.small_and_precious_reason')
+    p= resource.small_and_precious_reason
+    h4= t('formtastic.labels.article.small_and_precious_handmade')
+    p= resource.small_and_precious_handmade ? t('article.show.agree') : t('article.show.non_agree')

@@ -1,0 +1,10 @@
+h4
+  = t('formtastic.labels.article.payment_methods')+':'
+ul
+  = payment_format_for "bank_transfer"
+  = payment_format_for "cash"
+  = payment_format_for "paypal"
+  = payment_format_for "cash_on_delivery"
+  = payment_format_for "invoice"
+
+= simple_format(resource.payment_details).html_safe

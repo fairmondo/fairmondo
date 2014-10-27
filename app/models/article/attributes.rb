@@ -30,16 +30,14 @@ module Article::Attributes
 
     #title
 
-    validates_presence_of :title , :content
-    validates_length_of :title, :minimum => 6, :maximum => 200
-    validates :content, length: { maximum: 10000, tokenizer: tokenizer_without_html }
+    validates :title , length: {minimum: 6, maximum: 200}, presence: true
+    validates :content, length: { maximum: 10000, tokenizer: tokenizer_without_html }, presence: true
     validates :article_template_name, uniqueness: { scope: [:seller] }, presence: true, if: Proc.new { |a| a.is_template? || a.save_as_template? }
-
 
     #conditions
 
-    validates_presence_of :condition
-    validates_presence_of :condition_extra , if: :old?
+    validates :condition, presence: true
+    validates :condition_extra, presence: true, if: :old?
     enumerize :condition, in: [:new, :old], predicates:  true
     enumerize :condition_extra, in: [:as_good_as_new, :as_good_as_warranted ,:used_very_good , :used_good, :used_satisfying , :broken] # refs #225
 
@@ -74,16 +72,13 @@ module Article::Attributes
     auto_sanitize :transport_type1_provider, :transport_type2_provider, :transport_details
     auto_sanitize :transport_time, remove_all_spaces: true
 
-    validates :transport_type1_provider, :length => { :maximum => 255 }
-    validates :transport_type2_provider, :length => { :maximum => 255 }
+    validates :transport_type1_provider, :transport_type2_provider, :length => { :maximum => 255 }
 
-    validates :transport_type1_price, :transport_type1_provider, :presence => true ,:if => :transport_type1
-    validates :transport_type2_price, :transport_type2_provider, :presence => true ,:if => :transport_type2
+    validates :transport_type1_price, :transport_type1_provider, presence: true, if: :transport_type1
+    validates :transport_type2_price, :transport_type2_provider, presence: true, if: :transport_type2
 
-    validates :transport_type1_number, numericality: { greater_than: 0 }
-    validates :transport_type2_number, numericality: { greater_than: 0 }
-
-    validates :transport_details, :length => { :maximum => 2500 }
+    validates :transport_type1_number, :transport_type2_number, numericality: { greater_than: 0 }
+    validates :transport_details, length: { maximum: 2500 }
 
     validates :transport_time, length: { maximum: 7 }, format: { with: /\A\d{1,2}-?\d{,2}\z/ }, allow_blank: true
 
@@ -99,25 +94,22 @@ module Article::Attributes
 
     auto_sanitize :payment_details
 
-    validates :payment_cash_on_delivery_price, :presence => true ,:if => :payment_cash_on_delivery
+    validates :payment_cash_on_delivery_price, presence: true ,if: :payment_cash_on_delivery
 
     before_validation :set_sellers_nested_validations
 
-    monetize :payment_cash_on_delivery_price_cents, :numericality => { :greater_than_or_equal_to => 0, :less_than_or_equal_to => 50000 }, :allow_nil => true
+    monetize :payment_cash_on_delivery_price_cents, numericality: { :greater_than_or_equal_to => 0, :less_than_or_equal_to => 50000 }, :allow_nil => true
 
     validates :payment_details, length: { :maximum => 2500 }
 
-    validate :bank_account_exists, :if => :payment_bank_transfer
-    validate :bank_transfer_available, :if => :payment_bank_transfer
-    validate :paypal_account_exists, :if => :payment_paypal
+    validate :bank_account_exists, if: :payment_bank_transfer
+    validate :bank_transfer_available, if: :payment_bank_transfer
+    validate :paypal_account_exists, if: :payment_paypal
 
-    validates_presence_of :quantity
-
-    validates_numericality_of :quantity, :greater_than_or_equal_to => 1, :less_than_or_equal_to => 10000
-    validates_numericality_of :quantity_available, greater_than_or_equal_to: 0, less_than_or_equal_to: 10000
+    validates :quantity, presence: true, numericality: { greater_than_or_equal_to: 1, less_than_or_equal_to: 10000 }
+    validates :quantity_available, numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 10000 }
 
     validate :payment_method_checked
-
 
     ### ACTIVATE ###
     attr_accessor :tos_accepted, :changing_state

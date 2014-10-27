@@ -7,7 +7,6 @@ class DummyClass < ActionView::Base
   include ContainerHelper
   include ApplicationHelper
   include ArticlesHelper
-  include CommendationHelper
   include ContentHelper
   include NoticeHelper
   include SearchHelper
