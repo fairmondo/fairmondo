@@ -36,7 +36,7 @@ div class=div_class
       = render '/articles/show/basic_price', :article => article
     .ArticleListview-tags
       = condition_label article
-      =< commendation_labels_for article
+      =< render 'articles/show/commendation_labels', article: article
   - if actions
     .ArticleListview-actions
       = yield
