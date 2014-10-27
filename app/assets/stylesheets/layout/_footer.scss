@@ -39,7 +39,7 @@
 
 #l-footer-nav-main > section > h4 {
   margin: 0 0 0.5em;
-  color: #666//$gray;
+  color: $mid-dark-gray;
 }
 
 #l-footer-nav-main > section > ul {
@@ -54,7 +54,7 @@
 
 p#l-footer-copyright {
   font-size: 0.8em;
-  color: #666;//$gray;
+  color: $mid-dark-gray;
 }
 
 
@@ -97,7 +97,8 @@ p#l-footer-copyright {
   .l-wrapper {
     margin-bottom: 0;
   }
-  .l-footer {
+
+  .l-footer, .l-footer-reduced {
     height: auto;
     margin-top: 0;
     padding-bottom: 1em;
