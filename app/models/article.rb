@@ -157,19 +157,19 @@ class Article < ActiveRecord::Base
 
   def images_attributes=(attributes)
     self.images.clear
-    attributes.each_key do |key|
-      if attributes[key].has_key? :id
-        unless attributes[key][:_destroy] == "1"
-          image = Image.find(attributes[key][:id])
-          image.image = attributes[key][:image] if attributes[key].has_key? :image # updated the image itself
-          image.is_title = attributes[key][:is_title]
-          self.images << image
-        end
-
+    attributes.each do |key,image_attributes|
+      if image_attributes.has_key? :id
+        self.images << update_existing_image(image_attributes) unless image_attributes[:_destroy] == "1"
       else
-        self.images << ArticleImage.new(attributes[key]) if attributes[key][:image] != nil
+        self.images << ArticleImage.new(image_attributes) if image_attributes[:image] != nil
       end
     end
+  end
+
+  def update_existing_image image_attributes
+    image = Image.find(image_attributes[:id])
+    image.image = image_attributes[:image] if image_attributes.has_key? :image # updated the image itself
+    image.is_title = image_attributes[:is_title]
   end
 
   def self.edit_as_new article
@@ -219,6 +219,7 @@ class Article < ActiveRecord::Base
 
 
   def is_template?
+    # works even when the db state did not change yet
     self.state.to_sym == :template
   end
 
