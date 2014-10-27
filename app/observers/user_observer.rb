@@ -57,7 +57,7 @@ class UserObserver < ActiveRecord::Observer
 
   def check_bank_details id, bank_account_number, bank_code
     begin
-      user = User.find_by_id(id)
+      user = User.find(id)
       user.update_column( :bankaccount_warning, !KontoAPI::valid?( :ktn => bank_account_number, :blz => bank_code ) )
     rescue
     end
@@ -65,7 +65,7 @@ class UserObserver < ActiveRecord::Observer
 
   def check_iban_bic id, iban, bic
     begin
-      user = User.find_by_id(id)
+      user = User.find(id)
       user.update_column( :bankaccount_warning, !KontoAPI::valid?( :iban => iban, :bic => bic ) )
     rescue
     end
