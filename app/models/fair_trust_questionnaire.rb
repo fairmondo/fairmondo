@@ -55,9 +55,7 @@ class FairTrustQuestionnaire < ActiveRecord::Base
   validates :support_explanation, presence: true,
                                   length: {minimum: 150, maximum: 10000},
                                   if: :support
-  validates :support_other, presence: true,
-                            length: {minimum: 5, maximum: 100},
-                            if: lambda { |i| i.other_selected?("support") }
+  validates :support_other, fair_trust_other: true
 
   # Question 2: labor conditions acceptable? (req)
 
@@ -82,9 +80,7 @@ class FairTrustQuestionnaire < ActiveRecord::Base
   validates :labor_conditions_explanation, presence: true,
                                            length: {minimum: 150 , maximum: 10000},
                                            if: :labor_conditions
-  validates :labor_conditions_other, presence: true,
-                                     length: {minimum: 5, maximum: 100},
-                                     if: lambda { |i| i.other_selected?("labor_conditions") }
+  validates :labor_conditions_other, fair_trust_other: true
 
   # Question 3: is production environmentally friendly (opt)
 
@@ -105,9 +101,7 @@ class FairTrustQuestionnaire < ActiveRecord::Base
                                                 if: :environment_protection
   validates :environment_protection_explanation, length: {minimum: 150, maximum: 10000},
                                                  if: :environment_protection
-  validates :environment_protection_other, presence: true,
-                                           length: {minimum: 5, maximum: 100},
-                                           if: lambda { |i| i.other_selected?("environment_protection") }
+  validates :environment_protection_other, fair_trust_other: true
 
   # Question 4: does controlling of these standards exist (req)
 
@@ -128,9 +122,7 @@ class FairTrustQuestionnaire < ActiveRecord::Base
   validates :controlling_explanation, presence: true,
                                       length: {minimum: 150, maximum: 10000},
                                       if: :controlling
-  validates :controlling_other, presence: true,
-                                length: {minimum: 5, maximum: 100},
-                                if: lambda { |i| i.other_selected?("controlling") }
+  validates :controlling_other, fair_trust_other: true
 
   # Question 5: awareness raising programs supported? (opt)
 
@@ -150,14 +142,6 @@ class FairTrustQuestionnaire < ActiveRecord::Base
                                            if: :awareness_raising
   validates :awareness_raising_explanation, length: {minimum: 150, maximum: 10000},
                                             if: :awareness_raising
-  validates :awareness_raising_other, presence: true,
-                                      length: {minimum: 5, maximum: 100},
-                                      if: lambda { |i| i.other_selected?("awareness_raising") }
+  validates :awareness_raising_other, fair_trust_other: true
 
-
-  # Checks if a _checkboxes field has "other" selected
-  # @param field [String] one of he currently five field names
-  def other_selected? field
-    self.send("#{field}_checkboxes").include? :other
-  end
 end
