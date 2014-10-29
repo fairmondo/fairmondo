@@ -209,6 +209,10 @@ GEM
     hike (1.2.3)
     hirb (0.7.2)
     hitimes (1.2.2)
+    hogan_assets (1.6.0)
+      execjs (>= 1.2.9)
+      sprockets (>= 2.0.3)
+      tilt (>= 1.3.3)
     htmlentities (4.3.2)
     httpi (2.0.2)
       rack
@@ -598,6 +602,7 @@ DEPENDENCIES
   formtastic (~> 2.3.0.rc3)
   friendly_id (>= 4.0.9)
   hirb
+  hogan_assets
   i18n-js
   ibanomat
   jbuilder
