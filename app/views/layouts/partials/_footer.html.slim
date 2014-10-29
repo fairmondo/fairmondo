@@ -23,16 +23,19 @@
     #l-footer-nav-main
       section#l-footer-nav-service
         h4
-          | Service &nbsp;
+          = t('footer.service')
+          | &nbsp;
           i.fa.fa-phone
         ul
-          li= link_to t('footer.contact'), '/contact', target: '_blank'
-          li= link_to t('footer.forum'), 'https://info.fairmondo.de/forum/', target: '_blank'
           li= link_to t('footer.faq'), '/faq', target: '_blank'
+          li= link_to t('footer.forum'), 'https://forum.fairmondo.de/', target: '_blank'
+          li= link_to t('footer.contact'), '/contact', target: '_blank'
+
 
       section#l-footer-nav-fairmondo
         h4
-          | Fairmondo &nbsp;
+          = t('footer.company')
+          | &nbsp;
           i.fa.fa-institution
         ul
           li= link_to t('footer.about_us'), '/about_us', target: '_blank'
@@ -40,11 +43,11 @@
           li= link_to t('footer.transparency'), 'https://transparenz.fairmondo.de/', target: '_blank'
           li= link_to t('footer.jobs'), "https://info.fairmondo.de/stellenausschreibungen/", target: '_blank'
           li= link_to t('footer.press'), "https://info.fairmondo.de/pressekit/", target: '_blank'
-          / li= link_to t('footer.pr_material'), 'http://mitmachen.fairmondo.de/materialecke/bildarchiv/', target: '_blank'
 
       section#l-footer-nav-news
         h4
-          | Neues &nbsp;
+          = t('footer.news')
+          | &nbsp;
           i.fa.fa-newspaper-o
         ul
           li= link_to t('footer.blog'), "https://info.fairmondo.de", target: '_blank'
@@ -52,7 +55,8 @@
 
       section#l-footer-nav-legal
         h4
-          | Rechtliches &nbsp;
+          = t('footer.legal')
+          | &nbsp;
           i.fa.fa-legal
         ul
           li= link_to t('footer.agb'), "/agb", target: '_blank'
@@ -62,8 +66,9 @@
       - if User.is_admin? current_user
         section#l-footer-nav-admin
           h4
-            i.fa.fa-wrench &nbsp;
-            | Admins
+            = t('footer.admins')
+            | &nbsp;
+            i.fa.fa-wrench
           ul
             li= link_to t('users.menu.admin'), "/admin"
             li= link_to 'Manage Pages', "/contents"
