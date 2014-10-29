@@ -43,10 +43,10 @@ class Article < ActiveRecord::Base
 
   validates_presence_of :slug unless :template?
 
-  delegate :terms, :cancellation, :about, :country, :ngo, :nickname, :email,
+  delegate :id, :terms, :cancellation, :about, :country, :ngo, :nickname, :email,
            :vacationing?, :free_transport_available, :free_transport_at_price,
            :to => :seller, :prefix => true
-  delegate :nickname, to: :friendly_percent_organisation, :prefix => true
+  delegate :nickname, to: :friendly_percent_organisation, prefix: true, allow_nil: true
 
 
   # Relations
