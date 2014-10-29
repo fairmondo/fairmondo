@@ -53,6 +53,7 @@ gem 'tinymce-rails-langs'
 gem 'jquery-rails'
 gem 'rails-timeago'
 gem 'wiselinks'
+gem 'hogan_assets'
 
 ## Forms
 

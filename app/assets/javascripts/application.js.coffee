@@ -26,8 +26,10 @@
 #= require jquery_ujs
 
 #= require jquery.ui.accordion
-
 #= require qtip2-jquery-rails
+
+#= require hogan.js
+#= require_tree ./templates
 
 #= require modernizr
 #= require selectivizr
