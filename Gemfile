@@ -24,8 +24,13 @@ gem 'sanitize' # Parser based sanitization
 gem 'awesome_nested_set' , ">= 3.0.0.rc.4"# tree structure for categories
 gem "friendly_id", ">= 4.0.9" # Friendly_id for beautiful links
 
+# pseudo models
+gem 'active_data'
+gem 'virtus'
+
 ## Indexing /Searching
 gem "tire"
+gem "chewy"
 
 # ---------- View ----------
 gem 'slim-rails'
@@ -58,7 +63,7 @@ gem 'wiselinks'
 
 gem 'formtastic', "~> 2.3.0.rc3"
 gem "recaptcha", :require => "recaptcha/rails" #Captcha Gem
-gem 'virtus'
+
 
 
 # ---------- Controller ----------
