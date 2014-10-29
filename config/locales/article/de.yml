@@ -74,7 +74,7 @@ de:
       swap: |
         Dieser Artikel kann gegen andere Artikel getauscht werden. Die Tauschwünsche des Anbieters findest Du in der Artikelbeschreibung, oder Du fragst direkt beim Anbieter nach. Dazu kannst Du eine Anfrage über die Box "Email an den*die Anbieter*in" verschicken.
         <br><br>
-        Bitte beachte auch unseren Sicherheitshinweis: Beim Tauschen kommunizierst Du direkt über Email mit dem Anbieter. Bitte wähle beim Tauschen sichere Möglichkeiten des Warentauschs wie z.B. Selbsabholung.
+        Bitte beachte auch unseren Sicherheitshinweis: Beim Tauschen kommunizierst Du direkt über Email mit dem Anbieter. Bitte wähle beim Tauschen sichere Möglichkeiten des Warentauschs wie z.B. Selbstabholung.
       contact:
         description: 'Du hast noch Fragen? Trage diese in dem untenstehenden Feld ein, um dem*der Anbieter*in eine Nachricht zu senden.'
         email_transfer_accepted_label: "Ich bin damit einverstanden, dass meine E-Mail-Adresse an den*die Anbieter*in als Rücksendeadresse übermittelt wird."
