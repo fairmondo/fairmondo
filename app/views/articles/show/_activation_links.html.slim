@@ -20,7 +20,7 @@
 / along with Fairmondo.  If not, see <http://www.gnu.org/licenses/>.
 /
 
-= semantic_form_for resource, url: article_path(activate: true) do |f|
+= semantic_form_for resource, url: article_path(activate: true), html: {class: 'js-visual-submit'} do |f|
   .activation_links
     h3
       = t('article.preview.fees_and_donations.title')
