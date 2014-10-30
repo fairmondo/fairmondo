@@ -10,7 +10,14 @@ class Indexer
   end
 
   def self.index_articles article_ids
-    SearchIndexSpawnerWorker.perform_async article_ids
+    article_ids.each do |article_id|
+      SearchIndexWorker.perform_async(:article, article_id, :store)
+    end
+  end
+
+  def self.index_mass_upload mass_upload_id
+    activation_ids = MassUpload.find(mass_upload_id).articles_for_mass_activation.pluck(:id)
+    Indexer.index_articles activation_ids
   end
 
   def self.settings
