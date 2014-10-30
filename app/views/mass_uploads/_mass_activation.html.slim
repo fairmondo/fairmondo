@@ -29,4 +29,8 @@
       a.Button.Button--large.Button--disabled.Button--red
         = t("mass_uploads.labels.all_articles_activated")
     - else
-      a= button_to t("mass_uploads.labels.mass_activate_articles"), mass_upload_path(params[:id]), class: "Button Button--large", method: :put
+      a= button_to t("mass_uploads.labels.mass_activate_articles"),
+          mass_upload_path(params[:id]),
+          class: "Button Button--large",
+          method: :put,
+          form_class: 'js-visual-submit'

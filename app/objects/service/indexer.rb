@@ -3,16 +3,14 @@ class Indexer
   def self.index_article article
    # indexing
     if article.active? && !article.template?
-      SearchIndexWorker.perform_async(:article,article.id,:store)
-    else
-      SearchIndexWorker.perform_async(:article,article.id,:delete) unless article.preview?
+      SearchIndexWorker.perform_async(:article, article.id, :store)
+    elsif !article.preview?
+      SearchIndexWorker.perform_async(:article, article.id, :delete)
     end
   end
 
   def self.index_articles article_ids
-    article_ids.each do |article_id|
-      SearchIndexWorker.perform_async(:article,article_id,:store)
-    end
+    SearchIndexSpawnerWorker.perform_async article_ids
   end
 
   def self.settings
@@ -59,5 +57,4 @@ class Indexer
       }
     }
   end
-
 end
