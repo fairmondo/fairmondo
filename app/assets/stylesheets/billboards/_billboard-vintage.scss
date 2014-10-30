@@ -1,0 +1,172 @@
+/**
+ * Discover billboard
+ */
+
+
+// General stuff
+#billboard-vintage > article > section > h3 {
+  color: #f1244f;
+  text-transform: uppercase;
+}
+
+// Responsive code: small version
+@include till-breakpoint($bp-tablet) {
+  #billboard-vintage {
+    background-image: image-url('welcome/billboard_vintage_small.jpg');
+  }
+
+  #billboard-vintage > article > h2 {
+    display: none;
+  }
+
+  #billboard-vintage > article > section {
+    @include static-position($left: 0, $width: 210px);
+  }
+
+  #billboard-vintage > article > section.section1 {
+    @include static-position($top: 0);
+  }
+
+  #billboard-vintage > article > section.section2 {
+    @include static-position($top: 145px);
+  }
+
+  #billboard-vintage > article > section.section3 {
+    @include static-position($top: 273px);
+  }
+
+  #billboard-vintage > article > section > h3 {
+    display: none;
+  }
+
+  #billboard-vintage > article > section > a.billboard-imagelink {
+    @include static-position($left: 40px, $height: 90px, $width: 130px);
+  }
+
+  #billboard-vintage > article > section > a.billboard-textlink {
+    @include static-position($top: 95px, $width: 100%);
+    display: block;
+    text-align: center;
+  }
+}
+
+
+// Responsive code: medium version
+@include between-breakpoints($bp-tablet, $bp-tablet-horizontal) {
+  #billboard-vintage {
+    background-image: image-url('welcome/billboard_vintage_medium.jpg');
+  }
+
+  #billboard-vintage > article > h2 {
+    @include static-position($top: 14px, $left: 20px);
+  }
+
+  #billboard-vintage > article > section {
+    @include static-position($left: 20px, $width: 410px);
+  }
+
+  #billboard-vintage > article > section.section1 {
+    @include static-position($top: 80px);
+  }
+
+  #billboard-vintage > article > section.section2 {
+    @include static-position($top: 180px);
+  }
+
+  #billboard-vintage > article > section.section3 {
+    @include static-position($top: 280px);
+  }
+
+  #billboard-vintage > article > section.section1 > a.billboard-imagelink {
+    @include static-position($left: 240px, $height: 90px, $width: 210px);
+  }
+
+  #billboard-vintage > article > section.section1 > a.billboard-textlink {
+    @include static-position($top: 20px);
+  }
+
+  #billboard-vintage > article > section.section2 > h3 {
+    @include static-position($top: 20px, $left: 258px);
+  }
+
+  #billboard-vintage > article > section.section2 > a.billboard-imagelink {
+    @include static-position($left: 30px, $height: 120px, $width: 180px);
+  }
+
+  #billboard-vintage > article > section.section2 > a.billboard-textlink {
+    @include static-position($top: 40px, $left: 258px);
+  }
+
+  #billboard-vintage > article > section.section3 > h3 {
+    @include static-position($top: 65px);
+  }
+
+  #billboard-vintage > article > section.section3 > a.billboard-imagelink {
+    @include static-position($left: 220px, $height: 110px, $width: 220px);
+  }
+
+  #billboard-vintage > article > section.section3 > a.billboard-textlink {
+    @include static-position($top: 85px);
+  }
+}
+
+
+// Responsive code: big version
+@include at-breakpoint($bp-tablet-horizontal) {
+  #billboard-vintage {
+    background-image: image-url('welcome/billboard_vintage_big.jpg');
+  }
+
+  #billboard-vintage > article > h2 {
+    @include static-position($top: 14px, $left: 0, $width: 220px);
+    text-align: right;
+  }
+
+  #billboard-vintage > article > section {
+    @include static-position($left: 240px, $width: 440px);
+  }
+
+  #billboard-vintage > article > section.section1 {
+    @include static-position($top: 30px);
+  }
+
+  #billboard-vintage > article > section.section2 {
+    @include static-position($top: 150px);
+  }
+
+  #billboard-vintage > article > section.section3 {
+    @include static-position($top: 280px);
+  }
+
+  #billboard-vintage > article > section.section1 > a.billboard-imagelink {
+    @include static-position($left: 240px, $height: 100px, $width: 200px);
+  }
+
+  #billboard-vintage > article > section.section1 > a.billboard-textlink {
+    @include static-position($top: 20px);
+  }
+
+  #billboard-vintage > article > section.section2 > h3 {
+    @include static-position($top: 35px, $left: 230px);
+  }
+
+  #billboard-vintage > article > section.section2 > a.billboard-imagelink {
+    @include static-position($left: 20px, $height: 150px, $width: 180px);
+   }
+
+  #billboard-vintage > article > section.section2 > a.billboard-textlink {
+    @include static-position($top: 55px, $left: 230px);
+  }
+
+  #billboard-vintage > article > section.section3 > h3 {
+    @include static-position($top: 65px);
+  }
+
+  #billboard-vintage > article > section.section3 > a.billboard-imagelink {
+    @include static-position($left: 230px, $height: 110px, $width: 210px);
+  }
+
+  #billboard-vintage > article > section.section3 > a.billboard-textlink {
+    @include static-position($top: 85px);
+  }
+}

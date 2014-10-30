@@ -1,7 +1,7 @@
 @import "mixins/all";
-@import "billboards/billboard-discover";
 @import "billboards/billboard-books";
-@import "billboards/billboard-coffee";
+@import "billboards/billboard-gourmet";
+@import "billboards/billboard-vintage";
 
 
 /*
@@ -118,31 +118,32 @@
   margin: 0 auto;
 }
 
-.billboard > article > h2, .billboard > article > section, .billboard > article > section > h3, .billboard > article > section > a {
+.billboard > article h2, .billboard > article > ul,.billboard > article li div, .billboard > article li p, .billboard > article h3, .billboard > article > section > a {
   position: absolute;
   top: 0;
   left: 0;
+  margin: 0;
 }
 
-.billboard > article > h2 {
+.billboard > article h2 {
   margin: 0;
   z-index: 10;
-  text-align: left;
-  text-shadow: 1px 1px $dark-gray;
+  text-align: center;
+  font-size: 30px;
   font-weight: 400;
+  text-transform: uppercase;
 }
 
-.billboard > article > section > h3 {
+.billboard > article h3 {
   margin: 0;
   font-weight: 400;
   font-size: 1.2em;
-  text-align: left;
+  text-align: center;
   color: $white;
 }
 
-.billboard > article > section > a.billboard-imagelink {
-  display: block;
-  text-indent: -1000em;
+.billboard > article > ul a div  {
+  //border: 1px solid black;
 }
 
 .billboard > article > section > a.billboard-textlink {
@@ -489,7 +490,7 @@
   }
 
   .billboard > article > h2 {
-    font-size: 2.9em;
+    //font-size: 2.9em;
   }
 
 

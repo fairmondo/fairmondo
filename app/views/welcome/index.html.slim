@@ -29,15 +29,6 @@
 
 / Billboard
 - cache 'billboard' do
-  - linktargets_discover = ["/libraries/6867?pk_campaign=billboards&pk_kwd=entdecken_unterstuetzen",
-    "/libraries/6869?pk_campaign=billboards&pk_kwd=entdecken_gestalten",
-    "/libraries/6868?pk_campaign=billboards&pk_kwd=entdecken_mitnehmen"]
-  - linktargets_books = ["/articles?article_search_form[borrowable]=false&article_search_form[category_id]=115&article_search_form[condition]=old&article_search_form[swappable]=false?pk_campaign=billboards&pk_kwd=buecher_krimis",
-    "/libraries/6937?pk_campaign=billboards&pk_kwd=buecher_nachhaltig_leben",
-    "/libraries/6938?pk_campaign=billboards&pk_kwd=buecher_buchmesse",
-    "/categories/kochbucher-ernahrung?article_search_form[borrowable]=false&article_search_form[category_id]=183&article_search_form[condition]=old&article_search_form[swappable]=false?pk_campaign=billboards&pk_kwd=buecher_kochen"]
-  - linktargets_coffee = ["/users/coffee-circle?pk_campaign=billboards&pk_kwd=kaffee"]
-
   #billboard
     #billboard-inner
       #js-billboardslides
@@ -49,52 +40,73 @@
         / Bücher
         .billboard#billboard-books
           article
-            h2 Bücher, Bücher, Bücher!
-            section.section1
-              h3 Gebrauchte Krimis
-              = link_to 'Gebrauchte Krimis', linktargets_books[0], title: 'Gebrauchte Krimis', class: 'billboard-imagelink'
-              = link_to 'Mehr davon', linktargets_books[0], class: 'billboard-textlink'
-            section.section2
-              h3 Nachhaltig leben
-              = link_to 'Nachhaltig leben', linktargets_books[1], title: 'Nachhaltig leben', class: 'billboard-imagelink'
-              = link_to 'Mehr davon', linktargets_books[1], class: 'billboard-textlink'
-            section.section3
-              h3 Buchmesse 2014
-              = link_to 'Buchmesse 2014', linktargets_books[2], title: 'Buchmesse 2014', class: 'billboard-imagelink'
-              = link_to 'Mehr davon', linktargets_books[2], class: 'billboard-textlink'
-            section.section4
-              h3 Gebrauchte Kochbücher
-              = link_to 'Gebrauchte Kochbücher', linktargets_books[3], title: 'Gebrauchte Kochbücher', class: 'billboard-imagelink'
-              = link_to 'Mehr davon', linktargets_books[3], class: 'billboard-textlink'
+            hgroup
+              h2 Wir<br>haben<br>sie alle
+              h3 Auf Fairmondo über<br>900&thinsp;000 Bücher finden
+            = link_to 'Jetzt stöbern', ''
+            ul
+              li#billboard-books-link1
+                = link_to 'https://www.fairmondo.de/libraries/5531?pk_campaign=bb4&pk_kwd=romane' do
+                  div
+                  p Beliebteste Romane
+              li#billboard-books-link2
+                = link_to 'https://www.fairmondo.de/libraries/5622?pk_campaign=bb4&pk_kwd=neuerscheinungen' do
+                  div
+                  p Neuer&shy;scheinungen
+              li#billboard-books-link3
+                = link_to 'https://www.fairmondo.de/libraries/6937?pk_campaign=bb4&pk_kwd=ratgeber' do
+                  div
+                  p Beste Ratgeber
+              li#billboard-books-link4
+                = link_to 'https://www.fairmondo.de/libraries/5556?pk_campaign=bb4&pk_kwd=kinder' do
+                  div
+                  p Kinder- und Jugendbücher
+              li#billboard-books-link5
+                = link_to 'https://www.fairmondo.de/libraries/5560?pk_campaign=bb4&pk_kwd=krimi' do
+                  div
+                  p Krimis und Thriller
+              li#billboard-books-link6
+                = link_to 'https://www.fairmondo.de/libraries/5533?pk_campaign=bb4&pk_kwd=gebraucht' do
+                  div
+                  p Gebrauchte Bücher
 
-        / Coffee Circle
-        .billboard#billboard-coffee
+        / Edle Tropfen
+        .billboard#billboard-gourmet
           article
-            h2 Gutes Genießen.
-            section.section1
-              = link_to 'Coffee Circle', linktargets_coffee[0], title: 'Coffee Circle', class: 'billboard-imagelink'
-              p Die Menschen hinter Coffee&nbsp;Circle reisen jedes Jahr selbst nach Äthiopien, um dort die faire Produktion ihrer ausge&shy;zeichneten Bio-Kaffees sicher&shy;zustellen.
-              = link_to 'Mehr erfahren', linktargets_coffee[0], class: 'billboard-textlink'
-            section.section2
-              = link_to 'Coffee Circle', linktargets_coffee[0], title: 'Coffee Circle', class: 'billboard-imagelink'
-              = link_to 'Entdecke die neue Kaffee-Welt', linktargets_coffee[0], class: 'billboard-textlink'
+            h2 Edle<br>Tropfen
+            ul
+              li
+                = link_to 'https://www.fairmondo.de/libraries/7318?pk_campaign=bb5&pk_kwd=essigoel' do
+                  div
+                  p Essige und Öle
+              li
+                = link_to 'https://www.fairmondo.de/libraries/7317?pk_campaign=bb5&pk_kwd=sauce' do
+                  div
+                  p Gourmetsaucen
+              li
+                = link_to 'https://www.fairmondo.de/libraries/7320?pk_campaign=bb5&pk_kwd=weine' do
+                  div
+                  p Weine
 
         / Gutes einfach entdecken
-        .billboard#billboard-discover
+        .billboard#billboard-vintage
           article
-            h2 Gutes einfach entdecken
-            section.section1
-              h3 Gutes unterstützen
-              = link_to 'Gutes unterstützen', linktargets_discover[0], title: 'Gutes unterstützen', class: 'billboard-imagelink'
-              = link_to 'Design aus sozialen Werkstätten', linktargets_discover[0], class: 'billboard-textlink'
-            section.section2
-              h3 Gutes gestalten
-              = link_to 'Gutes gestalten', linktargets_discover[1], title: 'Gutes gestalten', class: 'billboard-imagelink'
-              = link_to 'Mehr Stil im Alltag', linktargets_discover[1], class: 'billboard-textlink'
-            section.section3
-              h3 Gutes mitnehmen
-              = link_to 'Gutes mitnehmen', linktargets_discover[2], title: 'Gutes mitnehmen', class: 'billboard-imagelink'
-              = link_to 'Nachhaltige Trinkflaschen und Brotboxen', linktargets_discover[2], class: 'billboard-textlink'
+            hgroup
+              h2 Guter Stil kennt kein Verfallsdatum
+              h3 Die schönsten Vintage- und Second-Hand-Möbel
+            ul
+              li
+                = link_to 'https://www.fairmondo.de/libraries/7287?pk_campaign=bb6&pk_kwd=moebel' do
+                  div
+                  p Möbel
+              li
+                = link_to 'https://www.fairmondo.de/libraries/7315?pk_campaign=bb6&pk_kwd=deko' do
+                  div
+                  p Geschirr und Deko
+              li
+                = link_to 'https://www.fairmondo.de/libraries/7316?pk_campaign=bb6&pk_kwd=lampen' do
+                  div
+                  p Beleuchtung
 
 
 / USP Teaser with registration link

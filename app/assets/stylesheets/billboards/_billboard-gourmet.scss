@@ -4,41 +4,40 @@
 
 
 // General stuff
-#billboard-coffee > article > section > a.billboard-textlink {
-  display: block;
-  width: 100%;
-  text-align: center;
-  font-size: 1em;
+#billboard-gourmet > article > ul a p {
+  text-align: left;
+  font-size: 14px;
 }
 
 
 // Responsive code: small version
 @include till-breakpoint($bp-tablet) {
-  #billboard-coffee {
-    background-image: image-url('welcome/billboard_coffee_small.jpg');
+  #billboard-gourmet {
+    background-image: image-url('welcome/billboard_gourmet_small.jpg');
   }
 
-  #billboard-coffee > article > h2 {
+  #billboard-gourmet > article > h2 {
     @include static-position($top: 14px, $left: 13px);
+
   }
 
-  #billboard-coffee > article > section {
+  #billboard-gourmet > article > section {
     @include static-position($left: 15px, $width: 185px);
   }
 
-  #billboard-coffee > article > section.section1 {
+  #billboard-gourmet > article > section.section1 {
     display: none;
   }
 
-  #billboard-coffee > article > section.section2 {
+  #billboard-gourmet > article > section.section2 {
     @include static-position($top: 125px);
   }
 
-  #billboard-coffee > article > section > a.billboard-imagelink {
+  #billboard-gourmet > article > section > a.billboard-imagelink {
     @include static-position($top: 10px, $left: 10px, $height: 155px, $width: 190px);
   }
 
-  #billboard-coffee > article > section > a.billboard-textlink {
+  #billboard-gourmet > article > section > a.billboard-textlink {
     @include static-position($top: 200px);
     font-size: 0.8em;
   }
@@ -47,31 +46,31 @@
 
 // Responsive code: medium version
 @include between-breakpoints($bp-tablet, $bp-tablet-horizontal) {
-  #billboard-coffee {
-    background-image: image-url('welcome/billboard_coffee_medium.jpg');
+  #billboard-gourmet {
+    background-image: image-url('welcome/billboard_gourmet_medium.jpg');
   }
 
-  #billboard-coffee > article > h2 {
+  #billboard-gourmet > article > h2 {
     @include static-position($top: 14px, $left: 55px);
   }
 
-  #billboard-coffee > article > section {
+  #billboard-gourmet > article > section {
     @include static-position($left: 55px, $width: 345px);
   }
 
-  #billboard-coffee > article > section.section1 {
+  #billboard-gourmet > article > section.section1 {
     display: none;
   }
 
-  #billboard-coffee > article > section.section2 {
+  #billboard-gourmet > article > section.section2 {
     @include static-position($top: 50px);
   }
 
-  #billboard-coffee > article > section > a.billboard-imagelink {
+  #billboard-gourmet > article > section > a.billboard-imagelink {
     @include static-position($top: 45px, $left: 20px, $height: 230px, $width: 305px);
   }
 
-  #billboard-coffee > article > section > a.billboard-textlink {
+  #billboard-gourmet > article > section > a.billboard-textlink {
     @include static-position($top: 290px);
   }
 }
@@ -79,23 +78,23 @@
 
 // Responsive code: big version
 @include at-breakpoint($bp-tablet-horizontal) {
-  #billboard-coffee {
-    background-image: image-url('welcome/billboard_coffee_big.jpg');
+  #billboard-gourmet {
+    background-image: image-url('welcome/billboard_gourmet_big.jpg');
   }
 
-  #billboard-coffee > article > h2 {
-    @include static-position($top: 14px, $left: 30px);
+  #billboard-gourmet > article > h2 {
+    @include static-position($top: 127px, $left: 7px);
   }
 
-  #billboard-coffee > article > section.section1 {
+  #billboard-gourmet > article > section.section1 {
     @include static-position($top: 110px, $left: 18px, $width: 280px);
   }
 
-  #billboard-coffee > article > section.section2 {
+  #billboard-gourmet > article > section.section2 {
     @include static-position($top: 20px, $left: 320px, $width: 350px);
   }
 
-  #billboard-coffee > article > section.section1 > p {
+  #billboard-gourmet > article > section.section1 > p {
     position: absolute;
     @include static-position($top: 110px, $left: 25px, $width: 230px);
     color: $black;
@@ -105,19 +104,19 @@
     -webkit-text-align-last: center;
   }
 
-  #billboard-coffee > article > section.section1 > a.billboard-imagelink {
+  #billboard-gourmet > article > section.section1 > a.billboard-imagelink {
     @include static-position($top: 30px, $left: 80px, $height: 85px, $width: 120px);
   }
 
-  #billboard-coffee > article > section.section1 > a.billboard-textlink {
+  #billboard-gourmet > article > section.section1 > a.billboard-textlink {
     @include static-position($top: 230px);
   }
 
-  #billboard-coffee > article > section.section2 > a.billboard-imagelink {
+  #billboard-gourmet > article > section.section2 > a.billboard-imagelink {
     @include static-position($top: 45px, $left: 20px, $height: 230px, $width: 310px);
   }
 
-  #billboard-coffee > article > section.section2 > a.billboard-textlink {
+  #billboard-gourmet > article > section.section2 > a.billboard-textlink {
     @include static-position($top: 285px);
   }
 }
