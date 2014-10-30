@@ -2,8 +2,6 @@
 module TireTest
   def self.on
     FakeWeb.clean_registry
-    Article.index.delete
-    Article.create_elasticsearch_index
   end
 
   def self.off
