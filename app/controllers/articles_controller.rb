@@ -44,8 +44,7 @@ class ArticlesController < ApplicationController
 
   #Autocomplete
   def autocomplete
-    @form = ArticleSearchForm.new(q: params[:q])
-    render :json => @form.autocomplete
+    render :json => ArticleAutocomplete.new(params[:q]).autocomplete
   rescue Errno::ECONNREFUSED
     render :json => []
   end
