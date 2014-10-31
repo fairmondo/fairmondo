@@ -9,6 +9,14 @@
   font-size: 14px;
 }
 
+#billboard-gourmet > article > ul > li p {
+  text-align: left;
+  font-weight: 600;
+  font-size: 18px;
+  color: #428fbd;
+}
+
+
 
 // Responsive code: small version
 @include till-breakpoint($bp-tablet) {
@@ -86,37 +94,39 @@
     @include static-position($top: 127px, $left: 7px);
   }
 
-  #billboard-gourmet > article > section.section1 {
-    @include static-position($top: 110px, $left: 18px, $width: 280px);
+  #billboard-gourmet > article > ul > li#billboard-gourmet-link1 div {
+    @include static-position($top: 205px, $left: 90px, $height: 145px, $width: 165px);
   }
 
-  #billboard-gourmet > article > section.section2 {
-    @include static-position($top: 20px, $left: 320px, $width: 350px);
+  #billboard-gourmet > article > ul > li#billboard-gourmet-link2 div {
+    @include static-position($top: 105px, $left: 282px, $height: 220px, $width: 149px);
   }
 
-  #billboard-gourmet > article > section.section1 > p {
-    position: absolute;
-    @include static-position($top: 110px, $left: 25px, $width: 230px);
-    color: $black;
-    text-align: justify;
-    text-align-last: center;
-    -moz-text-align-last: center;
-    -webkit-text-align-last: center;
+  #billboard-gourmet > article > ul > li#billboard-gourmet-link3 div {
+    @include static-position($top: 125px, $left: 540px, $height: 210px, $width: 160px);
   }
 
-  #billboard-gourmet > article > section.section1 > a.billboard-imagelink {
-    @include static-position($top: 30px, $left: 80px, $height: 85px, $width: 120px);
+  #billboard-gourmet > article > ul > li#billboard-gourmet-link1 p {
+    @include static-position($top: 353px, $left: 53px, $height: 30px, $width: 154px);
+    padding: 6px 0 0 13px;
   }
 
-  #billboard-gourmet > article > section.section1 > a.billboard-textlink {
-    @include static-position($top: 230px);
+  #billboard-gourmet > article > ul > li#billboard-gourmet-link2 p:nth-of-type(1) {
+    @include static-position($top: 295px, $left: 301px, $height: 30px, $width: 167px);
+    padding: 5px 0 0 10px;
   }
 
-  #billboard-gourmet > article > section.section2 > a.billboard-imagelink {
-    @include static-position($top: 45px, $left: 20px, $height: 230px, $width: 310px);
+  #billboard-gourmet > article > ul > li#billboard-gourmet-link2 p:nth-of-type(2) {
+    @include static-position($top: 105px, $left: 412px, $width: 120px);
+    color: $white;
+    text-align: center;
+    text-decoration: underline;
+    line-height: 22px;
   }
 
-  #billboard-gourmet > article > section.section2 > a.billboard-textlink {
-    @include static-position($top: 285px);
+  #billboard-gourmet > article > ul > li#billboard-gourmet-link3 p {
+    @include static-position($top: 319px, $left: 548px, $height: 29px, $width: 79px);
+    padding: 7px 0 0 11px;
   }
+
 }
