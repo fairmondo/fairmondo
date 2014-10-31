@@ -2,7 +2,7 @@
 
 {Burndown}[http://radekstepan.com/github-burndown-chart/#!/fairmondo/fairmondo]
 
-{<img src="https://travis-ci.org/fairmondo/fairmondo.png" />}[https://travis-ci.org/fairmondo/fairmondo] {<img src="https://coveralls.io/repos/fairmondo/fairmondo/badge.png" alt="Coverage Status" />}[https://coveralls.io/r/fairmondo/fairmondo] {<img src="https://codeclimate.com/github/fairmondo/fairmondo.png" />}[https://codeclimate.com/github/fairmondo/fairmondo] {<img src="https://gemnasium.com/fairmondo/fairmondo.svg" alt="Dependency Status" />}[https://gemnasium.com/fairmondo/fairmondo] {<img src="http://inch-ci.org/github/fairmondo/fairmondo.png" alt="Inline docs" />}[http://inch-ci.org/github/fairmondo/fairmondo]
+{<img src="https://travis-ci.org/fairmondo/fairmondo.svg?branch=develop" alt="Build Status" />}[https://travis-ci.org/fairmondo/fairmondo] {<img src="https://coveralls.io/repos/fairmondo/fairmondo/badge.png" alt="Coverage Status" />}[https://coveralls.io/r/fairmondo/fairmondo] {<img src="https://codeclimate.com/github/fairmondo/fairmondo.png" />}[https://codeclimate.com/github/fairmondo/fairmondo] {<img src="https://gemnasium.com/fairmondo/fairmondo.svg" alt="Dependency Status" />}[https://gemnasium.com/fairmondo/fairmondo] {<img src="http://inch-ci.org/github/fairmondo/fairmondo.png" alt="Inline docs" />}[http://inch-ci.org/github/fairmondo/fairmondo]
 
 Fairmondo is a free market place in the hand of the users.
 
