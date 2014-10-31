@@ -400,7 +400,8 @@ ul.category-selected-list {
   }
 }
 
-// fair alternative
+
+// fair company box
 
 .fair_company {
   @include whitebox;
@@ -412,7 +413,6 @@ ul.category-selected-list {
   img {
     display: block;
     width: 105%;
-    height: 105%;
     margin-bottom: 0;
   }
 }
