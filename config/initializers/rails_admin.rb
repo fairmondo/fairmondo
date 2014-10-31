@@ -42,6 +42,12 @@ RailsAdmin.config do |config|
     end
     show_in_app
 
+    # Addons
+
+    statistics do
+      only ['BusinessTransaction', 'User', 'PrivateUser', 'LegalEntity']
+    end
+
     ## With an audit adapter, you can add:
     # history_index
     # history_show

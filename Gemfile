@@ -90,6 +90,7 @@ gem 'kontoapi-ruby' # KontoAPI checks bank data
 gem 'ibanomat' # accound number to IBAN
 gem 'memoist' # Support for memoization
 gem 'rails_admin' # Administrative backend
+gem 'rails_admin_statistics', github: 'KonstantinKo/rails_admin_statistics'
 gem 'rack-rewrite' # Redirects
 gem 'json'
 gem 'nokogiri'
