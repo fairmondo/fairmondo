@@ -23,7 +23,7 @@ class FileFixerWorker
       # check which is the most recently updated
       mod_times = files.map { |file| File.mtime(file).to_i }
 
-      newest_filepath = files.zip(mod_times).max[1]
+      newest_filepath = mod_times.zip(files).max[1]
       newest_filename = newest_filepath[newest_filepath.rindex('/') + 1..-1]
 
       unless image.image_file_name == newest_filename
