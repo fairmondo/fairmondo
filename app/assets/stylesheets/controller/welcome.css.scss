@@ -142,8 +142,12 @@
   color: $white;
 }
 
+.billboard > article > ul {
+  list-style-type: none;
+}
+
 .billboard > article > ul a div  {
-  //border: 1px solid black;
+  border: 1px solid black;
 }
 
 .billboard > article > section > a.billboard-textlink {
