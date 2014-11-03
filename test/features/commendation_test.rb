@@ -34,7 +34,8 @@ feature "Article commendations" do
   end
 
   scenario "user visits seller with ecologic article" do
-    Article.stubs(:search).raises(Errno::ECONNREFUSED) # simulate connection error so that we dont have to use elastic
+    Chewy::Query.any_instance.stubs(:to_a).raises(Faraday::ConnectionFailed.new("test")) # simulate connection error so that we dont have to use elastic
+
     visit user_path(@seller)
     page.must_have_link(I18n.t 'formtastic.labels.article.ecologic')
   end

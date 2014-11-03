@@ -42,7 +42,8 @@ class ArticleSearch
       price_filter,
       category_filter,
       condition_filter,
-      category_facet
+      category_facet,
+      sorting
     ].compact.reduce(:merge).query_mode(1)
   end
 
@@ -116,7 +117,7 @@ class ArticleSearch
     # sorting
 
     def sorting
-      index.order(SORT[@query.sort])
+      index.order(SORT[@query.order_by])
     end
 
 

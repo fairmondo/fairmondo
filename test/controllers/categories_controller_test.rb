@@ -60,7 +60,7 @@ describe CategoriesController do
     end
 
     it "should rescue an Faraday::ConnectionFailed error" do
-      ArticlesIndex.stubs(:query).raises(Faraday::ConnectionFailed)
+      Chewy::Query.any_instance.stubs(:to_a).raises(Faraday::ConnectionFailed.new("test"))
       get :show, id: category.id, article_search_form: { q: 'foobar' }
       assert_response :success
     end

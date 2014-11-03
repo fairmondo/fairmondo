@@ -180,7 +180,7 @@ describe ArticlesController do
       end
 
       it "doen't throw an error when the search for other users articles breaks" do
-        ArticlesIndex::Article.stubs(:filter).raises(Faraday::ConnectionFailed)
+        Chewy::Query.any_instance.stubs(:to_a).raises(Faraday::ConnectionFailed.new("test")) # simulate connection error so that we dont have to use elastic
         get :show, id: article.id
         assert_template :show
       end
@@ -456,11 +456,11 @@ describe ArticlesController do
 
     end
 
-    it "should rescue an ECONNREFUSED error" do
-      Article.stubs(:search).raises(Errno::ECONNREFUSED)
+    it "should rescue an Faraday::ConnectionFailed error" do
+      Chewy::Query.any_instance.stubs(:map).raises(Faraday::ConnectionFailed.new("test"))
       get :autocomplete, keywords: 'chunky'
       assert_response :success
-      response.body.must_equal [].to_json
+      response.body.must_equal({"query" => nil , "suggestions" => []}.to_json)
     end
   end
 

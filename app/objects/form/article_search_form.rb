@@ -29,7 +29,9 @@ class ArticleSearchForm
 
   def search page
     @search = ArticleSearch.search(self)
-    @search.result.page(page).per(Kaminari.config.default_per_page)
+    results = @search.result.page(page).per(Kaminari.config.default_per_page)
+    results.to_a # dont get rid of this as it will trigger the request and the rescue block can come in
+    results
   rescue Faraday::ConnectionFailed
     ArticlePolicy::Scope.new(nil, Article).resolve.page(page)
   end
@@ -46,7 +48,7 @@ class ArticleSearchForm
   # Did this form get request parameters or is this an empty search where someone just wants to look around?
   # (category doesn't count)
   def search_request?
-    filter_attributes.reject{ |a,v| k==:category_id }.empty?
+    filter_attributes.reject{ |k,v| k==:category_id }.empty?
   end
 
   def fresh?
@@ -100,7 +102,7 @@ class ArticleSearchForm
     end
 
     def clean_hash hash
-      hash.select{ |a,v| v!=nil && v!=false }
+      hash.select{ |k,v| v!=nil && v!=false }
     end
 
 
