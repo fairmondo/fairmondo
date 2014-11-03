@@ -22,19 +22,12 @@
 class SocialProducerQuestionnaire < ActiveRecord::Base
   extend Enumerize
   extend Sanitization
+  include QuestionnaireInitializer
 
   auto_sanitize :social_entrepreneur_explanation
 
   belongs_to :article
 
-  def initialize(*args)
-    if args.present?
-      args[0].select{|k,v| k.match(/_checkboxes$/)}.each_pair do |k, v|
-        args[0][k] = v.reject(&:empty?)
-      end
-    end
-    super
-  end
 
   # Validations
 

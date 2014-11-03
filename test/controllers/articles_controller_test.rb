@@ -28,23 +28,16 @@ describe ArticlesController do
 
     describe "searching" do
       setup do
-        TireTest.on
-        Article.index.delete
-        Article.create_elasticsearch_index
+        ArticlesIndex.reset!
         @vehicle_category = Category.find_by_name!("Fahrzeuge")
         @hardware_category = Category.find_by_name!("Hardware")
         @electronic_category = Category.find_by_name!("Elektronik")
         @software_category = Category.find_by_name!("Software")
 
-        @normal_article = FactoryGirl.create(:article,price_cents: 1, title: "noraml article thing", content: "super thing", created_at: 4.days.ago, id: 1234)
-        @second_hand_article = FactoryGirl.create(:second_hand_article, price_cents: 2, title: "muscheln", categories: [ @vehicle_category ], content: "muscheln am meer", created_at: 3.days.ago, id: 1235)
-        @hardware_article = FactoryGirl.create(:second_hand_article,:simple_fair,:simple_ecologic,:simple_small_and_precious,:with_ngo, price_cents: 3, title: "muscheln 2", categories: [ @hardware_category ], content: "abc" , created_at: 2.days.ago, id: 1236)
-        @no_second_hand_article = FactoryGirl.create :no_second_hand_article, price_cents: 4, title: "muscheln 3", categories: [ @hardware_category ], content: "cde", id: 1237, created_at: 1.day.ago
-        Article.index.refresh
-      end
-
-      teardown do
-        TireTest.off
+        @normal_article = FactoryGirl.create(:article, :index_article, price_cents: 1, title: "noraml article thing", content: "super thing", created_at: 4.days.ago, id: 1234)
+        @second_hand_article = FactoryGirl.create(:second_hand_article, :index_article, price_cents: 2, title: "muscheln", categories: [ @vehicle_category ], content: "muscheln am meer", created_at: 3.days.ago, id: 1235)
+        @hardware_article = FactoryGirl.create(:second_hand_article, :index_article, :simple_fair,:simple_ecologic,:simple_small_and_precious,:with_ngo, price_cents: 3, title: "muscheln 2", categories: [ @hardware_category ], content: "abc" , created_at: 2.days.ago, id: 1236)
+        @no_second_hand_article = FactoryGirl.create :no_second_hand_article, :index_article, price_cents: 4, title: "muscheln 3", categories: [ @hardware_category ], content: "cde", id: 1237, created_at: 1.day.ago
       end
 
       it "should work with all filters" do
@@ -187,7 +180,7 @@ describe ArticlesController do
       end
 
       it "doen't throw an error when the search for other users articles breaks" do
-        Article.stubs(:search).raises(Errno::ECONNREFUSED)
+        ArticlesIndex::Article.stubs(:filter).raises(Faraday::ConnectionFailed)
         get :show, id: article.id
         assert_template :show
       end
@@ -445,11 +438,8 @@ describe ArticlesController do
   describe "#autocomplete" do #, search: true
 
     it "should be successful" do
-      TireTest.on
-      Article.index.delete
-      Article.create_elasticsearch_index
-      @article = FactoryGirl.create :article, title: 'chunky bacon'
-      Article.index.refresh
+      ArticlesIndex.reset!
+      @article = FactoryGirl.create :article, :index_article, title: 'chunky bacon'
       get :autocomplete, q: 'chunky'
       assert_response :success
       response.body.must_equal({
@@ -463,7 +453,7 @@ describe ArticlesController do
           }
         }]
       }.to_json)
-      TireTest.off
+
     end
 
     it "should rescue an ECONNREFUSED error" do

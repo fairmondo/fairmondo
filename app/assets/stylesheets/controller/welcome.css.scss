@@ -319,6 +319,10 @@
 #coop > .teaser-inner {
   background-color: #5F9537;
   color: $white;
+
+  img {
+    max-width: 100%;
+  }
 }
 
 

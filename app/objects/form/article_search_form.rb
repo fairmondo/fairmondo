@@ -30,7 +30,7 @@ class ArticleSearchForm
   def search page
     @search = ArticleSearch.search(self)
     @search.result.page(page).per(Kaminari.config.default_per_page)
-  rescue Errno::ECONNREFUSED
+  rescue Faraday::ConnectionFailed
     ArticlePolicy::Scope.new(nil, Article).resolve.page(page)
   end
 

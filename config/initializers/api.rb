@@ -59,3 +59,11 @@ begin
 rescue
   puts "Cleverreach API key(s) couldn't be found."
 end
+
+begin
+  # Discourse Secret
+  $DISCOURSE_SECRET = api['discourse']['key']
+  $DISCOURSE_URL    = api['discourse']['url']
+rescue
+  puts "Discourse Secret could not be found"
+end

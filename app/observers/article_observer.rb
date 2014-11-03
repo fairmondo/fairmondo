@@ -36,8 +36,6 @@ class ArticleObserver < ActiveRecord::Observer
       cloned_article.templatify
       cloned_article.save #save the cloned article
     end
-
-    Indexer.index_article article
   end
 
   def before_activate(article, transition)
@@ -47,6 +45,7 @@ class ArticleObserver < ActiveRecord::Observer
 
   def after_activate(article, transition)
     ArticleMailer.delay.article_activation_message(article.id)
+    Indexer.index_article article
   end
 
   # before_deactivate and before_close will only work on state_changes
@@ -54,11 +53,13 @@ class ArticleObserver < ActiveRecord::Observer
 
   def after_deactivate(article, transition)
     article.library_elements.update_all(inactive: true)
+    Indexer.index_article article
   end
 
   def after_close(article, transition)
     article.remove_from_libraries
     article.cleanup_images unless article.business_transactions.any?
+    Indexer.index_article article
   end
 
   def after_create article
