@@ -14,7 +14,9 @@ class ActiveUserArticles
 
   private
     def finder page, per
-      ArticlesIndex::Article.filter(term: {seller_id: @user.id}).page(page).per(per).to_a
+      result = ArticlesIndex.all.filter(term: {seller_id: @user.id}).page(page).per(per)
+      result.to_a # this will make sure the request is send
+      result
     rescue Faraday::ConnectionFailed
       @user.articles.includes(:images).where(state: 'active').page(page).per(per)
     end

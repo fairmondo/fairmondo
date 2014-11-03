@@ -197,7 +197,7 @@ feature "Article search" do
   end
 
   scenario 'elastic search server disconnects' do
-    ArticlesIndex.stubs(:query).raises(Faraday::ConnectionFailed)
+    Chewy::Query.any_instance.stubs(:to_a).raises(Faraday::ConnectionFailed.new("test")) # simulate connection error so that we dont have to use elastic
     visit root_path
     click_button 'Suche'
   end
