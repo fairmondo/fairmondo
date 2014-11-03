@@ -19,7 +19,7 @@ class ActiveUserArticles
         query { all }
         filter :term, :seller => user.id
       end
-    rescue Errno::ECONNREFUSED
+    rescue Errno::ECONNREFUSED, Tire::Search::SearchRequestFailed
       @user.articles.includes(:images).where(:state => 'active').page(page).per(per)
     end
 

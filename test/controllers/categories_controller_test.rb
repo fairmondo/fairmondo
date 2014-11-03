@@ -68,6 +68,8 @@ describe CategoriesController do
     describe "search" do
       setup do
         TireTest.on
+        Article.index.delete
+        Article.create_elasticsearch_index
         @electronic_category = Category.find_by_name!("Elektronik")
         @hardware_category = Category.find_by_name!("Hardware")
         @software_category = Category.find_by_name!("Software")
