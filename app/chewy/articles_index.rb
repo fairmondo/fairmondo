@@ -35,12 +35,11 @@ class ArticlesIndex < Chewy::Index
 
 
 
-  define_type Article.includes(:seller,:title_image, :categories) do
+  define_type Article.active.includes(:seller,:title_image, :categories) do
     root _source: { excludes: ['content'] } do
       field :id, index: :not_analyzed
       field :title, type: 'string', analyzer: "german_analyzer"
       field :title_completion, value: -> { title }, type: 'completion'
-      field :state, index: :not_analyzed
 
       field :content,  analyzer: "german_analyzer"
       field :gtin,  index: :not_analyzed
