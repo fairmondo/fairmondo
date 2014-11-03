@@ -1,10 +1,13 @@
 class CommentsController < ApplicationController
+  include FindPolymorphicTarget
 
+  # If you want to make another Class commentable,
+  # add it to the COMMENTABLES-array
   COMMENTABLES = [Library, Article]
 
   respond_to :js
 
-  before_filter :set_commentable, only: [:index, :create, :update, :destroy]
+  before_filter(only: [:index, :create, :update, :destroy]) { set_commentable(COMMENTABLES) }
   before_filter :set_comment, only: [:update, :destroy]
   skip_before_filter :authenticate_user!, only: [:index]
 
@@ -61,19 +64,7 @@ class CommentsController < ApplicationController
 
   private
 
-  def set_commentable
-    commentable_key = params.keys.select { |p| p.match(/[a-z_]_id$/) }.last
-
-    # Class can be inferred from the key.
-    # We're using the HEARTABLES array for protection though.
-    commentable_class = COMMENTABLES.select do |klass|
-      klass.to_s.downcase == commentable_key[0..-4]
-    end.first
-
-    @commentable = commentable_class.find(params[commentable_key])
-  end
-
-  def set_comment
-    @comment = Comment.find(params[:id])
-  end
+    def set_comment
+      @comment = Comment.find(params[:id])
+    end
 end

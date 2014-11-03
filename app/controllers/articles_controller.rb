@@ -45,7 +45,7 @@ class ArticlesController < ApplicationController
   #Autocomplete
   def autocomplete
     render :json => ArticleAutocomplete.new(params[:q]).autocomplete
-  rescue Errno::ECONNREFUSED
+  rescue Faraday::ConnectionFailed
     render :json => []
   end
 

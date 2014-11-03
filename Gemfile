@@ -29,7 +29,6 @@ gem 'active_data'
 gem 'virtus'
 
 ## Indexing /Searching
-gem "tire"
 gem "chewy"
 
 # ---------- View ----------

@@ -79,57 +79,10 @@ class Article < ActiveRecord::Base
 
   # Elastic
 
-  include Tire::Model::Search
-
-  settings Indexer.settings do
-    mapping :_source => { :excludes => ['content'] } do
-      indexes :id,           :index => :not_analyzed
-      indexes :title,  type: 'multi_field'  , :fields => {
-         :search => { type: 'string', analyzer: "decomp_stem_analyzer"},
-         :decomp => { type: 'string', analyzer: "decomp_analyzer"},
-      }
-      indexes :content,      analyzer: "decomp_stem_analyzer"
-      indexes :gtin,         :index    => :not_analyzed
-
-      # filters
-
-      indexes :fair, :type => 'boolean'
-      indexes :ecologic, :type => 'boolean'
-      indexes :small_and_precious, :type => 'boolean'
-      indexes :swappable, :type => 'boolean'
-      indexes :borrowable, :type => 'boolean'
-      indexes :condition
-      indexes :categories, :as => Proc.new { self.categories.map{|c| c.self_and_ancestors.map(&:id) }.flatten  }
-
-
-      # sorting
-      indexes :created_at, :type => 'date'
-
-      # stored attributes
-
-      indexes :slug
-      indexes :title_image_url_thumb, :as => 'title_image_url_thumb'
-      indexes :price, :as => 'price_cents', :type => 'long'
-      indexes :basic_price, :as => 'basic_price_cents', :type => 'long'
-      indexes :basic_price_amount
-      indexes :vat, :type => 'long'
-
-      indexes :friendly_percent, :type => 'long'
-      indexes :friendly_percent_organisation , :as => 'friendly_percent_organisation_id'
-      indexes :friendly_percent_organisation_nickname, :as => Proc.new { friendly_percent_organisation ? self.friendly_percent_organisation_nickname : nil }
-
-      indexes :transport_pickup
-      indexes :zip, :as => Proc.new { self.seller.standard_address_zip if self.transport_pickup || self.seller.is_a?(LegalEntity) }
-
-      # seller attributes
-      indexes :belongs_to_legal_entity? , :as => 'belongs_to_legal_entity?'
-      indexes :seller_ngo, :as => 'seller_ngo'
-      indexes :seller_nickname, :as => 'seller_nickname'
-      indexes :seller, :as => 'seller.id'
-
-
-    end
+  def delete_from_index?
+    !active?
   end
+
 
   # ATTENTION DO NOT CALL THIS WITHOUT A TRANSACTION (See Cart#buy)
   def buy! value

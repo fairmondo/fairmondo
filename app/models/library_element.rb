@@ -36,5 +36,5 @@ class LibraryElement < ActiveRecord::Base
 
   scope :active, -> { where.not(inactive: true) }
   # Scopes
-  default_scope -> { order(created_at: :asc) }
+  default_scope -> { order(created_at: :desc) }
 end

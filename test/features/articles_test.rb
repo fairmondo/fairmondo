@@ -187,21 +187,17 @@ end
 feature "Article search" do
 
   scenario "should show the page with search results" do
-    TireTest.on
-    Article.index.delete
-    Article.create_elasticsearch_index
+    ArticlesIndex.reset!
     visit root_path
     fill_in 'search_input', with: 'chunky bacon'
-    FactoryGirl.create :article, title: 'chunky bacon'
-    Article.index.refresh
+    FactoryGirl.create :article, :index_article, title: 'chunky bacon'
 
     click_button 'Suche'
     page.must_have_link 'chunky bacon'
-    TireTest.off
   end
 
   scenario 'elastic search server disconnects' do
-    Article.stubs(:search).raises(Errno::ECONNREFUSED)
+    ArticlesIndex.stubs(:query).raises(Faraday::ConnectionFailed)
     visit root_path
     click_button 'Suche'
   end
@@ -328,17 +324,10 @@ end
 feature 'other Articles of the same user' do
   setup do
     seller = FactoryGirl.create :user
-    TireTest.on
-    Article.index.delete
-    Article.create_elasticsearch_index
-    @article = FactoryGirl.create :article, :seller => seller
-    @article_active = FactoryGirl.create :article, :seller => seller
-    @article_locked = FactoryGirl.create :preview_article, :seller => seller
-    Article.index.refresh
-  end
-
-  teardown do
-    TireTest.off
+    ArticlesIndex.reset!
+    @article = FactoryGirl.create :article, :index_article, :seller => seller
+    @article_active = FactoryGirl.create :article, :index_article, :seller => seller
+    @article_locked = FactoryGirl.create :preview_article, :index_article, :seller => seller
   end
 
   scenario 'user wants to see other articles of the same seller' do
