@@ -58,7 +58,7 @@ class User < ActiveRecord::Base
     # Addresses
   has_many :addresses, dependent: :destroy, inverse_of: :user
   belongs_to :standard_address, class_name: 'Address', foreign_key: :standard_address_id
-  delegate :title, :first_name, :last_name, :company_name, :address_line_1, :address_line_2, :zip, :city, :country, to: :standard_address, prefix: true
+  delegate :title, :first_name, :last_name, :company_name, :address_line_1, :address_line_2, :zip, :city, :country, to: :standard_address, prefix: true, allow_nil: true
 
     # Profile image
   has_one :image, class_name: "UserImage", foreign_key: "imageable_id"

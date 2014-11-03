@@ -3,7 +3,7 @@ de:
   footer:
     legal_details: 'Rechtliches'
     agb: 'AGB'
-    privacy: 'Datenschutzerklärung'
+    privacy: 'Datenschutz'
     imprint: 'Impressum'
     about_us: 'Über Uns'
     philosophy: 'Philosophie'
@@ -18,3 +18,8 @@ de:
     blog: 'Blog'
     newsletter: 'Newsletter'
     pr_material: 'Werbematerial'
+    service: 'Service'
+    company: 'Fairmondo'
+    news: 'Neues'
+    legal: 'Rechtliches'
+    admins: 'Admins'
