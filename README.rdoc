@@ -19,7 +19,7 @@ If you are not sure how to <em>install Ruby and the Ruby on Rails framework</em>
 
 Make sure you install <em>2.1</em>. and not <em>ruby 1.9.3-p392</em>.
 
-=== Fairmondo Project Setup (automated)#
+=== Fairmondo Project Setup (automated)
 MAY BE OUT OF DATE!!!!
 
 Note: the automated process won't work under Windows.
