@@ -38,6 +38,10 @@ class ArticleObserver < ActiveRecord::Observer
     end
   end
 
+  def before_create article
+    article.discount_id = Discount.current.last.id if article.qualifies_for_discount?
+  end
+
   def before_activate(article, transition)
     article.changing_state = true
     article.calculate_fees_and_donations

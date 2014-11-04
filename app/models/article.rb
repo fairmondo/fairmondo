@@ -22,9 +22,15 @@
 class Article < ActiveRecord::Base
   extend Enumerize
   extend FriendlyId
-  include Commentable
+  extend Sanitization
 
-  # Friendly_id for beautiful links
+  # Article module concerns
+  include Validations, ActiveRecordOverwrites, Associations,
+          Commendation, FeesAndDonations,
+          Images, ExtendedAttributes, State, Scopes,
+          Checks, Delegates, Commentable
+
+  ############### Friendly_id for beautiful links
   def slug_candidates
     [
       :title,
@@ -35,54 +41,11 @@ class Article < ActiveRecord::Base
 
   friendly_id :slug_candidates, :use => [:slugged, :finders]
 
-  # Action attribute: c/create/u/update/d/delete - for export and csv upload
-  # keep_images attribute: see edit_as_new
-  attr_accessor :action, :keep_images, :save_as_template
-
-  attr_writer :article_search_form #find a way to remove this! arcane won't like it
-
-  validates_presence_of :slug unless :template?
-
-  delegate :id, :terms, :cancellation, :about, :country, :ngo, :nickname, :email,
-           :vacationing?, :free_transport_available, :free_transport_at_price,
-           :to => :seller, :prefix => true
-  delegate :nickname, to: :friendly_percent_organisation, prefix: true, allow_nil: true
-
-
-  # Relations
-  has_many :business_transactions, inverse_of: :article
-  has_many :line_items, inverse_of: :article
-
-  has_many :library_elements, :dependent => :destroy
-  has_many :libraries, through: :library_elements
-
-  belongs_to :seller, class_name: 'User', foreign_key: 'user_id'
-  alias_method :user, :seller
-  alias_method :user=, :seller=
-
-  belongs_to :original, class_name: 'Article', foreign_key: 'original_id' # the article that this article is a copy of, if applicable
-
-  has_many :mass_upload_articles
-  has_many :mass_uploads, through: :mass_upload_articles
-
-  belongs_to :friendly_percent_organisation, class_name: 'User', foreign_key: 'friendly_percent_organisation_id'
-  belongs_to :discount
-
-  validates_presence_of :user_id
-
-  # Misc mixins
-  extend Sanitization
-  # Article module concerns
-  include Categories, Commendation, FeesAndDonations,
-          Images, Attributes, State, Scopes,
-          Checks, Discountable
-
-  # Elastic
-
-  def delete_from_index?
-    !active?
+  def should_generate_new_friendly_id?
+    super && slug == nil
   end
 
+  ###############################################
 
   # ATTENTION DO NOT CALL THIS WITHOUT A TRANSACTION (See Cart#buy)
   def buy! value
@@ -94,36 +57,6 @@ class Article < ActiveRecord::Base
     self.save! # validation is performed on the attribute
   end
 
-  def quantity_available_with_article_state
-    self.active? ? quantity_available_without_article_state : 0
-  end
-
-  def quantity_available
-    super || self.quantity
-  end
-
-  alias_method_chain :quantity_available, :article_state
-
-  def save_as_template?
-    self.save_as_template == "1"
-  end
-
-  def images_attributes=(attributes)
-    self.images.clear
-    attributes.each do |key,image_attributes|
-      if image_attributes.has_key? :id
-        self.images << update_existing_image(image_attributes) unless image_attributes[:_destroy] == "1"
-      else
-        self.images << ArticleImage.new(image_attributes) if image_attributes[:image] != nil
-      end
-    end
-  end
-
-  def update_existing_image image_attributes
-    image = Image.find(image_attributes[:id])
-    image.image = image_attributes[:image] if image_attributes.has_key? :image # updated the image itself
-    image.is_title = image_attributes[:is_title]
-  end
 
   def self.edit_as_new article
     new_article = article.amoeba_dup
@@ -164,16 +97,6 @@ class Article < ActiveRecord::Base
         new_article.original_id = original_article.id # will be used in after_create; see observer
       end
     }
-  end
-
-  def should_generate_new_friendly_id?
-    super && slug == nil
-  end
-
-
-  def is_template?
-    # works even when the db state did not change yet
-    self.state.to_sym == :template
   end
 
 
