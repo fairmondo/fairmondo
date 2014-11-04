@@ -22,7 +22,7 @@ class ArticleSearch
   # public api
 
   def category_facets
-    Hash[@search.facets['categories']['terms'].map(&:values)] if @search && @search.facets
+    @_category_facets ||= Hash[@search.facets['categories']['terms'].map(&:values)] if @search && @search.facets
   end
 
   def result
