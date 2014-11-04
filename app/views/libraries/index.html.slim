@@ -32,7 +32,7 @@ h1.Title-next-to-tab Sammlungen
 
 .libraries
   / Show convenient link to new library form if it's available and there are more than 5 libraries
-  - if user_signed_in? && user_focused? && @libraries.length > 5
+  - if @library && policy(@library).create? && @libraries.length > 5
     p#library-form-link= link_to t('libraries.create_new'), '#library-form'
 
   - if !user_signed_in? && @mode == 'myfavorite'

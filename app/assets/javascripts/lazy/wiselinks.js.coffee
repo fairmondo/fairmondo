@@ -16,5 +16,5 @@ $(document).ready ->
     $(document).on(
       'page:done'
       (event, $target, status, url, data) ->
-        _paq.push ['trackPageView']
+        _paq?.push ['trackPageView']
     )

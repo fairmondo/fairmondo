@@ -168,7 +168,7 @@
           = " #{t('common.text.glue.from')} "
           = link_to(library.user_nickname, user_path(library.user))
 
-        - library.library_elements.includes(article: [:images, :seller]).reverse_order.limit(2).each do |library_element|
+        - library.library_elements.includes(article: [:images, :seller]).limit(2).each do |library_element|
           .teaser-queue
             = render 'articles/shared/show_article', article: library_element.article
 
@@ -238,7 +238,7 @@
   .teaser-inner.teaser--center
     = image_tag 'genobox-360.png'
     h2 haben sich bereits an der Fairmondo-Genossenschaft beteiligt.
-    p= link_to 'Mehr erfahren', 'http://info.fairmondo.de/anteile-zeichnen', class: 'Button', target: '_blank'
+    p= link_to 'Mehr erfahren', 'https://www.fairmondo.de/genossenschaft', class: 'Button', target: '_self'
 
 
 / Blog

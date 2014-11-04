@@ -165,6 +165,8 @@ Fairmondo::Application.routes.draw do
     mount Sidekiq::Web => '/sidekiq'
   end
 
+  # routes for Discourse
+  get 'discourse/sso'
 
   # TinyCMS Routes Catchup
   scope constraints: lambda {|request|

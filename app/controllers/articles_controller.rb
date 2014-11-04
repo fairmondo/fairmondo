@@ -44,10 +44,9 @@ class ArticlesController < ApplicationController
 
   #Autocomplete
   def autocomplete
-    @form = ArticleSearchForm.new(q: params[:q])
-    render :json => @form.autocomplete
-  rescue Errno::ECONNREFUSED
-    render :json => []
+    render :json => ArticleAutocomplete.new(params[:q]).autocomplete
+  rescue Faraday::ConnectionFailed
+    render :json => {query: params[:q], suggestions:[]}
   end
 
   def show
