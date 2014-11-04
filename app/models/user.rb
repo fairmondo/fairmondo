@@ -22,6 +22,7 @@
 class User < ActiveRecord::Base
   extend Memoist
   extend Tokenize
+  extend RailsAdminStatistics
 
   # Friendly_id for beautiful links
   extend FriendlyId
