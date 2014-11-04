@@ -35,6 +35,10 @@ FactoryGirl.define do
     state "active"
     original_id { nil }
 
+    after :create do |article, evaluator|
+      Indexer.index_article article if article.active?
+    end
+
     basic_price_cents { Random.new.rand(500000)+1 }
     basic_price_amount {[:kilogram, :gram, :liter, :milliliter, :cubicmeter, :meter, :squaremeter, :portion].sample}
 

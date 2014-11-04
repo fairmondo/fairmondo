@@ -87,6 +87,4 @@ module Article::State
     ArticleObserver.instance.send("after_close",self,nil)
     self.save(:validate => false) # do it anyways
   end
-
-
 end
