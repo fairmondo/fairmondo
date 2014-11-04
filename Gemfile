@@ -26,7 +26,6 @@ gem "friendly_id", ">= 4.0.9" # Friendly_id for beautiful links
 
 # pseudo models
 gem 'active_data'
-gem 'virtus'
 
 ## Indexing /Searching
 gem "chewy"

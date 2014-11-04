@@ -38,7 +38,7 @@ class ArticleSearchForm
 
   # for the category tree to display wich categories have which counts
   def category_article_count category_id
-    @search.category_facet[category_id.to_s] || 0
+    @search.category_facets[category_id.to_s] || 0
   end
 
   def search_by_term?

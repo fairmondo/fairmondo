@@ -46,7 +46,7 @@ class ArticlesController < ApplicationController
   def autocomplete
     render :json => ArticleAutocomplete.new(params[:q]).autocomplete
   rescue Faraday::ConnectionFailed
-    render :json => []
+    render :json => {query: params[:q], suggestions:[]}
   end
 
   def show
