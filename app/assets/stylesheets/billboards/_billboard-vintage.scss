@@ -1,13 +1,28 @@
 /**
- * Discover billboard
+ * Vintage billboard
  */
 
 
 // General stuff
-#billboard-vintage > article > section > h3 {
-  color: #f1244f;
+#billboard-vintage > article h2 {
+  font-weight: 600;
+  color: #4f2e28;
   text-transform: uppercase;
+  text-align: right;
 }
+
+#billboard-vintage > article h3 {
+  color: #9e0013;
+  text-align: right;
+}
+
+#billboard-vintage > article > ul > li p {
+  text-align: left;
+  font-weight: 600;
+  font-size: 18px;
+  color: #428fbd;
+}
+
 
 // Responsive code: small version
 @include till-breakpoint($bp-tablet) {
@@ -15,39 +30,54 @@
     background-image: image-url('welcome/billboard_vintage_small.jpg');
   }
 
-  #billboard-vintage > article > h2 {
+  #billboard-vintage > article h2 {
     display: none;
   }
 
-  #billboard-vintage > article > section {
-    @include static-position($left: 0, $width: 210px);
-  }
-
-  #billboard-vintage > article > section.section1 {
-    @include static-position($top: 0);
-  }
-
-  #billboard-vintage > article > section.section2 {
-    @include static-position($top: 145px);
-  }
-
-  #billboard-vintage > article > section.section3 {
-    @include static-position($top: 273px);
-  }
-
-  #billboard-vintage > article > section > h3 {
-    display: none;
-  }
-
-  #billboard-vintage > article > section > a.billboard-imagelink {
-    @include static-position($left: 40px, $height: 90px, $width: 130px);
-  }
-
-  #billboard-vintage > article > section > a.billboard-textlink {
-    @include static-position($top: 95px, $width: 100%);
-    display: block;
+  #billboard-vintage > article h3 {
+    @include static-position($top: 17px, $right: 30px, $width: 150px);
+    font-size: 18px;
+    font-weight: 600;
+    text-transform: uppercase;
     text-align: center;
   }
+
+  #billboard-vintage > article > ul > li p {
+    font-size: 14px;
+
+    &:after {
+      content: ' >';
+    }
+  }
+
+  #billboard-vintage > article > ul > li#billboard-vintage-link1 div {
+    @include static-position($top: 295px, $left: 30px, $height: 110px, $width: 130px);
+  }
+
+  #billboard-vintage > article > ul > li#billboard-vintage-link2 div {
+    @include static-position($top: 70px, $left: 10px, $height: 90px, $width: 50px);
+  }
+
+  #billboard-vintage > article > ul > li#billboard-vintage-link3 div {
+    @include static-position($top: 180px, $left: 5px, $height: 100px, $width: 105px);
+  }
+
+  #billboard-vintage > article > ul > li#billboard-vintage-link1 p {
+    @include static-position($top: 331px, $left: 133px, $height: 23px, $width: 61px);
+    padding: 4px 0 0 7px;
+  }
+
+  #billboard-vintage > article > ul > li#billboard-vintage-link2 p {
+    @include static-position($top: 86px, $left: 50px, $height: 26px, $width: 146px);
+    padding: 5px 0 0 7px;
+  }
+
+  #billboard-vintage > article > ul > li#billboard-vintage-link3 p {
+    @include static-position($top: 202px, $left: 88px, $height: 25px, $width: 106px);
+    padding: 5px 0 0 8px;
+  }
+
+
 }
 
 
@@ -57,56 +87,41 @@
     background-image: image-url('welcome/billboard_vintage_medium.jpg');
   }
 
-  #billboard-vintage > article > h2 {
-    @include static-position($top: 14px, $left: 20px);
+  #billboard-vintage > article h2 {
+    @include static-position($top: 20px, $right: 25px, $width: 450px);
+    font-size: 20px;
   }
 
-  #billboard-vintage > article > section {
-    @include static-position($left: 20px, $width: 410px);
+  #billboard-vintage > article h3 {
+    @include static-position($top: 50px, $right: 25px, $width: 250px);
+    font-size: 18px;
   }
 
-  #billboard-vintage > article > section.section1 {
-    @include static-position($top: 80px);
+  #billboard-vintage > article > ul > li#billboard-vintage-link1 div {
+    @include static-position($top: 295px, $left: 50px, $height: 115px, $width: 160px);
   }
 
-  #billboard-vintage > article > section.section2 {
-    @include static-position($top: 180px);
+  #billboard-vintage > article > ul > li#billboard-vintage-link2 div {
+    @include static-position($top: 183px, $left: 164px, $height: 100px, $width: 60px);
   }
 
-  #billboard-vintage > article > section.section3 {
-    @include static-position($top: 280px);
+  #billboard-vintage > article > ul > li#billboard-vintage-link3 div {
+    @include static-position($top: 60px, $left: 15px, $height: 120px, $width: 135px);
   }
 
-  #billboard-vintage > article > section.section1 > a.billboard-imagelink {
-    @include static-position($left: 240px, $height: 90px, $width: 210px);
+  #billboard-vintage > article > ul > li#billboard-vintage-link1 p {
+    @include static-position($top: 324px, $left: 254px, $height: 29px, $width: 83px);
+    padding: 5px 0 0 11px;
   }
 
-  #billboard-vintage > article > section.section1 > a.billboard-textlink {
-    @include static-position($top: 20px);
+  #billboard-vintage > article > ul > li#billboard-vintage-link2 p {
+    @include static-position($top: 220px, $left: 245px, $height: 29px, $width: 185px);
+    padding: 5px 0 0 9px;
   }
 
-  #billboard-vintage > article > section.section2 > h3 {
-    @include static-position($top: 20px, $left: 258px);
-  }
-
-  #billboard-vintage > article > section.section2 > a.billboard-imagelink {
-    @include static-position($left: 30px, $height: 120px, $width: 180px);
-  }
-
-  #billboard-vintage > article > section.section2 > a.billboard-textlink {
-    @include static-position($top: 40px, $left: 258px);
-  }
-
-  #billboard-vintage > article > section.section3 > h3 {
-    @include static-position($top: 65px);
-  }
-
-  #billboard-vintage > article > section.section3 > a.billboard-imagelink {
-    @include static-position($left: 220px, $height: 110px, $width: 220px);
-  }
-
-  #billboard-vintage > article > section.section3 > a.billboard-textlink {
-    @include static-position($top: 85px);
+  #billboard-vintage > article > ul > li#billboard-vintage-link3 p {
+    @include static-position($top: 105px, $left: 179px, $height: 30px, $width: 136px);
+    padding: 4px 0 0 11px;
   }
 }
 
@@ -117,56 +132,40 @@
     background-image: image-url('welcome/billboard_vintage_big.jpg');
   }
 
-  #billboard-vintage > article > h2 {
-    @include static-position($top: 14px, $left: 0, $width: 220px);
-    text-align: right;
+  #billboard-vintage > article h2 {
+    @include static-position($top: 27px, $right: 5px, $width: 650px);
+    font-size: 30px;
   }
 
-  #billboard-vintage > article > section {
-    @include static-position($left: 240px, $width: 440px);
+  #billboard-vintage > article h3 {
+    @include static-position($top: 67px, $right: 5px, $width: 300px);
+    font-size: 24px;
   }
 
-  #billboard-vintage > article > section.section1 {
-    @include static-position($top: 30px);
+  #billboard-vintage > article > ul > li#billboard-vintage-link1 div {
+    @include static-position($top: 185px, $left: 545px, $height: 225px, $width: 150px);
   }
 
-  #billboard-vintage > article > section.section2 {
-    @include static-position($top: 150px);
+  #billboard-vintage > article > ul > li#billboard-vintage-link2 div {
+    @include static-position($top: 173px, $left: 313px, $height: 120px, $width: 180px);
   }
 
-  #billboard-vintage > article > section.section3 {
-    @include static-position($top: 280px);
+  #billboard-vintage > article > ul > li#billboard-vintage-link3 div {
+    @include static-position($top: 85px, $left: 125px, $height: 210px, $width: 145px);
   }
 
-  #billboard-vintage > article > section.section1 > a.billboard-imagelink {
-    @include static-position($left: 240px, $height: 100px, $width: 200px);
+  #billboard-vintage > article > ul > li#billboard-vintage-link1 p {
+    @include static-position($top: 341px, $left: 481px, $height: 28px, $width: 84px);
+    padding: 5px 0 0 11px;
   }
 
-  #billboard-vintage > article > section.section1 > a.billboard-textlink {
-    @include static-position($top: 20px);
+  #billboard-vintage > article > ul > li#billboard-vintage-link2 p {
+    @include static-position($top: 147px, $left: 392px, $height: 29px, $width: 184px);
+    padding: 5px 0 0 10px;
   }
 
-  #billboard-vintage > article > section.section2 > h3 {
-    @include static-position($top: 35px, $left: 230px);
-  }
-
-  #billboard-vintage > article > section.section2 > a.billboard-imagelink {
-    @include static-position($left: 20px, $height: 150px, $width: 180px);
-   }
-
-  #billboard-vintage > article > section.section2 > a.billboard-textlink {
-    @include static-position($top: 55px, $left: 230px);
-  }
-
-  #billboard-vintage > article > section.section3 > h3 {
-    @include static-position($top: 65px);
-  }
-
-  #billboard-vintage > article > section.section3 > a.billboard-imagelink {
-    @include static-position($left: 230px, $height: 110px, $width: 210px);
-  }
-
-  #billboard-vintage > article > section.section3 > a.billboard-textlink {
-    @include static-position($top: 85px);
+  #billboard-vintage > article > ul > li#billboard-vintage-link3 p {
+    @include static-position($top: 158px, $left: 14px, $height: 30px, $width: 136px);
+    padding: 4px 0 0 11px;
   }
 }

@@ -31,42 +31,46 @@
     background-image: image-url('welcome/billboard_books_small.jpg');
   }
 
-  #billboard-books > article > h2 {
-    @include static-position($top: 14px, $left: 2px);
+  #billboard-books > article h2 {
+    @include static-position($top: 265px, $left: 55px, $width: 100px);
+    font-size: 18px;
   }
 
-
-  #billboard-books > article > section {
-    @include static-position($top: 130px, $width: 91px);
+  #billboard-books > article h3 {
+    @include static-position($top: 315px, $left: 22px, $width: 165px);
   }
 
-  #billboard-books > article > section.section1 {
-    @include static-position($left: 6px);
+  #billboard-books > article > a {
+    @include static-position($top: 364px, $left: 30px, $height: 28px, $width: 136px);
+    padding: 2px 0 0 15px;
   }
 
-  #billboard-books > article > section.section2 {
-    @include static-position($left: 114px);
-  }
-
-  #billboard-books > article > section.section3 {
+  #billboard-books > article > ul > li div {
     display: none;
   }
 
-  #billboard-books > article > section.section4 {
+  #billboard-books > article > ul > li#billboard-books-link1 p {
+    @include static-position($top: 6px, $left: 75px, $width: 90px);
+  }
+
+  #billboard-books > article > ul > li#billboard-books-link2 p {
+    @include static-position($top: 53px, $left: 75px, $width: 90px);
+  }
+
+  #billboard-books > article > ul > li#billboard-books-link3 p {
+    @include static-position($top: 97px, $left: 75px, $width: 90px);
+  }
+
+  #billboard-books > article > ul > li#billboard-books-link4 p {
+    @include static-position($top: 143px, $left: 75px, $width: 90px);
+  }
+
+  #billboard-books > article > ul > li#billboard-books-link5 p {
     display: none;
   }
 
-  #billboard-books > article > section > h3 {
-    font-size: 1em;
-  }
-
-  #billboard-books > article > section > a.billboard-imagelink {
-    @include static-position($top: 38px, $height: 142px, $width: 89px);
-  }
-
-  #billboard-books > article > section > a.billboard-textlink {
-    @include static-position($top: 199px);
-    font-size: 0.8em;
+  #billboard-books > article > ul > li#billboard-books-link6 p {
+    display: none;
   }
 }
 
@@ -78,7 +82,7 @@
   }
 
   #billboard-books > article h2 {
-    @include static-position($top: 110px, $left: 159px);
+    @include static-position($top: 110px, $left: 151px, $width: 150px);
     font-size: 34px;
   }
 
@@ -130,7 +134,7 @@
   }
 
   #billboard-books > article h2 {
-    @include static-position($top: 110px, $left: 283px);
+    @include static-position($top: 110px, $left: 275px, $width: 150px);
     font-size: 34px;
   }
 
@@ -190,6 +194,4 @@
   #billboard-books > article > ul > li#billboard-books-link6 p {
     @include static-position($top: 330px, $left: 605px, $width: 90px);
   }
-
-
 }
