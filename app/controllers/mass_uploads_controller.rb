@@ -32,10 +32,8 @@ class MassUploadsController < ApplicationController
 
   def update
     authorize @mass_upload
-    articles_to_activate = @mass_upload.articles_for_mass_activation
-    activation_ids = articles_to_activate.map{ |article| article.id }
-    articles_to_activate.update_all({:state => 'active'})
-    Indexer.delay.index_articles activation_ids
+    Indexer.delay.index_mass_upload @mass_upload.id
+    @mass_upload.articles_for_mass_activation.update_all(state: 'active')
     send_emails_for @mass_upload
     flash[:notice] = I18n.t('article.notices.mass_upload_create_html').html_safe
     redirect_to user_path(@mass_upload.user)

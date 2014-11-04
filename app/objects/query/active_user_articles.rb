@@ -14,13 +14,11 @@ class ActiveUserArticles
 
   private
     def finder page, per
-      user = @user
-      articles = Article.search(:page => page,:per_page => per) do
-        query { all }
-        filter :term, :seller => user.id
-      end
-    rescue Errno::ECONNREFUSED
-      @user.articles.includes(:images).where(:state => 'active').page(page).per(per)
+      result = ArticlesIndex.all.filter(term: {seller_id: @user.id}).page(page).per(per)
+      result.to_a # this will make sure the request is send
+      result
+    rescue Faraday::ConnectionFailed
+      @user.articles.includes(:images).where(state: 'active').page(page).per(per)
     end
 
 end

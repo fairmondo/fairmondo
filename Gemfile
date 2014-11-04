@@ -24,8 +24,11 @@ gem 'sanitize' # Parser based sanitization
 gem 'awesome_nested_set' , ">= 3.0.0.rc.4"# tree structure for categories
 gem "friendly_id", ">= 4.0.9" # Friendly_id for beautiful links
 
+# pseudo models
+gem 'active_data'
+
 ## Indexing /Searching
-gem "tire"
+gem "chewy"
 
 # ---------- View ----------
 gem 'slim-rails'
@@ -59,7 +62,7 @@ gem 'hogan_assets'
 
 gem 'formtastic', "~> 2.3.0.rc3"
 gem "recaptcha", :require => "recaptcha/rails" #Captcha Gem
-gem 'virtus'
+
 
 
 # ---------- Controller ----------
@@ -91,6 +94,7 @@ gem 'kontoapi-ruby' # KontoAPI checks bank data
 gem 'ibanomat' # accound number to IBAN
 gem 'memoist' # Support for memoization
 gem 'rails_admin' # Administrative backend
+gem 'rails_admin_statistics', github: 'KonstantinKo/rails_admin_statistics'
 gem 'rack-rewrite' # Redirects
 gem 'json'
 gem 'nokogiri'
@@ -99,6 +103,7 @@ gem 'prawn_rails' # pdf generation
 # ---------- Monitoring ----------
 gem 'newrelic_rpm',  group: [:production,:staging]
 gem 'rack-mini-profiler'
+gem 'lograge'
 
 # ---------- API ----------
 
