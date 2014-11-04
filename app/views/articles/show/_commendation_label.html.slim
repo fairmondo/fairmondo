@@ -1,0 +1,57 @@
+/
+/
+/ == License:
+/ Fairmondo - Fairmondo is an open-source online marketplace.
+/ Copyright (C) 2013 Fairmondo eG
+/
+/ This file is part of Fairmondo.
+/
+/ Fairmondo is free software: you can redistribute it and/or modify
+/ it under the terms of the GNU Affero General Public License as
+/ published by the Free Software Foundation, either version 3 of the
+/ License, or (at your option) any later version.
+/
+/ Fairmondo is distributed in the hope that it will be useful,
+/ but WITHOUT ANY WARRANTY; without even the implied warranty of
+/ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+/ GNU Affero General Public License for more details.
+/
+/ You should have received a copy of the GNU Affero General Public License
+/ along with Fairmondo.  If not, see <http://www.gnu.org/licenses/>.
+/
+
+/ label [Symbol] the type of label, `:fair`,`:ecologic`,`:small_and_precious`
+/ size [Symbol] label size `:small`, `:big`
+/ link [String] Optional string url where the label should link to
+/ new_window [Boolean] Optional url in new window?
+
+/ link default values
+- unless local_assigns.has_key? :link
+  - link = case label
+  - when :fair
+    - "/faq#fi3"
+  - when :ecologic
+    - "/faq#fi4"
+  - when :small_and_precious
+    - "/faq#fi5"
+
+/ new_window default value
+- local_assigns.has_key? :new_window or new_window = true
+
+/ Set up classes string
+- commendation_label_classes = 'Tag'
+- commendation_label_classes << case label
+- when :fair
+  - ' Tag--blue'
+- when :ecologic
+  - ' Tag--green'
+- when :small_and_precious
+  - ' Tag--orange'
+- when :swappable
+  - ' Tag--gray'
+- when :borrowable
+  - ' Tag--gray'
+- if size == :big
+  - commendation_label_classes << ' Tag--big'
+
+=<> link_to t("article.commendations.#{label.to_s}"), link ? link : nil, target: new_window ? '_blank' : '_self', class: "#{commendation_label_classes} accordion-anchor"

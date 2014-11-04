@@ -5,9 +5,9 @@ describe FeaturedLibraryQuery do
   describe "#find" do
     it 'finds featured library elements and fills them if need be' do
       library = FactoryGirl.create :library, :public, exhibition_name: :queue1
-      older_featured_element = FactoryGirl.create :library_element, library: library, exhibition_date: DateTime.now, article: FactoryGirl.create(:article, created_at: DateTime.now - 1.day)
-      newer_featured_element = FactoryGirl.create :library_element, library: library, exhibition_date: DateTime.now + 6.hours
       non_featured_element = FactoryGirl.create :library_element, library: library, exhibition_date: nil
+      newer_featured_element = FactoryGirl.create :library_element, library: library, exhibition_date: DateTime.now + 6.hours
+      older_featured_element = FactoryGirl.create :library_element, library: library, exhibition_date: DateTime.now, article: FactoryGirl.create(:article, created_at: DateTime.now - 1.day)
 
       result = FeaturedLibraryQuery.new(:queue1).find(2)
       result.must_equal library: library, exhibits: [older_featured_element.article, newer_featured_element.article]
