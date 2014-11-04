@@ -33,8 +33,30 @@ module Article::Checks
     self.condition == "new" && !self.fair && !self.small_and_precious && !self.ecologic
   end
 
+  def save_as_template?
+    self.save_as_template == "1"
+  end
+
+  def is_template?
+    # works even when the db state did not change yet
+    self.state.to_sym == :template
+  end
+
+  def qualifies_for_discount?
+    Discount.current.count > 0
+  end
+
+  def belongs_to_legal_entity?
+    self.seller.is_a?(LegalEntity)
+  end
+
+  # Elastic
+  def delete_from_index?
+    !active?
+  end
+
   # should the fair alternative be shown for the seller
-  def show_fair_alternative_for_seller
+  def show_fair_alternative_for_seller?
     if $exceptions_on_fairmondo['no_fair_alternative'] && $exceptions_on_fairmondo['no_fair_alternative']['user_ids']
         $exceptions_on_fairmondo['no_fair_alternative']['user_ids'].each do |user_id|
         if self.seller.id == user_id
