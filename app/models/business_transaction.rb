@@ -22,6 +22,7 @@
 class BusinessTransaction < ActiveRecord::Base
   extend Enumerize
   extend Sanitization
+  extend RailsAdminStatistics
 
   include BusinessTransaction::Refundable, BusinessTransaction::Discountable, BusinessTransaction::Scopes
 

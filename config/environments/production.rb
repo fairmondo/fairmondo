@@ -102,4 +102,6 @@ Fairmondo::Application.configure do
   require "#{config.root}/config/rewrites.rb"
   config.middleware.insert_before(Rack::Runtime, Rack::Rewrite, klass: Rack::Rewrite::FairmondoRuleSet)
 
+  # Better logging
+  config.lograge.enabled = true
 end
