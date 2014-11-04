@@ -5,7 +5,9 @@ class Indexer
   end
 
   def self.index_articles article_ids
-    SearchIndexWorker.perform_async(:article, article_ids)
+    article_ids.each_slice(100) do |ids| #give it to redis in batches of 100 so that redis wont overflow
+      SearchIndexWorker.perform_async(:article, ids)
+    end
   end
 
   def self.index_mass_upload mass_upload_id

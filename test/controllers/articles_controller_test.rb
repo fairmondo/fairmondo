@@ -457,7 +457,7 @@ describe ArticlesController do
     end
 
     it "should rescue an Faraday::ConnectionFailed error" do
-      Chewy::Query.any_instance.stubs(:map).raises(Faraday::ConnectionFailed.new("test"))
+      ArticleAutocomplete.any_instance.stubs(:autocomplete).raises(Faraday::ConnectionFailed.new("test"))
       get :autocomplete, keywords: 'chunky'
       assert_response :success
       response.body.must_equal({"query" => nil , "suggestions" => []}.to_json)
