@@ -153,7 +153,7 @@ Links for Elasticsearch:
 http://www.elasticsearch.org
 
 Plugin we use:
-https://github.com/jprante/elasticsearch-analysis-decompound
+https://github.com/jprante/elasticsearch-analysis-german
 
 === Background Processing with sidekiq
 To use our Background processing you have to setup a redis instance locally:
