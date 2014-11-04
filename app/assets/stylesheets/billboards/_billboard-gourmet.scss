@@ -1,13 +1,13 @@
 /**
- * Coffee billboard
+ * Gourmet billboard
  */
 
 
 // General stuff
-#billboard-gourmet > article > ul a p {
-  text-align: left;
-  font-size: 14px;
-}
+//#billboard-gourmet > article > ul a p {
+//  text-align: left;
+//  font-size: 14px;
+//}
 
 #billboard-gourmet > article > ul > li p {
   text-align: left;
@@ -26,7 +26,6 @@
 
   #billboard-gourmet > article > h2 {
     @include static-position($top: 14px, $left: 13px);
-
   }
 
   #billboard-gourmet > article > section {

@@ -1,4 +1,5 @@
 @import "mixins/all";
+@import "billboards/billboard-books";
 @import "billboards/billboard-gourmet";
 @import "billboards/billboard-vintage";
 
@@ -117,10 +118,8 @@
   margin: 0 auto;
 }
 
-.billboard > article h2, .billboard > article > ul,.billboard > article li div, .billboard > article li p, .billboard > article h3, .billboard > article > section > a {
+.billboard > article h2, .billboard > article > ul,.billboard > article li div, .billboard > article li p, .billboard > article h3 {
   position: absolute;
-  top: 0;
-  left: 0;
   margin: 0;
 }
 
