@@ -70,16 +70,12 @@ class Statistic
     Money.new(Article.active.sum("calculated_fair_cents * quantity"))
   end
 
-  def fair_article_percentage
-    count_fair = Article.active.where(:fair => true).count
-    count_total =  Article.active.count
-    (count_fair*1.0 / (count_total==0 ? 1 : count_total))*100
-  end
-
-  def eco_article_percentage
-    count_eco = Article.active.where(:ecologic => true).count
-    count_total =  Article.active.count
-    (count_eco*1.0 / (count_total==0 ? 1 : count_total))*100
+  [:ecologic, :fair].each do |type|
+    define_method("#{type}_article_percentage") do
+      count = Article.active.where(type => true).count
+      count_total =  Article.active.count
+      (count * 1.0 / (count_total==0 ? 1 : count_total))*100
+    end
   end
 
   def sold_articles_count

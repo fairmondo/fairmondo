@@ -44,7 +44,7 @@
 
     .Article-tags
       = condition_label(article) + ' '
-      = commendation_labels_for article
+      = render 'articles/show/commendation_labels', article: article
     - if show_extra
       .Article-extra
         = yield

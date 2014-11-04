@@ -7,17 +7,13 @@ class BankDetailsController < ApplicationController
     end
   end
 
-  def check_iban
-    @result = KontoAPI::valid?( iban: params[:iban] )
-    respond_to do |format|
-      format.json { render json: @result.to_json }
-    end
-  end
-
-  def check_bic
-    @result = KontoAPI::valid?( bic: params[:bic] )
-    respond_to do |format|
-      format.json { render json: @result.to_json }
+  # Check IBAN and BIC
+  [:iban, :bic].each do |value|
+    define_method("check_#{ value }") do
+      @result = KontoAPI::valid?( value => params[value] )
+      respond_to do |format|
+        format.json { render json: @result.to_json }
+      end
     end
   end
 
