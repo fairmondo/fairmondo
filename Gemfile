@@ -93,6 +93,7 @@ gem 'kontoapi-ruby' # KontoAPI checks bank data
 gem 'ibanomat' # accound number to IBAN
 gem 'memoist' # Support for memoization
 gem 'rails_admin' # Administrative backend
+gem 'rails_admin_statistics', github: 'KonstantinKo/rails_admin_statistics'
 gem 'rack-rewrite' # Redirects
 gem 'json'
 gem 'nokogiri'
@@ -101,6 +102,7 @@ gem 'prawn_rails' # pdf generation
 # ---------- Monitoring ----------
 gem 'newrelic_rpm',  group: [:production,:staging]
 gem 'rack-mini-profiler'
+gem 'lograge'
 
 # ---------- API ----------
 

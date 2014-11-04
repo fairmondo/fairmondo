@@ -1,4 +1,12 @@
 GIT
+  remote: git://github.com/KonstantinKo/rails_admin_statistics.git
+  revision: fcdf67b53c97121b3e817821e1cabb8062b71071
+  specs:
+    rails_admin_statistics (0.0.4)
+      rails
+      railties
+
+GIT
   remote: git://github.com/nadarei/nkss-rails.git
   revision: 8f5e27e98115daad591ac871a50a7c5ffa966d3e
   specs:
@@ -247,6 +255,10 @@ GEM
     letter_opener (1.2.0)
       launchy (~> 2.2)
     libv8 (3.16.14.7)
+    lograge (0.3.0)
+      actionpack (>= 3)
+      activesupport (>= 3)
+      railties (>= 3)
     mail (2.6.1)
       mime-types (>= 1.16, < 3)
     memoist (0.10.0)
@@ -602,6 +614,7 @@ DEPENDENCIES
   kontoapi-ruby
   launchy
   letter_opener
+  lograge
   memoist
   memory_test_fix
   meta_request
@@ -636,6 +649,7 @@ DEPENDENCIES
   rails-observers
   rails-timeago
   rails_admin
+  rails_admin_statistics!
   rails_best_practices
   rake
   recaptcha
