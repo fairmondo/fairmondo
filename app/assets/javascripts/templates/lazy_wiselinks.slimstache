@@ -1,0 +1,5 @@
+#page_error.Notice.Notice--error
+  .Notice-inner
+    | {{ text }}
+  a.Notice-close
+    i.fa.fa-times-circle.fa-lg
