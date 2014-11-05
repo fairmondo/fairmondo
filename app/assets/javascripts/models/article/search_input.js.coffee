@@ -29,14 +29,18 @@ autocomplete_hook = ->
       triggerSelectOnValidInput: false
       appendTo: '.l-header-search-query'
 
-      formatResult: (suggestion,currentValue) ->
-        title = $.Autocomplete.formatResult(suggestion,currentValue)
+      formatResult: (suggestion, currentValue) ->
+        title = $.Autocomplete.formatResult suggestion, currentValue
         if suggestion['data']['type'] == 'suggest'
-          "<span class=\"autocomplete-title\">" + title + "</span>"
+          Template['models_article_search_input/suggest'].render
+            title: title
         else if suggestion['data']['type'] == 'result'
-          "<a href="+suggestion['data']['url']+" data-push='true'><span class=\"autocomplete-thumbnail\">"+suggestion['data']['thumb']+"</span><span class=\"autocomplete-title\">" + title + "</span></a>"
+          Template['models_article_search_input/result'].render
+            data: suggestion['data']
+            title: title
         else if suggestion['data']['type'] == 'more'
-          "<a href=\"/articles/?q="+suggestion.value+"\" data-push=true><span class=\"autocomplete-title\"> Alle " + suggestion['data']['count'] + " Ergebnisse für <strong>"+ suggestion.value + "</strong></span></a>"
+          Template['models_article_search_input/more'].render
+            suggestion: suggestion
 
 $(document).ready autocomplete_hook
 $(document).on 'autocompletereload', autocomplete_hook
