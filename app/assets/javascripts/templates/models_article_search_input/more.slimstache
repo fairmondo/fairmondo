@@ -1,0 +1,5 @@
+a href="/articles/?q={{suggestion.value}}" data-push="true"
+  span.autocomplete-title
+    | Alle {{ suggestion.data.count }} Ergebnisse für
+    strong<
+      | {{ suggestion.value }}

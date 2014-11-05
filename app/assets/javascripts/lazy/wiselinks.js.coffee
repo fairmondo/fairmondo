@@ -8,7 +8,10 @@ $(document).ready ->
           else
             text = "Entschuldigung, da ist wohl etwas schiefgelaufen. Die Seite die du aufrufen wolltest funktioniert nicht richtig."
           if $('#page_error').length == 0
-            $('.l-wrapper').prepend("<div class='Notice Notice--error' id='page_error'> <div class='Notice-inner'>" + text + "</div><a class='Notice-close'><i class='fa fa-times-circle fa-lg'></i></a/></div>")
+            $('.l-wrapper').prepend(
+              Template['lazy_wiselinks'].render
+                text: text
+            )
     )
     $(document).on(
       'page:done'
