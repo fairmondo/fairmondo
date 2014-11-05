@@ -37,7 +37,7 @@
   }
 
   #billboard-books > article h3 {
-    @include static-position($top: 315px, $left: 22px, $width: 165px);
+    @include static-position($top: 315px, $left: 26px, $width: 160px);
   }
 
   #billboard-books > article > a {
@@ -87,7 +87,7 @@
   }
 
   #billboard-books > article h3 {
-    @include static-position($top: 238px, $left: 144px, $width: 165px);
+    @include static-position($top: 238px, $left: 146px, $width: 160px);
   }
 
   #billboard-books > article > a {
@@ -139,7 +139,7 @@
   }
 
   #billboard-books > article h3 {
-    @include static-position($top: 238px, $left: 268px, $width: 165px);
+    @include static-position($top: 238px, $left: 269px, $width: 160px);
   }
 
   #billboard-books > article > a {

@@ -16,6 +16,12 @@
   color: #428fbd;
 }
 
+#billboard-gourmet > article > a {
+  position: absolute;
+  font-size: 18px;
+  font-weight: 600;
+  color: $white;
+}
 
 
 // Responsive code: small version
@@ -24,30 +30,46 @@
     background-image: image-url('welcome/billboard_gourmet_small.jpg');
   }
 
-  #billboard-gourmet > article > h2 {
-    @include static-position($top: 14px, $left: 13px);
+  #billboard-gourmet > article h2 {
+    @include static-position($top: 58px, $left: 74px);
+    font-size: 14px;
   }
 
-  #billboard-gourmet > article > section {
-    @include static-position($left: 15px, $width: 185px);
-  }
-
-  #billboard-gourmet > article > section.section1 {
+  #billboard-gourmet > article > a {
     display: none;
   }
 
-  #billboard-gourmet > article > section.section2 {
-    @include static-position($top: 125px);
+  #billboard-gourmet > article > ul > li p {
+    font-size: 14px;
   }
 
-  #billboard-gourmet > article > section > a.billboard-imagelink {
-    @include static-position($top: 10px, $left: 10px, $height: 155px, $width: 190px);
+  #billboard-gourmet > article > ul > li#billboard-gourmet-link1 div {
+    @include static-position($top: 88px, $left: 155px, $height: 92px, $width: 38px);
   }
 
-  #billboard-gourmet > article > section > a.billboard-textlink {
-    @include static-position($top: 200px);
-    font-size: 0.8em;
+  #billboard-gourmet > article > ul > li#billboard-gourmet-link2 div {
+    @include static-position($top: 175px, $left: 10px, $height: 118px, $width: 35px);
   }
+
+  #billboard-gourmet > article > ul > li#billboard-gourmet-link3 div {
+    @include static-position($top: 280px, $left: 105px, $height: 120px, $width: 90px);
+  }
+
+  #billboard-gourmet > article > ul > li#billboard-gourmet-link1 p {
+    @include static-position($top: 133px, $left: 12px, $height: 24px, $width: 119px);
+    padding: 4px 0 0 9px;
+  }
+
+  #billboard-gourmet > article > ul > li#billboard-gourmet-link2 p {
+    @include static-position($top: 229px, $left: 60px, $height: 24px, $width: 128px);
+    padding: 4px 0 0 8px;
+  }
+
+  #billboard-gourmet > article > ul > li#billboard-gourmet-link3 p {
+    @include static-position($top: 327px, $left: 14px, $height: 24px, $width: 60px);
+    padding: 4px 0 0 9px;
+  }
+
 }
 
 
@@ -58,27 +80,43 @@
   }
 
   #billboard-gourmet > article > h2 {
-    @include static-position($top: 14px, $left: 55px);
+    @include static-position($top: 115px, $left: 313px);
+    font-size: 26px;
   }
 
-  #billboard-gourmet > article > section {
-    @include static-position($left: 55px, $width: 345px);
+  #billboard-gourmet > article > a {
+    @include static-position($top: 150px, $left: 144px, $width: 120px);
+    color: $white;
+    text-align: center;
+    text-decoration: underline;
+    line-height: 22px;
   }
 
-  #billboard-gourmet > article > section.section1 {
-    display: none;
+  #billboard-gourmet > article > ul > li#billboard-gourmet-link1 div {
+    @include static-position($top: 220px, $left: 10px, $height: 160px, $width: 63px);
   }
 
-  #billboard-gourmet > article > section.section2 {
-    @include static-position($top: 50px);
+  #billboard-gourmet > article > ul > li#billboard-gourmet-link2 div {
+    @include static-position($top: 129px, $left: 111px, $height: 153px, $width: 50px);
   }
 
-  #billboard-gourmet > article > section > a.billboard-imagelink {
-    @include static-position($top: 45px, $left: 20px, $height: 230px, $width: 305px);
+  #billboard-gourmet > article > ul > li#billboard-gourmet-link3 div {
+    @include static-position($top: 230px, $left: 285px, $height: 145px, $width: 125px);
   }
 
-  #billboard-gourmet > article > section > a.billboard-textlink {
-    @include static-position($top: 290px);
+  #billboard-gourmet > article > ul > li#billboard-gourmet-link1 p {
+    @include static-position($top: 354px, $left: 34px, $height: 30px, $width: 154px);
+    padding: 6px 0 0 13px;
+  }
+
+  #billboard-gourmet > article > ul > li#billboard-gourmet-link2 p {
+    @include static-position($top: 284px, $left: 92px, $height: 30px, $width: 167px);
+    padding: 5px 0 0 10px;
+  }
+
+  #billboard-gourmet > article > ul > li#billboard-gourmet-link3 p {
+    @include static-position($top: 355px, $left: 336px, $height: 29px, $width: 80px);
+    padding: 7px 0 0 11px;
   }
 }
 
@@ -91,6 +129,14 @@
 
   #billboard-gourmet > article > h2 {
     @include static-position($top: 127px, $left: 7px);
+  }
+
+  #billboard-gourmet > article > a {
+    @include static-position($top: 105px, $left: 412px, $width: 120px);
+    color: $white;
+    text-align: center;
+    text-decoration: underline;
+    line-height: 22px;
   }
 
   #billboard-gourmet > article > ul > li#billboard-gourmet-link1 div {
@@ -110,22 +156,13 @@
     padding: 6px 0 0 13px;
   }
 
-  #billboard-gourmet > article > ul > li#billboard-gourmet-link2 p:nth-of-type(1) {
+  #billboard-gourmet > article > ul > li#billboard-gourmet-link2 p {
     @include static-position($top: 295px, $left: 301px, $height: 30px, $width: 167px);
     padding: 5px 0 0 10px;
-  }
-
-  #billboard-gourmet > article > ul > li#billboard-gourmet-link2 p:nth-of-type(2) {
-    @include static-position($top: 105px, $left: 412px, $width: 120px);
-    color: $white;
-    text-align: center;
-    text-decoration: underline;
-    line-height: 22px;
   }
 
   #billboard-gourmet > article > ul > li#billboard-gourmet-link3 p {
     @include static-position($top: 319px, $left: 548px, $height: 29px, $width: 79px);
     padding: 7px 0 0 11px;
   }
-
 }
