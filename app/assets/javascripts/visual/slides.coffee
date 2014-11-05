@@ -5,7 +5,7 @@ $(document).always ->
     height: 410
     play:
       active: false
-      auto: false
+      auto: true
       interval: 10000
     pagination:
       active: false
