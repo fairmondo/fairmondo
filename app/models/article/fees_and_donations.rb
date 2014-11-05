@@ -22,7 +22,7 @@
 module Article::FeesAndDonations
   extend ActiveSupport::Concern
 
-  AUCTION_FEES = {
+  TRANSACTION_FEES = {
     :min => 0.1,
     :max_fair => 15.0,
     :max_default => 30.0,
@@ -119,9 +119,9 @@ module Article::FeesAndDonations
       if self.seller.ngo
         0
       elsif fair?
-        AUCTION_FEES[:fair]
+        TRANSACTION_FEES[:fair]
       else
-        AUCTION_FEES[:default]
+        TRANSACTION_FEES[:default]
       end
     end
 
@@ -131,8 +131,8 @@ module Article::FeesAndDonations
       else
         # for rounding -> always round up (e.g. 900,1 cents are 901 cents)
         r = Money.new(((self.price_cents - friendly_percent_result_cents) * fee_percentage).ceil)
-        max = fair? ? Money.new(AUCTION_FEES[:max_fair]*100) : Money.new(AUCTION_FEES[:max_default]*100)
-        min = Money.new(AUCTION_FEES[:min]*100)
+        max = fair? ? Money.new(TRANSACTION_FEES[:max_fair]*100) : Money.new(TRANSACTION_FEES[:max_default]*100)
+        min = Money.new(TRANSACTION_FEES[:min]*100)
         r = min if r < min
         r = max if r > max
         r

@@ -27,7 +27,11 @@ $(document).ready ->
   $(".js-friendly-percent-organisation-select").on "change", (event) ->
     valueSelected = @value
     textSelected = $('option:selected', @).html()
-    $(".js-friendly-percent-organisation-link").html "<a href=\"/users/" + valueSelected + "\" target=\"_blank\">" + textSelected + "</a>"
+    $(".js-friendly-percent-organisation-link").html(
+      Template['models_article_friendly_percent'].render
+        text: textSelected
+        value: valueSelected
+    )
 
     if textSelected and textSelected.length isnt 0
       $('.js-friendly-percent-organisation-label').show()
