@@ -7,5 +7,9 @@
 
     .delete_line_item
       = link_to t('common.actions.destroy'), line_item_path(line_item.id), method: :delete
+    - if user_signed_in?
+      .collect_line_item
+        = render 'libraries/shared/control_panel', libraries: current_user.libraries, resource: article, article: article, button: false
+
     .line_item_total
       = money cart_abacus.line_item_totals[line_item]
