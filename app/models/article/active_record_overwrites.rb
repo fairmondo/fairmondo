@@ -16,11 +16,15 @@ module Article::ActiveRecordOverwrites
 
     def images_attributes=(attributes)
       self.images.clear
-      attributes.each do |key,image_attributes|
-        if image_attributes.has_key? :id
-          self.images << update_existing_image(image_attributes) unless image_attributes[:_destroy] == "1"
+      attributes.each do |_key, image_attributes|
+        if image_attributes.has_key?(:id)
+          unless image_attributes[:_destroy] == "1"
+            self.images << update_existing_image(image_attributes)
+          end
         else
-          self.images << ArticleImage.new(image_attributes) if image_attributes[:image] != nil
+          if image_attributes[:image] != nil
+            self.images << ArticleImage.new(image_attributes)
+          end
         end
       end
     end
@@ -32,7 +36,7 @@ module Article::ActiveRecordOverwrites
     end
 
     def quantity_available
-      super || self.quantity
+      super || quantity
     end
 
     alias_method_chain :quantity_available, :article_state
@@ -42,10 +46,9 @@ module Article::ActiveRecordOverwrites
 
     def update_existing_image image_attributes
       image = Image.find(image_attributes[:id])
-      image.image = image_attributes[:image] if image_attributes.has_key? :image # updated the image itself
+      if image_attributes.has_key? :image # updated the image itself
+        image.image = image_attributes[:image]
+      end
       image.is_title = image_attributes[:is_title]
     end
-
-
-
 end
