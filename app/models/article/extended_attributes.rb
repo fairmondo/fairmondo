@@ -23,35 +23,54 @@ module Article::ExtendedAttributes
   extend ActiveSupport::Concern
 
   included do
-    TRANSPORT_TYPES = [:type1, :type2,:pickup]
-    PAYMENT_TYPES = [:bank_transfer, :cash, :paypal, :cash_on_delivery, :invoice]
+    TRANSPORT_TYPES = [
+      :type1, :type2, :pickup
+    ]
+    PAYMENT_TYPES = [
+      :bank_transfer, :cash, :paypal, :cash_on_delivery, :invoice
+    ]
 
     # Action attribute: c/create/u/update/d/delete - for export and csv upload
     # keep_images attribute: see edit_as_new
-    attr_accessor :action, :keep_images, :save_as_template, :tos_accepted, :changing_state
-    attr_writer :article_search_form #find a way to remove this! arcane won't like it
+    attr_accessor :action, :keep_images, :save_as_template, :tos_accepted,
+                  :changing_state
+    attr_writer :article_search_form
+                # find a way to remove this! arcane won't like it
 
     # Auto Sanitize
 
     auto_sanitize :content, method: 'tiny_mce'
     auto_sanitize :title
-    auto_sanitize :transport_type1_provider, :transport_type2_provider, :transport_details
+    auto_sanitize :transport_type1_provider, :transport_type2_provider,
+                  :transport_details
     auto_sanitize :transport_time, remove_all_spaces: true
     auto_sanitize :payment_details
 
     # Enumerize
 
     enumerize :condition, in: [:new, :old], predicates:  true
-    enumerize :condition_extra, in: [:as_good_as_new, :as_good_as_warranted ,:used_very_good , :used_good, :used_satisfying , :broken] # refs #225
-    enumerize :basic_price_amount, in: [:kilogram, :gram, :liter, :milliliter, :cubicmeter, :meter, :squaremeter, :portion ]
+    enumerize :condition_extra, in: [
+      :as_good_as_new, :as_good_as_warranted, :used_very_good, :used_good,
+      :used_satisfying, :broken
+    ] # refs #225
+    enumerize :basic_price_amount, in: [
+      :kilogram, :gram, :liter, :milliliter, :cubicmeter, :meter,
+      :squaremeter, :portion
+    ]
 
     # Monetize
 
     monetize :price_cents
     monetize :basic_price_cents
-    monetize :transport_type2_price_cents, :numericality => { :greater_than_or_equal_to => 0, :less_than_or_equal_to => 50000 }, :allow_nil => true
-    monetize :transport_type1_price_cents, :numericality => { :greater_than_or_equal_to => 0, :less_than_or_equal_to => 50000 }, :allow_nil => true
-    monetize :payment_cash_on_delivery_price_cents, numericality: { :greater_than_or_equal_to => 0, :less_than_or_equal_to => 50000 }, :allow_nil => true
+    monetize :transport_type2_price_cents, numericality: {
+      greater_than_or_equal_to: 0, less_than_or_equal_to: 50000
+    }, allow_nil: true
+    monetize :transport_type1_price_cents, numericality: {
+      greater_than_or_equal_to: 0, less_than_or_equal_to: 50000
+    }, allow_nil: true
+    monetize :payment_cash_on_delivery_price_cents, numericality: {
+      greater_than_or_equal_to: 0, less_than_or_equal_to: 50000
+    }, allow_nil: true
 
 
   end
@@ -112,6 +131,4 @@ module Article::ExtendedAttributes
       end
       output
     end
-
-
 end

@@ -1,4 +1,3 @@
-
 module Article::Validations
   extend ActiveSupport::Concern
 
@@ -10,24 +9,35 @@ module Article::Validations
     before_validation :ensure_no_redundant_categories # just store the leafs to avoid inconsistencies
 
     validates :user_id, presence: true
-    validates :slug , presence: true, unless: :template?
+    validates :slug, presence: true, unless: :template?
 
-    validates :title , length: {minimum: 6, maximum: 200}, presence: true
-    validates :content, length: { maximum: 10000, tokenizer: tokenizer_without_html }, presence: true
-    validates :article_template_name, uniqueness: { scope: [:seller] }, presence: true, if: Proc.new { |a| a.is_template? || a.save_as_template? }
+    validates :title,
+              length: { minimum: 6, maximum: 200 }, presence: true
+    validates :content,
+              length: { maximum: 10000, tokenizer: tokenizer_without_html },
+              presence: true
+    validates :article_template_name,
+              uniqueness: { scope: [:seller] }, presence: true,
+              if: Proc.new { |a| a.is_template? || a.save_as_template? }
 
-    validates :categories, :size => { :in => 1..2, add_errors_to: [:categories, :category_ids] }
+    validates :categories,
+              size: { in: 1..2, add_errors_to: [:categories, :category_ids] }
 
     validates :condition, presence: true
     validates :condition_extra, presence: true, if: :old?
 
     #money_rails and price
-    validates :price_cents, presence: true, :numericality => { greater_than_or_equal_to: 0, less_than_or_equal_to: 1000000 }
+    validates :price_cents, presence: true, numericality: {
+      greater_than_or_equal_to: 0, less_than_or_equal_to: 1000000
+    }
 
-    validates :vat , presence: true , inclusion: { in: [0,7,19] },  if: :belongs_to_legal_entity?
-    validates :basic_price_cents, :numericality => { greater_than_or_equal_to: 0, less_than_or_equal_to: 1000000 } , :allow_nil => false
+    validates :vat , presence: true , inclusion: { in: [0, 7 ,19] },
+              if: :belongs_to_legal_entity?
+    validates :basic_price_cents, numericality: {
+      greater_than_or_equal_to: 0, less_than_or_equal_to: 1000000
+    }, allow_nil: false
 
-    validates :basic_price_amount, presence: true, if: lambda {|obj| obj.basic_price_cents && obj.basic_price_cents > 0 }
+    validates :basic_price_amount, presence: true, if: lambda { |obj| obj.basic_price_cents && obj.basic_price_cents > 0 }
 
     # legal entity attributes
 
@@ -117,5 +127,4 @@ module Article::Validations
          errors.add(:images, I18n.t("article.form.errors.only_one_title_image"))
       end
     end
-
 end

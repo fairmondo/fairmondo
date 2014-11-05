@@ -1,4 +1,5 @@
-# This module compiles all checks (usually ending with aquestion mark) called on an article.
+# This module compiles all checks (usually ending with aquestion mark) called on
+# an article.
 #
 # == License:
 # Fairmondo - Fairmondo is an open-source online marketplace.
@@ -34,12 +35,12 @@ module Article::Checks
   end
 
   def save_as_template?
-    self.save_as_template == "1"
+    save_as_template == "1"
   end
 
   def is_template?
     # works even when the db state did not change yet
-    self.state.to_sym == :template
+    state.to_sym == :template
   end
 
   def qualifies_for_discount?
@@ -47,7 +48,7 @@ module Article::Checks
   end
 
   def belongs_to_legal_entity?
-    self.seller.is_a?(LegalEntity)
+    seller.is_a?(LegalEntity)
   end
 
   # Elastic

@@ -98,6 +98,5 @@ module Article::Images
         end
       end
     end
-
   end
 end

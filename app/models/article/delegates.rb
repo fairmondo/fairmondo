@@ -1,4 +1,5 @@
-# This module compiles all checks (usually ending with aquestion mark) called on an article.
+# This module compiles all checks (usually ending with aquestion mark) called
+# on an article.
 #
 # == License:
 # Fairmondo - Fairmondo is an open-source online marketplace.
@@ -24,9 +25,11 @@ module Article::Delegates
 
   included do
 
-    delegate :id, :terms, :cancellation, :about, :country, :ngo, :nickname, :email,
-             :vacationing?, :free_transport_available, :free_transport_at_price,
-             :to => :seller, :prefix => true
-    delegate :nickname, to: :friendly_percent_organisation, prefix: true, allow_nil: true
+    delegate :id, :terms, :cancellation, :about, :country, :ngo, :nickname,
+             :email, :vacationing?, :free_transport_available,
+             :free_transport_at_price,
+             to: :seller, prefix: true
+    delegate :nickname,
+             to: :friendly_percent_organisation, prefix: true, allow_nil: true
   end
 end
