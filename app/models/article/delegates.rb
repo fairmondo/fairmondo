@@ -1,4 +1,5 @@
-#
+# This module compiles all checks (usually ending with aquestion mark) called
+# on an article.
 #
 # == License:
 # Fairmondo - Fairmondo is an open-source online marketplace.
@@ -19,37 +20,16 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Fairmondo.  If not, see <http://www.gnu.org/licenses/>.
 #
-module Article::Categories
+module Article::Delegates
   extend ActiveSupport::Concern
 
   included do
 
-    attr_accessor :category_proposal
-
-    # categories refs #154
-    has_and_belongs_to_many :categories
-
-    validates :categories, :size => {
-      :in => 1..2,
-      :add_errors_to => [:categories, :category_ids]
-    }
-    before_validation :ensure_no_redundant_categories # just store the leafs to avoid inconsistencies
+    delegate :id, :terms, :cancellation, :about, :country, :ngo, :nickname,
+             :email, :vacationing?, :free_transport_available,
+             :free_transport_at_price,
+             to: :seller, prefix: true
+    delegate :nickname,
+             to: :friendly_percent_organisation, prefix: true, allow_nil: true
   end
-
-  def category_ids= category_ids
-    self.categories = []
-    category_ids.each do |category_id|
-      if category_id.to_s.match(/\A\d+\Z/)
-        self.categories << Category.find(category_id.to_i)
-      end
-    end
-  end
-
-
-  def ensure_no_redundant_categories
-    self.category_ids =  categories.reject{|c| categories.any? {|other| c!=nil && other.is_descendant_of?(c) } }.uniq{|c| c.id}.map(&:id) if self.categories
-    true
-  end
-  private :ensure_no_redundant_categories
-
 end

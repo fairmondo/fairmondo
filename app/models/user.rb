@@ -29,9 +29,7 @@ class User < ActiveRecord::Base
 
   friendly_id :nickname, use: [:slugged, :finders]
 
-  validates_presence_of :slug
-
-  extend Sanitization
+  include Associations, ExtendedAttributes, Validations, State, Ratings
   include Assets::Normalizer # for cancellation form
 
   # Include default devise modules. Others available are: :rememberable,
@@ -41,105 +39,13 @@ class User < ActiveRecord::Base
 
   after_create :create_default_library
 
-  auto_sanitize :nickname, :bank_name
-  auto_sanitize :iban, :bic, remove_all_spaces: true
-  auto_sanitize :about_me, :terms, :cancellation, :about, method: 'tiny_mce'
-
-
-  attr_accessor :wants_to_sell
-  attr_accessor :bank_account_validation , :paypal_validation
-  attr_accessor :fastbill_profile_update
-
-
-  ####################################################
-  # Relations
-  #
-  ####################################################
-
-    # Addresses
-  has_many :addresses, dependent: :destroy, inverse_of: :user
-  belongs_to :standard_address, class_name: 'Address', foreign_key: :standard_address_id
-  delegate :title, :first_name, :last_name, :company_name, :address_line_1, :address_line_2, :zip, :city, :country, to: :standard_address, prefix: true, allow_nil: true
-
-    # Profile image
-  has_one :image, class_name: "UserImage", foreign_key: "imageable_id"
-  accepts_nested_attributes_for :image, reject_if: :all_blank
-
-    # Articles and Mass uploads
-  has_many :articles, dependent: :destroy # As seller
-  #has_many :bought_business_transactions, through: :buyer_line_item_groups#, source: :line_item_groups
-  #has_many :bought_articles, through: :bought_business_transactions, source: :article
-  has_many :mass_uploads
-
-    # Cart related Models
-  has_many :carts # as buyer
-  #has_many :line_item_groups, foreign_key: 'seller_id', inverse_of: :seller # as seller
-  #has_many :line_item_groups, foreign_key: 'buyer_id', inverse_of: :buyer  # as buyer
-  has_many :seller_line_item_groups, class_name: 'LineItemGroup', foreign_key: 'seller_id', inverse_of: :seller
-  has_many :buyer_line_item_groups, class_name: 'LineItemGroup', foreign_key: 'buyer_id', inverse_of: :buyer
-
-    # Libraries and Library Elements
-  has_many :libraries, dependent: :destroy
-  has_many :library_elements, through: :libraries
-
-    # Ratings
-  has_many :ratings, foreign_key: 'rated_user_id', dependent: :destroy, inverse_of: :rated_user
-  has_many :given_ratings, through: :buyer_line_item_groups, source: :rating, inverse_of: :rating_user
-
-    # Notices
-  has_many :notices
-
-  has_many :library_elements, through: :libraries
-
-  has_many :hearts
-  has_many :comments, dependent: :destroy
-
-  has_many :hearted_libraries, through: :hearts, source: :heartable, source_type: 'Library'
-
-  has_attached_file :cancellation_form
-
 
   ####################################################
   # Scopes
   #
   ####################################################
   scope :sorted_ngo, -> { order(:nickname).where(ngo: true) }
-  scope :ngo_with_profile_image, -> { where(ngo: true ).joins(:image).limit(6) }
-
-
-  ####################################################
-  # validations
-  #
-  ####################################################
-
-  # Registration validations
-
-  validates_inclusion_of :type, in: ["PrivateUser", "LegalEntity"]
-  validates :nickname , presence: true, uniqueness: true
-  validates :legal, acceptance: true, on: :create
-  validates_associated :standard_address
-
-  with_options if: :wants_to_sell? do |seller|
-    seller.validates :direct_debit, acceptance: {accept: true}, on: :update
-    seller.validates :bank_account_owner, :iban, :bic,  presence: true
-    seller.validates :standard_address, presence: true
-  end
-
-  # TODO: Language specific validators
-  # german validator for iban
-  validates :iban, format: {with: /\A[A-Za-z]{2}[0-9]{2}[A-Za-z0-9]{18}\z/ }, unless: Proc.new {|c| c.iban.blank?}, if: :is_german?
-  validates :bic, format: {with: /\A[A-Za-z]{4}[A-Za-z]{2}[A-Za-z0-9]{2}[A-Za-z0-9]{3}?\z/ }, unless: Proc.new {|c| c.bic.blank?}
-
-  validates :paypal_account, format: { with: /\A[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]+\z/ }, unless: Proc.new {|c| c.paypal_account.blank?}
-  validates :paypal_account, presence: true, if: :paypal_validation
-  validates :bank_account_owner, :iban,:bic, presence: true, if: :bank_account_validation
-
-  validates :about_me, length: { maximum: 2500, tokenizer: tokenizer_without_html }
-
-  validates_inclusion_of :type, in: ["LegalEntity"], if: :is_ngo?
-
-  monetize :unified_transport_price_cents, :numericality => { :greater_than_or_equal_to => 0, :less_than_or_equal_to => 50000 }, :allow_nil => true
-  monetize :free_transport_at_price_cents, :numericality => { :greater_than_or_equal_to => 0 }, :allow_nil => true
+  scope :ngo_with_profile_image, -> { where(ngo: true).joins(:image).limit(6) }
 
 
   ####################################################
@@ -216,39 +122,6 @@ class User < ActiveRecord::Base
     string
   end
 
-  # Update percentage of positive and negative ratings of seller
-  # @api public
-  # @return [undefined]
-  def update_rating_counter
-    number_of_ratings = self.ratings.count
-
-    self.update_attributes( percentage_of_positive_ratings: calculate_percentage_of_biased_ratings( 'positive', 50 ),
-                            percentage_of_neutral_ratings:  calculate_percentage_of_biased_ratings( 'neutral', 50 ),
-                            percentage_of_negative_ratings: calculate_percentage_of_biased_ratings( 'negative', 50 ) )
-
-    if ( self.is_a?(LegalEntity) && number_of_ratings > 50 ) || ( self.is_a?(PrivateUser) && number_of_ratings > 20 )
-      if percentage_of_negative_ratings > 50
-        self.banned = true
-      end
-      update_seller_state
-    end
-  end
-
-  # Calculates percentage of positive and negative ratings of seller
-  # @api public
-  # @param bias [String] positive or negative
-  # @param limit [Integer]
-  # @return [Float]
-  def calculate_percentage_of_biased_ratings(bias, limit)
-    biased_ratings = { "positive" => 0, "negative" => 0, "neutral" => 0}
-    self.ratings.select(:rating).limit(limit).each do |rating|
-      biased_ratings[rating.value] += 1
-    end
-    number_of_considered_ratings = biased_ratings.values.sum
-    number_of_biased_ratings = biased_ratings[bias] || 0
-    number_of_biased_ratings.fdiv(number_of_considered_ratings) * 100
-  end
-
   # get ngo status
   # @api public
   def is_ngo?
@@ -268,64 +141,6 @@ class User < ActiveRecord::Base
                    where('users.id != ?', current_user.id).
                    reorder('hearts.created_at DESC')
     end
-  end
-
-  ####################################################
-  # State Machine
-  #
-  ####################################################
-
-  state_machine :seller_state, initial: :standard_seller do
-    after_transition any => :bad_seller, do: :send_bad_seller_notification
-
-    event :rate_up do
-      transition bad_seller: :standard_seller
-    end
-
-    event :rate_down_to_bad_seller do
-      transition all => :bad_seller
-    end
-
-    event :block do
-      transition all => :blocked
-    end
-
-    event :unblock do
-      transition blocked: :standard_seller
-    end
-  end
-
-  state_machine :buyer_state, initial: :standard_buyer do
-    event :rate_up_buyer do
-      transition standard_buyer: :good_buyer, bad_buyer: :standard_buyer
-    end
-
-    event :rate_down_to_bad_buyer do
-      transition all => :bad_buyer
-    end
-  end
-
-  def send_bad_seller_notification
-    RatingMailer.delay.bad_seller_notification(self)
-  end
-
-  def buyer_constants
-    buyer_constants = {
-      not_registered_purchasevolume: 4,
-      standard_purchasevolume: 12,
-      trusted_bonus: 12,
-      good_factor: 2,
-      bad_purchasevolume: 6
-    }
-  end
-
-  def purchase_volume
-    purchase_volume = buyer_constants[:standard_purchasevolume]
-
-    purchase_volume += buyer_constants[:trusted_bonus]      if self.trustcommunity
-    purchase_volume *= buyer_constants[:good_factor]        if good_buyer?
-    purchase_volume = buyer_constants[:bad_purchasevolume]  if bad_buyer?
-    purchase_volume
   end
 
   def bank_account_exists?
