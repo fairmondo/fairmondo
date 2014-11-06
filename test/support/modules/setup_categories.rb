@@ -23,9 +23,9 @@
 
 def setup_categories
   Category.find_or_create_by(name: "Fahrzeuge")
-  electronic = Category.find_or_create_by(name: "Elektronik")
+  electronic = Category.find_or_create_by(name: "Elektronik", weight: 100)
   Category.find_or_create_by(name: "Haus & Garten")
-  Category.find_or_create_by(name: "Freizeit & Hobby")
+  Category.find_or_create_by(name: "Freizeit & Hobby", weight: 100)
   Category.find_or_create_by(name: "Sonstiges")
   computer = Category.find_or_create_by(name: "Computer", :parent_id => electronic.id)
   Category.find_or_create_by(name: "Audio & HiFi", :parent_id => electronic.id)
@@ -33,5 +33,3 @@ def setup_categories
   Category.find_or_create_by(name: "Software", :parent_id => computer.id)
   Category.rebuild!
 end
-
-
