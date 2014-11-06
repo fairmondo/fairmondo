@@ -10,3 +10,10 @@
                 li
                   - children.each do |child|
                     = link_to child.name, category_path(child), data: navigation_push
+      li.JS-touch-hover
+        = 'Weitere'
+        ul.l-header-categories-children
+          - Category.other_categories.sorted.roots.each_slice(3) do |categories|
+            li
+              - categories.each do |category|
+                = link_to category.name, category_path(category), data: navigation_push
