@@ -242,6 +242,44 @@
 }
 
 
+// Filters teaser
+#filters section {
+  margin-bottom: 1em;
+}
+
+#filters section > .filter-wrapper {
+  @include whitebox;
+  position: relative;
+}
+
+#filters section h3 {
+  text-transform: uppercase;
+  font-size: 1.4em;
+  color: $white;
+}
+
+#filters section a {
+  color: $white;
+}
+
+#filters section#filter-fair > .filter-wrapper {
+  background-color: #13485a;
+}
+
+#filters section#filter-eco > .filter-wrapper {
+  background-color: #959579;
+}
+
+#filters section#filter-small > .filter-wrapper {
+  background-color: #e09619;
+}
+
+#filters section#filter-used > .filter-wrapper {
+  background-color: #9a365c;
+}
+
+
+
 // User quotes slides
 #userslides {
   .teaser-inner {
@@ -357,6 +395,15 @@
     @include span(2 of 4);
     @include omega;
   }
+
+  // Filters teaser
+  #filters section {
+    @include span(2 of 4);
+
+    &#filter-eco, &#filter-used {
+      @include omega;
+    }
+  }
 }
 
 
@@ -435,6 +482,20 @@
     @include omega;
   }
 
+  // Filters teaser
+  #filters section {
+    @include span(2 of 6);
+
+    &#filter-small {
+      @include omega;
+    }
+
+    &:last-of-type {
+      display: none;
+    }
+  }
+
+
 
   // Used teaser
   #used {
@@ -499,12 +560,9 @@
   }
 
   // Filters teaser
-  #filters {
-    @include span(6 of 8);
-  }
+  #filters section {
+    @include span(2 of 8);
 
-  #filters .teaser-queue {
-    @include span(2 of 6);
     &:last-of-type {
       @include omega;
     }
