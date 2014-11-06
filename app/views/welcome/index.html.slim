@@ -129,30 +129,36 @@
 
 
 / Article queue 1
-.teaser.teaser--double.teaser--clear#filters
+.teaser.teaser--full.teaser--clear#filters
   .teaser-inner
-    .teaser-commendations
-      = render 'articles/show/commendation_label', label: :fair, size: :small, link: nil, new_window: false
-      = render 'articles/show/commendation_label', label: :ecologic, size: :small, link: nil, new_window: false
-      = render 'articles/show/commendation_label', label: :small_and_precious, size: :small, link: nil, new_window: false
-    h2
-      = link_to(tinycms_content_body_sanitized("heading_features"), featured_library_path(@queue1[:library]))
-    - @queue1[:exhibits].each_with_index do |article, index|
-      div class="teaser-queue#{index == 1 ? ' teaser-queue-before-hidden' : ''}"
-        = render 'articles/shared/show_article', article: article
-    p.more
-      = link_to t('common.actions.more'), featured_library_path(@queue1[:library])
-
-/ Article queue 'used/old'
-.teaser.teaser--double#used
-  .teaser-inner
-    h2
-      = link_to(tinycms_content_body_sanitized('heading_features3'), featured_library_path(@old[:library]))
-    - @old[:exhibits].each do |article|
-      .teaser-queue
-        = render 'articles/shared/show_article', article: article
-    p.more
-      = link_to t('common.actions.more'), featured_library_path(@old[:library])
+    section#filter-fair
+      .filter-wrapper
+        h3 Darf's noch etwas fair sein
+        = link_to '' do
+          p Faire Artikel auf einen Blick
+          p Jetzt ansehen
+          p fair
+    section#filter-eco
+      .filter-wrapper
+        h3 Öko? Logisch! Auf Fairmondo.
+        = link_to '' do
+          p Öko-Produkte auf einen Blick
+          p Hier reinschauen
+          p öko
+    section#filter-small
+      .filter-wrapper
+        h3 Kleine Hersteller – große Qualität.
+        = link_to '' do
+          p Alle Angebote auf einen Blick
+          p Jetzt entdecken
+          p edel
+    section#filter-used
+      .filter-wrapper
+        h3 Von letzter Saison bis echter Rarität.
+        = link_to '' do
+          p Gebrauchtes auf einen Blick
+          p Hier stöbern
+          p gebraucht
 
 
 / known from / press information
