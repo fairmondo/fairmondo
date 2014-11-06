@@ -33,9 +33,11 @@
     #billboard-inner
       #js-billboardslides
         a href='#' class='slidesjs-previous slidesjs-navigation'
-          span.slides-arrow.slides-arrow--left.sprite_left_arrow
+          span.slides-arrow.slides-arrow--left
+            i.fa.fa-chevron-left
         a href='#' class='slidesjs-next slidesjs-navigation'
-          span.slides-arrow.slides-arrow--right.sprite_right_arrow
+          span.slides-arrow.slides-arrow--right
+            i.fa.fa-chevron-right
 
         / Bücher
         .billboard#billboard-books
@@ -200,9 +202,11 @@
   .teaser-inner
     #js-cardslides
       a href='#' class='slidesjs-previous slidesjs-navigation'
-        span.slides-arrow.slides-arrow--left.sprite_left_arrow
+        span.slides-arrow.slides-arrow--left
+          i.fa.fa-chevron-left
       a href='#' class='slidesjs-next slidesjs-navigation'
-        span.slides-arrow.slides-arrow--right.sprite_right_arrow
+        span.slides-arrow.slides-arrow--right
+          i.fa.fa-chevron-right
       - 8.times do |i|
         = image_tag "slides/cards/#{i}.png"
 
@@ -222,9 +226,11 @@
   .teaser-inner
     #js-userslides
       a href='#' class='slidesjs-previous slidesjs-navigation'
-        span.slides-arrow.slides-arrow--left.sprite_left_arrow
+        span.slides-arrow.slides-arrow--left
+          i.fa.fa-chevron-left
       a href='#' class='slidesjs-next slidesjs-navigation'
-        span.slides-arrow.slides-arrow--right.sprite_right_arrow
+        span.slides-arrow.slides-arrow--right
+          i.fa.fa-chevron-right
 
       = render 'user_slide', number: 1,
                              quote: 'Für Veränderungen in der Gesellschaft benötigt es mehr Mut – bei Fairnopoly erleben wir viele junge mutige Menschen. Wir freuen uns auf die Zusammenarbeit mit Fairnopoly, wünschen der Genossenschaft einen erfolgreichen Start, viele Mitglieder und viel Erfolg auf dem Weg zu mehr Transparenz in Onlinehandel und Gesellschaft!',
