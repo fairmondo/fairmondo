@@ -249,32 +249,73 @@
 
 #filters section > .filter-wrapper {
   @include whitebox;
+  overflow: hidden;
+  padding: 0;
+}
+
+#filters section .filter-image {
   position: relative;
+  background-color: $white;
+}
+
+#filters section .filter-image p {
+  position: absolute;
+  margin: 0;
+  padding: 0.25em 1em;
+  border-radius: 0.5em;
+}
+
+#filters section .filter-image .filter-show {
+  bottom: 5%;
+  left: 5%;
+}
+
+#filters section .filter-image .filter-label {
+  right: 5%;
+  top: 5%;
+  text-transform: uppercase;
+}
+
+#filters section img {
+  width: 100%;
 }
 
 #filters section h3 {
   text-transform: uppercase;
   font-size: 1.4em;
   color: $white;
+  margin: 0 5% 0.5em;
+  &:hover {
+    text-decoration: none !important;
+  }
+}
+
+#filters .filter-text {
+  padding: 0.75em 0;
+}
+
+#filters .filter-text p {
+  margin: 0 5%;
+  text-decoration: underline;
 }
 
 #filters section a {
   color: $white;
 }
 
-#filters section#filter-fair > .filter-wrapper {
+#filter-fair .filter-image p, #filter-fair .filter-text {
   background-color: #13485a;
 }
 
-#filters section#filter-eco > .filter-wrapper {
+#filter-eco .filter-image p, #filter-eco .filter-text {
   background-color: #959579;
 }
 
-#filters section#filter-small > .filter-wrapper {
+#filter-small .filter-image p, #filter-small .filter-text {
   background-color: #e09619;
 }
 
-#filters section#filter-used > .filter-wrapper {
+#filter-used .filter-image p, #filter-used .filter-text {
   background-color: #9a365c;
 }
 
@@ -403,18 +444,9 @@
     &#filter-eco, &#filter-used {
       @include omega;
     }
-  }
-}
 
-
-@include between-breakpoints($bp-mobile-horizontal, $bp-tablet-horizontal) {
-  #filters .teaser-queue {
-    @include span(2 of 4);
-    &:last-of-type {
-      display: none;
-    }
-    &.teaser-queue-before-hidden {
-      @include omega;
+    &#filter-small {
+      clear: right;
     }
   }
 }
