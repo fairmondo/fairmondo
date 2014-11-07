@@ -50,5 +50,6 @@ module Article::ActiveRecordOverwrites
         image.image = image_attributes[:image]
       end
       image.is_title = image_attributes[:is_title]
+      image
     end
 end
