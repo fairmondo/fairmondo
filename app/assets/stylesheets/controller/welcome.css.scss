@@ -261,7 +261,7 @@
 #filters section .filter-image p {
   position: absolute;
   margin: 0;
-  padding: 0.25em 1em;
+  padding: 0.2em 1em;
   border-radius: 0.5em;
 }
 
@@ -283,15 +283,18 @@
 #filters section h3 {
   text-transform: uppercase;
   font-size: 1.4em;
+  //font-size: 1.5em;
+  //font-weight: 700;
   color: $white;
   margin: 0 5% 0.5em;
   &:hover {
-    text-decoration: none !important;
+    text-decoration: none;
   }
 }
 
 #filters .filter-text {
   padding: 0.75em 0;
+  //min-height: 120px;
 }
 
 #filters .filter-text p {
