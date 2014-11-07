@@ -1,4 +1,4 @@
-a href="/articles/?q={{suggestion.value}}" data-push="true"
+a href="/articles/?article_search_form[q]={{suggestion.value}}" data-push="true"
   span.autocomplete-title
     | Alle {{ suggestion.data.count }} Ergebnisse für
     strong<
