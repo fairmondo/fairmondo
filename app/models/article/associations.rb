@@ -50,9 +50,9 @@ module Article::Associations
     # images
 
     has_many :images, class_name: "ArticleImage", foreign_key: "imageable_id"
-    has_many :thumbnails, -> { reorder('is_title DESC,id ASC').offset(1) },
+    has_many :thumbnails, -> { reorder('is_title DESC, id ASC').offset(1) },
       class_name: "ArticleImage", foreign_key: "imageable_id"
-    has_one :title_image, -> { reorder 'is_title DESC,id ASC' },
+    has_one :title_image, -> { reorder('is_title DESC, id ASC') },
       class_name: "ArticleImage", foreign_key: "imageable_id"
 
     accepts_nested_attributes_for :images, allow_destroy: true
