@@ -35,7 +35,7 @@ class ArticlesIndex < Chewy::Index
 
 
 
-  define_type Article.active.includes(:seller,:title_image, :categories) do
+  define_type Article.active.includes(:seller, :title_image, :categories) do
     root _source: { excludes: ['content'] } do
       field :id, index: :not_analyzed
       field :title, type: 'string', analyzer: "german_analyzer"
@@ -52,7 +52,9 @@ class ArticlesIndex < Chewy::Index
       field :swappable, type: 'boolean'
       field :borrowable, type: 'boolean'
       field :condition, index: :not_analyzed
-      field :categories, index: :not_analyzed, value: -> { categories.map{|c| c.self_and_ancestors.map(&:id) }.flatten  }
+      field :categories, index: :not_analyzed, value: -> {
+        categories.map{ |c| c.self_and_ancestors.map(&:id) }.flatten
+      }
 
       # sorting
       field :created_at, type: 'date'
@@ -71,7 +73,11 @@ class ArticlesIndex < Chewy::Index
       field :friendly_percent_organisation_nickname, index: :not_analyzed
 
       field :transport_pickup, type: 'boolean'
-      field :zip, value: -> { self.seller.standard_address_zip if self.transport_pickup || self.seller.is_a?(LegalEntity) }
+      field :zip, value: -> {
+        if self.transport_pickup || self.seller.is_a?(LegalEntity)
+          self.seller.standard_address_zip
+        end
+      }
 
       # seller attributes
       field :belongs_to_legal_entity? , type: 'boolean'
