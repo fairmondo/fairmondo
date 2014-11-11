@@ -8,7 +8,7 @@ p
 .line-item-group
   h3
     = link_to @line_item_group.buyer_nickname, profile_user_url(@line_item_group.buyer.id)
-    = t('email.line_item_group.seller.bought_from_you')
+    =< t('email.line_item_group.seller.bought_from_you')
   = "Käufer*in kontaktieren: "
   = mail_to @line_item_group.buyer_email
   br
