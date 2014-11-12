@@ -6,6 +6,7 @@
     display: none;
   }
   margin-top: 0.5em;
+  text-align: center;
 }
 
 .l-header-categories > ul {
@@ -23,8 +24,11 @@
   position: relative;
   font-size: 1em;
   line-height: 1em;
+  color: $blue;
   &:hover, &.touch-hover {
     background: white;
+    text-decoration: underline;
+    cursor: pointer;
   }
   border-radius: 5px;
 }
