@@ -51,7 +51,7 @@ module Article::Validations
     validates :transport_type2_price, :transport_type2_provider, presence: true, if: :transport_type2
     validates :transport_type1_number, :transport_type2_number, numericality: { greater_than: 0 }
     validates :transport_details, length: { maximum: 2500 }
-    validates :transport_time, length: { maximum: 7 }, format: { with: /\A\d{1,2}-?\d{,2}\z/ }, allow_blank: true
+    validates :transport_time, length: { maximum: 7 }, format: { with: /\A\d{1,2}[-–]?\d{,2}\z/ }, allow_blank: true
 
     # payment
 
