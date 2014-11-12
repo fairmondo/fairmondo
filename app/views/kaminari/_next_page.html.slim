@@ -6,4 +6,6 @@
 /    per_page:      number of items to fetch per page
 /    remote:        data-remote
 li.next
-  = link_to_unless current_page.last?, raw(t 'views.pagination.next'), url, :rel => 'next', data: (remote ? { remote: true} : { push: true } )
+  - link_attributes ||= {}
+  - link_attributes.deep_merge!(rel: 'next', data: (remote ? { remote: true} : { push: true } ))
+  = link_to_unless current_page.last?, raw(t 'views.pagination.next'), url, link_attributes
