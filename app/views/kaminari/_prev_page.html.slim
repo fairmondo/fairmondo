@@ -6,4 +6,6 @@
 /    per_page:      number of items to fetch per page
 /    remote:        data-remote
 li.prev
-  = link_to_unless current_page.first?, raw(t 'views.pagination.previous'), url, :rel => 'prev', data: (remote ? { remote: true} : { push: true } )
+  - link_attributes ||= {}
+  - link_attributes.deep_merge!(rel: 'prev', data: (remote ? { remote: true} : { push: true } ))
+  = link_to_unless current_page.first?, raw(t 'views.pagination.previous'), url, link_attributes

@@ -3,8 +3,3 @@ javascript:
 = content_for :view_specific_scripts
 - wiselinks_title ( @page_title || t('common.fairmondo') )
 = yield
-- if content_for? :view_specific_scrolling
-  = yield :view_specific_scrolling
-- else
-  javascript:
-    $("html, body").animate({ scrollTop: 0 }, "fast");
