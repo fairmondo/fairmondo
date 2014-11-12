@@ -42,7 +42,7 @@ class Article < ActiveRecord::Base
   friendly_id :slug_candidates, :use => [:slugged, :finders]
 
   def should_generate_new_friendly_id?
-    super && slug == nil && !closed?
+    super && slug == nil && should_get_a_slug?
   end
 
   ###############################################
