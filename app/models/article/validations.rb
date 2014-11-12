@@ -9,7 +9,7 @@ module Article::Validations
     before_validation :ensure_no_redundant_categories # just store the leafs to avoid inconsistencies
 
     validates :user_id, presence: true
-    validates :slug, presence: true, unless: :template?
+    validates :slug, presence: true, if: :should_get_a_slug?
 
     validates :title,
               length: { minimum: 6, maximum: 200 }, presence: true
