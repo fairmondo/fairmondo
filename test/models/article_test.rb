@@ -68,6 +68,7 @@ describe Article do
     it { subject.must_respond_to :transport_type2_provider }
     it { subject.must_respond_to :transport_type1_price_cents }
     it { subject.must_respond_to :transport_type2_price_cents }
+    it { subject.must_respond_to :transport_time }
     it { subject.must_respond_to :payment_bank_transfer }
     it { subject.must_respond_to :payment_cash }
     it { subject.must_respond_to :payment_paypal }
@@ -224,6 +225,12 @@ describe Article do
         db_article.payment_paypal = true
         db_article.save
         db_article.errors[:payment_paypal].must_equal [I18n.t("article.form.errors.paypal_details_missing")]
+      end
+
+      it "should allow dashes in transport_time" do
+        db_article.transport_time = "3 – 5"
+        db_article.save
+        db_article.errors[:transport_time].must_equal []
       end
 
       it {subject.must validate_numericality_of(:transport_type1_number)}
