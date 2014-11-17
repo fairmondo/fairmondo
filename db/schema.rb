@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141023135723) do
+ActiveRecord::Schema.define(version: 20141117100754) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -288,6 +288,7 @@ ActiveRecord::Schema.define(version: 20141023135723) do
     t.string   "user_token"
   end
 
+  add_index "hearts", ["heartable_id", "heartable_type", "updated_at"], name: "index_hearts_for_popularity_worker", using: :btree
   add_index "hearts", ["heartable_id", "heartable_type"], name: "index_hearts_on_heartable_id_and_heartable_type", using: :btree
   add_index "hearts", ["user_id", "heartable_id", "heartable_type"], name: "index_hearts_on_user_id_and_heartable_id_and_heartable_type", unique: true, using: :btree
   add_index "hearts", ["user_id"], name: "index_hearts_on_user_id", using: :btree
