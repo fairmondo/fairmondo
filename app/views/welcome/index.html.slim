@@ -39,38 +39,23 @@
           span.slides-arrow.slides-arrow--right
             i.fa.fa-chevron-right
 
-        / Bücher
-        .billboard#billboard-books
+        / Ecobookstore
+        .billboard#billboard-ecobookstore
           article
-            hgroup
-              h2 Wir haben sie alle
-              h3 Auf Fairmondo über 1&nbsp;Mio. Bücher finden
-            = link_to 'Jetzt stöbern', 'https://www.fairmondo.de/categories/bucher?pk_campaign=bb4&pk_kwd=stoebern'
+            = link_to 'categories/bucher' do
+              hgroup
+                h2 Ab sofort bei unserem Händler:
+                h3 ecobookstore.de
+              p Jetzt stöbern
+            p Alle Bücher, Filme, Audio-CDs und Spiele aus dem Ecobookstore <span>versandkostenfrei</span> liefern lassen.
+            p Mit Deinem Einkauf beim Ecobookstore unterstützt Du seine Bemühungen für den Regenwaldschutz.
+            p.alternative-text Alle Bücher, Filme, Audio-CDs und Spiele aus dem Ecobookstore.
             ul
-              li#billboard-books-link1
-                = link_to 'https://www.fairmondo.de/libraries/5531?pk_campaign=bb4&pk_kwd=romane' do
+              li#billboard-ecobookstore-link1
+                = link_to 'categories/bucher' do
                   div
-                  p Beliebteste Romane
-              li#billboard-books-link2
-                = link_to 'https://www.fairmondo.de/libraries/5622?pk_campaign=bb4&pk_kwd=neuerscheinungen' do
                   div
-                  p Neuer&shy;scheinungen
-              li#billboard-books-link3
-                = link_to 'https://www.fairmondo.de/libraries/6937?pk_campaign=bb4&pk_kwd=ratgeber' do
                   div
-                  p Beste Ratgeber
-              li#billboard-books-link4
-                = link_to 'https://www.fairmondo.de/libraries/5556?pk_campaign=bb4&pk_kwd=kinder' do
-                  div
-                  p Kinder- und Jugendbücher
-              li#billboard-books-link5
-                = link_to 'https://www.fairmondo.de/libraries/5560?pk_campaign=bb4&pk_kwd=krimi' do
-                  div
-                  p Krimis und Thriller
-              li#billboard-books-link6
-                = link_to 'https://www.fairmondo.de/libraries/5533?pk_campaign=bb4&pk_kwd=gebraucht' do
-                  div
-                  p Gebrauchte Bücher
 
         / Edle Tropfen
         .billboard#billboard-gourmet
@@ -111,6 +96,39 @@
                 = link_to 'https://www.fairmondo.de/libraries/7316?pk_campaign=bb6&pk_kwd=lampen' do
                   div
                   p Beleuchtung
+
+        / Bücher
+        .billboard#billboard-books
+          article
+            hgroup
+              h2 Wir haben sie alle
+              h3 Auf Fairmondo über 1&nbsp;Mio. Bücher finden
+            = link_to 'Jetzt stöbern', 'https://www.fairmondo.de/categories/bucher?pk_campaign=bb4&pk_kwd=stoebern'
+            ul
+              li#billboard-books-link1
+                = link_to 'https://www.fairmondo.de/libraries/5531?pk_campaign=bb4&pk_kwd=romane' do
+                  div
+                  p Beliebteste Romane
+              li#billboard-books-link2
+                = link_to 'https://www.fairmondo.de/libraries/5622?pk_campaign=bb4&pk_kwd=neuerscheinungen' do
+                  div
+                  p Neuer&shy;scheinungen
+              li#billboard-books-link3
+                = link_to 'https://www.fairmondo.de/libraries/6937?pk_campaign=bb4&pk_kwd=ratgeber' do
+                  div
+                  p Beste Ratgeber
+              li#billboard-books-link4
+                = link_to 'https://www.fairmondo.de/libraries/5556?pk_campaign=bb4&pk_kwd=kinder' do
+                  div
+                  p Kinder- und Jugendbücher
+              li#billboard-books-link5
+                = link_to 'https://www.fairmondo.de/libraries/5560?pk_campaign=bb4&pk_kwd=krimi' do
+                  div
+                  p Krimis und Thriller
+              li#billboard-books-link6
+                = link_to 'https://www.fairmondo.de/libraries/5533?pk_campaign=bb4&pk_kwd=gebraucht' do
+                  div
+                  p Gebrauchte Bücher
 
 
 / USP Teaser with registration link
