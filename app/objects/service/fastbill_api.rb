@@ -54,7 +54,7 @@ class FastbillAPI
     def self.attributes_for(user)
       {
         customer_type: user.is_a?(LegalEntity) ? 'business' : 'consumer',
-        organization: (user.is_a?(LegalEntity) && user.standard_address_company_name) ? user.standard_address_company_name : user.nickname,
+        organization: (user.is_a?(LegalEntity) && user.standard_address_company_name.present?) ? user.standard_address_company_name : user.nickname,
         salutation: user.standard_address_title,
         first_name: user.standard_address_first_name,
         last_name: user.standard_address_last_name,
