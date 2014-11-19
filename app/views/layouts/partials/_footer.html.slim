@@ -27,9 +27,9 @@
           | &nbsp;
           i.fa.fa-phone
         ul
-          li= link_to t('footer.faq'), '/faq', target: '_blank'
+          li= link_to t('footer.faq'), '/faq'
           li= link_to t('footer.forum'), 'https://forum.fairmondo.de/', target: '_blank'
-          li= link_to t('footer.contact'), '/contact', target: '_blank'
+          li= link_to t('footer.contact'), '/contact'
 
 
       section#l-footer-nav-fairmondo
@@ -38,7 +38,7 @@
           | &nbsp;
           i.fa.fa-institution
         ul
-          li= link_to t('footer.about_us'), '/about_us', target: '_blank'
+          li= link_to t('footer.about_us'), '/about_us'
           li= link_to t('footer.team'), "https://info.fairmondo.de/team/", target: '_blank'
           li= link_to t('footer.transparency'), 'https://transparenz.fairmondo.de/', target: '_blank'
           li= link_to t('footer.jobs'), "https://info.fairmondo.de/stellenausschreibungen/", target: '_blank'
@@ -59,9 +59,9 @@
           | &nbsp;
           i.fa.fa-legal
         ul
-          li= link_to t('footer.agb'), "/agb", target: '_blank'
-          li= link_to t('footer.privacy'), "/privacy", target: '_blank'
-          li= link_to t('footer.imprint'), "/imprint", target: '_blank'
+          li= link_to t('footer.agb'), "/agb"
+          li= link_to t('footer.privacy'), "/privacy"
+          li= link_to t('footer.imprint'), "/imprint"
 
       - if User.is_admin? current_user
         section#l-footer-nav-admin
