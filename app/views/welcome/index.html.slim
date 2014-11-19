@@ -175,23 +175,6 @@
       = link_to t('common.actions.more'), featured_library_path(@old[:library])
 
 
-/ known from / press information
-- cache "known_from" do
-  - names = { hochschulanzeiger: 'Hochschulanzeiger',
-              taz: 'Taz',
-              sueddeutsche: 'Süddeutsche Zeitung',
-              arte: 'Arte',
-              deutschlandfunk: 'Deutschlandfunk' }
-  .teaser.teaser--full#press
-    .teaser-inner
-      h5 Bekannt aus
-      ul.image-list
-        - names.each do |key, value|
-          li
-            = link_to 'http://info.fairmondo.de/fairmondo-in-der-presse/', title: value, target: '_blank' do
-              span class="sprite_#{key}"
-
-
 / Personalized library section, only shown if @last_hearted_libraries is set
 - if @last_hearted_libraries && @last_hearted_libraries.length == 2
   - @last_hearted_libraries.each_with_index do |library, index|
@@ -289,6 +272,23 @@
 
 / Social media buttons
 .socialshareprivacy data={ uri: "http://www.fairmondo.de/", title: "Gutes einfach entdecken" }
+
+
+/ known from / press information
+- cache "known_from" do
+  - names = { hochschulanzeiger: 'Hochschulanzeiger',
+              taz: 'Taz',
+              sueddeutsche: 'Süddeutsche Zeitung',
+              arte: 'Arte',
+              deutschlandfunk: 'Deutschlandfunk' }
+  .teaser.teaser--full#press
+    .teaser-inner
+      h5 Bekannt aus
+      ul.image-list
+        - names.each do |key, value|
+          li
+            = link_to 'http://info.fairmondo.de/fairmondo-in-der-presse/', title: value, target: '_blank' do
+              span class="sprite_#{key}"
 
 
 / NGOs
