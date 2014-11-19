@@ -67,7 +67,7 @@
     h2.title
       = resource.title
     - if user_signed_in? && resource.active?
-      = render "libraries/shared/control_panel", article: resource, libraries: user_libraries
+      = render "libraries/shared/control_panel", article: resource, libraries: user_libraries, button: true
     .details
       - cache [resource, resource.seller, "basic_information"] do
         h3.price
