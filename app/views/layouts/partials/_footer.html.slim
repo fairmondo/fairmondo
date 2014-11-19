@@ -1,8 +1,13 @@
 .l-footer
   .l-footer-inner
-    / Logo
-    a#l-footer-logo href="/"
-      span.sprite_logo_small
+    #l-footer-nav-left
+      / Logo
+      a#l-footer-logo href="/"
+        span.sprite_logo_small
+
+      / Social media buttons
+      - if controller_name == 'welcome'
+        .socialshareprivacy data={ uri: "http://www.fairmondo.de/", title: "Gutes einfach entdecken" }
 
     / Feedback links
     ul#l-feedback
