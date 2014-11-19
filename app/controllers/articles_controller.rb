@@ -63,7 +63,7 @@ class ArticlesController < ApplicationController
       flash.now[:notice] = t('article.notices.image_processing')
     end
 
-  rescue Pundit::NotAuthorizedError
+  rescue Pundit::NotAuthorizedError, ActiveRecord::RecordNotFound
     @similar_articles = ArticleSearchForm.new(q: @article.title).search(1)
     render "article_closed"
   end
