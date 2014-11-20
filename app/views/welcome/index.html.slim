@@ -152,9 +152,9 @@
 .teaser.teaser--double.teaser--clear#filters
   .teaser-inner
     .teaser-commendations
-      = render 'articles/show/commendation_label', label: :fair, size: :small, link: nil, new_window: false
-      = render 'articles/show/commendation_label', label: :ecologic, size: :small, link: nil, new_window: false
-      = render 'articles/show/commendation_label', label: :small_and_precious, size: :small, link: nil, new_window: false
+      = render 'articles/show/commendation_label', label: :fair, size: :small
+      = render 'articles/show/commendation_label', label: :ecologic, size: :small
+      = render 'articles/show/commendation_label', label: :small_and_precious, size: :small
     h2
       = link_to(tinycms_content_body_sanitized("heading_features"), featured_library_path(@queue1[:library]))
     - @queue1[:exhibits].each_with_index do |article, index|
