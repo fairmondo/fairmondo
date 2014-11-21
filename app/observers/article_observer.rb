@@ -64,7 +64,6 @@ class ArticleObserver < ActiveRecord::Observer
     article.remove_from_libraries
     article.cleanup_images unless article.business_transactions.any?
     Indexer.index_article article
-    article.update_column :slug, nil
   end
 
   def after_create article
