@@ -49,9 +49,5 @@ class MassUploadsController < ApplicationController
       if mass_upload.articles_for_mass_activation.any?
         ArticleMailer.delay.mass_upload_activation_message(mass_upload.id)
       end
-
-      if mass_upload.deleted_articles.any?
-        ArticleMailer.delay.mass_upload_deletion_message(mass_upload.id)
-      end
     end
 end

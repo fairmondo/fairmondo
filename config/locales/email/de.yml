@@ -84,6 +84,16 @@ de:
           Unterschrift des/der Verbraucher*in (nur bei Mitteilung auf Papier)
 
           Datum'
+      mass_upload_finished:
+        success: Dein CSV-Upload wurde erfolgreich verarbeitet.
+        failure: 'Bei der Verarbeitung Deiner CSV Datei durch das System ist ein Fehler aufgetreten. Klicke hier um den Fehler anzuzeigen:'
+        to_activate: 'Dabei musst Du noch %{count} Artikel aktivieren.'
+        created_articles: 'Neu erstellte Artikel: %{count}'
+        updated_articles: 'Modifizierte Artikel: %{count}'
+        activated_articles: 'Zu reaktivierende Artikel: %{count}'
+        activate_now: "Jetzt aktivieren"
+        deleted_articles: 'Du hast %{count} Artikel gelöscht.'
+        deactivated_articles: 'Du hast %{count} Artikel deaktiviert.'
       mass_activation:
         text: 'Du hast erfolgreich per CSV-Upload eingestellte Artikel aktiviert.'
         to_csv: 'Hier kommst Du zu Deinem CSV-Upload: '
