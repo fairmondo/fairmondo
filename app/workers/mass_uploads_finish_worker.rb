@@ -1,4 +1,4 @@
-#
+# encoding: UTF-8
 #
 # == License:
 # Fairmondo - Fairmondo is an open-source online marketplace.
@@ -19,15 +19,21 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Fairmondo.  If not, see <http://www.gnu.org/licenses/>.
 #
-# Read about factories at https://github.com/thoughtbot/factory_girl
+class MassUploadsFinishWorker
+  include Sidekiq::Worker
+  sidekiq_options queue: :mass_uploads_finish,
+                  retry: 20,
+                  backtrace: true
 
-FactoryGirl.define do
-  factory :mass_upload do
-    file { fixture_file_upload('test/fixtures/mass_upload_correct.csv', 'text/csv') }
-    user { FactoryGirl.create :legal_entity }
-    factory :mass_upload_to_finish do
-      state :processing
-      row_count 0
+  include Sidetiq::Schedulable
+
+  recurrence {
+    hourly.minute_of_hour(*((0..5).to_a.map{|d|d*10}))
+  }
+
+  def perform
+    MassUpload.processing.each do |mass_upload|
+      mass_upload.finish
     end
   end
 end
