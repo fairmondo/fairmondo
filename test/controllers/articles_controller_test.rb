@@ -184,6 +184,14 @@ describe ArticlesController do
         get :show, id: article.id
         assert_template :show
       end
+
+      it "should render 404 on closed article" do
+        slug = article.slug
+        article.deactivate
+        article.close
+        get :show, id: slug
+        assert_template :article_closed
+      end
     end
 
     describe "for signed-in users" do
