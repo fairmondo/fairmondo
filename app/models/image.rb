@@ -23,23 +23,9 @@ class Image < ActiveRecord::Base
 
   include ::Assets::Normalizer
 
-  # Get The Geometry of a image
-  #
-  # Use the returned Object to get the Size of the image
-  # geo = image.geometry :medium
-  # geo.width
-  # geo.height
-  #
-  # param style [Symbol] style of the image you want the dimensions of
-  # return [Paperclip Geometry Object]
-  def geometry style
-    Paperclip::Geometry.from_file(self.image.path(style))
-  end
-
   def self.reprocess image_id, style = :thumb
     image = Image.find(image_id).image.reprocess! style
   end
-
 
   def write_path_to_file_for(type)
     if Rails.env == 'production'
