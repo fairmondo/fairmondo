@@ -5,4 +5,4 @@ jQuery.fn.extend
     @each ->
       $(@).ready ->
         callback()
-        $(@).on 'page:done', callback
+        $(@).off('page:always', callback).on('page:always', callback)
