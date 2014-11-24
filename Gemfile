@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 
 # Rails
-gem 'rails', '~> 4.1.6'
+gem 'rails', '~> 4.1.7'
 gem 'rails-observers' # observers got extracted since rails 4
 gem 'activerecord-session_store' # sessions in activerecord
 

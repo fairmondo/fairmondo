@@ -25,7 +25,7 @@
 #= require wiselinks
 #= require jquery_ujs
 
-#= require jquery.ui.accordion
+#= require jquery-ui/accordion
 #= require qtip2-jquery-rails
 
 #= require hogan.js

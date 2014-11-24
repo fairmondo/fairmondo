@@ -11,7 +11,7 @@ json.articles @articles do |article|
   json.seller do
     json.nickname article.seller_nickname
     json.legal_entity article.belongs_to_legal_entity?
-    json.html_url user_url(article.seller)
+    json.html_url user_url(article.seller_id)
   end
   json.partial! 'articles/show/donation', article: article
 end

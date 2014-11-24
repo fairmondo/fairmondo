@@ -12,7 +12,7 @@ FactoryGirl.define do
     payment_address { FactoryGirl.create :address, user_id: buyer.id }
     purchase_id 'F00000012'
 
-    ignore do
+    transient do
       sold { false }
       articles { [ FactoryGirl.create(:article, seller: seller) ] }
     end
@@ -26,7 +26,7 @@ FactoryGirl.define do
   end
 
   trait :with_business_transactions do
-    ignore do
+    transient do
       articles_attributes []
       articles {[]} #dont override
       create_line_items false
@@ -47,7 +47,7 @@ FactoryGirl.define do
   end
 
   trait :sold do
-    ignore do
+    transient do
       sold { true }
     end
     sold_at { Time.now }

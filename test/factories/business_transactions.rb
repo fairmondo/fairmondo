@@ -23,7 +23,7 @@ require 'ffaker'
 
 FactoryGirl.define do
   factory :business_transaction do
-    ignore do
+    transient do
       seller { FactoryGirl.create(:seller, :paypal_data) }
       buyer { FactoryGirl.create :user }
       article_attributes { Hash.new }

@@ -20,7 +20,9 @@
 / along with Fairmondo.  If not, see <http://www.gnu.org/licenses/>.
 /
 
-h1.Title-next-to-tab Sammlungen
+h1.Title-next-to-tab
+  => t('libraries.title')
+  span.sprite_helper title="#{ t('libraries.tooltip') }"
 
 - if !user_focused? || @user == current_user
   ul.Tabs

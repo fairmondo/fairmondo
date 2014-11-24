@@ -64,11 +64,13 @@ class ArticleSearch
     end
 
     def query_string
-        index.query( query_string: {
-          query: @query.q,
-          fields: query_fields,
-          analyzer: "german_analyzer",
-          default_operator: "and"})
+      index.query(simple_query_string: {
+        query: @query.q,
+        fields: query_fields,
+        analyzer: "german_analyzer",
+        default_operator: "and",
+        lenient: true
+      })
     end
 
     def query_gtin

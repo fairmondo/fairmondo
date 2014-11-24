@@ -23,8 +23,6 @@ class Image < ActiveRecord::Base
 
   include ::Assets::Normalizer
 
-  default_scope -> { order('created_at ASC') }
-
   # Get The Geometry of a image
   #
   # Use the returned Object to get the Size of the image
