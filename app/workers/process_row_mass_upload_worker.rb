@@ -96,7 +96,7 @@ class ProcessRowMassUploadWorker
     # We allow sellers to use their custom field as an identifier but we need the ID internally
     def find_by_id_or_custom_seller_identifier attribute_hash, user
       if attribute_hash['id']
-        article = user.articles.where(id: attribute_hash['id']).first
+        article = user.articles.not_closed.where(id: attribute_hash['id']).first
       elsif attribute_hash['custom_seller_identifier']
         article = find_article_by_custom_seller_identifier attribute_hash['custom_seller_identifier'], user
       else
