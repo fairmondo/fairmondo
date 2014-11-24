@@ -49,7 +49,7 @@ FactoryGirl.define do
     seller_state "standard_seller"
     buyer_state "standard_buyer"
 
-    ignore do
+    transient do
       create_standard_address true
     end
 
@@ -88,7 +88,7 @@ FactoryGirl.define do
     end
 
     factory :incomplete_user, class: 'PrivateUser' do
-      ignore do
+      transient do
         create_standard_address false
       end
     end

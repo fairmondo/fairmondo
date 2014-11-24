@@ -38,6 +38,10 @@ module Article::Checks
     save_as_template == "1"
   end
 
+  def should_get_a_slug?
+    !closed? && !is_template?
+  end
+
   def is_template?
     # works even when the db state did not change yet
     state.to_sym == :template

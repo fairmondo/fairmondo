@@ -67,7 +67,4 @@ class ArticleAutocomplete
       total = results.total_count
       total > LIMIT ? [{ value: @query, data: { type: :more, count: total }}] : []
     end
-
-
-
-  end
+end

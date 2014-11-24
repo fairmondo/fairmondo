@@ -53,13 +53,21 @@ Styleguide Article
 }
 
 
-.Article-tags,.Article-admin {
+.Article-tags, .Article-admin {
   padding: em(7) em(19);
   border-top: 1px solid $lighter-gray;
 }
 
 .Article-admin {
   color: $red;
+}
+
+.Article-tags span, .commendation span {
+  cursor: default;
+
+  &.Qtip {
+    cursor: pointer;
+  }
 }
 
 .Article-extra {

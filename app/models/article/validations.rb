@@ -9,7 +9,7 @@ module Article::Validations
     before_validation :ensure_no_redundant_categories # just store the leafs to avoid inconsistencies
 
     validates :user_id, presence: true
-    validates :slug, presence: true, unless: :template?
+    validates :slug, presence: true, if: :should_get_a_slug?
 
     validates :title,
               length: { minimum: 6, maximum: 200 }, presence: true
@@ -51,7 +51,7 @@ module Article::Validations
     validates :transport_type2_price, :transport_type2_provider, presence: true, if: :transport_type2
     validates :transport_type1_number, :transport_type2_number, numericality: { greater_than: 0 }
     validates :transport_details, length: { maximum: 2500 }
-    validates :transport_time, length: { maximum: 7 }, format: { with: /\A\d{1,2}-?\d{,2}\z/ }, allow_blank: true
+    validates :transport_time, length: { maximum: 7 }, format: { with: /\A\d{1,2}[-–]?\d{,2}\z/ }, allow_blank: true
 
     # payment
 
