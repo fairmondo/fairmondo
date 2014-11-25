@@ -29,8 +29,8 @@ gem 'active_data'
 
 ## Indexing /Searching
 gem "chewy"
-
 # ---------- View ----------
+
 gem 'slim-rails'
 gem 'jbuilder'
 

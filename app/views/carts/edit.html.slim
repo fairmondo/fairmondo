@@ -53,11 +53,18 @@
                               = t('cart.texts.unified_transport_shipments', shipments: preview_abacus.number_of_shipments)
                               br
                               = t('cart.texts.unified_transport_price', price: money(preview_abacus.unified_transport_price))
-
-
                       - else
                         span.unified_transport_impossible
                           = t('cart.texts.unified_transport_impossible')
+
+        .JS-active-toggle--container
+          .Content.JS-active-toggle--target
+            | gewünschter Lieferzeitpunkt
+            br
+            | Die Lieferkosten in Höhe von 8,00€ zahle ich bar bei Lieferung.
+            br
+            | Ich akzeptiere die AGB und Widerrufsbelehrung des Kurierdienstes.
+
       .warning
         = I18n.t('cart.texts.security_warning')
 

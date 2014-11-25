@@ -166,6 +166,7 @@ de:
         pickup: Selbstabholung
         type1: Versand
         type2: Alternativer Versand
+        bike_courier: Fahrradkurier
       selected_payment:
         bank_transfer: Überweisung (Vorkasse)
         cash: Barzahlung bei Abholung

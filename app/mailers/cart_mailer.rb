@@ -34,6 +34,15 @@ class CartMailer < ActionMailer::Base
     mail(to: @seller.email, subject: @subject)
   end
 
+  def courier_notification(line_item_group)
+     @line_item_group = line_item_group
+     @buyer           = line_item_group.buyer
+     @seller          = line_item_group.seller
+     @subject         = "[Fairmondo] Artikel ausliefern"
+
+     mail(to: 'test@test.com', subject: @subject)
+  end
+
   private
 
     def add_image_attachments_for line_item_group

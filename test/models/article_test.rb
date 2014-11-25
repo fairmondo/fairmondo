@@ -82,6 +82,8 @@ describe Article do
     it { subject.must_respond_to :transport_type1_number }
     it { subject.must_respond_to :transport_type2_number }
     it { subject.must_respond_to :discount_id }
+    it { subject.must_respond_to :bike_courier }
+    it { subject.must_respond_to :bike_courier_cargo }
   end
 
   describe "::Base" do
