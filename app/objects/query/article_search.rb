@@ -94,7 +94,7 @@ class ArticleSearch
     end
 
     def zip_filter
-      index.filter(prefix: {zip: zip }) if @query.zip.present?
+      index.filter(prefix: { zip: @query.zip }) if @query.zip.present?
     end
 
 
