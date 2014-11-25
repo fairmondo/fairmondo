@@ -92,6 +92,7 @@ ActiveRecord::Schema.define(version: 20141125120458) do
     t.boolean  "borrowable",                                       default: false
     t.integer  "comments_count",                                   default: 0
     t.integer  "original_id",                            limit: 8
+    t.boolean  "transport_bike_courier",                           default: false
   end
 
   add_index "articles", ["created_at"], name: "index_articles_on_created_at", using: :btree
@@ -356,6 +357,9 @@ ActiveRecord::Schema.define(version: 20141125120458) do
     t.integer  "free_transport_at_price_cents",      limit: 8
     t.boolean  "purchase_emails_sent",                         default: false
     t.datetime "purchase_emails_sent_at"
+    t.string   "transport_state",                              default: "pending"
+    t.string   "payment_state",                                default: "pending"
+    t.datetime "transport_time"
   end
 
   add_index "line_item_groups", ["buyer_id"], name: "index_line_item_groups_on_buyer_id", using: :btree
