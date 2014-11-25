@@ -153,47 +153,49 @@
   .teaser-inner
     section#filter-fair
       .filter-wrapper
-        = link_to '' do
+        = link_to 'articles?article_search_form[fair]=true' do
+          .filter-text
+            h3 Darf&rsquo;s noch<br>etwas fair sein?
+            p Faire Artikel auf einen Blick
           .filter-image
             = image_tag 'welcome/filter-fair.jpg'
             p.filter-show Jetzt ansehen
             p.filter-label fair
-          .filter-text
-            h3 Darf&rsquo;s noch etwas fair sein?
-            p Faire Artikel auf einen Blick
 
     section#filter-eco
       .filter-wrapper
-        = link_to '' do
+        = link_to 'articles?article_search_form[ecologic]=true' do
+          .filter-text
+            h3 Öko? Logisch!<br>Auf Fairmondo.
+            p Öko-Produkte auf einen Blick
           .filter-image
             = image_tag 'welcome/filter-eco.jpg'
             p.filter-show Hier reinschauen
             p.filter-label öko
-          .filter-text
-            h3 Öko? Logisch!<br>Auf Fairmondo.
-            p Öko-Produkte auf einen Blick
 
     section#filter-small
       .filter-wrapper
-        = link_to '' do
+        = link_to 'articles?article_search_form[small_and_precious]=true' do
+          .filter-text
+            h3 Kleine Hersteller<br>–&nbsp;große Qualität.
+            p Alle Angebote auf einen Blick
           .filter-image
             = image_tag 'welcome/filter-small.jpg'
             p.filter-show Jetzt entdecken
             p.filter-label edel
-          .filter-text
-            h3 Kleine Hersteller&nbsp;–<br>große Qualität.
-            p Alle Angebote auf einen Blick
+
 
     section#filter-used
       .filter-wrapper
-        = link_to '' do
+        = link_to 'articles?article_search_form[condition]=old' do
+          .filter-text
+            h3 Von letzter Saison<br>bis echter Rarität.
+            p Gebrauchtes auf einen Blick
           .filter-image
             = image_tag 'welcome/filter-used.jpg'
             p.filter-show Hier stöbern
             p.filter-label gebraucht
-          .filter-text
-            h3 Von letzter Saison bis echter Rarität.
-            p Gebrauchtes auf einen Blick
+
 
 
 / Personalized library section, only shown if @last_hearted_libraries is set
