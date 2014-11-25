@@ -17,6 +17,18 @@ class LineItemGroupsController < ApplicationController
     end
   end
 
+  def update
+    authorize @line_item_group
+
+    if params && params[:transport_ready] == 'true'
+    end
+
+
+    respond_with @line_item_group do |format|
+      format.html
+    end
+  end
+
   private
 
     def set_line_item_group

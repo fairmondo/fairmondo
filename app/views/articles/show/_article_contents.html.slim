@@ -91,6 +91,7 @@
             = transport_format_for "pickup"
             = transport_format_for "type1"
             = transport_format_for "type2"
+            = transport_format_for "bike_courier"
         .transport_time
           - if resource.transport_time && !resource.transport_time.empty?
             = t('formtastic.labels.article.transport_time_with_numbers', time: resource.transport_time)

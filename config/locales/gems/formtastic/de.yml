@@ -131,6 +131,7 @@ de:
         transport_type2_provider: Versandart
         transport_type2_price: Versandkosten (€)
         transport_type2_number: "Diese Versandkosten gelten bis maximal soviel Stück pro Sendung:"
+        transport_bike_courier: Fahrradkurier
         transport_method: "Versandmethode(n)"
         transport_details: "Weitere Angaben zu den Versandoptionen und Lieferbeschränkungen:"
         transport_time: "Lieferzeit in Tagen (z.B. 3 oder 7-12):"

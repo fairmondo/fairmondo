@@ -21,9 +21,9 @@ class Payment < ActiveRecord::Base
       transition :pending => :errored
     end
 
-    # event :success do
-    #   transition :initialized => :succeeded
-    # end
+    event :success do
+      transition :initialized => :succeeded
+    end
   end
 
   def execute

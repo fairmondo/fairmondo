@@ -25,6 +25,9 @@ p
   = render 'total_price', abacus: abacus
   center
     = link_to t('email.line_item_group.seller.view_and_pay'), line_item_group_url(@line_item_group.id), class: 'Button'
+    - if @line_item_group.selected_transport == 'bike_courier'
+      br
+      = link_to 'Sendung als versandfertig markieren', line_item_group_url(@line_item_group.id), method: :patch, class: 'Button'
 
 - content_for 'sidebar' do
   .Address

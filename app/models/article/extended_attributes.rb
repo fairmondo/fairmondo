@@ -24,7 +24,7 @@ module Article::ExtendedAttributes
 
   included do
     TRANSPORT_TYPES = [
-      :type1, :type2, :pickup
+      :type1, :type2, :pickup, :bike_courier
     ]
     PAYMENT_TYPES = [
       :bank_transfer, :cash, :paypal, :cash_on_delivery, :invoice
@@ -71,8 +71,6 @@ module Article::ExtendedAttributes
     monetize :payment_cash_on_delivery_price_cents, numericality: {
       greater_than_or_equal_to: 0, less_than_or_equal_to: 50000
     }, allow_nil: true
-
-
   end
 
 
@@ -91,6 +89,8 @@ module Article::ExtendedAttributes
     case transport
     when 'pickup'
       I18n.t('enumerize.business_transaction.selected_transport.pickup')
+    when 'bike_courier'
+      I18n.t('enumerize.business_transaction.selected_transport.bike_courier')
     when 'type1'
       self.transport_type1_provider
     when 'type2'
@@ -117,7 +117,6 @@ module Article::ExtendedAttributes
   end
 
   private
-
 
     # DRY method for selectable_transports and selectable_payments
     #
