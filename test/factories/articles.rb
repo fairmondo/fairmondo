@@ -141,6 +141,7 @@ FactoryGirl.define do
 
     trait :with_all_transports do
       transport_pickup true
+      transport_bike_courier true
       transport_type1 true
       transport_type2 true
       transport_type1_price 20
