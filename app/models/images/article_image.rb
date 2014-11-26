@@ -2,11 +2,19 @@ class ArticleImage < Image
   extend STI
     PROCESSING_IMAGE_URL = "pending.png"
 
-    has_attached_file :image, styles: { original: "900>x600>", medium: "520>x360>", thumb: "280x200>"},
-                            convert_options: { medium: "-quality 75 -strip", thumb: "-quality 75 -strip -background white -gravity center -extent 260x180" },
-                            default_url: "missing.png",
-                            url: "/system/images/:id_partition/:style/:filename",
-                            path: "public/system/images/:id_partition/:style/:filename"
+    has_attached_file :image,
+      styles: {
+        original: {geometry: "900>x600>", animated: false},
+        medium: {geometry: "520>x360>", animated: false},
+        thumb: {geometry: "280x200>", animated: false}
+      },
+      convert_options: {
+        medium: "-quality 75 -strip",
+        thumb: "-quality 75 -strip -background white -gravity center -extent 260x180"
+      },
+      default_url: "missing.png",
+      url: "/system/images/:id_partition/:style/:filename",
+      path: "public/system/images/:id_partition/:style/:filename"
 
     process_in_background :image, :processing_image_url => PROCESSING_IMAGE_URL
 
