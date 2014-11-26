@@ -1,10 +1,17 @@
 # extend Wiselinks to add the scroll positions to the history state object
+originalCall = window._Wiselinks.Page.prototype._call
+window._Wiselinks.Page.prototype._call = (state) ->
+  return if Wiselinks.skipLoadingPage
+  originalCall.apply(this, arguments)
+
 originalLoad = window._Wiselinks.Page.prototype.load
 window._Wiselinks.Page.prototype.load = (url, target, render = 'template') ->
   stateData = History.getState().data || {}
   stateData.scrollX = window.scrollX
   stateData.scrollY = window.scrollY
+  Wiselinks.skipLoadingPage = true
   History.replaceState(stateData, document.title, document.location.href);
+  Wiselinks.skipLoadingPage = false
   originalLoad.apply(this, arguments)
 
 $(document).ready ->
