@@ -4,7 +4,7 @@ class QueueEnablerMetaWorker
 
   recurrence { daily.hour_of_day(0) }
 
-  sidekiq_options queue: :default,
+  sidekiq_options queue: :sidekiq_pro,
                   retry: 5,
                   backtrace: true
 
