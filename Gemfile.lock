@@ -280,7 +280,7 @@ GEM
     method_source (0.8.2)
     mime-types (2.4.3)
     mini_portile (0.6.1)
-    minitest (5.4.2)
+    minitest (5.4.3)
     minitest-capybara (0.7.1)
       capybara (~> 2.2)
       minitest (~> 5.0)
