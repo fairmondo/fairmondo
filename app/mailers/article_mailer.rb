@@ -59,14 +59,12 @@ class ArticleMailer < ActionMailer::Base
   def mass_upload_failed_message mass_upload_id
     @mass_upload = MassUpload.find mass_upload_id
     @user = @mass_upload.user
-    terms_pdf
     mail(to: @user.email, subject: "[Fairmondo] Bei deinem CSV-Upload sind Fehler aufgetreten")
   end
 
   def mass_upload_finished_message mass_upload_id
     @mass_upload = MassUpload.find mass_upload_id
     @user = @mass_upload.user
-    terms_pdf
     subject = "[Fairmondo] Dein CSV-Upload ist abgeschlossen"
     if @mass_upload.articles_for_mass_activation.any?
       subject << ". Es liegen Artikel zur Aktivierung bereit!"
