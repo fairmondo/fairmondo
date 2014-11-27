@@ -117,9 +117,10 @@ class ArticleSearch
     end
 
     # sorting
-
     def sorting
-      index.order(SORT[@query.order_by])
+      order = @query.order_by
+      order = @query.search_by_term? ? :relevance : :newest unless order
+      index.order(SORT[order])
     end
 
 
