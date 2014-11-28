@@ -81,7 +81,13 @@ GEM
       rack (>= 0.9.0)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
+    blue-daemons (1.1.11)
     bluecloth (2.2.0)
+    bluepill (0.0.69)
+      activesupport (>= 3, < 5)
+      blue-daemons (~> 1.1.11)
+      i18n (~> 0.5)
+      state_machine (~> 1.1)
     bourbon (4.0.2)
       sass (~> 3.3)
       thor
@@ -590,6 +596,7 @@ DEPENDENCIES
   awesome_nested_set (>= 3.0.0.rc.4)
   better_errors
   binding_of_caller
+  bluepill
   bourbon
   brakeman
   bullet
