@@ -23,19 +23,19 @@ namespace :eye do
     end
   end
 
-  desc "Load the pill from config/blue.pill"
+  desc "Load the config from config/(ENV).eye"
   task :init do
     on roles(:sidekiq) do
       within release_path do
 
-	    execute :eye, :load, "#{current_path}/config/#{fetch(:stage)}.pill"
+	    execute :eye, :load, "#{current_path}/config/#{fetch(:stage)}.eye"
 	    puts "Initialized eye."
 
       end
     end
   end
 
-  desc "Starts the previously stopped pill"
+  desc "Starts the previously stopped eye"
   task :start do
     on roles(:sidekiq) do
       within release_path do
@@ -59,7 +59,7 @@ namespace :eye do
     end
   end
 
-  desc "Restarts the pill from config/blue.pill"
+  desc "Restarts the current eye"
   task :restart do
     on roles(:sidekiq) do
       within release_path do
