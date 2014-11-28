@@ -86,7 +86,7 @@ namespace :eye do
       within release_path do
         begin
           2.times do |i|
-            rails_root  = ENV['RAILS_ROOT'] || File.expand_path(".")
+            rails_root = ENV['RBENV_DIR'] || ENV['PWD'] || File.expand_path(".")
             puts rails_root
             pid_file = "#{rails_root}/tmp/pids/sidekiq#{i}.pid"
             execute :bundle, :exec, :sidekiqctl, 'quiet', pid_file
