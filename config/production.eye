@@ -21,13 +21,15 @@ Eye.application 'fairmondo' do
         start_command "bundle exec sidekiq -e #{rails_env} -P #{_pidfile} -L #{dir}/log/sidekiq.log -C #{dir}/config/sidekiq.yml -i #{i}"
         stop_command "bundle exec sidekiqctl stop #{_pidfile}"
 
+        start_timeout 60.seconds
         start_grace 60.seconds
+        stop_timeout 60.seconds
         stop_grace 3.minutes
         restart_grace 4.minutes
 
         #check :cpu, every: 10.seconds, below: 5, times: 3
-        check :memory, every: 10.seconds, below: 500.megabytes, times: [2,3]
-        check :runtime, every: 10.minutes, below: 12.hours
+        check :memory, every: 30.seconds, below: 900.megabytes, times: [2,3]
+        #check :runtime, every: 10.minutes, below: 12.hours
 
       end
     end
