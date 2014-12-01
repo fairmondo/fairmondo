@@ -120,6 +120,9 @@
         = f.input :payment_cash_on_delivery_price, required: true
 
       = f.input :payment_invoice, as: :plain_check_box
+
+      = f.input :payment_voucher, as: :plain_check_box if current_user.uses_vouchers
+
       = f.input :payment_details, input_html: {rows: 7}
 
 

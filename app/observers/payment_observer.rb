@@ -1,4 +1,4 @@
-#
+# See http://rails-bestpractices.com/posts/19-use-observer
 #
 # == License:
 # Fairmondo - Fairmondo is an open-source online marketplace.
@@ -19,23 +19,11 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Fairmondo.  If not, see <http://www.gnu.org/licenses/>.
 #
-class PaypalPayment < Payment
-  extend STI
+class PaymentObserver < ActiveRecord::Observer
 
-  def after_create_path
-    PaypalAPI.checkout_url pay_key
-  end
-
-  private
-    # send paypal request on init
-    def initialize_payment
-      response = PaypalAPI.new.request_for(self)
-      if response.success?
-        self.pay_key = response['payKey']
-        true # continue
-      else
-        self.error = response.errors.to_json
-        false # errored instead of initialized
-      end
+  def after_create(payment)
+    if payment.type == 'VoucherPayment'
+      CartMailer.delay.voucher_paid_email(payment.id)
     end
+  end
 end

@@ -82,7 +82,7 @@ class MassUpload < ActiveRecord::Base
     "transport_type2_price_cents", "transport_type2_number", "transport_time",
     "transport_details", "unified_transport",
     "payment_bank_transfer", "payment_cash", "payment_paypal",
-    "payment_cash_on_delivery",
+    "payment_cash_on_delivery", "payment_voucher",
     "payment_cash_on_delivery_price_cents", "payment_invoice",
     "payment_details", "fair_kind", "fair_seal", "support",
     "support_checkboxes", "support_other", "support_explanation",

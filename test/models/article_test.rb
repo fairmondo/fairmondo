@@ -73,6 +73,7 @@ describe Article do
     it { subject.must_respond_to :payment_cash }
     it { subject.must_respond_to :payment_paypal }
     it { subject.must_respond_to :payment_invoice }
+    it { subject.must_respond_to :payment_voucher }
     it { subject.must_respond_to :payment_cash_on_delivery_price_cents }
     it { subject.must_respond_to :basic_price_cents }
     it { subject.must_respond_to :basic_price_amount }

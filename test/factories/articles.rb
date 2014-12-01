@@ -160,6 +160,7 @@ FactoryGirl.define do
       payment_cash_on_delivery true
       payment_cash_on_delivery_price 5
       payment_invoice true
+      payment_voucher true
       payment_details { Faker::Lorem.paragraph(rand(2..5)) }
 
       seller { FactoryGirl.create :seller, :paypal_data }
