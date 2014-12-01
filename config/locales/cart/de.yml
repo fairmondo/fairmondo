@@ -50,6 +50,7 @@ de:
         cash: 'Gesamter Barzahlungswert'
         cash_on_delivery: ' Gesamte Kosten der Nachnahmesendung'
         invoice: 'Gesamter Rechnungsbetrag'
+        voucher: 'Gesamter Gutscheinbetrag'
       totals:
         total_net_price: 'Zwischensumme ohne USt.:'
         total_vat: 'Umsatzsteuer:'

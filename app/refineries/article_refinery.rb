@@ -10,7 +10,7 @@ class ArticleRefinery < ApplicationRefinery
       :price_cents, :price, :vat,
       # Payment attrs
       :payment_details, :payment_bank_transfer, :payment_cash,
-      :payment_paypal, :payment_invoice,
+      :payment_paypal, :payment_invoice, :payment_voucher,
       :payment_cash_on_delivery, :payment_cash_on_delivery_price,
       :payment_cash_on_delivery_price_cents,
       #Basic price attrs

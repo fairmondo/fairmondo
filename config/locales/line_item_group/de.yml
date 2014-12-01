@@ -33,9 +33,11 @@ de:
       cash: "Bringe den Gesamtbetrag von %{total} mit wenn Du den/die Artikel bei dem*der Anbieter*in abholst. Hole den/die Artikel bei folgender Adresse ab:"
       cash_on_delivery: "Der Gesamtbetrag der Nachnahme ist %{total}."
       invoice: "Du erhälst eine Rechnung in Höhe von %{total}."
+      voucher: ""
     payment_button:
       paypal: "Bezahlen über Paypal"
       bank_transfer: "Als bezahlt markieren"
+      voucher: "Gutschein einlösen"
     notices:
       paypal_success: "Die PayPal-Zahlung wurde erfolgreich in Auftrag gegeben."
       paypal_cancel: "Die PayPal-Zahlung wurde abgebrochen. Bitte versuche es erneut."

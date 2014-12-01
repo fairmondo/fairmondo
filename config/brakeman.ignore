@@ -39,6 +39,24 @@
       "user_input": "params.keys.select",
       "confidence": "Medium",
       "note": ""
+    },
+    {
+      "warning_type": "Redirect",
+      "warning_code": 18,
+      "fingerprint": "1bf7b2d4404c9b8577aed8620949e4c9b01ee87813e47eec320815cac516b01c",
+      "message": "Possible unprotected redirect",
+      "file": "app/controllers/payments_controller.rb",
+      "line": 31,
+      "link": "http://brakemanscanner.org/docs/warning_types/redirect/",
+      "code": "redirect_to(Payment.new(params.for(Payment).refine.merge(:line_item_group_id => (params[:line_item_group_id]))).after_create_path)",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "PaymentsController",
+        "method": "create"
+      },
+      "user_input": "Payment.new(params.for(Payment).refine.merge(:line_item_group_id => (params[:line_item_group_id]))).after_create_path",
+      "confidence": "High"
     }
   ],
   "updated": "2014-07-24 17:28:39 +0200",

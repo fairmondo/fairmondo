@@ -32,25 +32,37 @@ describe PaymentsController do
   end
 
   describe "POST 'create'" do
-    let(:lig) { FactoryGirl.create :line_item_group, :sold, :with_business_transactions, traits: [:paypal, :transport_type1] }
+    describe "PaypalPayment" do
+      let(:lig) { FactoryGirl.create :line_item_group, :sold, :with_business_transactions, traits: [:paypal, :transport_type1] }
 
-    it "should create a payment and forward to show" do
-      assert_difference 'Payment.count', 1 do
-        post :create, line_item_group_id: lig.id, type: 'paypal'
+      it "should create a paypal payment and forward to show" do
+        assert_difference 'Payment.count', 1 do
+          post :create, line_item_group_id: lig.id, payment: { type: 'PaypalPayment' }
+        end
+        lig.paypal_payment.pay_key.must_be_kind_of String
+        assert_redirected_to "https://www.sandbox.paypal.com/de/webscr?cmd=_ap-payment&paykey=foobar"
       end
-      lig.paypal_payment.pay_key.must_be_kind_of String
-      assert_redirected_to "https://www.sandbox.paypal.com/de/webscr?cmd=_ap-payment&paykey=foobar"
+
+      it "should show error on paypal api error" do
+        request.env["HTTP_REFERER"] = root_path
+        PaypalPayment.any_instance.stubs(:initialize_payment).returns(false)
+        assert_difference 'Payment.count', 1 do
+          post :create, line_item_group_id: lig.id, payment: { type: 'PaypalPayment' }
+        end
+        flash[:error].must_equal I18n.t('PaypalPayment.controller_error', email: lig.seller_paypal_account)
+      end
     end
 
-    it "should show error on paypal api error" do
-      request.env["HTTP_REFERER"] = root_path
-      PaypalPayment.any_instance.stubs(:initialize_payment).returns(false)
-      assert_difference 'Payment.count', 1 do
-        post :create, line_item_group_id: lig.id, type: 'paypal'
+    describe "VoucherPayment" do
+      let(:lig) { FactoryGirl.create :line_item_group, :sold, :with_business_transactions, traits: [:voucher, :transport_type1], seller: FactoryGirl.create(:seller, :paypal_data, uses_vouchers: true) }
+      it "should create a voucher payment and redirect back" do
+        request.env["HTTP_REFERER"] = 'http://test.host'
+        assert_difference 'Payment.count', 1 do
+          post :create, line_item_group_id: lig.id, payment: { type: 'VoucherPayment', pay_key: '123abc' }
+        end
+        assert_redirected_to :back
       end
-      flash[:error].must_equal I18n.t('paypal_api.controller_error', email: lig.seller_paypal_account)
     end
-
   end
 
   describe "GET 'show'" do

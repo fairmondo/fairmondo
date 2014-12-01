@@ -1,0 +1,4 @@
+- if payment.covers total
+  == t('payment.show.voucher_covers', code: payment.pay_key, donated: money(payment.donated_amount_from(total)))
+- else
+  == t('payment.show.voucher_doesnt_cover', code: payment.pay_key, covers: money(payment.voucher_value), left: money(payment.missing_amount_from(total)) )
