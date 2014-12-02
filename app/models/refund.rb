@@ -9,7 +9,7 @@ class Refund < ActiveRecord::Base
   validates :description, presence: true, length: { minimum: 150 }, length: { maximum: 1000, tokenizer: tokenizer_without_html }
   validates :business_transaction_id, presence: true, uniqueness: true
 
-  delegate :seller, to: :business_transaction, prefix: true
+  delegate :seller, :seller_nickname, to: :business_transaction, prefix: true
 
   enumerize :reason, in: [
     :sent_back,

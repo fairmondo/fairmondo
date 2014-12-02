@@ -60,20 +60,23 @@ class ArticleObserver < ActiveRecord::Observer
     Indexer.index_article article
   end
 
-  def after_close(article, transition)
-    article.remove_from_libraries
-    article.cleanup_images unless article.business_transactions.any?
-    Indexer.index_article article
-    article.update_column :slug, nil
-  end
-
-  def after_create article
+  def before_create(article)
     if original_article = article.original # handle saving of an edit_as_new clone
       # move slug to new article
       old_slug = original_article.slug
       original_article.update_column :slug, (old_slug + original_article.id.to_s)
-      article.update_column :slug, old_slug
+      article.slug = old_slug
+    end
+  end
 
+  def after_close(article, transition)
+    article.remove_from_libraries
+    article.cleanup_images unless article.business_transactions.any?
+    Indexer.index_article article
+  end
+
+  def after_create article
+    if original_article = article.original # handle saving of an edit_as_new clone
       # move comments to new article
       original_article.comments.find_each do |comment|
         comment.update_column :commentable_id, article.id

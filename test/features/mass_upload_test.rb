@@ -87,13 +87,12 @@ feature "Uploading a CSV" do
     Article.find(2).closed?.must_equal true
   end
 
-  scenario "legal entity deletes an already closed Article via CSV" do
+  scenario "legal entity tries to delete an already closed Article via CSV" do
     article = FactoryGirl.create :closed_article, seller: @user
     attach_file('mass_upload_file', 'test/fixtures/mass_upload_single_delete.csv')
     click_button I18n.t('mass_uploads.labels.upload_article')
     click_link I18n.t("mass_uploads.labels.show_report")
-    page.must_have_content I18n.t('mass_uploads.boxes.deleted')
-    page.must_have_content article.title
+    page.must_have_content I18n.t('mass_uploads.errors.article_not_found')
   end
 
   scenario "legal entity activates preview articles via CSV" do

@@ -131,7 +131,10 @@ class ArticlesController < ApplicationController
     def similar_articles query
       query ||= params[:id].gsub(/\-/," ")
       @similar_articles = ArticleSearchForm.new(q: query ).search(1)
-      render "article_closed"
+      respond_with @similar_articles do |format|
+        format.html { render "article_closed" }
+        format.json { render "article_closed" }
+      end
     end
 
     def change_state!
