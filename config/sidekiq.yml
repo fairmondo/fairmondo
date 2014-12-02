@@ -3,7 +3,7 @@
 staging:
   :concurrency: 10
 production:
-  :concurrency: 15
+  :concurrency: 10
   :timeout: 550
 :queues:
   - [default, 5]
@@ -16,6 +16,7 @@ production:
   - [statistics, 2]
   - [after_buy, 5]
   - [cart_mails, 5]
+  - [cleanup, 2]
   - [file_normalizer, 2]
   - [heavy_mass_upload, 3]
   - [heavy_mass_upload_rows, 3]

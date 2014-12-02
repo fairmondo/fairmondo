@@ -1,5 +1,5 @@
 AddModelVirtualAttributeCheck: { }
-AlwaysAddDbIndexCheck: { }
+#AlwaysAddDbIndexCheck: { }
 #CheckSaveReturnValueCheck: { }
 DryBundlerInCapistranoCheck: { }
 #HashSyntaxCheck: { }

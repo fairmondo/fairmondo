@@ -1,88 +1,86 @@
+namespace :eye do
+  SSHKit.config.command_map[:eye] = "~/.rbenv/bin/rbenv exec bundle exec eye" #dynamic rbenv path doesnt work
 
-
-namespace :bluepill do
-  SSHKit.config.command_map[:bluepill] = "~/.rbenv/bin/rbenv exec bundle exec bluepill" #dynamic rbenv path doesnt work
-
-  desc "Stop processes that bluepill is monitoring and quit bluepill"
+  desc "Stop processes that eye is monitoring and quit eye"
   task :quit do
     on roles(:sidekiq) do
       within release_path do
 
-        puts "Shutting down bluepill."
+        puts "Shutting down eye."
         begin
-          execute :bluepill, :stop, "--no-privileged"
+          execute :eye, :stop, :all
         rescue SSHKit::Command::Failed
-          puts "Bluepill was unable to finish all processes gracefully"
+          puts "eye was unable to finish all processes gracefully"
         end
 
         begin
-          execute :bluepill, :quit, "--no-privileged"
+          execute :eye, :quit, :all
         rescue SSHKit::Command::Failed
-          puts "Couldn't quit bluepill."
+          puts "Couldn't quit eye."
         end
       end
 
     end
   end
 
-  desc "Load the pill from config/blue.pill"
+  desc "Load the config from config/(ENV).eye"
   task :init do
     on roles(:sidekiq) do
       within release_path do
 
-	    execute :bluepill, :load, "#{current_path}/config/#{fetch(:stage)}.pill", "--no-privileged"
-	    puts "Initialized bluepill."
+	    execute :eye, :load, "#{current_path}/config/#{fetch(:stage)}.eye"
+	    puts "Initialized eye."
 
       end
     end
   end
 
-  desc "Starts the previously stopped pill"
+  desc "Starts the previously stopped eye"
   task :start do
     on roles(:sidekiq) do
       within release_path do
 
-        execute :bluepill, :start, "--no-privileged"
-        puts "Started bluepill."
+        execute :eye, :start, :all
+        puts "Started eye."
 
       end
     end
   end
 
-  desc "Stops one or more bluepill monitored processes"
+  desc "Stops one or more eye monitored processes"
   task :stop do
     on roles(:sidekiq) do
       within release_path do
 
-        execute :bluepill, :stop, "--no-privileged"
-        puts "Stopped bluepill."
+        execute :eye, :stop, :all
+        puts "Stopped eye."
 
       end
     end
   end
 
-  desc "Restarts the pill from config/blue.pill"
+  desc "Restarts the current eye"
   task :restart do
     on roles(:sidekiq) do
       within release_path do
 
-        execute :bluepill, :restart, "--no-privileged"
-        puts "Restarted bluepill."
+        execute :eye, :restart, :all
+        puts "Restarted eye."
 
       end
     end
   end
 
-  desc "Prints bluepill's process stati"
-  task :status do
+  desc "Prints eye's process stati"
+  task :info do
     on roles(:sidekiq) do
       within release_path do
-        puts capture :bluepill, :status, "--no-privileged"
+        puts capture :eye, :info
       end
     end
   end
 
-  desc "Quiet the sidekiq instances (circumvents bluepill cli)"
+  desc "Quiet the sidekiq instances (circumvents eye cli)"
   task :quiet do
     on roles(:sidekiq) do
       within release_path do

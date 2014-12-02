@@ -5,6 +5,7 @@ module Article::Scopes
     default_scope -> { where.not(state: :template).order(created_at: :desc) }
 
     scope :active, -> { where(state: :active) }
+    scope :not_closed, -> { where.not(state: :closed) }
     scope :counting, -> {
       where("articles.state = 'active' OR articles.state = 'sold'")
     }
