@@ -26,6 +26,7 @@ class ApplicationController < ActionController::Base
   ## Global actions
   before_filter :unset_cart
   before_filter :profile_request
+  before_filter :set_iframe_layout
 
   # Arcane
   include Arcane
@@ -132,5 +133,13 @@ class ApplicationController < ActionController::Base
 
     def profile_request
       Rack::MiniProfiler.authorize_request if current_user && current_user.admin?
+    end
+
+  private
+
+    def set_iframe_layout
+      if params[:iframe]
+        self.class.layout "iframe"
+      end
     end
 end
