@@ -69,6 +69,17 @@ describe LibrariesController do
       end
     end
 
+    describe "with parameter 'iframe=true'" do
+      after(:each) do
+        subject.class.layout nil
+      end
+
+      it 'should render the iframe layout' do
+        get :index, iframe: true
+        assert_template layout: 'iframe'
+      end
+    end
+
     describe '::focus' do
       it 'should return trending libraries if no user is focused and no mode is set' do
         @controller.stubs(:user_focused?).returns(false)

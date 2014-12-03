@@ -249,6 +249,89 @@
 }
 
 
+// Filters teaser
+#filters section {
+  margin-bottom: 1em;
+}
+
+#filters section > .filter-wrapper {
+  @include whitebox;
+  overflow: hidden;
+  padding: 0;
+}
+
+#filters section .filter-image {
+  position: relative;
+  background-color: $white;
+}
+
+#filters section .filter-image p {
+  position: absolute;
+  margin: 0;
+  padding: 0.2em 1em;
+  border-radius: 0.5em;
+}
+
+#filters section .filter-image .filter-show {
+  bottom: 5%;
+  right: 5%;
+  padding-bottom: 0.3em;
+}
+
+#filters section .filter-image .filter-label {
+  right: 5%;
+  top: 5%;
+  min-width: 3em;
+  font-size: 1.1em;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+#filters section img {
+  width: 100%;
+}
+
+#filters .filter-text {
+  padding: 1.2em 0 1.2em;
+}
+
+#filters .filter-text h3 {
+  margin: 0 7.5% 0.5em;
+  font-size: 1.5em;
+  font-weight: 600;
+  color: $white;
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+#filters .filter-text p {
+  margin: 0 7.5%;
+  text-decoration: underline;
+}
+
+#filters section a {
+  color: $white;
+}
+
+#filter-fair .filter-image p, #filter-fair .filter-text {
+  background-color: #457193;
+}
+
+#filter-eco .filter-image p, #filter-eco .filter-text {
+  background-color: #768749;
+}
+
+#filter-small .filter-image p, #filter-small .filter-text {
+  background-color: #e47240;
+}
+
+#filter-used .filter-image p, #filter-used .filter-text {
+  background-color: #574c44;
+}
+
+
+
 // User quotes slides
 #userslides {
   .teaser-inner {
@@ -364,17 +447,17 @@
     @include span(2 of 4);
     @include omega;
   }
-}
 
-
-@include between-breakpoints($bp-mobile-horizontal, $bp-tablet-horizontal) {
-  #filters .teaser-queue {
+  // Filters teaser
+  #filters section {
     @include span(2 of 4);
-    &:last-of-type {
-      display: none;
-    }
-    &.teaser-queue-before-hidden {
+
+    &#filter-eco, &#filter-used {
       @include omega;
+    }
+
+    &#filter-small {
+      clear: right;
     }
   }
 }
@@ -442,6 +525,20 @@
     @include omega;
   }
 
+  // Filters teaser
+  #filters section {
+    @include span(2 of 6);
+
+    &#filter-small {
+      @include omega;
+    }
+
+    &:last-of-type {
+      display: none;
+    }
+  }
+
+
 
   // Used teaser
   #used {
@@ -506,12 +603,9 @@
   }
 
   // Filters teaser
-  #filters {
-    @include span(6 of 8);
-  }
+  #filters section {
+    @include span(2 of 8);
 
-  #filters .teaser-queue {
-    @include span(2 of 6);
     &:last-of-type {
       @include omega;
     }

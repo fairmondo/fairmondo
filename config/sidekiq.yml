@@ -5,10 +5,13 @@ staging:
 production:
   :concurrency: 10
   :timeout: 550
+  :queues:
+    - [sidekiq_pro, 1]
 :queues:
   - [default, 5]
   - [mass_upload, 3]
   - [mass_upload_rows, 3]
+  - [mass_uploads_finish, 1]
   - [paperclip_background, 1]
   - [paperclip_foreground, 4]
   - [fastbill, 5]

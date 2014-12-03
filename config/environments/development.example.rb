@@ -84,6 +84,8 @@ Fairmondo::Application.configure do
     # Bullet.airbrake = true
   end
 
+  # allow cross origin framing
+  config.action_dispatch.default_headers = { 'X-Frame-Options' => '' }
 
   # Configure Quiet Assets https://github.com/evrone/quiet_assets
   # to turn asset pipeline logging back on, uncomment the following line
