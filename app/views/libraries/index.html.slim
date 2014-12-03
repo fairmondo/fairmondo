@@ -33,12 +33,12 @@ h1.Title-next-to-tab
       = render 'mode_menu_item', text: t('libraries.tabs.own'), path: user_libraries_path(current_user), selected: user_focused?, icon: 'user'
 
 .libraries
-  / Show convenient link to new library form if it's available and there are more than 5 libraries 
+  / Show convenient link to new library form if it's available and there are more than 5 libraries
   - if @library && policy(@library).create? && @libraries.length > 5
     p#library-form-link= link_to t('libraries.create_new'), '#library-form'
 
   / When the user is not signed in and myfavorite is selected, render a message
-  - if !user_signed_in? && @mode == 'myfavorite'  
+  - if !user_signed_in? && @mode == 'myfavorite'
     p
       = link_to(t('libraries.sign_in'), new_session_path(:user)) + ', '
       = t('libraries.to_show_favorites') + ' '
