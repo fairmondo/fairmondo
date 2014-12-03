@@ -2,7 +2,8 @@ de:
   welcome:
     greetings: "Willkommen bei Fairmondo"
     search_fair: "Artikel suchen"
-    trending_libraries: "Trend-Sammlungen"
+    # trending_libraries: "Trend-Sammlungen" Nach Weihnachten zurückstellen
+    trending_libraries: Geschenk-Empfehlungen von anderen Nutzer*innen
     boxes:
       active_old: "Bisher eingestellte Artikel"
 # Common Texts
