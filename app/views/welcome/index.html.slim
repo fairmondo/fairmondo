@@ -149,30 +149,53 @@
 
 
 / Article queue 1
-.teaser.teaser--double.teaser--clear#filters
+.teaser.teaser--full.teaser--clear#filters
   .teaser-inner
-    .teaser-commendations
-      = render 'articles/show/commendation_label', label: :fair, size: :small
-      = render 'articles/show/commendation_label', label: :ecologic, size: :small
-      = render 'articles/show/commendation_label', label: :small_and_precious, size: :small
-    h2
-      = link_to(tinycms_content_body_sanitized("heading_features"), featured_library_path(@queue1[:library]))
-    - @queue1[:exhibits].each_with_index do |article, index|
-      div class="teaser-queue#{index == 1 ? ' teaser-queue-before-hidden' : ''}"
-        = render 'articles/shared/show_article', article: article
-    p.more
-      = link_to t('common.actions.more'), featured_library_path(@queue1[:library])
+    section#filter-fair
+      .filter-wrapper
+        = link_to 'articles?article_search_form[fair]=true' do
+          .filter-text
+            h3 Darf&rsquo;s noch<br>etwas fair sein?
+            p Faire Artikel auf einen Blick
+          .filter-image
+            = image_tag 'welcome/filter-fair.jpg'
+            p.filter-show Jetzt ansehen
+            p.filter-label fair
 
-/ Article queue 'used/old'
-.teaser.teaser--double#used
-  .teaser-inner
-    h2
-      = link_to(tinycms_content_body_sanitized('heading_features3'), featured_library_path(@old[:library]))
-    - @old[:exhibits].each do |article|
-      .teaser-queue
-        = render 'articles/shared/show_article', article: article
-    p.more
-      = link_to t('common.actions.more'), featured_library_path(@old[:library])
+    section#filter-eco
+      .filter-wrapper
+        = link_to 'articles?article_search_form[ecologic]=true' do
+          .filter-text
+            h3 Öko? Logisch!<br>Auf Fairmondo.
+            p Öko-Produkte auf einen Blick
+          .filter-image
+            = image_tag 'welcome/filter-eco.jpg'
+            p.filter-show Hier reinschauen
+            p.filter-label öko
+
+    section#filter-small
+      .filter-wrapper
+        = link_to 'articles?article_search_form[small_and_precious]=true' do
+          .filter-text
+            h3 Kleine Hersteller<br>–&nbsp;große Qualität.
+            p Alle Angebote auf einen Blick
+          .filter-image
+            = image_tag 'welcome/filter-small.jpg'
+            p.filter-show Jetzt entdecken
+            p.filter-label klein&amp;edel
+
+
+    section#filter-used
+      .filter-wrapper
+        = link_to 'articles?article_search_form[condition]=old' do
+          .filter-text
+            h3 Von letzter Saison<br>bis echter Rarität.
+            p Gebrauchtes auf einen Blick
+          .filter-image
+            = image_tag 'welcome/filter-used.jpg'
+            p.filter-show Hier stöbern
+            p.filter-label gebraucht
+
 
 
 / Personalized library section, only shown if @last_hearted_libraries is set
