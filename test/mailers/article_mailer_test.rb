@@ -60,4 +60,16 @@ describe ArticleMailer do
 
     mail.must deliver_to mass_upload.user.email
   end
+
+  it '#mass_upload_processed_message' do
+    mail = ArticleMailer.mass_upload_finished_message(mass_upload)
+
+    mail.must deliver_to mass_upload.user.email
+  end
+
+  it '#mass_upload_failed_message' do
+    mail = ArticleMailer.mass_upload_failed_message(mass_upload)
+
+    mail.must deliver_to mass_upload.user.email
+  end
 end
