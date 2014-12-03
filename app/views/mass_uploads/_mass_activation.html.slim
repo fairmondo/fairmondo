@@ -25,7 +25,7 @@
     dt
       = t('article.preview.fees_and_donations.quarter_fee')
   .activation
-    - if articles.all? { |article| article.state ==  "active" }
+    - if resource.activated?
       a.Button.Button--large.Button--disabled.Button--red
         = t("mass_uploads.labels.all_articles_activated")
     - else
