@@ -38,7 +38,12 @@ class MassUpload < ActiveRecord::Base
       transition :finished => :finished
     end
 
-    after_transition :to => :finished do |mass_upload,transition|
+    event :mass_activate do
+      transition :finished => :activated
+      transition :activated => :activated
+    end
+
+    after_transition :to => :finished do |mass_upload, transition|
       ArticleMailer.delay.mass_upload_finished_message(mass_upload.id)
     end
 
@@ -46,6 +51,12 @@ class MassUpload < ActiveRecord::Base
       mass_upload.failure_reason = transition.args.first
       mass_upload.save
       ArticleMailer.delay.mass_upload_failed_message(mass_upload.id)
+    end
+
+    after_transition :to => :activated do |mass_upload, transition|
+      Indexer.delay.index_mass_upload mass_upload.id
+      mass_upload.articles_for_mass_activation.update_all(state: 'active')
+      ArticleMailer.delay.mass_upload_activation_message(mass_upload.id)
     end
   end
 

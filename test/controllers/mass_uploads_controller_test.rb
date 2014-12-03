@@ -75,6 +75,8 @@ describe MassUploadsController do
     describe 'PUT ::update' do
       it "should update description" do
         post :create, mass_upload: attributes
+        mass_upload = MassUpload.last
+        mass_upload.finish!
         post :update, :id => MassUpload.last.id
         assert_redirected_to user_path(user)
         MassUpload.last.articles.first.active?.must_equal true
