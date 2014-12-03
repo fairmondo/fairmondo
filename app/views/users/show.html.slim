@@ -40,5 +40,5 @@
 
 - else
   .articles
-    = render '/articles/shared/articles_grid', articles: ActiveUserArticles.new(resource).paginate(params[:active_articles_page])
-  = paginate active_articles, param_name: 'active_articles_page'
+    = render '/articles/shared/articles_grid', articles: @articles
+  = paginate @articles, param_name: 'active_articles_page'
