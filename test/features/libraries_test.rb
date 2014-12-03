@@ -205,7 +205,7 @@ end
 
 feature "Featured (exhibited) libraries" do
   scenario "user visits root path with exhibition" do
-    lib = FactoryGirl.create :library, :public, exhibition_name: 'queue1'
+    lib = FactoryGirl.create :library, :public, exhibition_name: 'donation_articles'
     lib.articles << FactoryGirl.create(:article, title: 'exhibit-article')
     visit root_path
     page.must_have_content 'exhibit-article'
