@@ -1,0 +1,32 @@
+h3
+  = t('email.greeting', name: @mass_upload.user_nickname)
+= t('email.article.mass_upload_finished.success')
+- if @mass_upload.articles_for_mass_activation.any?
+  p
+    = t('email.article.mass_upload_finished.to_activate', count: @mass_upload.articles_for_mass_activation)
+    ul
+      - if @created_count > 0
+        li= t('email.article.mass_upload_finished.created_articles', count: @created_count)
+      - if @updated_count > 0
+        li= t('email.article.mass_upload_finished.updated_articles', count: @updated_count)
+      - if @activated_count > 0
+        li= t('email.article.mass_upload_finished.activated_articles', count: @activated_count)
+
+    = link_to t('email.article.mass_upload_finished.activate_now'), mass_upload_url(@mass_upload)
+- if @mass_upload.deleted_articles.any?
+  p
+    = t('email.article.mass_upload_finished.deleted_articles', count: @deleted_count)
+- if @mass_upload.deactivated_articles.any?
+  p
+    = t('email.article.mass_upload_finished.deactivated_articles', count: @deactivated_count)
+
+br
+  = t('email.close')
+
+.pdf
+  = link_to 'Unsere AGB', "#{root_url}/assets/AGB.pdf"
+  br
+  = link_to 'Kostenloses PDF Anzeigeprogramm herunter laden.', 'http://get.adobe.com/reader/otherversions/'
+
+- content_for 'sidebar' do
+  = render 'shared/email/social_buttons'

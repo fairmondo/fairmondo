@@ -39,15 +39,17 @@ class MassUpload < ActiveRecord::Base
     end
 
     after_transition :to => :finished do |mass_upload,transition|
-      mass_upload.user.notify I18n.t('mass_uploads.labels.finished'),  Rails.application.routes.url_helpers.mass_upload_path(mass_upload)
+      ArticleMailer.delay.mass_upload_finished_message(mass_upload.id)
     end
 
     after_transition :processing => :failed do |mass_upload, transition|
       mass_upload.failure_reason = transition.args.first
       mass_upload.save
-      mass_upload.user.notify I18n.t('mass_uploads.labels.failed'), Rails.application.routes.url_helpers.user_path(mass_upload.user, anchor: "my_mass_uploads"), :error
+      ArticleMailer.delay.mass_upload_failed_message(mass_upload.id)
     end
   end
+
+  scope :processing, -> { where(state: :processing) }
 
   include Checks, Questionnaire, FeesAndDonations
 
@@ -60,9 +62,11 @@ class MassUpload < ActiveRecord::Base
   has_many :deactivated_articles, -> { where('mass_upload_articles.action' => 'deactivate') }, through: :mass_upload_articles, source: :article
   has_many :activated_articles, -> { where('mass_upload_articles.action' => 'activate') }, through: :mass_upload_articles, source: :article
   has_many :articles_for_mass_activation, -> { where("mass_upload_articles.action IN ('create', 'update', 'activate')") } , through: :mass_upload_articles, source: :article
+  has_many :skipped_articles, -> { where('mass_upload_articles.action' => 'nothing') }, through: :mass_upload_articles, source: :article
 
+  has_many :valid_mass_upload_articles, -> { where(validation_errors: nil).where.not(article_id: nil) }, class_name: 'MassUploadArticle'
+  has_many :erroneous_articles, -> { where.not(validation_errors: nil) }, class_name: 'MassUploadArticle'
 
-  has_many :erroneous_articles, -> { where("validation_errors IS NOT NULL") }, class_name: 'MassUploadArticle'
   has_attached_file :file
   belongs_to :user
 
@@ -105,9 +109,8 @@ class MassUpload < ActiveRecord::Base
     "gtin", "custom_seller_identifier", "action"]
   end
 
-
   def processed_articles_count
-    self.mass_upload_articles.where("article_id IS NOT NULL").count + self.erroneous_articles.count
+    self.valid_mass_upload_articles.count + self.erroneous_articles.count
   end
 
   def process
