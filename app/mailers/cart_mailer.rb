@@ -34,13 +34,16 @@ class CartMailer < ActionMailer::Base
     mail(to: @seller.email, subject: @subject)
   end
 
-  def courier_notification(line_item_group)
-     @line_item_group = line_item_group
-     @buyer           = line_item_group.buyer
-     @seller          = line_item_group.seller
+  def courier_notification(business_transaction)
+     @business_transaction = business_transaction
+     @buyer           = business_transaction.buyer
+     @seller          = business_transaction.seller
      @subject         = "[Fairmondo] Artikel ausliefern"
+     @courier_email   = Rails.env == 'production' ? $courier['email'] : 'test@test.com'
 
-     mail(to: 'test@test.com', subject: @subject)
+     if business_transaction.sent? && business_transaction.line_item_group.paypal_payment.confirmed?
+       mail(to: @courier_email, subject: @subject)
+     end
   end
 
   private

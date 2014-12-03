@@ -91,15 +91,19 @@ Fairmondo::Application.routes.draw do
     resources :payments, only: [:create, :show]
   end
 
-  resources :line_item_groups, only: :update
+  resources :line_item_groups, only: :update, via: [:put]
 
-  match '/paypal/ipn_notification', to: 'paypal#ipn_notification', as: 'ipn_notification', via: [:get, :post]
+  match '/paypal/ipn_notification', to: 'payments#ipn_notification', as: 'ipn_notification', via: [:get, :post]
 
   get '/transactions/:id', to: 'business_transactions#show', as: 'business_transaction'
 
   resources :business_transactions, only: [:show] do
     resources :refunds, only: [ :new, :create ]
+    member do
+      post 'set_transport_ready'
+    end
   end
+  #match '/transactions/set_transport_ready/:id', to: 'business_transactions#set_transport_ready', as: 'set_transport_ready', via: :post
 
   get 'welcome/reconfirm_terms'
   post 'welcome/reconfirm_terms'

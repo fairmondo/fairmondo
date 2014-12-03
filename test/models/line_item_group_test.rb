@@ -26,9 +26,6 @@ describe LineItemGroup do
     it { subject.must_respond_to :payment_address_id }
     it { subject.must_respond_to :purchase_id }
     it { subject.must_respond_to :sold_at }
-    it { subject.must_respond_to :transport_state }
-    it { subject.must_respond_to :payment_state }
-    it { subject.must_respond_to :transport_time }
   end
 
   describe '#generate_purchase_id' do

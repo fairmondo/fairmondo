@@ -1,0 +1,42 @@
+Hallo Fahrwerk,
+
+Ihr habt einen Auftrag von Fairmondo bekommen.
+Alle Informationen zum Auftrag findet Ihr weiter
+unten in dieser E-Mail.
+
+Das Fairmondo Team!
+
+--------------------------------------------------
+
+Abholadresse:
+
+<%= @business_transaction.seller.standard_address_first_name + ' ' + @business_transaction.seller.standard_address_last_name %>
+<%= @business_transaction.seller.standard_address_address_line_1 %>
+<%= @business_transaction.seller.standard_address_address_line_2 if @business_transaction.seller.standard_address_address_line_2.present? %>
+<%= @business_transaction.seller.standard_address_zip + ' ' + @business_transaction.seller.standard_address_city %>
+<%= @business_transaction.seller.phone if @business_transaction.seller.phone.present? %>
+<%= @business_transaction.seller.mobile if @business_transaction.seller.mobile.present? %>
+
+--------------------------------------------------
+
+Lieferadresse:
+
+<%= @business_transaction.transport_address_first_name + ' ' + @business_transaction.transport_address_last_name %>
+<%= @business_transaction.transport_address_address_line_1 %>
+<%= @business_transaction.transport_address_address_line_2 if @business_transaction.transport_address_address_line_2.present? %>
+<%= @business_transaction.transport_address_zip + ' ' + @business_transaction.transport_address_city %>
+<%= @business_transaction.buyer.phone if @business_transaction.buyer.phone.present? %>
+<%= @business_transaction.buyer.mobile if @business_transaction.buyer.mobile.present? %>
+
+--------------------------------------------------
+
+<% if @business_transaction.bike_courier_message %>
+  Nachricht des/der Käufer*in:
+  <%= @business_transaction.bike_courier_message %>
+
+  --------------------------------------------------
+<% end %>
+
+Lieferzeit:
+
+<%= @business_transaction.bike_courier_time %>

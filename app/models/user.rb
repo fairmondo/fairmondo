@@ -229,6 +229,40 @@ class User < ActiveRecord::Base
     self.unified_transport_price_cents.present?
   end
 
+  # used to get the right time for bike delivery
+
+  def pickup_time
+    days = { 1 => 'Mo', 2 => 'Di', 3 => 'Mi', 4 => 'Do', 5 => 'Fr' }
+    day_of_week = DateTime.now.cwday
+
+    times = []
+    rev_times = []
+
+    days.sort_by{ |k, v| k }.each do |day|
+      if day[0] == day_of_week
+        for hour in 8..19 do
+          if hour >= Time.now.hour
+            times.push "#{ day[1] } #{ hour + 2 }:00  bis #{ hour + 3 }:00"
+          end
+        end
+      elsif day[0] > day_of_week
+        for hour in 8..19 do
+          times.push "#{ day[1] } #{ hour }:00 bis #{ hour + 1 }:00"
+        end
+      else
+        for hour in 8..19 do
+          rev_times.push "#{ day[1] } #{ hour }:00 bis #{ hour + 1 }:00"
+        end
+      end
+    end
+
+    rev_times.each do |time|
+      times << time
+    end
+
+    times
+  end
+
   private
 
     # @api private

@@ -160,7 +160,6 @@ form.change_quantity > .inputs >  ol > li.action {
    @include at-breakpoint($bp-tablet-horizontal) {
     float:right;
   }
-
 }
 
 // Responsiveness
@@ -283,6 +282,24 @@ form.change_quantity > .inputs >  ol > li.action {
     > .transport { @include span(1 of 2 0.1);
                    @include omega;}
   }
+}
+
+.JS-courier_step--container {
+  //display: none;
+  @include whitebox;
+  margin-top: 0.5em;
+
+  .left {
+    @include span(1 of 15 0.1);
+  }
+  .middle {
+    @include span(9 of 15 0.1);
+  }
+  .right {
+    @include span(5 of 15 0.1);
+    @include omega;
+  }
+  @include clearfix;
 }
 
 // Addresses

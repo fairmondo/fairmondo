@@ -68,17 +68,33 @@ class BusinessTransaction < ActiveRecord::Base
   validates :line_item_group, presence: true
   validates :article, presence: true
 
+  # validations for transport_bike_courier
+  #
+  with_options if: :bike_courier_selected? do |bt|
+    bt.validates :tos_bike_courier_accepted, acceptance: { allow_nil: false, accept: true }
+    bt.validates :bike_courier_time, presence: true
+    bt.validates :bike_courier_message, length: { maximum: 500 }
+
+    # custom validations
+    bt.validate :transport_address_in_area?
+    #bt.validate :right_time_frame_for_bike_courier?
+  end
+
   state_machine initial: :sold do
 
-    state :sold, :paid, :sent, :completed do
+    state :sold, :paid, :ready, :sent, :completed do
     end
 
     event :pay do
       transition :sold => :paid
     end
 
+    event :prepare do
+      transition [:sold, :paid] => :ready
+    end
+
     event :ship do
-      transition :paid => :sent
+      transition [:paid, :ready] => :sent
     end
 
     event :receive do
@@ -91,6 +107,8 @@ class BusinessTransaction < ActiveRecord::Base
   def selected_transport_provider
     if self.selected_transport == "pickup"
       "pickup"
+    elsif self.selected_transport == "bike_courier"
+      "bike_courier"
     elsif self.selected_transport == "type1"
       self.article.transport_type1_provider
     elsif self.selected_transport == "type2"
@@ -105,6 +123,26 @@ class BusinessTransaction < ActiveRecord::Base
 
   def refunded?
     refunded_fee && refunded_fair
+  end
+
+  private
+
+  # Custom conditions for validations
+  #
+  def bike_courier_selected?
+    self.selected_transport == 'bike_courier'
+  end
+
+  def transport_address_in_area?
+    unless $courier['zip'].split(' ').include?(self.transport_address_zip)
+      errors.add(:selected_transport, I18n.t('transaction.errors.transport_address_not_in_area'))
+    end
+  end
+
+  def right_time_frame_for_bike_courier?
+    unless false
+      errors.add(:bike_courier_time, I18n.t('transaction.errors.wrong_time_frame'))
+    end
   end
 
 end
