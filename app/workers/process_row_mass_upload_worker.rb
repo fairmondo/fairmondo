@@ -52,7 +52,7 @@ class ProcessRowMassUploadWorker
       row_hash = MassUpload::Questionnaire.include_fair_questionnaires(row_hash)
       row_hash = MassUpload::Questionnaire.add_commendation(row_hash)
 
-      article = create_or_find_according_to_action row_hash, mass_upload.user
+      article = build_or_find_according_to_action row_hash, mass_upload.user
 
       if article.action != :nothing # so we can ignore rows when reimporting
         article.user_id = mass_upload.user_id
@@ -73,7 +73,7 @@ class ProcessRowMassUploadWorker
 
     # When an action is set, modify the save call to reflect what should be done
     # @return [Article] Article ready to save or containing an error
-    def create_or_find_according_to_action attribute_hash, user
+    def build_or_find_according_to_action attribute_hash, user
       attribute_hash['action'].strip! if attribute_hash['action']
       case attribute_hash['action']
       when 'c', 'create'
@@ -82,14 +82,14 @@ class ProcessRowMassUploadWorker
         process_dynamic_update attribute_hash, user
       when nil
         attribute_hash['action'] = get_processing_default attribute_hash, user
-        create_or_find_according_to_action attribute_hash, user #recursion happens once
+        build_or_find_according_to_action attribute_hash, user #recursion happens once
       when 'nothing'
         # Keep article as is. We could update it, but this conflicts with locked articles
         article = find_by_id_or_custom_seller_identifier attribute_hash, user
         article.action = :nothing
         article
       else
-        create_error_article I18n.t("mass_uploads.errors.unknown_action")
+        build_error_article I18n.t("mass_uploads.errors.unknown_action")
       end
     end
 
@@ -100,11 +100,11 @@ class ProcessRowMassUploadWorker
       elsif attribute_hash['custom_seller_identifier']
         article = find_article_by_custom_seller_identifier attribute_hash['custom_seller_identifier'], user
       else
-        article = create_error_article  I18n.t("mass_uploads.errors.no_identifier")
+        article = build_error_article  I18n.t("mass_uploads.errors.no_identifier")
       end
 
       unless article
-        article = create_error_article  I18n.t("mass_uploads.errors.article_not_found")
+        article = build_error_article  I18n.t("mass_uploads.errors.article_not_found")
       end
 
       article
@@ -152,7 +152,7 @@ class ProcessRowMassUploadWorker
     # Get article with error message for display in MassUpload#new error list
     # @param error_message [String] Message to display
     # @return [Article] Article containing error field
-    def create_error_article error_message
+    def build_error_article error_message
       article = Article.new
       article.errors[:base] = error_message
       article
@@ -183,9 +183,9 @@ class ProcessRowMassUploadWorker
     end
 
     # Perform Validations without clearing the base errors on this object.
-    # Need this for setting things in create_error_article
+    # Need this for setting things in build_error_article
     def errors_exist_in? article
-      unless article.errors[:base].any? # If there are base errors something went wrong in general and we can skip the other validations
+      if article.errors[:base].empty? # If there are base errors something went wrong in general and we can skip the other validations
         base_errors = article.errors.dup # save errors before .valid? call because it clears errors
         article.valid? # preform validation
         base_errors.each do |key,error| # readd old error msgs
@@ -199,7 +199,7 @@ class ProcessRowMassUploadWorker
 
     def process  article, mass_upload_article
       mass_upload_article.with_lock do
-        unless mass_upload_article.article_id.present?
+        if mass_upload_article.article_id.blank?
           case article.action
           when :activate, :create, :update
             article.calculate_fees_and_donations
@@ -215,7 +215,9 @@ class ProcessRowMassUploadWorker
     end
 
     def self.add_article_error_messages_to( mass_upload, validation_errors, mass_upload_article, row_hash )
-      csv = CSV.generate_line(MassUpload.article_attributes.map{ |column| row_hash[column] }, col_sep: ';')
-      mass_upload_article.update_attributes!(validation_errors: validation_errors,article_csv: csv)
+      mass_upload_article.with_lock do
+        csv = CSV.generate_line(MassUpload.article_attributes.map{ |column| row_hash[column] }, col_sep: ';')
+        mass_upload_article.update_attributes!(validation_errors: validation_errors,article_csv: csv)
+      end
     end
 end
