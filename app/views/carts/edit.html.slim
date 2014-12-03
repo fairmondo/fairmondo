@@ -25,7 +25,7 @@
             .details
               .quantity
                 = line_item.requested_quantity
-                | x
+                =< 'x'
               .title
                 = link_to  article.title,  article_path(article), title: article.title, target: '_blank'
               .price
@@ -57,13 +57,7 @@
                         span.unified_transport_impossible
                           = t('cart.texts.unified_transport_impossible')
 
-        .JS-active-toggle--container
-          .Content.JS-active-toggle--target
-            | gewünschter Lieferzeitpunkt
-            br
-            | Die Lieferkosten in Höhe von 8,00€ zahle ich bar bei Lieferung.
-            br
-            | Ich akzeptiere die AGB und Widerrufsbelehrung des Kurierdienstes.
+          = render 'carts/checkout/courier_step', line_item: line_item, line_item_fields: line_item_fields
 
       .warning
         = I18n.t('cart.texts.security_warning')

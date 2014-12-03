@@ -50,6 +50,7 @@ module Article::Validations
     validates :transport_type1_price, :transport_type1_provider, presence: true, if: :transport_type1
     validates :transport_type2_price, :transport_type2_provider, presence: true, if: :transport_type2
     validates :transport_type1_number, :transport_type2_number, numericality: { greater_than: 0 }
+    validates :transport_bike_courier_number, numericality: { greater_than: 0 }, if: :transport_bike_courier
     validates :transport_details, length: { maximum: 2500 }
     validates :transport_time, length: { maximum: 7 }, format: { with: /\A\d{1,2}-?\d{,2}\z/ }, allow_blank: true
 
@@ -74,6 +75,7 @@ module Article::Validations
     validate :paypal_account_exists, if: :payment_paypal
     validate :only_one_title_image
     validate :bike_courier_requires_paypal, if: :transport_bike_courier
+    validate :right_zip_for_courier, if: :transport_bike_courier
 
   end
 
@@ -132,6 +134,12 @@ module Article::Validations
     def bike_courier_requires_paypal
       unless self.transport_bike_courier && self.payment_paypal
         errors.add(:payment_details, I18n.t('article.form.errors.invalid_payment_for_bike_courier'))
+      end
+    end
+
+    def right_zip_for_courier
+      unless $courier['zip'].include? self.seller.standard_address_zip
+        errors.add(:transport_bike_courier, I18n.t('article.form.errors.wrong_zip_for_bike_transport'))
       end
     end
 end

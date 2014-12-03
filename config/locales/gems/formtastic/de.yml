@@ -197,6 +197,8 @@ de:
         quantity_bought: "Artikelanzahl:"
         selected_transport: "Artikel einzeln versenden mit"
         selected_payment: "Artikel bezahlen mit"
+        bike_courier_message: 'Deine Nachricht an den Kurierdienst:'
+        bike_courier_time: 'Gewünschter Lieferzeitpunkt (mind. 2h in der Zukunft)'
       multiple_fixed_price_transaction:
         <<: *business_transaction
       single_fixed_price_transaction:

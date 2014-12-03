@@ -65,5 +65,8 @@ module User::Associations
 
     has_attached_file :cancellation_form
 
+    # Opening times
+    has_one :opening_time, foreign_key: 'user_id'
+
   end
 end

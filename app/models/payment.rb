@@ -24,6 +24,8 @@ class Payment < ActiveRecord::Base
     event :success do
       transition :initialized => :succeeded
     end
+
+    event :confirmed
   end
 
   def execute

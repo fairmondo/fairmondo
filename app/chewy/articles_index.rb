@@ -73,6 +73,7 @@ class ArticlesIndex < Chewy::Index
       field :friendly_percent_organisation_nickname, index: :not_analyzed
 
       field :transport_pickup, type: 'boolean'
+      field :transport_bike_courier, type: 'boolean'
       field :zip, value: -> {
         if self.transport_pickup || self.seller.is_a?(LegalEntity)
           self.seller.standard_address_zip

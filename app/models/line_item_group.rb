@@ -38,6 +38,7 @@ class LineItemGroup < ActiveRecord::Base
     end
     bt.validates :transport_address, :payment_address, :buyer_id, :seller_id, presence: true
     bt.validate :no_unified_transports_with_cash_on_delivery
+    bt.validate :no_unified_transports_with_bike_courier
   end
 
   def transport_can_be_unified?
@@ -76,104 +77,6 @@ class LineItemGroup < ActiveRecord::Base
     false
   end
 
-  ##################
-  #                #
-  # State machines #
-  #                #
-  ##################
-
-  # State machine for payment state
-  #
-  state_machine :payment_state, initial: :pending do
-    state :payment_pending do
-      # waiting for payment
-    end
-
-    state :payment_sent do
-      # payment was initialized, waiting for confirmation
-    end
-
-    state :payment_completed do
-      # payment has been received and confirmed
-    end
-
-    state :payment_refund_sent do
-      # payment has been refunded
-    end
-
-    state :payment_refund_received do
-      # refunded monex has been received
-    end
-
-    state :payment_error do
-      # payment did not succeed
-    end
-
-    event :send_payment do
-      transition :payment_pending => :payment_sent
-    end
-
-    event :confirm_payment do
-      transition :payment_sent => :payment_completed
-    end
-
-    event :refund_money do
-      transition :payment_completed => :payment_refund_sent
-    end
-
-    event :confirm_refund do
-      transition :payment_refund_sent => :payment_refund_received
-    end
-
-    event :set_payment_error do
-      transition [:pending, :payment_sent] => :payment_error
-    end
-  end
-
-  # State machine for transport state
-  #
-  state_machine :transport_state, initial: :pending do
-    state :transport_pending do
-      # waiting for transport confirmation
-    end
-
-    state :transport_ready do
-      # package is ready for shipment but not yet shipped
-    end
-
-    state :transport_shipped do
-      # package has been shipped
-    end
-
-    state :transport_received do
-      # package has been received
-    end
-
-    state :transport_returned do
-      # package has been sent back
-    end
-
-    state :transport_returned_received do
-      # sent back package has been received
-    end
-
-    event :transport_confirm_ready do
-      transition :transport_pending => :transport_ready
-    end
-
-    event :transport_confirm_shipped do
-      transition :transport_ready => :transport_shipped
-    end
-
-    event :transport_confirm_received do
-      transition :transport_shipped => :transport_received
-    end
-
-    event :transport_send_back do
-      transition :transport_received => :transport_returned
-    end
-  end
-
   private
     def self.can_be_unified_for? record, type
       if type == :unified_transport
@@ -188,12 +91,22 @@ class LineItemGroup < ActiveRecord::Base
     end
 
     def cash_on_delivery_with_unified_transport?
-      self.business_transactions.to_a.select{ |bt| bt.article.unified_transport? && bt.selected_payment.cash_on_delivery? }.any?
+      self.business_transactions.to_a.select { |bt| bt.article.unified_transport? && bt.selected_payment.cash_on_delivery? }.any?
+    end
+
+    def bike_courier_with_unified_transport?
+      self.business_transactions.to_a.select { |bt| bt.article.unified_transport? && bt.selected_payment.cash_on_delivery? }.any?
     end
 
     def no_unified_transports_with_cash_on_delivery
       if self.unified_transport? && cash_on_delivery_with_unified_transport?
         errors.add(:unified_transport, I18n.t('transaction.errors.cash_on_delivery_with_unified_transport'))
+      end
+    end
+
+    def no_unified_transports_with_bike_courier
+      if self.unified_transport? && bike_courier_with_unified_transport?
+        errors.add(:unified_transport, I18n.t('transaction.errors.bike_courier_with_unified_transport'))
       end
     end
 

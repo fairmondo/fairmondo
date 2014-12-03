@@ -51,7 +51,14 @@
   - ' Tag--gray'
 - when :borrowable
   - ' Tag--gray'
+- when :bike_courier
+  - ' Tag--light-red'
 - if size == :big
   - commendation_label_classes << ' Tag--big'
 
-=<> link_to t("article.commendations.#{label.to_s}"), link ? link : nil, target: new_window ? '_blank' : '_self', class: "#{commendation_label_classes} accordion-anchor"
+- case label
+- when :bike_courier
+  // TODO create content for courier overlay
+  =<> link_to fa_icon('bicycle'), '/contents/courier', class: "#{commendation_label_classes} accordion-anchor colorbox"
+-else
+  =<> link_to t("article.commendations.#{label.to_s}"), link ? link : nil, target: new_window ? '_blank' : '_self', class: "#{commendation_label_classes} accordion-anchor"

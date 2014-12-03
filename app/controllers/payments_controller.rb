@@ -1,26 +1,7 @@
-#
-#
-# == License:
-# Fairmondo - Fairmondo is an open-source online marketplace.
-# Copyright (C) 2013 Fairmondo eG
-#
-# This file is part of Fairmondo.
-#
-# Fairmondo is free software: you can redistribute it and/or modify
-# it under the terms of the GNU Affero General Public License as
-# published by the Free Software Foundation, either version 3 of the
-# License, or (at your option) any later version.
-#
-# Fairmondo is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU Affero General Public License for more details.
-#
-# You should have received a copy of the GNU Affero General Public License
-# along with Fairmondo.  If not, see <http://www.gnu.org/licenses/>.
-#
 class PaymentsController < ApplicationController
-  respond_to :html
+  skip_before_filter :authenticate_user!, only: :ipn_notification
+  protect_from_forgery except: :ipn_notification
+  respond_to :html, except: :ipn_notification
 
   # create happens on buy. this is to initialize the payment with paypal
   def create
@@ -29,7 +10,7 @@ class PaymentsController < ApplicationController
     if @payment.execute
       redirect_to PaypalAPI.checkout_url @payment.pay_key
     else
-      redirect_to :back, flash: { error: I18n.t('paypal_api.controller_error', email: @payment.line_item_group_seller_paypal_account).html_safe }
+      redirect_to :back, flash: { error: I18n.t('paypal_api.controller_error', email: @payment.line_item_group_seller_paypal_account).html_safe  }
     end
   end
 
@@ -37,5 +18,26 @@ class PaymentsController < ApplicationController
     @payment = Payment.find(params[:id])
     authorize @payment
     redirect_to PaypalAPI.checkout_url @payment.pay_key
+  end
+
+  def ipn_notification
+    ipn = PaypalAdaptive::IpnNotification.new
+    ipn.send_back(request.raw_post)
+
+    if ipn.verified?
+      payment = Payment.find_by(pay_key: params['txn_id'])
+
+      if payment
+        payment.last_ipn = params.to_json
+        if params[:payment_status] == 'Completed' && params[:receiver_email] == payment.line_item_group_buyer_email
+          payment.line_item_group.confirm_payment
+        else
+          payment.line_item_group.payment_error
+        end
+        payment.save
+      end
+    end
+
+    render nothing: true
   end
 end
