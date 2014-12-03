@@ -69,6 +69,14 @@ describe LibrariesController do
       end
     end
 
+    describe "with parameter 'mode=trending'" do
+      it 'should be successful' do
+        get :index, mode: 'trending'
+        assert_response :success
+      end
+    end
+
+
     describe "with parameter 'iframe=true'" do
       after(:each) do
         subject.class.layout nil
@@ -80,14 +88,14 @@ describe LibrariesController do
       end
     end
 
-    describe '::focus' do
-      it 'should return trending libraries if no user is focused and no mode is set' do
-        @controller.stubs(:user_focused?).returns(false)
-        User.any_instance.expects(:libraries).never
-        Library.expects(:trending)
-        @controller.send(:focus)
-      end
-    end
+    # describe '::focus' do
+    #   it 'should return trending libraries if no user is focused and no mode is set' do
+    #     @controller.stubs(:user_focused?).returns(false)
+    #     User.any_instance.expects(:libraries).never
+    #     #Library.expects(:trending) # in case this gets switched back
+    #     @controller.send(:focus)
+    #   end
+    # end
   end
 
   describe '#create' do
