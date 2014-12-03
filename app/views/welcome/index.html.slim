@@ -200,6 +200,9 @@
 
       = render partial: "libraries/library", collection: @trending_libraries, locals: { header_comments: false }
 
+      p.more
+        = link_to("Mehr Geschenk-Empfehlungen", libraries_path)
+
 
 / USPs
 .teaser.teaser--double.slides#cardslides
