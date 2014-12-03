@@ -78,10 +78,6 @@ describe LibrariesController do
 
 
     describe "with parameter 'iframe=true'" do
-      after(:each) do
-        subject.class.layout nil
-      end
-
       it 'should render the iframe layout' do
         get :index, iframe: true
         assert_template layout: 'iframe'
