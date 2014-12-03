@@ -139,7 +139,7 @@ class ApplicationController < ActionController::Base
 
     def set_iframe_layout
       if params[:iframe]
-        self.class.layout "iframe"
+        #self.class.layout "iframe" #broken
       end
     end
 end
