@@ -4,24 +4,32 @@
 
 
 // General stuff
-#billboard-books > article > ul a > p {
-  text-align: left;
-  font-weight: 600;
-  font-size: 14px;
-  color: #428fbd;
-  text-decoration: underline;
+#billboard-books > article h2 {
+  font-weight    : 400;
+  text-transform : uppercase;
+  text-align     : center;
+  color          : $white;
 }
 
 #billboard-books > article h3 {
-  font-size: 14px;
-  color: #74a3c2;
+  font-weight : 400;
+  font-size   : 14px;
+  text-align  : center;
+  color       : #74a3c2;
+}
+
+#billboard-books > article > ul a > p {
+  font-weight     : 600;
+  font-size       : 14px;
+  text-align      : left;
+  text-decoration : underline;
+  color           : #428fbd;
 }
 
 #billboard-books > article > a {
-  position: absolute;
-  font-size: 18px;
-  font-weight: 600;
-  color: $white;
+  font-weight : 600;
+  font-size   : 18px;
+  color       : $white;
 }
 
 

@@ -6,6 +6,27 @@ de:
     trending_libraries: Geschenk-Empfehlungen von Nutzer*innen
     boxes:
       active_old: "Bisher eingestellte Artikel"
+    filter_boxes:
+      fair:
+        teaser_html: "Darf&rsquo;s noch<br>etwas fair sein?"
+        description: "Faire Artikel auf einen Blick"
+        link:        "Jetzt ansehen"
+        label:       "fair"
+      ecologic:
+        teaser_html: "Öko? Logisch!<br>Auf Fairmondo."
+        description: "Öko-Produkte auf einen Blick"
+        link:        "Hier reinschauen"
+        label:       "öko"
+      small:
+        teaser_html: "Kleine Hersteller<br>–&nbsp;große Qualität."
+        description: "Alle Angebote auf einen Blick"
+        link:        "Jetzt entdecken"
+        label:       "klein&edel"
+      used:
+        teaser_html: "Von letzter Saison<br>bis echter Rarität."
+        description: "Gebrauchtes auf einen Blick"
+        link:        "Hier stöbern"
+        label:       "gebraucht"
 # Common Texts
   common:
     brand: "www.fairmondo.de"
