@@ -14,7 +14,7 @@ namespace :eye do
         end
 
         begin
-          execute :eye, :quit, :all
+          execute :eye, :quit
         rescue SSHKit::Command::Failed
           puts "Couldn't quit eye."
         end
