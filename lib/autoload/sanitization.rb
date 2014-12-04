@@ -69,7 +69,7 @@ module Sanitization
         attributes: {
           'a' => ['href', 'type', 'target'],
           'img' => ['src', 'alt'],
-          'iframe' =>  # iframes aren't allowed for non-admins
+          'iframe' =>  # iframes are allowed for non-admins
             ['src', 'frameborder', 'webkitallowfullscreen', 'mozallowfullscreen',
             'allowfullscreen'],
           :all => admin_mode ?
