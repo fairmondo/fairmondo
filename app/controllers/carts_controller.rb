@@ -49,10 +49,10 @@ class CartsController < ApplicationController
       redirect_to edit_cart_path(@cart, checkout: true)
     when :checked_out
       ###################################################
-      # DO NOT PUT ANY CODE HERE THAT CAN FAIL !!!! #####
-      # Best would be not to put any code here at all.
-      # If you have to do something here that can fail
-      # put it into the transaction of Cart#buy.
+      # DO NOT PUT ANY CODE HERE THAT CAN FAIL !!!!     #
+      # Best would be not to put any code here at all.  #
+      # If you have to do something here that can fail  #
+      # put it into the transaction of Cart#buy.        #
       ###################################################
       clear_session
       flash[:notice] = I18n.t('cart.notices.checkout_success') if @cart.save
