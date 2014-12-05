@@ -10,7 +10,7 @@ class PaymentsController < ApplicationController
     if @payment.execute
       redirect_to PaypalAPI.checkout_url @payment.pay_key
     else
-      redirect_to :back, flash: { error: I18n.t('paypal_api.controller_error', email: @payment.line_item_group_seller_paypal_account).html_safe  }
+      redirect_to :back, flash: { error: I18n.t('paypal_api.controller_error', email: @payment.line_item_group_seller_paypal_account).html_safe }
     end
   end
 
@@ -30,7 +30,7 @@ class PaymentsController < ApplicationController
       if payment
         payment.last_ipn = params.to_json
         if params[:payment_status] == 'Completed' && params[:receiver_email] == payment.line_item_group_buyer_email
-          payment.line_item_group.confirm_payment
+          payment.success
         else
           payment.line_item_group.payment_error
         end

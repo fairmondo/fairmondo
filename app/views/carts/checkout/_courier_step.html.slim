@@ -3,7 +3,8 @@
     = line_item_fields.semantic_fields_for :business_transaction, line_item.business_transaction do |t|
       = t.inputs class: 'bike_courier' do
         .left
-          = link_to fa_icon('bicycle'), '/contents/courier', class: 'Tag Tag--big Tag--light-red colorbox', layout: false, 'data-push' => false
+          = link_to content_path('courier', layout: false), class: 'colorbox Tag Tag--big Tag--light-red' do
+            .fa.fa-bicycle
         .middle
           = t.input :bike_courier_time, as: :select, collection: line_item.business_transaction.article.seller.pickup_time
           = t.input :tos_bike_courier_accepted, required: false, label: 'Die Lieferkosten in Höhe von 11,80 € zahle ich bar bei Lieferung, und ich akzeptiere die AGB und Widerrufsbelehrung des Kurierdienstes.'

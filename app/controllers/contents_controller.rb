@@ -20,6 +20,7 @@
 class ContentsController < ApplicationController
   responders :flash
   respond_to :html
+  respond_to :js, if: lambda { request.xhr? }
   skip_before_filter :authenticate_user!, only: :show
   before_filter :set_content, only: [:edit, :update, :destroy]
 
@@ -31,7 +32,11 @@ class ContentsController < ApplicationController
   def show
     set_content
     authorize @content
-    respond_with @content
+    if params && params[:layout] == 'false'
+      render layout: false
+    else
+      respond_with @content
+    end
   rescue ActiveRecord::RecordNotFound => e
     raise e unless User.is_admin? current_user
     authorize(Content.new, :new?)

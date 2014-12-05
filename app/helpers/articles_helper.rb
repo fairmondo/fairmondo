@@ -80,7 +80,11 @@ module ArticlesHelper
 
       price_method = "#{type}_#{method}_price"
 
-      if (check_free_transport && resource.seller.free_transport_available && resource.seller_free_transport_at_price <= resource.price && !resource.transport_bike_courier) || !resource.respond_to?(price_method.to_sym)
+      if (check_free_transport &&
+          resource.seller.free_transport_available &&
+          resource.seller_free_transport_at_price <= resource.price &&
+          !resource.transport_bike_courier) ||
+          !resource.respond_to?(price_method.to_sym)
         html << ' (kostenfrei)'
       else
         html << " zzgl. #{humanized_money_with_symbol(resource.send(price_method))}"
@@ -90,9 +94,8 @@ module ArticlesHelper
         html << ", <br/>PLZ: #{resource.seller.standard_address_zip}"
       end
 
-      # TODO include into upper if statement
       if type == 'transport' && method == 'bike_courier'
-        html << " zzgl. 8,00€ bei Lieferung"
+        html << " bar bei Lieferung"
       end
 
       html << '</li>'

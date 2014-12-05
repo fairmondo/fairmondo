@@ -21,10 +21,14 @@ describe CartMailer do
   end
 
   #it 'sends email to courier service' do
-  #  business_transaction = FactoryGirl.create(:line_item_group, :with_business_transactions, :sold)
-  #  seller          = line_item_group.seller
-  #  buyer           = line_item_group.buyer
+  #  business_transaction = FactoryGirl.create(:business_transaction, :transport_bike_courier, :paypal, :sold)
+  #  payment         = Payment.create line_item_group_id: business_transaction.line_item_group_id, type: 'PaypalPayment'
+  #  seller          = business_transaction.seller
+  #  buyer           = business_transaction.buyer
+  #  payment.stubs(:confirmed?).returns(true)
+  #  business_transaction.stubs(:sent?).returns(true)
   #  mail            = CartMailer.courier_notification(business_transaction)
+
 
   #  # Seller information
   #  mail.must have_subject('[Fairmondo] Artikel ausliefern')
@@ -44,6 +48,10 @@ describe CartMailer do
   #  mail.must have_body_text(buyer.standard_address_address_line_1)
   #  mail.must have_body_text(buyer.standard_address_city)
   #  mail.must have_body_text(buyer.standard_address_zip)
+
+  #  # Info about Transaction
+  #  mail.must have_body_text(business_transaction.bike_courier_time)
+  #  mail.must have_body_text(business_transaction.bike_courier_message)
 
   #end
 end

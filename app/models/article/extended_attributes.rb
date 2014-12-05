@@ -116,6 +116,16 @@ module Article::ExtendedAttributes
     selectable "payment"
   end
 
+  # Returns price for transport_bike_courier
+  #
+  # @api public
+  # @return Money
+  def transport_bike_courier_price
+    if transport_bike_courier
+      Money.new($courier['price'])
+    end
+  end
+
   private
 
     # DRY method for selectable_transports and selectable_payments

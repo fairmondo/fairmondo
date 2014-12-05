@@ -20,11 +20,12 @@ p
       = @line_item_group.message
 
   - @line_item_group.business_transactions.each do |bt|
-    = render 'article', bt: bt
+    = render 'article', bt: bt, role: 'seller'
     center
       - if bt.selected_transport == 'bike_courier'
         br
         = link_to 'Sendung als versandfertig markieren', set_transport_ready_business_transaction_url(bt.id), method: :put, class: 'Button'
+        br
 
   - abacus = Abacus.new(@line_item_group)
   = render 'donations', abacus: abacus, role: 'seller'
