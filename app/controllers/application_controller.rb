@@ -26,7 +26,8 @@ class ApplicationController < ActionController::Base
   ## Global actions
   before_filter :unset_cart
   before_filter :profile_request
-  before_filter :set_iframe_layout
+
+  layout :layout_by_param
 
   # Arcane
   include Arcane
@@ -137,9 +138,11 @@ class ApplicationController < ActionController::Base
 
   private
 
-    def set_iframe_layout
+    def layout_by_param
       if params[:iframe]
-        self.class.layout "iframe"
+        "iframe"
+      else
+        nil
       end
     end
 end
