@@ -226,15 +226,6 @@ describe User do
       end
     end
 
-    describe '#notify' do
-      it 'should be possible to notify a user (only once)' do
-        assert_difference 'Notice.count', 1 do
-          user.notify 'test','test/test'
-          user.notify 'test','test/test'
-        end
-      end
-    end
-
     describe "#calculate_percentage_of_biased_ratings" do
 
       before :each do

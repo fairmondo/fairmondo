@@ -31,8 +31,7 @@ module Article::ExtendedAttributes
     ]
 
     # Action attribute: c/create/u/update/d/delete - for export and csv upload
-    # keep_images attribute: see edit_as_new
-    attr_accessor :action, :keep_images, :save_as_template, :tos_accepted,
+    attr_accessor :action, :save_as_template, :tos_accepted,
                   :changing_state
     attr_writer :article_search_form
                 # find a way to remove this! arcane won't like it

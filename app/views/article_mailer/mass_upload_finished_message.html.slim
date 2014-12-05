@@ -3,7 +3,7 @@ h3
 = t('email.article.mass_upload_finished.success')
 - if @mass_upload.articles_for_mass_activation.any?
   p
-    = t('email.article.mass_upload_finished.to_activate', count: @mass_upload.articles_for_mass_activation)
+    = t('email.article.mass_upload_finished.to_activate', count: @mass_upload.articles_for_mass_activation.count)
     ul
       - if @created_count > 0
         li= t('email.article.mass_upload_finished.created_articles', count: @created_count)

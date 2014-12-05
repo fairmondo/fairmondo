@@ -73,20 +73,14 @@ class Article < ActiveRecord::Base
 
       # move images to new article
       original_article.images.each do |image|
-        if original_article.keep_images
-          image.imageable_id = nil
-          new_article.images << image
-          image.save
-        else
-          begin
-            copyimage = ArticleImage.new
-            copyimage.image = image.image
-            copyimage.is_title = image.is_title
-            copyimage.external_url = image.external_url
-            new_article.images << copyimage
-            copyimage.save
-          rescue
-          end
+        begin
+          copyimage = ArticleImage.new
+          copyimage.image = image.image
+          copyimage.is_title = image.is_title
+          copyimage.external_url = image.external_url
+          new_article.images << copyimage
+          copyimage.save
+        rescue
         end
       end
 
