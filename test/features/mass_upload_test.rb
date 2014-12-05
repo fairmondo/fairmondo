@@ -65,16 +65,14 @@ feature "Uploading a CSV" do
     click_button I18n.t('mass_uploads.labels.mass_activate_articles')
 
     # validate changes
-    article1 = Article.find(4) # as it will edit them both as new
-    article2 = Article.find(5)
+    article1 = Article.find(1) # as it will edit them both as new
+    article2 = Article.find(2)
     article1.content.must_equal 'Andere Beschreibung'
     article1.condition.must_equal 'old'
     article2.title.must_equal 'Anderer Name'
     article2.gtin.must_equal "9999999999"
     article1.active?.must_equal true
     article2.active?.must_equal true
-    Article.find(1).closed?.must_equal true
-    Article.find(2).closed?.must_equal true
     Article.find(3).title.must_equal "Name von Artikel 3"
   end
 
@@ -165,10 +163,10 @@ feature "Uploading a CSV" do
     a1.reload.closed?.must_equal true
     a2.reload.active?.must_equal true
     a3.reload.locked?.must_equal true
-    a4.reload.closed?.must_equal true # because of edit as new
-    a5.reload.active?.must_equal true # because this was a preview article
-    Article.unscoped.size.must_equal 9 # 5 created by factory, 3 createdby csv
-    Article.unscoped.where(:title => "neuer titel").size.must_equal 2 # the closed one and the open one
+    a4.reload.active?.must_equal true
+    a5.reload.active?.must_equal true
+    Article.unscoped.size.must_equal 8 # 5 created by factory, 3 createdby csv
+    Article.unscoped.where(:title => "neuer titel").size.must_equal 2
   end
 
 

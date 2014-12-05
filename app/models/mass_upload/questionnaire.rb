@@ -22,20 +22,17 @@
 module MassUpload::Questionnaire
   extend ActiveSupport::Concern
 
-  def self.include_fair_questionnaires(row_hash)
-    ftq_attributes = FairTrustQuestionnaire.new.attributes
-    ftq_attributes.except!(*["id", "article_id"])
-    spq_attributes = SocialProducerQuestionnaire.new.attributes
-    spq_attributes.except!(*["id", "article_id"])
-    ftq = row_hash.extract!(*ftq_attributes.keys)
-    spq = row_hash.extract!(*spq_attributes.keys)
+  FTQ_ATTRIBUTES = FairTrustQuestionnaire.column_names - ["id", "article_id"]
+  SPQ_ATTRIBUTES = SocialProducerQuestionnaire.column_names - ["id", "article_id"]
 
-    if row_hash["fair_kind"] == "fair_trust"
-      row_hash["fair_trust_questionnaire_attributes"] = deserialize_checkboxes(ftq)
-    elsif row_hash["fair_kind"] == "social_producer"
-      row_hash["social_producer_questionnaire_attributes"] = deserialize_checkboxes(spq)
+  def self.include_fair_questionnaires(attributes)
+    ftq = attributes.extract!(*FTQ_ATTRIBUTES)
+    spq = attributes.extract!(*SPQ_ATTRIBUTES)
+    if attributes["fair_kind"] == "fair_trust"
+      attributes["fair_trust_questionnaire_attributes"] = deserialize_checkboxes(ftq)
+    elsif attributes["fair_kind"] == "social_producer"
+      attributes["social_producer_questionnaire_attributes"] = deserialize_checkboxes(spq)
     end
-    row_hash
   end
 
   def self.deserialize_checkboxes(attributes)
@@ -65,6 +62,5 @@ module MassUpload::Questionnaire
     if attributes["small_and_precious_eu_small_enterprise"] && attributes["small_and_precious_eu_small_enterprise"] == "true"
       attributes["small_and_precious"] = true
     end
-    return attributes
   end
 end

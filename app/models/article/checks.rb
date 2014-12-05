@@ -60,6 +60,10 @@ module Article::Checks
     !active?
   end
 
+  def bought_or_in_cart?
+    self.business_transactions.any? || self.line_items.any?
+  end
+
   # should the fair alternative be shown for the seller
   def show_fair_alternative_for_seller?
     if $exceptions_on_fairmondo['no_fair_alternative'] && $exceptions_on_fairmondo['no_fair_alternative']['user_ids']
