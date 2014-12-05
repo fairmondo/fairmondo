@@ -54,7 +54,6 @@ Fairmondo::Application.routes.draw do
     get 'session_expired', as: 'session_expired', constraints: {format: 'json'} # JSON info about session expiration. Might be moved to a custom controller at some point.
     get 'confirm', constraints: {format: 'js'}
     get 'rss'
-    get 'notice/:id', action: 'notice', as: 'notice'
     get 'reload', as: 'reload'
     get 'contact', as: 'contact'
     patch 'reindex/:article_id', action: 'reindex', as: 'reindex'
