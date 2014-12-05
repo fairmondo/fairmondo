@@ -140,7 +140,7 @@ class BusinessTransaction < ActiveRecord::Base
   end
 
   def right_time_frame_for_bike_courier?
-    unless false
+    unless self.seller.pickup_time.include? self.bike_courier_time
       errors.add(:bike_courier_time, I18n.t('transaction.errors.wrong_time_frame'))
     end
   end

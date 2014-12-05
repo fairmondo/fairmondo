@@ -59,6 +59,6 @@
 - case label
 - when :bike_courier
   // TODO create content for courier overlay
-  =<> link_to fa_icon('bicycle'), '/contents/courier', class: "#{commendation_label_classes} accordion-anchor colorbox"
+  =<> link_to fa_icon('bicycle'), link, class: "#{commendation_label_classes} accordion-anchor colorbox"
 -else
   =<> link_to t("article.commendations.#{label.to_s}"), link ? link : nil, target: new_window ? '_blank' : '_self', class: "#{commendation_label_classes} accordion-anchor"

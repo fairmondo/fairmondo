@@ -30,4 +30,4 @@
 = render('articles/show/commendation_label', label: :small_and_precious, size: :small, link: link, new_window: new_window) if article.small_and_precious
 = render('articles/show/commendation_label', label: :swappable, size: :small, link: link, new_window: new_window) if article.swappable
 = render('articles/show/commendation_label', label: :borrowable, size: :small, link: link, new_window: new_window) if article.borrowable
-= render('articles/show/commendation_label', label: :bike_courier, size: :small, link: link, new_window: new_window) if article.transport_bike_courier
+= render('articles/show/commendation_label', label: :bike_courier, size: :small, link: content_path('courier', layout: false), new_window: false) if article.transport_bike_courier
