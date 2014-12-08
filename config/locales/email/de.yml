@@ -37,6 +37,7 @@ de:
       bank_transfer: 'Überweisung'
       invoice: 'Rechnung'
       cash: 'Barzahlung bei Abholung'
+      voucher: Gutschein
     article:
       contact:
         text_beginning: 'Ein*e Fairmondo-Nutzer*in hat dir eine Rückfrage zu deinem Artikel'
@@ -118,4 +119,12 @@ de:
         bought_from_you: 'hat bei Dir gekauft:'
         buyer_message: 'Nachricht des*der Käufer*in'
         view_and_pay: 'Bestellung ansehen und versenden'
-
+    voucher:
+      heading: 'Neue Gutscheinzahlung auf Fairmondo'
+      text: 'folgende Artikel wurden von %{buyer} per Gutschein mit dem Gutscheincode <b>%{code}</b> bezahlt:'
+      total: "Gesamt: %{total}"
+      money_left_over: 'Dadurch ist ein Spendenbetrag von <b>%{amount}</b> entstanden. Bitte leite diesen an die Organisation weiter, die Du in dem Gutschein angegeben hast.'
+      money_missing: 'Die verbleibenden <b>%{amount}</b> werden von dem/der Käufer*in überwiesen.'
+      side_heading: 'Verkaufsdetails'
+      code: 'Gutscheincode:'
+      purchase_id: 'Transaktionsnummer:'

@@ -172,6 +172,7 @@ de:
         paypal: PayPal
         cash_on_delivery: Nachnahme (zzgl. Gebühr)
         invoice: Rechnung
+        voucher: Gutschein
 
     library:
       exhibition_name:

@@ -91,6 +91,7 @@ de:
         nickname: "Nutzername: "
         intro: "Diese Email wurde automatisch generiert. Die Email-Adresse der Käufer*in findest Du weiter unten."
         seller_subject: "Artikel auf Fairmondo verkauft"
+        seller_voucher_subject: "Ein Gutschein wurde eingelöst."
         with_donation_to: " mit Spendenanteil an "
         seller_text: "herzlichen Glückwunsch, Du hast einen Artikel auf Fairmondo verkauft! \nAlle Bestelldaten der Käufer*in sind unten für Dich zusammengefasst.\n"
         your_team: "Dein Fairmondo Team"
