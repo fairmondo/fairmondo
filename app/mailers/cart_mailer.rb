@@ -34,6 +34,17 @@ class CartMailer < ActionMailer::Base
     mail(to: @seller.email, subject: @subject)
   end
 
+  def voucher_paid_email payment_id
+    @payment = Payment.find(payment_id)
+    @abacus = Abacus.new(@payment.line_item_group)
+
+    @buyer = @payment.line_item_group_buyer
+    @seller = @payment.line_item_group_seller
+    @subject = "[Fairmondo] #{ t('transaction.notifications.seller.seller_voucher_subject') }"
+
+    mail(to: @seller.email, subject: @subject)
+  end
+
   private
 
     def add_image_attachments_for line_item_group

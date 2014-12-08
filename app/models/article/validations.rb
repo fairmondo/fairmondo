@@ -55,7 +55,7 @@ module Article::Validations
 
     # payment
 
-    validates :payment_cash_on_delivery_price, presence: true ,if: :payment_cash_on_delivery
+    validates :payment_cash_on_delivery_price, presence: true, if: :payment_cash_on_delivery
     validates :payment_details, length: { :maximum => 2500 }
     validates :quantity, presence: true, numericality: { greater_than_or_equal_to: 1, less_than_or_equal_to: 10000 }
     validates :quantity_available, numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 10000 }
@@ -95,7 +95,9 @@ module Article::Validations
     end
 
     def payment_method_checked
-      unless self.payment_bank_transfer || self.payment_paypal || self.payment_cash || self.payment_cash_on_delivery || self.payment_invoice
+      unless self.payment_bank_transfer || self.payment_paypal ||
+             self.payment_cash || self.payment_cash_on_delivery ||
+             self.payment_invoice || self.payment_voucher
         errors.add(:payment_details, I18n.t("article.form.errors.invalid_payment_option"))
       end
     end
