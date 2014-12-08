@@ -1,8 +1,8 @@
 @import "mixins/all";
 @import "billboards/billboard-ecobookstore";
-@import "billboards/billboard-books";
 @import "billboards/billboard-gourmet";
-@import "billboards/billboard-vintage";
+@import "billboards/billboard-gifts";
+@import "billboards/billboard-books";
 
 
 /*
@@ -115,7 +115,6 @@
 .billboard {
   background-repeat: no-repeat;
   background-position: center top;
-  position: relative;
   border-radius: 0.5em;  // Circumvent bug in Webkit browsers that would hide the rounded border from #billboard-inner
   height: 410px;
 }
@@ -123,42 +122,31 @@
 .billboard > article {
   position: relative;
   margin: 0 auto;
+  height: 410px;
 }
 
-.billboard > article h2, .billboard > article > ul,.billboard > article li div, .billboard > article li p, .billboard > article h3 {
+// Set position to absolute for elements that are used in billboards
+.billboard > article h2,     .billboard > article h3,
+.billboard > article div,    .billboard > article p,
+.billboard > article > a {
   position: absolute;
-  margin: 0;
 }
 
-.billboard > article h2 {
+// Clear margins
+.billboard > article h2,  .billboard > article h3,
+.billboard > article div, .billboard > article p,
+.billboard > article ul,  .billboard > article li {
   margin: 0;
-  z-index: 10;
-  text-align: center;
-  font-size: 30px;
-  font-weight: 400;
-  text-transform: uppercase;
-}
-
-.billboard > article h3 {
-  margin: 0;
-  font-weight: 400;
-  font-size: 1.2em;
-  text-align: center;
-  color: $white;
 }
 
 .billboard > article > ul {
   list-style-type: none;
 }
 
-.billboard > article > section > a.billboard-textlink {
-  text-decoration: underline;
-  font-size: 0.9em;
-}
-
 #js-billboardslides { display: none; }
 
-#billboard .slidejs-container, #billboard .slidejs-control, #billboard .slidejs-slide {
+#billboard .slidejs-container, #billboard .slidejs-control,
+#billboard .slidejs-slide {
   min-height: 410px;
 }
 
