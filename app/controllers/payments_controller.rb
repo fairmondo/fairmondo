@@ -24,7 +24,8 @@ class PaymentsController < ApplicationController
 
   # create happens on buy. this is to initialize the payment with paypal
   def create
-    payment_attrs = params.for(Payment).refine.merge(line_item_group_id: params[:line_item_group_id])
+    params[:payment].merge!(line_item_group_id: params[:line_item_group_id])
+    payment_attrs = params.for(Payment).refine
     @payment = Payment.new payment_attrs
     authorize @payment
     if @payment.execute
