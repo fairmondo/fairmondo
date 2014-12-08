@@ -1,6 +1,6 @@
 createSliders = ->
   $("#js-billboardslides").slidesjs
-    #start: Math.floor(Math.random() * 2) + 1  # random number between 1 and 2
+    #start: 3
     width: 205
     height: 410
     play:
