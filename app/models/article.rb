@@ -70,18 +70,13 @@ class Article < ActiveRecord::Base
     include_field :social_producer_questionnaire
     customize lambda { |original_article, new_article|
       new_article.categories = original_article.categories
-
+      binding.pry
       # move images to new article
       original_article.images.each do |image|
-        begin
-          copyimage = ArticleImage.new
-          copyimage.image = image.image
-          copyimage.is_title = image.is_title
-          copyimage.external_url = image.external_url
-          new_article.images << copyimage
-          copyimage.save
-        rescue
-        end
+        new_article.images.create(
+          image: image.image,
+          is_title: image.is_title,
+          external_url: image.external_url) rescue nil
       end
 
       # unset slug on templates

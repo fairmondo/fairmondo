@@ -1,7 +1,7 @@
 - unless transport[:method] == :pickup
   .Payment-row
     .Payment-cell
-      = transport[:shipments]
+      => transport[:shipments]
       = t('cart.texts.shipment').pluralize(transport[:shipments], I18n.locale)
       = t('common.text.glue.via')
       = transport[:provider]

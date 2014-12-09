@@ -38,6 +38,7 @@ class MassUploadArticle < ActiveRecord::Base
     self.with_lock do
       store unless self.done?
     end
+    update_index if @prepared_action == :update
   end
 
   private
@@ -60,12 +61,17 @@ class MassUploadArticle < ActiveRecord::Base
     end
   end
 
+  #### THIS METHOD IS CALLED IN A LOCK
   def update_mass_upload_article
     if @prepared_action == :error
       self.update_attributes(article_csv: original_csv, validation_errors: @error_text, action: :error)
     else
       self.update_attributes(article_id: @prepared_article.id, action: @prepared_action ) # save action and article
     end
+  end
+
+  def update_index
+    Indexer.index_article @prepared_article
   end
 
 
@@ -87,6 +93,19 @@ class MassUploadArticle < ActiveRecord::Base
   def prepare_categories
     @article_attributes["category_ids"] = @article_attributes.delete("categories").split(",") if @article_attributes['categories']
   end
+  
+  def prepare_questionaires
+    MassUpload::Questionnaire.include_fair_questionnaires(@article_attributes)
+    MassUpload::Questionnaire.add_commendation(@article_attributes)
+  end
+
+  # Defaults: create when no ID is set, does nothing when an ID exists
+  # @return [String]
+  def get_processing_default
+    return :nothing if @article_attributes['id']
+    return :nothing if @article_attributes['custom_seller_identifier'] && find_article_by_custom_seller_identifier.present?
+    return :create
+  end
 
   def prepare_action
     @article_attributes['action'].strip! if @article_attributes['action']
@@ -100,19 +119,6 @@ class MassUploadArticle < ActiveRecord::Base
     end
   end
 
-  # Defaults: create when no ID is set, does nothing when an ID exists
-  # @return [String]
-  def get_processing_default
-    return :nothing if @article_attributes['id']
-    return :nothing if @article_attributes['custom_seller_identifier'] && find_article_by_custom_seller_identifier.present?
-    return :create
-  end
-
-  def prepare_questionaires
-    MassUpload::Questionnaire.include_fair_questionnaires(@article_attributes)
-    MassUpload::Questionnaire.add_commendation(@article_attributes)
-  end
-
   ################################## Prepare Article #######################################
 
   def prepare_article
@@ -124,7 +130,11 @@ class MassUploadArticle < ActiveRecord::Base
   end
 
   def update_article
-    @prepared_article = Article.edit_as_new @prepared_article if @prepared_article.bought_or_in_cart?
+    if @prepared_article.bought_or_in_cart?
+      @prepared_article = Article.edit_as_new @prepared_article
+    else
+      @prepared_article.state = :locked
+    end
     @article_attributes.delete('id')
     @prepared_article.assign_attributes(@article_attributes)
   end
