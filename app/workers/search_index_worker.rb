@@ -11,8 +11,8 @@ class SearchIndexWorker
     when :article
       ArticlesIndex::Article
     end
-
-    type.import ids, batch_size: 100
-
+    Chewy.atomic do
+      type.import ids
+    end
   end
 end

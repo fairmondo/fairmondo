@@ -86,7 +86,7 @@ class ArticleObserver < ActiveRecord::Observer
 
       #do not remove sold articles, we want to keep them
       #if the old article has errors we still want to remove it from the marketplace
-      original_article.close_without_validation unless original_article.sold?
+      original_article.close_without_validation
 
       # the original has been handled. now unset the reference (for policy)
       article.update_column :original_id, nil

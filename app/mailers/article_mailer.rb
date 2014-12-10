@@ -44,6 +44,7 @@ class ArticleMailer < ActionMailer::Base
 
   def article_activation_message article_id
     @article = Article.find article_id
+    @article.calculate_fees_and_donations #just to be save 
     @user    = @article.user
     terms_pdf
     mail(to: @user.email, subject: "[Fairmondo] Du hast einen Artikel auf Fairmondo eingestellt")
