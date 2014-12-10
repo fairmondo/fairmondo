@@ -1,0 +1,80 @@
+/*
+ * Featured libraries for category and filter landing pages
+ * like books, fair, eco, small, used
+ */
+
+
+.Feature { margin-bottom: 1em; }
+
+.Feature-inner {
+  @include whitebox;
+  @include clearfix;
+}
+
+.Feature-inner > h2 {
+  margin         : em(6) 0 em(11) 0;
+  text-transform : uppercase;
+}
+
+.Feature--double { clear: both; }
+
+
+/* Responsive CSS */
+
+@include at-breakpoint($bp-mobile) {
+  .Feature--double .Grid > .Grid-item {
+    @include grid-with-columns(2);
+  }
+}
+
+@include between-breakpoints($bp-mobile, $bp-tablet) {
+  .Feature--collapsible .Grid > .Grid-item {
+    @include grid-with-columns(2);
+  }
+}
+
+@include till-breakpoint($bp-tablet) {
+  .Feature--quadruple .Grid-item:nth-last-child(2) {
+    display: none;
+  }
+}
+
+@include between-breakpoints($bp-tablet, $bp-desktop) {
+  .Feature--double {
+    @include span(2 of 3 0.05);
+  }
+
+  .Feature--collapsible {
+    @include span(1 of 3 0.05);
+    @include omega;
+  }
+
+  .Feature--collapsible .Grid > .Grid-item {
+    @include grid-with-columns(1);
+  }
+
+  .Feature--collapsible .Grid > .Grid-item:last-child {
+    display: none
+  }
+}
+
+@include till-breakpoint($bp-desktop) {
+  .Feature--quadruple .Grid-item:last-child {
+    display: none;
+  }
+}
+
+@include at-breakpoint($bp-desktop) {
+  .Feature--double {
+    @include span(1 of 2 0.05);
+  }
+
+  .Feature--collapsible {
+    @include span(1 of 2 0.05);
+    @include omega;
+  }
+
+  .Feature--collapsible .Grid > .Grid-item {
+    @include grid-with-columns(2);
+  }
+}
