@@ -33,7 +33,7 @@ class ContentsController < ApplicationController
     set_content
     authorize @content
     if params && params[:layout] == 'false'
-      render layout: false
+      render 'clean_show', layout: false
     else
       respond_with @content
     end

@@ -80,6 +80,8 @@ module Article::ExtendedAttributes
       [self.transport_type1_price, self.transport_type1_number]
     when :type2
       [self.transport_type2_price, self.transport_type2_number]
+    when :bike_courier
+      [self.transport_bike_courier_price, self.transport_bike_courier_number]
     else
       [Money.new(0),0]
     end
@@ -90,7 +92,7 @@ module Article::ExtendedAttributes
     when 'pickup'
       I18n.t('enumerize.business_transaction.selected_transport.pickup')
     when 'bike_courier'
-      I18n.t('enumerize.business_transaction.selected_transport.bike_courier')
+      $courier['name']
     when 'type1'
       self.transport_type1_provider
     when 'type2'

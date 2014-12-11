@@ -20,6 +20,8 @@ class PaymentsController < ApplicationController
     redirect_to PaypalAPI.checkout_url @payment.pay_key
   end
 
+  # receives instant payment notifications from paypal
+  #
   def ipn_notification
     ipn = PaypalAdaptive::IpnNotification.new
     ipn.send_back(request.raw_post)
@@ -29,10 +31,10 @@ class PaymentsController < ApplicationController
 
       if payment
         payment.last_ipn = params.to_json
-        if params[:payment_status] == 'Completed' && params[:receiver_email] == payment.line_item_group_buyer_email
-          payment.success
+        if params && params[:payment_status] == 'Completed' && params[:receiver_email] == payment.line_item_group_seller_email
+          payment.confirm
         else
-          payment.line_item_group.payment_error
+          payment.decline
         end
         payment.save
       end

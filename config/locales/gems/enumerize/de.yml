@@ -167,6 +167,7 @@ de:
         type1: Versand
         type2: Alternativer Versand
         bike_courier: Fahrradkurier
+        bike_courier_full: zzgl. Gebühr für Fahrradkurier, in bar zu zahlen bei Abholung
       selected_payment:
         bank_transfer: Überweisung (Vorkasse)
         cash: Barzahlung bei Abholung
