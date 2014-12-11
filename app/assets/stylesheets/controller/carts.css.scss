@@ -284,10 +284,11 @@ form.change_quantity > .inputs >  ol > li.action {
   }
 }
 
-.JS-courier_step--container {
-  //display: none;
+.courier_step--target {
+  display: none;
   @include whitebox;
   margin-top: 0.5em;
+  margin-bottom: 1em;
 
   .left {
     @include span(1 of 15 0.1);

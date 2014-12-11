@@ -94,7 +94,7 @@ class BusinessTransaction < ActiveRecord::Base
     end
 
     event :ship do
-      transition [:paid, :ready] => :sent
+      transition [:sold, :paid, :ready] => :sent
     end
 
     event :receive do

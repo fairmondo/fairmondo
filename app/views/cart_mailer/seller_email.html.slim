@@ -24,8 +24,7 @@ p
     center
       - if bt.selected_transport == 'bike_courier'
         br
-        = link_to 'Sendung als versandfertig markieren', set_transport_ready_business_transaction_url(bt.id), method: :put, class: 'Button'
-        br
+        = link_to 'Sendung als versandfertig markieren', set_transport_ready_url(bt.id), class: 'Button'
 
   - abacus = Abacus.new(@line_item_group)
   = render 'donations', abacus: abacus, role: 'seller'

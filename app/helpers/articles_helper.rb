@@ -95,7 +95,7 @@ module ArticlesHelper
       end
 
       if type == 'transport' && method == 'bike_courier'
-        html << " bar bei Lieferung"
+        html << " bar bei Lieferung (z.Z. nur im Berliner Innenstadtbereich verfügbar)"
       end
 
       html << '</li>'

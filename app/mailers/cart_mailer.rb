@@ -13,6 +13,11 @@ class CartMailer < ActionMailer::Base
         filename = "#{ lig.seller_nickname }_agb_und_widerrruf.pdf"
         attachments[filename] = TermsAndCancellationPdf.new(lig).render
       end
+
+      unless lig.business_transactions.select{|bt| bt.selected_transport == 'bike_courier'}.empty?
+        filename = $courier['tos']
+        attachments[filename] = File.read(Rails.root.join("app/assets/docs/#{ filename }"))
+      end
     end
 
     @cart = cart
@@ -41,7 +46,7 @@ class CartMailer < ActionMailer::Base
      @subject         = "[Fairmondo] Artikel ausliefern"
      @courier_email   = Rails.env == 'production' ? $courier['email'] : 'test@test.com'
 
-     if business_transaction.sent? && business_transaction.line_item_group.paypal_payment.confirmed?
+     if business_transaction.ready? && business_transaction.line_item_group.paypal_payment.confirmed?
        mail(to: @courier_email, subject: @subject)
      end
   end
