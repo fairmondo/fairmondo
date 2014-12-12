@@ -1,6 +1,6 @@
 class CartMailer < ActionMailer::Base
   include MailerHelper
-  before_filter :inline_logos
+  before_filter :inline_logos, except: :courier_notification
 
   default from: $email_addresses['default']
   layout 'email'

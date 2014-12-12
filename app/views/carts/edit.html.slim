@@ -57,7 +57,7 @@
                         span.unified_transport_impossible
                           = t('cart.texts.unified_transport_impossible')
 
-          - if line_item.article.transport_bike_courier
+          - if line_item.article_transport_bike_courier
             = render 'carts/checkout/courier_step', line_item: line_item, line_item_fields: line_item_fields
 
       .warning

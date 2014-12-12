@@ -47,7 +47,7 @@ class PaymentAbacus
     def add_single_transports_to_payment payment, business_transactions
 
       business_transactions.each do |bt|
-        transport = @transport_abacus.single_transports[bt]
+        transport = @transport_abacus.single_transports[bt] unless bt.selected_transport == 'bike_courier'
         @payments[payment][:transports] << transport if transport
       end
     end

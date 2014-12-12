@@ -242,7 +242,9 @@ class User < ActiveRecord::Base
       if day[0] == day_of_week
         for hour in 8..19 do
           if hour >= Time.now.hour
-            times.push "#{ day[1] } #{ hour + 2 }:00  bis #{ hour + 3 }:00"
+            unless (hour + 3) > 20
+              times.push "#{ day[1] } #{ hour + 2 }:00  bis #{ hour + 3 }:00"
+            end
           end
         end
       elsif day[0] > day_of_week

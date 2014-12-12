@@ -57,7 +57,7 @@ class BusinessTransaction < ActiveRecord::Base
            :vacationing?, :cancellation_form,
            to: :article_seller, prefix: true
   delegate :url, to: :article_seller_cancellation_form, prefix: true
-  delegate :payment_address, :transport_address, to: :line_item_group
+  delegate :payment_address, :transport_address, :purchase_id, to: :line_item_group
   #delegate :buyer, :seller, to: :line_item_group
 
 
@@ -125,24 +125,24 @@ class BusinessTransaction < ActiveRecord::Base
     refunded_fee && refunded_fair
   end
 
-  private
-
-  # Custom conditions for validations
-  #
   def bike_courier_selected?
     self.selected_transport == 'bike_courier'
   end
 
-  def transport_address_in_area?
-    unless $courier['zip'].split(' ').include?(self.transport_address_zip)
-      errors.add(:selected_transport, I18n.t('transaction.errors.transport_address_not_in_area'))
-    end
-  end
+  private
 
-  def right_time_frame_for_bike_courier?
-    unless self.seller.pickup_time.include? self.bike_courier_time
-      errors.add(:bike_courier_time, I18n.t('transaction.errors.wrong_time_frame'))
+    # Custom conditions for validations
+    #
+    def transport_address_in_area?
+      unless $courier['zip'].split(' ').include?(self.transport_address_zip)
+        errors.add(:selected_transport, I18n.t('transaction.errors.transport_address_not_in_area'))
+      end
     end
-  end
+
+    def right_time_frame_for_bike_courier?
+      unless self.seller.pickup_time.include? self.bike_courier_time
+        errors.add(:bike_courier_time, I18n.t('transaction.errors.wrong_time_frame'))
+      end
+    end
 
 end

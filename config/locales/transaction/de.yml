@@ -151,3 +151,5 @@ de:
     notice:
       paypal_success: "Vielen Dank, die Zahlung wurde ausgeführt."
       paypal_cancel: "Die PayPal-Zahlung wurde abgebrochen. Bitte versuche es noch einmal."
+      ready_success: 'Du hast die Auftrag mit der Transaktionsnummer %{ id } als versandfertig markiert.'
+      ready_failure: 'Der Auftrag mit der Transaktionsnummer %{ id } konnte nicht als versandfertig markiert werden. Dies kann u.a. daran liegen, dass der Status schon einmal verändert wurde.'
