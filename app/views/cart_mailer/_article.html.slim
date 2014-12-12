@@ -18,7 +18,7 @@
       h4
         | Gesamtpreis
       = "#{bt.article_price * bt.quantity_bought}€"
-- if bt.bike_courier_selected? == 'bike_courier' && role == 'buyer'
+- if bt.bike_courier_selected? && role == 'buyer'
   .message
     center
       | "Dieser Artikel wird per Fahrradkurier geliefert. Bitte halte zum Lieferzeitpunkt die Lieferkosten von #{ humanized_money_with_symbol Money.new($courier['price']) } in bar bereit."
