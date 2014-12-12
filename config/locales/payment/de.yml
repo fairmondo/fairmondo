@@ -1,0 +1,13 @@
+de:
+  payment:
+    show:
+      voucher_covers: "Vielen Dank! Der benutzte Gutschein (<i>%{code}</i>) deckt Deine Bestellung ab und es werden <b>%{donated}</b> gespendet."
+      voucher_doesnt_cover: "Der benutzte Gutschein (<i>%{code}</i>) deckt nur %{covers} ab.<br>Bitte überweise den Restbetrag von <b>%{left}</b>."
+    seller:
+      no_voucher: "Es wurde noch kein Gutschein eingelöst."
+      pay_key_display: "Bezahlt mit Gutscheincode <b>%{pay_key}</b>."
+  PaypalPayment:
+    controller_error: "Es gab einen Fehler mit der Verbindung zu PayPal. Bitte versuche es später erneut. Falls dieser Fehler vermehrt auftreten sollte, logge Dich bitte unter <a href='http://www.paypal.de' target='_blank'>PayPal.de</a> ein und sende den Betrag manuell an %{email}."
+  VoucherPayment:
+    controller_error: "Dieser Gutscheincode wurde bereits benutzt."
+    warning: "Achtung, wenn der Gutschein den Betrag überschreitet, wird der Restbetrag gespendet."

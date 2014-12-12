@@ -14,8 +14,7 @@ class ArticleSearchForm
   attribute :category_id, type: Integer
   attribute :zip, type: String
   attribute :order_by, type: String,
-                       default_blank: true,
-                       default: ->(record) { record.search_by_term? ? :relevance : :newest }
+                       default_blank: true
   attribute :search_in_content, type: Boolean
   attribute :price_from, type: String
   attribute :price_to, type: String
@@ -37,7 +36,7 @@ class ArticleSearchForm
     ArticlePolicy::Scope.new(nil, Article).resolve.page(page)
   end
 
-  # for the category tree to display wich categories have which counts
+  # For the category tree to display wich categories have which counts
   def category_article_count category_id
     @search.category_facets[category_id.to_s] || 0
   end
@@ -46,11 +45,22 @@ class ArticleSearchForm
     self.q.present?
   end
 
-  # Did this form get request parameters or is this an empty search where someone just wants to look around?
-  # (category doesn't count)
+  # Did this form get request parameters or is this an empty search where
+  # someone just wants to look around? (category doesn't count)
   def search_request?
-    filter_attributes.reject{ |k,v| k==:category_id }.empty?
+    !filter_attributes.reject{ |k,v| k == :category_id }.empty?
   end
+
+
+  # Check if an attribute has a specific value and if it is set exclusively,
+  #
+  #   exclusive_value?(:fair, true)
+  #   # true, if the fair filter and no other attributes are set
+  def exclusive_value?(key, value)
+    attrs = filter_attributes
+    attrs.length == 1 && attrs[key] == value
+  end
+
 
   def fresh?
     filter_attributes.empty?

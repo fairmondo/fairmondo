@@ -23,7 +23,7 @@ require 'ffaker'
 
 FactoryGirl.define do
   factory :business_transaction do
-    ignore do
+    transient do
       seller { FactoryGirl.create(:seller, :paypal_data) }
       buyer { FactoryGirl.create :user }
       article_attributes { Hash.new }
@@ -119,6 +119,10 @@ FactoryGirl.define do
 
     trait :bank_transfer do
       selected_payment 'bank_transfer'
+    end
+
+    trait :voucher do
+      selected_payment 'voucher'
     end
 
 #    trait :mangopay do

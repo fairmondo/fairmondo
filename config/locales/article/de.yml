@@ -35,6 +35,31 @@ de:
       small_and_precious: "klein&edel"
       swappable: "tauschen"
       borrowable: "leihen"
+      tooltips:
+        fair: |
+          Artikel mit dem FAIR-Icon wurden auf faire Weise produziert und/oder gehandelt. Darunter fallen:
+          <ul>
+          <li>Artikel mit einem anerkannten Siegel des fairen Handels bzw. Handelspartner der Weltläden</li>
+          <li>Artikel, die den Kriterien des fairen Handels entsprechen, mit detaillierten Angaben zu Herstellungsprozessen und Handelskette</li>
+          <li>Artikel die von Sozialunternehmen wie z.B. Werkstätten von Menschen mit Behinderung hergestellt wurden</li>
+          </ul>
+          Über die Filter kannst Du Deine Suchergebnisse einfach nach diesen Artikeln filtern.
+        ecologic: |
+          Artikel mit dem ÖKO-Icon wurden nachhaltig produziert. Darunter fallen Artikel, die ein entsprechendes anerkanntes Siegel vorweisen.
+          <br><br>
+          Über die Filter kannst Du Deine Suchergebnisse einfach nach diesen Artikeln filtern.
+        small_and_precious: |
+          Artikel mit dem KLEIN&EDEL-Icon stammen von kleinen und mittelständischen Produzenten, die Wert auf besonders gute Qualität legen.
+          <br><br>
+          Über die Filter kannst Du Deine Suchergebnisse einfach nach diesen Artikeln filtern.
+        swappable: |
+          Artikel mit dem TAUSCHEN-Icon kannst Du gegen andere Artikel tauschen. Schaue Dir dafür die Artikelbeschreibung an und nimm bei Interesse Kontakt auf über "Email an den*die Anbieter*in".
+          <br><br>
+          Über die Filter kannst Du Deine Suchergebnisse einfach nach tauschbaren Artikeln filtern.
+        borrowable: |
+          Artikel mit dem LEIHEN-Icon kannst Du ausleihen. Schaue Dir dafür die Artikelbeschreibung an und nimm bei Interesse Kontakt auf über "Email an den*die Anbieter*in".
+          <br><br>
+          Über die Filter kannst Du Deine Suchergebnisse einfach nach ausleihbaren Artikeln filtern.
     activate_to_buy: "Ich will alle meine Artikel zum Verkauf freischalten"
     not_activate_to_buy: "Ich will meine Artikel nicht freischalten"
     delete_confirm: "Soll der Artikel '%{name}' wirklich gelöscht werden?"

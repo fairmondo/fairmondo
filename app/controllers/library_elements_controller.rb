@@ -28,7 +28,8 @@ class LibraryElementsController < ApplicationController
     if @library_element.save
       flash[:notice] = I18n.t('library_element.notice.success', name: @library_element.library_name)
     end
-    redirect_to article_path(@library_element.article)
+
+    redirect_to :back
   end
 
   def destroy

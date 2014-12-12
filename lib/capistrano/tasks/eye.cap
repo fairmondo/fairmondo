@@ -1,0 +1,99 @@
+namespace :eye do
+  SSHKit.config.command_map[:eye] = "~/.rbenv/bin/rbenv exec bundle exec eye" #dynamic rbenv path doesnt work
+
+  desc "Stop processes that eye is monitoring and quit eye"
+  task :quit do
+    on roles(:sidekiq) do
+      within release_path do
+
+        puts "Shutting down eye."
+        begin
+          execute :eye, :stop, :all
+        rescue SSHKit::Command::Failed
+          puts "eye was unable to finish all processes gracefully"
+        end
+
+        begin
+          execute :eye, :quit
+        rescue SSHKit::Command::Failed
+          puts "Couldn't quit eye."
+        end
+      end
+
+    end
+  end
+
+  desc "Load the config from config/(ENV).eye"
+  task :init do
+    on roles(:sidekiq) do
+      within release_path do
+
+	    execute :eye, :load, "#{current_path}/config/#{fetch(:stage)}.eye"
+	    puts "Initialized eye."
+
+      end
+    end
+  end
+
+  desc "Starts the previously stopped eye"
+  task :start do
+    on roles(:sidekiq) do
+      within release_path do
+
+        execute :eye, :start, :all
+        puts "Started eye."
+
+      end
+    end
+  end
+
+  desc "Stops one or more eye monitored processes"
+  task :stop do
+    on roles(:sidekiq) do
+      within release_path do
+
+        execute :eye, :stop, :all
+        puts "Stopped eye."
+
+      end
+    end
+  end
+
+  desc "Restarts the current eye"
+  task :restart do
+    on roles(:sidekiq) do
+      within release_path do
+
+        execute :eye, :restart, :all
+        puts "Restarted eye."
+
+      end
+    end
+  end
+
+  desc "Prints eye's process stati"
+  task :info do
+    on roles(:sidekiq) do
+      within release_path do
+        puts capture :eye, :info
+      end
+    end
+  end
+
+  desc "Quiet the sidekiq instances (circumvents eye cli)"
+  task :quiet do
+    on roles(:sidekiq) do
+      within release_path do
+        begin
+          2.times do |i|
+            pid_file = "#{release_path}/tmp/pids/sidekiq#{i}.pid"
+            execute :bundle, :exec, :sidekiqctl, 'quiet', pid_file
+          end
+        rescue SSHKit::Command::Failed
+          # If gems are not installed eq(first deploy) and sidekiq_default_hooks as active
+          warn 'sidekiqctl not found (ignore if this is the first deploy)'
+        end
+      end
+    end
+  end
+end

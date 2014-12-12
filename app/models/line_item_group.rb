@@ -9,6 +9,7 @@ class LineItemGroup < ActiveRecord::Base
   has_many :business_transactions, inverse_of: :line_item_group
   has_many :payments, inverse_of: :line_item_group
   has_one :paypal_payment, -> { where type: 'PaypalPayment' }, class_name: 'Payment'
+  has_one :voucher_payment, -> { where type: 'VoucherPayment' }, class_name: 'Payment'
   belongs_to :transport_address, class_name: 'Address', foreign_key: 'transport_address_id'
   belongs_to :payment_address, class_name: 'Address', foreign_key: 'payment_address_id'
   has_one :rating
@@ -20,6 +21,7 @@ class LineItemGroup < ActiveRecord::Base
   delegate :email, :nickname,
            to: :buyer, prefix: true
   delegate :value, to: :rating, prefix: true
+  delegate :pay_key, to: :voucher_payment, prefix: true
 
   monetize :unified_transport_price_cents, :allow_nil => true
   monetize :free_transport_at_price_cents, :allow_nil => true

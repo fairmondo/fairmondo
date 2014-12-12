@@ -67,6 +67,7 @@ class ArticleSearch
       index.query(simple_query_string: {
         query: @query.q,
         fields: query_fields,
+        analyzer: "german_analyzer",
         default_operator: "and",
         lenient: true
       })
@@ -93,7 +94,7 @@ class ArticleSearch
     end
 
     def zip_filter
-      index.filter(prefix: {zip: zip }) if @query.zip.present?
+      index.filter(prefix: { zip: @query.zip }) if @query.zip.present?
     end
 
 
@@ -116,9 +117,10 @@ class ArticleSearch
     end
 
     # sorting
-
     def sorting
-      index.order(SORT[@query.order_by])
+      order = @query.order_by
+      order = @query.search_by_term? ? :relevance : :newest unless order
+      index.order(SORT[order])
     end
 
 

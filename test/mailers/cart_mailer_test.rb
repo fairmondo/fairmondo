@@ -7,7 +7,7 @@ describe CartMailer do
   include EmailSpec::Matchers
 
   it 'sends email to seller' do
-    seller_line_item_group =  FactoryGirl.create(:line_item_group, :with_business_transactions, :sold)
+    seller_line_item_group = FactoryGirl.create(:line_item_group, :with_business_transactions, :sold)
     user = seller_line_item_group.seller
     mail = CartMailer.seller_email(seller_line_item_group)
     mail.must deliver_to(user.email)
@@ -64,5 +64,23 @@ describe CartMailer do
     # Info about Transaction
     mail.must have_body_text(business_transaction.bike_courier_time)
     mail.must have_body_text(business_transaction.bike_courier_message)
+  end
+
+  describe "sending email on voucher payment" do |variable|
+    it 'displays donated money' do
+      payment = FactoryGirl.create :voucher_payment, pay_key: '999999999a'
+      seller = payment.line_item_group.seller
+      mail = CartMailer.voucher_paid_email(payment.id)
+      mail.must deliver_to(seller.email)
+      mail.must have_body_text 'Dadurch ist ein Spendenbetrag von'
+    end
+
+    it 'displays missing money' do
+      payment = FactoryGirl.create :voucher_payment, pay_key: '1a'
+      seller = payment.line_item_group.seller
+      mail = CartMailer.voucher_paid_email(payment.id)
+      mail.must deliver_to(seller.email)
+      mail.must have_body_text 'werden von dem/der Käufer*in überwiesen'
+    end
   end
 end

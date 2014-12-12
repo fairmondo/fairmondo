@@ -81,10 +81,11 @@ gem 'premailer-rails' # creates emails with inline css from html files with exte
 
 # ---------- Background Processing ----------
 
-gem 'sidekiq'
+gem 'sidekiq', '>= 3.2.5'
 gem 'sinatra', '>= 1.3.0', :require => nil
 gem 'delayed_paperclip' # handle image processing with sidekiq
-gem 'bluepill' # sidekiq process monitoring
+gem 'bluepill' #legacy, remove when eye stable
+gem 'eye' # sidekiq process monitoring
 gem 'sidetiq' # process scheduling
 
 # ---------- Tools ----------

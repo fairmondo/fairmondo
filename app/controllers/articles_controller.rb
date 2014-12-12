@@ -39,8 +39,9 @@ class ArticlesController < ApplicationController
   # Calculate value of active goods
   before_filter :check_value_of_goods, only: [:update], if: :activate_params_present?
 
-  before_filter :set_article, only: [:edit, :update, :show, :destroy]
+  before_filter :set_article, only: [:edit, :update, :destroy, :show]
 
+  rescue_from ActiveRecord::RecordNotFound, with: :similar_articles, only: :show
 
   #Autocomplete
   def autocomplete
@@ -64,8 +65,7 @@ class ArticlesController < ApplicationController
     end
 
   rescue Pundit::NotAuthorizedError
-    @similar_articles = ArticleSearchForm.new(q: @article.title).search(1)
-    render "article_closed"
+    similar_articles @article.title
   end
 
   def index
@@ -126,6 +126,15 @@ class ArticlesController < ApplicationController
 
     def set_article
       @article = Article.find(params[:id])
+    end
+
+    def similar_articles query
+      query ||= params[:id].gsub(/\-/," ")
+      @similar_articles = ArticleSearchForm.new(q: query ).search(1)
+      respond_with @similar_articles do |format|
+        format.html { render "article_closed" }
+        format.json { render "article_closed" }
+      end
     end
 
     def change_state!

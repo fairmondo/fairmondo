@@ -64,6 +64,11 @@ class Article < ActiveRecord::Base
     new_article
   end
 
+  # Elastic
+  def delete_from_index?
+    !active?
+  end
+
   amoeba do
     enable
     include_field :fair_trust_questionnaire

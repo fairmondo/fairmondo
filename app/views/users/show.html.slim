@@ -21,9 +21,6 @@
 /
 = render 'header'
 - if resource.is? current_user
-  = content_for :view_specific_scrolling do
-    / empty scrolling because the accordion handles this. But we need the script tags or the layout scoll will be active
-    javascript:
   .Accordion.Accordion--activated.Accordion--scrollToActive
     = render '/users/show/article_accordion', item_name: 'active', item_link: new_article_path, articles: active_articles
     = render '/users/show/article_accordion', item_name: 'inactive', articles: inactive_articles
@@ -43,5 +40,5 @@
 
 - else
   .articles
-    = render '/articles/shared/articles_grid', articles: ActiveUserArticles.new(resource).paginate(params[:active_articles_page])
-  = paginate active_articles, param_name: 'active_articles_page'
+    = render '/articles/shared/articles_grid', articles: @articles
+  = paginate @articles, param_name: 'active_articles_page'

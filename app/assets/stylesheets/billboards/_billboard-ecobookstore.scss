@@ -4,32 +4,37 @@
 
 
 // General stuff
-#billboard-ecobookstore > article h2 {
-  font-weight: 600;
-  color: #2b4b5e;
-  text-transform: none;
-  text-align: left;
-}
-
 #billboard-ecobookstore > article h3 {
-  text-indent: -1000em;
+  font-weight    : 600;
+  text-transform : none;
+  color          : #2b4b5e;
+  text-align     : left;
 }
 
-#billboard-ecobookstore > article > a > p {
-  position: absolute;
-  font-weight: 600;
-  color: $white;
+#billboard-ecobookstore > article h3 span {
+  display  : block;
+  position : absolute;
+}
+
+#billboard-ecobookstore > article h2,
+#billboard-ecobookstore > article h3 span,
+#billboard-ecobookstore-link2 {
+  text-indent : -1000em;
 }
 
 #billboard-ecobookstore > article > p {
-  position: absolute;
-  font-weight: 600;
-  line-height: 1.2em;
-  color: $white;
+  font-weight : 600;
+  line-height : 1.2em;
+  color       : $white;
 }
 
 #billboard-ecobookstore > article > p > span {
-  color: #e57a61;
+  color : #e57a61;
+}
+
+#billboard-ecobookstore-link1 {
+  font-weight : 600;
+  color       : $white;
 }
 
 
@@ -40,43 +45,32 @@
   }
 
   #billboard-ecobookstore > article h2 {
-    display: none;
+    @include static-position($top: 0, $left: 54px, $height: 191px,
+      $width: 94px);
   }
 
-  #billboard-ecobookstore > article h3 {
-    @include static-position($top: 335px, $left: 25px, $height: 60px, $width: 175px);
-  }
-
-  #billboard-ecobookstore > article > a > p {
-    @include static-position($top: 260px, $left: 40px, $height: 25px, $width: 129px);
-    font-size: 16px;
-    padding: 4px 0 0 15px;
-  }
-
-  #billboard-ecobookstore > article > p:nth-of-type(1) {
-    display: none;
-  }
-
+  #billboard-ecobookstore > article h3,
+  #billboard-ecobookstore > article > p:nth-of-type(1),
   #billboard-ecobookstore > article > p:nth-of-type(2) {
     display: none;
   }
 
   #billboard-ecobookstore > article > p.alternative-text {
-    @include static-position($top: 185px, $left: 5px, $width: 200px);
+    @include static-position($top: 202px, $left: 5px, $width: 200px);
     font-size: 17px;
     text-align: center;
   }
 
-  #billboard-ecobookstore > article > ul > li#billboard-ecobookstore-link1 div:nth-of-type(1) {
-    @include static-position($top: 0, $left: 55px, $height: 190px, $width: 94px);
+  #billboard-ecobookstore-link1 {
+    @include static-position($top: 276px, $left: 40px, $height: 27px,
+      $width: 131px);
+    font-size: 16px;
+    padding: 4px 0 0 13px;
   }
 
-  #billboard-ecobookstore > article > ul > li#billboard-ecobookstore-link1 div:nth-of-type(2) {
-    display: none;
-  }
-
-  #billboard-ecobookstore > article > ul > li#billboard-ecobookstore-link1 div:nth-of-type(3) {
-    display: none;
+  #billboard-ecobookstore-link2 {
+    @include static-position($top: 334px, $left: 12px, $height: 66px,
+      $width: 195px);
   }
 }
 
@@ -88,43 +82,40 @@
   }
 
   #billboard-ecobookstore > article h2 {
-    @include static-position($top: 340px, $left: 12px, $width: 130px);
-    font-size: 16px;
+    @include static-position($top: 0, $left: 11px, $height: 258px,
+      $width: 121px);
   }
 
   #billboard-ecobookstore > article h3 {
-    @include static-position($top: 340px, $left: 95px, $height: 60px, $width: 170px);
+    text-indent: -1000em;
   }
 
-  #billboard-ecobookstore > article > a > p {
-    @include static-position($top: 337px, $left: 298px, $height: 27px, $width: 127px);
-    font-size: 16px;
-    padding: 4px 0 0 15px;
+  #billboard-ecobookstore > article h3 span {
+    @include static-position($top: 326px, $left: 31px, $height: 65px,
+      $width: 172px);
   }
+
 
   #billboard-ecobookstore > article > p:nth-of-type(1) {
-    @include static-position($top: 115px, $left: 155px, $width: 300px);
+    @include static-position($top: 132px, $left: 155px, $width: 300px);
     font-size: 17px;
   }
 
-  #billboard-ecobookstore > article > p:nth-of-type(2) {
-    display: none;
-  }
-
+  #billboard-ecobookstore > article > p:nth-of-type(2),
   #billboard-ecobookstore > article > p.alternative-text {
     display: none;
   }
 
-  #billboard-ecobookstore > article > ul > li#billboard-ecobookstore-link1 div:nth-of-type(1) {
-    @include static-position($top: 0, $left: 11px, $height: 258px, $width: 120px);
+  #billboard-ecobookstore-link1 {
+    @include static-position($top: 258px, $left: 116px, $height: 27px,
+      $width: 131px);
+    font-size: 16px;
+    padding: 4px 0 0 13px;
   }
 
-  #billboard-ecobookstore > article > ul > li#billboard-ecobookstore-link1 div:nth-of-type(2) {
-    @include static-position($top: 241px, $left: 275px, $height: 81px, $width: 160px);
-  }
-
-  #billboard-ecobookstore > article > ul > li#billboard-ecobookstore-link1 div:nth-of-type(3) {
-    @include static-position($top: 0px, $left: 155px, $height: 105px, $width: 280px);
+  #billboard-ecobookstore-link2 {
+    @include static-position($top: 323px, $left: 221px, $height: 71px,
+      $width: 214px);
   }
 }
 
@@ -136,27 +127,26 @@
   }
 
   #billboard-ecobookstore > article h2 {
-    @include static-position($top: 345px, $left: 29px, $width: 200px);
-    font-size: 20px;
+    @include static-position($top: 0, $left: 28px, $width: 153px,
+      $height: 291px);
   }
 
   #billboard-ecobookstore > article h3 {
-    @include static-position($top: 322px, $left: 225px, $height: 85px, $width: 235px);
+    @include static-position($top: 341px, $left: 29px, $width: 175px);
   }
 
-  #billboard-ecobookstore > article > a > p {
-    @include static-position($top: 333px, $left: 528px, $height: 30px, $width: 146px);
-    font-size: 18px;
-    padding: 4px 0 0 17px;
+  #billboard-ecobookstore > article h3 span {
+    @include static-position($top: -11px, $left: 220px, $height: 50px,
+      $width: 154px);
   }
 
   #billboard-ecobookstore > article > p:nth-of-type(1) {
-    @include static-position($top: 105px, $left: 215px, $width: 470px);
+    @include static-position($top: 125px, $left: 215px, $width: 470px);
     font-size: 18px;
   }
 
   #billboard-ecobookstore > article > p:nth-of-type(2) {
-    @include static-position($top: 170px, $left: 215px, $width: 470px);
+    @include static-position($top: 190px, $left: 215px, $width: 470px);
     font-size: 18px;
   }
 
@@ -164,15 +154,15 @@
     display: none;
   }
 
-  #billboard-ecobookstore > article > ul > li#billboard-ecobookstore-link1 div:nth-of-type(1) {
-    @include static-position($top: 0, $left: 29px, $height: 295px, $width: 150px);
+  #billboard-ecobookstore-link1 {
+    @include static-position($top: 256px, $left: 212px, $height: 31px,
+      $width: 149px);
+    font-size: 18px;
+    padding: 4px 0 0 17px;
   }
 
-  #billboard-ecobookstore > article > ul > li#billboard-ecobookstore-link1 div:nth-of-type(2) {
-    @include static-position($top: 241px, $left: 495px, $height: 75px, $width: 200px);
-  }
-
-  #billboard-ecobookstore > article > ul > li#billboard-ecobookstore-link1 div:nth-of-type(3) {
-    @include static-position($top: 0px, $left: 235px, $height: 105px, $width: 445px);
+  #billboard-ecobookstore-link2 {
+    @include static-position($top: 321px, $left: 458px, $height: 77px,
+      $width: 227px);
   }
 }

@@ -1,0 +1,11 @@
+- seller = line_item_group.seller
+.bank_account_table
+  = bank_account_line(seller, :bank_account_owner)
+  = bank_account_line(seller, :iban)
+  = bank_account_line(seller, :bic)
+  = bank_account_line(seller, :bank_name)
+  .line
+    .heading
+      = "#{I18n.t("line_item_group.texts.bank_transfer_purpose")}:"
+    .value
+      = "#{I18n.t("line_item_group.texts.purchase_id")} #{line_item_group.purchase_id}"

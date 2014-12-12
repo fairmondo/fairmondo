@@ -28,7 +28,7 @@ FactoryGirl.define do
     user
 
     factory :library_with_elements do
-      ignore do
+      transient do
         element_count 5
       end
 

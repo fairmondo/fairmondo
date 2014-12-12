@@ -54,30 +54,33 @@
 @import "layout/main";
 @import "layout/footer";
 @import "layout/ajax";
-@import "layout/feedback"; // feedback sidelabels
-@import "layout/news_header"; // header for news
+@import "layout/feedback";          // feedback sidelabels
+@import "layout/news_header";       // header for news
 
 // Modules
-@import "modules/notice"; // Notice boxes
-@import "modules/button"; // Buttons
-@import "modules/tag"; // small eco/fair/s&p tags
-@import "modules/tabs"; // tab navigation
-@import "modules/article"; // an article tile
-@import "modules/address"; // an address tile
-@import "modules/accordion"; // accordions
-@import "modules/search"; // search result, filters, categories
-@import "modules/grid"; // anonymos grid
-@import "modules/articlelistview"; // listview articles
-@import "modules/user"; // user profile tile
-@import "modules/content"; // helper for cms
-@import "modules/js"; // javascript controlling classes with attached styles
-@import "modules/hearts"; // heart button css
-@import "modules/comments"; // comments css
-@import "modules/gray_box"; // comments css
-@import "modules/library"; // Library containers
-@import "modules/payment"; // payment box
-@import "modules/rating"; // rating box
-@import "modules/line_item_group"; // line_item_group box
+@import "modules/address";          // an address tile
+@import "modules/accordion";        // accordions
+@import "modules/article";          // an article tile
+@import "modules/articlelistview";  // listview articles
+@import "modules/button";           // Buttons
+@import "modules/collect_button";   // collect button
+@import "modules/comments";         // comments css
+@import "modules/content";          // helper for cms
+@import "modules/feature";          // featured library for landing page
+@import "modules/gray_box";
+@import "modules/grid";             // anonymous grid
+@import "modules/hearts";           // heart button css
+@import "modules/js";               // JavaScript controlling classes with
+                                    // attached styles
+@import "modules/library";          // Library containers
+@import "modules/line_item_group";  // line_item_group box
+@import "modules/notice";           // Notice boxes
+@import "modules/payment";          // payment box
+@import "modules/rating";           // rating box
+@import "modules/search";           // search result, filters, categories
+@import "modules/tabs";             // tab navigation
+@import "modules/tag";              // small eco/fair/s&p tags
+@import "modules/user";             // user profile tile
 
 
 // vendor changes

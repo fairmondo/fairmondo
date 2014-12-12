@@ -22,6 +22,10 @@
 class PaypalPayment < Payment
   extend STI
 
+  def after_create_path
+    PaypalAPI.checkout_url pay_key
+  end
+
   private
     # send paypal request on init
     def initialize_payment

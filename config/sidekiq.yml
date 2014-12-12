@@ -3,12 +3,14 @@
 staging:
   :concurrency: 10
 production:
-  :concurrency: 15
+  :concurrency: 10
   :timeout: 550
 :queues:
+  - [sidekiq_pro, 1]
   - [default, 5]
   - [mass_upload, 3]
   - [mass_upload_rows, 3]
+  - [mass_uploads_finish, 1]
   - [paperclip_background, 1]
   - [paperclip_foreground, 4]
   - [fastbill, 5]
@@ -16,7 +18,9 @@ production:
   - [statistics, 2]
   - [after_buy, 5]
   - [cart_mails, 5]
+  - [cleanup, 2]
   - [file_normalizer, 2]
   - [heavy_mass_upload, 3]
   - [heavy_mass_upload_rows, 3]
   - [cancellation_normalizer, 3]
+  - [broken_file_finder,2]
