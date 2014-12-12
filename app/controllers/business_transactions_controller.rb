@@ -12,9 +12,9 @@ class BusinessTransactionsController < ApplicationController
 
     if @business_transaction.prepare
       CartMailer.delay.courier_notification(@business_transaction.line_item_group)
-      notice = I18n.t('transaction.notice.ready_success', id: @business_transaction.line_item_group_purchase_id)
+      notice = I18n.t('transaction.notice.ready_success', id: @business_transaction.id)
     else
-      notice = I18n.t('transaction.notice.ready_failure', id: @business_transaction.line_item_group_purchase_id)
+      notice = I18n.t('transaction.notice.ready_failure', id: @business_transaction.id)
     end
 
     redirect_to line_item_group_path(@business_transaction.line_item_group), notice: notice

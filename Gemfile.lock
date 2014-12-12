@@ -113,8 +113,7 @@ GEM
     callsite (0.0.11)
     canonical-rails (0.0.7)
       rails (>= 3.1, < 5.0)
-    capistrano (3.3.3)
-      capistrano-stats (~> 1.0.3)
+    capistrano (3.2.1)
       i18n
       rake (>= 10.0.0)
       sshkit (~> 1.3)
@@ -127,7 +126,6 @@ GEM
     capistrano-rbenv (2.0.2)
       capistrano (~> 3.1)
       sshkit (~> 1.3)
-    capistrano-stats (1.0.3)
     capybara (2.4.4)
       mime-types (>= 1.16)
       nokogiri (>= 1.3.3)
@@ -146,7 +144,7 @@ GEM
     chunky_png (1.3.3)
     climate_control (0.0.3)
       activesupport (>= 3.0)
-    cocaine (0.5.4)
+    cocaine (0.5.5)
       climate_control (>= 0.0.3, < 1.0)
     code_analyzer (0.4.5)
       sexp_processor
@@ -159,7 +157,7 @@ GEM
       execjs
     coffee-script-source (1.8.0)
     colored (1.2)
-    colorize (0.7.3)
+    colorize (0.7.4)
     columnize (0.9.0)
     connection_pool (2.1.0)
     coveralls (0.7.1)
@@ -197,7 +195,7 @@ GEM
     email_spec (1.6.0)
       launchy (~> 2.1)
       mail (~> 2.2)
-    enumerize (0.8.0)
+    enumerize (0.9.0)
       activesupport (>= 3.2)
     erubis (2.7.0)
     eventmachine (1.0.3)
@@ -327,7 +325,7 @@ GEM
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (2.9.1)
-    netrc (0.9.0)
+    netrc (0.10.0)
     newrelic_rpm (3.9.8.273)
     nio4r (1.0.1)
     nokogiri (1.6.5)
@@ -336,7 +334,7 @@ GEM
       nokogiri
     nori (2.4.0)
     orm_adapter (0.5.0)
-    paperclip (4.2.0)
+    paperclip (4.2.1)
       activemodel (>= 3.0.0)
       activesupport (>= 3.0.0)
       cocaine (~> 0.5.3)
@@ -446,7 +444,7 @@ GEM
       thor (>= 0.18.1, < 2.0)
     rake (10.4.2)
     recaptcha (0.3.6)
-    redis (3.1.0)
+    redis (3.2.0)
     redis-namespace (1.5.1)
       redis (~> 3.0, >= 3.0.4)
     ref (1.0.5)
@@ -603,7 +601,7 @@ DEPENDENCIES
   brakeman
   bullet
   canonical-rails
-  capistrano (~> 3.1)
+  capistrano (= 3.2.1)
   capistrano-bundler (~> 1.1.2)
   capistrano-rails (~> 1.1)
   capistrano-rbenv
