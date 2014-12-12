@@ -1,8 +1,8 @@
 class PaymentObserver < ActiveRecord::Observer
 
-  # sends email to courier service when line_item_group is payed and ready for transport
-  def after_confirm(payment)
-    CartMailer.delay.courier_notification(line_item_group)
+  def after_create(payment)
+    if payment.type == 'VoucherPayment'
+      CartMailer.delay.voucher_paid_email(payment.id)
+    end
   end
-
 end

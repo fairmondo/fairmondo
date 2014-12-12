@@ -25,5 +25,9 @@ FactoryGirl.define do
   factory :mass_upload do
     file { fixture_file_upload('test/fixtures/mass_upload_correct.csv', 'text/csv') }
     user { FactoryGirl.create :legal_entity }
+    factory :mass_upload_to_finish do
+      state :processing
+      row_count 0
+    end
   end
 end

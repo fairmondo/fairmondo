@@ -1,10 +1,6 @@
 javascript:
   $('#controller_css').replaceWith("#{j stylesheet_link_tag asset_path(controller_specific_css_path), id: 'controller_css' }");
+  $('#l-footer-nav-left .socialshareprivacy').remove() // only needed on welcome page which doesnt have data-push links to it
 = content_for :view_specific_scripts
 - wiselinks_title ( @page_title || t('common.fairmondo') )
 = yield
-- if content_for? :view_specific_scrolling
-  = yield :view_specific_scrolling
-- else
-  javascript:
-    $("html, body").animate({ scrollTop: 0 }, "fast");

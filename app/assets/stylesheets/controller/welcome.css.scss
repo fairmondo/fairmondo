@@ -1,8 +1,9 @@
 @import "mixins/all";
 @import "billboards/billboard-ecobookstore";
-@import "billboards/billboard-books";
+@import "billboards/billboard-toys";
+@import "billboards/billboard-gifts";
 @import "billboards/billboard-gourmet";
-@import "billboards/billboard-vintage";
+@import "billboards/billboard-books";
 
 
 /*
@@ -81,7 +82,7 @@
 .slides-arrow i {
   font-size: 2.5em;
   color: $white;
-  text-shadow: 0 0 2px $black;
+  text-shadow: 0 0 1px $black;
 }
 
 .slides-arrow--left { left:1em; }
@@ -115,7 +116,6 @@
 .billboard {
   background-repeat: no-repeat;
   background-position: center top;
-  position: relative;
   border-radius: 0.5em;  // Circumvent bug in Webkit browsers that would hide the rounded border from #billboard-inner
   height: 410px;
 }
@@ -123,42 +123,31 @@
 .billboard > article {
   position: relative;
   margin: 0 auto;
+  height: 410px;
 }
 
-.billboard > article h2, .billboard > article > ul,.billboard > article li div, .billboard > article li p, .billboard > article h3 {
+// Set position to absolute for elements that are used in billboards
+.billboard > article h2,     .billboard > article h3,
+.billboard > article div,    .billboard > article p,
+.billboard > article > a {
   position: absolute;
-  margin: 0;
 }
 
-.billboard > article h2 {
+// Clear margins
+.billboard > article h2,  .billboard > article h3,
+.billboard > article div, .billboard > article p,
+.billboard > article ul,  .billboard > article li {
   margin: 0;
-  z-index: 10;
-  text-align: center;
-  font-size: 30px;
-  font-weight: 400;
-  text-transform: uppercase;
-}
-
-.billboard > article h3 {
-  margin: 0;
-  font-weight: 400;
-  font-size: 1.2em;
-  text-align: center;
-  color: $white;
 }
 
 .billboard > article > ul {
   list-style-type: none;
 }
 
-.billboard > article > section > a.billboard-textlink {
-  text-decoration: underline;
-  font-size: 0.9em;
-}
-
 #js-billboardslides { display: none; }
 
-#billboard .slidejs-container, #billboard .slidejs-control, #billboard .slidejs-slide {
+#billboard .slidejs-container, #billboard .slidejs-control,
+#billboard .slidejs-slide {
   min-height: 410px;
 }
 
@@ -247,6 +236,89 @@
     color: lighten($blue, 10%) !important;
   }
 }
+
+
+// Filters teaser
+#filters section {
+  margin-bottom: 1em;
+}
+
+#filters section > .filter-wrapper {
+  @include whitebox;
+  overflow: hidden;
+  padding: 0;
+}
+
+#filters section .filter-image {
+  position: relative;
+  background-color: $white;
+}
+
+#filters section .filter-image p {
+  position: absolute;
+  margin: 0;
+  padding: 0.2em 1em;
+  border-radius: 0.5em;
+}
+
+#filters section .filter-image .filter-show {
+  bottom: 5%;
+  right: 5%;
+  padding-bottom: 0.3em;
+}
+
+#filters section .filter-image .filter-label {
+  right: 5%;
+  top: 5%;
+  min-width: 3em;
+  font-size: 1.1em;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+#filters section img {
+  width: 100%;
+}
+
+#filters .filter-text {
+  padding: 1.2em 0 1.2em;
+}
+
+#filters .filter-text h3 {
+  margin: 0 7.5% 0.5em;
+  font-size: 1.5em;
+  font-weight: 600;
+  color: $white;
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+#filters .filter-text p {
+  margin: 0 7.5%;
+  text-decoration: underline;
+}
+
+#filters section a {
+  color: $white;
+}
+
+#filter-fair .filter-image p, #filter-fair .filter-text {
+  background-color: #457193;
+}
+
+#filter-eco .filter-image p, #filter-eco .filter-text {
+  background-color: #768749;
+}
+
+#filter-small .filter-image p, #filter-small .filter-text {
+  background-color: #e47240;
+}
+
+#filter-used .filter-image p, #filter-used .filter-text {
+  background-color: #574c44;
+}
+
 
 
 // User quotes slides
@@ -364,17 +436,17 @@
     @include span(2 of 4);
     @include omega;
   }
-}
 
-
-@include between-breakpoints($bp-mobile-horizontal, $bp-tablet-horizontal) {
-  #filters .teaser-queue {
+  // Filters teaser
+  #filters section {
     @include span(2 of 4);
-    &:last-of-type {
-      display: none;
-    }
-    &.teaser-queue-before-hidden {
+
+    &#filter-eco, &#filter-used {
       @include omega;
+    }
+
+    &#filter-small {
+      clear: right;
     }
   }
 }
@@ -442,6 +514,20 @@
     @include omega;
   }
 
+  // Filters teaser
+  #filters section {
+    @include span(2 of 6);
+
+    &#filter-small {
+      @include omega;
+    }
+
+    &:last-of-type {
+      display: none;
+    }
+  }
+
+
 
   // Used teaser
   #used {
@@ -506,12 +592,9 @@
   }
 
   // Filters teaser
-  #filters {
-    @include span(6 of 8);
-  }
+  #filters section {
+    @include span(2 of 8);
 
-  #filters .teaser-queue {
-    @include span(2 of 6);
     &:last-of-type {
       @include omega;
     }

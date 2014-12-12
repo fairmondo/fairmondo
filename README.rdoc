@@ -1,6 +1,7 @@
 = Welcome to the Fairmondo repository
 
 {<img alt='Stories in Ready' src='https://badge.waffle.io/fairmondo/fairmondo.png?label=ready&title=Ready' />}[https://waffle.io/fairmondo/fairmondo]{<img src="https://travis-ci.org/fairmondo/fairmondo.svg?branch=develop" alt="Build Status" />}[https://travis-ci.org/fairmondo/fairmondo] {<img src="https://coveralls.io/repos/fairmondo/fairmondo/badge.png" alt="Coverage Status" />}[https://coveralls.io/r/fairmondo/fairmondo] {<img src="https://codeclimate.com/github/fairmondo/fairmondo.png" />}[https://codeclimate.com/github/fairmondo/fairmondo] {<img src="https://gemnasium.com/fairmondo/fairmondo.svg" alt="Dependency Status" />}[https://gemnasium.com/fairmondo/fairmondo] {<img src="http://inch-ci.org/github/fairmondo/fairmondo.png" alt="Inline docs" />}[http://inch-ci.org/github/fairmondo/fairmondo]
+http://info.fairmondo.de/wp-content/uploads/2013/03/Fairmondo_Logo_web-rgb.png
 
 Fairmondo is a free market place in the hand of the users.
 

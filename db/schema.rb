@@ -94,15 +94,12 @@ ActiveRecord::Schema.define(version: 20141201133648) do
     t.integer  "original_id",                            limit: 8
     t.boolean  "transport_bike_courier",                           default: false
     t.integer  "transport_bike_courier_number",                    default: 1
+    t.boolean  "payment_voucher",                                  default: false
   end
 
   add_index "articles", ["created_at"], name: "index_articles_on_created_at", using: :btree
   add_index "articles", ["custom_seller_identifier", "user_id"], name: "index_articles_on_custom_seller_identifier_and_user_id", using: :btree
-  add_index "articles", ["discount_id"], name: "index_articles_on_discount_id", using: :btree
-  add_index "articles", ["friendly_percent_organisation_id"], name: "index_articles_on_friendly_percent_organisation_id", using: :btree
-  add_index "articles", ["original_id"], name: "index_articles_on_original_id", using: :btree
   add_index "articles", ["slug"], name: "index_articles_on_slug", unique: true, using: :btree
-  add_index "articles", ["slug"], name: "text_pattern_index_on_slug", using: :btree
   add_index "articles", ["state"], name: "index_articles_on_state", using: :btree
   add_index "articles", ["user_id"], name: "index_articles_on_user_id", using: :btree
 
@@ -429,6 +426,19 @@ ActiveRecord::Schema.define(version: 20141201133648) do
 
   add_index "notices", ["user_id"], name: "index_notices_on_user_id", using: :btree
 
+  create_table "opening_times", force: true do |t|
+    t.integer  "user_id",    limit: 8
+    t.string   "monday"
+    t.string   "tuesday"
+    t.string   "wednesday"
+    t.string   "thursday"
+    t.string   "friday"
+    t.string   "saturday"
+    t.string   "sunday"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "payments", force: true do |t|
     t.string   "pay_key"
     t.string   "state"
@@ -575,6 +585,7 @@ ActiveRecord::Schema.define(version: 20141201133648) do
     t.integer  "free_transport_at_price_cents",      limit: 8, default: 0
     t.boolean  "receive_comments_notification",                default: true
     t.boolean  "heavy_uploader",                               default: false
+    t.boolean  "uses_vouchers",                                default: false
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree

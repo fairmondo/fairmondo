@@ -3,7 +3,7 @@ class CartMailer < ActionMailer::Base
   before_filter :inline_logos, except: :courier_notification
 
   default from: $email_addresses['default']
-  layout 'email'
+  layout 'email', except: :courier_notification
 
   def buyer_email(cart)
     cart.line_item_groups.each do |lig|
@@ -49,6 +49,17 @@ class CartMailer < ActionMailer::Base
      if business_transaction.ready? && business_transaction.line_item_group.paypal_payment.confirmed?
        mail(to: @courier_email, subject: @subject)
      end
+  end
+
+  def voucher_paid_email payment_id
+    @payment = Payment.find(payment_id)
+    @abacus = Abacus.new(@payment.line_item_group)
+
+    @buyer = @payment.line_item_group_buyer
+    @seller = @payment.line_item_group_seller
+    @subject = "[Fairmondo] #{ t('transaction.notifications.seller.seller_voucher_subject') }"
+
+    mail(to: @seller.email, subject: @subject)
   end
 
   private

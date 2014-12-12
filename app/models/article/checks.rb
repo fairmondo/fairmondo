@@ -55,11 +55,6 @@ module Article::Checks
     seller.is_a?(LegalEntity)
   end
 
-  # Elastic
-  def delete_from_index?
-    !active?
-  end
-
   # should the fair alternative be shown for the seller
   def show_fair_alternative_for_seller?
     if $exceptions_on_fairmondo['no_fair_alternative'] && $exceptions_on_fairmondo['no_fair_alternative']['user_ids']

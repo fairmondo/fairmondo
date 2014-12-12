@@ -46,6 +46,7 @@
 #= require lazy/wiselinks
 
 #= require customize/wiselinks_ready
+#= require customize/wiselinks_scroll
 
 #= require vendor/jquery.slides.min.js
 #= require vendor/jquery.ba-dotimeout.min.js

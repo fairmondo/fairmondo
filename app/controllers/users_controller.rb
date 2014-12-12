@@ -40,6 +40,7 @@ class UsersController < ApplicationController
 
   def show
     authorize @user
+    @articles = ActiveUserArticles.new(@user).paginate(params[:active_articles_page])
   end
 
   private
@@ -61,7 +62,7 @@ class UsersController < ApplicationController
 
     def check_for_complete_mass_uploads
       if user_signed_in?
-        current_user.mass_uploads.where(:state => :processing).each do |mu|
+        current_user.mass_uploads.processing.each do |mu|
           mu.finish
         end
       end

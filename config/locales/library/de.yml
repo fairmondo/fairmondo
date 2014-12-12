@@ -6,6 +6,8 @@ de:
     to_show_favorites: "um Deine Sammlungs-Favoriten zu sehen. Wenn Du noch keinen Account hast, musst Du Dich vorher"
     sign_up: "registrieren"
     create_new: "Neue Sammlung anlegen"
+    title: "Sammlungen"
+    tooltip: "In den Sammlungen zeigen andere Nutzer*innen, welche Artikel sie spannend und empfehlenswert finden. In Deinem Profil kannst Du eigene Sammlungen anlegen."
     tabs:
       trending: 'Trends'
       updated: 'Neu'

@@ -5,12 +5,14 @@ class PaymentsController < ApplicationController
 
   # create happens on buy. this is to initialize the payment with paypal
   def create
-    @payment = Payment.new line_item_group_id: params[:line_item_group_id], type: Payment.parse_type(params[:type])
+    params[:payment].merge!(line_item_group_id: params[:line_item_group_id])
+    payment_attrs = params.for(Payment).refine
+    @payment = Payment.new payment_attrs
     authorize @payment
     if @payment.execute
-      redirect_to PaypalAPI.checkout_url @payment.pay_key
+      redirect_to @payment.after_create_path
     else
-      redirect_to :back, flash: { error: I18n.t('paypal_api.controller_error', email: @payment.line_item_group_seller_paypal_account).html_safe }
+      redirect_to :back, flash: { error: I18n.t("#{@payment.type}.controller_error", email: @payment.line_item_group_seller_paypal_account).html_safe }
     end
   end
 
@@ -33,6 +35,13 @@ class PaymentsController < ApplicationController
         payment.last_ipn = params.to_json
         if params && params[:payment_status] == 'Completed' && params[:receiver_email] == payment.line_item_group_seller_email
           payment.confirm
+
+          bts = payment.line_item_group.business_transactions.select{ |bt| bt.bike_courier_selected? }
+          if bts.any?
+            bts.each do |bt|
+              CartMailer.delay.courier_notification(bt)
+            end
+          end
         else
           payment.decline
         end

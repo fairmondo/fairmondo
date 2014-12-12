@@ -31,12 +31,15 @@ class Category < ActiveRecord::Base
 
   delegate :name, to: :parent, prefix: true
 
+  CATEGORY_NAV_THRESHOLD = 38
+
   scope :sorted, -> { order(:name) }
   scope :roots, -> { where(parent_id: nil) }
   scope :all_by_id, -> { order("id ASC") }
   scope :other_category_last, -> { order("CASE WHEN name = 'Weitere' THEN 1 ELSE 0 END") }#internationalize!
-  scope :weighted, -> { order("weight IS NULL, weight desc") }
+  scope :weighted, -> { where('weight >= ?', CATEGORY_NAV_THRESHOLD).order("weight IS NULL, weight desc") }
   scope :other_category, -> { where(parent_id: nil, name: 'Weitere') } #internationalize!
+  scope :other_categories, -> { where('parent_id IS NULL AND weight < ? OR weight IS NULL', CATEGORY_NAV_THRESHOLD) }
 
   acts_as_nested_set
 

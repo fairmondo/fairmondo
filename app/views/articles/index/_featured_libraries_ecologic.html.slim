@@ -1,0 +1,42 @@
+/
+/
+/ == License:
+/ Fairmondo - Fairmondo is an open-source online marketplace.
+/ Copyright (C) 2013 Fairmondo eG
+/
+/ This file is part of Fairmondo.
+/
+/ Fairmondo is free software: you can redistribute it and/or modify
+/ it under the terms of the GNU Affero General Public License as
+/ published by the Free Software Foundation, either version 3 of the
+/ License, or (at your option) any later version.
+/
+/ Fairmondo is distributed in the hope that it will be useful,
+/ but WITHOUT ANY WARRANTY; without even the implied warranty of
+/ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+/ GNU Affero General Public License for more details.
+/
+/ You should have received a copy of the GNU Affero General Public License
+/ along with Fairmondo.  If not, see <http://www.gnu.org/licenses/>.
+/
+
+/ display ecologic landing page
+- content_for :search_specific_content
+  - content_for :is_exclusive, true
+  .features
+    = render 'articles/shared/featured_library', library: :eco1,
+        mode: :full_page
+    = render 'articles/shared/featured_library', library: :eco2,
+        mode: :full_page
+    = render 'articles/shared/featured_library', library: :eco3,
+        mode: :half_page
+    = render 'articles/shared/featured_library', library: :eco4,
+        mode: :half_page_last
+    = render 'articles/shared/featured_library', library: :eco5,
+        mode: :half_page
+    = render 'articles/shared/featured_library', library: :eco6,
+        mode: :half_page_last
+    = render 'articles/shared/featured_library', library: :eco7,
+        mode: :half_page
+    = render 'articles/shared/featured_library', library: :eco8,
+        mode: :half_page_last

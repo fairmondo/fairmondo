@@ -6,4 +6,6 @@
 /    per_page:      number of items to fetch per page
 /    remote:        data-remote
 li.last*{:class => "#{'active' if current_page.last?}"}
-  = link_to_unless current_page.last?, total_pages.to_s, url, data: (remote ? { remote: true} : { push: true } )
+  - link_attributes ||= {}
+  - link_attributes.deep_merge!(data: (remote ? { remote: true} : { push: true } ))
+  = link_to_unless current_page.last?, total_pages.to_s, url, link_attributes

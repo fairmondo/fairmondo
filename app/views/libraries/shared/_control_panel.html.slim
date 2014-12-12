@@ -1,6 +1,11 @@
 .collect.JS-active-toggle--container
-  .Button.Button--gray.JS-active-toggle--trigger data={ clickable: true }
-    = t('common.actions.collect')
+  - if button
+    .Button.Button--gray.JS-active-toggle--trigger data={ clickable: true }
+      = t('common.actions.collect')
+  - else
+    .JS-active-toggle--trigger data={ clickable: true }
+      #collect_link
+        = t('common.actions.collect')
   .libraries.JS-active-toggle--target#libraries_popup
     = t('library.control.add')
     span.sprite_helper*{ title: t('library.control.main_tooltip') }
