@@ -13,11 +13,24 @@ describe CartMailer do
     mail.must deliver_to(user.email)
   end
 
-  it 'sends email to buyer' do
-    cart = FactoryGirl.create(:cart, :with_line_item_groups_from_legal_entity, user: FactoryGirl.create(:user), sold: true)
-    user = cart.user
-    mail = CartMailer.buyer_email(cart)
-    mail.must deliver_to(user.email)
+  describe 'CartMailer#buyer_email' do
+    let(:cart) { FactoryGirl.create(:cart, :with_line_item_groups_from_legal_entity, user: FactoryGirl.create(:user), sold: true) }
+
+    it 'sends email to buyer' do
+      user = cart.user
+      mail = CartMailer.buyer_email(cart)
+      mail.must deliver_to(user.email)
+    end
+
+    it 'must contain courier terms when at least one transaction has selected_transport bike_courier' do
+      bt = FactoryGirl.create :business_transaction, line_item_group_id: cart.line_item_groups.first.id
+      BusinessTransaction.any_instance.stubs(:selected_transport).returns('bike_courier')
+      mail = CartMailer.buyer_email(cart)
+
+      # Attachment
+      attachment = mail.attachments['fahrwerk_kurierkollektiv_agb.pdf']
+      attachment.filename.must_equal 'fahrwerk_kurierkollektiv_agb.pdf'
+    end
   end
 
   it 'sends email to courier service' do
@@ -51,6 +64,5 @@ describe CartMailer do
     # Info about Transaction
     mail.must have_body_text(business_transaction.bike_courier_time)
     mail.must have_body_text(business_transaction.bike_courier_message)
-
   end
 end

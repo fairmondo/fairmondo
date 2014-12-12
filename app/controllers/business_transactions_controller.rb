@@ -12,9 +12,9 @@ class BusinessTransactionsController < ApplicationController
 
     if @business_transaction.prepare
       CartMailer.delay.courier_notification(@business_transaction.line_item_group)
-      notice = 'Du hast erfolgreich den Versandstatus geändert.'
+      notice = I18n.t('transaction.notice.ready_success', id: @business_transaction.line_item_group_purchase_id)
     else
-      notice = 'Bei Ändern des Versandstatuses ist ein Fehler aufgetreten. Entweder hast Du ihn schon bestätigt...'
+      notice = I18n.t('transaction.notice.ready_failure', id: @business_transaction.line_item_group_purchase_id)
     end
 
     redirect_to line_item_group_path(@business_transaction.line_item_group), notice: notice
