@@ -99,7 +99,7 @@ Fairmondo::Application.configure do
   Rails.application.routes.default_url_options[:host] = 'https://www.fairmondo.de'
 
   #Memcached
-  #config.cache_store = :dalli_store, '10.0.2.180', { :namespace => "fairmondo", :expires_in => 1.day, :compress => true }
+  config.cache_store = :dalli_store, '10.0.2.180', { :namespace => "fairmondo", :expires_in => 1.day, :compress => true }
 
   # Rack-Rewrite paths
   require "#{config.root}/config/rewrites.rb"
