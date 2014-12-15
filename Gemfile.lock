@@ -288,7 +288,7 @@ GEM
     method_source (0.8.2)
     mime-types (1.25.1)
     mini_portile (0.6.1)
-    minitest (5.4.3)
+    minitest (5.5.0)
     minitest-capybara (0.7.1)
       capybara (~> 2.2)
       minitest (~> 5.0)
@@ -334,7 +334,7 @@ GEM
       nokogiri
     nori (2.4.0)
     orm_adapter (0.5.0)
-    paperclip (4.2.1)
+    paperclip (4.2.0)
       activemodel (>= 3.0.0)
       activesupport (>= 3.0.0)
       cocaine (~> 0.5.3)
@@ -652,7 +652,7 @@ DEPENDENCIES
   newrelic_rpm
   nkss-rails!
   nokogiri
-  paperclip (>= 3.0)
+  paperclip (= 4.2.0)
   parallel_tests
   paypal_adaptive
   pg
