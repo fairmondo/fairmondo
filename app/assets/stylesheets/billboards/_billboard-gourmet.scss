@@ -4,23 +4,25 @@
 
 
 // General stuff
-//#billboard-gourmet > article > ul a p {
-//  text-align: left;
-//  font-size: 14px;
-//}
+
+#billboard-gourmet > article h2 {
+  font-weight    : 400;
+  text-transform : uppercase;
+  text-align     : center;
+  color          : $white;
+}
 
 #billboard-gourmet > article > ul > li p {
-  text-align: left;
-  font-weight: 600;
-  font-size: 18px;
-  color: #428fbd;
+  font-weight : 600;
+  font-size   : 18px;
+  text-align  : left;
+  color       : #428fbd;
 }
 
 #billboard-gourmet > article > a {
-  position: absolute;
-  font-size: 18px;
-  font-weight: 600;
-  color: $white;
+  font-weight : 600;
+  font-size   : 18px;
+  color       : $white;
 }
 
 
@@ -129,6 +131,7 @@
 
   #billboard-gourmet > article > h2 {
     @include static-position($top: 127px, $left: 7px);
+    font-size: 30px;
   }
 
   #billboard-gourmet > article > a {

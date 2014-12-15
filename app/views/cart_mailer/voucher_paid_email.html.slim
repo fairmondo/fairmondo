@@ -1,0 +1,38 @@
+h3
+  = t('email.voucher.heading')
+= t('email.greeting', name: @seller.first_name)
+p
+  - buyer_link = link_to @buyer.nickname, profile_user_url(@buyer)
+  == t('email.voucher.text', code: @payment.pay_key, buyer: buyer_link)
+ul
+  - total = @abacus.payment_listing.payments[:voucher][:total]
+  - @abacus.payment_listing.payments[:voucher][:business_transactions].each do |bt|
+    - listing = @abacus.business_transaction_listing.prices[bt]
+    li
+      = "#{listing[:quantity]}x \""
+      = bt.article_title + '" ('
+      = humanized_money_with_symbol(listing[:retail_price]) + ')'
+p
+  b = t('email.voucher.total', total: humanized_money_with_symbol(total))
+
+p
+  - if @payment.covers total
+    == t('email.voucher.money_left_over', amount: humanized_money_with_symbol(@payment.donated_amount_from(total)))
+  - else
+    == t('email.voucher.money_missing', amount: humanized_money_with_symbol(@payment.missing_amount_from(total)))
+
+p
+  = t('email.close')
+
+- content_for 'sidebar' do
+  .Address
+    h3 = t('email.voucher.side_heading')
+    p
+      u= t('email.voucher.code')
+      br
+      = @payment.pay_key
+    p
+      u= t('email.voucher.purchase_id')
+      br
+      = @payment.line_item_group_purchase_id
+  = render 'shared/email/social_buttons'

@@ -1,0 +1,7 @@
+p = t('VoucherPayment.warning')
+= semantic_form_for Payment.new, url: line_item_group_payments_path(line_item_group_id: line_item_group.id), method: :post do |f|
+  = f.inputs do
+    = f.input :type, value: 'VoucherPayment', as: :hidden
+    = f.input :pay_key
+  = f.actions do
+    = f.submit value: t("line_item_group.payment_button.#{payment}"), class: 'Button'

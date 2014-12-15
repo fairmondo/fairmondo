@@ -93,7 +93,7 @@ class MassUploadArticle < ActiveRecord::Base
   def prepare_categories
     @article_attributes["category_ids"] = @article_attributes.delete("categories").split(",") if @article_attributes['categories']
   end
-  
+
   def prepare_questionaires
     MassUpload::Questionnaire.include_fair_questionnaires(@article_attributes)
     MassUpload::Questionnaire.add_commendation(@article_attributes)

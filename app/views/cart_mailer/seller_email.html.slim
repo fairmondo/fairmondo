@@ -3,8 +3,8 @@ h3
 = t('email.greeting', name: @line_item_group.seller.first_name)
 p
   = t('email.line_item_group.seller.text')
-  p
-    = t('email.close')
+p
+  = t('email.close')
 .line-item-group
   h3
     = link_to @line_item_group.buyer_nickname, profile_user_url(@line_item_group.buyer.id)

@@ -12,7 +12,7 @@ class SearchIndexWorker
       ArticlesIndex::Article
     end
     Chewy.atomic do
-      type.import ids
+      type.import! ids
     end
   end
 end

@@ -143,6 +143,7 @@ de:
         payment_cash_on_delivery: Nachnahme
         payment_cash_on_delivery_price: Nachnahmezuschlag pro Sendung (€)
         payment_invoice: Rechnung
+        payment_voucher: Gutschein
 
         payment_methods: Bezahloptionen
 
@@ -159,6 +160,7 @@ de:
         friendly_percent_calculated: "Das entspricht:"
         save_as_template: "Eingaben als Vorlage speichern"
         article_template_name: Vorlage
+
       fair_trust_questionnaire:
         support: >
           1. Werden vom Weltmarkt marginalisierte Produzent*innen/Arbeiter*innen unterstützt und gefördert?
@@ -175,22 +177,28 @@ de:
         environment_protection_explanation: 'Erläuterungen:'
         controlling_explanation: 'Erläuterungen:'
         awareness_raising_explanation: 'Erläuterungen:'
+
       social_producer_questionnaire:
         nonprofit_association: "1. Ist die*der Produzent*in des Artikels laut Satzung oder Gesellschaftsvertrag gemeinnützig?"
         social_businesses_muhammad_yunus: "2. Ist der*die Anbieter*in ein Social Business nach dem Konzept von Muhammad Yunus?"
         social_entrepreneur: "3. Besteht das Unternehmensziel darin, ein gesellschaftliches Problem zu lösen?"
         social_entrepreneur_explanation: "Bitte beschreibe Dein Unternehmen und seine Ziele in einigen Sätzen genauer:"
+
       template:
         article_id: Vorlage
+
       article_image:
         image: Bild
         _destroy: Löschen
         is_title: Titelbild
+
       user_image:
         image: Bild
+
       library:
         name: Name
         public: Öffentlich
+
       business_transaction: &business_transaction
         tos_accepted: Ich akzeptiere die AGB und die Widerrufserklärung
         quantity_bought: "Artikelanzahl:"
@@ -202,9 +210,14 @@ de:
         <<: *business_transaction
       partial_fixed_price_transaction:
         <<: *business_transaction
+
       refund:
         reason: 'Bitte wähle einen Grund für Deinen Rückerstattungsantrag aus:'
         description: 'Bitte beschreibe welche Schritte Du unternommen hast, um den Vorfall zu klären:'
+
+      payment:
+        pay_key: "Gutschein-Code:"
+
       article_search_form:
         search_in_content: "suche in Artikelbeschreibung"
         zip: "PLZ"

@@ -47,8 +47,8 @@ namespace :deploy do
   after :publishing, :restart
 
 
-  #before :updated, 'eye:quiet'
-  #after :published, 'eye:quit'
+  before :updated, 'eye:quiet'
+  after :published, 'eye:quit'
   after :published, 'eye:init'
   after :published, 'eye:start'
 

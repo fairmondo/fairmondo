@@ -14,7 +14,7 @@ namespace :eye do
         end
 
         begin
-          execute :eye, :quit, :all
+          execute :eye, :quit
         rescue SSHKit::Command::Failed
           puts "Couldn't quit eye."
         end
@@ -86,9 +86,7 @@ namespace :eye do
       within release_path do
         begin
           2.times do |i|
-            rails_root  = ENV['RAILS_ROOT'] || File.expand_path(".")
-            puts rails_root
-            pid_file = "#{rails_root}/tmp/pids/sidekiq#{i}.pid"
+            pid_file = "#{release_path}/tmp/pids/sidekiq#{i}.pid"
             execute :bundle, :exec, :sidekiqctl, 'quiet', pid_file
           end
         rescue SSHKit::Command::Failed
