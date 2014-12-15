@@ -14,7 +14,7 @@ de:
         legal_entity: Rechtlicher Status
         company_name: Unternehmensname (MeinFirmenname GmbH...)
         nickname: Nutzername
-        type: Ein Konto als Unternehmer*in eröffnen
+        type: Ein gewerbliches Nutzerkonto anlegen
         email: E-Mail-Adresse
         image: Profilbild
         password: "Passwort"
@@ -269,7 +269,7 @@ de:
     tooltips:
       user: &tooltips_user
         new: &new_user
-          type: 'Wenn Du nicht sicher bist, ob Du ein Konto als Unternehmer*in benötigst, frage am Besten bei Deinem Finanzamt nach. Du kannst Dein Konto aber auch später umwandeln lassen. Mehr dazu in unserer <a href="https://www.fairmondo.de/faq#b9" target= "_blank">FAQ</a>.'
+          type: 'Wenn Du nicht sicher bist, ob Du ein gewerbliches Nutzerkonto benötigst, frage am Besten bei Deinem Finanzamt nach. Du kannst Dein Konto aber auch später umwandeln lassen. Mehr dazu in unserer <a href="https://www.fairmondo.de/faq#b9" target= "_blank">FAQ</a>.'
           email:  "An diese Adresse verschicken wir die Anmeldebestätigung."
           nickname: "Diesen Namen sehen auch andere Nutzer*innen."
           password: "Dein Passwort muss mindestens 6 Zeichen haben. Dein Account wird sicherer, wenn Du auch Zahlen und Großbuchstaben fürs Passwort verwendest."
