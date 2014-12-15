@@ -27,6 +27,9 @@ de:
         description: "Gebrauchtes auf einen Blick"
         link:        "Hier stöbern"
         label:       "gebraucht"
+    more:
+      libraries: "Mehr Geschenk-Empfehlungen"
+      donation_articles: "Mehr Artikel mit Spendenanteil"
 # Common Texts
   common:
     brand: "www.fairmondo.de"

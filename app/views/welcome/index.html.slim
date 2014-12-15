@@ -214,7 +214,7 @@
       = render partial: "libraries/library", collection: @trending_libraries, locals: { header_comments: false }
 
       p.more
-        = link_to("Mehr Geschenk-Empfehlungen", libraries_path)
+        = link_to( t('welcome.more.libraries'), libraries_path )
 
 
 / USPs
@@ -235,10 +235,15 @@
 .teaser.teaser--double.teaser--collapsible.teaser--reducible
   .teaser-inner
     h2
-      = link_to('Mit Spendenanteil', featured_library_path(@donation_articles[:library]))
+      = link_to('Mit Spendenanteil',
+        featured_library_path(@donation_articles[:library]))
     - @donation_articles[:exhibits].each do |article|
       .teaser-queue
         = render 'articles/shared/show_article', article: article
+
+    p.more
+      = link_to( t('welcome.more.donation_articles'),
+        featured_library_path(@donation_articles[:library]))
 
 
 / User comment slides
