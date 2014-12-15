@@ -44,18 +44,28 @@
           article
             = link_to '/categories/bucher' do
               hgroup
-                h2 Ab sofort bei unserem Händler:
-                h3 ecobookstore.de
-              p Jetzt stöbern
-            p Alle Bücher, Filme, Audio-CDs und Spiele aus dem Ecobookstore <span>versandkostenfrei</span> liefern lassen.
-            p Mit Deinem Einkauf beim Ecobookstore unterstützt Du seine Bemühungen für den Regenwaldschutz.
-            p.alternative-text Alle Bücher, Filme, Audio-CDs und Spiele aus dem Ecobookstore.
-            ul
-              li#billboard-ecobookstore-link1
-                = link_to '/categories/bucher' do
-                  div
-                  div
-                  div
+                h2 2 Mio. Artikel versandkostenfrei
+                h3 Ab sofort bei unserem Händler:<span> ecobookstore.de</span>
+              p#billboard-ecobookstore-link1 Jetzt stöbern
+            p
+              | Alle Bücher, Filme, Audio-CDs und Spiele aus dem Ecobookstore
+                 <span>versandkostenfrei</span> liefern lassen.
+            p
+              | Mit Deinem Einkauf beim Ecobookstore unterstützt Du seine
+                 Bemühungen für den Regenwaldschutz.
+            p.alternative-text
+              | Alle Bücher, Filme, Audio-CDs und Spiele aus dem
+                 Ecobookstore.
+            = link_to 'Zu Weihnachten Gutscheine verschenken',
+                      '/libraries/8216', id: 'billboard-ecobookstore-link2'
+
+        / Kinderspielzeug
+        .billboard#billboard-toys
+          article
+            h2 Geschenke für<br>Kinder
+            = link_to '/libraries/7688', id: 'billboard-toys-link1' do
+              div
+              p Alle ansehen
 
         / Geschenke unter 15 EUR
         .billboard#billboard-gifts
