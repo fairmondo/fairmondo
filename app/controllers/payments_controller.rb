@@ -36,6 +36,7 @@ class PaymentsController < ApplicationController
         if params && params[:payment_status] == 'Completed' && params[:receiver_email] == payment.line_item_group_seller_email
           payment.confirm
 
+          # Only send email to courier service if bike_courier is the selected transport
           bts = payment.line_item_group.business_transactions.select{ |bt| bt.bike_courier_selected? }
           if bts.any?
             bts.each do |bt|
