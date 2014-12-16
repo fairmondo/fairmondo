@@ -3,7 +3,18 @@ de:
     greetings: "Willkommen bei Fairmondo"
     search_fair: "Artikel suchen"
     # trending_libraries: "Trend-Sammlungen" Nach Weihnachten zurückstellen
-    trending_libraries: Geschenk-Empfehlungen von Nutzer*innen
+    trending_libraries:
+      heading: "Geschenk-Empfehlungen von Nutzer*innen"
+      more: "Mehr Geschenk-Empfehlungen"
+    donation_articles:
+      heading: "Mit Spendenanteil"
+      more: "Mehr Artikel mit Spendenanteil"
+    fairmondo-shirts:
+      heading: "Fairmondo-Shirts und mehr"
+      more: "Mehr"
+    vouchers:
+      heading: "Gutscheine, die Gutes tun"
+      more: "Mehr"
     boxes:
       active_old: "Bisher eingestellte Artikel"
     filter_boxes:
@@ -27,9 +38,6 @@ de:
         description: "Gebrauchtes auf einen Blick"
         link:        "Hier stöbern"
         label:       "gebraucht"
-    more:
-      libraries: "Mehr Geschenk-Empfehlungen"
-      donation_articles: "Mehr Artikel mit Spendenanteil"
 # Common Texts
   common:
     brand: "www.fairmondo.de"
