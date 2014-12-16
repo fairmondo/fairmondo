@@ -5,6 +5,6 @@ class PaymentRefinery < ApplicationRefinery
   end
 
   def ipn_notification
-    [:txn_id, :payment_status, :receiver_email]
+    [:pay_key, :status, :sender_email]
   end
 end
