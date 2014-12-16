@@ -29,11 +29,11 @@ class PaymentsController < ApplicationController
     ipn.send_back(request.raw_post)
 
     if ipn.verified?
-      payment = Payment.find_by(pay_key: params['txn_id'])
+      payment = Payment.find_by(pay_key: params['pay_key'])
 
       if payment
         payment.last_ipn = params.to_json
-        if params && params[:payment_status] == 'Completed' && params[:receiver_email] == payment.line_item_group_seller_email
+        if params && params[:status] == 'COMPLETED'# && params[:sender_email] == payment.line_item_group_buyer_email
           payment.confirm
 
           # Only send email to courier service if bike_courier is the selected transport
@@ -46,8 +46,11 @@ class PaymentsController < ApplicationController
         else
           payment.decline
         end
-        payment.save
+      else
+        raise ActiveRecord::RecordNotFound
       end
+    else
+      raise "ipn could not be verified\n"
     end
 
     render nothing: true
