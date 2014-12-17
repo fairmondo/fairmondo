@@ -84,19 +84,19 @@ describe PaymentsController do
     end
 
     it 'should confirm payment when request contains "complete"' do
-      post :ipn_notification, txn_id: '1234', payment_status: 'Completed', receiver_email: payment.line_item_group.seller_email
+      payment
+      post :ipn_notification, pay_key: '1234', status: 'COMPLETED'
       payment.reload.state.must_equal 'confirmed'
     end
 
     it 'should throw an error, when payment_status is "Invalid"' do
-      post :ipn_notification, txn_id: '1234', payment_status: 'Invalid', receiver_email: payment.line_item_group.seller_email
+      payment
+      post :ipn_notification, pay_key: '1234', status: 'Invalid'
       payment.reload.state.must_equal 'errored'
     end
 
-    it 'should throw an error, when receiver_email differs from seller_email' do
-      payment
-      post :ipn_notification, txn_id: '1234', payment_status: 'Completed', receiver_email: 'jean-luc-picard@starfleet.com'
-      payment.reload.state.must_equal 'errored'
+    it 'should throw ActiveRecord::RecordNotFound if no payment is found' do
+      assert_raises(ActiveRecord::RecordNotFound) { post :ipn_notification, pay_key: 'ashfakjsdf', payment_status: 'Invalid' }
     end
   end
 end

@@ -11,7 +11,7 @@ class BusinessTransactionsController < ApplicationController
     notice = ''
 
     if @business_transaction.prepare
-      CartMailer.delay.courier_notification(@business_transaction)
+      CartMailer.courier_notification(@business_transaction).deliver
       notice = I18n.t('transaction.notice.ready_success', id: @business_transaction.id)
     else
       notice = I18n.t('transaction.notice.ready_failure', id: @business_transaction.id)

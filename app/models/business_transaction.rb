@@ -58,7 +58,7 @@ class BusinessTransaction < ActiveRecord::Base
            :vacationing?, :cancellation_form,
            to: :article_seller, prefix: true
   delegate :url, to: :article_seller_cancellation_form, prefix: true
-  delegate :payment_address, :transport_address, :purchase_id, to: :line_item_group
+  delegate :payment_address, :transport_address, :purchase_id, :cart_id, to: :line_item_group
   #delegate :buyer, :seller, to: :line_item_group
 
 
