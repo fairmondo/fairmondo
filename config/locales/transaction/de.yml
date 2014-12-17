@@ -71,7 +71,11 @@ de:
       payment_not_supported: "Die angegebene Zahlungsmethode ist nicht verfügbar. Bitte wähle eine andere."
       no_pickup_cash_combination: 'Achtung: Wir empfehlen für Selbstabholung die Bezahlmethode "Barzahlung bei Abholung".'
       combination_invalid: 'Die Bezahloption "%{selected_payment}" kann mit der ausgewählte Versandoption nicht kombiniert werden. Wähle bitte eine anderen Versand- oder Bezahloption.'
-      cash_on_delivery_with_unified_transport: 'Du kannst keine Artikel mit anderen Artikel in einem Paket zusammenfassen die du mit Nachnahme bezahlst.'
+      cash_on_delivery_with_unified_transport: 'Du kannst keine Artikel mit anderen Artikeln in einem Paket zusammenfassen, das Du mit Nachnahme bezahlst.'
+      bike_courier_with_unified_transport: 'Du kannst keine Artikel mit anderen Artikeln in einem Paket, das Du per Fahrradkurier liefern lässt, zusammenfassen.'
+      bike_courier_requires_paypal: "Die Versandoption 'Fahrradkurier' kann nur mit Bezahlung per PayPal kombiniert werden."
+      transport_address_not_in_area: 'Die Lieferadresse kann von unserem Kurierdienstleister leider nicht beliefert werden. Bitte Wähle eine andere Versandmethode aus.'
+      wrong_time_frame: 'Die gewählte Lieferzeit ist nicht möglich.'
     actions:
       purchase: "Zahlungspflichtig Bestellen"
       paypal_process: "PayPal-Bezahlung abwickeln"
@@ -148,3 +152,5 @@ de:
     notice:
       paypal_success: "Vielen Dank, die Zahlung wurde ausgeführt."
       paypal_cancel: "Die PayPal-Zahlung wurde abgebrochen. Bitte versuche es noch einmal."
+      ready_success: 'Du hast die Auftrag mit der Transaktionsnummer %{ id } als versandfertig markiert.'
+      ready_failure: 'Der Auftrag mit der Transaktionsnummer %{ id } konnte nicht als versandfertig markiert werden. Dies kann u.a. daran liegen, dass der Status schon einmal verändert wurde.'

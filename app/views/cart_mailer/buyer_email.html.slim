@@ -23,7 +23,7 @@ p
         = lig.message
 
     - lig.business_transactions.find_each do |bt|
-      = render 'article', bt: bt
+      = render 'article', bt: bt, role: 'buyer'
     - abacus = Abacus.new(lig)
     = render 'donations', abacus: abacus, role: 'buyer'
     = render 'total_price', abacus: abacus

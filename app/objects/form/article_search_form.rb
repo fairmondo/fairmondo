@@ -18,6 +18,7 @@ class ArticleSearchForm
   attribute :search_in_content, type: Boolean
   attribute :price_from, type: String
   attribute :price_to, type: String
+  attribute :transport_bike_courier, type: Boolean
 
   enumerize :condition, in: [:new, :old]
   enumerize :order_by, in: [:newest,:cheapest,:most_expensive,:old,:new,:fair,:ecologic,:small_and_precious,:most_donated]

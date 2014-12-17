@@ -28,3 +28,4 @@
 = render('articles/show/commendation_label', label: :small_and_precious, size: :small, link: link) if article.small_and_precious
 = render('articles/show/commendation_label', label: :swappable, size: :small, link: link) if article.swappable
 = render('articles/show/commendation_label', label: :borrowable, size: :small, link: link) if article.borrowable
+= render('articles/show/commendation_label', label: :bike_courier, size: :small, link: content_path('courier', layout: false), new_window: false) if article.transport_bike_courier

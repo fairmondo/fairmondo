@@ -18,8 +18,14 @@ p
       h4
         = t('email.line_item_group.seller.buyer_message')
       = @line_item_group.message
+
   - @line_item_group.business_transactions.each do |bt|
-    = render 'article', bt: bt
+    = render 'article', bt: bt, role: 'seller'
+    center
+      - if bt.bike_courier_selected?
+        br
+        = link_to 'Sendung als versandfertig markieren', set_transport_ready_url(bt.id), class: 'Button Button--with-margin'
+
   - abacus = Abacus.new(@line_item_group)
   = render 'donations', abacus: abacus, role: 'seller'
   = render 'total_price', abacus: abacus

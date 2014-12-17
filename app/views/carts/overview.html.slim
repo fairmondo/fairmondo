@@ -10,9 +10,12 @@
             - hash[:business_transactions].each do |bt|
               = render '/line_item_groups/abacus/business_transaction_row', abacus: abacus, business_transaction: bt, refundable: false
             - hash[:transports].each do |transport|
-              = render '/line_item_groups/abacus/transport_row', abacus: abacus, transport: transport
+              - unless transport == 'bike_courier'
+                = render '/line_item_groups/abacus/transport_row', abacus: abacus, transport: transport
             = render '/line_item_groups/abacus/cash_on_delivery_row', cash_on_delivery_total: hash[:cash_on_delivery_total]
             = render '/line_item_groups/abacus/total_row', total: hash[:total], payment: payment
+                - if transport == 'bike_courier'
+                  = render '/line_item_groups/abacus/bike_courier_row', bike_courier_total: $courier['price']
   .addresses_preview
     .payment_address
       = gray_box t('cart.texts.addresses.payment') do

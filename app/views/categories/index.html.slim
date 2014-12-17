@@ -1,23 +1,17 @@
 .Category-index.Grid-mansory
   - @categories.each do |category|
-
     .Category-index-parent.Category-Grid
-
       h2
-        a href: category_path(category)
-          = category.name
+        = link_to category.name, category_path(category)
       ul
         - category.children.each do |child1|
           li
-            a href: category_path(child1)
-              = child1.name
+            = link_to child1.name, category_path(child1)
             ul
               - child1.children.each do |child2|
                 li
-                  a href: category_path(child2)
-                    = child2.name
+                  = link_to child2.name, category_path(child2)
                   ul
                     - child2.children.each do |child3|
                       li
-                        a href: category_path(child3)
-                          = child3.name
+                        = link_to child3.name, category_path(child3)

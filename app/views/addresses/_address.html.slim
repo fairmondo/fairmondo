@@ -9,7 +9,7 @@
     = render 'addresses/address_lines', address: address
 
   .Address-controls
-    = link_to edit_user_address_path(current_user, address, radio: radio), title: t('common.actions.edit') ,class: 'colorbox Button edit-button' do
+    = link_to edit_user_address_path(current_user, address, radio: radio), title: t('common.actions.edit'), class: 'colorbox Button edit-button' do
       .fa.fa-pencil
     - if policy(address).destroy?
       = link_to user_address_path(current_user, address, radio: radio), title: t('common.actions.destroy'), method: :delete, class: 'Button Button--red delete_address', remote: true do

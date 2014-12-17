@@ -14,16 +14,24 @@ class Payment < ActiveRecord::Base
 
   state_machine initial: :pending do
 
-    state :pending, :initialized, :errored, :succeeded
+    state :pending, :initialized, :errored, :succeeded, :confirmed
 
     event :init do
       transition :pending => :initialized, if: :initialize_payment
       transition :pending => :errored
     end
 
-    # event :success do
-    #   transition :initialized => :succeeded
-    # end
+    event :success do
+      transition :initialized => :succeeded
+    end
+
+    event :confirm do
+      transition [:pending, :initialized] => :confirmed
+    end
+
+    event :decline do
+      transition [:pending, :initialized] => :errored
+    end
   end
 
   def execute

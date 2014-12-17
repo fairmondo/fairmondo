@@ -19,7 +19,8 @@ module Article::Scopes
         articles.ecologic, articles.small_and_precious, articles.currency,
         articles.user_id, articles.slug, articles.borrowable,
         articles.swappable, articles.friendly_percent,
-        articles.friendly_percent_organisation_id')
+        articles.friendly_percent_organisation_id,
+        articles.transport_bike_courier')
     }
   end
 end

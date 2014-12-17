@@ -145,6 +145,8 @@ de:
         social_producer_questionnaire:
           no_social_producer: "Bitte beantworte mindestens eine der Fragen mit 'Ja'"
         only_one_title_image: "Nur ein Bild kann Titelbild sein!"
+        invalid_payment_for_bike_courier: 'Wenn Du Deine Artikel via Fahrradkurier versenden willst, musst Du PayPal als Bezahloption anbieten.'
+        wrong_zip_for_bike_transport: 'Du wohnst leider nicht in einem Gebiet, das von unserem Kurierdienstleister versorgt wird.'
     labels:
       shipping_options: "Versandoptionen:"
       payment_options: "Bezahloptionen:"
