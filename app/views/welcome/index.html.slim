@@ -211,18 +211,48 @@
             = render 'articles/shared/show_article', article: library_element.article
 
 
+/ Article queue Fairmondo shirts
+.teaser.teaser--double.teaser--clear
+  .teaser-inner
+    h2
+      = link_to( t('welcome.fairmondo-shirts.heading'),
+        featured_library_path(@queue1[:library]))
+    - @queue1[:exhibits].each do |article|
+      .teaser-queue
+        = render 'articles/shared/show_article', article: article
+
+    p.more
+      = link_to( t('welcome.fairmondo-shirts.more'),
+        featured_library_path(@queue1[:library]))
+
+
+/ Article queue Ecobookstore vouchers
+.teaser.teaser--double.teaser--collapsible.teaser--reducible
+  .teaser-inner
+    h2
+      = link_to( t('welcome.vouchers.heading'),
+        featured_library_path(@queue2[:library]))
+    - @queue2[:exhibits].each do |article|
+      .teaser-queue
+        = render 'articles/shared/show_article', article: article
+
+    p.more
+      = link_to( t('welcome.vouchers.more'),
+        featured_library_path(@queue2[:library]))
+
+
 / Trending libraries
 - if @trending_libraries.to_a.any?
   .teaser.teaser--full.libraries
     .teaser-inner
       h2
-        => t('welcome.trending_libraries')
+        => t( 'welcome.trending_libraries.heading' )
         span.sprite_helper title="#{ t('libraries.tooltip') }"
 
       = render partial: "libraries/library", collection: @trending_libraries, locals: { header_comments: false }
 
       p.more
-        = link_to("Mehr Geschenk-Empfehlungen", libraries_path)
+        = link_to( t( 'welcome.trending_libraries.more' ), libraries_path )
 
 
 / USPs
@@ -243,10 +273,15 @@
 .teaser.teaser--double.teaser--collapsible.teaser--reducible
   .teaser-inner
     h2
-      = link_to('Mit Spendenanteil', featured_library_path(@donation_articles[:library]))
+      = link_to( t('welcome.donation_articles.heading'),
+        featured_library_path(@donation_articles[:library]))
     - @donation_articles[:exhibits].each do |article|
       .teaser-queue
         = render 'articles/shared/show_article', article: article
+
+    p.more
+      = link_to( t('welcome.donation_articles.more'),
+        featured_library_path(@donation_articles[:library]))
 
 
 / User comment slides
