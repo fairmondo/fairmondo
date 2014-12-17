@@ -60,7 +60,7 @@ feature "Libraries on welcome page" do
 
     # When no libraries are audited, the box on the welcome page should not be displayed
     visit root_path
-    refute page.has_content?(I18n.t 'welcome.trending_libraries')
+    refute page.has_content?(I18n.t 'welcome.trending_libraries.heading')
 
     # enable library for welcome page
     visit libraries_path
@@ -70,7 +70,7 @@ feature "Libraries on welcome page" do
 
     # visit welcome page, library should be shown
     visit root_path
-    page.must_have_content I18n.t 'welcome.trending_libraries'
+    page.must_have_content I18n.t 'welcome.trending_libraries.heading'
     page.must_have_content 'envogue'
 
     logout
