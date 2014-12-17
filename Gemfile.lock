@@ -113,7 +113,8 @@ GEM
     callsite (0.0.11)
     canonical-rails (0.0.7)
       rails (>= 3.1, < 5.0)
-    capistrano (3.2.1)
+    capistrano (3.3.5)
+      capistrano-stats (~> 1.1.0)
       i18n
       rake (>= 10.0.0)
       sshkit (~> 1.3)
@@ -126,6 +127,7 @@ GEM
     capistrano-rbenv (2.0.2)
       capistrano (~> 3.1)
       sshkit (~> 1.3)
+    capistrano-stats (1.1.1)
     capybara (2.4.4)
       mime-types (>= 1.16)
       nokogiri (>= 1.3.3)
@@ -157,7 +159,7 @@ GEM
       execjs
     coffee-script-source (1.8.0)
     colored (1.2)
-    colorize (0.7.4)
+    colorize (0.7.5)
     columnize (0.9.0)
     connection_pool (2.1.0)
     coveralls (0.7.1)
@@ -534,8 +536,8 @@ GEM
       activesupport (>= 3.0)
       sprockets (~> 2.8)
     sqlite3 (1.3.10)
-    sshkit (1.5.1)
-      colorize
+    sshkit (1.6.1)
+      colorize (>= 0.7.0)
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
     state_machine (1.2.0)
@@ -601,7 +603,7 @@ DEPENDENCIES
   brakeman
   bullet
   canonical-rails
-  capistrano (= 3.2.1)
+  capistrano
   capistrano-bundler (~> 1.1.2)
   capistrano-rails (~> 1.1)
   capistrano-rbenv
