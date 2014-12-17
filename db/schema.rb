@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141201133648) do
+ActiveRecord::Schema.define(version: 20141217105742) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -148,6 +148,8 @@ ActiveRecord::Schema.define(version: 20141201133648) do
     t.boolean  "tos_bike_courier_accepted",           default: false
     t.text     "bike_courier_message"
     t.string   "bike_courier_time"
+    t.boolean  "courier_emails_sent",                 default: false
+    t.datetime "courier_emails_sent_at"
   end
 
   add_index "business_transactions", ["article_id"], name: "index_business_transactions_on_article_id", using: :btree

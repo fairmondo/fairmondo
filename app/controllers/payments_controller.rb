@@ -40,7 +40,7 @@ class PaymentsController < ApplicationController
           bts = payment.line_item_group.business_transactions.select{ |bt| bt.bike_courier_selected? }
           if bts.any?
             bts.each do |bt|
-              CartMailer.delay.courier_notification(bt)
+              CartMailer.courier_notification(bt).deliver
             end
           end
         else
@@ -50,7 +50,7 @@ class PaymentsController < ApplicationController
         raise ActiveRecord::RecordNotFound
       end
     else
-      raise "ipn could not be verified\n"
+      raise "ipn could not be verified"
     end
 
     render nothing: true
