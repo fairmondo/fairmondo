@@ -1,6 +1,5 @@
 begin
-  courier = YAML.load(File.read(File.expand_path(File.join(Rails.root, 'config', 'courier.yml')))
-                      )
+  courier = YAML.load(File.read('/var/www/fairnopoly/shared/config/courier.yml'))
   $courier = courier['courier']
 
 rescue
