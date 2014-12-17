@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141201123752) do
+ActiveRecord::Schema.define(version: 20141201133648) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -92,6 +92,8 @@ ActiveRecord::Schema.define(version: 20141201123752) do
     t.boolean  "borrowable",                                       default: false
     t.integer  "comments_count",                                   default: 0
     t.integer  "original_id",                            limit: 8
+    t.boolean  "transport_bike_courier",                           default: false
+    t.integer  "transport_bike_courier_number",                    default: 1
     t.boolean  "payment_voucher",                                  default: false
   end
 
@@ -112,37 +114,40 @@ ActiveRecord::Schema.define(version: 20141201123752) do
 
   create_table "business_transactions", force: true do |t|
     t.string   "type_fix"
-    t.datetime "created_at",                                     null: false
-    t.datetime "updated_at",                                     null: false
+    t.datetime "created_at",                                          null: false
+    t.datetime "updated_at",                                          null: false
     t.datetime "expire"
     t.string   "selected_transport"
     t.string   "selected_payment"
-    t.boolean  "tos_accepted",                   default: false
-    t.integer  "buyer_id",             limit: 8
+    t.boolean  "tos_accepted",                        default: false
+    t.integer  "buyer_id",                  limit: 8
     t.string   "state"
     t.text     "message"
     t.integer  "quantity_available"
     t.integer  "quantity_bought"
-    t.integer  "parent_id",            limit: 8
-    t.integer  "article_id",           limit: 8
+    t.integer  "parent_id",                 limit: 8
+    t.integer  "article_id",                limit: 8
     t.string   "forename"
     t.string   "surname"
     t.string   "street"
     t.string   "city"
     t.string   "zip"
     t.string   "country"
-    t.integer  "seller_id",            limit: 8
+    t.integer  "seller_id",                 limit: 8
     t.datetime "sold_at"
-    t.boolean  "purchase_emails_sent",           default: false
+    t.boolean  "purchase_emails_sent",                default: false
     t.string   "address_suffix"
     t.integer  "discount_id"
     t.integer  "discount_value_cents"
-    t.boolean  "billed_for_fair",                default: false
-    t.boolean  "billed_for_fee",                 default: false
-    t.boolean  "billed_for_discount",            default: false
-    t.integer  "line_item_group_id",   limit: 8
-    t.boolean  "refunded_fair",                  default: false
-    t.boolean  "refunded_fee",                   default: false
+    t.boolean  "billed_for_fair",                     default: false
+    t.boolean  "billed_for_fee",                      default: false
+    t.boolean  "billed_for_discount",                 default: false
+    t.integer  "line_item_group_id",        limit: 8
+    t.boolean  "refunded_fair",                       default: false
+    t.boolean  "refunded_fee",                        default: false
+    t.boolean  "tos_bike_courier_accepted",           default: false
+    t.text     "bike_courier_message"
+    t.string   "bike_courier_time"
   end
 
   add_index "business_transactions", ["article_id"], name: "index_business_transactions_on_article_id", using: :btree
@@ -420,6 +425,19 @@ ActiveRecord::Schema.define(version: 20141201123752) do
   end
 
   add_index "notices", ["user_id"], name: "index_notices_on_user_id", using: :btree
+
+  create_table "opening_times", force: true do |t|
+    t.integer  "user_id",    limit: 8
+    t.string   "monday"
+    t.string   "tuesday"
+    t.string   "wednesday"
+    t.string   "thursday"
+    t.string   "friday"
+    t.string   "saturday"
+    t.string   "sunday"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "payments", force: true do |t|
     t.string   "pay_key"

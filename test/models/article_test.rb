@@ -84,6 +84,8 @@ describe Article do
     it { subject.must_respond_to :transport_type1_number }
     it { subject.must_respond_to :transport_type2_number }
     it { subject.must_respond_to :discount_id }
+    it { subject.must_respond_to :transport_bike_courier }
+    it { subject.must_respond_to :transport_bike_courier_number }
   end
 
   describe "::Base" do
@@ -257,10 +259,11 @@ describe Article do
 
       describe "#selectable (private)" do
         it "should return an array with selected transport options, the default being first" do
-          output = FactoryGirl.create(:article, :with_all_transports).send(:selectable, "transport")
-          output.must_include  "pickup"
-          output.must_include "type1"
-          output.must_include "type2"
+          output = FactoryGirl.create(:article, :with_all_payments, :with_all_transports).send(:selectable, "transport")
+          output.must_include 'pickup'
+          output.must_include 'type1'
+          output.must_include 'type2'
+          output.must_include 'bike_courier'
         end
       end
 

@@ -7,6 +7,8 @@ Tag--blue   - blue tag
 Tag--green  - green tag
 Tag--orange - orange tag
 Tag--big    - big tag
+Tag--red    - red tag
+Tag--light-red - light-red tag
 
 Styleguide Tags
 */
@@ -46,6 +48,18 @@ Styleguide Tags
   background-color: $orange;
   &:hover {
     background-color: lighten($orange, 5%);
+  }
+}
+.Tag--red {
+  background-color: $red;
+  &:hover {
+    background-color: lighten($red, 5%);
+  }
+}
+.Tag--light-red {
+  background-color: $light-red;
+  &:hover {
+    background-color: lighten($light-red, 5%);
   }
 }
 

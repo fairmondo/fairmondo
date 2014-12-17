@@ -14,7 +14,7 @@ end
 
 # ----------  Model ----------
 
-gem "paperclip", ">= 3.0" # image uploads
+gem "paperclip", "4.2.0" # image uploads ### LOCKED Paperclip at version 4.2.0 until #1706 (https://github.com/thoughtbot/paperclip/issues/1706) is fixed
 gem 'money-rails', '~> 0.12.0' # dealing with money in activerecord
 gem 'monetize' # parsing money
 gem 'enumerize', '>= 0.5.1' # enums as symbols in ar
@@ -29,8 +29,8 @@ gem 'active_data'
 
 ## Indexing /Searching
 gem "chewy"
-
 # ---------- View ----------
+
 gem 'slim-rails'
 gem 'jbuilder'
 
@@ -164,7 +164,7 @@ group :development, :test do
 
   # Capistrano
   gem 'capistrano-rails', '~> 1.1'
-  gem 'capistrano', '~> 3.1'
+  gem 'capistrano', '3.2.1'
   gem 'capistrano-bundler', '~> 1.1.2'
   gem 'capistrano-rbenv'
 

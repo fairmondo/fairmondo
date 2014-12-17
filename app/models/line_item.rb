@@ -4,7 +4,7 @@ class LineItem < ActiveRecord::Base
   attr_accessor :cart_cookie # temp storage to validate with pundit
 
   delegate :id, to: :cart, prefix: true
-  delegate :quantity, :quantity_available, :price, :title,
+  delegate :quantity, :quantity_available, :price, :title, :transport_bike_courier,
            to: :article, prefix: true
 
   belongs_to :line_item_group, inverse_of: :line_items

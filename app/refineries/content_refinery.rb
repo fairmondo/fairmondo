@@ -1,7 +1,7 @@
 class ContentRefinery < ApplicationRefinery
 
   def default
-    [ :body, :key ]
+    [ :body, :key, :layout ]
   end
 
 end
