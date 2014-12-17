@@ -46,7 +46,7 @@ module UsersHelper
       "#{t("formtastic.labels.user.#{attribute}")}: "
     end
     value = content_tag(:div, class: 'value' ) do
-      @line_item_group.seller.send(attribute)
+      seller.send(attribute)
     end
     content_tag(:div, class: 'line') do
       safe_join([heading,value])
