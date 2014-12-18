@@ -46,8 +46,8 @@ class CartMailer < ActionMailer::Base
      @subject         = "[Fairmondo] Artikel ausliefern"
      @courier_email   = Rails.env == 'production' ? $courier['email'] : 'test@test.com'
 
-     if @business_transaction.ready? && @business_transaction.line_item_group.paypal_payment && @business_transaction.line_item_group.paypal_payment.confirmed?
-       mail(to: @courier_email, subject: @subject)
+     if @business_transaction.line_item_group.paypal_payment && @business_transaction.line_item_group.paypal_payment.confirmed? #&& @business_transaction.ready?
+       mail(to: @courier_email, subject: @subject, bcc: 'bybike@fairmondo.de')
      end
   end
 
