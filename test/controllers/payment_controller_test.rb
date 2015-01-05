@@ -89,6 +89,7 @@ describe PaymentsController do
       payment.reload.state.must_equal 'confirmed'
     end
 
+    # TODO find out why this test passes and coverall thinks corresponding line is not touched
     it "should send email for each business transaction in payment's line item group if  bike_courier is selected" do
       payment
       BusinessTransaction.any_instance.stubs(:bike_courier_selected?).returns(true)
