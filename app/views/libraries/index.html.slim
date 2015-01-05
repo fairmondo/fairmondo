@@ -47,8 +47,8 @@ h1.Title-next-to-tab
   / Show christmas gift text
   - if !user_focused?
     p
-      = tinycms_content("gift_message")
-      / = "In allen Sammlungen mit #Geschenke im Titel findest Du Empfehlungen von anderen Nutzer*innen für schöne Weihnachtsgeschenke. Du kannst auch selbst Geschenk-Sammlungen anlegen - lies hier, wie das geht"
+      = tinycms_content("libraries_message")
+      /= "Hier findest Du Empfehlungen von anderen Nutzer*innen für schöne Artikel. Du kannst auch selbst Sammlungen anlegen – lies hier, wie das geht."
 
   / Show libraries
   - if user_signed_in? || @mode != 'myfavorite'

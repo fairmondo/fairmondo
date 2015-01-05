@@ -4,8 +4,8 @@ de:
     search_fair: "Artikel suchen"
     # trending_libraries: "Trend-Sammlungen" Nach Weihnachten zurückstellen
     trending_libraries:
-      heading: "Geschenk-Empfehlungen von Nutzer*innen"
-      more: "Mehr Geschenk-Empfehlungen"
+      heading: "Empfehlungen von Nutzer*innen"
+      more: "Mehr Empfehlungen"
     donation_articles:
       heading: "Mit Spendenanteil"
       more: "Mehr Artikel mit Spendenanteil"
