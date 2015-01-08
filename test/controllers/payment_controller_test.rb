@@ -89,6 +89,13 @@ describe PaymentsController do
       payment.reload.state.must_equal 'confirmed'
     end
 
+    # TODO find out why this test passes and coverall thinks corresponding line is not touched
+    it "should send email for each business transaction in payment's line item group if  bike_courier is selected" do
+      payment
+      BusinessTransaction.any_instance.stubs(:bike_courier_selected?).returns(true)
+      assert_send([CartMailer, :courier_notification, payment.line_item_group.business_transactions.first]) { post :ipn_notification, pay_key: '1234', status: 'COMPLETED' }
+    end
+
     it 'should throw an error, when payment_status is "Invalid"' do
       payment
       post :ipn_notification, pay_key: '1234', status: 'Invalid'
@@ -96,7 +103,13 @@ describe PaymentsController do
     end
 
     it 'should throw ActiveRecord::RecordNotFound if no payment is found' do
-      assert_raises(ActiveRecord::RecordNotFound) { post :ipn_notification, pay_key: 'ashfakjsdf', payment_status: 'Invalid' }
+      assert_raises(ActiveRecord::RecordNotFound) { post :ipn_notification, pay_key: 'ashfakjsdf', status: 'Invalid' }
+    end
+
+    it 'should throw an error if ipn is not verified' do
+      PaypalAdaptive::IpnNotification.any_instance.stubs(:verified?).returns(false)
+      exception = -> { post :ipn_notification, pay_key: 'ashfakjsdf', status: 'Invalid' }.must_raise(StandardError)
+      exception.message.must_equal 'ipn could not be verified'
     end
   end
 end

@@ -117,4 +117,5 @@ paypal_adaptive.yml
 
 # mac DS_Store
 *.DS_Store
+
 config/courier.yml

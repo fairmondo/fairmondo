@@ -39,64 +39,6 @@
           span.slides-arrow.slides-arrow--right
             i.fa.fa-chevron-right
 
-        / Ecobookstore
-        .billboard#billboard-ecobookstore
-          article
-            = link_to '/categories/bucher' do
-              hgroup
-                h2 2 Mio. Artikel versandkostenfrei
-                h3 Ab sofort bei unserem Händler:<span> ecobookstore.de</span>
-              p#billboard-ecobookstore-link1 Jetzt stöbern
-            p
-              | Alle Bücher, Filme, Audio-CDs und Spiele aus dem Ecobookstore
-                 <span>versandkostenfrei</span> liefern lassen.
-            p
-              | Mit Deinem Einkauf beim Ecobookstore unterstützt Du seine
-                 Bemühungen für den Regenwaldschutz.
-            p.alternative-text
-              | Alle Bücher, Filme, Audio-CDs und Spiele aus dem
-                 Ecobookstore.
-            = link_to 'Zu Weihnachten Gutscheine verschenken',
-                      '/libraries/8216', id: 'billboard-ecobookstore-link2'
-
-        / Kinderspielzeug
-        .billboard#billboard-toys
-          article
-            h2 Geschenke für<br>Kinder
-            = link_to '/libraries/7688', id: 'billboard-toys-link1' do
-              div
-              p Alle ansehen
-
-        / Geschenke unter 15 EUR
-        .billboard#billboard-gifts
-          article
-            h2 Tolle <span id="billboard-gifts-gifts">Geschenke</span> unter <span id="billboard-gifts-price">15&thinsp;&euro;</span>
-            ul
-              li#billboard-gifts-link1
-                = link_to '/libraries/8052' do
-                  div
-                  p Alle ansehen
-
-        / Edle Tropfen
-        .billboard#billboard-gourmet
-          article
-            h2 Edle<br>Tropfen
-            = link_to '/users/mexican-tears?pk_campaign=bb5&pk_kwd=mexicantears' do
-              | Klick mich,<br>ich bin <br>scharf<br>und<br>beliebt
-            ul
-              li#billboard-gourmet-link1
-                = link_to '/libraries/7318?pk_campaign=bb5&pk_kwd=essigoel' do
-                  div
-                  p Essige und Öle
-              li#billboard-gourmet-link2
-                = link_to '/libraries/7317?pk_campaign=bb5&pk_kwd=sauce' do
-                  div
-                  p Gourmetsaucen
-              li#billboard-gourmet-link3
-                = link_to '/libraries/7320?pk_campaign=bb5&pk_kwd=weine' do
-                  div
-                  p Weine
-
         / Bücher
         .billboard#billboard-books
           article
@@ -129,6 +71,55 @@
                 = link_to '/libraries/5533?pk_campaign=bb4&pk_kwd=gebraucht' do
                   div
                   p Gebrauchte Bücher
+
+        / Ecobookstore
+        /.billboard#billboard-ecobookstore
+        /  article
+        /    = link_to '/categories/bucher' do
+        /      hgroup
+        /        h2 2 Mio. Artikel versandkostenfrei
+        /        h3 Ab sofort bei unserem Händler:<span> ecobookstore.de</span>
+        /      p#billboard-ecobookstore-link1 Jetzt stöbern
+        /    p
+        /      = "Alle Bücher, Filme, Audio-CDs und Spiele aus dem Ecobookstore "
+        /      <span>versandkostenfrei</span> liefern lassen.
+        /    p
+        /      | Mit Deinem Einkauf beim Ecobookstore unterstützt Du seine Bemühungen für den Regenwaldschutz.
+        /    p.alternative-text
+        /      | Alle Bücher, Filme, Audio-CDs und Spiele aus dem
+        /        Ecobookstore.
+        /      = link_to 'Gutscheine verschenken',
+        /        '/libraries/8216', id: 'billboard-ecobookstore-link2'
+
+        / Geschenke unter 15 EUR
+        .billboard#billboard-gifts
+          article
+            h2 Tolle <span id="billboard-gifts-gifts">Produkte</span> unter <span id="billboard-gifts-price">15&thinsp;&euro;</span>
+            ul
+              li#billboard-gifts-link1
+                = link_to '/libraries/8052' do
+                  div
+                  p Alle ansehen
+
+        / Edle Tropfen
+        .billboard#billboard-gourmet
+          article
+            h2 Edle<br>Tropfen
+            = link_to '/users/mexican-tears?pk_campaign=bb5&pk_kwd=mexicantears' do
+              | Klick mich,<br>ich bin <br>scharf<br>und<br>beliebt
+            ul
+              li#billboard-gourmet-link1
+                = link_to '/libraries/7318?pk_campaign=bb5&pk_kwd=essigoel' do
+                  div
+                  p Essige und Öle
+              li#billboard-gourmet-link2
+                = link_to '/libraries/7317?pk_campaign=bb5&pk_kwd=sauce' do
+                  div
+                  p Gourmetsaucen
+              li#billboard-gourmet-link3
+                = link_to '/libraries/7320?pk_campaign=bb5&pk_kwd=weine' do
+                  div
+                  p Weine
 
 
 / USP Teaser with registration link

@@ -41,6 +41,10 @@ describe CartMailer do
     mail            = CartMailer.courier_notification(business_transaction)
 
     mail.must_deliver_to 'test@test.com'
+    mail.must_bcc_to 'bybike@fairmondo.de'
+
+    # Article information
+    mail.must have_body_text(business_transaction.article_title)
 
     # Seller information
     mail.must have_subject('[Fairmondo] Artikel ausliefern')

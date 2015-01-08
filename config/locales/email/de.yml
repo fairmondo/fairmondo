@@ -40,7 +40,7 @@ de:
       voucher: Gutschein
     article:
       contact:
-        text_beginning: 'Ein*e Fairmondo-Nutzer*in hat dir eine Rückfrage zu deinem Artikel'
+        text_beginning: 'hat dir eine Rückfrage zu deinem Artikel'
         text_end: 'gesandt:'
         reply_button: 'Anfrage beantworten'
         article_link_text: 'Den Artikel zu der Rückfrage findest Du unter '

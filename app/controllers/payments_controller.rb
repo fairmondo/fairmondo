@@ -40,6 +40,7 @@ class PaymentsController < ApplicationController
           bts = payment.line_item_group.business_transactions.select{ |bt| bt.bike_courier_selected? }
           if bts.any?
             bts.each do |bt|
+              #raise StandardError, 'SCHAU WOHER ICH KOMME'
               CartMailer.courier_notification(bt).deliver
             end
           end
@@ -50,7 +51,7 @@ class PaymentsController < ApplicationController
         raise ActiveRecord::RecordNotFound
       end
     else
-      raise "ipn could not be verified"
+      raise StandardError, "ipn could not be verified"
     end
 
     render nothing: true

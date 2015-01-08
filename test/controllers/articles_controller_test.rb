@@ -117,9 +117,27 @@ describe ArticlesController do
         search_params = { article_search_form: { category_id: @hardware_category.id } }
         get :index, search_params
         assert_redirected_to( category_path(@hardware_category.id) )
+      end
 
+      # wegreen search term
+      describe '#wegreen_search_term' do
+        it 'should return query string' do
+          article_search_form = ArticleSearchForm.new(q: "Dukannstmichnichtfinden")
+          article_search_form.wegreen_search_string.must_equal "Dukannstmichnichtfinden"
+        end
+
+        it 'should return category name' do
+          article_search_form = ArticleSearchForm.new(category_id: @vehicle_category.id)
+          article_search_form.wegreen_search_string.must_equal @vehicle_category.name
+        end
+
+        it 'should return category name' do
+          article_search_form = ArticleSearchForm.new()
+          article_search_form.wegreen_search_string.must_be_nil
+        end
       end
     end
+
     describe "for signed-out users" do
       it "should be successful" do
         get :index
