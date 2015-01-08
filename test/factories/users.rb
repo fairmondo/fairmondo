@@ -50,6 +50,10 @@ FactoryGirl.define do
     seller_state "standard_seller"
     buyer_state "standard_buyer"
 
+    unified_transport_provider "DHL"
+    unified_transport_price_cents 2000
+    unified_transport_maximum_articles 12
+
     transient do
       create_standard_address true
     end

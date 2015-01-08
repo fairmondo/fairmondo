@@ -76,6 +76,7 @@ module Article::Validations
     validate :only_one_title_image
     validate :bike_courier_requires_paypal, if: :transport_bike_courier
     validate :right_zip_for_courier, if: :transport_bike_courier
+    validate :unified_transport_requires_entry_in_profile, if: :unified_transport
 
   end
 
@@ -142,6 +143,12 @@ module Article::Validations
     def right_zip_for_courier
       unless $courier['zip'].include? self.seller.standard_address_zip
         errors.add(:transport_bike_courier, I18n.t('article.form.errors.wrong_zip_for_bike_transport'))
+      end
+    end
+
+    def unified_transport_requires_entry_in_profile
+      unless self.seller.unified_transport_provider && self.seller.unified_transport_maximum_articles && self.seller.unified_transport_price
+        errors.add(:unified_transport, I18n.t('article.form.errors.unified_transport_info'))
       end
     end
 end
