@@ -141,6 +141,7 @@ FactoryGirl.define do
 
     trait :with_all_transports do
       transport_pickup true
+      transport_bike_courier true
       transport_type1 true
       transport_type2 true
       transport_type1_price 20
@@ -149,6 +150,7 @@ FactoryGirl.define do
       transport_type2_provider 'Hermes'
       transport_type1_number { rand(1..10) }
       transport_type2_number { rand(1..10) }
+      transport_bike_courier_number { rand(1..10) }
       unified_transport true
       transport_details { Faker::Lorem.paragraph(rand(2..5)) }
     end

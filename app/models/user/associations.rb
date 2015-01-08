@@ -61,6 +61,5 @@ module User::Associations
     has_many :hearted_libraries, through: :hearts, source: :heartable, source_type: 'Library'
 
     has_attached_file :cancellation_form
-
   end
 end

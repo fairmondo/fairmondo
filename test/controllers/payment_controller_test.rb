@@ -23,6 +23,7 @@ require_relative '../test_helper'
 include FastBillStubber
 
 describe PaymentsController do
+  let(:lig) { FactoryGirl.create :line_item_group, :sold, :with_business_transactions, traits: [:paypal, :transport_type1] }
   let(:bt) { lig.business_transactions.first }
   let(:buyer) { bt.buyer }
 
@@ -66,12 +67,49 @@ describe PaymentsController do
   end
 
   describe "GET 'show'" do
-    let(:lig) { payment.line_item_group }
-    let(:payment) { FactoryGirl.create :payment, :with_pay_key }
+    let(:lig) { FactoryGirl.create :line_item_group, :sold, :with_business_transactions, traits: [:paypal, :transport_bike_courier] }
+    let(:payment) { FactoryGirl.create :payment, :with_pay_key, line_item_group: lig }
 
     it "should redirect to paypal" do
       get :show, line_item_group_id: lig.id, id: payment.id
       assert_redirected_to "https://www.sandbox.paypal.com/de/webscr?cmd=_ap-payment&paykey=foobar"
+    end
+  end
+
+  describe 'GET "ipn_notification"' do
+    let(:payment) { FactoryGirl.create :payment, pay_key: '1234' }
+
+    before do
+      PaypalAdaptive::IpnNotification.any_instance.stubs(:verified?).returns(true)
+    end
+
+    it 'should confirm payment when request contains "complete"' do
+      payment
+      post :ipn_notification, pay_key: '1234', status: 'COMPLETED'
+      payment.reload.state.must_equal 'confirmed'
+    end
+
+    # TODO find out why this test passes and coverall thinks corresponding line is not touched
+    it "should send email for each business transaction in payment's line item group if  bike_courier is selected" do
+      payment
+      BusinessTransaction.any_instance.stubs(:bike_courier_selected?).returns(true)
+      assert_send([CartMailer, :courier_notification, payment.line_item_group.business_transactions.first]) { post :ipn_notification, pay_key: '1234', status: 'COMPLETED' }
+    end
+
+    it 'should throw an error, when payment_status is "Invalid"' do
+      payment
+      post :ipn_notification, pay_key: '1234', status: 'Invalid'
+      payment.reload.state.must_equal 'errored'
+    end
+
+    it 'should throw ActiveRecord::RecordNotFound if no payment is found' do
+      assert_raises(ActiveRecord::RecordNotFound) { post :ipn_notification, pay_key: 'ashfakjsdf', status: 'Invalid' }
+    end
+
+    it 'should throw an error if ipn is not verified' do
+      PaypalAdaptive::IpnNotification.any_instance.stubs(:verified?).returns(false)
+      exception = -> { post :ipn_notification, pay_key: 'ashfakjsdf', status: 'Invalid' }.must_raise(StandardError)
+      exception.message.must_equal 'ipn could not be verified'
     end
   end
 end

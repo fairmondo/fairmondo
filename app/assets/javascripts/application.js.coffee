@@ -71,6 +71,7 @@
 #= require models/user/colorbox_links
 #= require models/cart/unified
 #= require models/cart/quantity
+#= require models/cart/courier
 
 #= require visual/accordion
 #= require visual/tooltip

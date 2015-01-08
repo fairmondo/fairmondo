@@ -25,7 +25,7 @@
             .details
               .quantity
                 = line_item.requested_quantity
-                | x
+                =< 'x'
               .title
                 = link_to  article.title,  article_path(article), title: article.title, target: '_blank'
               .price
@@ -38,7 +38,7 @@
                 = t.inputs class: 'payment' do
                   = t.input :selected_payment, include_blank: false, required: false, wrapper_html: {class: 'js-unified-payment--target small-selectboxit'}, collection: checkout_options_for_payment(line_item.business_transaction.article.selectable_payments)
                 = t.inputs class: 'transport' do
-                  = t.input :selected_transport, include_blank: false, required: false, wrapper_html: {class: (unified ? "js-unified-transport--target small-selectboxit" : "small-selectboxit") }, collection: checkout_options_for_single_transport(line_item, preview_abacus.transports)
+                  = t.input :selected_transport, include_blank: false, required: false, wrapper_html: {class: (unified ? "js-unified-transport--target small-selectboxit JS-courier-trigger" : "small-selectboxit")}, collection: checkout_options_for_single_transport(line_item, preview_abacus.transports)
                   - if unifiable
                     .js-unified-transport--inversetarget.transport_notice
                       - if unified
@@ -53,11 +53,13 @@
                               = t('cart.texts.unified_transport_shipments', shipments: preview_abacus.number_of_shipments)
                               br
                               = t('cart.texts.unified_transport_price', price: money(preview_abacus.unified_transport_price))
-
-
                       - else
                         span.unified_transport_impossible
                           = t('cart.texts.unified_transport_impossible')
+
+          - if line_item.article_transport_bike_courier
+            = render 'carts/checkout/courier_step', line_item: line_item, line_item_fields: line_item_fields
+
       .warning
         = I18n.t('cart.texts.security_warning')
 

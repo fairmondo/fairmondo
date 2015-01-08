@@ -18,5 +18,5 @@ javascript:
         = paginate articles
         - if params[:queue]
           = link_to t('enumerize.exhibit.queue.more_articles'), articles_path
-      - if articles.total_count <= 4
-        = render '/articles/shared/iframe'
+      / - if articles.total_count <= 4
+      /   = render '/articles/shared/iframe' # uncomment when wegreen works with https again

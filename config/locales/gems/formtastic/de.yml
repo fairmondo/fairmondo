@@ -14,12 +14,12 @@ de:
         legal_entity: Rechtlicher Status
         company_name: Unternehmensname (MeinFirmenname GmbH...)
         nickname: Nutzername
-        type: Ein Konto als Unternehmer*in eröffnen
+        type: Ein gewerbliches Nutzerkonto anlegen
         email: E-Mail-Adresse
         image: Profilbild
         password: "Passwort"
         password_confirmation: "Passwort wiederholen"
-        newsletter: "Ich möchte an der kostenlosen Verlosung** teilnehmen und den monatlichen Newsletter mit besonderen Produktvorstellungen erhalten."
+        newsletter: "Ich möchte den monatlichen Newsletter mit besonderen Produktvorstellungen erhalten."
         remember_me: "Eingeloggt bleiben"
         current_password: "Bisheriges Passwort"
         vacationing: "Ich bin derzeit im Urlaub"
@@ -131,6 +131,7 @@ de:
         transport_type2_provider: Versandart
         transport_type2_price: Versandkosten (€)
         transport_type2_number: "Diese Versandkosten gelten bis maximal soviel Stück pro Sendung:"
+        transport_bike_courier: Fahrradkurier
         transport_method: "Versandmethode(n)"
         transport_details: "Weitere Angaben zu den Versandoptionen und Lieferbeschränkungen:"
         transport_time: "Lieferzeit in Tagen (z.B. 3 oder 7-12):"
@@ -204,6 +205,8 @@ de:
         quantity_bought: "Artikelanzahl:"
         selected_transport: "Artikel einzeln versenden mit"
         selected_payment: "Artikel bezahlen mit"
+        bike_courier_message: 'Deine Nachricht an den Kurierdienst:'
+        bike_courier_time: 'Gewünschter Lieferzeitpunkt (mind. 2h in der Zukunft)'
       multiple_fixed_price_transaction:
         <<: *business_transaction
       single_fixed_price_transaction:
@@ -269,7 +272,7 @@ de:
     tooltips:
       user: &tooltips_user
         new: &new_user
-          type: 'Wenn Du nicht sicher bist, ob Du ein Konto als Unternehmer*in benötigst, frage am Besten bei Deinem Finanzamt nach. Du kannst Dein Konto aber auch später umwandeln lassen. Mehr dazu in unserer <a href="https://www.fairmondo.de/faq#b9" target= "_blank">FAQ</a>.'
+          type: 'Wenn Du nicht sicher bist, ob Du ein gewerbliches Nutzerkonto benötigst, frage am Besten bei Deinem Finanzamt nach. Du kannst Dein Konto aber auch später umwandeln lassen. Mehr dazu in unserer <a href="https://www.fairmondo.de/faq#b9" target= "_blank">FAQ</a>.'
           email:  "An diese Adresse verschicken wir die Anmeldebestätigung."
           nickname: "Diesen Namen sehen auch andere Nutzer*innen."
           password: "Dein Passwort muss mindestens 6 Zeichen haben. Dein Account wird sicherer, wenn Du auch Zahlen und Großbuchstaben fürs Passwort verwendest."
