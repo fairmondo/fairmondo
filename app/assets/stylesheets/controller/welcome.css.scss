@@ -394,13 +394,8 @@
   box-shadow: none;
 }
 
-#coop > .teaser-inner {
-  background-color: #5F9537;
-  color: $white;
-
-  img {
-    max-width: 100%;
-  }
+#coop > .teaser-inner img {
+  max-width: 100%;
 }
 
 
