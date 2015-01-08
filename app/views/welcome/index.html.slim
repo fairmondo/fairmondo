@@ -307,12 +307,12 @@
                              source: 'Thomas Kappauf, Black Star'
 
 
-/ Cooperation teaser
+/ Cooperative teaser
 .teaser.teaser--double#coop
   .teaser-inner.teaser--center
-    = image_tag 'genobox-360.png'
-    h2 haben sich bereits an der Fairmondo-Genossenschaft beteiligt.
-    p= link_to 'Mehr erfahren', 'https://www.fairmondo.de/genossenschaft', class: 'Button', target: '_self'
+    = link_to 'https://www.fairmondo.de/genossenschaft', target: '_self' do
+      = image_tag 'genobox-584.jpg', alt: 'Über 1900 Menschen haben sich '\
+      'bereits an der Fairmondo-Genossenschaft beteiligt.'
 
 
 / Blog
