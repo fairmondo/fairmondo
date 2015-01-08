@@ -3,7 +3,18 @@ de:
     greetings: "Willkommen bei Fairmondo"
     search_fair: "Artikel suchen"
     # trending_libraries: "Trend-Sammlungen" Nach Weihnachten zurückstellen
-    trending_libraries: Geschenk-Empfehlungen von Nutzer*innen
+    trending_libraries:
+      heading: "Empfehlungen von Nutzer*innen"
+      more: "Mehr Empfehlungen"
+    donation_articles:
+      heading: "Mit Spendenanteil"
+      more: "Mehr Artikel mit Spendenanteil"
+    fairmondo-shirts:
+      heading: "Fairmondo-Shirts und mehr"
+      more: "Mehr"
+    vouchers:
+      heading: "Gutscheine, die Gutes tun"
+      more: "Mehr"
     boxes:
       active_old: "Bisher eingestellte Artikel"
     filter_boxes:

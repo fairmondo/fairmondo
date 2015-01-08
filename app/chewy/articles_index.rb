@@ -39,7 +39,7 @@ class ArticlesIndex < Chewy::Index
     root _source: { excludes: ['content'] } do
       field :id, index: :not_analyzed
       field :title, type: 'string', analyzer: "german_analyzer"
-      field :title_completion, value: -> { title }, type: 'completion'
+      field :title_completion, value: -> { title || "" }, type: 'completion'
 
       field :content,  analyzer: "german_analyzer"
       field :gtin,  index: :not_analyzed
@@ -73,6 +73,7 @@ class ArticlesIndex < Chewy::Index
       field :friendly_percent_organisation_nickname, index: :not_analyzed
 
       field :transport_pickup, type: 'boolean'
+      field :transport_bike_courier, type: 'boolean'
       field :zip, value: -> {
         if self.transport_pickup || self.seller.is_a?(LegalEntity)
           self.seller.standard_address_zip

@@ -42,6 +42,13 @@ describe ContentsController do
       assigns(:content).must_equal content
       assert_template :show
     end
+
+    it 'GET show via xhr' do
+      xhr :get, :show, id: content.to_param, layout: 'false'
+      assigns(:content).must_equal content
+      assert_response :success
+      assert_template :clean_show
+    end
   end
 
   describe "GET new" do

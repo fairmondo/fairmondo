@@ -40,6 +40,7 @@ class LineItemGroup < ActiveRecord::Base
     end
     bt.validates :transport_address, :payment_address, :buyer_id, :seller_id, presence: true
     bt.validate :no_unified_transports_with_cash_on_delivery
+    bt.validate :no_unified_transports_with_bike_courier
   end
 
   def transport_can_be_unified?
@@ -92,12 +93,22 @@ class LineItemGroup < ActiveRecord::Base
     end
 
     def cash_on_delivery_with_unified_transport?
-      self.business_transactions.to_a.select{ |bt| bt.article.unified_transport? && bt.selected_payment.cash_on_delivery? }.any?
+      self.business_transactions.to_a.select { |bt| bt.article.unified_transport? && bt.selected_payment.cash_on_delivery? }.any?
+    end
+
+    def bike_courier_with_unified_transport?
+      self.business_transactions.to_a.select { |bt| bt.article.unified_transport? && bt.selected_payment.cash_on_delivery? }.any?
     end
 
     def no_unified_transports_with_cash_on_delivery
       if self.unified_transport? && cash_on_delivery_with_unified_transport?
         errors.add(:unified_transport, I18n.t('transaction.errors.cash_on_delivery_with_unified_transport'))
+      end
+    end
+
+    def no_unified_transports_with_bike_courier
+      if self.unified_transport? && bike_courier_with_unified_transport?
+        errors.add(:unified_transport, I18n.t('transaction.errors.bike_courier_with_unified_transport'))
       end
     end
 

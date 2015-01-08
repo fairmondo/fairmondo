@@ -12,7 +12,7 @@ class SearchIndexWorker
       ArticlesIndex::Article
     end
 
-    type.import ids, batch_size: 100
+    type.import! ids, batch_size: 100
 
   end
 end

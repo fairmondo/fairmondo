@@ -1,0 +1,36 @@
+/***
+ * Bybike billboard
+ */
+
+// Responsive code: small version
+@include till-breakpoint($bp-tablet) {
+  #billboard-bybike {
+    background-image: image-url('welcome/billboard_bybike_small.jpg');
+  }
+
+  #billboard-bybike > article > a {
+    @include static-position($top: 365px, $left: 35px, $height: 40px, $width: 178px);
+  }
+}
+
+// Responsive code: medium version
+@include between-breakpoints($bp-tablet, $bp-tablet-horizontal) {
+  #billboard-bybike {
+    background-image: image-url('welcome/billboard_bybike_medium.jpg');
+  }
+
+  #billboard-bybike > article > a {
+    @include static-position($top: 365px, $left: 270px, $height: 35px, $width: 183px);
+  }
+}
+
+// Responsive code: big version
+@include at-breakpoint($bp-tablet-horizontal) {
+  #billboard-bybike {
+    background-image: image-url('welcome/billboard_bybike_big.jpg');
+  }
+
+  #billboard-bybike > article > a {
+    @include static-position($top: 355px, $left: 464px, $height: 40px, $width: 213px);
+  }
+}

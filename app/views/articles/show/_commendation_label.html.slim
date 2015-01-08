@@ -38,14 +38,20 @@
   - ' Tag--gray'
 - when :borrowable
   - ' Tag--gray'
+- when :bike_courier
+  - ' Tag--light-red'
 - if size == :big
   - commendation_label_classes << ' Tag--big'
 
-- if local_assigns.has_key?(:link) && link
-  =<> link_to t("article.commendations.#{label.to_s}"), link,
-    class: "#{commendation_label_classes} accordion-anchor"
+- case label
+- when :bike_courier
+  =<> link_to fa_icon('bicycle'), link, class: "#{commendation_label_classes} accordion-anchor colorbox"
+-else
+  - if local_assigns.has_key?(:link) && link
+    =<> link_to t("article.commendations.#{label.to_s}"), link,
+      class: "#{commendation_label_classes} accordion-anchor"
 
-- else
-  - info = I18n.t("article.commendations.tooltips.#{label}")
-  span<> title="#{info}" class="#{commendation_label_classes} #{info ? 'Qtip' : nil}"
-    = t("article.commendations.#{label.to_s}")
+  - else
+    - info = I18n.t("article.commendations.tooltips.#{label}")
+    span<> title="#{info}" class="#{commendation_label_classes} #{info ? 'Qtip' : nil}"
+      = t("article.commendations.#{label.to_s}")

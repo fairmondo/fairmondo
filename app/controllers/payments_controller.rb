@@ -1,26 +1,7 @@
-#
-#
-# == License:
-# Fairmondo - Fairmondo is an open-source online marketplace.
-# Copyright (C) 2013 Fairmondo eG
-#
-# This file is part of Fairmondo.
-#
-# Fairmondo is free software: you can redistribute it and/or modify
-# it under the terms of the GNU Affero General Public License as
-# published by the Free Software Foundation, either version 3 of the
-# License, or (at your option) any later version.
-#
-# Fairmondo is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU Affero General Public License for more details.
-#
-# You should have received a copy of the GNU Affero General Public License
-# along with Fairmondo.  If not, see <http://www.gnu.org/licenses/>.
-#
 class PaymentsController < ApplicationController
-  respond_to :html
+  skip_before_filter :authenticate_user!, only: :ipn_notification
+  protect_from_forgery except: :ipn_notification
+  respond_to :html, except: :ipn_notification
 
   # create happens on buy. this is to initialize the payment with paypal
   def create
@@ -39,5 +20,40 @@ class PaymentsController < ApplicationController
     @payment = Payment.find(params[:id])
     authorize @payment
     redirect_to PaypalAPI.checkout_url @payment.pay_key
+  end
+
+  # receives instant payment notifications from paypal
+  #
+  def ipn_notification
+    ipn = PaypalAdaptive::IpnNotification.new
+    ipn.send_back(request.raw_post)
+
+    if ipn.verified?
+      payment = Payment.find_by(pay_key: params['pay_key'])
+
+      if payment
+        payment.last_ipn = params.to_json
+        if params && params[:status] == 'COMPLETED'# && params[:sender_email] == payment.line_item_group_buyer_email
+          payment.confirm
+
+          # Only send email to courier service if bike_courier is the selected transport
+          bts = payment.line_item_group.business_transactions.select{ |bt| bt.bike_courier_selected? }
+          if bts.any?
+            bts.each do |bt|
+              #raise StandardError, 'SCHAU WOHER ICH KOMME'
+              CartMailer.courier_notification(bt).deliver
+            end
+          end
+        else
+          payment.decline
+        end
+      else
+        raise ActiveRecord::RecordNotFound
+      end
+    else
+      raise StandardError, "ipn could not be verified"
+    end
+
+    render nothing: true
   end
 end

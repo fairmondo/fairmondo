@@ -38,7 +38,7 @@ describe ArticleMailer do
   end
 
   it "#contact" do
-    mail =  ArticleMailer.contact(user.email, article.seller_email, 'foobar', article)
+    mail =  ArticleMailer.contact(user, article, 'foobar')
 
     mail.must deliver_to article.seller_email
     mail.must have_subject I18n.t('article.show.contact.mail_subject')
