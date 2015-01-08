@@ -38,6 +38,10 @@ class ArticleObserver < ActiveRecord::Observer
     end
   end
 
+  def before_create article
+    article.discount_id = Discount.current.last.id if article.qualifies_for_discount?
+  end
+
   def before_activate(article, transition)
     article.changing_state = true
     article.calculate_fees_and_donations
@@ -56,6 +60,15 @@ class ArticleObserver < ActiveRecord::Observer
     Indexer.index_article article
   end
 
+  def before_create(article)
+    if original_article = article.original # handle saving of an edit_as_new clone
+      # move slug to new article
+      old_slug = original_article.slug
+      original_article.update_column :slug, (old_slug + original_article.id.to_s)
+      article.slug = old_slug
+    end
+  end
+
   def after_close(article, transition)
     article.remove_from_libraries
     article.cleanup_images unless article.business_transactions.any?
@@ -64,11 +77,6 @@ class ArticleObserver < ActiveRecord::Observer
 
   def after_create article
     if original_article = article.original # handle saving of an edit_as_new clone
-      # move slug to new article
-      old_slug = original_article.slug
-      original_article.update_column :slug, (old_slug + original_article.id.to_s)
-      article.update_column :slug, old_slug
-
       # move comments to new article
       original_article.comments.find_each do |comment|
         comment.update_column :commentable_id, article.id

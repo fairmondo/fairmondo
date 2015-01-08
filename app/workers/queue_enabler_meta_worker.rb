@@ -4,11 +4,11 @@ class QueueEnablerMetaWorker
 
   recurrence { daily.hour_of_day(0) }
 
-  sidekiq_options queue: :default,
+  sidekiq_options queue: :sidekiq_pro,
                   retry: 5,
                   backtrace: true
 
-  NIGHT_WORKER = ['paperclip_background', 'file_normalizer']
+  NIGHT_WORKER = ['file_normalizer', 'paperclip_background']
 
   def perform
     NIGHT_WORKER.each do |queue_name|

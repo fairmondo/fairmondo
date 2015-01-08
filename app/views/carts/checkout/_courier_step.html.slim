@@ -1,0 +1,12 @@
+.courier_step--target
+  = line_item_fields.semantic_fields_for :business_transaction, line_item.business_transaction do |t|
+    = t.inputs class: 'bike_courier' do
+      .left
+        = link_to content_path('courier', layout: false), class: 'colorbox Tag Tag--big Tag--light-red' do
+          .fa.fa-bicycle
+      .middle
+        = t.input :bike_courier_time, as: :select, collection: line_item.business_transaction.article.seller.pickup_time
+        = t.input :tos_bike_courier_accepted, required: false, label: "Die Lieferkosten in Höhe von #{ humanized_money_with_symbol(Money.new($courier['price'])) } zahle ich bar bei Lieferung, und ich akzeptiere die ".html_safe + link_to('AGB', "/assets/#{ $courier['tos'] }", target: 'blank') + " des Kurierdienstes.".html_safe
+      .right
+        = t.input :bike_courier_message, required: false, input_html: { rows: 4 }
+

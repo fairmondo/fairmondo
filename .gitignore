@@ -4,7 +4,8 @@ config/environments/development.rb
 public/system
 config/initializers/secret_token.rb
 bin
-
+config/actionmailer.yml
+.capistrano
 # Project files
 .redcar
 .project
@@ -116,3 +117,5 @@ paypal_adaptive.yml
 
 # mac DS_Store
 *.DS_Store
+
+config/courier.yml

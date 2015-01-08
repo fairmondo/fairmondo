@@ -1,5 +1,5 @@
 # config valid only for Capistrano 3.1
-lock '3.2.1'
+lock '3.3.5'
 
 set :application, 'fairnopoly'
 set :repo_url, 'git://github.com/fairnopoly/fairnopoly.git'
@@ -47,10 +47,10 @@ namespace :deploy do
   after :publishing, :restart
 
 
-  before :updated, 'bluepill:quiet'
-  after :published, 'bluepill:quit'
-  after :published, 'bluepill:init'
-  after :published, 'bluepill:start'
+  before :updated, 'eye:quiet'
+  after :published, 'eye:quit'
+  after :published, 'eye:init'
+  after :published, 'eye:start'
 
   after :restart, :clear_cache do
     on roles(:web), in: :groups, limit: 3, wait: 10 do

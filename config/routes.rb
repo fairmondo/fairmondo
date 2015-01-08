@@ -83,7 +83,6 @@ Fairmondo::Application.routes.draw do
     end
   end
 
-
   resources :carts, only: [:show,:edit,:update]
 
   resources :line_items, only: [:create,:update,:destroy]
@@ -91,13 +90,15 @@ Fairmondo::Application.routes.draw do
   resources :line_item_groups, only: [:show] do
     resources :payments, only: [:create, :show]
   end
-  match '/paypal/ipn_notification' => PaypalIpn, as: 'ipn_notification', via: [:get, :post]
+
+  match '/paypal/ipn_notification', to: 'payments#ipn_notification', as: 'ipn_notification', via: [:get, :post]
 
   get '/transactions/:id', to: 'business_transactions#show', as: 'business_transaction'
 
   resources :business_transactions, only: [:show] do
     resources :refunds, only: [ :new, :create ]
   end
+  match '/transactions/set_transport_ready/:id', to: 'business_transactions#set_transport_ready', as: 'set_transport_ready', via: [:get, :pos]
 
   get 'welcome/reconfirm_terms'
   post 'welcome/reconfirm_terms'
@@ -158,8 +159,12 @@ Fairmondo::Application.routes.draw do
   require 'sidekiq/web'
   require 'sidetiq/web'
 
-  constraint = lambda { |request| request.env['warden'].authenticate? and
-                      request.env['warden'].user.admin?}
+  if Rails.env.development?
+    constraint = lambda { |request| true }
+  else
+    constraint = lambda { |request| request.env['warden'].authenticate? and
+      request.env['warden'].user.admin? }
+  end
 
   constraints constraint do
     mount Sidekiq::Web => '/sidekiq'

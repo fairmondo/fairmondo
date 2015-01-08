@@ -1,4 +1,5 @@
-# This module compiles all checks (usually ending with aquestion mark) called on an article.
+# This module compiles all checks (usually ending with aquestion mark) called on
+# an article.
 #
 # == License:
 # Fairmondo - Fairmondo is an open-source online marketplace.
@@ -33,8 +34,29 @@ module Article::Checks
     self.condition == "new" && !self.fair && !self.small_and_precious && !self.ecologic
   end
 
+  def save_as_template?
+    save_as_template == "1"
+  end
+
+  def should_get_a_slug?
+    !closed? && !is_template?
+  end
+
+  def is_template?
+    # works even when the db state did not change yet
+    state.to_sym == :template
+  end
+
+  def qualifies_for_discount?
+    Discount.current.count > 0
+  end
+
+  def belongs_to_legal_entity?
+    seller.is_a?(LegalEntity)
+  end
+
   # should the fair alternative be shown for the seller
-  def show_fair_alternative_for_seller
+  def show_fair_alternative_for_seller?
     if $exceptions_on_fairmondo['no_fair_alternative'] && $exceptions_on_fairmondo['no_fair_alternative']['user_ids']
         $exceptions_on_fairmondo['no_fair_alternative']['user_ids'].each do |user_id|
         if self.seller.id == user_id

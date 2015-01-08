@@ -143,18 +143,18 @@ class LibrariesController < ApplicationController
         @user.libraries
       else
         case index_mode
-        when 'new'
-          Library
+        when 'trending'
+          Library.trending
         when 'myfavorite'
           current_user.hearted_libraries.reorder('hearts.created_at DESC')
-        else
-          Library.trending
+        when 'new'
+          Library
         end
       end
     end
 
     # Configure the libraries collection that is displayed
     def index_mode
-      @mode ||= params[:mode] || 'trending'
+      @mode ||= params[:mode] || 'new'
     end
 end

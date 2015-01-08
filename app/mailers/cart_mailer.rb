@@ -1,9 +1,9 @@
 class CartMailer < ActionMailer::Base
   include MailerHelper
-  before_filter :inline_logos
+  before_filter :inline_logos, except: :courier_notification
 
   default from: $email_addresses['default']
-  layout 'email'
+  layout 'email', except: :courier_notification
 
   def buyer_email(cart)
     cart.line_item_groups.each do |lig|
@@ -12,6 +12,11 @@ class CartMailer < ActionMailer::Base
       if lig.seller.is_a?(LegalEntity) && lig.seller.terms && lig.seller.cancellation
         filename = "#{ lig.seller_nickname }_agb_und_widerrruf.pdf"
         attachments[filename] = TermsAndCancellationPdf.new(lig).render
+      end
+
+      unless lig.business_transactions.select{|bt| bt.selected_transport == 'bike_courier'}.empty?
+        filename = $courier['tos']
+        attachments[filename] = File.read(Rails.root.join("app/assets/docs/#{ filename }"))
       end
     end
 
@@ -30,6 +35,29 @@ class CartMailer < ActionMailer::Base
     @buyer = line_item_group.buyer
     @seller = line_item_group.seller
     @subject = "[Fairmondo] #{ t('transaction.notifications.seller.seller_subject') } Verkauf Nr: #{ line_item_group.purchase_id }"
+
+    mail(to: @seller.email, subject: @subject)
+  end
+
+  def courier_notification(business_transaction)
+     @business_transaction = business_transaction
+     @buyer           = business_transaction.buyer
+     @seller          = business_transaction.seller
+     @subject         = "[Fairmondo] Artikel ausliefern"
+     @courier_email   = Rails.env == 'production' ? $courier['email'] : 'test@test.com'
+
+     if @business_transaction.line_item_group.paypal_payment && @business_transaction.line_item_group.paypal_payment.confirmed? #&& @business_transaction.ready?
+       mail(to: @courier_email, subject: @subject, bcc: 'bybike@fairmondo.de')
+     end
+  end
+
+  def voucher_paid_email payment_id
+    @payment = Payment.find(payment_id)
+    @abacus = Abacus.new(@payment.line_item_group)
+
+    @buyer = @payment.line_item_group_buyer
+    @seller = @payment.line_item_group_seller
+    @subject = "[Fairmondo] #{ t('transaction.notifications.seller.seller_voucher_subject') }"
 
     mail(to: @seller.email, subject: @subject)
   end

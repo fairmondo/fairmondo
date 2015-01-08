@@ -5,7 +5,7 @@ de:
     greeting_nickname: "Hallo %{nickname},"
     security_warning: "Sicherheitshinweis: Der Kaufvertrag kommt zwischen Dir und dem Anbieter zustande. Fairmondo ist bekanntlich nur Plattformbetreiberin. Um Dich gegen Betrugsfälle zu schützen, empfiehlt Fairmondo - insbesondere bei hochwertigen Artikeln und Käufen von Privatpersonen - Dir die Daten des Anbieters bestätigen zu lassen. In Einzelfällen kann es bspw. auch sinnvoll sein, Dir die Eigentümerstellung bzw. Nachweise der Echtheit (z.B. Software) oder Unversehrtheit (durch Fotos bei Gebrauchtartikeln) zusenden zu lassen."
     transport_address: 'Lieferadresse'
-    payment_address: 'Rechungsadresse'
+    payment_address: 'Rechnungsadresse'
     social_button: "Wir bei %{network}"
     imprint_heading: Impressum von Fairmondo
     imprint: |
@@ -37,9 +37,10 @@ de:
       bank_transfer: 'Überweisung'
       invoice: 'Rechnung'
       cash: 'Barzahlung bei Abholung'
+      voucher: Gutschein
     article:
       contact:
-        text_beginning: 'Ein*e Fairmondo-Nutzer*in hat dir eine Rückfrage zu deinem Artikel'
+        text_beginning: 'hat dir eine Rückfrage zu deinem Artikel'
         text_end: 'gesandt:'
         reply_button: 'Anfrage beantworten'
         article_link_text: 'Den Artikel zu der Rückfrage findest Du unter '
@@ -84,6 +85,16 @@ de:
           Unterschrift des/der Verbraucher*in (nur bei Mitteilung auf Papier)
 
           Datum'
+      mass_upload_finished:
+        success: Dein CSV-Upload wurde erfolgreich verarbeitet.
+        failure: 'Bei der Verarbeitung Deiner CSV Datei durch das System ist ein Fehler aufgetreten. Klicke hier um den Fehler anzuzeigen:'
+        to_activate: 'Dabei musst Du noch %{count} Artikel aktivieren.'
+        created_articles: 'Neu erstellte Artikel: %{count}'
+        updated_articles: 'Modifizierte Artikel: %{count}'
+        activated_articles: 'Zu reaktivierende Artikel: %{count}'
+        activate_now: "Jetzt aktivieren"
+        deleted_articles: 'Du hast %{count} Artikel gelöscht.'
+        deactivated_articles: 'Du hast %{count} Artikel deaktiviert.'
       mass_activation:
         text: 'Du hast erfolgreich per CSV-Upload eingestellte Artikel aktiviert.'
         to_csv: 'Hier kommst Du zu Deinem CSV-Upload: '
@@ -108,4 +119,12 @@ de:
         bought_from_you: 'hat bei Dir gekauft:'
         buyer_message: 'Nachricht des*der Käufer*in'
         view_and_pay: 'Bestellung ansehen und versenden'
-
+    voucher:
+      heading: 'Neue Gutscheinzahlung auf Fairmondo'
+      text: 'folgende Artikel wurden von %{buyer} per Gutschein mit dem Gutscheincode <b>%{code}</b> bezahlt:'
+      total: "Gesamt: %{total}"
+      money_left_over: 'Dadurch ist ein Spendenbetrag von <b>%{amount}</b> entstanden. Bitte leite diesen an die Organisation weiter, die Du in dem Gutschein angegeben hast.'
+      money_missing: 'Die verbleibenden <b>%{amount}</b> werden von dem/der Käufer*in überwiesen.'
+      side_heading: 'Verkaufsdetails'
+      code: 'Gutscheincode:'
+      purchase_id: 'Transaktionsnummer:'

@@ -70,10 +70,11 @@ form.change_quantity > .inputs  > ol > li.input {
   input { width: 4em; padding: 0.3em 0.5em;}
 }
 
-.delete_line_item {
+.delete_line_item, .collect_line_item {
   margin-left: 0.5em;
   line-height: 2.3em;
 }
+
 
 form.change_quantity > .inputs >  ol > li.action {
   float:none;
@@ -81,9 +82,10 @@ form.change_quantity > .inputs >  ol > li.action {
 
 .change_quantity,
 .delete_line_item,
+.collect_line_item,
 .change_quantity > .inputs ,
 .change_quantity > .inputs > ol > li,
-.delete_line_item > div {
+.delete_line_item, .collect_line_item > div {
   display: inline-block;
   overflow: visible;
   float:left;
@@ -109,7 +111,8 @@ form.change_quantity > .inputs >  ol > li.action {
 @include at-breakpoint($bp-tablet-horizontal) {
   .line_item_actions-inner { padding: 1.8em 1em; }
   .change_quantity { @include span(2 of 6 0.1); }
-  .delete_line_item {  @include span(2 of 6 0.1); margin-left: 0; }
+  .delete_line_item {  @include span(1 of 6 0.1); margin-left: 0; }
+  .collect_line_item {  @include span(1 of 6 0.1); margin-left: 0; }
   .line_item_total { @include span(2 of 6 0.1); @include omega; }
 
    .to_checkout > .Button {
@@ -160,7 +163,6 @@ form.change_quantity > .inputs >  ol > li.action {
    @include at-breakpoint($bp-tablet-horizontal) {
     float:right;
   }
-
 }
 
 // Responsiveness
@@ -285,6 +287,25 @@ form.change_quantity > .inputs >  ol > li.action {
   }
 }
 
+.courier_step--target {
+  display: none;
+  @include whitebox;
+  margin-top: 0.5em;
+  margin-bottom: 1em;
+
+  .left {
+    @include span(1 of 15 0.1);
+  }
+  .middle {
+    @include span(9 of 15 0.1);
+  }
+  .right {
+    @include span(5 of 15 0.1);
+    @include omega;
+  }
+  @include clearfix;
+}
+
 // Addresses
 
 .addresses_forms > .payment_address .Address > .Address-controls .delete_address {
@@ -347,6 +368,13 @@ form.change_quantity > .inputs >  ol > li.action {
 
 .checkout_button {
   font-size: 1.2em;
+}
+
+#collect_link {
+  color: $blue !important;
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 /* --------------------- Post Checkout Cart --------------------- */

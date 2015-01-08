@@ -68,10 +68,12 @@ describe Article do
     it { subject.must_respond_to :transport_type2_provider }
     it { subject.must_respond_to :transport_type1_price_cents }
     it { subject.must_respond_to :transport_type2_price_cents }
+    it { subject.must_respond_to :transport_time }
     it { subject.must_respond_to :payment_bank_transfer }
     it { subject.must_respond_to :payment_cash }
     it { subject.must_respond_to :payment_paypal }
     it { subject.must_respond_to :payment_invoice }
+    it { subject.must_respond_to :payment_voucher }
     it { subject.must_respond_to :payment_cash_on_delivery_price_cents }
     it { subject.must_respond_to :basic_price_cents }
     it { subject.must_respond_to :basic_price_amount }
@@ -82,6 +84,8 @@ describe Article do
     it { subject.must_respond_to :transport_type1_number }
     it { subject.must_respond_to :transport_type2_number }
     it { subject.must_respond_to :discount_id }
+    it { subject.must_respond_to :transport_bike_courier }
+    it { subject.must_respond_to :transport_bike_courier_number }
   end
 
   describe "::Base" do
@@ -226,6 +230,12 @@ describe Article do
         db_article.errors[:payment_paypal].must_equal [I18n.t("article.form.errors.paypal_details_missing")]
       end
 
+      it "should allow dashes in transport_time" do
+        db_article.transport_time = "3 – 5"
+        db_article.save
+        db_article.errors[:transport_time].must_equal []
+      end
+
       it {subject.must validate_numericality_of(:transport_type1_number)}
       it {subject.must validate_numericality_of(:transport_type2_number)}
     end
@@ -249,10 +259,11 @@ describe Article do
 
       describe "#selectable (private)" do
         it "should return an array with selected transport options, the default being first" do
-          output = FactoryGirl.create(:article, :with_all_transports).send(:selectable, "transport")
-          output.must_include  "pickup"
-          output.must_include "type1"
-          output.must_include "type2"
+          output = FactoryGirl.create(:article, :with_all_payments, :with_all_transports).send(:selectable, "transport")
+          output.must_include 'pickup'
+          output.must_include 'type1'
+          output.must_include 'type2'
+          output.must_include 'bike_courier'
         end
       end
 

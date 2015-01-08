@@ -1,6 +1,6 @@
-$(document).always ->
+createSliders = ->
   $("#js-billboardslides").slidesjs
-    #start: Math.floor(Math.random() * 2) + 1  # random number between 1 and 2
+    #start: 3
     width: 205
     height: 410
     play:
@@ -40,3 +40,5 @@ $(document).always ->
         $("#slide#{m}").css('position', 'absolute')
         $("#slide#{n}").css('position', 'static')
         $("#slide#{o}").css('position', 'absolute')
+
+$(document).always createSliders

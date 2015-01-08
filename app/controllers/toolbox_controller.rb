@@ -51,10 +51,9 @@ class ToolboxController < ApplicationController
     return redirect_to :back, flash: { error: I18n.t('article.show.contact.empty_error') } unless params[:contact][:text].length > 0 # manual validation: message is present
     return redirect_to :back, flash: { error: I18n.t('article.show.contact.long_error') } unless params[:contact][:text].length < 2000 # manual validation: message is shorter than 2000 characters
     article = Article.find params[:contact][:article_id]
-    ArticleMailer.delay.contact(current_user.email,
-                                article.seller_email,
-                                params[:contact][:text],
-                                article)
+    ArticleMailer.delay.contact(current_user,
+                                article,
+                                params[:contact][:text])
     session[:seller_message][params[:contact][:article_id]] = nil # delete from session
     redirect_to article, notice: I18n.t('article.show.contact.success_notice')
   end
@@ -77,7 +76,7 @@ class ToolboxController < ApplicationController
     def get_feed_items
       begin
         Timeout::timeout(10) do #10 second timeout
-          OpenSSL::SSL::SSLContext::DEFAULT_PARAMS[:ssl_version] = 'SSLv3' # See comment to http://stackoverflow.com/q/20169301/409087
+          OpenSSL::SSL::SSLContext::DEFAULT_PARAMS[:ssl_version] = 'SSLv23' # See comment to http://stackoverflow.com/q/20169301/409087
                                                                            # TODO Set /etc/ssl/certs as sll_ca_folder to remove this hack
           feed = open 'https://info.fairmondo.de/?feed=rss', ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE
           OpenSSL::SSL::SSLContext::DEFAULT_PARAMS[:ssl_version] = 'SSLv23'

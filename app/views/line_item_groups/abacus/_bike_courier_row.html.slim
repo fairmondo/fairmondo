@@ -1,0 +1,6 @@
+- if bike_courier_total
+  .Payment-row
+    .Payment-cell
+      = t("enumerize.business_transaction.selected_transport.bike_courier_full")
+    .Payment-value
+      = money Money.new($courier['price'])

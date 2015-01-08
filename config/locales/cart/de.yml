@@ -25,7 +25,7 @@ de:
       unified_transport_shipments: "Insgesamt %{shipments} Sendungen"
       unified_transport_price: "Kombiversandkosten je Sendung: %{price}"
       free_transport_notice: "(Verkäufer*in bietet kostenfreien Versand ab %{price})"
-      same_address: Lieferadresse wie Rechungsadresse
+      same_address: Lieferadresse wie Rechnungsadresse
       next_step_explanation: "Im nächsten Schritt kannst Du alle Deine Angaben noch einmal überprüfen, bevor Du Deine Bestellung abschickst."
       security_warning: "Sicherheitshinweis: Insbesondere bei Artikeln ab einem Wert von 100 Euro empfiehlt Fairmondo eine sichere Bezahlmethode wie PayPal, die einen Käuferschutz beinhaltet, oder Barzahlung bei Abholung."
       long_security_warning: "Sicherheitshinweis: \n Der Kaufvertrag kommt zwischen Dir und dem/der Anbieter*in zustande. Fairmondo ist bekanntlich nur Plattformbetreiberin.\n Um Dich gegen Betrugsfälle zu schützen, empfiehlt Fairmondo - insbesondere bei hochwertigen Artikeln und Käufen von Privatpersonen - Dir die Daten des Anbieters bestätigen zu lassen. In Einzelfällen kann es auch sinnvoll sein, Dir die Eigentümerstellung bzw. Nachweise der Echtheit (z.B. Software) oder Unversehrtheit (durch Fotos) nachweisen zu lassen. "
@@ -44,12 +44,14 @@ de:
         pickup: '(Selbstabholung)'
         type1: ''
         type2: ''
+        bike_courier: Fahrradkurier
       total_for:
         bank_transfer: 'Gesamter Überweisungswert'
         paypal: 'Gesamter PayPal-Zahlungsbetrag'
         cash: 'Gesamter Barzahlungswert'
         cash_on_delivery: ' Gesamte Kosten der Nachnahmesendung'
         invoice: 'Gesamter Rechnungsbetrag'
+        voucher: 'Gesamter Gutscheinbetrag'
       totals:
         total_net_price: 'Zwischensumme ohne USt.:'
         total_vat: 'Umsatzsteuer:'

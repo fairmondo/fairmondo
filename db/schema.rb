@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141023135723) do
+ActiveRecord::Schema.define(version: 20141217105742) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -92,15 +92,14 @@ ActiveRecord::Schema.define(version: 20141023135723) do
     t.boolean  "borrowable",                                       default: false
     t.integer  "comments_count",                                   default: 0
     t.integer  "original_id",                            limit: 8
+    t.boolean  "transport_bike_courier",                           default: false
+    t.integer  "transport_bike_courier_number",                    default: 1
+    t.boolean  "payment_voucher",                                  default: false
   end
 
   add_index "articles", ["created_at"], name: "index_articles_on_created_at", using: :btree
   add_index "articles", ["custom_seller_identifier", "user_id"], name: "index_articles_on_custom_seller_identifier_and_user_id", using: :btree
-  add_index "articles", ["discount_id"], name: "index_articles_on_discount_id", using: :btree
-  add_index "articles", ["friendly_percent_organisation_id"], name: "index_articles_on_friendly_percent_organisation_id", using: :btree
-  add_index "articles", ["original_id"], name: "index_articles_on_original_id", using: :btree
   add_index "articles", ["slug"], name: "index_articles_on_slug", unique: true, using: :btree
-  add_index "articles", ["slug"], name: "text_pattern_index_on_slug", using: :btree
   add_index "articles", ["state"], name: "index_articles_on_state", using: :btree
   add_index "articles", ["user_id"], name: "index_articles_on_user_id", using: :btree
 
@@ -115,37 +114,42 @@ ActiveRecord::Schema.define(version: 20141023135723) do
 
   create_table "business_transactions", force: true do |t|
     t.string   "type_fix"
-    t.datetime "created_at",                                     null: false
-    t.datetime "updated_at",                                     null: false
+    t.datetime "created_at",                                          null: false
+    t.datetime "updated_at",                                          null: false
     t.datetime "expire"
     t.string   "selected_transport"
     t.string   "selected_payment"
-    t.boolean  "tos_accepted",                   default: false
-    t.integer  "buyer_id",             limit: 8
+    t.boolean  "tos_accepted",                        default: false
+    t.integer  "buyer_id",                  limit: 8
     t.string   "state"
     t.text     "message"
     t.integer  "quantity_available"
     t.integer  "quantity_bought"
-    t.integer  "parent_id",            limit: 8
-    t.integer  "article_id",           limit: 8
+    t.integer  "parent_id",                 limit: 8
+    t.integer  "article_id",                limit: 8
     t.string   "forename"
     t.string   "surname"
     t.string   "street"
     t.string   "city"
     t.string   "zip"
     t.string   "country"
-    t.integer  "seller_id",            limit: 8
+    t.integer  "seller_id",                 limit: 8
     t.datetime "sold_at"
-    t.boolean  "purchase_emails_sent",           default: false
+    t.boolean  "purchase_emails_sent",                default: false
     t.string   "address_suffix"
     t.integer  "discount_id"
     t.integer  "discount_value_cents"
-    t.boolean  "billed_for_fair",                default: false
-    t.boolean  "billed_for_fee",                 default: false
-    t.boolean  "billed_for_discount",            default: false
-    t.integer  "line_item_group_id",   limit: 8
-    t.boolean  "refunded_fair",                  default: false
-    t.boolean  "refunded_fee",                   default: false
+    t.boolean  "billed_for_fair",                     default: false
+    t.boolean  "billed_for_fee",                      default: false
+    t.boolean  "billed_for_discount",                 default: false
+    t.integer  "line_item_group_id",        limit: 8
+    t.boolean  "refunded_fair",                       default: false
+    t.boolean  "refunded_fee",                        default: false
+    t.boolean  "tos_bike_courier_accepted",           default: false
+    t.text     "bike_courier_message"
+    t.string   "bike_courier_time"
+    t.boolean  "courier_emails_sent",                 default: false
+    t.datetime "courier_emails_sent_at"
   end
 
   add_index "business_transactions", ["article_id"], name: "index_business_transactions_on_article_id", using: :btree
@@ -194,6 +198,7 @@ ActiveRecord::Schema.define(version: 20141023135723) do
     t.datetime "updated_at"
   end
 
+  add_index "comments", ["commentable_id", "commentable_type", "updated_at"], name: "index_comments_for_popularity_worker", using: :btree
   add_index "comments", ["commentable_id", "commentable_type"], name: "index_comments_on_commentable_id_and_commentable_type", using: :btree
   add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
 
@@ -288,6 +293,7 @@ ActiveRecord::Schema.define(version: 20141023135723) do
     t.string   "user_token"
   end
 
+  add_index "hearts", ["heartable_id", "heartable_type", "updated_at"], name: "index_hearts_for_popularity_worker", using: :btree
   add_index "hearts", ["heartable_id", "heartable_type"], name: "index_hearts_on_heartable_id_and_heartable_type", using: :btree
   add_index "hearts", ["user_id", "heartable_id", "heartable_type"], name: "index_hearts_on_user_id_and_heartable_id_and_heartable_type", unique: true, using: :btree
   add_index "hearts", ["user_id"], name: "index_hearts_on_user_id", using: :btree
@@ -421,6 +427,19 @@ ActiveRecord::Schema.define(version: 20141023135723) do
   end
 
   add_index "notices", ["user_id"], name: "index_notices_on_user_id", using: :btree
+
+  create_table "opening_times", force: true do |t|
+    t.integer  "user_id",    limit: 8
+    t.string   "monday"
+    t.string   "tuesday"
+    t.string   "wednesday"
+    t.string   "thursday"
+    t.string   "friday"
+    t.string   "saturday"
+    t.string   "sunday"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "payments", force: true do |t|
     t.string   "pay_key"
@@ -568,6 +587,7 @@ ActiveRecord::Schema.define(version: 20141023135723) do
     t.integer  "free_transport_at_price_cents",      limit: 8, default: 0
     t.boolean  "receive_comments_notification",                default: true
     t.boolean  "heavy_uploader",                               default: false
+    t.boolean  "uses_vouchers",                                default: false
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree

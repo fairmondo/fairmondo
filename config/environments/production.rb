@@ -52,6 +52,9 @@ Fairmondo::Application.configure do
   # config.action_dispatch.x_sendfile_header = "X-Sendfile" # for apache
   # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for nginx
 
+  # allow cross origin framing
+  config.action_dispatch.default_headers = { 'X-Frame-Options' => '' }
+
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   # config.force_ssl = true
 
@@ -102,4 +105,6 @@ Fairmondo::Application.configure do
   require "#{config.root}/config/rewrites.rb"
   config.middleware.insert_before(Rack::Runtime, Rack::Rewrite, klass: Rack::Rewrite::FairmondoRuleSet)
 
+  # Better logging
+  config.lograge.enabled = true
 end

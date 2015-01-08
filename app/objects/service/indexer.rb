@@ -1,17 +1,13 @@
 class Indexer
 
   def self.index_article article
-   # indexing
-    if article.active? && !article.template?
-      SearchIndexWorker.perform_async(:article, article.id, :store)
-    elsif !article.preview?
-      SearchIndexWorker.perform_async(:article, article.id, :delete)
-    end
+    SearchIndexWorker.perform_async(:article, article.id)
   end
 
   def self.index_articles article_ids
-    article_ids.each do |article_id|
-      SearchIndexWorker.perform_async(:article, article_id, :store)
+    article_ids.each_slice(1000).with_index do |ids, index| #give it to redis in batches of 100 so that redis wont overflow
+      delay = index * 250 # delay them for 120 secs each
+      SearchIndexWorker.perform_in(delay.seconds, :article, ids)
     end
   end
 
@@ -20,48 +16,4 @@ class Indexer
     Indexer.index_articles activation_ids
   end
 
-  def self.settings
-    {
-      index: {
-        store: { type: Rails.env.test? ? :memory : :niofs }
-      },
-      analysis: {
-        filter: {
-          decomp:{
-            type: "decompound"
-          },
-          german_stemming: {
-            type: 'snowball',
-            language: 'German2'
-          },
-          ngram_filter: {
-            type: "ngram",
-            min_gram: 2,
-            max_gram: 20,
-          }
-        },
-        analyzer: {
-          decomp_stem_analyzer: {
-            type: "custom",
-            tokenizer: "letter",
-            filter: [
-                    'lowercase',
-                    'decomp',
-                    'german_stemming',
-                    'asciifolding'
-                    ]
-          },
-          decomp_analyzer: {
-            type: "custom",
-            tokenizer: "letter",
-            filter: [
-                    'lowercase',
-                    'decomp',
-                    'asciifolding'
-                    ]
-          }
-        }
-      }
-    }
-  end
 end

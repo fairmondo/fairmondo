@@ -3,12 +3,12 @@ h3
 = t('email.greeting', name: @line_item_group.seller.first_name)
 p
   = t('email.line_item_group.seller.text')
-  p
-    = t('email.close')
+p
+  = t('email.close')
 .line-item-group
   h3
     = link_to @line_item_group.buyer_nickname, profile_user_url(@line_item_group.buyer.id)
-    = t('email.line_item_group.seller.bought_from_you')
+    =< t('email.line_item_group.seller.bought_from_you')
   = "Käufer*in kontaktieren: "
   = mail_to @line_item_group.buyer_email
   br
@@ -18,8 +18,14 @@ p
       h4
         = t('email.line_item_group.seller.buyer_message')
       = @line_item_group.message
+
   - @line_item_group.business_transactions.each do |bt|
-    = render 'article', bt: bt
+    = render 'article', bt: bt, role: 'seller'
+    center
+      - if bt.bike_courier_selected?
+        br
+        = link_to 'Sendung als versandfertig markieren', set_transport_ready_url(bt.id), class: 'Button Button--with-margin'
+
   - abacus = Abacus.new(@line_item_group)
   = render 'donations', abacus: abacus, role: 'seller'
   = render 'total_price', abacus: abacus

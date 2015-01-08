@@ -20,13 +20,12 @@
 / along with Fairmondo.  If not, see <http://www.gnu.org/licenses/>.
 /
 
-- new_window = true
 - if article_path(article) == request.path
   - link = "#commendation"
-  - new_window = false
 
-= render('articles/show/commendation_label', label: :fair, size: :small, link: link, new_window: new_window) if article.fair
-= render('articles/show/commendation_label', label: :ecologic, size: :small, link: link, new_window: new_window) if article.ecologic
-= render('articles/show/commendation_label', label: :small_and_precious, size: :small, link: link, new_window: new_window) if article.small_and_precious
-= render('articles/show/commendation_label', label: :swappable, size: :small, link: link, new_window: new_window) if article.swappable
-= render('articles/show/commendation_label', label: :borrowable, size: :small, link: link, new_window: new_window) if article.borrowable
+= render('articles/show/commendation_label', label: :fair, size: :small, link: link) if article.fair
+= render('articles/show/commendation_label', label: :ecologic, size: :small, link: link) if article.ecologic
+= render('articles/show/commendation_label', label: :small_and_precious, size: :small, link: link) if article.small_and_precious
+= render('articles/show/commendation_label', label: :swappable, size: :small, link: link) if article.swappable
+= render('articles/show/commendation_label', label: :borrowable, size: :small, link: link) if article.borrowable
+= render('articles/show/commendation_label', label: :bike_courier, size: :small, link: content_path('courier', layout: false), new_window: false) if article.transport_bike_courier

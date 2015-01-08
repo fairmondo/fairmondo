@@ -1,0 +1,2 @@
+a href="/users/{{value}}" target="_blank"
+  | {{ text }}

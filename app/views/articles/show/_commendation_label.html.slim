@@ -25,19 +25,6 @@
 / link [String] Optional string url where the label should link to
 / new_window [Boolean] Optional url in new window?
 
-/ link default values
-- unless local_assigns.has_key? :link
-  - link = case label
-  - when :fair
-    - "/faq#fi3"
-  - when :ecologic
-    - "/faq#fi4"
-  - when :small_and_precious
-    - "/faq#fi5"
-
-/ new_window default value
-- local_assigns.has_key? :new_window or new_window = true
-
 / Set up classes string
 - commendation_label_classes = 'Tag'
 - commendation_label_classes << case label
@@ -51,7 +38,20 @@
   - ' Tag--gray'
 - when :borrowable
   - ' Tag--gray'
+- when :bike_courier
+  - ' Tag--light-red'
 - if size == :big
   - commendation_label_classes << ' Tag--big'
 
-=<> link_to t("article.commendations.#{label.to_s}"), link ? link : nil, target: new_window ? '_blank' : '_self', class: "#{commendation_label_classes} accordion-anchor"
+- case label
+- when :bike_courier
+  =<> link_to fa_icon('bicycle'), link, class: "#{commendation_label_classes} accordion-anchor colorbox"
+-else
+  - if local_assigns.has_key?(:link) && link
+    =<> link_to t("article.commendations.#{label.to_s}"), link,
+      class: "#{commendation_label_classes} accordion-anchor"
+
+  - else
+    - info = I18n.t("article.commendations.tooltips.#{label}")
+    span<> title="#{info}" class="#{commendation_label_classes} #{info ? 'Qtip' : nil}"
+      = t("article.commendations.#{label.to_s}")

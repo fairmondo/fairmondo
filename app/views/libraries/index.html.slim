@@ -20,12 +20,14 @@
 / along with Fairmondo.  If not, see <http://www.gnu.org/licenses/>.
 /
 
-h1.Title-next-to-tab Sammlungen
+h1.Title-next-to-tab
+  => t('libraries.title')
+  span.sprite_helper title="#{ t('libraries.tooltip') }"
 
 - if !user_focused? || @user == current_user
   ul.Tabs
-    = render 'mode_menu_item', text: t('libraries.tabs.trending'), path: libraries_path, selected: (@mode == 'trending'), icon: 'line-chart'
     = render 'mode_menu_item', text: t('libraries.tabs.updated'), path: new_libraries_path, selected: (@mode == 'new'), icon: 'refresh'
+    = render 'mode_menu_item', text: t('libraries.tabs.trending'), path: trending_libraries_path, selected: (@mode == 'trending'), icon: 'line-chart'
     = render 'mode_menu_item', text: t('libraries.tabs.favorites'), path: myfavorite_libraries_path, selected: (@mode == 'myfavorite'), icon: 'heart'
     - if user_signed_in?
       = render 'mode_menu_item', text: t('libraries.tabs.own'), path: user_libraries_path(current_user), selected: user_focused?, icon: 'user'
@@ -35,20 +37,28 @@ h1.Title-next-to-tab Sammlungen
   - if @library && policy(@library).create? && @libraries.length > 5
     p#library-form-link= link_to t('libraries.create_new'), '#library-form'
 
+  / When the user is not signed in and myfavorite is selected, render a message
   - if !user_signed_in? && @mode == 'myfavorite'
-    / When the user is not signed in and myfavorite is selected, render a message
     p
       = link_to(t('libraries.sign_in'), new_session_path(:user)) + ', '
       = t('libraries.to_show_favorites') + ' '
       = link_to(t('libraries.sign_up'), new_registration_path(:user)) + '.'
-  - else
+
+  / Show christmas gift text
+  - if !user_focused?
+    p
+      = tinycms_content("libraries_message")
+      /= "Hier findest Du Empfehlungen von anderen Nutzer*innen für schöne Artikel. Du kannst auch selbst Sammlungen anlegen – lies hier, wie das geht."
+
+  / Show libraries
+  - if user_signed_in? || @mode != 'myfavorite'
     - if @libraries.any?
       = render partial: "libraries/library", collection: @libraries
       = paginate @libraries
     - else
       p= t('libraries.no_library')
 
-/ Form to create a new library at the top of the page
+/ Form to create a new library at the bottom of the page
 - if @library && policy(@library).create?
   #library-form
     h3= t('library.new')

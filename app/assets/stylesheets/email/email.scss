@@ -178,6 +178,10 @@ hr {
 .line-item-group {
   overflow: hidden;
   margin-bottom: 1.3em;
+
+  .Button--with-margin {
+    margin-bottom: 0.5em;
+  }
 }
 
 .seller-imprint-container {

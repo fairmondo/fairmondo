@@ -23,7 +23,7 @@ require 'ffaker'
 
 FactoryGirl.define do
   factory :business_transaction do
-    ignore do
+    transient do
       seller { FactoryGirl.create(:seller, :paypal_data) }
       buyer { FactoryGirl.create :user }
       article_attributes { Hash.new }
@@ -92,6 +92,13 @@ FactoryGirl.define do
       selected_transport :type2
     end
 
+    trait :transport_bike_courier do
+      selected_transport :bike_courier
+      tos_bike_courier_accepted true
+      bike_courier_time { self.seller.pickup_time.sample }
+      bike_courier_message 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
+    end
+
     ################ Payments #############
 
     trait :cash do
@@ -112,6 +119,10 @@ FactoryGirl.define do
 
     trait :bank_transfer do
       selected_payment 'bank_transfer'
+    end
+
+    trait :voucher do
+      selected_payment 'voucher'
     end
 
 #    trait :mangopay do

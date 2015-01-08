@@ -21,6 +21,12 @@ class CartMailerWorker
           CartMailer.seller_email(lig).deliver
           lig.update_columns(purchase_emails_sent: true, purchase_emails_sent_at: Time.now)
         end
+
+        #lig.business_transactions.select{ |bt| bt.bike_courier_selected? }.each do |bt|
+        #  # send email to courier
+        #  CartMailer.courier_notification(bt).deliver
+        #  bt.update_columns(courier_emails_sent: true, courier_emails_sent_at: Time.now)
+        #end
       end
     end
   end

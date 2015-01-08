@@ -9,7 +9,7 @@
     - line_item_groups.each do |group|
       - if group.articles.any?
         = render 'line_item_groups/shared/listitem' , line_item_group: group
-    = paginate line_item_groups, params: { active_accordion: item_name }, param_name: "#{item_name}_page"
+    = paginate line_item_groups, link_attributes: { data: {scroll: false} }, params: { active_accordion: item_name }, param_name: "#{item_name}_page"
 
 / - if current_user.type == 'LegalEntity' && item_name == 'seller_line_item_groups'
 /   .export.JS-active-toggle--container

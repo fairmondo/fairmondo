@@ -22,6 +22,7 @@
 class BusinessTransaction < ActiveRecord::Base
   extend Enumerize
   extend Sanitization
+  extend RailsAdminStatistics
 
   include BusinessTransaction::Refundable, BusinessTransaction::Discountable, BusinessTransaction::Scopes
 
@@ -46,6 +47,7 @@ class BusinessTransaction < ActiveRecord::Base
            :active?, :transport_time,
            to: :article, prefix: true
   delegate :email, :nickname, to: :buyer, prefix: true
+  delegate :nickname, to: :seller, prefix: true
   delegate :title, :first_name, :last_name, :address_line_1, :address_line_2, :company_name,
            :zip, :city, :country, to: :transport_address, prefix: true
   delegate :title, :first_name, :last_name, :address_line_1, :address_line_2, :company_name,
@@ -56,7 +58,7 @@ class BusinessTransaction < ActiveRecord::Base
            :vacationing?, :cancellation_form,
            to: :article_seller, prefix: true
   delegate :url, to: :article_seller_cancellation_form, prefix: true
-  delegate :payment_address, :transport_address, to: :line_item_group
+  delegate :payment_address, :transport_address, :purchase_id, :cart_id, to: :line_item_group
   #delegate :buyer, :seller, to: :line_item_group
 
 
@@ -67,17 +69,33 @@ class BusinessTransaction < ActiveRecord::Base
   validates :line_item_group, presence: true
   validates :article, presence: true
 
+  # validations for transport_bike_courier
+  #
+  with_options if: :bike_courier_selected? do |bt|
+    bt.validates :tos_bike_courier_accepted, acceptance: { allow_nil: false, accept: true }
+    bt.validates :bike_courier_time, presence: true
+    bt.validates :bike_courier_message, length: { maximum: 500 }
+
+    # custom validations
+    bt.validate :transport_address_in_area?
+    #bt.validate :right_time_frame_for_bike_courier?
+  end
+
   state_machine initial: :sold do
 
-    state :sold, :paid, :sent, :completed do
+    state :sold, :paid, :ready, :sent, :completed do
     end
 
     event :pay do
       transition :sold => :paid
     end
 
+    event :prepare do
+      transition [:sold, :paid] => :ready
+    end
+
     event :ship do
-      transition :paid => :sent
+      transition [:sold, :paid, :ready] => :sent
     end
 
     event :receive do
@@ -90,6 +108,8 @@ class BusinessTransaction < ActiveRecord::Base
   def selected_transport_provider
     if self.selected_transport == "pickup"
       "pickup"
+    elsif self.selected_transport == "bike_courier"
+      "bike_courier"
     elsif self.selected_transport == "type1"
       self.article.transport_type1_provider
     elsif self.selected_transport == "type2"
@@ -105,5 +125,25 @@ class BusinessTransaction < ActiveRecord::Base
   def refunded?
     refunded_fee && refunded_fair
   end
+
+  def bike_courier_selected?
+    self.selected_transport == 'bike_courier'
+  end
+
+  private
+
+    # Custom conditions for validations
+    #
+    def transport_address_in_area?
+      unless $courier['zip'].split(' ').include?(self.transport_address_zip)
+        errors.add(:selected_transport, I18n.t('transaction.errors.transport_address_not_in_area'))
+      end
+    end
+
+    def right_time_frame_for_bike_courier?
+      unless self.seller.pickup_time.include? self.bike_courier_time
+        errors.add(:bike_courier_time, I18n.t('transaction.errors.wrong_time_frame'))
+      end
+    end
 
 end

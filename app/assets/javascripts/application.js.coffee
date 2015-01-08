@@ -25,9 +25,11 @@
 #= require wiselinks
 #= require jquery_ujs
 
-#= require jquery.ui.accordion
-
+#= require jquery-ui/accordion
 #= require qtip2-jquery-rails
+
+#= require hogan.js
+#= require_tree ./templates
 
 #= require modernizr
 #= require selectivizr
@@ -44,6 +46,7 @@
 #= require lazy/wiselinks
 
 #= require customize/wiselinks_ready
+#= require customize/wiselinks_scroll
 
 #= require vendor/jquery.slides.min.js
 #= require vendor/jquery.ba-dotimeout.min.js
@@ -68,6 +71,7 @@
 #= require models/user/colorbox_links
 #= require models/cart/unified
 #= require models/cart/quantity
+#= require models/cart/courier
 
 #= require visual/accordion
 #= require visual/tooltip

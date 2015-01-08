@@ -19,4 +19,18 @@
 / You should have received a copy of the GNU Affero General Public License
 / along with Fairmondo.  If not, see <http://www.gnu.org/licenses/>.
 /
-= render '/articles/shared/search_results', articles: @articles, search_cache: @search_cache
+
+/ Check if any filters are set exclusively. In these cases, a specific
+/ landing page is put into :search_specific_content and rendered in
+/ 'articles/shared/search_results'
+- if @search_cache.exclusive_value? :fair, true
+  = render 'articles/index/featured_libraries_fair'
+- elsif @search_cache.exclusive_value? :ecologic, true
+  = render 'articles/index/featured_libraries_ecologic'
+- elsif @search_cache.exclusive_value? :small_and_precious, true
+  = render 'articles/index/featured_libraries_small'
+- elsif @search_cache.exclusive_value? :condition, 'old'
+  = render 'articles/index/featured_libraries_used'
+
+= render '/articles/shared/search_results', articles: @articles,
+    search_cache: @search_cache

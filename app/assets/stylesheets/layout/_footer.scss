@@ -18,15 +18,19 @@
 }
 
 
+// Left of navigation section
 // Logo
-#l-footer-logo {
+#l-footer-nav-left {
   float: left;
 
-  span {
-    display: block;
+  .socialshareprivacy {
+    float: none;
+
+    .social_share_privacy_area li:first-child .dummy_btn{
+      margin-left: 0 !important;
+    }
   }
 }
-
 
 // Main navigation section
 #l-footer-nav-main {
@@ -130,7 +134,7 @@ p#l-footer-copyright {
 }
 
 @include till-breakpoint($bp-tablet) {
-  #l-footer-logo {
+  #l-footer-nav-left {
     display: none;
   }
 
@@ -155,7 +159,7 @@ p#l-footer-copyright {
 }
 
 @include between-breakpoints($bp-tablet, $bp-tablet-horizontal) {
-  #l-footer-logo {
+  #l-footer-nav-left {
     @include span(2 of 6);
   }
 
@@ -169,7 +173,7 @@ p#l-footer-copyright {
 }
 
 @include at-breakpoint($bp-tablet-horizontal) {
-  #l-footer-logo {
+  #l-footer-nav-left {
     @include span(4 of 8);
   }
 

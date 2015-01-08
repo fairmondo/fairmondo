@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 
 # Rails
-gem 'rails', '~> 4.1.6'
+gem 'rails', '~> 4.1.7'
 gem 'rails-observers' # observers got extracted since rails 4
 gem 'activerecord-session_store' # sessions in activerecord
 
@@ -14,7 +14,7 @@ end
 
 # ----------  Model ----------
 
-gem "paperclip", ">= 3.0" # image uploads
+gem "paperclip", "4.2.0" # image uploads ### LOCKED Paperclip at version 4.2.0 until #1706 (https://github.com/thoughtbot/paperclip/issues/1706) is fixed
 gem 'money-rails', '~> 0.12.0' # dealing with money in activerecord
 gem 'monetize' # parsing money
 gem 'enumerize', '>= 0.5.1' # enums as symbols in ar
@@ -24,10 +24,13 @@ gem 'sanitize' # Parser based sanitization
 gem 'awesome_nested_set' , ">= 3.0.0.rc.4"# tree structure for categories
 gem "friendly_id", ">= 4.0.9" # Friendly_id for beautiful links
 
-## Indexing /Searching
-gem "tire"
+# pseudo models
+gem 'active_data'
 
+## Indexing /Searching
+gem "chewy"
 # ---------- View ----------
+
 gem 'slim-rails'
 gem 'jbuilder'
 
@@ -53,12 +56,13 @@ gem 'tinymce-rails-langs'
 gem 'jquery-rails'
 gem 'rails-timeago'
 gem 'wiselinks'
+gem 'hogan_assets'
 
 ## Forms
 
 gem 'formtastic', "~> 2.3.0.rc3"
 gem "recaptcha", :require => "recaptcha/rails" #Captcha Gem
-gem 'virtus'
+
 
 
 # ---------- Controller ----------
@@ -77,10 +81,11 @@ gem 'premailer-rails' # creates emails with inline css from html files with exte
 
 # ---------- Background Processing ----------
 
-gem 'sidekiq'
+gem 'sidekiq', '>= 3.2.5'
 gem 'sinatra', '>= 1.3.0', :require => nil
 gem 'delayed_paperclip' # handle image processing with sidekiq
-gem 'bluepill' # sidekiq process monitoring
+gem 'bluepill' #legacy, remove when eye stable
+gem 'eye' # sidekiq process monitoring
 gem 'sidetiq' # process scheduling
 
 # ---------- Tools ----------
@@ -90,6 +95,7 @@ gem 'kontoapi-ruby' # KontoAPI checks bank data
 gem 'ibanomat' # accound number to IBAN
 gem 'memoist' # Support for memoization
 gem 'rails_admin' # Administrative backend
+gem 'rails_admin_statistics', github: 'KonstantinKo/rails_admin_statistics'
 gem 'rack-rewrite' # Redirects
 gem 'json'
 gem 'nokogiri'
@@ -98,6 +104,7 @@ gem 'prawn_rails' # pdf generation
 # ---------- Monitoring ----------
 gem 'newrelic_rpm',  group: [:production,:staging]
 gem 'rack-mini-profiler'
+gem 'lograge'
 
 # ---------- API ----------
 
@@ -157,7 +164,7 @@ group :development, :test do
 
   # Capistrano
   gem 'capistrano-rails', '~> 1.1'
-  gem 'capistrano', '~> 3.1'
+  gem 'capistrano'
   gem 'capistrano-bundler', '~> 1.1.2'
   gem 'capistrano-rbenv'
 

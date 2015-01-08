@@ -4,10 +4,32 @@
 
 
 // General stuff
-#billboard-books > article > section > a.billboard-textlink {
-  display: block;
-  width: 100%;
-  text-align: center;
+#billboard-books > article h2 {
+  font-weight    : 400;
+  text-transform : uppercase;
+  text-align     : center;
+  color          : $white;
+}
+
+#billboard-books > article h3 {
+  font-weight : 400;
+  font-size   : 14px;
+  text-align  : center;
+  color       : #74a3c2;
+}
+
+#billboard-books > article > ul a > p {
+  font-weight     : 600;
+  font-size       : 14px;
+  text-align      : left;
+  text-decoration : underline;
+  color           : #428fbd;
+}
+
+#billboard-books > article > a {
+  font-weight : 600;
+  font-size   : 18px;
+  color       : $white;
 }
 
 
@@ -17,41 +39,46 @@
     background-image: image-url('welcome/billboard_books_small.jpg');
   }
 
-  #billboard-books > article > h2 {
-    @include static-position($top: 14px, $left: 2px);
+  #billboard-books > article h2 {
+    @include static-position($top: 265px, $left: 55px, $width: 100px);
+    font-size: 18px;
   }
 
-  #billboard-books > article > section {
-    @include static-position($top: 130px, $width: 91px);
+  #billboard-books > article h3 {
+    @include static-position($top: 315px, $left: 26px, $width: 160px);
   }
 
-  #billboard-books > article > section.section1 {
-    @include static-position($left: 6px);
+  #billboard-books > article > a {
+    @include static-position($top: 364px, $left: 30px, $height: 28px, $width: 136px);
+    padding: 2px 0 0 15px;
   }
 
-  #billboard-books > article > section.section2 {
-    @include static-position($left: 114px);
-  }
-
-  #billboard-books > article > section.section3 {
+  #billboard-books > article > ul > li div {
     display: none;
   }
 
-  #billboard-books > article > section.section4 {
+  #billboard-books > article > ul > li#billboard-books-link1 p {
+    @include static-position($top: 6px, $left: 75px, $width: 90px);
+  }
+
+  #billboard-books > article > ul > li#billboard-books-link2 p {
+    @include static-position($top: 53px, $left: 75px, $width: 90px);
+  }
+
+  #billboard-books > article > ul > li#billboard-books-link3 p {
+    @include static-position($top: 97px, $left: 75px, $width: 90px);
+  }
+
+  #billboard-books > article > ul > li#billboard-books-link4 p {
+    @include static-position($top: 143px, $left: 75px, $width: 90px);
+  }
+
+  #billboard-books > article > ul > li#billboard-books-link5 p {
     display: none;
   }
 
-  #billboard-books > article > section > h3 {
-    font-size: 1em;
-  }
-
-  #billboard-books > article > section > a.billboard-imagelink {
-    @include static-position($top: 38px, $height: 142px, $width: 89px);
-  }
-
-  #billboard-books > article > section > a.billboard-textlink {
-    @include static-position($top: 199px);
-    font-size: 0.8em;
+  #billboard-books > article > ul > li#billboard-books-link6 p {
+    display: none;
   }
 }
 
@@ -62,38 +89,49 @@
     background-image: image-url('welcome/billboard_books_medium.jpg');
   }
 
-  #billboard-books > article > h2 {
-    @include static-position($top: 14px, $left: 33px);
+  #billboard-books > article h2 {
+    @include static-position($top: 110px, $left: 151px, $width: 150px);
+    font-size: 34px;
   }
 
-  #billboard-books > article > section {
-    @include static-position($top: 110px, $width: 113px);
+  #billboard-books > article h3 {
+    @include static-position($top: 238px, $left: 146px, $width: 160px);
   }
 
-  #billboard-books > article > section.section1 {
-    @include static-position($left: 36px);
+  #billboard-books > article > a {
+    @include static-position($top: 289px, $left: 149px, $height: 30px, $width: 135px);
+    padding: 2px 0 0 15px;
   }
 
-  #billboard-books > article > section.section2 {
-    @include static-position($left: 170px);
-  }
-
-  #billboard-books > article > section.section3 {
-    @include static-position($left: 302px);
-  }
-
-  #billboard-books > article > section.section4 {
+  #billboard-books > article > ul > li div {
     display: none;
   }
 
-  #billboard-books > article > section > a.billboard-imagelink {
-    @include static-position($top: 48px, $height: 178px, $width: 112px);
+  #billboard-books > article > ul > li#billboard-books-link1 p {
+    @include static-position($top: 55px, $left: 5px, $width: 90px);
   }
 
-  #billboard-books > article > section > a.billboard-textlink {
-    @include static-position($top: 235px);
-    font-size: 0.9em;
+  #billboard-books > article > ul > li#billboard-books-link2 p {
+    @include static-position($top: 190px, $left: 5px, $width: 90px);
   }
+
+  #billboard-books > article > ul > li#billboard-books-link3 p {
+    @include static-position($top: 330px, $left: 5px, $width: 90px);
+  }
+
+  #billboard-books > article > ul > li#billboard-books-link4 p {
+    @include static-position($top: 55px, $left: 350px, $width: 90px);
+  }
+
+  #billboard-books > article > ul > li#billboard-books-link5 p {
+    @include static-position($top: 190px, $left: 350px, $width: 90px);
+  }
+
+  #billboard-books > article > ul > li#billboard-books-link6 p {
+    @include static-position($top: 330px, $left: 350px, $width: 90px);
+  }
+
+
 }
 
 
@@ -103,36 +141,65 @@
     background-image: image-url('welcome/billboard_books_big.jpg');
   }
 
-  #billboard-books > article > h2 {
-    @include static-position($top: 14px, $left: 20px);
+  #billboard-books > article h2 {
+    @include static-position($top: 110px, $left: 275px, $width: 150px);
+    font-size: 34px;
   }
 
-  #billboard-books > article > section {
-    @include static-position($top: 125px, $width: 113px);
+  #billboard-books > article h3 {
+    @include static-position($top: 238px, $left: 269px, $width: 160px);
   }
 
-  #billboard-books > article > section.section1 {
-    @include static-position($left: 114px);
+  #billboard-books > article > a {
+    @include static-position($top: 289px, $left: 273px, $height: 30px, $width: 135px);
+    padding: 2px 0 0 15px;
   }
 
-  #billboard-books > article > section.section2 {
-    @include static-position($left: 268px);
+  #billboard-books > article > ul > li#billboard-books-link1 div {
+    @include static-position($top: 7px, $left: 17px, $height: 117px, $width: 78px);
   }
 
-  #billboard-books > article > section.section3 {
-    @include static-position($left: 421px);
+  #billboard-books > article > ul > li#billboard-books-link2 div {
+    @include static-position($top: 147px, $left: 20px, $height: 117px, $width: 72px);
   }
 
-  #billboard-books > article > section.section4 {
-    @include static-position($left: 574px);
+  #billboard-books > article > ul > li#billboard-books-link3 div {
+    @include static-position($top: 285px, $left: 10px, $height: 117px, $width: 90px);
   }
 
-  #billboard-books > article > section > a.billboard-imagelink {
-    @include static-position($top: 47px, $height: 178px, $width: 112px);
+  #billboard-books > article > ul > li#billboard-books-link4 div {
+    @include static-position($top: 7px, $left: 498px, $height: 117px, $width: 75px);
   }
 
-  #billboard-books > article > section > a.billboard-textlink {
-    @include static-position($top: 234px);
-    font-size: 0.9em;
+  #billboard-books > article > ul > li#billboard-books-link5 div {
+    @include static-position($top: 147px, $left: 500px, $height: 114px, $width: 70px);
+  }
+
+  #billboard-books > article > ul > li#billboard-books-link6 div {
+    @include static-position($top: 285px, $left: 500px, $height: 117px, $width: 70px);
+  }
+
+  #billboard-books > article > ul > li#billboard-books-link1 p {
+    @include static-position($top: 55px, $left: 130px, $width: 90px);
+  }
+
+  #billboard-books > article > ul > li#billboard-books-link2 p {
+    @include static-position($top: 190px, $left: 130px, $width: 90px);
+  }
+
+  #billboard-books > article > ul > li#billboard-books-link3 p {
+    @include static-position($top: 330px, $left: 130px, $width: 90px);
+  }
+
+  #billboard-books > article > ul > li#billboard-books-link4 p {
+    @include static-position($top: 55px, $left: 605px, $width: 90px);
+  }
+
+  #billboard-books > article > ul > li#billboard-books-link5 p {
+    @include static-position($top: 190px, $left: 605px, $width: 90px);
+  }
+
+  #billboard-books > article > ul > li#billboard-books-link6 p {
+    @include static-position($top: 330px, $left: 605px, $width: 90px);
   }
 }

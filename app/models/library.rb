@@ -30,9 +30,13 @@ class Library < ActiveRecord::Base
   validates :name, :user, presence: true
   validates :name, uniqueness: {scope: :user_id}, length: {maximum: 70}
 
-  enumerize :exhibition_name, in: [:donation_articles, :old, :queue1, :queue2,
-    :queue3, :queue4, :book1, :book2, :book3, :book4, :book5, :book6, :book7,
-    :book8]
+  enumerize :exhibition_name, in: [ :donation_articles, :old,
+    :queue1, :queue2, :queue3, :queue4,
+    :book1,  :book2,  :book3,  :book4,  :book5,  :book6,  :book7,  :book8,
+    :fair1,  :fair2,  :fair3,  :fair4,  :fair5,  :fair6,  :fair7,  :fair8,
+    :eco1,   :eco2,   :eco3,   :eco4,   :eco5,   :eco6,   :eco7,   :eco8,
+    :small1, :small2, :small3, :small4, :small5, :small6, :small7, :small8,
+    :used1,  :used2,  :used3,  :used4,  :used5,  :used6,  :used7,  :used8 ]
   before_update :uniquify_exhibition_name
 
   #Relations
@@ -51,7 +55,8 @@ class Library < ActiveRecord::Base
   scope :most_recent, -> { reorder(created_at: :desc)}
   scope :trending, -> { most_popular.not_empty.published }
   scope :audited, -> { where(audited: true) }
-  scope :trending_welcome_page, -> { trending.audited.limit(3) }
+  # scope :trending_welcome_page, -> { trending.audited.limit(3) }
+  scope :trending_welcome_page, -> { trending.audited.limit(5) }
 
   default_scope -> { order(updated_at: :desc) }
 

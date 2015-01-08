@@ -59,29 +59,24 @@ describe CategoriesController do
       assert_response :success
     end
 
-    it "should rescue an ECONNREFUSED error" do
-      Article.any_instance.stubs(:search).raises(Errno::ECONNREFUSED)
+    it "should rescue an Faraday::ConnectionFailed error" do
+      Chewy::Query.any_instance.stubs(:to_a).raises(Faraday::ConnectionFailed.new("test"))
       get :show, id: category.id, article_search_form: { q: 'foobar' }
       assert_response :success
     end
 
     describe "search" do
       setup do
-        TireTest.on
-        Article.index.delete
-        Article.create_elasticsearch_index
+        ArticlesIndex.reset!
         @electronic_category = Category.find_by_name!("Elektronik")
         @hardware_category = Category.find_by_name!("Hardware")
         @software_category = Category.find_by_name!("Software")
 
-        @ngo_article = FactoryGirl.create(:article, price_cents: 1, title: "ngo article thing", content: "super thing", created_at: 4.days.ago)
-        @second_hand_article = FactoryGirl.create(:second_hand_article, price_cents: 2, title: "muscheln", categories: [ @software_category ], content: "muscheln am meer", created_at: 3.days.ago)
-        @hardware_article = FactoryGirl.create(:second_hand_article,:simple_fair,:simple_ecologic,:simple_small_and_precious,:with_ngo, price_cents: 3, title: "muscheln 2", categories: [ @hardware_category ], content: "abc" , created_at: 2.days.ago)
-        @no_second_hand_article = FactoryGirl.create :no_second_hand_article, price_cents: 4, title: "muscheln 3", categories: [ @hardware_category ], content: "cde"
-        Article.index.refresh
-      end
-      teardown do
-        TireTest.off
+        @ngo_article = FactoryGirl.create(:article, :index_article, price_cents: 1, title: "ngo article thing", content: "super thing", created_at: 4.days.ago)
+        @second_hand_article = FactoryGirl.create(:second_hand_article, :index_article, price_cents: 2, title: "muscheln", categories: [ @software_category ], content: "muscheln am meer", created_at: 3.days.ago)
+        @hardware_article = FactoryGirl.create(:second_hand_article, :index_article, :simple_fair,:simple_ecologic,:simple_small_and_precious,:with_ngo, price_cents: 3, title: "muscheln 2", categories: [ @hardware_category ], content: "abc" , created_at: 2.days.ago)
+        @no_second_hand_article = FactoryGirl.create :no_second_hand_article, :index_article ,price_cents: 4, title: "muscheln 3", categories: [ @hardware_category ], content: "cde"
+
       end
 
       it "should find the article in category 'Hardware' when filtering for 'Hardware'" do

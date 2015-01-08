@@ -28,23 +28,16 @@ describe ArticlesController do
 
     describe "searching" do
       setup do
-        TireTest.on
-        Article.index.delete
-        Article.create_elasticsearch_index
+        ArticlesIndex.reset!
         @vehicle_category = Category.find_by_name!("Fahrzeuge")
         @hardware_category = Category.find_by_name!("Hardware")
         @electronic_category = Category.find_by_name!("Elektronik")
         @software_category = Category.find_by_name!("Software")
 
-        @normal_article = FactoryGirl.create(:article,price_cents: 1, title: "noraml article thing", content: "super thing", created_at: 4.days.ago, id: 1234)
-        @second_hand_article = FactoryGirl.create(:second_hand_article, price_cents: 2, title: "muscheln", categories: [ @vehicle_category ], content: "muscheln am meer", created_at: 3.days.ago, id: 1235)
-        @hardware_article = FactoryGirl.create(:second_hand_article,:simple_fair,:simple_ecologic,:simple_small_and_precious,:with_ngo, price_cents: 3, title: "muscheln 2", categories: [ @hardware_category ], content: "abc" , created_at: 2.days.ago, id: 1236)
-        @no_second_hand_article = FactoryGirl.create :no_second_hand_article, price_cents: 4, title: "muscheln 3", categories: [ @hardware_category ], content: "cde", id: 1237, created_at: 1.day.ago
-        Article.index.refresh
-      end
-
-      teardown do
-        TireTest.off
+        @normal_article = FactoryGirl.create(:article, :index_article, price_cents: 1, title: "noraml article thing", content: "super thing", created_at: 4.days.ago, id: 1234)
+        @second_hand_article = FactoryGirl.create(:second_hand_article, :index_article, price_cents: 2, title: "muscheln", categories: [ @vehicle_category ], content: "muscheln am meer", created_at: 3.days.ago, id: 1235)
+        @hardware_article = FactoryGirl.create(:second_hand_article, :index_article, :simple_fair,:simple_ecologic,:simple_small_and_precious,:with_ngo, price_cents: 3, title: "muscheln 2", categories: [ @hardware_category ], content: "abc" , created_at: 2.days.ago, id: 1236)
+        @no_second_hand_article = FactoryGirl.create :no_second_hand_article, :index_article, price_cents: 4, title: "muscheln 3", categories: [ @hardware_category ], content: "cde", id: 1237, created_at: 1.day.ago
       end
 
       it "should work with all filters" do
@@ -124,9 +117,27 @@ describe ArticlesController do
         search_params = { article_search_form: { category_id: @hardware_category.id } }
         get :index, search_params
         assert_redirected_to( category_path(@hardware_category.id) )
+      end
 
+      # wegreen search term
+      describe '#wegreen_search_term' do
+        it 'should return query string' do
+          article_search_form = ArticleSearchForm.new(q: "Dukannstmichnichtfinden")
+          article_search_form.wegreen_search_string.must_equal "Dukannstmichnichtfinden"
+        end
+
+        it 'should return category name' do
+          article_search_form = ArticleSearchForm.new(category_id: @vehicle_category.id)
+          article_search_form.wegreen_search_string.must_equal @vehicle_category.name
+        end
+
+        it 'should return category name' do
+          article_search_form = ArticleSearchForm.new()
+          article_search_form.wegreen_search_string.must_be_nil
+        end
       end
     end
+
     describe "for signed-out users" do
       it "should be successful" do
         get :index
@@ -187,9 +198,17 @@ describe ArticlesController do
       end
 
       it "doen't throw an error when the search for other users articles breaks" do
-        Article.stubs(:search).raises(Errno::ECONNREFUSED)
+        Chewy::Query.any_instance.stubs(:to_a).raises(Faraday::ConnectionFailed.new("test")) # simulate connection error so that we dont have to use elastic
         get :show, id: article.id
         assert_template :show
+      end
+
+      it "should render 404 on closed article" do
+        slug = article.slug
+        article.deactivate
+        article.close
+        get :show, id: slug
+        assert_template :article_closed
       end
     end
 
@@ -445,11 +464,8 @@ describe ArticlesController do
   describe "#autocomplete" do #, search: true
 
     it "should be successful" do
-      TireTest.on
-      Article.index.delete
-      Article.create_elasticsearch_index
-      @article = FactoryGirl.create :article, title: 'chunky bacon'
-      Article.index.refresh
+      ArticlesIndex.reset!
+      @article = FactoryGirl.create :article, :index_article, title: 'chunky bacon'
       get :autocomplete, q: 'chunky'
       assert_response :success
       response.body.must_equal({
@@ -463,14 +479,14 @@ describe ArticlesController do
           }
         }]
       }.to_json)
-      TireTest.off
+
     end
 
-    it "should rescue an ECONNREFUSED error" do
-      Article.stubs(:search).raises(Errno::ECONNREFUSED)
+    it "should rescue an Faraday::ConnectionFailed error" do
+      ArticleAutocomplete.any_instance.stubs(:autocomplete).raises(Faraday::ConnectionFailed.new("test"))
       get :autocomplete, keywords: 'chunky'
       assert_response :success
-      response.body.must_equal [].to_json
+      response.body.must_equal({"query" => nil , "suggestions" => []}.to_json)
     end
   end
 

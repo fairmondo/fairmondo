@@ -38,7 +38,7 @@ describe ArticleMailer do
   end
 
   it "#contact" do
-    mail =  ArticleMailer.contact(user.email, article.seller_email, 'foobar', article)
+    mail =  ArticleMailer.contact(user, article, 'foobar')
 
     mail.must deliver_to article.seller_email
     mail.must have_subject I18n.t('article.show.contact.mail_subject')
@@ -57,6 +57,18 @@ describe ArticleMailer do
 
   it '#mass_upload_activation_message' do
     mail = ArticleMailer.mass_upload_activation_message(mass_upload)
+
+    mail.must deliver_to mass_upload.user.email
+  end
+
+  it '#mass_upload_processed_message' do
+    mail = ArticleMailer.mass_upload_finished_message(mass_upload)
+
+    mail.must deliver_to mass_upload.user.email
+  end
+
+  it '#mass_upload_failed_message' do
+    mail = ArticleMailer.mass_upload_failed_message(mass_upload)
 
     mail.must deliver_to mass_upload.user.email
   end

@@ -26,19 +26,7 @@ module Article::Images
     # ---- IMAGES ------
     IMAGE_COUNT = 1 # when changing, remember to change article_refinery as well
 
-    has_many :images, class_name: "ArticleImage", foreign_key: "imageable_id"
-    has_many :thumbnails, -> { reorder('is_title DESC,id ASC').offset(1) }, class_name: "ArticleImage", foreign_key: "imageable_id"
-    has_one :title_image, -> { reorder 'is_title DESC,id ASC' }, class_name: "ArticleImage", foreign_key: "imageable_id"
-
     delegate :external_url, to: :title_image, :prefix => true
-
-    accepts_nested_attributes_for :images, allow_destroy: true
-
-    validate :only_one_title_image
-
-    validates :images, :size => {
-      :in => 0..5 # lower to 3 if the old 5 article pics are all gone
-    }
 
     def title_image_url style = nil
       if title_image_present?
@@ -60,29 +48,9 @@ module Article::Images
       title_image && title_image.image.present? #&& image_accessible?
     end
 
-    #def image_accessible?
-    #  begin
-    #    Paperclip.io_adapters.for(self.title_image.image).read
-    #    return true
-    #  rescue
-    #    return false
-    #  end
-    #end
-
-
     IMAGE_COUNT.times do |number|
       define_method("image_#{number+2}_url=".to_sym, Proc.new{ |image_url|
                           add_image(image_url, false)})
-    end
-
-    def only_one_title_image
-      count_images = 0
-      self.images.each do |image|
-        count_images+=1 if image.is_title
-      end
-      if count_images > 1
-         errors.add(:images, I18n.t("article.form.errors.only_one_title_image"))
-      end
     end
 
     def external_title_image_url=(image_url)
@@ -130,6 +98,5 @@ module Article::Images
         end
       end
     end
-
   end
 end

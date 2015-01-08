@@ -60,7 +60,7 @@ feature "Libraries on welcome page" do
 
     # When no libraries are audited, the box on the welcome page should not be displayed
     visit root_path
-    refute page.has_content?(I18n.t 'welcome.trending_libraries')
+    refute page.has_content?(I18n.t 'welcome.trending_libraries.heading')
 
     # enable library for welcome page
     visit libraries_path
@@ -70,7 +70,7 @@ feature "Libraries on welcome page" do
 
     # visit welcome page, library should be shown
     visit root_path
-    page.must_have_content I18n.t 'welcome.trending_libraries'
+    page.must_have_content I18n.t 'welcome.trending_libraries.heading'
     page.must_have_content 'envogue'
 
     logout
@@ -205,16 +205,32 @@ end
 
 feature "Featured (exhibited) libraries" do
   scenario "user visits root path with exhibition" do
-    lib = FactoryGirl.create :library, :public, exhibition_name: 'queue1'
+    lib = FactoryGirl.create :library, :public, exhibition_name: 'donation_articles'
     lib.articles << FactoryGirl.create(:article, title: 'exhibit-article')
     visit root_path
     page.must_have_content 'exhibit-article'
   end
 
-  scenario "user vistits book category front page" do
+  scenario "user visits book category front page" do
     lib = FactoryGirl.create :library, :public, exhibition_name: 'book1'
     lib.articles << FactoryGirl.create(:article, title: 'exhibit-article')
     visit category_path FactoryGirl.create :category, name: 'bucher'
+    page.must_have_content 'exhibit-article'
+  end
+
+  scenario "user visits two filter landing pages" do
+    article = FactoryGirl.create :article, title: 'exhibit-article'
+    lib1 = FactoryGirl.create :library, :public, exhibition_name: 'fair1'
+    lib2 = FactoryGirl.create :library, :public, exhibition_name: 'used1'
+    lib1.articles << article
+    lib2.articles << article
+
+    visit root_path
+    find('#filter-fair').find('a').click
+    page.must_have_content 'exhibit-article'
+
+    visit root_path
+    find('#filter-used').find('a').click
     page.must_have_content 'exhibit-article'
   end
 end

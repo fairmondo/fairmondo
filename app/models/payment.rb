@@ -1,6 +1,6 @@
 class Payment < ActiveRecord::Base
 
-  has_many :business_transactions, through: :line_item_group # +constraint?? #multiple bt can have one payment, if unified
+  has_many :business_transactions, through: :line_item_group # +multiple bt can have one payment, if unified
   belongs_to :line_item_group, inverse_of: :payments
   # # all bts will have the same line_item_group, so it's actually has_one, but rails doesn't understand that
   # def line_item_group; line_item_groups.first; end # simulate the has_one
@@ -14,16 +14,24 @@ class Payment < ActiveRecord::Base
 
   state_machine initial: :pending do
 
-    state :pending, :initialized, :errored, :succeeded
+    state :pending, :initialized, :errored, :succeeded, :confirmed
 
     event :init do
       transition :pending => :initialized, if: :initialize_payment
       transition :pending => :errored
     end
 
-    # event :success do
-    #   transition :initialized => :succeeded
-    # end
+    event :success do
+      transition :initialized => :succeeded
+    end
+
+    event :confirm do
+      transition [:pending, :initialized] => :confirmed
+    end
+
+    event :decline do
+      transition [:pending, :initialized] => :errored
+    end
   end
 
   def execute
@@ -38,6 +46,8 @@ class Payment < ActiveRecord::Base
     case selected_payment
     when 'paypal', :paypal
       'PaypalPayment'
+    when 'voucher', :voucher
+      'VoucherPayment'
     else
       nil
     end
