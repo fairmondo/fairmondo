@@ -91,13 +91,13 @@
   }
 
   #billboard-gifts > article h2 {
-    @include static-position($top: 29px, $left: 37px, $width: 400px);
+    @include static-position($top: 29px, $left: 45px, $width: 400px);
     font-size   : 30px;
     font-weight : 600;
   }
 
   #billboard-gifts-price {
-    @include static-position($top: -1px, $right: -193px, $width: 70px);
+    @include static-position($top: -1px, $right: -185px, $width: 70px);
     font-size   : 32px;
     font-weight : 700;
   }
