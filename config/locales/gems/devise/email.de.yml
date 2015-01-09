@@ -12,7 +12,7 @@ de:
       ignoremail: "Falls Du diese E-Mail nicht angefordert hast, wende Dich bitte an unseren Kundenservice: kundenservice@fairmondo.de oder ignoriere einfach diese E-Mail."
       email_change_info: "(Falls Du deine E-Mail geändert hast, wird diese nach Bestätigung durch Klick auf den Link geändert.)"
       email:
-        text: "Jemand hat Deine E-Mail-Adresse auf Fairnopoly geändert. Um die Änderung Deiner E-Mail-Adresse zu bestätigen, klicke bitte auf folgenden Link:"
+        text: "Jemand hat Deine E-Mail-Adresse auf Fairmondo geändert. Um die Änderung Deiner E-Mail-Adresse zu bestätigen, klicke bitte auf folgenden Link:"
         link: "Änderung der E-Mail-Adresse hier bestätigen"
         info: "Deine E-Mail-Adresse ändert sich erst, wenn Du den oben angegebenen Link benutzt, um die neue E-Mail-Adresse zu bestätigen."
     reset:
