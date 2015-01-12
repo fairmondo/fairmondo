@@ -4,31 +4,25 @@
         
         app/assets/images/sprites/sueddeutsche.png (200x30)
         app/assets/images/sprites/taz.png (195x30)
-        app/assets/images/sprites/logo.png (170x43)
         app/assets/images/sprites/hochschulanzeiger.png (154x30)
-        app/assets/images/sprites/logo_small.png (120x23)
         app/assets/images/sprites/tagesspiegel.png (116x30)
         app/assets/images/sprites/get_share.png (96x96)
         app/assets/images/sprites/arte.png (90x30)
         app/assets/images/sprites/deutschlandfunk.png (90x30)
-        app/assets/images/sprites/negative.png (60x60)
-        app/assets/images/sprites/positive.png (60x60)
         app/assets/images/sprites/neutral.png (60x60)
+        app/assets/images/sprites/positive.png (60x60)
+        app/assets/images/sprites/negative.png (60x60)
         app/assets/images/sprites/pioneerbutton.png (60x59)
-        app/assets/images/sprites/positive_small.png (30x30)
         app/assets/images/sprites/negative_small.png (30x30)
+        app/assets/images/sprites/positive_small.png (30x30)
         app/assets/images/sprites/neutral_small.png (30x30)
-        app/assets/images/sprites/right_arrow--hover.png (21x28)
-        app/assets/images/sprites/right_arrow.png (21x28)
-        app/assets/images/sprites/left_arrow.png (21x28)
-        app/assets/images/sprites/left_arrow--hover.png (21x28)
-        app/assets/images/sprites/up_arrow.png (28x21)
         app/assets/images/sprites/down_arrow.png (28x21)
+        app/assets/images/sprites/up_arrow.png (28x21)
         app/assets/images/sprites/openbox.png (23x21)
         app/assets/images/sprites/box.png (23x20)
         app/assets/images/sprites/paper.png (22x18)
-        app/assets/images/sprites/helper--hover.png (20x20)
         app/assets/images/sprites/helper.png (20x20)
+        app/assets/images/sprites/helper--hover.png (20x20)
         app/assets/images/sprites/pencil.png (17x17)
         app/assets/images/sprites/briefcase.png (14x12)
         app/assets/images/sprites/user.png (13x12)
@@ -38,37 +32,31 @@
           app/assets/stylesheets/sprites.css.scss
 
         Output size:
-          296x246
+          296x210
 
 
 */
 span.sprite_sueddeutsche { width: 200px; height: 30px; background: image-url('sprites.png') 0px 0px no-repeat; }
 span.sprite_taz { width: 195px; height: 30px; background: image-url('sprites.png') 0px -30px no-repeat; }
-span.sprite_logo { width: 170px; height: 43px; background: image-url('sprites.png') 0px -60px no-repeat; }
-span.sprite_hochschulanzeiger { width: 154px; height: 30px; background: image-url('sprites.png') 0px -103px no-repeat; }
-span.sprite_logo_small { width: 120px; height: 23px; background: image-url('sprites.png') 0px -133px no-repeat; }
-span.sprite_tagesspiegel { width: 116px; height: 30px; background: image-url('sprites.png') 0px -156px no-repeat; }
+span.sprite_hochschulanzeiger { width: 154px; height: 30px; background: image-url('sprites.png') 0px -60px no-repeat; }
+span.sprite_tagesspiegel { width: 116px; height: 30px; background: image-url('sprites.png') 0px -90px no-repeat; }
 span.sprite_get_share { width: 96px; height: 96px; background: image-url('sprites.png') -200px 0px no-repeat; }
-span.sprite_arte { width: 90px; height: 30px; background: image-url('sprites.png') -200px -96px no-repeat; }
-span.sprite_deutschlandfunk { width: 90px; height: 30px; background: image-url('sprites.png') -200px -126px no-repeat; }
-span.sprite_negative { width: 60px; height: 60px; background: image-url('sprites.png') 0px -186px no-repeat; }
-span.sprite_positive { width: 60px; height: 60px; background: image-url('sprites.png') -60px -186px no-repeat; }
-span.sprite_neutral { width: 60px; height: 60px; background: image-url('sprites.png') -120px -186px no-repeat; }
-span.sprite_pioneerbutton { width: 60px; height: 59px; background: image-url('sprites.png') -180px -186px no-repeat; }
-span.sprite_positive_small { width: 30px; height: 30px; background: image-url('sprites.png') -200px -156px no-repeat; }
-span.sprite_negative_small { width: 30px; height: 30px; background: image-url('sprites.png') -230px -156px no-repeat; }
-span.sprite_neutral_small { width: 30px; height: 30px; background: image-url('sprites.png') -260px -156px no-repeat; }
-span.sprite_right_arrow:hover { width: 21px; height: 28px; background: image-url('sprites.png') -170px -60px no-repeat; }
-span.sprite_right_arrow { width: 21px; height: 28px; background: image-url('sprites.png') -154px -103px no-repeat; }
-span.sprite_left_arrow { width: 21px; height: 28px; background: image-url('sprites.png') -175px -103px no-repeat; }
-span.sprite_left_arrow:hover { width: 21px; height: 28px; background: image-url('sprites.png') -116px -156px no-repeat; }
-span.sprite_up_arrow { width: 28px; height: 21px; background: image-url('sprites.png') -120px -133px no-repeat; }
-span.sprite_down_arrow { width: 28px; height: 21px; background: image-url('sprites.png') -148px -133px no-repeat; }
-span.sprite_openbox { width: 23px; height: 21px; background: image-url('sprites.png') -176px -133px no-repeat; }
-span.sprite_box { width: 23px; height: 20px; background: image-url('sprites.png') -137px -156px no-repeat; }
-span.sprite_paper { width: 22px; height: 18px; background: image-url('sprites.png') -160px -156px no-repeat; }
-span.sprite_helper:hover { width: 20px; height: 20px; background: image-url('sprites.png') -240px -186px no-repeat; }
-span.sprite_helper { width: 20px; height: 20px; background: image-url('sprites.png') -260px -186px no-repeat; }
-span.sprite_pencil { width: 17px; height: 17px; background: image-url('sprites.png') -182px -156px no-repeat; }
-span.sprite_briefcase { width: 14px; height: 12px; background: image-url('sprites.png') -170px -88px no-repeat; }
-span.sprite_user { width: 13px; height: 12px; background: image-url('sprites.png') -184px -88px no-repeat; }
+span.sprite_arte { width: 90px; height: 30px; background: image-url('sprites.png') 0px -120px no-repeat; }
+span.sprite_deutschlandfunk { width: 90px; height: 30px; background: image-url('sprites.png') -90px -120px no-repeat; }
+span.sprite_neutral { width: 60px; height: 60px; background: image-url('sprites.png') 0px -150px no-repeat; }
+span.sprite_positive { width: 60px; height: 60px; background: image-url('sprites.png') -60px -150px no-repeat; }
+span.sprite_negative { width: 60px; height: 60px; background: image-url('sprites.png') -120px -150px no-repeat; }
+span.sprite_pioneerbutton { width: 60px; height: 59px; background: image-url('sprites.png') -180px -150px no-repeat; }
+span.sprite_negative_small { width: 30px; height: 30px; background: image-url('sprites.png') -154px -60px no-repeat; }
+span.sprite_positive_small { width: 30px; height: 30px; background: image-url('sprites.png') -116px -90px no-repeat; }
+span.sprite_neutral_small { width: 30px; height: 30px; background: image-url('sprites.png') -146px -90px no-repeat; }
+span.sprite_down_arrow { width: 28px; height: 21px; background: image-url('sprites.png') -200px -96px no-repeat; }
+span.sprite_up_arrow { width: 28px; height: 21px; background: image-url('sprites.png') -228px -96px no-repeat; }
+span.sprite_openbox { width: 23px; height: 21px; background: image-url('sprites.png') -256px -96px no-repeat; }
+span.sprite_box { width: 23px; height: 20px; background: image-url('sprites.png') -176px -90px no-repeat; }
+span.sprite_paper { width: 22px; height: 18px; background: image-url('sprites.png') -180px -120px no-repeat; }
+span.sprite_helper { width: 20px; height: 20px; background: image-url('sprites.png') -240px -150px no-repeat; }
+span.sprite_helper:hover { width: 20px; height: 20px; background: image-url('sprites.png') -260px -150px no-repeat; }
+span.sprite_pencil { width: 17px; height: 17px; background: image-url('sprites.png') -279px -96px no-repeat; }
+span.sprite_briefcase { width: 14px; height: 12px; background: image-url('sprites.png') -184px -60px no-repeat; }
+span.sprite_user { width: 13px; height: 12px; background: image-url('sprites.png') -184px -72px no-repeat; }
