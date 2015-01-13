@@ -64,7 +64,7 @@ class Article < ActiveRecord::Base
     new_article
   end
 
-  # Elastic
+  # Elastic/Chewy - so it knows which to #import
   def delete_from_index?
     !active?
   end
