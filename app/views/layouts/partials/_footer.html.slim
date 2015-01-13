@@ -3,7 +3,7 @@
     #l-footer-nav-left
       / Logo
       a#l-footer-logo href='/'
-        span.sprite_logo_small
+        = image_tag 'logo_small.png', alt: t('common.fairmondo_name')
 
       / Social media buttons
       - if local_assigns.has_key?(:with_social_media_buttons) && with_social_media_buttons

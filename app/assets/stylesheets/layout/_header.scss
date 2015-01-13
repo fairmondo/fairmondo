@@ -34,16 +34,19 @@ p.l-header-rename {
 }
 
 
-.l-header-logo,.l-header-nav  {
+.l-header-logo, .l-header-nav  {
   display: inline-block;
-  span.sprite_logo {
-    display: block;
-    margin-right:2em;
-  }
 }
 
 .l-header-logo {
   float: left;
+  margin-right: 2em;
+}
+
+// Hi-res logo
+.l-header-logo img {
+  width  : 170px;
+  height : 43px;
 }
 
 .l-header-nav {

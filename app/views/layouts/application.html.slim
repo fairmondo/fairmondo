@@ -41,9 +41,10 @@ html<> class='no-js' lang=I18n.locale
       = render '/layouts/partials/news_header'
       .l-header
         .l-header-top
+          / Fairmondo logo
           .l-header-logo
             a href='/'
-              span.sprite_logo
+              = image_tag 'logo.png', alt: t('common.fairmondo')
 
           / Temporary rename message
           p.l-header-rename
