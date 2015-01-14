@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 
 # Rails
-gem 'rails', '~> 4.1.7'
+gem 'rails', '~> 4.1.9'
 gem 'rails-observers' # observers got extracted since rails 4
 gem 'activerecord-session_store' # sessions in activerecord
 
@@ -15,7 +15,7 @@ end
 # ----------  Model ----------
 
 gem "paperclip", "4.2.0" # image uploads ### LOCKED Paperclip at version 4.2.0 until #1706 (https://github.com/thoughtbot/paperclip/issues/1706) is fixed
-gem 'money-rails', '~> 0.12.0' # dealing with money in activerecord
+gem 'money-rails', '> 0.12.0' # dealing with money in activerecord
 gem 'monetize' # parsing money
 gem 'enumerize', '>= 0.5.1' # enums as symbols in ar
 gem 'state_machine' # State Machines in Rails
@@ -31,16 +31,17 @@ gem 'active_data'
 gem "chewy"
 # ---------- View ----------
 
-gem 'slim-rails'
+gem 'slim-rails', '>= 2.1.5'
 gem 'jbuilder'
 
 ## CSS
 gem 'susy' ,'~> 2.1.1' # Grid framework is susy
-gem 'bourbon' # easy ccs3
+gem 'sass-rails', "~> 5.0.0"
+gem 'bourbon' , "<= 4.0.2" # easy ccs3
 gem "font-awesome-rails", '>= 4.2.0.0'
 gem 'sprite-factory'
 gem 'chunky_png' #needed for sprite-factory
-gem 'sprockets', '2.11.0' #https://github.com/sstephenson/sprockets/issues/537
+gem 'sprockets'
 
 ## JS
 gem 'jquery-ui-rails'
@@ -94,7 +95,7 @@ gem 'dalli' # Memcached Client
 gem 'kontoapi-ruby' # KontoAPI checks bank data
 gem 'ibanomat' # accound number to IBAN
 gem 'memoist' # Support for memoization
-gem 'rails_admin' # Administrative backend
+gem 'rails_admin', '>= 0.6.6' # Administrative backend
 gem 'rails_admin_statistics', github: 'KonstantinKo/rails_admin_statistics'
 gem 'rack-rewrite' # Redirects
 gem 'json'
@@ -188,7 +189,7 @@ group :development, :test do
 
   # test suite additions
   gem "rails_best_practices"
-  gem 'brakeman'  # security test: execute with 'brakeman'
+  gem 'brakeman', github: "cwest/brakeman" , ref: '24a96541b100ed43665cc0efc96cb78698a3c7ba'   # security test: execute with 'brakeman' locked because of slim https://github.com/presidentbeef/brakeman/pull/602/files
 
   gem 'bullet' # Notify about n+1 queries
 end

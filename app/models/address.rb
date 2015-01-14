@@ -20,9 +20,9 @@ class Address < ActiveRecord::Base
 
   amoeba do
     enable
-    exclude_field :payment_address_references
-    exclude_field :transport_address_references
-    exclude_field :connected_user
+    exclude_association :payment_address_references
+    exclude_association :transport_address_references
+    exclude_association :connected_user
   end
 
   attr_accessor :set_as_standard_address
