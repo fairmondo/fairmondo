@@ -1,0 +1,139 @@
+@import "mixins/all";
+
+.user-header {
+  @include clearfix;
+  margin-bottom:2em;
+}
+
+.user-header > .user-profile {
+  @include between-breakpoints($bp-mobile-horizontal-big,$bp-tablet) {
+    @include span(1 of 2 0.1);
+  }
+
+  @include between-breakpoints($bp-tablet,$bp-tablet-horizontal) {
+    @include span(2 of 5 0.1);
+  }
+
+  @include between-breakpoints($bp-tablet-horizontal,$bp-desktop) {
+    @include span(2 of 7 0.1);
+  }
+
+  @include at-breakpoint($bp-desktop) {
+    @include span(1 of 4 0.1);
+  }
+}
+
+.user-header > .user-middle {
+
+  @include between-breakpoints($bp-mobile-horizontal-big,$bp-tablet) {
+    @include span(1 of 2 0.1);
+    @include omega;
+  }
+
+  @include between-breakpoints($bp-tablet,$bp-tablet-horizontal) {
+    @include span(3 of 5 0.1);
+    @include omega;
+  }
+
+  @include between-breakpoints($bp-tablet-horizontal,$bp-desktop) {
+    @include span(3 of 7 0.1);
+  }
+
+  @include at-breakpoint($bp-desktop) {
+    @include span(2 of 4 0.1);
+  }
+
+}
+
+.user-header > .user-extra {
+
+
+  @include till-breakpoint($bp-tablet-horizontal) {
+    display:none;
+  }
+
+  @include between-breakpoints($bp-tablet-horizontal,$bp-desktop) {
+    @include span(2 of 7 0.1);
+    @include omega;
+  }
+
+  @include at-breakpoint($bp-desktop) {
+    @include span(1 of 4 0.1);
+    @include omega;
+  }
+}
+
+.user-header > .user-extra > .take_part  {
+  @include whitebox;
+  background-color: #5F9537;
+  color: $white;
+  text-align: center;
+
+  .Button{
+    margin-bottom: 1em;
+  }
+
+  img {
+    width: 100%;
+  }
+}
+
+.user-middle > .user-menu {
+  max-width: 20em;
+  clear:both;
+  margin-top:2em;
+}
+
+.user-middle > .user-menu > .Button {
+  margin:0.5em;
+
+  display:block;
+}
+
+.user-edit {
+  text-align: center;
+}
+
+.article_templates,.mass_uploads-table {
+  th {
+    border-bottom: lightgray solid 1px;
+    padding:0.5em;
+  }
+
+  td {
+    padding:0.5em;
+  }
+}
+
+.export {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 1em;
+}
+
+.export > .export-entries {
+  display:none;
+  background-color:white;
+  box-shadow: $even-lighter-gray 0px 0px 2px 2px;
+  padding: 0.5em;
+  &.is-active {
+    top: 2.5em;
+    left: 0em;
+    display: block;
+    position: absolute;
+    z-index: 1;
+  }
+}
+
+.export > .export-entries > ul {
+  list-style: none;
+  padding: 0em;
+  margin: 0em;
+}
+
+.export > .export-entries > ul > li {
+
+  padding: 0.5em 0;
+}
+
+

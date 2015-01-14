@@ -1,0 +1,380 @@
+@import "mixins/all";
+
+// Commonly used
+
+.visual_checkout_steps {
+  margin-bottom: 1em;
+  @include at-breakpoint($bp-tablet-horizontal) {
+    margin: 0.5em 0 1.5em;
+  }
+}
+
+.visual_checkout_steps .between_checkout_steps {
+  @include till-breakpoint($bp-tablet) {
+    display:none;
+  }
+  @include at-breakpoint($bp-tablet-horizontal) {
+    font-size: 1.28em;
+  }
+}
+
+.visual_checkout_steps .visual_checkout_step {
+  @include till-breakpoint($bp-tablet) {
+    display:block;
+    padding: 0.3em;
+  }
+  @include  till-breakpoint($bp-tablet-horizontal) {
+    font-size: 0.9em;
+  }
+  @include at-breakpoint($bp-tablet-horizontal) {
+    font-size: 1.2em;
+  }
+  white-space:nowrap;
+  padding: 0.5em;
+  color: $gray;
+  @include color-links($gray,$gray)
+}
+
+.visual_checkout_step.active {
+  color: black;
+}
+
+.warning {
+  text-align: justify;
+  padding: 0.5em;
+  font-size: 0.8em;
+  color: $gray;
+}
+
+.checkout-actions {
+  clear:both;
+  text-align: right;
+  & li.action {
+    float: none;
+  }
+}
+.checkout-back {
+  float: left;
+}
+.checkout-submit {
+  display: inline-block;
+}
+
+
+/* --------------------- Pre Checkout Cart --------------------- */
+
+form.change_quantity > .inputs  > ol > li.input {
+  margin:0;
+  padding:0;
+  .label { display: inline; margin-right: 1em; }
+  input { width: 4em; padding: 0.3em 0.5em;}
+}
+
+.delete_line_item, .collect_line_item {
+  margin-left: 0.5em;
+  line-height: 2.3em;
+}
+
+
+form.change_quantity > .inputs >  ol > li.action {
+  float:none;
+}
+
+.change_quantity,
+.delete_line_item,
+.collect_line_item,
+.change_quantity > .inputs ,
+.change_quantity > .inputs > ol > li,
+.delete_line_item, .collect_line_item > div {
+  display: inline-block;
+  overflow: visible;
+  float:left;
+}
+
+.line_item_actions-inner {
+  margin-top:0.5em;
+  @include clearfix;
+}
+
+.line_item_total {
+  font-size: 1.2em;
+  font-weight: 600;
+  float:right;
+  text-align: right;
+  line-height: 2em;
+}
+
+@include at-breakpoint($bp-mobile-horizontal) {
+ .line_item_actions-inner { padding: 0.5em; margin-top: 0; }
+}
+
+@include at-breakpoint($bp-tablet-horizontal) {
+  .line_item_actions-inner { padding: 1.8em 1em; }
+  .change_quantity { @include span(2 of 6 0.1); }
+  .delete_line_item {  @include span(1 of 6 0.1); margin-left: 0; }
+  .collect_line_item {  @include span(1 of 6 0.1); margin-left: 0; }
+  .line_item_total { @include span(2 of 6 0.1); @include omega; }
+
+   .to_checkout > .Button {
+     font-size: 1.3em;
+   }
+}
+
+.checkout {
+  text-align: right;
+  margin-right: 1em;
+}
+.checkout > .total_price {
+  margin-bottom: 0.5em;
+  line-height: 1.4rem;
+}
+.checkout > .total_price  > .total  {
+  font-size: 1.4em;
+  font-weight: 600;
+  margin-left: 1em;
+}
+
+.checkout > .total_price > .without_tranport {
+  font-size: 0.8em;
+}
+
+.to_checkout {
+  clear: both;
+}
+
+/* --------------------- Checkout Step 1 --------------------- */
+
+
+// Unified Payment Method besides checkbox
+.formtastic .unified_inputs .unified_payment  > li {
+  float:left;
+  margin-right:1em;
+}
+
+// Message Box layout
+
+.formtastic .message-text textarea {
+  height: 5.5em;
+  width:90%;
+}
+
+.next_step_explanation {
+  padding:1em;
+   @include at-breakpoint($bp-tablet-horizontal) {
+    float:right;
+  }
+}
+
+// Responsiveness
+ @include at-breakpoint($bp-tablet-horizontal) {
+  .formtastic .legal_inputs {
+    @include span(3 of 6 0.1);
+  }
+  .formtastic .unified_inputs {
+    @include span(3 of 6 0.1);
+    @include omega;
+  }
+  .formtastic .line_items {
+    clear:both;
+  }
+}
+
+@include at-breakpoint($bp-tablet-horizontal) {
+  .formtastic .unified_inputs .unified_payment, .formtastic .unified_inputs .unified_transport {
+    margin-top: 5.5em;
+    @include span(1 of 2 0.1);
+  }
+  .formtastic .unified_inputs .unified_transport {
+    @include omega;
+  }
+}
+
+// Line Items
+
+.formtastic .line_items > .line_item {
+  @include whitebox;
+  background-color: white;
+  @include clearfix;
+  margin-bottom: 0.2em;
+  padding:0.5em;
+  @include at-breakpoint($bp-tablet-horizontal) { padding: 0; }
+  -webkit-transition: margin 1s; /* For Safari 3.1 to 6.0 */
+  transition: margin 0.3s;
+}
+
+.formtastic .line_items > .line_item[data-unified-transport="false"] {
+  margin: rem(20) 0;
+  &:last-child {
+    margin-bottom: 0.2em;
+  }
+}
+
+.formtastic .line_items > .line_item > .image {
+  line-height: 0em;
+  img {
+    width: 100%;
+    border-radius: 0.5em;
+    @include at-breakpoint($bp-tablet-horizontal) {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+  }
+}
+
+.formtastic .line_items > .line_item > .form .input {
+  margin: 0;
+}
+
+.unified_transport_impossible {
+  color: $red;
+}
+
+.transport_notice--details {
+  font-size: 10px;
+}
+
+// Line Items Responsiveness
+
+.formtastic .line_items > .line_item {
+  @include till-breakpoint($bp-tablet) {
+    > .image { display:none; }
+  }
+
+  @include between-breakpoints($bp-mobile-horizontal,$bp-tablet-horizontal) {
+    position: relative;
+    .image { position: absolute;  right: 1em; width:10%; }
+
+  }
+
+  @include at-breakpoint($bp-tablet-horizontal) {
+    > .image { @include span(1 of 6 0.1); }
+    > .details { @include span(2 of 6 0.1); }
+    > .form { @include span(3 of 6 0.1);
+              @include omega; }
+  }
+
+  @include at-breakpoint($bp-desktop) {
+    > .image { @include span(1 of 8 0.1); }
+    > .details { @include span(3 of 8 0.1); }
+    > .form { @include span(4 of 8 0.1);
+              @include omega; }
+  }
+
+}
+
+.formtastic .line_items > .line_item > .details {
+  @include at-breakpoint($bp-tablet-horizontal) { margin-top: 0.3em; }
+  > .quantity { float:left; margin-right: 0.5em;}
+  > .price { clear:both; }
+  > .title { overflow:hidden; text-overflow:ellipsis }
+}
+
+.formtastic .line_items > .line_item > .form {
+  .input { padding: 0; }
+  .transport_notice { margin-top: 0.5em; }
+  @include between-breakpoints($bp-mobile-horizontal,$bp-tablet-horizontal) {
+     @include clearfix;
+    .payment,.transport { float:left; }
+    .payment { margin-right: 5em; }
+  }
+
+
+  @include at-breakpoint($bp-tablet-horizontal) {
+    margin-top: 0.3em;
+    > .payment { @include span(1 of 2 0.1); }
+    > .transport { @include span(1 of 2 0.1);
+                   @include omega;}
+  }
+}
+
+.courier_step--target {
+  display: none;
+  @include whitebox;
+  margin-top: 0.5em;
+  margin-bottom: 1em;
+
+  .left {
+    @include span(1 of 15 0.1);
+  }
+  .middle {
+    @include span(9 of 15 0.1);
+  }
+  .right {
+    @include span(5 of 15 0.1);
+    @include omega;
+  }
+  @include clearfix;
+}
+
+// Addresses
+
+.addresses_forms > .payment_address .Address > .Address-controls .delete_address {
+  display: none; // so we dont need to reload the user in the policy to make the destroy button disappear
+}
+
+.addresses_forms > .transport_address .same_address_label {
+
+  padding-left: 0.3em;
+  @include till-breakpoint($bp-mobile-horizontal) {
+
+    padding-left: 0em;
+  }
+}
+.addresses_forms {
+  margin-top: 1em;
+}
+.addresses_forms, .addresses_preview {
+  @include clearfix;
+  @include at-breakpoint($bp-tablet-horizontal) {
+    > .payment_address {
+      @include span(1 of 2 0.05);
+    }
+    > .transport_address {
+      @include span(1 of 2 0.05);
+      @include omega;
+    }
+  }
+}
+
+/* --------------------- Checkout Step 2 --------------------- */
+
+@include at-breakpoint($bp-tablet-horizontal) {
+  .prices_overview { @include span(3 of 4 0.1); }
+  .sidebar { @include span(1 of 4 0.1); @include omega; }
+}
+
+.bt-totals {
+  margin-bottom: rem(15);
+}
+.total_overview .total_table {
+  width: 100%;
+  border-collapse: collapse;
+  display: table;
+  margin-bottom: 0.5em;
+}
+.total_overview .total_table > .row {
+  display: table-row;
+  border-bottom: 1px solid $lighter-gray;
+  > .label { width: 70%; }
+  > .value { width: 30%; text-align:right; }
+  &:last-child { border-bottom: 0px;}
+}
+.total_overview .total_table > .row > .value, .total_overview .total_table > .row > .label {
+  display: table-cell;
+  font-size: 0.9em;
+  padding: 0.1em;
+
+}
+
+.checkout_button {
+  font-size: 1.2em;
+}
+
+#collect_link {
+  color: $blue !important;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+/* --------------------- Post Checkout Cart --------------------- */

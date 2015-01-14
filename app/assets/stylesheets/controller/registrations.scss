@@ -1,0 +1,149 @@
+
+@import "mixins/all";
+
+// Login and registration form
+
+#registration_form {
+  margin-bottom: 1.5em;
+
+
+  #user_email {
+    width: 22.5em;
+    max-width: 100%;
+  }
+
+  #user_nickname, #user_password {
+    width: 17.5em;
+  }
+
+
+  // Responsive stuff
+  @include at-breakpoint($bp-tablet) {
+		@include span(1 of 2);
+	}
+}
+
+
+#registration_marketing {
+  // Responsive stuff
+  display: none;
+
+  @include at-breakpoint($bp-tablet) {
+    display: block;
+    margin-top: 4.5em;
+    @include span(1 of 2);
+    @include omega;
+  }
+}
+
+
+ul.checklist {
+  list-style: none;
+  padding: 0;
+  margin-top: 2em;
+
+  li {
+    padding-left: 1.5em;
+    font-size: 1em;
+    margin-bottom: 1em;
+
+    &:before {
+      content: '\f046'; /*fontawesome char code inside the '' */
+      font-family: FontAwesome;
+      color: $green;
+      display: inline-block;
+      margin-left: -1.5em; /*same as padding-left set on li*/
+      width: 1.5em; /*same as padding-left set on li*/
+    }
+  }
+}
+
+
+
+
+/*
+.registrations-grid > ol > li {
+  @include at-breakpoint($bp-tablet-horizontal) {
+    @include span(2 of 4);
+    &:nth-child(2n) {
+    @include omega;
+    }
+  }
+}
+*/
+
+// Password jquery-complexify
+.formtastic {
+  .pw-complexify {
+    label.label, .progress {
+      display: none;
+    }
+    .bar {
+      height: 2em;
+    }
+    .progress {
+      border-radius: 0.9em;
+      border: 1px solid $light-gray;
+      overflow: hidden;
+    }
+    .bar--red {
+      background: $red;
+    }
+    .bar--green {
+      background: $green;
+    }
+  }
+}
+
+
+// edit user
+
+.visibility {
+  position: relative;
+  margin-right: 2em;
+  float:right;
+  > span.sprite_helper {
+    top: 0;
+    right: -2em;
+  }
+}
+
+.Accordion-step > p {
+  margin-bottom: 1em;
+}
+
+
+.user-edit > .formtastic .stringish input, .user-edit > .formtastic .pw-complexify {
+  @include at-breakpoint($bp-tablet) {
+    width:30%;
+  }
+}
+
+.formtastic .inputs li.unified_transport_maximum_articles {
+  * { display: inline; color: black; }
+  label {margin-right: 0.5em; }
+  input { font-size: 0.9em; line-height:0.9em; width: 5em }
+  p.inline-hints{ color: black; }
+}
+
+.formtastic .inputs li.free_transport_available, .formtastic .inputs li.free_transport_at_price_cents  {
+  overflow:visible;
+  display: inline;
+  .icheckbox {top: 0.1em;}
+  label { color: black;  display: inline; }
+  input { font-size: 0.9em; line-height:0.9em; width: 5em; display: inline; }
+  p.inline-hints{ color: black; display: inline; }
+}
+.formtastic .inputs li.free_transport_at_price_cents {
+  label { margin-right: 0.5em; }
+}
+
+.unified_transport_title, .free_transport_title {
+  position: relative;
+}
+
+.Accordion .Accordion-item > .Accordion-content .Accordion-step.free_transport_step {
+  overflow: visible;
+}
+
+

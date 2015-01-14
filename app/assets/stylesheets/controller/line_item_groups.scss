@@ -1,0 +1,80 @@
+@import "mixins/all";
+
+.bank_account_table, .transport_table, .business_transaction_table, .donation_table {
+  margin-bottom: 1em;
+  > .line {  margin-bottom: 0.5em; }
+  > .line:last-child { margin-bottom:0; }
+  > .line > .heading,  { font-weight:600; display: inline; padding: 0 0.5em;}
+  >  .line > .value { display: inline; padding: 0 0.5em;}
+  @include at-breakpoint($bp-mobile-horizontal) {
+      display:table;
+    > .line { display:table-row;  margin:0; }
+    > .line > .heading { display:table-cell;  }
+    > .line > .value { display:table-cell;  }
+  }
+}
+
+.transport_table {
+  @include at-breakpoint($bp-tablet) {
+    display:block;
+    @include clearfix;
+    > .line { @include span(1 of 2 0.1); }
+    > .line:nth-child(2n) { @include omega; }
+    > .line > .heading { display:inline-block;  }
+    > .line > .value { display:inline-block; float:right; }
+  }
+}
+
+.bank_account_table { margin: 1em; }
+
+.business_transaction_table {
+  margin-bottom: 0em;
+  padding: 0.3em;
+}
+
+.payment_information, .payment_actions {
+  margin-bottom: 0.5em;
+}
+
+.payment_actions {
+  text-align: center;
+}
+
+// Pickup Address
+.payment_actions .Address {
+  max-width:15em;
+  margin: 1em auto;
+}
+.transports_pickup {
+  max-width:15em; margin: 1em 0;
+}
+
+
+@include at-breakpoint($bp-tablet-horizontal) {
+  .payment_information, .payment_actions {
+    @include span(1 of 2 0);
+  }
+  .payment_actions {
+    @include omega;
+  }
+}
+
+.message {
+  .GrayBox-content { padding:  0 rem(20); }
+}
+
+@include at-breakpoint($bp-tablet-horizontal) {
+  .group { @include span(3 of 4 0.05); }
+  .group-header { @include span(3 of 4 0.05); }
+  .sidebar { @include span(1 of 4 0.05); @include omega; }
+}
+
+.total_big {
+ text-align: center;
+  font-size: 1.5em;
+}
+
+.group-header {
+  @include clearfix;
+  //margin-bottom: 1em;
+}
