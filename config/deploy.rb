@@ -17,7 +17,7 @@ set :scm, :git
 # set :format, :pretty
 
 # Default value for :log_level is :debug
-set :log_level, :info
+set :log_level, :debug
 
 # Default value for :linked_files is []
 set :linked_files, %w{config/database.yml config/newrelic.yml config/actionmailer.yml config/api.yml config/email_addresses.yml config/initializers/secret_token.rb config/sidekiq_pro_path.yml config/paypal_adaptive.yml}
