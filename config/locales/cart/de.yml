@@ -64,7 +64,7 @@ de:
       step3: '3. Schritt: Überprüfen und Bestellen'
     actions:
       confirm_purchase: "Zahlungspflichtig bestellen für %{total} "
-      checkout: Zur Kasse
+      checkout: 'Zur Kasse (über den Sicherheitsserver)'
       pay: Zur Bezahlung
       back: Zurück
     notices:
