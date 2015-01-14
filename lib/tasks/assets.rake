@@ -9,6 +9,6 @@ namespace :assets do
         :style => 'scss' ,
         :selector => 'span.sprite_',
         :cssurl => "image-url('$IMAGE')",
-        :output_style => "app/assets/stylesheets/sprites.css.scss" )
+        :output_style => "app/assets/stylesheets/sprites.scss" )
   end
 end
