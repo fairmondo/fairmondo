@@ -25,4 +25,5 @@ class BusinessTransactionObserver < ActiveRecord::Observer
   def before_create business_transaction
     business_transaction.sold_at = Time.now
   end
+
 end

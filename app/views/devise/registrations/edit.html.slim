@@ -146,8 +146,30 @@ h1= t('common.actions.edit_profile')
           = f.input :about_me, as: :text, limit: 2500, input_html: {class: "tinymce"}
           = tinymce
 
+
     - if current_user.is_a?(LegalEntity)
       = render partial: '/devise/registrations/edit_legal', locals: {f: f}
+
+    = f.input_step :unified_transport do
+      = f.inputs do
+        .Accordion-step
+          h3.unified_transport_title
+            = t('users.title.unified_transport')
+            span.sprite_helper title=t('users.hints.unified_transport')
+
+          = f.input :unified_transport_provider, :input_html => { :placeholder => t('article.transport.placeholders.type2_provider') }
+          = f.input :unified_transport_price
+          = f.input :unified_transport_maximum_articles, wrapper_html: {class: "unified_transport_maximum_articles"}
+          = t('users.unified_warning')
+
+
+        - if current_user.is_a?(LegalEntity)
+          .Accordion-step.free_transport_step
+            h3.free_transport_title
+              = t('users.title.free_at_transport')
+              span.sprite_helper title=t('users.hints.free_at_transport')
+            = f.input :free_transport_available, wrapper_html: {class: "free_transport_available"}
+            = f.input :free_transport_at_price, wrapper_html: {class: "free_transport_at_price_cents"}
 
     = f.input_step :payment, tooltip: true do
       = f.inputs do

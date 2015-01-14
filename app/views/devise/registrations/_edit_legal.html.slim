@@ -35,22 +35,5 @@
       - if resource.cancellation_form.exists?
         | Hochgeladen:
         =< link_to resource.cancellation_form.original_filename, resource.cancellation_form.url, target: '_blank'
-= f.input_step :unified_transport do
-  = f.inputs do
-    .Accordion-step
-      h3.unified_transport_title
-        = t('users.title.unified_transport')
-        span.sprite_helper title=t('users.hints.unified_transport')
-
-      = f.input :unified_transport_provider, :input_html => { :placeholder => t('article.transport.placeholders.type2_provider') }
-      = f.input :unified_transport_price
-      = f.input :unified_transport_maximum_articles, wrapper_html: {class: "unified_transport_maximum_articles"}
-      = t('users.unified_warning')
 
 
-    .Accordion-step.free_transport_step
-      h3.free_transport_title
-        = t('users.title.free_at_transport')
-        span.sprite_helper title=t('users.hints.free_at_transport')
-      = f.input :free_transport_available, wrapper_html: {class: "free_transport_available"}
-      = f.input :free_transport_at_price, wrapper_html: {class: "free_transport_at_price_cents"}

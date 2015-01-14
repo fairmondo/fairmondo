@@ -15,7 +15,14 @@
 }
 
 .Lineitemgroup-images {
-  img { max-width: 8em; border-radius: 0.5em; }
+  img {
+    max-width: 8em;
+    border-radius: 0.5em;
+    margin-right: 0.5em;
+  }
+  img:last-child {
+    margin-right: 0em;
+  }
 }
 
 @include till-breakpoint($bp-tablet) {
