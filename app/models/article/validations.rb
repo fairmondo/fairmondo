@@ -144,4 +144,5 @@ module Article::Validations
         errors.add(:transport_bike_courier, I18n.t('article.form.errors.wrong_zip_for_bike_transport'))
       end
     end
+
 end

@@ -64,10 +64,15 @@ class Article < ActiveRecord::Base
     new_article
   end
 
+  # Elastic/Chewy - so it knows which to #import
+  def delete_from_index?
+    !active?
+  end
+
   amoeba do
     enable
-    include_field :fair_trust_questionnaire
-    include_field :social_producer_questionnaire
+    include_association :fair_trust_questionnaire
+    include_association :social_producer_questionnaire
     customize lambda { |original_article, new_article|
       new_article.categories = original_article.categories
       # move images to new article

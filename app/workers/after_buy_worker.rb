@@ -10,12 +10,15 @@ class AfterBuyWorker
 
     CartMailerWorker.perform_async cart.id
 
-    cart.line_item_groups.each do |lig|
-      lig.business_transactions.each do |bt|
-        if bt.article_price > 0
-          FastbillWorker.perform_in 5.seconds, bt.id
-        end
+    cart.line_item_groups.map(&:business_transactions).flatten.each do |bt|
+      unless bt.voucher_selected? || bt.article_price <= 0
+        FastbillWorker.perform_in 5.seconds, bt.id
       end
     end
+
+    cart.articles.each do |article|
+      Indexer.index_article article
+    end
   end
+
 end

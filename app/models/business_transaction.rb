@@ -130,6 +130,10 @@ class BusinessTransaction < ActiveRecord::Base
     self.selected_transport == 'bike_courier'
   end
 
+  def voucher_selected?
+    self.selected_payment == 'voucher'
+  end
+
   private
 
     # Custom conditions for validations

@@ -112,7 +112,7 @@ class ArticleSearch
 
     # facets
     def category_facet
-      index.facets(categories: { terms: { field: :categories, size: 10000}})
+      index.facets(categories: { terms: { field: :categories, size: 10000} , global: true})
       # If we ever hit 10000 categories+ this has to be upgraded
     end
 

@@ -28,36 +28,42 @@ doctype html
 html<> class='no-js' lang=I18n.locale
   <!--<![endif]-->
 
-  = render "/layouts/partials/head_tag"
+  = render '/layouts/partials/head_tag'
 
-  body class="pages-#{controller.controller_name} page-#{controller.action_name}"
+  body[class="pages-#{controller.controller_name} page-#{controller.action_name}"]
     .l-wrapper
-      = render "/layouts/partials/noscript_notice"
+      = render '/layouts/partials/noscript_notice'
       - if !flash.empty?
         - flash.each do |type, msg|
-          - if msg && type != "timedout" && !msg.empty?
-            = render layout: "notice_layout", locals: { type: type }  do
+          - if msg && type != 'timedout' && !msg.empty?
+            = render layout: 'notice_layout', locals: { type: type } do
               = msg
-      = render "/layouts/partials/news_header"
+      = render '/layouts/partials/news_header'
       .l-header
         .l-header-top
+          / Fairmondo logo
           .l-header-logo
-            a href="/"
-              span.sprite_logo
+            a href='/'
+              = image_tag 'logo.png', alt: t('common.fairmondo')
 
           / Temporary rename message
           p.l-header-rename
             = 'Aus Fairnopoly wird Fairmondo! '
-            = link_to 'Erfahre warum.', 'https://info.fairmondo.de/ein-neuer-name-warum', target: "_blank"
+            = link_to 'Erfahre warum.',
+              'https://info.fairmondo.de/ein-neuer-name-warum',
+              target: '_blank'
 
-          = render "/layouts/partials/header_nav"
+          = render '/layouts/partials/header_nav'
         .l-header-bottom
-          = render "/layouts/partials/header_search"
-          = render "/layouts/partials/header_categories"
-      .l-main role="main"
+          = render '/layouts/partials/header_search'
+          = render '/layouts/partials/header_categories'
+      .l-main role='main'
         = yield
 
-    - cache_if (!(User.is_admin? current_user)), "footer" do
-      = render "/layouts/partials/footer"
+    - is_welcome = controller_name == 'welcome'
+    - cache_if( !(User.is_admin? current_user),
+        is_welcome ? 'footer_welcome' : 'footer_normal' ) do
+      = render '/layouts/partials/footer',
+        with_social_media_buttons: is_welcome
 
-    = render "/layouts/partials/additional_assets"
+    = render '/layouts/partials/additional_assets'

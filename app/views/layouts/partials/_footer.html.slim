@@ -2,12 +2,13 @@
   .l-footer-inner
     #l-footer-nav-left
       / Logo
-      a#l-footer-logo href="/"
-        span.sprite_logo_small
+      a#l-footer-logo href='/'
+        = image_tag 'logo_small.png', alt: t('common.fairmondo_name')
 
       / Social media buttons
-      - if controller_name == 'welcome'
-        .socialshareprivacy data={ uri: "http://www.fairmondo.de/", title: "Gutes einfach entdecken" }
+      - if local_assigns.has_key?(:with_social_media_buttons) && with_social_media_buttons
+        .socialshareprivacy[data={ uri: 'http://www.fairmondo.de/',
+          title: 'Gutes einfach entdecken' }]
 
     / Feedback links
     ul#l-feedback
@@ -20,7 +21,9 @@
           i.fa.fa-comment &nbsp;
           = t('common.text.feedback')
       li.l-feedback-button--green
-        a.l-feedback-button--green href='http://mitmachen.fairmondo.de/anteile-zeichnen/' target='_blank'
+        a[class='l-feedback-button--green'
+          href='http://mitmachen.fairmondo.de/anteile-zeichnen/'
+          target='_blank']
           i.fa.fa-pie-chart &nbsp;
           = t('common.text.shares')
 
@@ -33,7 +36,8 @@
           i.fa.fa-phone
         ul
           li= link_to t('footer.faq'), '/faq'
-          li= link_to t('footer.forum'), 'https://forum.fairmondo.de/', target: '_blank'
+          li= link_to t('footer.forum'), 'https://forum.fairmondo.de/',
+            target: '_blank'
           li= link_to t('footer.status'), 'https://twitter.com/FairmondoStatus'
           li= link_to t('footer.contact'), '/contact'
 
@@ -45,10 +49,15 @@
           i.fa.fa-institution
         ul
           li= link_to t('footer.about_us'), '/about_us'
-          li= link_to t('footer.team'), "https://info.fairmondo.de/team/", target: '_blank'
-          li= link_to t('footer.transparency'), 'https://transparenz.fairmondo.de/', target: '_blank'
-          li= link_to t('footer.jobs'), "https://info.fairmondo.de/stellenausschreibungen/", target: '_blank'
-          li= link_to t('footer.press'), "https://info.fairmondo.de/pressekit/", target: '_blank'
+          li= link_to t('footer.team'), 'https://info.fairmondo.de/team/',
+            target: '_blank'
+          li= link_to t('footer.transparency'),
+            'https://transparenz.fairmondo.de/', target: '_blank'
+          li= link_to t('footer.jobs'),
+            'https://info.fairmondo.de/stellenausschreibungen/',
+            target: '_blank'
+          li= link_to t('footer.press'),
+            'https://info.fairmondo.de/pressekit/', target: '_blank'
 
       section#l-footer-nav-news
         h4
@@ -56,8 +65,11 @@
           | &nbsp;
           i.fa.fa-newspaper-o
         ul
-          li= link_to t('footer.blog'), "https://info.fairmondo.de", target: '_blank'
-          li= link_to t('footer.newsletter'), "http://50856.seu1.cleverreach.com/f/50856-129361/", target: '_blank'
+          li= link_to t('footer.blog'), 'https://info.fairmondo.de',
+            target: '_blank'
+          li= link_to t('footer.newsletter'),
+            'http://50856.seu1.cleverreach.com/f/50856-129361/',
+            target: '_blank'
 
       section#l-footer-nav-legal
         h4
@@ -65,9 +77,9 @@
           | &nbsp;
           i.fa.fa-legal
         ul
-          li= link_to t('footer.agb'), "/agb"
-          li= link_to t('footer.privacy'), "/privacy"
-          li= link_to t('footer.imprint'), "/imprint"
+          li= link_to t('footer.agb'), '/agb'
+          li= link_to t('footer.privacy'), '/privacy'
+          li= link_to t('footer.imprint'), '/imprint'
 
       - if User.is_admin? current_user
         section#l-footer-nav-admin
@@ -76,10 +88,10 @@
             | &nbsp;
             i.fa.fa-wrench
           ul
-            li= link_to t('users.menu.admin'), "/admin"
-            li= link_to 'Manage Pages', "/contents"
-            li= link_to 'Statistics', "/statistics/general"
+            li= link_to t('users.menu.admin'), '/admin'
+            li= link_to 'Manage Pages', '/contents'
+            li= link_to 'Statistics', '/statistics/general'
 
     / Copyright
     p#l-footer-copyright
-      | &copy; Copyright 2014 Fairnopoly eG
+      | &copy; Copyright 2015 Fairmondo eG
