@@ -17,5 +17,9 @@ class AfterBuyWorker
         end
       end
     end
+
+    cart.articles.each do |article|
+      Indexer.index_article article
+    end
   end
 end

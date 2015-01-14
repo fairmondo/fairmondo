@@ -25,18 +25,4 @@ class BusinessTransactionObserver < ActiveRecord::Observer
   def before_create business_transaction
     business_transaction.sold_at = Time.now
   end
-
-  def after_create business_transaction
-
-    #if !business_transaction.purchase_emails_sent
-      # Send an email to the seller
-      #BusinessTransactionMailerWorker.perform_in 5.seconds, business_transaction.id, :seller
-
-      # Send a confirmation email to the buyer
-      #BusinessTransactionMailerWorker.perform_in 5.seconds, business_transaction.id, :buyer
-
-      #business_transaction.update_attribute :purchase_emails_sent, true
-    #end
-
-  end
 end

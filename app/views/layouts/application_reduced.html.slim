@@ -38,12 +38,14 @@ html<> class='no-js' lang=I18n.locale
           - if msg && type != "timedout" && !msg.empty?
             = render layout: "notice_layout", locals: { type: type }  do
               = msg
-      /= render "/layouts/partials/news_header"
+
       .l-header
         .l-header-top
+          / Fairmondo logo
           .l-header-logo
-            a href="/"
-              span.sprite_logo
+            a href='/'
+              = image_tag 'logo.png', alt: t('common.fairmondo')
+
       .l-main role="main"
         = yield
 
