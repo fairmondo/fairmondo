@@ -1,4 +1,4 @@
-Ein*e Fairmondo-Nutzer*in hat dir eine Rückfrage zu deinem Artikel "<%= @article.title %>" gesandt:
+"<%= @user.nickname %>" hat dir eine Rückfrage zu deinem Artikel "<%= @article.title %>" gesandt:
 
 ----------
 
@@ -6,7 +6,8 @@ Ein*e Fairmondo-Nutzer*in hat dir eine Rückfrage zu deinem Artikel "<%= @articl
 
 ----------
 
-Bitte sende Deine Antwort an <%= @from %>.
-Den Artikel zu der Rückfrage findest Du unter <%= article_url @article %>
+Bitte sende Deine Antwort an: <%= @from %>.
+Den Artikel zu der Rückfrage findest Du unter: <%= article_url @article %>
+Das Profil von <%= @user.nickname %> findest Du hier: <%= user_url(@user) %>
 
 <%= render '/shared/email_footer' %>

@@ -44,7 +44,7 @@
           article
             hgroup
               h2 Wir haben sie alle
-              h3 Auf Fairmondo über 1&nbsp;Mio. Bücher finden
+              h3 Auf Fairmondo über 1,5&nbsp;Mio. Bücher finden
             = link_to 'Jetzt stöbern', '/categories/bucher?pk_campaign=bb4&pk_kwd=stoebern'
             ul
               li#billboard-books-link1
@@ -94,10 +94,12 @@
         / Geschenke unter 15 EUR
         .billboard#billboard-gifts
           article
-            h2 Tolle <span id="billboard-gifts-gifts">Produkte</span> unter <span id="billboard-gifts-price">15&thinsp;&euro;</span>
+            h2
+              | Tolle <span id="billboard-gifts-gifts">Produkte</span> unter
+                <span id="billboard-gifts-price">15&thinsp;&euro;</span>
             ul
               li#billboard-gifts-link1
-                = link_to '/libraries/8052' do
+                = link_to '/libraries/8052?pk_campaign=bb6&pk_kwd=geschenke' do
                   div
                   p Alle ansehen
 
@@ -144,7 +146,8 @@
   .teaser-inner
     section#filter-fair
       .filter-wrapper
-        = link_to '/articles?article_search_form[fair]=true' do
+        = link_to '/articles?article_search_form[fair]=true'\
+                  '&pk_campaign=filterbox&pk_kwd=fair' do
           .filter-text
             h3= t('welcome.filter_boxes.fair.teaser_html')
             p= t('welcome.filter_boxes.fair.description')
@@ -155,7 +158,8 @@
 
     section#filter-eco
       .filter-wrapper
-        = link_to '/articles?article_search_form[ecologic]=true' do
+        = link_to '/articles?article_search_form[ecologic]=true'\
+                  '&pk_campaign=filterbox&pk_kwd=eco' do
           .filter-text
             h3= t('welcome.filter_boxes.ecologic.teaser_html')
             p= t('welcome.filter_boxes.ecologic.description')
@@ -166,7 +170,8 @@
 
     section#filter-small
       .filter-wrapper
-        = link_to '/articles?article_search_form[small_and_precious]=true' do
+        = link_to '/articles?article_search_form[small_and_precious]=true'\
+                  '&pk_campaign=filterbox&pk_kwd=small' do
           .filter-text
             h3= t('welcome.filter_boxes.small.teaser_html')
             p= t('welcome.filter_boxes.small.description')
@@ -177,7 +182,8 @@
 
     section#filter-used
       .filter-wrapper
-        = link_to '/articles?article_search_form[condition]=old' do
+        = link_to '/articles?article_search_form[condition]=old'\
+                  '&pk_campaign=filterbox&pk_kwd=used' do
           .filter-text
             h3= t('welcome.filter_boxes.used.teaser_html')
             p= t('welcome.filter_boxes.used.description')
@@ -307,12 +313,12 @@
                              source: 'Thomas Kappauf, Black Star'
 
 
-/ Cooperation teaser
+/ Cooperative teaser
 .teaser.teaser--double#coop
   .teaser-inner.teaser--center
-    = image_tag 'genobox-360.png'
-    h2 haben sich bereits an der Fairmondo-Genossenschaft beteiligt.
-    p= link_to 'Mehr erfahren', 'https://www.fairmondo.de/genossenschaft', class: 'Button', target: '_self'
+    = link_to 'https://www.fairmondo.de/genossenschaft', target: '_self' do
+      = image_tag 'genobox-584.jpg', alt: 'Über 1900 Menschen haben sich '\
+      'bereits an der Fairmondo-Genossenschaft beteiligt.'
 
 
 / Blog

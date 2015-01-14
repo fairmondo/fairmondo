@@ -92,8 +92,9 @@ describe PaymentsController do
     # TODO find out why this test passes and coverall thinks corresponding line is not touched
     it "should send email for each business transaction in payment's line item group if  bike_courier is selected" do
       payment
-      BusinessTransaction.any_instance.stubs(:bike_courier_selected?).returns(true)
-      assert_send([CartMailer, :courier_notification, payment.line_item_group.business_transactions.first]) { post :ipn_notification, pay_key: '1234', status: 'COMPLETED' }
+      payment.line_item_group.business_transactions.select{|bt| bt.selected_payment == "paypal"}.first.update_attribute(:selected_transport, :bike_courier)
+      CartMailer.any_instance.expects(:courier_notification).with(payment.line_item_group.business_transactions.first)
+      post :ipn_notification, pay_key: '1234', status: 'COMPLETED'
     end
 
     it 'should throw an error, when payment_status is "Invalid"' do
