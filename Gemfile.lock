@@ -7,9 +7,19 @@ GIT
       railties
 
 GIT
-  remote: git://github.com/cwest/brakeman.git
-  revision: 24a96541b100ed43665cc0efc96cb78698a3c7ba
-  ref: 24a96541b100ed43665cc0efc96cb78698a3c7ba
+  remote: git://github.com/nadarei/nkss-rails.git
+  revision: 8f5e27e98115daad591ac871a50a7c5ffa966d3e
+  specs:
+    nkss-rails (0.0.2)
+      bluecloth
+      ffaker
+      haml
+      kss
+      rails (>= 3.2.0)
+
+GIT
+  remote: git://github.com/presidentbeef/brakeman.git
+  revision: 13bc8dbf628b602298e2c5dbf5dc886013d208a3
   specs:
     brakeman (3.0.0)
       erubis (~> 2.6)
@@ -21,17 +31,6 @@ GIT
       ruby_parser (~> 3.5.0)
       sass (~> 3.0)
       terminal-table (~> 1.4)
-
-GIT
-  remote: git://github.com/nadarei/nkss-rails.git
-  revision: 8f5e27e98115daad591ac871a50a7c5ffa966d3e
-  specs:
-    nkss-rails (0.0.2)
-      bluecloth
-      ffaker
-      haml
-      kss
-      rails (>= 3.2.0)
 
 GIT
   remote: git://github.com/reputami/fastbill-automatic.git
