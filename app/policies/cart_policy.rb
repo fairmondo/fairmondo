@@ -36,6 +36,6 @@ class CartPolicy < Struct.new(:user, :cart)
 
   def send_via_email?
     #TODO find some usefull policy
-    true
+    show?
   end
 end

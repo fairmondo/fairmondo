@@ -3,7 +3,7 @@ de:
     greeting: "Hallo %{name},"
     close: 'Dein Fairmondo Team.'
     greeting_nickname: "Hallo %{nickname},"
-    security_warning: "Sicherheitshinweis: Der Kaufvertrag kommt zwischen Dir und dem Anbieter zustande. Fairmondo ist bekanntlich nur Plattformbetreiberin. Um Dich gegen Betrugsfälle zu schützen, empfiehlt Fairmondo - insbesondere bei hochwertigen Artikeln und Käufen von Privatpersonen - Dir die Daten des Anbieters bestätigen zu lassen. In Einzelfällen kann es bspw. auch sinnvoll sein, Dir die Eigentümerstellung bzw. Nachweise der Echtheit (z.B. Software) oder Unversehrtheit (durch Fotos bei Gebrauchtartikeln) zusenden zu lassen."
+    security_warning: "Sicherheitshinweis: Der Kaufvertrag kommt zwischen Dir und dem Anbieter zustande. Fairmondo ist bekanntlich nur Plattformbetreiberin. Um Dich gegen Betrugsfälle zu schützen, empfiehlt Fairmondo – inbesondere bei Artikeln und Käufen ab 100 Euro – eine sichere Bezahlmethode wie PayPal (da PayPal einen Käuferschutz beinhaltet) oder Barzahlung bei Abholung. In Einzelfällen kann es bspw. auch sinnvoll sein, Dir die Eigentümerstellung bzw. Nachweise der Echtheit (z.B. Software) oder Unversehrtheit (durch Fotos bei Gebrauchtartikeln) zusenden zu lassen."
     transport_address: 'Lieferadresse'
     payment_address: 'Rechnungsadresse'
     social_button: "Wir bei %{network}"
@@ -112,6 +112,13 @@ de:
         view_and_pay: 'Bestellung ansehen und bezahlen'
         terms_and_cancellation: "AGB, Widerrufsbelehrung für Verbraucher sowie Muster-Widerrufsformular von %{name}"
         selected_payment: 'Gewählte Zahlungsart(en):'
+      send_cart:
+        subject: '[Fairmondo] Deine vorgemerkten Artikel auf Fairmondo'
+        heading: 'Deine vorgemerkten Artikel auf Fairmondo'
+        text: 'Du hast Dir folgende Artikel auf Fairmondo vorgemerkt:'
+        articles_from: 'Artikel von'
+        go_to_fm: 'Zu Fairmondo'
+        register: 'Jetzt registrieren'
     line_item_group:
       seller:
         heading: 'Dein Verkauf auf Fairmondo'

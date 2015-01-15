@@ -1,8 +1,16 @@
-h1
-  = 'Warenkorb per E-Mail versenden'
-.Content
-  = semantic_form_for 'email', url: send_via_email_cart_path(@cart) do |f|
+.popup-text
+  h1
+    = 'Als Merkliste per E-Mail versenden'
+  p
+    = 'Hier kannst Du Dir den Inhalt Deines Warenkorbs per Email zuschicken lassen, falls Du Dich noch nicht registrieren möchtest.'
+  p
+    strong
+      = 'Wir speichern Deine E-Mailadresse nicht'
+  p
+    = 'Wenn Du Dich auf Fairmondo kostenfrei registrierst, kannst Du Deine Merklisten bequem auf Fairmondo verwalten.'
+.popup-form
+  = semantic_form_for 'email', url: send_via_email_cart_path(@cart), remote: true, html: { class: 'js-visual-submit' }  do |f|
     = f.inputs do
-      = f.input :email, as: :email, label: 'Deine E-Mail Adresse'
+      = f.input :email, as: :email, label: 'Deine E-Mail Adresse', required: true
     = f.actions do
-      = f.action :submit, label: 'jetzt versenden', input_html: { class: 'Button' }
+      = f.action :submit, label: 'Jetzt versenden', button_html: { class: 'Button' }

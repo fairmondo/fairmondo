@@ -85,8 +85,8 @@ Fairmondo::Application.routes.draw do
 
   resources :carts, only: [:show,:edit,:update] do
     member do
-      get 'send_via_email'
-      post 'send_via_email'
+      get 'send_via_email', action: 'send_via_email'
+      post 'send_via_email', action: 'send_via_email'
     end
   end
 

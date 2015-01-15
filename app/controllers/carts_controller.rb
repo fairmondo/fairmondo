@@ -7,7 +7,7 @@ class CartsController < ApplicationController
   before_filter :set_cart
   before_filter :dont_cache, only: [:edit, :update]
 
-  before_filter :authorize_and_authenticate_user_on_cart, only: :show
+  before_filter :authorize_and_authenticate_user_on_cart, only: [:show, :send_via_email]
   skip_before_filter :authenticate_user!, only: [:show, :send_via_email]
 
 
@@ -69,7 +69,8 @@ class CartsController < ApplicationController
   def send_via_email
     authorize @cart
     if params && params[:email]
-      CartMailer.send_cart(@cart, params[:email][:email])
+      CartMailer.send_cart(@cart, params[:email][:email]).deliver
+      render :send_via_email
     else
       render layout: false
     end

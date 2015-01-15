@@ -142,6 +142,21 @@ form.change_quantity > .inputs >  ol > li.action {
   clear: both;
 }
 
+#send_via_cart {
+  text-align: right;
+}
+
+.popup-text {
+  max-width: 85%;
+  padding-left: 1em;
+  padding-right: 1em;
+  margin-bottom: 0.5em;
+}
+
+.popup-form {
+  @include shadowless-whitebox;
+}
+
 /* --------------------- Checkout Step 1 --------------------- */
 
 
