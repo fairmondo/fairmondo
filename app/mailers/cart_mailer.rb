@@ -62,6 +62,15 @@ class CartMailer < ActionMailer::Base
     mail(to: @seller.email, subject: @subject)
   end
 
+  # Sends the contents of a cart to specified email-address
+  def send_cart(cart_id, email)
+    @cart    = Cart.find cart_id
+    @email   = email
+    @subject = "[Fairmondo] Du hast nicht gekaufte Artikel in Deinem Warenkorb"
+
+    mail(to: @email, subject: @subject)
+  end
+
   private
 
     def add_image_attachments_for line_item_group

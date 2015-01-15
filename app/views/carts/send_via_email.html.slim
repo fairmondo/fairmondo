@@ -1,0 +1,8 @@
+h1
+  = 'Warenkorb per E-Mail versenden'
+.Content
+  = semantic_form_for 'email', url: send_via_email_cart_path(@cart) do |f|
+    = f.inputs do
+      = f.input :email, as: :email, label: 'Deine E-Mail Adresse'
+    = f.actions do
+      = f.action :submit, label: 'jetzt versenden', input_html: { class: 'Button' }

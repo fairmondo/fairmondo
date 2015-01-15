@@ -83,7 +83,12 @@ Fairmondo::Application.routes.draw do
     end
   end
 
-  resources :carts, only: [:show,:edit,:update]
+  resources :carts, only: [:show,:edit,:update] do
+    member do
+      get 'send_via_email'
+      post 'send_via_email'
+    end
+  end
 
   resources :line_items, only: [:create,:update,:destroy]
 
@@ -98,7 +103,7 @@ Fairmondo::Application.routes.draw do
   resources :business_transactions, only: [:show] do
     resources :refunds, only: [ :new, :create ]
   end
-  match '/transactions/set_transport_ready/:id', to: 'business_transactions#set_transport_ready', as: 'set_transport_ready', via: [:get, :pos]
+  match '/transactions/set_transport_ready/:id', to: 'business_transactions#set_transport_ready', as: 'set_transport_ready', via: [:get, :post]
 
   get 'welcome/reconfirm_terms'
   post 'welcome/reconfirm_terms'

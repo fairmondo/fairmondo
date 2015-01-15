@@ -34,4 +34,8 @@ class CartPolicy < Struct.new(:user, :cart)
     user == cart.user
   end
 
+  def send_via_email?
+    #TODO find some usefull policy
+    true
+  end
 end

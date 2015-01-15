@@ -1,0 +1,14 @@
+h3
+  = "Du hast nicht gekaufte Artikel in Deinem Warenkorb"
+= 'Hallo,'
+
+- @cart.line_item_groups.find_each do |lig|
+  .line-item-group
+    h3
+      = 'Artikel von'
+      =< link_to lig.seller_nickname, profile_user_url(lig.seller_id)
+    - lig.line_items.find_each do |li|
+      = render 'line_item', li: li
+
+- content_for 'sidebar' do
+  = render 'shared/email/social_buttons'

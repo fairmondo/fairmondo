@@ -1,6 +1,8 @@
 = visual_checkout_steps :step1, cart
 h2
   =t('cart.heading')
+p
+  = link_to t('cart.texts.send_via_email'), send_via_email_cart_path(cart), class: 'colorbox'
 - if cart.line_item_groups.any?
   - cart.line_item_groups.each do |group|
     - addition = t('article.free_transport_at', price: money(group.seller_free_transport_at_price)) if group.seller_free_transport_available
