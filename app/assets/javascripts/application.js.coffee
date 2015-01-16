@@ -36,6 +36,9 @@
 #= require tinymce
 #= require tinymce-jquery
 
+#= require i18n
+#= require i18n/translations
+
 #= require rails-timeago
 #= require locales/jquery.timeago.de.js
 
