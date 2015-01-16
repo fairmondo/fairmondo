@@ -46,7 +46,7 @@ gem 'sprockets'
 ## JS
 gem 'jquery-ui-rails'
 gem 'qtip2-jquery-rails', '~> 2.1.107'
-gem 'i18n-js'
+gem 'i18n-js', '~> 3.0.0.rc8'
 gem 'coffee-rails'
 gem 'therubyrhino'
 gem 'selectivizr-rails'
