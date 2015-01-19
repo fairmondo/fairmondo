@@ -193,8 +193,7 @@ describe 'Abacus' do
     @abacus.total.must_equal @abacus.payment_listing.payments[:bank_transfer][:total] + @abacus.payment_listing.payments[:cash_on_delivery][:total]
 
     #donations
-    @abacus.donation_listing.donation_per_organisation[ngo].must_equal(Money.new(@line_item_group.business_transactions.map{|t| t.article.calculated_friendly_cents}.sum))
-
+    @abacus.donation_listing.donation_per_organisation[ngo].must_equal(Money.new(@line_item_group.business_transactions.map{ |t| t.article.calculated_friendly_cents * t.quantity_bought }.sum))
   end
 
 
