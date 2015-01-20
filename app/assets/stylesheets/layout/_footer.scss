@@ -13,7 +13,7 @@
 
 .l-footer-inner {
   @include container($screen-width);
-  padding: 1em 1em 0 1em;
+  padding: 1.5em 1em 1em 1em;
   position: relative;
 }
 
@@ -48,8 +48,9 @@
 }
 
 #l-footer-nav-main > section > h4 {
-  margin: 0 0 0.5em;
-  color: $mid-dark-gray;
+  margin : 0;
+  height : 2.4em;
+  color  : $mid-dark-gray;
 }
 
 #l-footer-nav-main > section > ul {
@@ -159,7 +160,7 @@ p#l-footer-copyright {
   .l-footer p#l-footer-copyright {
     position: absolute;
     left: 1rem;
-    bottom: 1rem;
+    bottom: 2rem;
     margin: 0;
   }
 }
