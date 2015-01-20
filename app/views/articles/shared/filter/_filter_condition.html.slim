@@ -1,19 +1,19 @@
-.Search-filter.JS-active-toggle--container
-  .Search-dropdown.JS-active-toggle--trigger data={clickable: 'true'}
+li.Search-filter.TouchHover
+  span.Search-dropdown.TouchHover--indicator
     - if search_cache && search_cache.send(filter_parameter)
       = condition_label search_cache
     - else
       = title
-    ul.JS-active-toggle--target
-      - if search_cache && search_cache.send(filter_parameter)
-        li
-          a.Search-colored-link href=articles_path(article_search_form: search_cache.change(filter_parameter => nil)) data={ push: 'true' }
-            | Werte löschen
-      - values.each do |value|
-        li
-          a.Search-colored-link href=articles_path(article_search_form: search_cache.change(filter_parameter => value)) data={ push: 'true' }
-            - if search_cache && search_cache.send(filter_parameter) == value
-              = image_tag "icheck/radio_active.png"
-            - else
-              = image_tag "icheck/radio.png"
-            = t "enumerize.article_search_form.#{filter_parameter}.#{value}"
+  ul.TouchHover--hidden
+    - if search_cache && search_cache.send(filter_parameter)
+      li
+        a.Search-colored-link href=articles_path(article_search_form: search_cache.change(filter_parameter => nil)) data={ push: 'true' }
+          | Werte löschen
+    - values.each do |value|
+      li
+        a.Search-colored-link href=articles_path(article_search_form: search_cache.change(filter_parameter => value)) data={ push: 'true' }
+          - if search_cache && search_cache.send(filter_parameter) == value
+            = image_tag 'icheck/radio_active.png'
+          - else
+            = image_tag 'icheck/radio.png'
+          = t "enumerize.article_search_form.#{filter_parameter}.#{value}"

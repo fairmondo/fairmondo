@@ -1,0 +1,20 @@
+/*
+TouchHover module
+*/
+
+.TouchHover--hidden {
+  display: none;
+}
+
+.TouchHover:hover > .TouchHover--hidden,
+.TouchHover.touched > .TouchHover--hidden {
+  display: block;
+}
+
+// dropdown indicator arrow
+.TouchHover--indicator:after {
+  content: '\f0d7';
+  font-family: FontAwesome;
+  display: inline-block;
+  margin-left: 0.25em;
+}
