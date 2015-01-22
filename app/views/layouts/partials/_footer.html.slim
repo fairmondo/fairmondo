@@ -1,4 +1,4 @@
-.l-footer
+footer.l-footer
   .l-footer-inner
     #l-footer-nav-left
       / Logo
@@ -6,7 +6,8 @@
         = image_tag 'logo_small.png', alt: t('common.fairmondo_name')
 
       / Social media buttons
-      - if local_assigns.has_key?(:with_social_media_buttons) && with_social_media_buttons
+      - if local_assigns.has_key?(:with_social_media_buttons)\
+           && with_social_media_buttons
         .socialshareprivacy[data={ uri: 'http://www.fairmondo.de/',
           title: 'Gutes einfach entdecken' }]
 
@@ -28,69 +29,104 @@
           = t('common.text.shares')
 
     / Main navigation links
-    #l-footer-nav-main
+    nav#l-footer-nav-main
+
+      / Service
       section#l-footer-nav-service
         h4
           = t('footer.service')
-          | &nbsp;
-          i.fa.fa-phone
         ul
-          li= link_to t('footer.faq'), '/faq'
-          li= link_to t('footer.forum'), 'https://forum.fairmondo.de/',
-            target: '_blank'
-          li= link_to t('footer.status'), 'https://twitter.com/fairmondo'
-          li= link_to t('footer.contact'), '/contact'
+          li
+            = link_to t('footer.faq'),
+              '/faq'
+          li
+            = link_to t('footer.forum'),
+              'https://forum.fairmondo.de/',
+              target: '_blank'
+          li
+            = link_to t('footer.status'),
+              'https://twitter.com/FairmondoStatus'
+          li
+            = link_to t('footer.contact'),
+              '/contact'
 
-
+      / Company
       section#l-footer-nav-fairmondo
         h4
           = t('footer.company')
-          | &nbsp;
-          i.fa.fa-institution
         ul
-          li= link_to t('footer.about_us'), '/about_us'
-          li= link_to t('footer.team'), 'https://info.fairmondo.de/team/',
-            target: '_blank'
-          li= link_to t('footer.transparency'),
-            'https://transparenz.fairmondo.de/', target: '_blank'
-          li= link_to t('footer.jobs'),
-            'https://info.fairmondo.de/stellenausschreibungen/',
-            target: '_blank'
-          li= link_to t('footer.press'),
-            'https://info.fairmondo.de/pressekit/', target: '_blank'
+          li
+            = link_to t('footer.about_us'),
+              '/about_us'
+          li
+            = link_to t('footer.team'),
+              'https://info.fairmondo.de/team/',
+              target: '_blank'
+          li
+            = link_to t('footer.transparency'),
+              'https://transparenz.fairmondo.de/',
+              target: '_blank'
+          li
+            = link_to t('footer.jobs'),
+              'https://info.fairmondo.de/stellenausschreibungen/',
+              target: '_blank'
+          li
+            = link_to t('footer.press'),
+              'https://info.fairmondo.de/pressekit/',
+              target: '_blank'
 
-      section#l-footer-nav-news
+      / Social media
+      section#l-footer-nav-socialmedia
         h4
-          = t('footer.news')
-          | &nbsp;
-          i.fa.fa-newspaper-o
+          = t('footer.socialmedia')
         ul
-          li= link_to t('footer.blog'), 'https://info.fairmondo.de',
-            target: '_blank'
-          li= link_to t('footer.newsletter'),
-            'http://50856.seu1.cleverreach.com/f/50856-129361/',
-            target: '_blank'
+          li
+            = link_to t('footer.facebook'),
+              'https://www.facebook.com/fairmondo',
+              target: '_blank'
+          li
+            = link_to t('footer.twitter'),
+              'https://twitter.com/fairmondo',
+              target: '_blank'
+          li
+            = link_to t('footer.blog'),
+              'https://info.fairmondo.de',
+              target: '_blank'
+          li
+            = link_to t('footer.newsletter'),
+              'http://50856.seu1.cleverreach.com/f/50856-129361/',
+              target: '_blank'
 
+      / Legal
       section#l-footer-nav-legal
         h4
           = t('footer.legal')
-          | &nbsp;
-          i.fa.fa-legal
         ul
-          li= link_to t('footer.agb'), '/agb'
-          li= link_to t('footer.privacy'), '/privacy'
-          li= link_to t('footer.imprint'), '/imprint'
+          li
+            = link_to t('footer.agb'),
+              '/agb'
+          li
+            = link_to t('footer.privacy'),
+              '/privacy'
+          li
+            = link_to t('footer.imprint'),
+              '/imprint'
 
+      / Admin
       - if User.is_admin? current_user
         section#l-footer-nav-admin
           h4
             = t('footer.admins')
-            | &nbsp;
-            i.fa.fa-wrench
           ul
-            li= link_to t('users.menu.admin'), '/admin'
-            li= link_to 'Manage Pages', '/contents'
-            li= link_to 'Statistics', '/statistics/general'
+            li
+              = link_to t('users.menu.admin'),
+                '/admin'
+            li
+              = link_to 'Manage Pages',
+                '/contents'
+            li
+              = link_to 'Statistics',
+                '/statistics/general'
 
     / Copyright
     p#l-footer-copyright

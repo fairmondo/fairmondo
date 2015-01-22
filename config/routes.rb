@@ -83,8 +83,12 @@ Fairmondo::Application.routes.draw do
     end
   end
 
-  resources :carts, only: [:show, :edit, :update]
-
+  resources :carts, only: [:show,:edit,:update] do
+    member do
+      get 'send_via_email', action: 'send_via_email'
+      post 'send_via_email', action: 'send_via_email'
+    end
+  end
   match '/empty_cart', to: 'carts#empty_cart', as: 'empty_cart', via: :get
 
   resources :line_items, only: [:create,:update,:destroy]

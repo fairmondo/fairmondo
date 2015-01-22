@@ -112,6 +112,13 @@ de:
         view_and_pay: 'Bestellung ansehen und bezahlen'
         terms_and_cancellation: "AGB, Widerrufsbelehrung für Verbraucher sowie Muster-Widerrufsformular von %{name}"
         selected_payment: 'Gewählte Zahlungsart(en):'
+      send_cart:
+        subject: '[Fairmondo] Deine vorgemerkten Artikel auf Fairmondo'
+        heading: 'Deine vorgemerkten Artikel auf Fairmondo'
+        text: 'Du hast Dir folgende Artikel auf Fairmondo vorgemerkt:'
+        articles_from: 'Artikel von'
+        go_to_fm: 'Zu Fairmondo'
+        register: 'Jetzt registrieren'
     line_item_group:
       seller:
         heading: 'Dein Verkauf auf Fairmondo'

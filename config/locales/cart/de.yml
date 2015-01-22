@@ -14,6 +14,8 @@ de:
       line_item_group_by: "Dein Einkauf bei %{seller}"
       purchase_from: "Deine Bestellungen vom %{date}"
       your_order_for: "Deine Bestellung bei"
+      shop_on: 'Weiter bei diesem/dieser Händler*in einkaufen'
+      send_via_email: 'Die Artikel als Merkliste per E-Mail versenden'
       terms: "AGB"
       explain: "Eine Bestellbestätigung wurde per Email an Deine Adresse versandt. Du hast Bestellungen bei mehreren Anbietern getätigt. Die unten angezeigten Bestellungen kannst du auch über Dein Profil abrufen."
       cancellation: "Widerrufsbelehrung"

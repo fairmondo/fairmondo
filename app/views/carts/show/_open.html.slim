@@ -1,6 +1,8 @@
 = visual_checkout_steps :step1, cart
 h2
   =t('cart.heading')
+p#send_via_cart
+  = link_to t('cart.texts.send_via_email'), send_via_email_cart_path(cart), class: 'ungrouped_colorbox'
 - if cart.line_item_groups.any?
   - cart.line_item_groups.each do |group|
     = gray_box line_item_group_title(group) do
@@ -12,7 +14,7 @@ h2
           = t('article.free_transport_at', price: money(group.seller_free_transport_at_price))
       - if group.seller_has_other_articles?
         p
-          = link_to 'Weiter bei diesem/dieser Händler*in einkaufen', user_path(group.seller), class: 'Button Button--small Button--gray'
+          = link_to t('cart.texts.shop_on'), user_path(group.seller), class: 'Button Button--small Button--gray'
   .checkout
     .total_price
       = t('cart.texts.total')

@@ -6,4 +6,12 @@ describe CartsController do
     assert_response :success
     assert_template :empty_cart
   end
+
+# it 'should render send_via_email form' do
+#   cart = FactoryGirl.create :cart
+#
+#   get :send_via_email, cart_id: cart.id
+#   assert_response :success
+#   assert_template :send_via_email
+# end
 end

@@ -38,4 +38,7 @@ class CartPolicy < Struct.new(:user, :cart)
     (!user && !cookie_id) || (user && !user.carts.open.any?)
   end
 
+  def send_via_email?
+    show?
+  end
 end
