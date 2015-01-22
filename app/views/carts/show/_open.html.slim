@@ -1,7 +1,7 @@
 = visual_checkout_steps :step1, cart
 h2
   =t('cart.heading')
-p.send_via_cart
+.send_via_cart
   = link_to t('cart.texts.send_via_email'), send_via_email_cart_path(cart), class: 'ungrouped_colorbox'
 - if cart.line_item_groups.any?
   - cart.line_item_groups.each do |group|
