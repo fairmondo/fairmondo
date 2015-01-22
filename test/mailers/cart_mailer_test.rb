@@ -7,7 +7,7 @@ describe CartMailer do
   include EmailSpec::Matchers
 
   it 'sends email to seller' do
-    seller_line_item_group = FactoryGirl.create(:line_item_group, :with_business_transactions, :sold)
+    seller_line_item_group = FactoryGirl.create(:line_item_group, :with_business_transactions, :sold, create_line_items: true)
     user = seller_line_item_group.seller
     mail = CartMailer.seller_email(seller_line_item_group)
     mail.must deliver_to(user.email)
@@ -85,6 +85,17 @@ describe CartMailer do
       mail = CartMailer.voucher_paid_email(payment.id)
       mail.must deliver_to(seller.email)
       mail.must have_body_text 'werden von dem/der Käufer*in überwiesen'
+    end
+  end
+
+  describe '#send_cart' do
+    it 'sends open cart to specified email address' do
+      cart = FactoryGirl.create :cart
+      addr = 'test@test.com'
+      mail = CartMailer.send_cart(cart.id, addr)
+
+      mail.must deliver_to(addr)
+      mail.must have_subject('[Fairmondo] Deine vorgemerkten Artikel auf Fairmondo')
     end
   end
 end
