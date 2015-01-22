@@ -62,23 +62,35 @@ class CartMailer < ActionMailer::Base
     mail(to: @seller.email, subject: @subject)
   end
 
+  # Sends the contents of a cart to specified email-address
+  def send_cart(cart_id, email)
+    @cart    = Cart.find cart_id
+    @email   = email
+    @subject = I18n.t('email.cart.send_cart.subject')
+
+    @cart.line_item_groups.each do |lig|
+      add_image_attachments_for lig
+    end
+
+    mail(to: @email, subject: @subject)
+  end
+
   private
 
     def add_image_attachments_for line_item_group
-      line_item_group.business_transactions.each do |bt|
-        attachment = image_attachment_for bt
-        attachments.inline[bt.article.title_image.image_file_name] = attachment if attachment
+      line_item_group.line_items.each do |li|
+        attachment = image_attachment_for li
+        attachments.inline[li.article.title_image.image_file_name] = attachment if attachment
       end
     end
 
-    def image_attachment_for business_transaction
-      image = business_transaction.article.title_image
+    def image_attachment_for line_item
+      image = line_item.article.title_image
       if image
         attachment = {
           content: File.read("#{ Rails.root }/#{ image.image.path(:thumb) }"),
           mime_type: image.image.content_type
         } rescue nil
-        file_ext = File.extname image.image.path
         attachment
       end
     end

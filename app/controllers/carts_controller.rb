@@ -1,13 +1,14 @@
 class CartsController < ApplicationController
   respond_to :html
+  respond_to :js, if: lambda { request.xhr? }
 
   before_filter :generate_session, only: :edit
-  before_filter :clear_session, only: :show # userhas the possibility to reset the session by continue buying
+  before_filter :clear_session, only: :show # user has the possibility to reset the session by continue buying
   before_filter :set_cart
   before_filter :dont_cache, only: [:edit, :update]
 
-  before_filter :authorize_and_authenticate_user_on_cart, only: :show
-  skip_before_filter :authenticate_user!, only: :show
+  before_filter :authorize_and_authenticate_user_on_cart, only: [:show, :send_via_email]
+  skip_before_filter :authenticate_user!, only: [:show, :send_via_email]
 
 
   def show
@@ -62,6 +63,16 @@ class CartsController < ApplicationController
       # failed because something isnt available anymore
       flash[:error] = I18n.t('cart.notices.checkout_failed')
       respond_with @cart
+    end
+  end
+
+  def send_via_email
+    authorize @cart
+    if params && params[:email]
+      CartMailer.send_cart(@cart, params[:email][:email]).deliver
+      render :send_via_email
+    else
+      render layout: false
     end
   end
 
