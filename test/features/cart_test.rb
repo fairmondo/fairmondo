@@ -8,6 +8,15 @@ def expect_cart_emails arg= :once
   CartMailer.expects(:buyer_email).returns(Mail::Message.new)
 end
 
+feature 'Empty cart' do
+  it 'header should show link to empty cart' do
+    visit root_path
+    page.html.must_include I18n.t('header.cart.title', count: 0)
+    click_link(I18n.t('header.cart.title', count: 0), match: :first)
+    page.must_have_content 'Dein Warenkorb ist leer.'
+  end
+end
+
 feature 'Adding an Article to the cart' do
 
   scenario 'anonymous user adds article to his cart' do

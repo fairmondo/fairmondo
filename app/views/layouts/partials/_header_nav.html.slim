@@ -34,3 +34,6 @@
         /     - current_cart.line_items.each do |line_item|
         /       = render "layouts/partials/header_nav_cart_item", line_item: line_item
         /     = link_to t('header.cart.button'), current_cart, class: 'Button'
+    - else
+      li
+        = link_to t('header.cart.title', count: 0), empty_cart_path, data: navigation_push

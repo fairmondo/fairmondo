@@ -17,8 +17,8 @@ Abholadresse:
 <%= @business_transaction.seller.standard_address_address_line_1 %>
 <%= @business_transaction.seller.standard_address_address_line_2 if @business_transaction.seller.standard_address_address_line_2.present? %>
 <%= @business_transaction.seller.standard_address_zip + ' ' + @business_transaction.seller.standard_address_city %>
-<%= @business_transaction.seller.phone if @business_transaction.seller.phone.present? %>
-<%= @business_transaction.seller.mobile if @business_transaction.seller.mobile.present? %>
+<%= @business_transaction.seller_phone if @business_transaction.seller_phone.present? %>
+<%= @business_transaction.seller_mobile if @business_transaction.seller_mobile.present? %>
 
 --------------------------------------------------
 
