@@ -135,7 +135,7 @@ de:
       transaction:
         article: "Auktion"
         fixed_price: "Festpreis"
-        preview: "Vorschau - wird bei Launch freigeschaltet"
+        preview: "Vorschau – wird bei Launch freigeschaltet"
       errors:
         invalid_transport_option: "Bitte gib mindestens eine Versandoption an"
         invalid_payment_option: "Bitte gib mindestens eine Bezahloption an"
@@ -209,7 +209,7 @@ de:
         fair_percent: "Das faire Prozent (1%):"
         mass_upload_fair_percent: "Das faire Prozent (1%) bei Verkauf aller Artikel (gemäß der angegebenen Stückzahl):"
         friendly_percent: "Deine Spende:"
-        fee: "Gebühr bei Verkauf\n(%{fee} - max. %{max}, min. € 0,10):"
+        fee: "Gebühr bei Verkauf\n(%{fee} – max. %{max}, min. € 0,10):"
         total_fee_mass_upload: "Gebühr bei Verkauf aller Artikel (gemäß der angegebenen Stückzahl)"
         total: "Gesamtpreis bei Verkauf, inkl. 19% MwSt:"
         total_mass_upload: "Gesamtpreis bei Verkauf des Artikels (gemäß der angegebenen Stückzahl), inkl. 19% MwSt:"

@@ -317,7 +317,7 @@ de:
                     Es muss mindestens eine der Fragen 1-3 mit ja beantwortet werden und dann mit zusätzlichen Angaben ergänzt werden.
 
         condition: "Ist Dein Artikel neu oder gebraucht?"
-        content: "Beschreibe Deine Artikel - geh dabei z.B. auf besondere Merkmale, Zustand und ggf. Gebrauchsspuren Deines Artikels ein. Eine gute Beschreibung macht es Käufer*innen leichter, das Angebot abzuschätzen."
+        content: "Beschreibe Deine Artikel – geh dabei z.B. auf besondere Merkmale, Zustand und ggf. Gebrauchsspuren Deines Artikels ein. Eine gute Beschreibung macht es Käufer*innen leichter, das Angebot abzuschätzen."
         quantity: "Falls Du mehrere Artikel derselben Art verkaufen möchtest, trage hier die Menge ein."
         price: "Trage hier den Verkaufspreis pro Artikel ein. Falls Du als gewerbliche*r Händler*in die MwSt ausweisen musst, ist das der Preis inkl. MwSt."
 
@@ -345,7 +345,7 @@ de:
           Du kannst optional einen weiteren Prozentsatz des Verkaufspreises spenden – den Spendenanteil. Für die Weiterleitung des Spendenanteils an die Empfängerorganisation bist Du selbst verantwortlich. Es können ausschließlich Organisationen, die sich zu besonderer Transparenz verpflichten und von uns akkreditiert sind, Spenden erhalten. Mehr Informationen zum Ablauf und zum Spendenanteil findest Du <a href="https://www.fairmondo.de/faq#spa2" target= "_blank">hier</a>.
         friendly_percent_organisation: >
           Du kannst hier aus Empfängerorganisationen wählen, die von Fairmondo akkreditiert sind. Mehr Informationen dazu findest Du <a href="https://www.fairmondo.de/faq#spa1" target= "_blank">hier</a>.Wenn Du eine Organisation anwählst, erhältst Du einen weiterführenden Link mit mehr Informationen zu der entsprechenden Organisation.
-        article_template: "Speichere Deine Eingaben als Vorlage - so gelingt das Einstellen ähnlicher Artikel im Handumdrehen."
+        article_template: "Speichere Deine Eingaben als Vorlage – so gelingt das Einstellen ähnlicher Artikel im Handumdrehen."
 
         date: "Datum (Tag/Monat/Jahr)"
         time: "Zeit (Stunden/Minuten)"
