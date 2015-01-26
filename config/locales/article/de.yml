@@ -15,7 +15,7 @@ de:
       cancellation: "Widerrufsbelehrung"
       about: "Impressum und Kontakt"
       report: "Dein Feedback an Fairmondo zu dem Artikel"
-      contact_user: 'Email an den*die Anbieter*in'
+      contact_user: 'E-Mail an den*die Anbieter*in'
     export:
       nothing_available: "Sobald Du Artikel auf Fairmondo eingestellt hast, kannst Du sie hier exportieren"
       all: "Alle Artikel als CSV Datei exportieren"
@@ -53,11 +53,11 @@ de:
           <br><br>
           Über die Filter kannst Du Deine Suchergebnisse einfach nach diesen Artikeln filtern.
         swappable: |
-          Artikel mit dem TAUSCHEN-Icon kannst Du gegen andere Artikel tauschen. Schaue Dir dafür die Artikelbeschreibung an und nimm bei Interesse Kontakt auf über "Email an den*die Anbieter*in".
+          Artikel mit dem TAUSCHEN-Icon kannst Du gegen andere Artikel tauschen. Schaue Dir dafür die Artikelbeschreibung an und nimm bei Interesse Kontakt auf über "E-Mail an den*die Anbieter*in".
           <br><br>
           Über die Filter kannst Du Deine Suchergebnisse einfach nach tauschbaren Artikeln filtern.
         borrowable: |
-          Artikel mit dem LEIHEN-Icon kannst Du ausleihen. Schaue Dir dafür die Artikelbeschreibung an und nimm bei Interesse Kontakt auf über "Email an den*die Anbieter*in".
+          Artikel mit dem LEIHEN-Icon kannst Du ausleihen. Schaue Dir dafür die Artikelbeschreibung an und nimm bei Interesse Kontakt auf über "E-Mail an den*die Anbieter*in".
           <br><br>
           Über die Filter kannst Du Deine Suchergebnisse einfach nach ausleihbaren Artikeln filtern.
     activate_to_buy: "Ich will alle meine Artikel zum Verkauf freischalten"
@@ -95,11 +95,11 @@ de:
       images_pending: "Die Bilder zu diesem Artikel sind noch nicht vollständig vom System bearbeitet. Du kannst sie anklicken um sie dennoch anzusehen."
       report: "Wenn Du bei diesem Artikel einen Betrug oder Missbrauch vermutest, oder Fairmondo einen sonstigen Kommentar zu diesem Artikel zukommen lassen möchtest, trage das hier ein:"
       borrow: |
-        Dieser Artikel kann ausgeliehen werden. Die Ausleihkonditionen des Anbieters findest Du in der Artikelbeschreibung, oder Du fragst direkt beim Anbieter nach. Dazu kannst Du eine Nachricht über die Box "Email an den*die Anbieter*in" verschicken.
+        Dieser Artikel kann ausgeliehen werden. Die Ausleihkonditionen des Anbieters findest Du in der Artikelbeschreibung, oder Du fragst direkt beim Anbieter nach. Dazu kannst Du eine Nachricht über die Box "E-Mail an den*die Anbieter*in" verschicken.
       swap: |
-        Dieser Artikel kann gegen andere Artikel getauscht werden. Die Tauschwünsche des Anbieters findest Du in der Artikelbeschreibung, oder Du fragst direkt beim Anbieter nach. Dazu kannst Du eine Anfrage über die Box "Email an den*die Anbieter*in" verschicken.
+        Dieser Artikel kann gegen andere Artikel getauscht werden. Die Tauschwünsche des Anbieters findest Du in der Artikelbeschreibung, oder Du fragst direkt beim Anbieter nach. Dazu kannst Du eine Anfrage über die Box "E-Mail an den*die Anbieter*in" verschicken.
         <br><br>
-        Bitte beachte auch unseren Sicherheitshinweis: Beim Tauschen kommunizierst Du direkt über Email mit dem Anbieter. Bitte wähle beim Tauschen sichere Möglichkeiten des Warentauschs wie z.B. Selbstabholung.
+        Bitte beachte auch unseren Sicherheitshinweis: Beim Tauschen kommunizierst Du direkt über E-Mail mit dem Anbieter. Bitte wähle beim Tauschen sichere Möglichkeiten des Warentauschs wie z.B. Selbstabholung.
       contact:
         description: 'Du hast noch Fragen? Trage diese in dem untenstehenden Feld ein, um dem*der Anbieter*in eine Nachricht zu senden.'
         email_transfer_accepted_label: "Ich bin damit einverstanden, dass meine E-Mail-Adresse an den*die Anbieter*in als Rücksendeadresse übermittelt wird."

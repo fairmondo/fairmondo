@@ -5,7 +5,7 @@ de:
       text: >
         Vielen Dank für Deine Registrierung bei Fairmondo, dem fairen Online-Marktplatz in Hand der Nutzer*innen!
         Durch Deine Registrierung hast Du Dich bereit erklärt, die angehängten AGB und die Datenschutzerklärung von Fairmondo zu akzeptieren.
-        Bitte bestätige Deine Emailadresse sowie den Erhalt und die Lesbarkeit der beigefügten AGB und Datenschutzbestimmungen um den Registrierungsvorgang abzuschließen.
+        Bitte bestätige Deine E-Mail-Adresse sowie den Erhalt und die Lesbarkeit der beigefügten AGB und Datenschutzbestimmungen um den Registrierungsvorgang abzuschließen.
         Für die Bestätigung der Registrierung gehe bitte auf den folgenden Link:
       link: "Meine Registrierung sowie den Erhalt und die Lesbarkeit der AGB und Datenschutzbestimmungen bestätigen."
       link_if_newsletter: 'Meine Registrierung sowie den Erhalt und die Lesbarkeit der AGB und Datenschutzbestimmungen und die Anmeldung zum Newsletter bestätigen.'
@@ -18,7 +18,7 @@ de:
     reset:
       text: "Jemand hat einen Link zum Ändern Deines Passworts auf Fairmondo angefordert. Um Dein Passwort zu ändern, klicke auf den folgenden Link:"
       link: "Passwort hier ändern"
-      ignoremail: "Falls Du diese E-Mail nicht angefordert hast, wende Dich bitte an unseren Kundenservice: kundenservice@fairmondo.de, oder ignoriere einfach diese Email."
+      ignoremail: "Falls Du diese E-Mail nicht angefordert hast, wende Dich bitte an unseren Kundenservice: kundenservice@fairmondo.de, oder ignoriere einfach diese E-Mail."
       info: "Dein Passwort ändert sich erst, wenn Du den oben angegebenen Link benutzt, um ein neues Passwort anzulegen."
       request: "Bitte sende mir Anweisungen zu, um mein Passwort zurückzusetzen"
       title: "Passwort vergessen?"
@@ -29,4 +29,4 @@ de:
       info: "Dein Benutzerkonto wurde aufgrund einer ungewöhnlich hohen Anzahl fehlgeschlagener Login-Versuche gesperrt."
       linktext: "Klicke auf den unten stehenden Link, um Dein Benutzerkonto freizuschalten:"
       link: "Benutzerkonto freischalten"
-      ignoremail: "Falls Du diese Email nicht angefordert hast, wende Dich bitte an unseren Kundenservice: kundenservice@fairmondo.de, oder ignoriere einfach diese Email."
+      ignoremail: "Falls Du diese E-Mail nicht angefordert hast, wende Dich bitte an unseren Kundenservice: kundenservice@fairmondo.de, oder ignoriere einfach diese E-Mail."

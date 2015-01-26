@@ -69,7 +69,7 @@ de:
         company_name: "Firmenname"
 
       feedback:
-        from: "Deine Email-Adresse"
+        from: "Deine E-Mail-Adresse"
         subject: "Betreff"
         feedback_subject: "Thema"
         help_subject: "Thema"
