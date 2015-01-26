@@ -214,7 +214,7 @@ de:
         total: "Gesamtpreis bei Verkauf, inkl. 19% MwSt:"
         total_mass_upload: "Gesamtpreis bei Verkauf des Artikels (gemäß der angegebenen Stückzahl), inkl. 19% MwSt:"
         total_all_articles: "Gesamtpreis bei Verkauf aller Artikel (gemäß der angegebenen Stückzahl) inkl 19% MwSt:"
-        quarter_fee: "Zzgl. der Quartalsgebühr von 1,- Euro (inkl. 19% MwSt)."
+        quarter_fee: "Zzgl. der Quartalsgebühr von 1,‒ Euro (inkl. 19% MwSt)."
         netto: "Nettobetrag:"
         total_fee_all_articles: "Deine Gebühren und Spenden beim Verkauf aller Artikel belaufen sich inkl. Mwst. auf:"
 
@@ -223,7 +223,7 @@ de:
       tooltips:
         fp_fee_info: >
           %{percent}% des Artikelendpreises werden bei erfolgreichem Verkauf von Dir an %{ngo} gespendet. Auf den Spendenanteil fallen keine Verkaufsgebühren an. Informationen zur Spendenabwicklung findest Du <a href='https://www.fairmondo.de/faq#spa2' target='_blank'>hier</a> und in der Bestätigungsmail bei erfolgreichem Verkauf.
-        fees_quarter_fee: "Zusätzlich zu den Verkaufsgebühren wird je Geschäftsquartal, in dem Du erfolgreich mindestens einmal verkauft hast, eine Quartalsgebühr von 1,- Euro fällig (inkl. 19% MwSt)."
+        fees_quarter_fee: "Zusätzlich zu den Verkaufsgebühren wird je Geschäftsquartal, in dem Du erfolgreich mindestens einmal verkauft hast, eine Quartalsgebühr von 1,‒ Euro fällig (inkl. 19% MwSt)."
         fees_mass_upload: "Bei erfolgreichem Verkauf jedes Artikels gehen 6% des Artikelendpreises an Fairmondo. Bei Artikeln unter dem Filter fair fallen lediglich 3% an. Der hier aufgeführte Betrag bezieht auf die summierten Gebühren beim erfolgreichen Verkauf aller Artikel (gemäß der angegebenen Stückzahl)."
         fees_and_donations: "1% des Artikelendpreises wird bei erfolgreichem Verkauf durch uns automatisch an Initiativen, die sich gegen Korruption einsetzen, gespendet."
         friendly_percent: "%{percent}% des Artikelendpreises wird bei erfolgreichem Verkauf durch den*die Anbieter*in an %{ngo} gespendet."
