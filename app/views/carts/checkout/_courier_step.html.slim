@@ -2,7 +2,7 @@
   = line_item_fields.semantic_fields_for :business_transaction, line_item.business_transaction do |t|
     = t.inputs class: 'bike_courier' do
       .left
-        = link_to content_path('courier', layout: false), class: 'colorbox Tag Tag--big Tag--light-red' do
+        = link_to content_path('courier', layout: false), class: 'ungrouped_colorbox Tag Tag--big Tag--light-red' do
           .fa.fa-bicycle
       .middle
         = t.input :bike_courier_time, as: :select, collection: line_item.business_transaction.article.seller.pickup_time

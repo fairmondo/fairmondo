@@ -9,7 +9,7 @@ class DonationAbacus
   end
 
   def calculate_donations
-    add_donation_organisations_to_donations @line_item_group.business_transactions.map{|t| t.article}
+    add_donation_organisations_to_donations @line_item_group.business_transactions
     @donations.each_value{ |v| @donation_total += v.sum }
     @donations.each_pair{ |k, v| @donation_per_organisation[k] = v.sum }
   end
@@ -23,12 +23,12 @@ class DonationAbacus
       @donation_per_organisation = {}
     end
 
-    def add_donation_organisations_to_donations articles
-      articles.each do |article|
-        if article.friendly_percent_organisation_id && article.friendly_percent_organisation_id != 0
-          organisation = User.find article.friendly_percent_organisation_id
+    def add_donation_organisations_to_donations business_transactions
+      business_transactions.each do |bt|
+        if bt.article.friendly_percent_organisation_id && bt.article.friendly_percent_organisation_id != 0
+          organisation = User.find bt.article.friendly_percent_organisation_id
           @donations[organisation] = [] unless @donations[organisation]
-          @donations[organisation] << Money.new(article.calculated_friendly_cents)
+          @donations[organisation] << Money.new(bt.article.calculated_friendly_cents * bt.quantity_bought)
         end
       end
     end

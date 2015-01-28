@@ -1,0 +1,12 @@
+.article
+  .article-image
+    - if li.article.title_image && attachments[li.article.title_image.image_file_name]
+      = link_to image_tag(attachments[li.article.title_image.image_file_name].url), article_url(li.article_id)
+  .article-info-container
+    .article-title
+      = link_to truncate(li.article_title), article_url(li.article_id)
+    .article-quantity
+    .article-price
+      h4
+        | Einzelpreis
+      = "#{li.article_price}€"
