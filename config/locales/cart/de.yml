@@ -17,7 +17,7 @@ de:
       shop_on: 'Weiter bei diesem/dieser Händler*in einkaufen'
       send_via_email: 'Die Artikel als Merkliste per E-Mail versenden'
       terms: "AGB"
-      explain: "Eine Bestellbestätigung wurde per Email an Deine Adresse versandt. Du hast Bestellungen bei mehreren Anbietern getätigt. Die unten angezeigten Bestellungen kannst du auch über Dein Profil abrufen."
+      explain: "Eine Bestellbestätigung wurde per E-Mail an Deine Adresse versandt. Du hast Bestellungen bei mehreren Anbietern getätigt. Die unten angezeigten Bestellungen kannst du auch über Dein Profil abrufen."
       cancellation: "Widerrufsbelehrung"
       terms_and_cancellation_label: "Ich akzeptiere die %{terms} und %{cancellation} des/der Anbieter*in."
       unified_transport: "Möglichst alle Artikel mit %{provider} für %{price} zusammen versenden (Kombiversand)."
