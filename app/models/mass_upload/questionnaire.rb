@@ -49,13 +49,13 @@ module MassUpload::Questionnaire
   end
 
   def self.add_commendation(attributes)
-    if attributes["fair_kind"]
+    if attributes["fair_kind"].present?
       attributes["fair"] = true
     end
-    if attributes["ecologic_seal"]
+    if attributes["ecologic_seal"].present?
       attributes["ecologic"] = true
       attributes["ecologic_kind"] = "ecologic_seal"
-    elsif attributes["upcycling_reason"]
+    elsif attributes["upcycling_reason"].present?
       attributes["ecologic"] = true
       attributes["ecologic_kind"] = "upcycling"
     end
