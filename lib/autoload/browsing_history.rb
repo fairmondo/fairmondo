@@ -32,7 +32,7 @@ module BrowsingHistory
 
     def should_store_params?
       new_url_hash[:method] != 'GET' &&
-      !DISABLED_PARAMS_STORE_URLS.include? new_url_hash[:path]
+      !DISABLED_PARAMS_STORE_URLS.include?(new_url_hash[:path])
     end
     DISABLED_PARAMS_STORE_URLS = ["/feedbacks", "/user/sign_in", "/user/password"]
 
