@@ -2,7 +2,6 @@
 module User::Validations
   extend ActiveSupport::Concern
 
-
   included do
 
     validates_presence_of :slug
@@ -33,6 +32,5 @@ module User::Validations
 
     validates_inclusion_of :type, in: ["LegalEntity"], if: :is_ngo?
   end
-
 
 end

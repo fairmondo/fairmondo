@@ -36,7 +36,7 @@ class PrivateUser < User
   end
 
   def private_seller_constants
-    private_seller_constants = {
+    {
       :standard_salesvolume => $private_seller_constants['standard_salesvolume'],
       :verified_bonus => $private_seller_constants['verified_bonus'],
       :trusted_bonus => $private_seller_constants['trusted_bonus'],

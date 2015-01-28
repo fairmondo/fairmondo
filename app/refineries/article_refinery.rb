@@ -1,5 +1,9 @@
 class ArticleRefinery < ApplicationRefinery
 
+  def self.root
+    false
+  end
+
   def create
     [
       # Common attrs
@@ -72,8 +76,8 @@ class ArticleRefinery < ApplicationRefinery
   end
 
   def update
-    create + [
-      :tos_accepted
-    ]
+    create# + [
+    #  :tos_accepted
+    #]
   end
 end
