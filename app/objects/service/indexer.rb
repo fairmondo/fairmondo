@@ -5,9 +5,8 @@ class Indexer
   end
 
   def self.index_articles article_ids
-    article_ids.each_slice(1000).with_index do |ids, index| #give it to redis in batches of 100 so that redis wont overflow
-      delay = index * 500 # delay them for 500 secs each
-      SearchIndexWorker.perform_in(delay.seconds, :article, ids)
+    article_ids.find_each do |id|
+      SearchIndexWorker.perform_async(:article, id)
     end
   end
 

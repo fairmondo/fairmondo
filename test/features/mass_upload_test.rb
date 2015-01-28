@@ -65,7 +65,7 @@ feature "Uploading a CSV" do
     click_button I18n.t('mass_uploads.labels.mass_activate_articles')
 
     # validate changes
-    article1 = Article.find(1) # as it will edit them both as new
+    article1 = Article.find(1)
     article2 = Article.find(2)
     article1.content.must_equal 'Andere Beschreibung'
     article1.condition.must_equal 'old'
@@ -75,6 +75,41 @@ feature "Uploading a CSV" do
     article2.active?.must_equal true
     Article.find(3).title.must_equal "Name von Artikel 3"
   end
+
+
+  scenario "legal entity uploads some articles activates them; articles aresold and updated with another CSV" do
+    # create articles
+    attach_file('mass_upload_file', 'test/fixtures/mass_upload_correct.csv')
+    click_button I18n.t('mass_uploads.labels.upload_article')
+    click_link I18n.t("mass_uploads.labels.show_report")
+    click_button I18n.t('mass_uploads.labels.mass_activate_articles')
+
+    #sell all articles
+    Article.all.each do |article|
+      FactoryGirl.create :business_transaction, :pickup, article: article, line_item_group: (FactoryGirl.create :line_item_group, :sold , articles: [article])
+    end
+
+    # change them
+    visit new_mass_upload_path
+    attach_file('mass_upload_file', 'test/fixtures/mass_update_correct.csv')
+    click_button I18n.t('mass_uploads.labels.upload_article')
+    first(:link, I18n.t("mass_uploads.labels.show_report")).click
+    click_button I18n.t('mass_uploads.labels.mass_activate_articles')
+
+    # validate changes
+    Article.find(1).active?.must_equal false
+    Article.find(2).active?.must_equal false
+    article1 = Article.find(4) # as it will edit them both as new
+    article2 = Article.find(5)
+    article1.content.must_equal 'Andere Beschreibung'
+    article1.condition.must_equal 'old'
+    article2.title.must_equal 'Anderer Name'
+    article2.gtin.must_equal "9999999999"
+    article1.active?.must_equal true
+    article2.active?.must_equal true
+    Article.find(3).title.must_equal "Name von Artikel 3"
+  end
+
 
   scenario "legal entity deletes an Articles via CSV" do
     FactoryGirl.create :article, seller: @user
