@@ -1,10 +1,11 @@
 /--------------- Additional Assets -----------------
 
-/ ajax spinner image
-.l-ajax-spinner
+/ FontAwesome Ajax spinner
+.l-ajax-spinner.fa.fa-spinner.fa-spin
 
-/ When logged in, count down until session expires (needs to be reloaded on page change!)
-= javascript_include_tag "session_expire" if current_user
+/ When logged in, count down until session expires
+/ (needs to be reloaded on page change!)
+= javascript_include_tag 'session_expire' if current_user
 
 / Piwik
 - if Rails.env.production?
@@ -13,7 +14,7 @@
     _paq.push(['trackPageView']);
     _paq.push(['enableLinkTracking']);
     (function() {
-      var u=(("https:" == document.location.protocol) ? "https" : "http") + "://kiwi.fairnopoly.de//";
+      var u=(('https:' == document.location.protocol) ? 'https' : 'http') + '://kiwi.fairnopoly.de//';
       _paq.push(['setTrackerUrl', u+'piwik.php']);
       _paq.push(['setSiteId', 1]);
       var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0]; g.type='text/javascript';
@@ -21,5 +22,6 @@
     })();
   noscript
     p
-      img src="http://kiwi.fairnopoly.de/piwik.php?idsite=1", style="border:0", alt=" " }
+      img[src="http://kiwi.fairnopoly.de/piwik.php?idsite=1"
+          style="border: none" alt=" "]
 / End Piwik Code
