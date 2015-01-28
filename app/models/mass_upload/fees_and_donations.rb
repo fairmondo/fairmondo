@@ -35,6 +35,6 @@ module MassUpload::FeesAndDonations
 
   def self.calculate_total_fees_and_donations_netto(articles)
     fees_and_donations = articles.pluck(:calculated_fair_cents,:calculated_friendly_cents,:calculated_fee_cents,:quantity)
-    total_netto = fees_and_donations.map { |values| ((values[0] + values[1] + values[2])/1.19).ceil * values[3] }.sum
+    total_netto = Money.new(fees_and_donations.map { |values| ((values[0] + values[1] + values[2])/1.19).ceil * values[3] }.sum)
   end
 end
