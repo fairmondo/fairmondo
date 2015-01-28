@@ -20,5 +20,8 @@
 / along with Fairmondo.  If not, see <http://www.gnu.org/licenses/>.
 /
 h1= t('article.titles.new')
-p= tinycms_content "article-introduction"
+- if current_user.is_a?(PrivateUser)
+  p= tinycms_content "article-introduction-private"
+- elsif current_user.is_a?(LegalEntity)
+  p= tinycms_content "article-introduction-legal"
 = render 'form'
