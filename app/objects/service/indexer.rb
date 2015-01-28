@@ -5,7 +5,7 @@ class Indexer
   end
 
   def self.index_articles article_ids
-    article_ids.find_each do |id|
+    article_ids.each do |id|
       SearchIndexWorker.perform_async(:article, id)
     end
   end
