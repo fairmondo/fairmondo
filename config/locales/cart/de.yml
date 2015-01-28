@@ -14,6 +14,8 @@ de:
       line_item_group_by: "Dein Einkauf bei %{seller}"
       purchase_from: "Deine Bestellungen vom %{date}"
       your_order_for: "Deine Bestellung bei"
+      shop_on: 'Weiter bei diesem/dieser Händler*in einkaufen'
+      send_via_email: 'Die Artikel als Merkliste per E-Mail versenden'
       terms: "AGB"
       explain: "Eine Bestellbestätigung wurde per Email an Deine Adresse versandt. Du hast Bestellungen bei mehreren Anbietern getätigt. Die unten angezeigten Bestellungen kannst du auch über Dein Profil abrufen."
       cancellation: "Widerrufsbelehrung"
@@ -28,7 +30,7 @@ de:
       same_address: Lieferadresse wie Rechnungsadresse
       next_step_explanation: "Im nächsten Schritt kannst Du alle Deine Angaben noch einmal überprüfen, bevor Du Deine Bestellung abschickst."
       security_warning: "Sicherheitshinweis: Insbesondere bei Artikeln ab einem Wert von 100 Euro empfiehlt Fairmondo eine sichere Bezahlmethode wie PayPal, die einen Käuferschutz beinhaltet, oder Barzahlung bei Abholung."
-      long_security_warning: "Sicherheitshinweis: \n Der Kaufvertrag kommt zwischen Dir und dem/der Anbieter*in zustande. Fairmondo ist bekanntlich nur Plattformbetreiberin.\n Um Dich gegen Betrugsfälle zu schützen, empfiehlt Fairmondo - insbesondere bei hochwertigen Artikeln und Käufen von Privatpersonen - Dir die Daten des Anbieters bestätigen zu lassen. In Einzelfällen kann es auch sinnvoll sein, Dir die Eigentümerstellung bzw. Nachweise der Echtheit (z.B. Software) oder Unversehrtheit (durch Fotos) nachweisen zu lassen. "
+      long_security_warning: "Sicherheitshinweis: \n Der Kaufvertrag kommt zwischen Dir und dem/der Anbieter*in zustande. Fairmondo ist bekanntlich nur Plattformbetreiberin.\nUm Dich gegen Betrugsfälle zu schützen, empfiehlt Fairmondo – insbesondere bei Artikeln und Käufen ab 100 Euro – eine sichere Bezahlmethode wie PayPal (da PayPal einen Käuferschutz beinhaltet), oder Barzahlung bei Abholung.\nIn Einzelfällen kann es auch sinnvoll sein, Dir die Eigentümerstellung bzw. Nachweise der Echtheit (z.B. Software) oder Unversehrtheit (durch Fotos) nachweisen zu lassen. "
       addresses:
         forms: "Deine Liefer- und Rechnungsadresse"
         payment: "Rechnungsadresse"
@@ -64,7 +66,7 @@ de:
       step3: '3. Schritt: Überprüfen und Bestellen'
     actions:
       confirm_purchase: "Zahlungspflichtig bestellen für %{total} "
-      checkout: Zur Kasse
+      checkout: 'Zur Kasse (über den Sicherheitsserver)'
       pay: Zur Bezahlung
       back: Zurück
     notices:

@@ -47,7 +47,7 @@ class BusinessTransaction < ActiveRecord::Base
            :active?, :transport_time,
            to: :article, prefix: true
   delegate :email, :nickname, to: :buyer, prefix: true
-  delegate :nickname, to: :seller, prefix: true
+  delegate :nickname, :phone, :mobile, to: :seller, prefix: true
   delegate :title, :first_name, :last_name, :address_line_1, :address_line_2, :company_name,
            :zip, :city, :country, to: :transport_address, prefix: true
   delegate :title, :first_name, :last_name, :address_line_1, :address_line_2, :company_name,

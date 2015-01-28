@@ -1,0 +1,37 @@
+h3
+  = t 'email.cart.send_cart.heading'
+= t 'email.cart.send_cart.text'
+
+- @cart.line_item_groups.find_each do |lig|
+  .line-item-group
+    h3
+      = t 'email.cart.send_cart.articles_from'
+      =< link_to lig.seller_nickname, profile_user_url(lig.seller_id)
+    - lig.line_items.find_each do |li|
+      = render 'line_item', li: li
+
+p
+  center
+    = link_to t('email.cart.send_cart.go_to_fm'), 'https://www.fairmondo.de/?pk_campaign=email-merkliste', class: 'Button'
+    =< ' oder '
+    = link_to t('email.cart.send_cart.register'), 'https://www.fairmondo.de/user/sign_up?pk_campaign=email-merkliste', class: 'Button'
+p
+  center
+    = 'Kostenfrei registrieren und Merklisten direkt auf Fairmondo verwalten.'
+p
+  center
+    h4
+      = 'Das macht uns anders'
+  ul
+    li
+      = 'Die schönsten und fairsten Produkte im Netz entdecken'
+    li
+      = 'Keine Einstellgebühren und nur 6% Verkaufsprovision'
+      br
+      = '(3% für faire Artikel)'
+    li
+      = 'Ein faires Unternehmen dahinter'
+
+
+- content_for 'sidebar' do
+  = render 'shared/email/social_buttons'

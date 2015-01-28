@@ -11,6 +11,8 @@ describe CartPolicy do
     it { subject.must_deny(:show)   }
     it { subject.must_deny(:edit)   }
     it { subject.must_deny(:update) }
+    it { subject.must_permit(:empty_cart) }
+    it { subject.must_deny(:send_via_email) }
   end
 
   describe "for a random logged-in user" do
@@ -18,6 +20,8 @@ describe CartPolicy do
     it { subject.must_deny(:show)   }
     it { subject.must_deny(:edit)   }
     it { subject.must_deny(:update) }
+    it { subject.must_permit(:empty_cart) }
+    it { subject.must_deny(:send_via_email) }
   end
 
   describe "for the owning user" do
@@ -25,5 +29,7 @@ describe CartPolicy do
     it { subject.must_permit(:show)   }
     it { subject.must_permit(:edit)   }
     it { subject.must_permit(:update) }
+    it { subject.must_deny(:empty_cart) }
+    it { subject.must_permit(:send_via_email) }
   end
 end

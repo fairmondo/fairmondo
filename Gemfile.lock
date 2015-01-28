@@ -245,8 +245,8 @@ GEM
     httpi (2.3.0)
       rack
     i18n (0.7.0)
-    i18n-js (2.1.2)
-      i18n
+    i18n-js (3.0.0.rc8)
+      i18n (~> 0.6)
     ibanomat (0.0.5)
       json
       rest-client
@@ -636,7 +636,7 @@ DEPENDENCIES
   friendly_id (>= 4.0.9)
   hirb
   hogan_assets
-  i18n-js
+  i18n-js (~> 3.0.0.rc8)
   ibanomat
   jbuilder
   jquery-rails

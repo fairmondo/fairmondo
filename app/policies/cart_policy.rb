@@ -34,4 +34,11 @@ class CartPolicy < Struct.new(:user, :cart)
     user == cart.user
   end
 
+  def empty_cart? cookie_id = nil
+    (!user && !cookie_id) || (user && !user.carts.open.any?)
+  end
+
+  def send_via_email?
+    show?
+  end
 end

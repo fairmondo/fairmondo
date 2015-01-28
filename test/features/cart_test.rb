@@ -8,6 +8,15 @@ def expect_cart_emails arg= :once
   CartMailer.expects(:buyer_email).returns(Mail::Message.new)
 end
 
+feature 'Empty cart' do
+  it 'header should show link to empty cart' do
+    visit root_path
+    page.html.must_include I18n.t('header.cart.title', count: 0)
+    click_link(I18n.t('header.cart.title', count: 0), match: :first)
+    page.must_have_content 'Dein Warenkorb ist leer.'
+  end
+end
+
 feature 'Adding an Article to the cart' do
 
   scenario 'anonymous user adds article to his cart' do
@@ -438,4 +447,22 @@ feature 'Checkout' do
     Cart.last.line_item_groups.first.payment_address.first_name.must_equal 'first_name_is_here'
   end
 
+  feature 'send open cart via email' do
+    it 'cart page should have all the right contents' do
+      article = FactoryGirl.create(:article, title: 'foobar')
+      visit article_path(article)
+      click_button I18n.t('common.actions.to_cart')
+      page.html.must_include I18n.t('line_item.notices.success_create', href: '/carts/1').html_safe
+      click_link(I18n.t('header.cart.title', count: 1), match: :first)
+      page.must_have_content 'foobar'
+      page.must_have_content 'Die Artikel als Merkliste per E-Mail versenden'
+
+      click_link('Die Artikel als Merkliste per E-Mail versenden', match: :first)
+      page.must_have_content 'Als Merkliste per E-Mail versenden'
+      page.html.must_include 'Jetzt versenden'
+
+      page.fill_in 'email_email', with: 'test@test.com'
+      click_button 'Jetzt versenden'
+    end
+  end
 end
