@@ -1,0 +1,113 @@
+/**
+ * Valentines billboard
+ */
+
+
+// General stuff
+#billboard-valentines > article > ul > li p {
+  text-indent: -1000em;
+}
+
+#billboard-valentines li p,
+#billboard-valentines li div {
+  padding: 0;
+}
+
+
+// Responsive code: small version
+@include till-breakpoint($bp-tablet) {
+  #billboard-valentines {
+    background-image: image-url('welcome/billboard_valentines_small.jpg');
+  }
+
+  #billboard-valentines li#billboard-valentines-link1 p {
+    @include static-position($top: 22px, $left: 0, $height: 28px,
+      $width: 208px);
+  }
+
+  #billboard-valentines li#billboard-valentines-link2 p {
+    @include static-position($top: 193px, $left: 70px, $height: 31px,
+      $width: 101px);
+  }
+
+  #billboard-valentines li#billboard-valentines-link3 p {
+    @include static-position($top: 365px, $left: 68px, $height: 31px,
+      $width: 103px);
+  }
+
+  #billboard-valentines li#billboard-valentines-link2 div {
+    @include static-position($top: 65px, $left: 42px, $bottom: 229px,
+      $right: 35px);
+  }
+
+  #billboard-valentines li#billboard-valentines-link3 div {
+    @include static-position($top: 238px, $left: 42px, $bottom: 56px,
+      $right: 35px);
+  }
+}
+
+
+// Responsive code: medium version
+@include between-breakpoints($bp-tablet, $bp-tablet-horizontal) {
+  #billboard-valentines {
+    background-image: image-url('welcome/billboard_valentines_medium.jpg');
+  }
+
+  #billboard-valentines li#billboard-valentines-link1 p {
+    @include static-position($top: 25px, $left: 159px, $height: 32px,
+      $width: 290px);
+  }
+
+  #billboard-valentines li#billboard-valentines-link2 p {
+    @include static-position($top: 360px, $left: 210px, $height: 31px,
+      $width: 101px);
+  }
+
+  #billboard-valentines li#billboard-valentines-link3 p {
+    @include static-position($top: 360px, $left: 346px, $height: 32px,
+      $width: 103px);
+  }
+
+  #billboard-valentines li#billboard-valentines-link2 div {
+    @include static-position($top: 92px, $left: 180px, $bottom: 77px,
+      $right: 138px);
+  }
+
+  #billboard-valentines li#billboard-valentines-link3 div {
+    @include static-position($top: 92px, $left: 319px, $bottom: 77px,
+      $right: 0);
+  }
+}
+
+
+// Responsive code: big version
+@include at-breakpoint($bp-tablet-horizontal) {
+  #billboard-valentines {
+    background-image: image-url('welcome/billboard_valentines_big.jpg');
+  }
+
+  #billboard-valentines li#billboard-valentines-link1 p {
+    @include static-position($top: 360px, $left: 1px, $height: 32px,
+      $width: 290px);
+  }
+
+  #billboard-valentines li#billboard-valentines-link2 p {
+    @include static-position($top: 360px, $left: 397px, $height: 32px,
+      $width: 101px);
+  }
+
+  #billboard-valentines li#billboard-valentines-link3 p {
+    @include static-position($top: 360px, $left: 595px, $height: 32px,
+      $width: 103px);
+  }
+
+  #billboard-valentines li#billboard-valentines-link2 div {
+    @include static-position($top: 11px, $left: 315px, $bottom: 70px,
+      $right: 201px);
+  }
+
+  #billboard-valentines li#billboard-valentines-link3 div {
+    @include static-position($top: 11px, $left: 517px, $bottom: 70px,
+      $right: 0);
+  }
+}
