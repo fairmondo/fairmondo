@@ -9,13 +9,13 @@ details.Library
 Styleguide Library
 */
 .Library {
+  display: block;
   margin-bottom: 1em;
   padding: 1em;
   // @include whitebox;
   border-radius: 0.5em;
   border: 1px solid $lighter-gray;
   box-shadow: $even-lighter-gray 0px 0px 2px 1px;
-  display: block;
   &:hover {
     background-color: $even-lighter-gray;
   }
@@ -79,6 +79,7 @@ Styleguide Library
 
 /* The biggest part of the library header containing title, user and preview thumbnails */
 .Library-info {
+  overflow: hidden;
 }
 
 .Library-info > .Library-info-text {
