@@ -22,7 +22,7 @@
 = link_to t('devise.links.back_to_my_profile'), user_path(@user)
 h1= t('common.actions.edit_profile')
 
-.Accordion.Accordion--activated.user-edit
+.Accordion.user-edit
   = semantic_form_for(@user, html: {multipart: true, autocomplete: "off", class: 'js-visual-submit'}, as: resource_name, url: registration_path(resource_name), builder: ::Fairtastic::FormBuilder) do |f|
     = f.semantic_errors
     = f.input_step :account, default_step: true do
