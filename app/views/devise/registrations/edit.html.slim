@@ -59,7 +59,7 @@ h1= t('common.actions.edit_profile')
           = t('users.visibility.public')
         h4= "#{ t('formtastic.labels.user.image')} : "
         p
-          = image_tag(@user.image_url(:original), class: "img-polaroid ")
+          = image_tag(@user.image_url(:profile), class: "img-polaroid ")
           - f.object.build_image unless f.object.image # Build the Image object for the form
           = f.semantic_fields_for :image do |image|
             = f.inputs do
