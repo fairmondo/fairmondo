@@ -229,7 +229,7 @@ de:
     input_steps:
       user: &input_step_user
         account: Benutzerkonto
-        contact: Kontaktinformationen
+        contact: Anschrift und Kontakt
         profile: Profil
         payment: Zahlungsoptionen
         terms: Rechtliches
