@@ -48,19 +48,19 @@
 #= require customize/wiselinks_ready
 #= require customize/wiselinks_scroll
 
-#= require vendor/jquery.slides.min.js
-#= require vendor/jquery.ba-dotimeout.min.js
-#= require vendor/jquery.complexify
-#= require vendor/jquery.socialshareprivacy
-#= require vendor/jquery.selectBoxIt
-#= require vendor/jquery.icheck
-#= require vendor/jquery.colorbox
-#= require vendor/jquery.truncator
 #= require vendor/jquery.autocomplete
+#= require vendor/jquery.ba-dotimeout.min.js
 #= require vendor/jquery.caret
+#= require vendor/jquery.colorbox
+#= require vendor/jquery.complexify
 #= require vendor/jquery.details
 ## require vendor/jquery.history
 #= require vendor/jquery.fitintoviewport
+#= require vendor/jquery.glide.js
+#= require vendor/jquery.icheck
+#= require vendor/jquery.selectBoxIt
+#= require vendor/jquery.socialshareprivacy
+#= require vendor/jquery.truncator
 
 #= require models/article/categories
 #= require models/article/search_input
