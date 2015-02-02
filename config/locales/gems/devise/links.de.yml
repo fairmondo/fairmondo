@@ -7,5 +7,6 @@ de:
       confirmation_instruction: "Registrierungs-E-Mail nicht erhalten?"
       unlock_instruction: "Keine E-Mail zur Freischaltung erhalten?"
       sign_in_with: "Mit anderem Account anmelden #{provider.to_s.titleize}"
+      back_to_my_profile: "Zurück zu meinem Profil"
     actions:
       unlock: "E-Mail zur Freischaltung erneut senden"
