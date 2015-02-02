@@ -418,10 +418,23 @@ ul.category-selected-list {
 }
 
 // the sidebar box for books claim
-
+/*
 .books {
   padding: 0;
   margin-top: 1em;
+
+  img {
+    display: block;
+    width: 100%;
+    margin: 0;
+  }
+}
+*/
+
+// the sidebar box for subscriptions
+.subscription {
+  padding: 0;
+  margin-bottom: 1em;
 
   img {
     display: block;
