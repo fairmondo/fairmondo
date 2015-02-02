@@ -5,7 +5,7 @@ module BrowsingHistory
     # store up to MAX_STORED_STEPS requests in session
     def store_location
       ensure_session_key
-      unless last_url_hash[:path] == new_url_hash[:path] and last_url_hash[:method] == new_url_hash[:method] # store unique requests only
+      unless last_url_hash[:path] == new_url_hash[:path] && last_url_hash[:method] == new_url_hash[:method] # store unique requests only
         new_url_hash[:params] = recursive_stringify(request.params) if should_store_params?
         session[:previous_urls].prepend new_url_hash
       end
@@ -31,14 +31,14 @@ module BrowsingHistory
     end
 
     def should_store_params?
-      new_url_hash[:method] != 'GET' and
-      !DISABLED_PARAMS_STORE_URLS.include? new_url_hash[:path]
+      new_url_hash[:method] != 'GET' &&
+      !DISABLED_PARAMS_STORE_URLS.include?(new_url_hash[:path])
     end
-    DISABLED_PARAMS_STORE_URLS = ["/feedbacks", "/user/sign_in"]
+    DISABLED_PARAMS_STORE_URLS = ["/feedbacks", "/user/sign_in", "/user/password"]
 
     def redirectable_url? url_hash
-      url_hash[:method] == "GET" and
-      !url_hash[:xhr] and
+      url_hash[:method] == "GET" &&
+      !url_hash[:xhr] &&
       !DISABLED_REDIRECT_URLS.include?(url_hash[:path].split('?').first)
     end
 
