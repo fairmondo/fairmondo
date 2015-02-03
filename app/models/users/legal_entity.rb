@@ -30,6 +30,8 @@ class LegalEntity < User
 
   with_options if: :wants_to_sell? do |seller|
     # validates legal entity
+    seller.validates :direct_debit, acceptance: {accept: true}, on: :update
+    seller.validates :bank_account_owner, :iban, :bic,  presence: true
     seller.validates :terms, presence: true, on: :update
     seller.validates :about, presence: true, on: :update
     seller.validates :cancellation, presence: true, on: :update
