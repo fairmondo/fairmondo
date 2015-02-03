@@ -433,13 +433,15 @@ ul.category-selected-list {
 
 // the sidebar box for subscriptions
 .subscription {
-  padding: 0;
+  @include whitebox;
+  padding: 0.5em;
   margin-bottom: 1em;
 
-  img {
+  iframe {
     display: block;
+    border: 0;
+    height: 300px;
     width: 100%;
-    margin: 0;
   }
 }
 
