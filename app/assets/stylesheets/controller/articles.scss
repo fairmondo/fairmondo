@@ -436,9 +436,9 @@ ul.category-selected-list {
   @include whitebox;
   padding: 0.5em;
   margin-bottom: 1em;
+  text-align: center;
 
-  iframe {
-    display: block;
+  .iframe, iframe {
     border: 0;
     height: 300px;
     width: 100%;
