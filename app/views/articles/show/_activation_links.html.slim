@@ -22,16 +22,16 @@
 
 = semantic_form_for resource, url: article_path(activate: true), html: {class: 'js-visual-submit'} do |f|
   .activation_links
-    = if show_fair_percent_for? resource
-      h3
-        = t('article.preview.fees_and_donations.title')
+    h3
+      = t('article.preview.fees_and_donations.title')
 
-      dl
-        dt.reduced_padding
-          = f.inputs do
-            - legal_link = checkbox_link_helper t('users.legal_link'), '/agb'
-            - privacy_link = checkbox_link_helper t('users.privacy_link'), '/privacy'
-            = f.input :tos_accepted, as: :boolean, required: false, wrapper_html: { class: 'no-margin' }, label: t("formtastic.labels.user.tos_accepted", legal: legal_link, privacy: privacy_link).html_safe
+    dl
+      dt.reduced_padding
+        = f.inputs do
+          - legal_link = checkbox_link_helper t('users.legal_link'), '/agb'
+          - privacy_link = checkbox_link_helper t('users.privacy_link'), '/privacy'
+          = f.input :tos_accepted, as: :boolean, required: false, wrapper_html: { class: 'no-margin' }, label: t("formtastic.labels.user.tos_accepted", legal: legal_link, privacy: privacy_link).html_safe
+      - if article.belongs_to_legal_entity?
         dt
           = simple_format t('article.preview.fees_and_donations.fee', fee: (resource.fair ? "3%" : "6%"), max: (resource.fair ? "€15" : "€30")  )
           span.sprite_helper title= "Bei erfolgreichem Verkauf gehen 6% des Artikelendpreises an Fairmondo. Bei Artikeln unter dem Filter fair fallen lediglich 3% an."
@@ -67,13 +67,14 @@
               = " Quartalsgebühr "
             | von 1,- Euro (inkl. 19% MwSt).
             span.sprite_helper title=t("article.preview.tooltips.fees_quarter_fee")
-    .activation
-      - if resource.sold?
-        = link_to "Artikel zum Wiedereinstellen bearbeiten", new_article_path(edit_as_new: resource.id), :class=>"Button Button--large"
+  .activation
+    - if resource.sold?
+      = link_to "Artikel zum Wiedereinstellen bearbeiten", new_article_path(edit_as_new: resource.id), :class=>"Button Button--large"
+    - else
+      - if resource.seller.ngo || resource.seller.is_a?(PrivateUser)
+        - btn_text = t("article.labels.submit_free")
       - else
-        - if resource.seller.ngo || resource.seller.is_a?(PrivateUser)
-          - btn_text = t("article.labels.submit_free")
-        - else
-          - btn_text = show_friendly_percent_for?(resource) ? t("article.labels.submit_with_fp") : t("article.labels.submit")
-        = f.actions do
-          = f.submit btn_text, class: "Button Button--large"
+        - btn_text = show_friendly_percent_for?(resource) ? t("article.labels.submit_with_fp") : t("article.labels.submit")
+
+      = f.actions do
+        = f.submit btn_text, class: "Button Button--large"

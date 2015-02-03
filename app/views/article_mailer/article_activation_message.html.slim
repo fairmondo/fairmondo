@@ -4,16 +4,18 @@ h3
 p
   = "Hier kommst Du zu Deinem Artikel: "
   = link_to @article.title, article_url(@article)
-p
-  = t('email.article.activation.fees')
-  br
-  = "Verkaufsgebühren: "
-  = humanized_money_with_symbol(@article.calculated_fee)
-  br
-  = "Faires Prozent: "
-  = humanized_money_with_symbol(@article.calculated_fair)
-  br
-  = link_to t('email.quartal_fee'), 'https://fairmondo.de/faq#e1'
+
+- if @article.seller.is_a?(LegalEntity)
+  p
+    = t('email.article.activation.fees')
+    br
+    = "Verkaufsgebühren: "
+    = humanized_money_with_symbol(@article.calculated_fee)
+    br
+    = "Faires Prozent: "
+    = humanized_money_with_symbol(@article.calculated_fair)
+    br
+    = link_to t('email.quartal_fee'), 'https://fairmondo.de/faq#e1'
 
 br
   = t('email.close')
@@ -25,11 +27,11 @@ br
 
 hr
 
-- unless @user.is_a?(LegalEntity)
+/- unless @user.is_a?(LegalEntity)
   h4
     = t('email.article.activation.cancellation_heading')
 
-  = simple_format(t('email.article.activation.cancellation_text'))
+  /= simple_format(t('email.article.activation.cancellation_text'))
 
   hr
   h4

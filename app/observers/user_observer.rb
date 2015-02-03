@@ -22,7 +22,6 @@
 
 class UserObserver < ActiveRecord::Observer
   def before_save user
-
     if ( user.bank_account_number_changed? ||  user.bank_code_changed? )
       check_blz_and_ktn( user.id, user.bank_account_number, user.bank_code )
     end
@@ -46,7 +45,7 @@ class UserObserver < ActiveRecord::Observer
 
   def update_fastbill_account_for user
     # this should update the users data with fastbill after the user edits his data
-    if user.fastbill_profile_update && user.has_fastbill_profile?
+    if user.is_a?(LegalEntity) && user.fastbill_profile_update && user.has_fastbill_profile?
       FastbillUpdateUserWorker.perform_async user.id
     end
   end

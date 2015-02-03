@@ -294,7 +294,7 @@ end
 feature  "Article view for guest users" do
 
   before do
-    @seller = FactoryGirl.create :user
+    @seller = FactoryGirl.create :user, type: 'LegalEntity'
     @article_conventional = FactoryGirl.create :no_second_hand_article, :seller => @seller
   end
 

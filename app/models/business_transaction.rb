@@ -134,6 +134,11 @@ class BusinessTransaction < ActiveRecord::Base
     self.selected_payment == 'voucher'
   end
 
+  # only LegalEntities will be billed, sales for PrivateUsers are free
+  def billable?
+    self.seller.is_a?(LegalEntity)
+  end
+
   private
 
     # Custom conditions for validations
