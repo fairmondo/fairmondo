@@ -1,6 +1,5 @@
 class ArticleRefinery < ApplicationRefinery
 
-
   def create
     [
       # Common attrs

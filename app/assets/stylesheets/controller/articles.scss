@@ -436,6 +436,7 @@ ul.category-selected-list {
   @include whitebox;
   text-align: center;
   padding:0;
+  margin-bottom: 0.5em;
 
   h3 {
     padding:0.5em 3em;
@@ -453,6 +454,14 @@ ul.category-selected-list {
   }
   dt.reduced_padding {
     padding:0.5em 1.5em 0.5em;
+  }
+
+  .visible {
+    display: block;
+  }
+
+  .invisible {
+    display: none;
   }
 
   dt,

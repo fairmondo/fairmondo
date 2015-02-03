@@ -205,6 +205,7 @@ de:
     preview:
       fees_and_donations:
         title: "Deine Gebühren und Spenden"
+        no_fee_title: "Artikel einstellen"
         mass_upload_title: "Deine Gebühren und Spenden bei Verkauf <b>aller</b> Artikel"
         fair_percent: "Das faire Prozent (1%):"
         mass_upload_fair_percent: "Das faire Prozent (1%) bei Verkauf aller Artikel (gemäß der angegebenen Stückzahl):"

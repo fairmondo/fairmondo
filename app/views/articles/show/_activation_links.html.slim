@@ -23,14 +23,23 @@
 = semantic_form_for resource, url: article_path(activate: true), html: {class: 'js-visual-submit'} do |f|
   .activation_links
     h3
-      = t('article.preview.fees_and_donations.title')
+      - if article.belongs_to_legal_entity?
+        = t('article.preview.fees_and_donations.title')
+      - else
+        = t('article.preview.fees_and_donations.no_fee_title')
 
     dl
-      dt.reduced_padding
-        = f.inputs do
-          - legal_link = checkbox_link_helper t('users.legal_link'), '/agb'
-          - privacy_link = checkbox_link_helper t('users.privacy_link'), '/privacy'
-          = f.input :tos_accepted, as: :boolean, required: false, wrapper_html: { class: 'no-margin' }, label: t("formtastic.labels.user.tos_accepted", legal: legal_link, privacy: privacy_link).html_safe
+      - if article.belongs_to_legal_entity?
+        dt.reduced_padding.visible
+          = f.inputs do
+            - legal_link = checkbox_link_helper t('users.legal_link'), '/agb'
+            - privacy_link = checkbox_link_helper t('users.privacy_link'), '/privacy'
+            = f.input :tos_accepted, as: :boolean, required: false, wrapper_html: { class: 'no-margin' }, label: t("formtastic.labels.user.tos_accepted", legal: legal_link, privacy: privacy_link).html_safe
+      - else
+        dt.reduced_padding.invisible
+          = f.inputs do
+            = f.input :tos_accepted, as: :boolean, required: false
+
       - if article.belongs_to_legal_entity?
         dt
           = simple_format t('article.preview.fees_and_donations.fee', fee: (resource.fair ? "3%" : "6%"), max: (resource.fair ? "€15" : "€30")  )
