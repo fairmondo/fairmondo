@@ -12,7 +12,9 @@ class SearchIndexWorker
       ArticlesIndex::Article
     end
 
-    type.import! ids, batch_size: 100
+    Chewy.atomic do
+      type.import! ids, batch_size: 100
+    end
 
   end
 end

@@ -26,12 +26,6 @@ class ToolboxController < ApplicationController
     end
   end
 
-  def notice
-    notice = Notice.find params[:id]
-    notice.update_attribute :open, false
-    redirect_to URI.parse(notice.path).path
-  end
-
   # A site that's sole purpose is to reload the browser. Only useful for AJAX requests
   def reload
     render layout: false

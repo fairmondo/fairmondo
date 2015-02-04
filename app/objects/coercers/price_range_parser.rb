@@ -28,7 +28,7 @@ class PriceRangeParser
 
   def formated_prices
     if from.present? && to.present?
-      "#{from} - #{to}"
+      "#{from}–#{to}"
     elsif from.present? && to.blank?
       "> #{from}"
     else
@@ -40,7 +40,5 @@ class PriceRangeParser
     def show_to?
       !@empty && @to_money.cents >= 0 && @to_money >= @from_money
     end
-
-
 
 end

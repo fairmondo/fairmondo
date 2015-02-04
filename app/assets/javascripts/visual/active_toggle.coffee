@@ -9,8 +9,9 @@ $ ->
     container.find(".JS-active-toggle--target").each (i, element) ->
       $el = $(element)
       if $el.closest('.JS-active-toggle--container')[0] == container[0]
-        $el.toggleClass('is-active')
-        document.Fairmondo.push_left_if_necessary $el # Attention: We assume that users don't resize browsers. push_left is not yet reset here.
+        $el
+          .toggleClass('is-active')
+          .fitIntoViewport()
 
     #negative scope
     exclusiveContainer = $(@).closest '.JS-active-toggle--exclusive-container'

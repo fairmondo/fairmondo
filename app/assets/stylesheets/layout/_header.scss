@@ -17,14 +17,10 @@ $header-nav-link-color-hover: $blue;
 }
 
 // Temporary rename message
-p.l-header-rename {
+.l-header-rename {
   float: left;
   margin-top: 0.8em;
   font-weight: 300;
-
-  @include till-breakpoint($bp-mobile-horizontal-big) {
-    display: none;
-  }
 }
 
 
@@ -49,6 +45,22 @@ p.l-header-rename {
   height : 43px;
 }
 
+
+// Reduced layout
+
+.l-reduced .l-header {
+  padding: 0.7em 0 1em;
+  background-color: $header-highlight-color;
+
+  .l-header-logo span {
+    margin: 0;
+  }
+}
+
+
+
+// Nav
+
 .l-header-nav {
   margin-top: 0.2em;
   float: right;
@@ -69,23 +81,25 @@ p.l-header-rename {
   }
 }
 
-.l-header-nav > ul > li > a {
-  @include till-breakpoint($bp-mobile) {
-    font-size: 0.9em;
-  }
+.l-header-nav > ul > li > a,
+.l-header-nav > ul > li > span {
   color: $black;
   padding: 0.5em;
   border-radius: 0.5em;
-  &:hover, &.is-active {
-    background: $lighter-gray;
-  }
-  &.is-active {
-    border-radius: 0.5em 0.5em 0 0;
-  }
 }
 
+.l-header-nav > ul > li:hover > a,
+.l-header-nav > ul > li:hover > span {
+  background: $lighter-gray;
+}
+
+.l-header-nav > ul > li.TouchHover:hover > a,
+.l-header-nav > ul > li.TouchHover:hover > span {
+  border-radius: 0.5em 0.5em 0 0;
+}
+
+
 .l-header-nav-dropdown {
-  display: none;
   @include color-links($black, $header-nav-link-color-hover);
   position: absolute;
   background: white;
@@ -125,57 +139,17 @@ ul.l-header-nav-dropdown > li, ul#devise_links > li {
 }
 
 
-.l-header-nav-dropdown.is-active {
-  display: block;
-}
+/********************************* Breakpoints ********************************/
 
-
-.l-header-cart {
-  padding: 0.4em 0.5em;
-  width: 180px;
-  text-align: center;
-}
-.l-header-cart-list {
-  list-style: none;
-  padding: 0;
-}
-.l-header-cart-item {
-  font-size: 11px;
-  line-height: 14px;
-  float: right;
-
-  img {
-    max-height: 40px;
-    max-width: 58px;
-    margin: 0 6px 6px 0;
-    float: left;
-  }
-
-  .l-header-cart-item-title, .l-header-cart-item-quantity {
-    display: inline-block;
-    width: 116px;
-    text-align: left;
-    overflow: hidden;
-  }
-
-  .l-header-cart-item-title {
-    height: 28px;
-  }
-
-  &:hover .l-header-cart-item-quantity, .l-header-cart-item-quantity {
-    color: $gray;
-    position: relative;
-    top: -3px;
+@include till-breakpoint($bp-mobile) {
+  .l-header-nav > ul > li > a,
+  .l-header-nav > ul > li > span {
+    font-size: 0.9em;
   }
 }
 
-
-// Reduced layout
-.l-reduced .l-header {
-  padding: 0.7em 0 1em;
-  background-color: $header-highlight-color;
-
-  .l-header-logo span {
-    margin: 0;
+@include till-breakpoint($bp-mobile-horizontal-big) {
+  .l-header-rename {
+    display: none;
   }
 }

@@ -218,6 +218,17 @@ feature "Update Articles" do
     @article.reload.title.must_equal 'foobar'
     current_path.must_equal article_path @article
   end
+
+  scenario "refills the stock" do
+    @article.update_attribute(:quantity_available, 0)
+    fill_in 'article_quantity', with: 20
+    click_button I18n.t 'article.labels.continue_to_preview'
+
+    @article.reload.quantity.must_equal 20
+    @article.quantity_available_without_article_state.must_equal 20
+    current_path.must_equal article_path @article
+  end
+
 end
 
 feature 'report Articles' do

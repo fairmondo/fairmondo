@@ -1,8 +1,11 @@
-.Search-filter.JS-active-toggle--container
-  .Search-dropdown.JS-active-toggle--trigger data={clickable: true}
+li.Search-filter.TouchHover
+  span.Search-dropdown.TouchHover--indicator
     - val = search_cache.zip
     = val.present? ? "PLZ: #{val.ljust(5, '.')}" : title
-  = semantic_form_for search_cache, url: articles_path(article_search_form: search_cache.keep), html: { method: 'get', class: "l-header-search-form JS-active-toggle--target" }, data: { push: true} , builder: ::Fairtastic::FormBuilder do |f|
+  = semantic_form_for search_cache,
+    url: articles_path(article_search_form: search_cache.keep),
+    html: { method: 'get', class: 'l-header-search-form TouchHover--hidden' },
+    data: { push: true} , builder: ::Fairtastic::FormBuilder do |f|
     = f.inputs do
       - search_cache.keep.keys.select{|k| k != :zip}.each do |k|
         = f.input k, as: :hidden
