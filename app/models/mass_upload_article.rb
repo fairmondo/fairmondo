@@ -166,7 +166,7 @@ class MassUploadArticle < ActiveRecord::Base
       set_error I18n.t("mass_uploads.errors.no_identifier")
       nil
     else
-      article = find_article_by_id || find_article_by_custom_seller_identifier
+      article = @article_attributes['id'].present? ? (find_article_by_id : find_article_by_custom_seller_identifier)
       set_error I18n.t("mass_uploads.errors.article_not_found") unless article.present?
       article
     end
