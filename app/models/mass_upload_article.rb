@@ -135,6 +135,7 @@ class MassUploadArticle < ActiveRecord::Base
     else
       @prepared_article.state = :locked
     end
+    @prepared_article.categories.clear if @article_attributes["category_ids"]
     @article_attributes.delete('id')
     @prepared_article.assign_attributes(@article_attributes)
   end
