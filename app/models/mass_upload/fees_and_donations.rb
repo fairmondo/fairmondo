@@ -25,11 +25,7 @@ module MassUpload::FeesAndDonations
   # method for calculation of fee or fair percent
   [:fees, :fair].each do |type|
     define_singleton_method("calculate_total_#{type}") do |articles|
-      total = Money.new(0)
-      articles.each do |article|
-        total += article.send("calculated_#{type.to_s.singularize}") * article.quantity
-      end
-      total
+      Money.new(articles.sum("calculated_#{type.to_s.singularize}_cents * quantity"))
     end
   end
 
@@ -38,10 +34,7 @@ module MassUpload::FeesAndDonations
   end
 
   def self.calculate_total_fees_and_donations_netto(articles)
-    total_netto = Money.new(0)
-    articles.each do |article|
-      total_netto += article.calculated_fees_and_donations_netto_with_quantity
-    end
-    total_netto
+    fees_and_donations = articles.pluck(:calculated_fair_cents,:calculated_friendly_cents,:calculated_fee_cents,:quantity)
+    total_netto = Money.new(fees_and_donations.map { |values| ((values[0] + values[1] + values[2])/1.19).ceil * values[3] }.sum)
   end
 end

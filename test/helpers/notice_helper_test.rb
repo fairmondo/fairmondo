@@ -62,10 +62,4 @@ describe NoticeHelper do
   #   end
   # end
 
-  describe "#render_open_notice" do
-    it "should render an open notice " do
-      notice =  FactoryGirl.create :notice
-      helper.render_open_notice(notice).must_be_kind_of String
-    end
-  end
 end

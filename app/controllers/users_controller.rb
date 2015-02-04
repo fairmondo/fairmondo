@@ -26,7 +26,6 @@ class UsersController < ApplicationController
   respond_to :pdf, only: :profile
 
   before_filter :check_for_complete_mass_uploads, only: [:show]
-  before_filter :show_notice, only: [:show]
   before_filter :set_user
   before_filter :dont_cache, only: [:show]
   before_filter :sanitize_print_param, only: [:profile]
@@ -53,13 +52,6 @@ class UsersController < ApplicationController
       @user = User.find(params[:id])
     end
 
-    def show_notice
-      if user_signed_in?
-        notice = current_user.next_notice
-        flash[notice.color] = render_open_notice notice if notice.present?
-      end
-    end
-
     def check_for_complete_mass_uploads
       if user_signed_in?
         current_user.mass_uploads.processing.each do |mu|
@@ -73,7 +65,5 @@ class UsersController < ApplicationController
         @print = params[:print]
       end
     end
-
-
 
 end

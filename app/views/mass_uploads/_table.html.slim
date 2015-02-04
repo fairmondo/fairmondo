@@ -49,6 +49,10 @@
             | Abgeschlossen
           - elsif mass_upload.failed?
             = mass_upload.failure_reason
+          - elsif mass_upload.activated?
+            = t("mass_uploads.labels.all_articles_activated")
         td
           - if mass_upload.finished?
             = link_to t("mass_uploads.labels.show_report_activate"), mass_upload_path(mass_upload), class: 'Button'
+          - elsif mass_upload.activated?
+            = link_to t("mass_uploads.labels.show_report"), mass_upload_path(mass_upload), class: 'Button'

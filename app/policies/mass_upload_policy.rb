@@ -22,7 +22,7 @@
 class MassUploadPolicy < Struct.new(:user, :mass_upload)
 
   def show?
-    mass_upload.finished? && own?
+    (mass_upload.finished? || mass_upload.activated?) && own?
   end
 
   def new?
