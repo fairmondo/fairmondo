@@ -26,11 +26,25 @@
       span.Search-arrow.sprite_down_arrow.JS-active-toggle--target
       span.Search-arrow.sprite_up_arrow.JS-active-toggle--target
   .Search-filter-container.JS-active-toggle--target
-    .Search-filters
-      = render 'articles/shared/filter/filter_condition', title: 'Zustand', filter_parameter: :condition, values: ArticleSearchForm.enumerized_attributes[:condition].values
-      = render 'articles/shared/filter/filter_commendation', title: 'Filter', filter_parameters: [:fair, :ecologic, :small_and_precious, :swappable, :borrowable]
-      = render 'articles/shared/filter/filter_price_range', title: 'Preis', filter_parameter: :order_by, values: []
-      = render 'articles/shared/filter/filter_zip', title: 'Standort'
-      = render 'articles/shared/filter/filter_order', title: 'Sortierung', filter_parameter: :order_by, values: ArticleSearchForm.enumerized_attributes[:order_by].values
-    .Search-additional
-      = render 'articles/shared/filter/filter_additional', title: fa_icon('cogs')
+    ul.Search-filters
+      = render 'articles/shared/filter/filter_condition',
+        title: 'Zustand',
+        filter_parameter: :condition,
+        values: ArticleSearchForm.enumerized_attributes[:condition].values
+      = render 'articles/shared/filter/filter_commendation',
+        title: 'Filter',
+        filter_parameters: [:fair, :ecologic, :small_and_precious, :swappable,
+          :borrowable]
+      = render 'articles/shared/filter/filter_price_range',
+        title: 'Preis',
+        filter_parameter: :order_by,
+        values: []
+      = render 'articles/shared/filter/filter_zip',
+        title: 'Standort'
+      = render 'articles/shared/filter/filter_order',
+        title: 'Sortierung',
+        filter_parameter: :order_by,
+        values: ArticleSearchForm.enumerized_attributes[:order_by].values
+    ul.Search-additional
+      = render 'articles/shared/filter/filter_additional',
+        title: fa_icon('cogs')

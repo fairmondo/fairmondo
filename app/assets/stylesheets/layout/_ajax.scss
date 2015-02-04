@@ -1,11 +1,21 @@
 .l-ajax-spinner {
-  background: image-url('spinner.gif');
-  width: 40px;
-  height: 40px;
-  position: fixed;
-  top: 49%;
-  left: 49%;
-  z-index: 99;
-  opacity: 0.2;
+  // show only on Ajax event
   display: none;
+
+  // set dimensions
+  font-size: 50px;
+  width: 43px;
+  height: 51px;
+
+  // center position
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin-left: -22px;
+  margin-top: -26px;
+  z-index: 99;
+
+  // appearance
+  color: $blue;
+  opacity: 0.25;
 }

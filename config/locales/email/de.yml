@@ -30,7 +30,7 @@ de:
       registration_court: 'Registergericht'
       board: 'Vorstand'
 
-    quartal_fee: 'Zzgl. der Quartalsgebühr von 1,- Euro (inkl. 19% MwSt) bei erfolgreichem Verkauf.'
+    quartal_fee: 'Zzgl. der Quartalsgebühr von 1,‒ Euro (inkl. 19% MwSt) bei erfolgreichem Verkauf.'
     payments:
       cash_on_delivery: 'Nachnahme'
       paypal: 'PayPal'

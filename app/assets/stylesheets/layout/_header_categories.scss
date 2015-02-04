@@ -2,9 +2,6 @@
 .l-header-categories {
   @include container($screen-width);
   padding: 0 $screen-padding;
-  @include till-breakpoint($bp-tablet-horizontal) {
-    display: none;
-  }
   margin-top: 0.5em;
   text-align: center;
 }
@@ -25,7 +22,7 @@
   font-size: 1em;
   line-height: 1em;
   color: $blue;
-  &:hover, &.touch-hover {
+  &:hover {
     background: white;
     text-decoration: underline;
     cursor: pointer;
@@ -33,13 +30,12 @@
   border-radius: 5px;
 }
 
-
-
 .l-header-categories-children {
   padding:0;
   list-style:none;
   position:absolute;
-  left:-999em; /* Hides the drop down */
+  left: 0; /* Hides the drop down */
+  top: 1.8em;
   z-index: 12;  /* z-index should be higher than 10 because of SlideJS billboards */
   display:table;
   background: white;
@@ -61,13 +57,17 @@
     padding: 1em;
     min-width: 6em;
     display: table-cell;
-    &:hover, &.touch-hover {
+    &:hover {
       color:$black;
     }
   }
 }
 
-.l-header-categories > ul > li:hover .l-header-categories-children, .l-header-categories > ul > li.touch-hover .l-header-categories-children{
-  left:0;
-  top:1.8em;
+
+/********************************* Breakpoints ********************************/
+
+@include till-breakpoint($bp-tablet-horizontal) {
+  .l-header-categories {
+    display: none;
+  }
 }

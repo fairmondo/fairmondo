@@ -20,3 +20,5 @@ de:
     cart:
       title: "Warenkorb (%{count})"
       button: "Warenkorb anzeigen"
+    categories:
+      more: "Weitere"
