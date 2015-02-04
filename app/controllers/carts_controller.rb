@@ -56,7 +56,10 @@ class CartsController < ApplicationController
       # put it into the transaction of Cart#buy.        #
       ###################################################
       clear_session
-      flash[:notice] = I18n.t('cart.notices.checkout_success') if @cart.save
+      flash[:notice] = I18n.t(
+        'cart.notices.checkout_success',
+        euro: @cart.user_total_purchase_donations
+      ).html_safe if @cart.save
       cookies.delete :cart
       respond_with @cart
     when :checkout_failed
