@@ -154,7 +154,56 @@
 }
 
 
+#startnext {
+  margin-bottom: 1em;
+}
+
+// Startnext widget
+#startnext-inner {
+  @include whitebox;
+  height: 396px;
+  padding: 0.5em;
+  overflow: hidden;
+}
+
+#startnext iframe
+{
+  border: 0;
+  height: 315px;
+  width: 100%;
+}
+
+#startnext ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 0 0.3em;
+  font-size: 0.9em;
+
+  li {
+    padding-left: 1em;
+    font-size: 1em;
+    margin-bottom: 0.75em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+
+    &:before {
+      content: '\f046'; /*fontawesome char code inside the '' */
+      font-family: FontAwesome;
+      color: $green;
+      display: inline-block;
+      margin-left: -1em; /*same as padding-left set on li*/
+      width: 1em; /*same as padding-left set on li*/
+    }
+  }
+}
+
+
+
+
 // USP teaser
+/*
 #usp { margin-bottom: 1em; }
 
 #usp-inner {
@@ -194,7 +243,7 @@
   margin-bottom: 5%;
 
   &:before {
-    content: '\f111'; /*fontawesome char code inside the '' */
+    content: '\f111';
     font: normal 2em FontAwesome;
     margin: 0.2em 2.5% 0.5em 0;
     display: block;
@@ -238,6 +287,8 @@
     color: lighten($blue, 10%) !important;
   }
 }
+
+*/
 
 
 // Filters teaser
@@ -429,7 +480,7 @@
     @include span(2 of 4);
   }
 
-  #usp {
+  #usp, #startnext {
     @include span(2 of 4);
     @include omega;
   }
@@ -506,7 +557,7 @@
 
 
   // USP teaser
-  #usp {
+  #usp, #startnext {
     @include span(2 of 6);
     @include omega;
   }
@@ -583,7 +634,7 @@
 
 
   // USP teaser
-  #usp {
+  #usp, #startnext {
     @include span(2 of 8);
     @include omega;
   }
