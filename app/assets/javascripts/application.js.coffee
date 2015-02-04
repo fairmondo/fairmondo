@@ -60,6 +60,7 @@
 #= require vendor/jquery.caret
 #= require vendor/jquery.details
 ## require vendor/jquery.history
+#= require vendor/jquery.fitintoviewport
 
 #= require models/article/categories
 #= require models/article/search_input
@@ -74,24 +75,23 @@
 #= require models/cart/courier
 
 #= require visual/accordion
-#= require visual/tooltip
+#= require visual/active_toggle
+#= require visual/ajax_spinner
 #= require visual/button
+#= require visual/colorbox
+#= require visual/details
+#= require visual/iframe
+#= require visual/input_enforcement
+#= require visual/news_header_close
 #= require visual/notice_close
 #= require visual/notice_scroll
-#= require visual/news_header_close
-#= require visual/colorbox
+#= require visual/remote_validation
 #= require visual/selectbox
+#= require visual/slides
+#= require visual/tooltip
+#= require visual/touchhover
 #= require visual/truncator
 #= require visual/wait_for_submit
-#= require visual/slides
-#= require visual/iframe
-#= require visual/active_toggle
-#= require visual/touch_hover
-#= require visual/ajax_spinner
-#= require visual/category_dropdown_max_right
-#= require visual/remote_validation
-#= require visual/input_enforcement
-#= require visual/details
 
 #= require inputs/password_complexify
 #= require inputs/socialshareprivacy
