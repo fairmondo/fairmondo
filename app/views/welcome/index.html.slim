@@ -140,21 +140,31 @@
                   p Weine
 
 
+/ Startnext widget
+#startnext
+  #startnext-inner
+    iframe src='https://www.startnext.com/rundesache/widget/?w=261&amp;h=315&amp;l=de'
+    ul
+      li Gute Produkte entdecken
+      li Nachhaltigen Versand aufbauen
+      li Faire Unternehmen unterstützen
+
+
 / USP Teaser with registration link
-- cache 'uspteaser' do
-  #usp
-    #usp-inner
-      h2 Das macht uns anders:
-      ul
-        li Die schönsten und fairsten Produkte im Netz ent&shy;decken
-        li Keine Einstell&shy;gebühren und nur 6% Verkaufs&shy;provision (3% für faire Artikel)
-        li
-          | Ein
-          =<>link_to 'faires Unternehmen', '/about_us'
-          | dahinter
-      p
-        = link_to '/user/sign_up', class: 'Button' do
-          | Jetzt kosten&shy;los registrieren
+/ - cache 'uspteaser' do
+/   #usp
+/     #usp-inner
+/       h2 Das macht uns anders:
+/       ul
+/         li Die schönsten und fairsten Produkte im Netz ent&shy;decken
+/         li Keine Einstell&shy;gebühren und nur 6% Verkaufs&shy;provision (3% für faire Artikel)
+/         li
+/           | Ein
+/           =<>link_to 'faires Unternehmen', '/about_us'
+/           | dahinter
+/       p
+/         = link_to '/user/sign_up', class: 'Button' do
+/           | Jetzt kosten&shy;los registrieren
 
 
 / Filter boxes
