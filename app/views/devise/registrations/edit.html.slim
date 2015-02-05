@@ -182,9 +182,11 @@ h1= t('common.actions.edit_profile')
           = f.input :iban, required: true, input_html: {id: "iban"}, label: t('formtastic.labels.user.iban'), tooltip: true
           = f.input :bic, required: true, input_html: {id: "bic"}, label: t('formtastic.labels.user.bic'), tooltip: true
 
-        .Accordion-step
-          - direct_debit_link = link_to t('formtastic.labels.user.seller_fees'), "/faq#geb1", target: "_blank", onclick: on_click_open_link_in_label('/faq#geb1')
-          = f.input :direct_debit, required: true, label: t('formtastic.labels.user.direct_debit1_html').html_safe + direct_debit_link + t('formtastic.labels.user.direct_debit2_html').html_safe
+        / only LegalEntities will be billed for fees
+        - if resource.is_a?(LegalEntity)
+          .Accordion-step
+            - direct_debit_link = link_to t('formtastic.labels.user.seller_fees'), "/faq#geb1", target: "_blank", onclick: on_click_open_link_in_label('/faq#geb1')
+            = f.input :direct_debit, required: true, label: t('formtastic.labels.user.direct_debit1_html').html_safe + direct_debit_link + t('formtastic.labels.user.direct_debit2_html').html_safe
 
         .Accordion-step
           h3= t('users.form_titles.payment_paypal')
