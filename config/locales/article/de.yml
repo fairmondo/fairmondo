@@ -240,3 +240,4 @@ de:
     actions:
       index: "zur Vorlagenübersicht"
       new: "Neue Vorlage erstellen"
+      save: 'Vorlage speichern'
