@@ -1,9 +1,9 @@
 = visual_checkout_steps :step1, cart
 h2
   =t('cart.heading')
-.send_via_cart
-  = link_to t('cart.texts.send_via_email'), send_via_email_cart_path(cart), class: 'ungrouped_colorbox'
 - if cart.line_item_groups.any?
+  .send_via_cart
+    = link_to t('cart.texts.send_via_email'), send_via_email_cart_path(cart), class: 'ungrouped_colorbox'
   - cart.line_item_groups.each do |group|
     = gray_box line_item_group_title(group) do
       .ArticleListview
