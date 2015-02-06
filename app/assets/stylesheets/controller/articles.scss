@@ -456,14 +456,6 @@ ul.category-selected-list {
     padding:0.5em 1.5em 0.5em;
   }
 
-  .visible {
-    display: block;
-  }
-
-  .invisible {
-    display: none;
-  }
-
   dt,
   dd {
     margin:0;
@@ -485,6 +477,10 @@ ul.category-selected-list {
     top: 0.3em;
     right: 0.3em;
   }
+}
+
+.invisible {
+  display: none;
 }
 
 .activation_links > .activation {

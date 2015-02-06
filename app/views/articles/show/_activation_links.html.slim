@@ -21,26 +21,17 @@
 /
 
 = semantic_form_for resource, url: article_path(activate: true), html: {class: 'js-visual-submit'} do |f|
-  .activation_links
-    h3
-      - if article.belongs_to_legal_entity?
-        = t('article.preview.fees_and_donations.title')
-      - else
-        = t('article.preview.fees_and_donations.no_fee_title')
+  - if article.belongs_to_legal_entity?
+    .activation_links
+      h3= t('article.preview.fees_and_donations.title')
 
-    dl
-      - if article.belongs_to_legal_entity?
+      dl
         dt.reduced_padding.visible
           = f.inputs do
             - legal_link = checkbox_link_helper t('users.legal_link'), '/agb'
             - privacy_link = checkbox_link_helper t('users.privacy_link'), '/privacy'
             = f.input :tos_accepted, as: :boolean, required: false, wrapper_html: { class: 'no-margin' }, label: t("formtastic.labels.user.tos_accepted", legal: legal_link, privacy: privacy_link).html_safe
-      - else
-        dt.reduced_padding.invisible
-          = f.inputs do
-            = f.input :tos_accepted, as: :boolean, required: false
 
-      - if article.belongs_to_legal_entity?
         dt
           = simple_format t('article.preview.fees_and_donations.fee', fee: (resource.fair ? "3%" : "6%"), max: (resource.fair ? "€15" : "€30")  )
           span.sprite_helper title= "Bei erfolgreichem Verkauf gehen 6% des Artikelendpreises an Fairmondo. Bei Artikeln unter dem Filter fair fallen lediglich 3% an."
@@ -52,11 +43,11 @@
         dd
           = humanized_money_with_symbol resource.calculated_fair
 
-        dt
-          = t('article.preview.fees_and_donations.friendly_percent')
-          - if show_friendly_percent_for? resource
-            span.sprite_helper title=t("article.preview.tooltips.fp_fee_info", percent: resource.friendly_percent, ngo: resource.friendly_percent_organisation_nickname)
-        dd= humanized_money_with_symbol resource.calculated_friendly
+        - if show_friendly_percent_for? resource
+          dt
+            = t('article.preview.fees_and_donations.friendly_percent')
+              span.sprite_helper title=t("article.preview.tooltips.fp_fee_info", percent: resource.friendly_percent, ngo: resource.friendly_percent_organisation_nickname)
+            dd= humanized_money_with_symbol resource.calculated_friendly
 
         dt.total
           = t('article.preview.fees_and_donations.total')
@@ -66,22 +57,35 @@
           = "*"
         dt
           = "* " << t('article.preview.fees_and_donations.netto')
-          = humanized_money_with_symbol resource.calculated_fees_and_donations_netto
+          =< humanized_money_with_symbol resource.calculated_fees_and_donations_netto
 
         - if !resource.seller.ngo
           dt
             /! = t('article.preview.fees_and_donations.quarter_fee')
             | Zzgl. der
             a href="/faq#geb1" target="_blank"
-              = " Quartalsgebühr "
+              =< " Quartalsgebühr "
             | von 1,- Euro (inkl. 19% MwSt).
             span.sprite_helper title=t("article.preview.tooltips.fees_quarter_fee")
+  - else
+    .invisible
+      = f.inputs do
+        = f.input :tos_accepted, as: :boolean, required: false
+
+    - if show_friendly_percent_for? resource
+      .activation_links
+        dl
+          dt
+            = t('article.preview.fees_and_donations.friendly_percent')
+              span.sprite_helper title=t("article.preview.tooltips.fp_fee_info", percent: resource.friendly_percent, ngo: resource.friendly_percent_organisation_nickname)
+          dd= humanized_money_with_symbol resource.calculated_friendly
+
   .activation
     - if resource.sold?
       = link_to "Artikel zum Wiedereinstellen bearbeiten", new_article_path(edit_as_new: resource.id), :class=>"Button Button--large"
     - else
       - if resource.seller.ngo || resource.seller.is_a?(PrivateUser)
-        - btn_text = t("article.labels.submit_free")
+        - btn_text = show_friendly_percent_for?(resource) ? t("article.labels.submit_free_with_fp") : t("article.labels.submit_free")
       - else
         - btn_text = show_friendly_percent_for?(resource) ? t("article.labels.submit_with_fp") : t("article.labels.submit")
 

@@ -159,6 +159,7 @@ de:
       submit: "Angebot gebührenpflichtig einstellen"
       submit_free: "Angebot gebührenfrei einstellen"
       submit_with_fp: "Angebot gebührenpflichtig und mit Spendenanteil einstellen"
+      submit_free_with_fp: "Angebot gebührenfrei mit Spendenanteil einstellen"
       continue_to_preview: "Weiter zur Artikelvorschau"
       deactivate: "Vom Marktplatz nehmen"
       edit_as_new: "Bearbeiten und wiedereinstellen"
