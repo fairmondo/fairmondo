@@ -91,3 +91,6 @@
 
       = f.actions do
         = f.submit btn_text, class: "Button Button--large"
+      -if resource.seller.is_a?(PrivateUser)
+        p
+          = t('article.labels.submit_message_private')

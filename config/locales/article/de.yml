@@ -160,6 +160,7 @@ de:
       submit_free: "Angebot gebührenfrei einstellen"
       submit_with_fp: "Angebot gebührenpflichtig und mit Spendenanteil einstellen"
       submit_free_with_fp: "Angebot gebührenfrei mit Spendenanteil einstellen"
+      submit_message_private: 'Der Verkauf von Artikeln ist für Privatverkäufer*innen kostenfrei.'
       continue_to_preview: "Weiter zur Artikelvorschau"
       deactivate: "Vom Marktplatz nehmen"
       edit_as_new: "Bearbeiten und wiedereinstellen"
