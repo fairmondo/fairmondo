@@ -18,23 +18,8 @@ nav.l-header-nav
         target: '_blank'
       ul.l-header-nav-dropdown.TouchHover--hidden
         li
-          = link_to t('header.community.coop'),
-            '/genossenschaft/'
-        li
           = link_to t('header.community.active'),
             'http://mitmachen.fairmondo.de',
-            target: '_blank'
-        li
-          = link_to t('header.community.forum'),
-            'https://forum.fairmondo.de/',
-            target: '_blank'
-        li
-          = link_to t('header.community.facebook'),
-            'https://www.facebook.com/fairmondo',
-            target: '_blank'
-        li
-          = link_to t('header.community.developer'),
-            'https://github.com/fairmondo/fairmondo',
             target: '_blank'
         li
           = link_to t('header.community.events'),
@@ -45,8 +30,12 @@ nav.l-header-nav
             'http://mitmachen.fairmondo.de/materialecke/partnerprogramm/',
             target: '_blank'
         li
-          = link_to t('header.community.godfather'),
-            '/warum/'
+          = link_to t('header.community.coop'),
+            '/genossenschaft/'
+        li
+          = link_to t('header.community.forum'),
+            'https://forum.fairmondo.de/',
+            target: '_blank'
 
     / Profile & Logout
     - if user_signed_in?

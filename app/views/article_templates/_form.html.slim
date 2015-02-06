@@ -27,4 +27,4 @@
           = f.input :article_template_name
     = render '/articles/form/common_inputs', f: f
     = f.actions do
-      = f.action :submit , :button_html => {:class => "Button" }
+      = f.action :submit, label: t('article_templates.actions.save'), button_html: {:class => "Button" }

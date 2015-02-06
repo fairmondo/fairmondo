@@ -12,7 +12,6 @@ class ToolboxController < ApplicationController
       format.json { render status: 200, json: { expired: current_user.nil? } }
     end
   end
-
   def confirm
     respond_to do |format|
       format.js
@@ -44,12 +43,21 @@ class ToolboxController < ApplicationController
     return redirect_to :back, flash: { error: I18n.t('article.show.contact.acceptance_error') } unless params[:contact][:email_transfer_accepted] == "1" # manual validation: transfer of email was accepted
     return redirect_to :back, flash: { error: I18n.t('article.show.contact.empty_error') } unless params[:contact][:text].length > 0 # manual validation: message is present
     return redirect_to :back, flash: { error: I18n.t('article.show.contact.long_error') } unless params[:contact][:text].length < 2000 # manual validation: message is shorter than 2000 characters
-    article = Article.find params[:contact][:article_id]
-    ArticleMailer.delay.contact(current_user,
-                                article,
-                                params[:contact][:text])
-    session[:seller_message][params[:contact][:article_id]] = nil # delete from session
-    redirect_to article, notice: I18n.t('article.show.contact.success_notice')
+
+    if params && params[:contact][:article_id]
+      article = Article.find params[:contact][:article_id]
+      ArticleMailer.delay.contact(current_user,
+                                  article,
+                                  params[:contact][:text])
+      session[:seller_message][params[:contact][:article_id]] = nil # delete from session
+      redirect_to article, notice: I18n.t('article.show.contact.success_notice')
+
+    elsif params && params[:contact][:user_id]
+      user = User.find params[:contact][:user_id]
+      UserMailer.delay.contact(sender: current_user, receiver: user, text: params[:contact][:text])
+      session[:seller_message][params[:contact][:user_id]] = nil # delete from session
+      redirect_to user, notice: I18n.t('article.show.contact.success_notice')
+    end
   end
 
   def healthcheck

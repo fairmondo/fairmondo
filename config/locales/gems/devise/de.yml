@@ -58,7 +58,7 @@ de:
       welcome_mail:
         subject: '[Fairmondo] Anleitung zur Bestätigung Deines Accounts'
       confirmation_instructions:
-        subject: '[Fairmondo] Du hast Deine E-Mail-Adresse geändert'
+        subject: '[Fairmondo] Bitte bestätige Deine E-Mail-Adresse'
       reset_password_instructions:
         subject: '[Fairmondo] Anleitung um Dein Passwort zurückzusetzen'
       unlock_instructions:
