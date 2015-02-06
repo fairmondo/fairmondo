@@ -32,6 +32,10 @@ nav.l-header-nav
         li
           = link_to t('header.community.coop'),
             '/genossenschaft/'
+        li
+          = link_to t('header.community.forum'),
+            'https://forum.fairmondo.de/',
+            target: '_blank'
 
     / Profile & Logout
     - if user_signed_in?
