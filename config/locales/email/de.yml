@@ -135,3 +135,8 @@ de:
       side_heading: 'Verkaufsdetails'
       code: 'Gutscheincode:'
       purchase_id: 'Transaktionsnummer:'
+    user:
+      contact:
+        subject: '[Fairmondo] ein/e Nutzer*in hat eine Frage an Dich'
+        text_beginning: 'hat Dir eine Frage gestellt:'
+
