@@ -1,9 +1,9 @@
 / Contact Box (refactor when we have a real messaging system)
-.Content#contact_seller
+.Content.contact_seller
   - if current_user
     h1= t('users.profile.contact.heading')
     h4= t('users.profile.contact.description')
-    = semantic_form_for :contact, url: contact_user_path, method: :get, remote: true, html: { class: 'js-visual-submit' } do |f|
+    = semantic_form_for :contact, url: toolbox_contact_path, method: :get, html: { class: 'js-visual-submit' } do |f|
       = f.inputs do
         = f.hidden_field :user_id, value: resource.id
         - text = (session[:seller_message]) ? session[:seller_message][resource.id.to_s] : nil
