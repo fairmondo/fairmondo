@@ -17,7 +17,7 @@ Styleguide Buttons
   @include buttonize;
   @include bubbleize;
 
-  text-align:center;
+  text-align: center;
   color: white !important; // we want it to be readable
   background-color: $blue;
 
@@ -72,6 +72,14 @@ a.Button {
 .Button span[class^="sprite_"] {
   float:left;
   margin-right:0.5em;
+}
+
+.Button > span > i[class^="fa"] {
+  float:left;
+  margin-right:0.5em;
+  position: relative;
+  top: 50%;
+  transform: translateY(10%);
 }
 
 .Button--action {
