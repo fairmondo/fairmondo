@@ -34,7 +34,7 @@ class ApplicationController < ActionController::Base
 
   # Pundit
   include Pundit
-  after_filter :verify_authorized_with_exceptions, except: [:index, :feed, :ipn_notification]
+  after_filter :verify_authorized_with_exceptions, except: [:index, :feed, :ipn_notification, :contact]
 
   include BrowsingHistory # (lib/autoload) browsing history for redirects and feedback
   after_filter :store_location

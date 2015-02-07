@@ -19,14 +19,18 @@
     .user-menu
       - if user_resource.is? current_user
         a.Button href="#{ user_path(current_user) }"
-          span.sprite_openbox
+          span= fa_icon 'cubes', class: 'fa-lg fa-fw'
           = t 'common.text.my_articles'
       a.Button href="#{ user_libraries_path(user_resource) }"
-        span.sprite_box
-        = t 'common.text.libraries'
+        span= fa_icon 'cubes', class: 'fa-lg fa-fw'
+        =< t 'common.text.libraries'
       - if user_resource.is_a? LegalEntity
         a.Button href="#{ profile_user_path(user_resource) }" data={ push: true }
-          span.sprite_paper
-          = t 'common.text.about_terms'
+          span= fa_icon 'file-text-o', class: 'fa-lg fa-fw'
+          =< 'Impressum, AGB …'
+          /=< t 'common.text.about_terms'
+      a.Button href="#{ contact_user_path(user_resource) }" class='ungrouped_colorbox'
+        span= fa_icon 'envelope-o', class: 'fa-lg fa-fw'
+        =< t 'users.profile.contact.heading'
   .user-extra
     = render '/shared/take_part'
