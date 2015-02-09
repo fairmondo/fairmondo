@@ -49,7 +49,7 @@ class ArticlePolicy < Struct.new(:user, :article)
   end
 
   def edit?
-    update?
+    own?
   end
 
   def update?
@@ -60,7 +60,8 @@ class ArticlePolicy < Struct.new(:user, :article)
   end
 
   def destroy?
-    owned_and_deactivated? || own? && article.template?
+    own?
+    #owned_and_deactivated? || own? && article.template?
   end
 
   def activate?

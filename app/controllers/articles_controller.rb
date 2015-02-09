@@ -90,6 +90,11 @@ class ArticlesController < ApplicationController
 
   def edit
     authorize @article
+    unless @article.preview? || @article.template?
+      @article.deactivate!
+    end
+
+    respond_with @article
   end
 
   def create
@@ -114,7 +119,8 @@ class ArticlesController < ApplicationController
 
     if @article.preview?
       @article.destroy
-    elsif @article.locked?
+    else
+      @article.lock!
       @article.close_without_validation
     end
     respond_with @article, location: -> { user_path(current_user) }
