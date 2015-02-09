@@ -138,4 +138,13 @@
 
 .contact_seller {
   margin-top: 1em;
+  max-width: 500px;
+
+  h1 {
+    text-align: center;
+  }
+
+  #contact_text {
+    width: 100%;
+  }
 }

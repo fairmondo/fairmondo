@@ -126,6 +126,7 @@ de:
       libraries: "Sammlungen"
       article: "Artikel"
       about_terms: "AGB / Widerrufserklärung / Impressum"
+      about_terms_short: 'Impressum, AGB …'
       extended_search: "Erweiterte Suche"
       glue:
         from: " von "

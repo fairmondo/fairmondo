@@ -7,7 +7,7 @@
       = f.inputs do
         = f.hidden_field :user_id, value: resource.id
         - text = (session[:seller_message]) ? session[:seller_message][resource.id.to_s] : nil
-        = f.input :text, as: :text, label: t('users.profile.contact.labels.text'),input_html: { rows: 4, value: text }
+        = f.input :text, as: :text, label: t('users.profile.contact.labels.text'),input_html: { rows: 4, value: text, placeholder: t('users.profile.contact.labels.text') }
         = f.input :email_transfer_accepted, label: t('users.profile.contact.email_transfer_accepted_label'), as: :boolean, required: true, input_html: { checked: true }
 
       = f.actions do
