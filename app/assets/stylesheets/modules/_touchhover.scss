@@ -6,8 +6,7 @@ TouchHover module
   display: none;
 }
 
-.TouchHover:hover > .TouchHover--hidden,
-.TouchHover.touched > .TouchHover--hidden {
+.TouchHover.touchhovered > .TouchHover--hidden {
   display: block;
 }
 
