@@ -56,7 +56,7 @@ class ArticlesController < ApplicationController
     @user_libraries = current_user.libraries if current_user
     @containing_libraries = @article.libraries.includes(user: [:image]).published.limit(10)
 
-    if !@article.active? && policy(@article).activate? && @article.seller.is_a?(LegalEntity)
+    if !@article.active? && policy(@article).activate?
       @article.calculate_fees_and_donations
     end
 
@@ -120,7 +120,7 @@ class ArticlesController < ApplicationController
     if @article.preview?
       @article.destroy
     else
-      @article.lock!
+      @article.deactivate!
       @article.close_without_validation
     end
     respond_with @article, location: -> { user_path(current_user) }
