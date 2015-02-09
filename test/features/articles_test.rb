@@ -141,7 +141,7 @@ feature "Article activation for private users" do
     article = FactoryGirl.create :preview_article, :user_id => user.id
     login_as user
     visit article_path(article)
-    click_button I18n.t("article.labels.submit")
+    click_button I18n.t("article.labels.submit_free")
     page.must_have_content I18n.t('article.notices.max_limit')
     article.active?.must_equal false
   end
@@ -152,35 +152,33 @@ feature "Article activation for private users" do
     article = FactoryGirl.create :preview_article, seller: user
     login_as user
     visit article_path(article)
-    check 'article_tos_accepted'
-    click_button I18n.t("article.labels.submit")
+    click_button I18n.t("article.labels.submit_free")
     page.wont_have_content I18n.t('article.notices.max_limit')
     current_path.must_equal article_path article
     article.reload.active?.must_equal true
   end
+end
+
+feature "Article activation for legal entities" do
+  let(:user) { FactoryGirl.create :legal_entity }
+  let(:article) { FactoryGirl.create :preview_article, seller: user }
+
+  scenario "legal entity adds goods for more than 5000000" do
+    6.times { FactoryGirl.create :article, seller: user , price_cents: 1000000 }
+    login_as user
+    visit article_path(article)
+    click_button I18n.t("article.labels.submit")
+    page.must_have_content I18n.t('article.notices.max_limit')
+    article.active?.must_equal false
+  end
 
   scenario "user doesn't accept TOS" do
-    user = FactoryGirl.create :user
-    article = FactoryGirl.create :preview_article, seller: user
     login_as user
     visit article_path(article)
     click_button I18n.t("article.labels.submit")
     page.must_have_content I18n.t('article.notices.activation_failed')
     current_path.must_equal article_path article
     article.reload.active?.must_equal false
-  end
-end
-
-feature "Article activation for legal entities" do
-  scenario "legal entity adds goods for more than 5000000" do
-    user = FactoryGirl.create :legal_entity
-    6.times { FactoryGirl.create :article, seller: user , price_cents: 1000000 }
-    article = FactoryGirl.create :preview_article, seller: user
-    login_as user
-    visit article_path(article)
-    click_button I18n.t("article.labels.submit")
-    page.must_have_content I18n.t('article.notices.max_limit')
-    article.active?.must_equal false
   end
 end
 
@@ -306,7 +304,7 @@ end
 feature  "Article view for guest users" do
 
   before do
-    @seller = FactoryGirl.create :user
+    @seller = FactoryGirl.create :user, type: 'LegalEntity'
     @article_conventional = FactoryGirl.create :no_second_hand_article, :seller => @seller
   end
 

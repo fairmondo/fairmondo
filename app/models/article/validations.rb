@@ -60,7 +60,7 @@ module Article::Validations
     validates :payment_details, length: { :maximum => 2500 }
     validates :quantity, presence: true, numericality: { greater_than_or_equal_to: 1, less_than_or_equal_to: 10000 }
     validates :quantity_available, numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 10000 }
-    validates :tos_accepted, acceptance: true, presence: true, on: :update, if: :changing_state
+    validates :tos_accepted, acceptance: true, presence: true, on: :update, if: lambda { |art| art.changing_state && art.belongs_to_legal_entity? }
 
     #images
 

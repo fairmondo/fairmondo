@@ -23,11 +23,11 @@ module Article::FeesAndDonations
   extend ActiveSupport::Concern
 
   TRANSACTION_FEES = {
-    :min => 0.1,
-    :max_fair => 15.0,
-    :max_default => 30.0,
-    :fair => 0.03,
-    :default => 0.06
+    min: 0.1,
+    max_fair: 15.0,
+    max_default: 30.0,
+    fair: 0.03,
+    default: 0.06
   }
 
   included do
@@ -35,9 +35,9 @@ module Article::FeesAndDonations
     before_create :set_friendly_percent_for_ngo, if: :seller_ngo
 
     # Fees and donations
-    monetize :calculated_fair_cents, :allow_nil => true
-    monetize :calculated_friendly_cents, :allow_nil => true
-    monetize :calculated_fee_cents, :allow_nil => true
+    monetize :calculated_fair_cents, allow_nil: true
+    monetize :calculated_friendly_cents, allow_nil: true
+    monetize :calculated_fee_cents, allow_nil: true
 
      ## friendly percent
     validates_presence_of :friendly_percent_organisation_id, :if => :friendly_percent_gt_0?

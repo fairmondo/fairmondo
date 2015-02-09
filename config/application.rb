@@ -118,7 +118,6 @@ module Fairmondo
 
     # controller based assets
     config.assets.precompile += Dir["app/assets/stylesheets/controller/*.scss"].map{|file| "controller/#{File.basename file,'.scss'}.css" }
-
     # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
     config.assets.precompile += %w(
       session_expire.js unactivated_article_warning.js

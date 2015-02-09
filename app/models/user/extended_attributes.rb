@@ -30,7 +30,6 @@ module User::ExtendedAttributes
     auto_sanitize :iban, :bic, remove_all_spaces: true
     auto_sanitize :about_me, :terms, :cancellation, :about, method: 'tiny_mce'
 
-
     attr_accessor :wants_to_sell
     attr_accessor :bank_account_validation , :paypal_validation
     attr_accessor :fastbill_profile_update
@@ -39,8 +38,5 @@ module User::ExtendedAttributes
     monetize :free_transport_at_price_cents, :numericality => { :greater_than_or_equal_to => 0 }, :allow_nil => true
 
   end
-
-
-
 
 end

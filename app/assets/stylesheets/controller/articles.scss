@@ -451,6 +451,7 @@ ul.category-selected-list {
   @include whitebox;
   text-align: center;
   padding:0;
+  margin-bottom: 0.5em;
 
   h3 {
     padding:0.5em 3em;
@@ -491,6 +492,10 @@ ul.category-selected-list {
     top: 0.3em;
     right: 0.3em;
   }
+}
+
+.invisible {
+  display: none;
 }
 
 .activation_links > .activation {

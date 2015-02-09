@@ -5,7 +5,7 @@
       .user-edit
         a href="#{ edit_user_registration_path }"
           span.sprite_pencil
-          = t 'common.actions.edit_profile'
+          =< t 'common.actions.edit_profile'
   .user-middle
     - if user_resource.about_me && !user_resource.about_me.empty?
       .user-description data={ truncate: 250 }
