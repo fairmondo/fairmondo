@@ -51,7 +51,7 @@ feature 'User profile page' do
   scenario "guests visits a legal entity's profile page" do
     user = FactoryGirl.create :legal_entity
     visit user_path user
-    click_link I18n.t 'common.text.about_terms'
+    click_link I18n.t 'common.text.about_terms_short'
     current_path.must_equal profile_user_path user
   end
 end
@@ -62,6 +62,7 @@ feature 'contacting users' do
     sender   = FactoryGirl.create :user
     login_as sender
     visit profile_user_path receiver
+    click_link I18n.t 'users.profile.contact.heading'
   end
 
   scenario "user contacts seller" do

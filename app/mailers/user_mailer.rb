@@ -10,7 +10,7 @@ class UserMailer < ActionMailer::Base
     @receiver = receiver
     @text     = text
     @subject  = I18n.t('email.user.contact.subject')
-    mail to: @receiver.email, from: @sender.email, subject: @subject
+    mail to: @receiver.email, subject: @subject
   end
 
 end

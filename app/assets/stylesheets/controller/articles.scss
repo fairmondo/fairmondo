@@ -384,6 +384,10 @@ ul.category-selected-list {
   }
 }
 
+#contact_text {
+  width: 100%;
+}
+
 //libraries that contain the article
 .related_libraries {
   @include clearfix;

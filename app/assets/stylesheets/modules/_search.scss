@@ -178,8 +178,7 @@ cannot be in controller specific code because it is used by multiple controllers
   }
 }
 
-.Search-additional > .Search-filter:hover > .TouchHover--hidden,
-.Search-additional > .Search-filter.touched > .TouchHover--hidden {
+.Search-additional > .Search-filter.touchhovered > .TouchHover--hidden {
     right: 0em;
     left: inherit;
 }
@@ -242,8 +241,7 @@ a.Search-colored-link {
     @include grid-with-columns(3);
   }
 
-  .Search-filters > .Search-filter:nth-child(3):hover > .TouchHover--hidden,
-  .Search-filters > .Search-filter:nth-child(3).touched > .TouchHover--hidden {
+  .Search-filters > .Search-filter:nth-child(3).touchhovered > .TouchHover--hidden {
     right: 0em;
     left: inherit;
   }
@@ -277,8 +275,7 @@ a.Search-colored-link {
     @include omega;
   }
 
-  .Search-filters > .Search-filter:nth-child(5):hover > .TouchHover--hidden,
-  .Search-filters > .Search-filter:nth-child(5).touched > .TouchHover--hidden {
+  .Search-filters > .Search-filter:nth-child(5).touchhovered > .TouchHover--hidden {
     right: 0em;
     left: inherit;
   }
