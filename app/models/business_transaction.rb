@@ -134,8 +134,14 @@ class BusinessTransaction < ActiveRecord::Base
     self.selected_payment == 'voucher'
   end
 
+<<<<<<< HEAD
   def total_fair_cents
     quantity_bought * article_calculated_fair_cents
+=======
+  # only LegalEntities will be billed, sales for PrivateUsers are free
+  def billable?
+    self.seller.is_a?(LegalEntity)
+>>>>>>> develop
   end
 
   private

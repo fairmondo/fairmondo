@@ -208,7 +208,7 @@ describe User do
     end
 
     describe '#update_fastbill_profile' do
-      let(:user) {FactoryGirl.create :user, :fastbill}
+      let(:user) { FactoryGirl.create :legal_entity, :fastbill }
 
       it 'should call FastBillAPI.update_profile if user has fastbill profile' do
         # FastbillAPI.should receive(:update_profile).with(user)

@@ -97,13 +97,13 @@ de:
       no_ratings: "Diese*r Nutzer*in hat noch keine Bewertungen von anderen Nutzer*innen erhalten."
     profile:
       contact:
-        heading: 'E-Mail an den/die Händler*in'
-        description: 'Du hast noch Fragen? Trage diese in das untenstehende Feld ein, um dem*der Händler*in eine Nachricht zu senden.'
-        email_transfer_accepted_label: "Ich bin damit einverstanden, dass meine E-Mail-Adresse an den*die Händler*in als Rücksendeadresse übermittelt wird."
+        heading: 'E-Mail an den*die Anbieter*in'
+        description: 'Du hast noch Fragen? Trage diese in das untenstehende Feld ein, um dem*der Anbieter*in eine Nachricht zu schicken.'
+        email_transfer_accepted_label: "Ich bin damit einverstanden, dass meine E-Mail-Adresse an den*die Anbieter*in als Rücksendeadresse übermittelt wird."
         action: 'Frage stellen'
-        success_notice: 'Deine Nachricht wurde an den*die Händler*in übermittelt.'
-        empty_error: 'Bitte fülle das Nachrichtenfeld aus um den*die Händler*in zu kontaktieren.'
-        acceptance_error: 'Es ist nötig, der Übermittlung Deiner E-Mail-Adresse zuzustimmen, damit der*die Händler*in die Möglichkeit hat, Dir zu antworten.'
+        success_notice: 'Deine Nachricht wurde an den*die Anbieter*in übermittelt.'
+        empty_error: 'Bitte fülle das Nachrichtenfeld aus um den*die Anbieter*in zu kontaktieren.'
+        acceptance_error: 'Es ist nötig, der Übermittlung Deiner E-Mail-Adresse zuzustimmen, damit der*die Anbieter*in die Möglichkeit hat, Dir zu antworten.'
         long_error: 'Bitte benutze für Deine Rückfrage nicht mehr als 2000 Zeichen.'
         labels:
           text: "Deine Nachricht"

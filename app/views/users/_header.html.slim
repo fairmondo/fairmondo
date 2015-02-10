@@ -5,7 +5,7 @@
       .user-edit
         a href="#{ edit_user_registration_path }"
           span.sprite_pencil
-          = t 'common.actions.edit_profile'
+          =< t 'common.actions.edit_profile'
   .user-middle
     - if user_resource.about_me && !user_resource.about_me.empty?
       .user-description data={ truncate: 250 }
@@ -19,7 +19,7 @@
     .user-menu
       - if user_resource.is? current_user
         a.Button href="#{ user_path(current_user) }"
-          span= fa_icon 'cubes', class: 'fa-lg fa-fw'
+          span= fa_icon 'archive', class: 'fa-lg fa-fw'
           = t 'common.text.my_articles'
       a.Button href="#{ user_libraries_path(user_resource) }"
         span= fa_icon 'cubes', class: 'fa-lg fa-fw'
@@ -27,10 +27,10 @@
       - if user_resource.is_a? LegalEntity
         a.Button href="#{ profile_user_path(user_resource) }" data={ push: true }
           span= fa_icon 'file-text-o', class: 'fa-lg fa-fw'
-          =< 'Impressum, AGB …'
-          /=< t 'common.text.about_terms'
-      a.Button href="#{ contact_user_path(user_resource) }" class='ungrouped_colorbox'
-        span= fa_icon 'envelope-o', class: 'fa-lg fa-fw'
-        =< t 'users.profile.contact.heading'
+          =< t 'common.text.about_terms_short'
+      - unless user_resource.is? current_user
+        a.Button href="#{ contact_user_path(user_resource) }" class='ungrouped_colorbox'
+          span= fa_icon 'envelope-o', class: 'fa-lg fa-fw'
+          =< t 'users.profile.contact.heading'
   .user-extra
     = render '/shared/take_part'

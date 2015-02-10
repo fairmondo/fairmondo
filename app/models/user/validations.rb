@@ -2,7 +2,6 @@
 module User::Validations
   extend ActiveSupport::Concern
 
-
   included do
 
     validates_presence_of :slug
@@ -15,8 +14,6 @@ module User::Validations
     validates_associated :standard_address
 
     with_options if: :wants_to_sell? do |seller|
-      seller.validates :direct_debit, acceptance: {accept: true}, on: :update
-      seller.validates :bank_account_owner, :iban, :bic,  presence: true
       seller.validates :standard_address, presence: true
     end
 
@@ -33,6 +30,5 @@ module User::Validations
 
     validates_inclusion_of :type, in: ["LegalEntity"], if: :is_ngo?
   end
-
 
 end
