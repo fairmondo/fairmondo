@@ -58,8 +58,4 @@ module User::ExtendedAttributes
                     (total_purchase_donations_cents - bt.total_fair_cents)
     end
   end
-<<<<<<< HEAD
-=======
-
->>>>>>> develop
 end
