@@ -23,14 +23,14 @@ class UsersController < ApplicationController
 
   include NoticeHelper
   respond_to :html
+  respond_to :js, if: lambda { request.xhr? }
   respond_to :pdf, only: :profile
 
   before_filter :check_for_complete_mass_uploads, only: [:show]
-  before_filter :show_notice, only: [:show]
   before_filter :set_user
   before_filter :dont_cache, only: [:show]
   before_filter :sanitize_print_param, only: [:profile]
-  skip_before_filter :authenticate_user!, only: [:show, :profile]
+  skip_before_filter :authenticate_user!, only: [:show, :profile, :contact]
 
   rescue_from Pundit::NotAuthorizedError, :with => :user_deleted
 
@@ -43,6 +43,10 @@ class UsersController < ApplicationController
     @articles = ActiveUserArticles.new(@user).paginate(params[:active_articles_page])
   end
 
+  def contact
+    render layout: false
+  end
+
   private
 
     def user_deleted
@@ -51,13 +55,6 @@ class UsersController < ApplicationController
 
     def set_user
       @user = User.find(params[:id])
-    end
-
-    def show_notice
-      if user_signed_in?
-        notice = current_user.next_notice
-        flash[notice.color] = render_open_notice notice if notice.present?
-      end
     end
 
     def check_for_complete_mass_uploads
@@ -73,7 +70,5 @@ class UsersController < ApplicationController
         @print = params[:print]
       end
     end
-
-
 
 end

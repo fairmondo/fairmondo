@@ -134,19 +134,6 @@ describe ToolboxController do
 
   end
 
-  describe "GET 'notice'" do
-    before do
-      @notice = FactoryGirl.create :notice
-      sign_in user
-    end
-
-    it "should redirect to the notice path and close it" do
-      get :notice, :id => @notice.id
-      assert_redirected_to(@notice.path)
-      @notice.reload.open.must_equal false
-    end
-  end
-
   describe "PUT reindex" do
     before do
       sign_in user

@@ -21,11 +21,11 @@
       = "*"
     dt
       = "* " << t('article.preview.fees_and_donations.netto')
-      = humanized_money_with_symbol MassUpload::FeesAndDonations.calculate_total_fees_and_donations_netto(articles)
+      =< humanized_money_with_symbol MassUpload::FeesAndDonations.calculate_total_fees_and_donations_netto(articles)
     dt
       = t('article.preview.fees_and_donations.quarter_fee')
   .activation
-    - if articles.all? { |article| article.state ==  "active" }
+    - if resource.activated?
       a.Button.Button--large.Button--disabled.Button--red
         = t("mass_uploads.labels.all_articles_activated")
     - else

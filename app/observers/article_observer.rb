@@ -26,6 +26,10 @@ class ArticleObserver < ActiveRecord::Observer
   # If you write callbacks that need to be triggered on a mass upload as well
   # make sure to trigger them manually there
 
+  def before_save(article)
+    article.quantity_available = article.quantity if article.quantity_changed?
+  end
+
   def after_save(article)
 
     # derive a template
@@ -86,7 +90,7 @@ class ArticleObserver < ActiveRecord::Observer
 
       #do not remove sold articles, we want to keep them
       #if the old article has errors we still want to remove it from the marketplace
-      original_article.close_without_validation unless original_article.sold?
+      original_article.close_without_validation
 
       # the original has been handled. now unset the reference (for policy)
       article.update_column :original_id, nil

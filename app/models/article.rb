@@ -75,26 +75,15 @@ class Article < ActiveRecord::Base
     include_association :social_producer_questionnaire
     customize lambda { |original_article, new_article|
       new_article.categories = original_article.categories
-
       # move images to new article
       original_article.images.each do |image|
-        if original_article.keep_images
-          image.imageable_id = nil
-          new_article.images << image
-          image.save
-        else
-          begin
-            copyimage = ArticleImage.new
-            copyimage.image = image.image
-            copyimage.is_title = image.is_title
-            copyimage.external_url = image.external_url
-            new_article.images << copyimage
-            copyimage.save
-          rescue
-          end
-        end
+        image = new_article.images.build(
+          image: image.image,
+          is_title: image.is_title,
+          external_url: image.external_url) rescue nil
+        image.save
       end
-
+      new_article.quantity_available = nil
       # unset slug on templates
       if original_article.is_template? || original_article.save_as_template? # cloned because of template handling
         new_article.slug = nil

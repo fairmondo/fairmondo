@@ -159,24 +159,6 @@ class User < ActiveRecord::Base
     can_sell
   end
 
-  # Notify the user of an asynchron event
-  # @api public
-  # @param message [String] Message that is shown to a user
-  # @param color [Symbol] see NoticeHelper for the different types of flash notices
-  # @param path [String] the Path (relative URL) to which the message should lead the user
-  def notify message, path , color = :notice
-    unless self.notices.where(message: message, path: path, open: true).any?
-      self.notices.create message: message, open: true, path: path, color: color
-    end
-  end
-
-  # Returns the next open notice of this user
-  # @api public
-  # @return [Notice] the notice
-  def next_notice
-    self.notices.where(open: true).first
-  end
-
   # hashes the ip-addresses which are stored by devise :trackable
   def last_sign_in_ip= value
     super Digest::MD5.hexdigest(value)

@@ -34,5 +34,4 @@ class UserPolicy < Struct.new( :user, :resource )
   def banned?
     resource.banned?
   end
-
 end
