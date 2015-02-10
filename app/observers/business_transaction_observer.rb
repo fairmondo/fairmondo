@@ -23,11 +23,14 @@ class BusinessTransactionObserver < ActiveRecord::Observer
   def before_create record
     record.sold_at = Time.now
 
-    record.line_item_group.buyer.increase_purchase_donations!(record)
+    if record.seller.is_a? LegalEntity
+      record.line_item_group.buyer.increase_purchase_donations!(record)
+    end
   end
 
   def before_save record
-    if record.refunded_fair_changed? && record.refunded_fair
+    if record.refunded_fair_changed? && record.refunded_fair &&
+       record.seller.is_a?(LegalEntity)
       # decrease donation cache if refunded_fair changed from false to true
       record.buyer.decrease_purchase_donations!(record)
     end

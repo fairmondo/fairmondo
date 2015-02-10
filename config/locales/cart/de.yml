@@ -70,6 +70,9 @@ de:
       pay: Zur Bezahlung
       back: Zurück
     notices:
+      checkout_success_no_donation: |
+        Deine Bestellung wurde erfolgreich abgeschickt. Vielen Dank für Deinen
+        Einkauf.
       checkout_success: |
         Deine Bestellung wurde erfolgreich abgeschickt. Vielen Dank für Deinen
         Einkauf.

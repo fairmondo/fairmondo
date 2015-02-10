@@ -14,7 +14,10 @@ describe CartMailer do
   end
 
   describe 'CartMailer#buyer_email' do
-    let(:cart) { FactoryGirl.create(:cart, :with_line_item_groups_from_legal_entity, user: FactoryGirl.create(:user), sold: true) }
+    let(:cart) do
+      FactoryGirl.create :cart, :with_line_item_groups_from_legal_entity,
+                         user: FactoryGirl.create(:user), sold: true
+    end
 
     it 'sends email to buyer' do
       user = cart.user
@@ -22,14 +25,32 @@ describe CartMailer do
       mail.must deliver_to(user.email)
     end
 
-    it 'must contain courier terms when at least one transaction has selected_transport bike_courier' do
-      bt = FactoryGirl.create :business_transaction, line_item_group_id: cart.line_item_groups.first.id
-      BusinessTransaction.any_instance.stubs(:selected_transport).returns('bike_courier')
+    it 'must contain courier terms when at least one transaction has
+        selected_transport bike_courier' do
+      bt = FactoryGirl.create :business_transaction,
+                              line_item_group_id: cart.line_item_groups.first.id
+      BusinessTransaction.any_instance.stubs(:selected_transport)
+        .returns('bike_courier')
       mail = CartMailer.buyer_email(cart)
 
       # Attachment
       attachment = mail.attachments['fahrwerk_kurierkollektiv_agb.pdf']
       attachment.filename.must_equal 'fahrwerk_kurierkollektiv_agb.pdf'
+    end
+
+    it 'must contain generated fair percent donation info' do
+      cart.user.update_column :total_purchase_donations_cents, 111
+
+      mail = CartMailer.buyer_email(cart)
+      mail.must have_body_text I18n.t 'email.cart.buyer.total_donations',
+                                      euro: '1,11 €'
+    end
+
+    it 'wont contain generated fair percent donation info if it is 0' do
+      mail = CartMailer.buyer_email(cart)
+      mail.wont have_body_text(
+        'Mit Deinen Einkäufen hast Du Fairmondo bisher eine Spende'
+      )
     end
   end
 

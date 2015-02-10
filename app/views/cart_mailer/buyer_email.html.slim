@@ -3,9 +3,11 @@ h3
 = t('email.greeting', name: @cart.user.first_name)
 p
   = t('email.cart.buyer.text')
-p
-  = t 'email.cart.buyer.total_donations',
-      euro: humanized_money_with_symbol(@cart.user_total_purchase_donations)
+- total_donations = @cart.user_total_purchase_donations
+- unless total_donations == 0
+  p
+    = t 'email.cart.buyer.total_donations',
+        euro: humanized_money_with_symbol(total_donations)
 p
   = t('email.cart.buyer.visit_your_profile')
   =< link_to t('email.cart.buyer.user_profile'), user_url(@cart.user.id)
