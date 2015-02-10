@@ -1,16 +1,81 @@
 @import "mixins/all";
 
-#sessions_form {
-  @include at-breakpoint($bp-tablet) {
-    @include span(1 of 2);
-  }
+ul {
+  margin: 0.5em 0;
+  padding: 0 0 0 2em;
+}
 
-  form {
-    width: 17.5em;
-    max-width: 100%;
-    margin-bottom: 2em;
+
+// TODO: modularize checklist
+ul.checklist {
+  margin: 0.5em 0;
+  list-style: none;
+  padding: 0;
+  overflow: hidden;
+
+  li {
+    font-size: 1em;
+    padding: 0.25em 0.5em 0.25em 2em;
+    position: relative;
+
+    &::before {
+      position: absolute;
+      top: 0.45em;
+      left: 0.5em;
+      content: '\f046';
+      font: normal 1em FontAwesome;
+      color: $green;
+    }
   }
 }
+
+
+h2 {
+  font-weight: 700;
+}
+
+h3 {
+  font-size: 1em;
+  font-weight: 700;
+  margin: 0.625em 0 0.5em;
+}
+
+
+
+// Sellers 'landing page'
+.sellers h2 {
+  margin: 0;
+  padding: 0.625em 0.833333em;
+  color: $white;
+  border-radius: 0.5em 0.5em 0 0;
+  border: 1px solid $lighter-gray;
+  border-bottom: none;
+}
+
+.sellers article {
+  padding: 0.625em 1.25em;
+  border-radius: 0 0 0.5em 0.5em;
+  border: 1px solid $lighter-gray;
+  border-top: none;
+}
+
+#private_sellers h2 {
+  background-color: orange;
+  border-color: darken(orange, 5%);
+}
+
+#business_sellers h2 {
+  background-color: purple;
+  border-color: darken(purple, 5%);
+}
+
+
+#sessions_form form {
+  width: 17.5em;
+  max-width: 100%;
+  margin-bottom: 2em;
+}
+
 
 // Style Devise links
 ul#devise_links {
@@ -32,9 +97,31 @@ ul#devise_links {
   display: none;
 }
 
+#sessions_sellerinfo {
+  clear: both;
+}
+
+.sellers {
+  margin: 3em 0;
+}
+
+#questions {
+  clear: both;
+  margin-bottom: 3em;
+}
+
+
+
+
+/********************************* Breakpoints ********************************/
+
 @include at-breakpoint($bp-tablet) {
-  #sessions_form #registration_link {
+  #registration_link {
     display: none;
+  }
+
+  #sessions_form {
+    @include span(1 of 2);
   }
 
   #sessions_marketing {
@@ -42,5 +129,23 @@ ul#devise_links {
     display: block;
     @include span(1 of 2);
     @include omega;
+  }
+
+  .sellers {
+    @include span(1 of 2);
+  }
+
+  #business_sellers {
+    @include omega;
+  }
+
+  #questions {
+    width: 30em;
+    margin-left: auto;
+    margin-right: auto;
+
+    h2 {
+      text-align: center;
+    }
   }
 }
