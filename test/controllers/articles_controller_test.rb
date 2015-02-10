@@ -34,10 +34,22 @@ describe ArticlesController do
         @electronic_category = Category.find_by_name!("Elektronik")
         @software_category = Category.find_by_name!("Software")
 
-        @normal_article = FactoryGirl.create(:article, :index_article, price_cents: 1, title: "noraml article thing", content: "super thing", created_at: 4.days.ago, id: 1234)
-        @second_hand_article = FactoryGirl.create(:second_hand_article, :index_article, price_cents: 2, title: "muscheln", categories: [ @vehicle_category ], content: "muscheln am meer", created_at: 3.days.ago, id: 1235)
-        @hardware_article = FactoryGirl.create(:second_hand_article, :index_article, :simple_fair,:simple_ecologic,:simple_small_and_precious,:with_ngo, price_cents: 3, title: "muscheln 2", categories: [ @hardware_category ], content: "abc" , created_at: 2.days.ago, id: 1236)
-        @no_second_hand_article = FactoryGirl.create :no_second_hand_article, :index_article, price_cents: 4, title: "muscheln 3", categories: [ @hardware_category ], content: "cde", id: 1237, created_at: 1.day.ago
+        @normal_article = FactoryGirl.create(:article, :index_article,
+          price_cents: 1, title: "noraml article thing", content: "super thing",
+          created_at: 4.days.ago, id: 1234)
+        @second_hand_article = FactoryGirl.create(:second_hand_article,
+          :index_article, price_cents: 2, title: "muscheln",
+          categories: [ @vehicle_category ], content: "muscheln am meer",
+          created_at: 3.days.ago, id: 1235)
+        @hardware_article = FactoryGirl.create(:second_hand_article,
+          :index_article, :simple_fair, :simple_ecologic,
+          :simple_small_and_precious,:with_ngo, price_cents: 3,
+          title: "muscheln 2", categories: [ @hardware_category ],
+          content: "abc" , created_at: 2.days.ago, id: 1236)
+        @no_second_hand_article = FactoryGirl.create :no_second_hand_article,
+          :index_article, price_cents: 4, title: "muscheln 3",
+          categories: [ @hardware_category ], content: "cde", id: 1237,
+          created_at: 1.day.ago
       end
 
       it "should work with all filters" do
@@ -241,7 +253,7 @@ describe ArticlesController do
 
       it "should require login" do
         get :new
-        assert_redirected_to(new_user_session_path)
+        assert_redirected_to(new_user_session_url(seller: true))
       end
 
     end
@@ -332,7 +344,8 @@ describe ArticlesController do
       end
 
       it "should save images even if article is invalid" do
-        @article_attrs = FactoryGirl.attributes_for :article, :invalid, categories: [FactoryGirl.create(:category).id]
+        @article_attrs = FactoryGirl.attributes_for :article, :invalid,
+          categories: [FactoryGirl.create(:category).id]
         @article_attrs[:images_attributes] = { "0" => { image: fixture_file_upload("/test.png", 'image/png') }}
         assert_difference 'Image.count', 1 do
           post :create, article: @article_attrs
@@ -340,7 +353,8 @@ describe ArticlesController do
       end
 
       it "should not raise an error for very high quantity values" do
-        post :create, article: @article_attrs.merge(quantity: "100000000000000000000000")
+        post :create,
+          article: @article_attrs.merge(quantity: "100000000000000000000000")
         assert_template :new
       end
 
@@ -350,7 +364,8 @@ describe ArticlesController do
         original_slug = original_article.slug
 
         assert_difference 'Article.count', 1 do
-          post :create, article: @article_attrs.merge({original_id: original_article.id})
+          post :create,
+            article: @article_attrs.merge({original_id: original_article.id})
         end
         new_article = @controller.instance_variable_get(:@article)
 
@@ -371,7 +386,8 @@ describe ArticlesController do
     describe "for signed-in users" do
       before :each do
         @article = FactoryGirl.create :preview_article, seller: user
-        @article_attrs = FactoryGirl.attributes_for :article, categories: [FactoryGirl.create(:category)]
+        @article_attrs = FactoryGirl.attributes_for :article,
+          categories: [FactoryGirl.create(:category)]
         @article_attrs.delete :seller
         sign_in user
       end
@@ -385,7 +401,8 @@ describe ArticlesController do
 
       it "should softdelete the locked article" do
         assert_no_difference 'Article.count' do
-          put :update, id: @article.id, activate: true, article: { tos_accepted: '1' }
+          put :update, id: @article.id, activate: true,
+            article: { tos_accepted: '1' }
           put :update, id: @article.id, deactivate: true
           put :destroy, id: @article.id
         end
@@ -398,7 +415,8 @@ describe ArticlesController do
     describe "for signed-in users" do
       before :each do
         @article = FactoryGirl.create :preview_article, seller: user
-        @article_attrs = FactoryGirl.attributes_for :article, categories: [FactoryGirl.create(:category)]
+        @article_attrs = FactoryGirl.attributes_for :article,
+          categories: [FactoryGirl.create(:category)]
         @article_attrs.delete :seller
         sign_in user
       end
@@ -411,7 +429,9 @@ describe ArticlesController do
       it "changes the articles informations" do
         put :update, id: @article.id, article: @article_attrs
         assert_redirected_to @article.reload
-        @controller.instance_variable_get(:@article).title.must_equal @article_attrs[:title]
+        @controller
+          .instance_variable_get(:@article)
+          .title.must_equal @article_attrs[:title]
       end
     end
 
@@ -422,7 +442,8 @@ describe ArticlesController do
       end
 
       it "should work" do
-        put :update, id: @article.id, article: { tos_accepted: '1' }, activate: true
+        put :update, id: @article.id, article: { tos_accepted: '1' },
+          activate: true
         assert_redirected_to @article
         flash[:notice].must_equal I18n.t 'article.notices.create_html'
       end
@@ -431,7 +452,8 @@ describe ArticlesController do
         @article.title = nil
         @article.save validate: false
         ## we now have an invalid record
-        put :update, id: @article.id, article: { tos_accepted: '1' }, activate: true
+        put :update, id: @article.id, article: { tos_accepted: '1' },
+          activate: true
         assert_redirected_to new_article_path(edit_as_new: @article.id)
       end
     end
@@ -465,7 +487,8 @@ describe ArticlesController do
 
     it "should be successful" do
       ArticlesIndex.reset!
-      @article = FactoryGirl.create :article, :index_article, title: 'chunky bacon'
+      @article = FactoryGirl.create :article, :index_article,
+        title: 'chunky bacon'
       get :autocomplete, q: 'chunky'
       assert_response :success
       response.body.must_equal({
@@ -489,7 +512,5 @@ describe ArticlesController do
       response.body.must_equal({"query" => nil , "suggestions" => []}.to_json)
     end
   end
-
-
 
 end
