@@ -26,7 +26,8 @@ class ArticlesController < ApplicationController
   respond_to :json, only: [:show,:index]
 
   # Authorization
-  skip_before_filter :authenticate_user!, only: [:show, :index, :autocomplete]
+  skip_before_filter :authenticate_user!, only: [:show, :index, :new, :autocomplete]
+  before_filter :seller_sign_in, only: :new
   skip_after_filter :verify_authorized_with_exceptions, only: [:autocomplete]
 
   # Layout Requirements
@@ -131,6 +132,14 @@ class ArticlesController < ApplicationController
   ##### Private Helpers
 
   private
+
+    def seller_sign_in
+      # If user is not logged in, redirect to sign in page with parameter for
+      # sessions view.
+      unless user_signed_in?
+        redirect_to controller: :sessions, action: :new, seller: true
+      end
+    end
 
     def set_article
       @article = Article.find(params[:id])

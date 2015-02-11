@@ -20,8 +20,6 @@
 / along with Fairmondo.  If not, see <http://www.gnu.org/licenses/>.
 /
 
-
-
 #sessions_form
   h1= t('common.actions.login')
   = render "/devise/sessions/shared"
@@ -30,5 +28,52 @@
 - if devise_mapping.registerable? && controller_name != 'registrations'
   #sessions_marketing
     h2 Noch kein Konto?
-    p Dein Zugang zu den schönsten & fairsten Produkten im Netz in weniger als einer Minute.
-    = link_to 'Neu registrieren', new_registration_path(:user), class: 'Button Button--action'
+    p Fairmondo – die faire Alternative zu den Marktriesen im Online-Handel
+    ul.checklist
+      li Verkaufe neue oder gebrauchte Artikel – ohne Einschränkungen
+      li Komplett kostenfrei wenn Du privat verkaufst
+      li Wir schützen Deine Daten und Privatsphäre
+      li Gemeinsam bringen wir Fairness und Transparenz in den Online-Handel
+    = link_to 'Neu registrieren', new_registration_path(:user),
+      class: 'Button Button--action'
+
+  / Only show this section if user is redirected from 'sell' page
+  - if params.has_key? :seller
+    #sessions_sellerinfo
+      section.sellers#private_sellers
+        h2 Du kaufst und verkaufst privat?
+        article
+          h3 Deine Vorteile:
+          ul.checklist
+            li Kaufen, verkaufen, leihen oder tauschen – alles komplett gebührenfrei
+            li
+             | Profi-Funktionen wie Versandrabattregeln
+            li Sammle ganz einfach Spenden für Dein Lieblings-Hilfsprojekt
+            li Gemeinsam erschaffen wir ein Unternehmen, das vielen gehört und ohne große Investoren auskommt
+
+      section.sellers#business_sellers
+        h2 Du kaufst und verkaufst gewerblich?
+        article
+          h3 Deine Vorteile:
+          ul.checklist
+            li Keine Einstellgebühr
+            li Nur 4&thinsp;% Verkaufsgebühr für fair gehandelte Artikel, und 7&thinsp;% für alle anderen Artikel
+            li Profi-Funktionen wie Versandrabattregeln oder CSV-Schnittstellen
+            li
+              | Demokratische Kontrolle des Unternehmens durch Dich als
+              =< link_to 'Genossenschaftsmitglied', '/genossenschaft/'
+
+      section#questions
+        h2 Du hast noch Fragen?
+        ul
+          li
+            | Schau in unsere
+            =< link_to 'FAQ für Verkäufer*innen', '/faq#d1'
+          li
+            | Triff andere Verkäufer*innen in unserem
+            =< link_to 'Forum',
+              'https://forum.fairmondo.de/c/verkaufer-innen-forum',
+              target: '_blank'
+          li
+            | Frage unseren freundlichen
+            =< link_to 'Kundenservice', new_feedback_path(variety: 'get_help')

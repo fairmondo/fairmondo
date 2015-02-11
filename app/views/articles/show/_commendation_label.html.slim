@@ -45,7 +45,7 @@
 
 - case label
 - when :bike_courier
-  =<> link_to fa_icon('bicycle'), link, class: "#{commendation_label_classes} accordion-anchor ungrouped_colorbox"
+  =<> link_to fa_icon('bicycle'), link, class: "#{commendation_label_classes} ungrouped_colorbox"
 -else
   - if local_assigns.has_key?(:link) && link
     =<> link_to t("article.commendations.#{label.to_s}"), link,
