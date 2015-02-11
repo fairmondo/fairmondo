@@ -15,7 +15,7 @@ accordion = ->
     heightStyle: 'content'
     collapsible: true
     animate: 400
-    active: false
+    active: 0
 
 
   $accordions
