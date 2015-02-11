@@ -40,12 +40,12 @@ class ToolboxController < ApplicationController
   def contact
     session[:seller_message] = {} unless session[:seller_message]
     session[:seller_message][params[:contact][:article_id]] = params[:contact][:text] # store text
-    return redirect_to :back, flash: { error: I18n.t('article.show.contact.acceptance_error') } unless params[:contact][:email_transfer_accepted] == "1" # manual validation: transfer of email was accepted
-    return redirect_to :back, flash: { error: I18n.t('article.show.contact.empty_error') } unless params[:contact][:text].length > 0 # manual validation: message is present
-    return redirect_to :back, flash: { error: I18n.t('article.show.contact.long_error') } unless params[:contact][:text].length < 2000 # manual validation: message is shorter than 2000 characters
 
     if params && params[:contact][:article_id]
       article = Article.find params[:contact][:article_id]
+      return redirect_to :back, flash: { error: I18n.t('article.show.contact.acceptance_error') } unless params[:contact][:email_transfer_accepted] == "1" # manual validation: transfer of email was accepted
+      return redirect_to :back, flash: { error: I18n.t('article.show.contact.empty_error') } unless params[:contact][:text].length > 0 # manual validation: message is present
+      return redirect_to :back, flash: { error: I18n.t('article.show.contact.long_error') } unless params[:contact][:text].length < 2000 # manual validation: message is shorter than 2000 characters
       ArticleMailer.delay.contact(current_user,
                                   article,
                                   params[:contact][:text])
@@ -54,9 +54,12 @@ class ToolboxController < ApplicationController
 
     elsif params && params[:contact][:user_id]
       user = User.find params[:contact][:user_id]
+      return redirect_to user, flash: { error: I18n.t('users.profile.contact.acceptance_error') } unless params[:contact][:email_transfer_accepted] == "1" # manual validation: transfer of email was accepted
+      return redirect_to user, flash: { error: I18n.t('users.profile.contact.empty_error') } unless params[:contact][:text].length > 0 # manual validation: message is present
+      return redirect_to user, flash: { error: I18n.t('users.profile.contact.long_error') } unless params[:contact][:text].length < 2000 # manual validation: message is shorter than 2000 characters
       UserMailer.delay.contact(sender: current_user, receiver: user, text: params[:contact][:text])
       session[:seller_message][params[:contact][:user_id]] = nil # delete from session
-      redirect_to user, notice: I18n.t('article.show.contact.success_notice')
+      redirect_to user, notice: I18n.t('users.profile.contact.success_notice')
     end
   end
 
