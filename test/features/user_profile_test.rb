@@ -62,33 +62,45 @@ feature 'contacting users' do
     sender   = FactoryGirl.create :user
     login_as sender
     visit profile_user_path receiver
-    click_link I18n.t 'users.profile.contact.heading'
+
+    within('.user-menu') do
+      click_link I18n.t 'users.profile.contact.heading'
+    end
   end
 
   scenario "user contacts seller" do
-    fill_in 'contact[text]', with: 'foobar'
-    click_button I18n.t('users.profile.contact.action')
+    within('.contact_seller') do
+      fill_in 'contact[text]', with: 'foobar'
+      click_button I18n.t('users.profile.contact.action')
+    end
     page.must_have_content I18n.t 'users.profile.contact.success_notice'
   end
 
   scenario "user contacts seller but unchecks email transfer acceptance" do
-    fill_in 'contact[text]', with: 'foobar'
-    uncheck 'contact[email_transfer_accepted]'
-    click_button I18n.t('users.profile.contact.action')
-    page.must_have_content I18n.t 'users.profile.contact.acceptance_error'
+    within('.contact_seller') do
+      fill_in 'contact[text]', with: 'foobar'
+      uncheck 'contact[email_transfer_accepted]'
+      click_button I18n.t('users.profile.contact.action')
+    end
+    page.must_have_content I18n.t('users.profile.contact.acceptance_error')
   end
 
   scenario "user contacts seller with blank message" do
-    fill_in 'contact[text]', with: ''
-    click_button I18n.t('users.profile.contact.action')
-    page.must_have_content I18n.t 'users.profile.contact.empty_error'
+    within('.contact_seller') do
+      fill_in 'contact[text]', with: ''
+      click_button I18n.t('users.profile.contact.action')
+    end
+    page.must_have_content I18n.t('users.profile.contact.empty_error')
   end
 
   scenario "user contacts seller with message that exceeds 2000 character limit" do
     text = ''
     2001.times { text += 'a' }
-    fill_in 'contact[text]', with: text
-    click_button I18n.t('users.profile.contact.action')
-    page.must_have_content I18n.t 'users.profile.contact.long_error'
+
+    within('.contact_seller') do
+      fill_in 'contact[text]', with: text
+      click_button I18n.t('users.profile.contact.action')
+    end
+    page.must_have_content I18n.t('users.profile.contact.long_error')
   end
 end
