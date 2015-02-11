@@ -8,7 +8,7 @@ class AddTotalPurchaseDonationsCentsToUsers < ActiveRecord::Migration
 
       user.buyer_line_item_groups.find_each do |lig|
         lig.business_transactions.where(refunded_fair: false).find_each do |bt|
-          total_purchase_donations += bt.total_fair_cents
+          total_purchase_donations += bt.total_fair_cents if bt.article.present?
         end # /business_transaction
       end # /line_item_group
 
