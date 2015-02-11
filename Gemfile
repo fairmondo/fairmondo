@@ -190,6 +190,7 @@ group :development, :test do
   # test suite additions
   gem "rails_best_practices"
   gem 'brakeman', github: "presidentbeef/brakeman"  # security test: execute with 'brakeman' locked because of slim https://github.com/presidentbeef/brakeman/pull/602/files
+  gem 'rubocop' # style enforcement
 
   gem 'bullet' # Notify about n+1 queries
 end
