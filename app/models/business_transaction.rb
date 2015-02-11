@@ -134,6 +134,10 @@ class BusinessTransaction < ActiveRecord::Base
     self.selected_payment == 'voucher'
   end
 
+  def total_fair_cents
+    quantity_bought * article_calculated_fair_cents
+  end
+
   # only LegalEntities will be billed, sales for PrivateUsers are free
   def billable?
     self.seller.is_a?(LegalEntity)
@@ -145,14 +149,18 @@ class BusinessTransaction < ActiveRecord::Base
     #
     def transport_address_in_area?
       unless $courier['zip'].split(' ').include?(self.transport_address_zip)
-        errors.add(:selected_transport, I18n.t('transaction.errors.transport_address_not_in_area'))
+        errors.add(
+          :selected_transport,
+          I18n.t('transaction.errors.transport_address_not_in_area')
+        )
       end
     end
 
     def right_time_frame_for_bike_courier?
       unless self.seller.pickup_time.include? self.bike_courier_time
-        errors.add(:bike_courier_time, I18n.t('transaction.errors.wrong_time_frame'))
+        errors.add(
+          :bike_courier_time, I18n.t('transaction.errors.wrong_time_frame')
+        )
       end
     end
-
 end

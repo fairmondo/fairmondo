@@ -70,5 +70,21 @@ de:
       pay: Zur Bezahlung
       back: Zurück
     notices:
-      checkout_success: "Deine Bestellung wurde erfolgreich abgeschickt. Vielen Dank für Deinen Einkauf."
+      checkout_success_no_donation: |
+        Deine Bestellung wurde erfolgreich abgeschickt. Vielen Dank für Deinen
+        Einkauf.
+      checkout_success: |
+        Deine Bestellung wurde erfolgreich abgeschickt. Vielen Dank für Deinen
+        Einkauf.
+        <br/><br/>
+        Mit Deinen Einkäufen hast Du Fairmondo bisher eine Spende von %{euro}
+        Euro an Transparency International e.V. zur Bekämpfung von Korruption
+        ermöglicht.
+        <br/><br/>
+        Du möchtest mehr tun? Entdecke Deine Möglichkeiten, uns beim Aufbau
+        eines fairen Unternehmen zu unterstützen. Link:
+        <a href="http://mitmachen.fairmondo.de/aktiv-mithelfen/"
+           target="_blank">
+          http://mitmachen.fairmondo.de/aktiv-mithelfen/
+        </a>
       checkout_failed: "Dein Einkauf konnte leider nicht abgeschlossen werden, da ein Artikel den du kaufen wolltest bereits nicht mehr verfügbar ist."

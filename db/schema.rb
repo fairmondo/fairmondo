@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141217105742) do
+ActiveRecord::Schema.define(version: 20150204141529) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -428,19 +428,6 @@ ActiveRecord::Schema.define(version: 20141217105742) do
 
   add_index "notices", ["user_id"], name: "index_notices_on_user_id", using: :btree
 
-  create_table "opening_times", force: true do |t|
-    t.integer  "user_id",    limit: 8
-    t.string   "monday"
-    t.string   "tuesday"
-    t.string   "wednesday"
-    t.string   "thursday"
-    t.string   "friday"
-    t.string   "saturday"
-    t.string   "sunday"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "payments", force: true do |t|
     t.string   "pay_key"
     t.string   "state"
@@ -588,6 +575,7 @@ ActiveRecord::Schema.define(version: 20141217105742) do
     t.boolean  "receive_comments_notification",                default: true
     t.boolean  "heavy_uploader",                               default: false
     t.boolean  "uses_vouchers",                                default: false
+    t.integer  "total_purchase_donations_cents",     limit: 8, default: 0
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
