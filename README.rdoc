@@ -101,7 +101,7 @@ To run the tests: if you haven't already, prepare the testing database
 Then run the tests
 
   rake test
-  
+
 NOTE: The tests need elasticsearch to run through (see below)
 
 If you update your branch from before, you may have to migrate the test database:
@@ -109,6 +109,16 @@ If you update your branch from before, you may have to migrate the test database
   RAILS_ENV=test rake db:migrate
 
 {Click here}[https://github.com/fairmondo/fairmondo/wiki/Testing-and-BDD] to read more about testing in our wiki.
+
+The testsuite offers an option to stop at the first failing test and rescue in a pry console. To activate this use:
+
+  RESCUE=1 rake test
+
+If the testsuite runs without any failures, there are additional checks that run automatically (but can be run independently via rake task in the brakets):
+
+* Rails Best Practices (`rails_best_practices`)
+* Brakeman (`rake test:brakeman`)
+* Rubocop  (will not run automatically start with: `rake test:rubocop`, future purpose)
 
 
 === Workflow
