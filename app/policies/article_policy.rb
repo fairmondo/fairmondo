@@ -29,7 +29,7 @@ class ArticlePolicy < Struct.new(:user, :article)
     # Active or sold articles can be shown to anyone.
     # All other state except of closedcan be shown to the
     # user who owns this article.
-    res = article.active? || article.sold? || (own? && !article.closed?) || bought_or_sold? || User.is_admin?(user)
+    article.active? || article.sold? || (own? && !article.closed?) || bought_or_sold? || User.is_admin?(user)
   end
 
   def new?
@@ -38,7 +38,7 @@ class ArticlePolicy < Struct.new(:user, :article)
 
   def create?
     original = article.original
-    if original && original.seller == article.seller && (original.locked? || original.sold?)
+    if original && original.seller == article.seller && (original.closed? || original.sold?)
       true
     elsif !original
       true
@@ -49,7 +49,7 @@ class ArticlePolicy < Struct.new(:user, :article)
   end
 
   def edit?
-    own?
+    update?
   end
 
   def update?
