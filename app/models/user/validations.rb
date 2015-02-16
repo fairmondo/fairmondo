@@ -11,10 +11,10 @@ module User::Validations
     validates_inclusion_of :type, in: ["PrivateUser", "LegalEntity"]
     validates :nickname , presence: true, uniqueness: true
     validates :legal, acceptance: true, on: :create
-    validates_associated :standard_address
 
     with_options if: :wants_to_sell? do |seller|
       seller.validates :standard_address, presence: true
+      validates_associated :standard_address
     end
 
     # TODO: Language specific validators
