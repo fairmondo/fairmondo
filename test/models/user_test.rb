@@ -139,6 +139,18 @@ describe User do
     end
   end
 
+  describe 'banning a user' do
+    it 'should deactivate all of users active articles' do
+      user = FactoryGirl.create :user
+      FactoryGirl.create :article, seller: user
+
+      assert_difference 'user.articles.active.count', -1, 'active articles of user shoud be deactivated' do
+        user.banned = true
+        user.save
+      end
+    end
+  end
+
   describe "methods" do
 
     describe "#count_value_of_goods" do
