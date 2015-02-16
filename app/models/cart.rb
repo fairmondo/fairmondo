@@ -1,14 +1,19 @@
 class Cart < ActiveRecord::Base
+  attr_accessor :cookie_content # temp storage for pundit validation
+
+  # Associations
   has_many :line_item_groups, dependent: :destroy, inverse_of: :cart
   has_many :line_items, through: :line_item_groups, inverse_of: :cart
   has_many :articles, through: :line_item_groups
 
   belongs_to :user, inverse_of: :carts
 
+  # Scopes
   scope :newest, -> { order(created_at: :desc) }
   scope :open, -> { where.not(sold: true) }
 
-  attr_accessor :cookie_content # temp storage for pundit validation
+  #Methods
+  delegate :total_purchase_donations, to: :user, prefix: true
 
   # Finds an existing cart for the logged in user or creates a new one
   # @param buyer [User, nil] logged in user or nil if user is not logged in
@@ -45,7 +50,8 @@ class Cart < ActiveRecord::Base
       locked_article_ids_with_quantities = {}
       self.line_item_groups.each do |line_item_group|
         line_item_group.line_items.each do |line_item|
-          locked_article_ids_with_quantities[line_item.article.id] = line_item.requested_quantity
+          locked_article_ids_with_quantities[line_item.article.id] =
+            line_item.requested_quantity
           line_item.business_transaction.save!
         end
         line_item_group.buyer_id = self.user_id
@@ -59,7 +65,7 @@ class Cart < ActiveRecord::Base
         article.buy!(quantity)
       end
 
-      self.update_attribute(:sold,true)
+      self.update_attribute(:sold, true)
 
       AfterBuyWorker.perform_async self.id
     end

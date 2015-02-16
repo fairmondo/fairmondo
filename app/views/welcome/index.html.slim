@@ -39,6 +39,14 @@
           span.slides-arrow.slides-arrow--right
             i.fa.fa-chevron-right
 
+        / Runde Sache subscriptions
+        .billboard#billboard-subscriptions
+          article
+            h2 Schöne und faire Dinge per Fahrrad zu Dir nach Hause
+            = link_to 'Jetzt die ersten Runde Sache Abos sichern',
+              'https://www.startnext.com/rundesache',
+              target: '_blank'
+
         / Valentines
           .billboard#billboard-valentines
             article
@@ -108,36 +116,36 @@
         /        '/libraries/8216', id: 'billboard-ecobookstore-link2'
 
         / Produkte unter 15 EUR
-        .billboard#billboard-gifts
-          article
-            h2
-              | Tolle <span id="billboard-gifts-gifts">Produkte</span> unter
-                <span id="billboard-gifts-price">15&thinsp;&euro;</span>
-            ul
-              li#billboard-gifts-link1
-                = link_to '/libraries/8052?pk_campaign=bb6&pk_kwd=geschenke' do
-                  div
-                  p Alle ansehen
+        / .billboard#billboard-gifts
+        /   article
+        /     h2
+        /       | Tolle <span id="billboard-gifts-gifts">Produkte</span> unter
+        /         <span id="billboard-gifts-price">15&thinsp;&euro;</span>
+        /     ul
+        /       li#billboard-gifts-link1
+        /         = link_to '/libraries/8052?pk_campaign=bb6&pk_kwd=geschenke' do
+        /           div
+        /           p Alle ansehen
 
         / Edle Tropfen
-        .billboard#billboard-gourmet
-          article
-            h2 Edle<br>Tropfen
-            = link_to '/users/mexican-tears?pk_campaign=bb5&pk_kwd=mexicantears' do
-              | Klick mich,<br>ich bin <br>scharf<br>und<br>beliebt
-            ul
-              li#billboard-gourmet-link1
-                = link_to '/libraries/7318?pk_campaign=bb5&pk_kwd=essigoel' do
-                  div
-                  p Essige und Öle
-              li#billboard-gourmet-link2
-                = link_to '/libraries/7317?pk_campaign=bb5&pk_kwd=sauce' do
-                  div
-                  p Gourmetsaucen
-              li#billboard-gourmet-link3
-                = link_to '/libraries/7320?pk_campaign=bb5&pk_kwd=weine' do
-                  div
-                  p Weine
+        / .billboard#billboard-gourmet
+        /   article
+        /     h2 Edle<br>Tropfen
+        /     = link_to '/users/mexican-tears?pk_campaign=bb5&pk_kwd=mexicantears' do
+        /       | Klick mich,<br>ich bin <br>scharf<br>und<br>beliebt
+        /     ul
+        /       li#billboard-gourmet-link1
+        /         = link_to '/libraries/7318?pk_campaign=bb5&pk_kwd=essigoel' do
+        /           div
+        /           p Essige und Öle
+        /       li#billboard-gourmet-link2
+        /         = link_to '/libraries/7317?pk_campaign=bb5&pk_kwd=sauce' do
+        /           div
+        /           p Gourmetsaucen
+        /       li#billboard-gourmet-link3
+        /         = link_to '/libraries/7320?pk_campaign=bb5&pk_kwd=weine' do
+        /           div
+        /           p Weine
 
 
 / Startnext widget

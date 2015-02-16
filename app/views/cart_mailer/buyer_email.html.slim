@@ -2,11 +2,19 @@ h3
   = t('email.cart.buyer.heading')
 = t('email.greeting', name: @cart.user.first_name)
 p
-  = simple_format t('email.cart.buyer.text')
-  br
+  = t('email.cart.buyer.text')
+- total_donations = @cart.user_total_purchase_donations
+- unless total_donations == 0
+  p
+    = t 'email.cart.buyer.total_donations',
+        euro: humanized_money_with_symbol(total_donations)
+p
   = t('email.cart.buyer.visit_your_profile')
   =< link_to t('email.cart.buyer.user_profile'), user_url(@cart.user.id)
   = '.'
+p
+  = t('email.cart.buyer.signoff')
+
 - @cart.line_item_groups.find_each do |lig|
   .line-item-group
     h3

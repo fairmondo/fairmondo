@@ -19,11 +19,20 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Fairmondo.  If not, see <http://www.gnu.org/licenses/>.
 #
-
 class BusinessTransactionObserver < ActiveRecord::Observer
+  def before_create record
+    record.sold_at = Time.now
 
-  def before_create business_transaction
-    business_transaction.sold_at = Time.now
+    if record.seller.is_a? LegalEntity
+      record.line_item_group.buyer.increase_purchase_donations!(record)
+    end
   end
 
+  def before_save record
+    if record.refunded_fair_changed? && record.refunded_fair &&
+       record.seller.is_a?(LegalEntity)
+      # decrease donation cache if refunded_fair changed from false to true
+      record.buyer.decrease_purchase_donations!(record)
+    end
+  end
 end
