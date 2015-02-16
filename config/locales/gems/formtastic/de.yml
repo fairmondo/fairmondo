@@ -27,7 +27,7 @@ de:
         phone: "Telefonnummer (Festnetz)"
         mobile: "Telefonnummer (Mobil)"
         fax: "Fax"
-        about_me: "über mich"
+        about_me: "Hier kannst Du Dich anderen Nutzer*innen vorstellen. Dein Text erscheint in Deinem Profil."
         terms: "AGB"
         cancellation: "Widerrufsbelehrung"
         cancellation_form: "Widerrufsformular (PDF-Datei)"
@@ -230,7 +230,7 @@ de:
       user: &input_step_user
         account: Benutzerkonto
         contact: Anschrift und Kontakt
-        profile: Profil
+        profile: Über mich
         payment: Zahlungsoptionen
         terms: Rechtliches
         unified_transport: Angaben zu Versandrabatten

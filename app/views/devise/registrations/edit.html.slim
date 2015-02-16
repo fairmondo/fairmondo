@@ -144,7 +144,10 @@ h1= t('common.actions.edit_profile')
           .visibility
             = t('users.visibility.public')
 
-          = f.input :about_me, as: :text, limit: 2500, input_html: {class: "tinymce"}
+          h4= "#{ t('formtastic.labels.user.about_me') }"
+
+          = f.input :about_me, label:false, as: :text, limit: 2500,
+            input_html: { class: 'tinymce' }
           = tinymce
 
 
