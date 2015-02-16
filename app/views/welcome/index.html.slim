@@ -30,17 +30,11 @@
 / Billboard
 - cache 'billboard' do
   #billboard
-    #billboard-inner
-      #js-billboardslides
-        a href='#' class='slidesjs-previous slidesjs-navigation'
-          span.slides-arrow.slides-arrow--left
-            i.fa.fa-chevron-left
-        a href='#' class='slidesjs-next slidesjs-navigation'
-          span.slides-arrow.slides-arrow--right
-            i.fa.fa-chevron-right
+    #billboard-inner.slider
+      #js-billboardslides.slider__wrapper
 
         / Runde Sache subscriptions
-        .billboard#billboard-subscriptions
+        .billboard#billboard-subscriptions.slider__item
           article
             h2 Schöne und faire Dinge per Fahrrad zu Dir nach Hause
             = link_to 'Jetzt die ersten Runde Sache Abos sichern',
@@ -48,7 +42,7 @@
               target: '_blank'
 
         / Valentines
-        .billboard#billboard-valentines
+        .billboard#billboard-valentines.slider__item
           article
             ul
               li#billboard-valentines-link1
@@ -64,7 +58,7 @@
                   p Für Ihn
 
         / Bücher
-        .billboard#billboard-books
+        .billboard#billboard-books.slider__item
           article
             hgroup
               h2 Wir haben sie alle
@@ -97,7 +91,7 @@
                   p Gebrauchte Bücher
 
         / Ecobookstore
-        /.billboard#billboard-ecobookstore
+        /.billboard#billboard-ecobookstore.slider__item
         /  article
         /    = link_to '/categories/bucher' do
         /      hgroup
@@ -116,7 +110,7 @@
         /        '/libraries/8216', id: 'billboard-ecobookstore-link2'
 
         / Produkte unter 15 EUR
-        / .billboard#billboard-gifts
+        / .billboard#billboard-gifts.slider__item
         /   article
         /     h2
         /       | Tolle <span id="billboard-gifts-gifts">Produkte</span> unter
@@ -128,7 +122,7 @@
         /           p Alle ansehen
 
         / Edle Tropfen
-        / .billboard#billboard-gourmet
+        / .billboard#billboard-gourmet.slider__item
         /   article
         /     h2 Edle<br>Tropfen
         /     = link_to '/users/mexican-tears?pk_campaign=bb5&pk_kwd=mexicantears' do
@@ -289,15 +283,14 @@
 / USPs
 .teaser.teaser--double.slides#cardslides
   .teaser-inner
-    #js-cardslides
-      a href='#' class='slidesjs-previous slidesjs-navigation'
-        span.slides-arrow.slides-arrow--left
-          i.fa.fa-chevron-left
-      a href='#' class='slidesjs-next slidesjs-navigation'
-        span.slides-arrow.slides-arrow--right
-          i.fa.fa-chevron-right
-      - 8.times do |i|
-        = image_tag "slides/cards/#{i}.png"
+    .slider
+      .slider__wrapper
+        - 8.times do |i|
+          .slider__item
+            = image_tag "slides/cards/#{i}.png"
+
+
+
 
 
 / Article queue 'donation'
@@ -318,33 +311,43 @@
 / User comment slides
 .teaser.teaser--full.slides#userslides
   .teaser-inner
-    #js-userslides
-      a href='#' class='slidesjs-previous slidesjs-navigation'
-        span.slides-arrow.slides-arrow--left
-          i.fa.fa-chevron-left
-      a href='#' class='slidesjs-next slidesjs-navigation'
-        span.slides-arrow.slides-arrow--right
-          i.fa.fa-chevron-right
+    .slider
+      .slider__wrapper
+        = render 'user_slide', number: 1,
+          quote: 'Für Veränderungen in der Gesellschaft benötigt es mehr Mut –'\
+            ' bei Fairnopoly erleben wir viele junge mutige Menschen. Wir freuen'\
+            ' uns auf die Zusammenarbeit mit Fairnopoly, wünschen der'\
+            ' Genossenschaft einen erfolgreichen Start, viele Mitglieder und'\
+            ' viel Erfolg auf dem Weg zu mehr Transparenz in Onlinehandel und'\
+            ' Gesellschaft!',
+          source: 'Jorge Inostroza, Gepa'
 
-      = render 'user_slide', number: 1,
-                             quote: 'Für Veränderungen in der Gesellschaft benötigt es mehr Mut – bei Fairnopoly erleben wir viele junge mutige Menschen. Wir freuen uns auf die Zusammenarbeit mit Fairnopoly, wünschen der Genossenschaft einen erfolgreichen Start, viele Mitglieder und viel Erfolg auf dem Weg zu mehr Transparenz in Onlinehandel und Gesellschaft!',
-                             source: 'Jorge Inostroza, Gepa'
+        = render 'user_slide', number: 2,
+          quote: 'Ich bin Genossenschafts-Mitglied bei Fairnopoly, weil es uns'\
+            ' Spaß macht, Fairnopoly mitzuentwickeln. Für uns ist Fairnopoly'\
+            ' eine super Plattform, um unsere ethisch produzierten Produkte zu'\
+            ' vermarkten.',
+          source: 'Isabelle Dechamps, Be Able'
 
-      = render 'user_slide', number: 2,
-                             quote: 'Ich bin Genossenschafts-Mitglied bei Fairnopoly, weil es uns Spaß macht, Fairnopoly mitzuentwickeln. Für uns ist Fairnopoly eine super Plattform, um unsere ethisch produzierten Produkte zu vermarkten.',
-                             source: 'Isabelle Dechamps, Be Able'
+        = render 'user_slide', number: 3,
+          quote: 'Bei Fairnopoly finde ich genial, dass die Struktur eine'\
+            ' Genossenschaft ist. Das heißt, ich bin Genosse dort, ich kann'\
+            ' mitentscheiden, was da passiert – und was mit der Firma passiert.',
+          source: 'Van Bo Le-Mentzel, Architekt'
 
-      = render 'user_slide', number: 3,
-                             quote: 'Bei Fairnopoly finde ich genial, dass die Struktur eine Genossenschaft ist. Das heißt, ich bin Genosse dort, ich kann mitentscheiden, was da passiert – und was mit der Firma passiert.',
-                             source: 'Van Bo Le-Mentzel, Architekt'
+        = render 'user_slide', number: 4,
+          quote: 'Ich bin Genossin bei Fairnopoly, weil ich glaube, dass wir'\
+            ' alle bewusster konsumieren sollten. Fairnopoly gibt uns online die'\
+            ' Chance dazu – und deswegen bin ich gerne ein Teil davon.',
+          source: 'Maria Gross, Social Impact Lab'
 
-      = render 'user_slide', number: 4,
-                             quote: 'Ich bin Genossin bei Fairnopoly, weil ich glaube, dass wir alle bewusster konsumieren sollten. Fairnopoly gibt uns online die Chance dazu – und deswegen bin ich gerne ein Teil davon.',
-                             source: 'Maria Gross, Social Impact Lab'
-
-      = render 'user_slide', number: 5,
-                             quote: 'Ich bin in die Genossenschaft Fairnopoly eingestiegen, weil ich die Idee sehr überzeugend finde. Ich hab\' das Team auch kennengelernt und ich sehe, dass die wirklich mit Enthusiasmus und viel Elan dabei sind. Wir handeln auf Fairnopoly, weil wir darin eine Chance sehen, faire und Bio-Produkte weiter zu verbreiten.',
-                             source: 'Thomas Kappauf, Black Star'
+        = render 'user_slide', number: 5,
+          quote: 'Ich bin in die Genossenschaft Fairnopoly eingestiegen, weil'\
+            ' ich die Idee sehr überzeugend finde. Ich hab’ das Team auch'\
+            ' kennengelernt und ich sehe, dass die wirklich mit Enthusiasmus und'\
+            ' viel Elan dabei sind. Wir handeln auf Fairnopoly, weil wir darin'\
+            ' eine Chance sehen, faire und Bio-Produkte weiter zu verbreiten.',
+          source: 'Thomas Kappauf, Black Star'
 
 
 / Cooperative teaser

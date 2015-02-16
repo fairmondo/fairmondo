@@ -68,29 +68,55 @@
 
 
 /*
- * General slides classes
+ * General slides classes (glide.js)
  */
 
-.slides { position: relative; }
 
-.slides-arrow {
-  display: block;
-  position: absolute;
-  margin-top: -1.25em; //half height of the arrows
-  top: 50%;
+// Glide slider CSS!
+.slider__arrows_item {
+  margin-bottom: -1.25em; // half height of the arrows
   z-index: 11;
+  padding: 0;
 }
 
-// Fontawesome Arrows
-.slides-arrow i {
-  font-size: 2.5em;
+.slider__arrows-item:hover {
+  text-decoration: none;
+}
+
+.slider__arrows-item:before {
+  font: normal 2.5em FontAwesome;
   color: $white;
   text-shadow: 0 0 1px $black;
+  text-decoration: none;
+ }
+
+.slider__arrows-item--left {
+  left: 0;
+  padding: 0;
 }
 
-.slides-arrow--left { left:1em; }
+.slider__arrows-item--right {
+  right: 0;
+  padding: 0;
+}
 
-.slides-arrow--right { right:1em; }
+#billboard .slider__arrows-item--left {
+  left: 1.25em;
+}
+
+#billboard .slider__arrows-item--right {
+  right: 1.25em;
+}
+
+.slider__arrows-item--left:before {
+  content: '\f053';
+}
+
+.slider__arrows-item--right:before {
+  content: '\f054';
+}
+
+
 
 
 /*
@@ -147,7 +173,7 @@
   list-style-type: none;
 }
 
-#js-billboardslides { display: none; }
+//#js-billboardslides { display: none; }
 
 #billboard .slidejs-container, #billboard .slidejs-control,
 #billboard .slidejs-slide {
@@ -378,44 +404,67 @@
 // User quotes slides
 #userslides {
   .teaser-inner {
-    padding: 1em 4em;
+
   }
 
-  .teaser-quotation {
-    margin:0;
-		font-weight: 600;
-		font-style: italic;
-		font-size: 1.1rem;
-  }
-
-  .teaser-quotesource {
-  	text-align: right;
-    text-transform: uppercase;
-  }
-
-  .teaser-quote {
-    font-weight: 600;
-    font-size: 1.5em;
-    line-height: 0.8rem;
+  .user-slide {
+    padding: 0.5em 3em;
   }
 
   img {
     float: left;
-    margin-right: 1em;
+    margin: 0 2em 0.5em 0;
     border-radius: 0.5em;
   }
 
-  .slidesjs-container,.slidesjs-control {
-    height: auto !important;
+  blockquote {
+    margin: 0.5em 0 0;
+    float: left;
+    width: 70%;
+    position: relative;
+  }
+
+  // FontAwesome 'right-quote' character (German typographical left quote)
+  blockquote:before {
+    position: absolute;
+    left: -0.3em;
+    top: -0.2em;
+    z-index: -1;
+    font: normal 4em FontAwesome;
+    content: '\f10e';
+    color: $lighter-gray;
+  }
+
+  .teaser-quotation {
+    margin: 0;
+    font-size: 1.1em;
+		font-weight: 400;
+		font-style: normal;
+  }
+
+  .teaser-quotesource {
+    margin: 1em 0 0.5em;
   }
 }
 
 
 // Card slides
-#cardslides > .teaser-inner > #js-cardslides {
-  margin-left:auto;
-  margin-right:auto;
-  max-width: 28.15em;
+#cardslides ul, #cardslides li {
+  margin: 0;
+  padding: 0;
+}
+
+#cardslides ul {
+  list-style-type: none;
+}
+
+#cardslides img {
+  // important settings for the slideshow
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 394px;
+  max-width: 100%;
 }
 
 
@@ -522,6 +571,14 @@
 
   .billboard > article > h2 {
     font-size: 2em;
+  }
+
+  #userslides img {
+    display: none;
+  }
+
+  #userslides blockquote {
+    width: auto;
   }
 }
 
