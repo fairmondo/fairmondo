@@ -29,7 +29,7 @@ describe CartPolicy do
     it { subject.must_permit(:show)   }
     it { subject.must_permit(:edit)   }
     it { subject.must_permit(:update) }
-    it { subject.must_deny(:empty_cart) }
+    it { subject.must_permit(:empty_cart) }
     it { subject.must_permit(:send_via_email) }
   end
 end
