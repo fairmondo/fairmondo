@@ -112,7 +112,7 @@ class ArticleSearch
 
     # facets
     def category_aggregations
-      index.aggregations(category: {terms: {field: :categories}})
+      index.aggregations(category: {terms: {field: :categories, size: 10000}})
     end
 
 
