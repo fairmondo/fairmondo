@@ -377,37 +377,54 @@
 
 // User quotes slides
 #userslides {
+  .slidesjs-container,.slidesjs-control {
+    height: auto !important;
+  }
+
   .teaser-inner {
-    padding: 1em 4em;
+    padding: 0;
   }
 
-  .teaser-quotation {
-    margin:0;
-		font-weight: 600;
-		font-style: italic;
-		font-size: 1.1rem;
-  }
-
-  .teaser-quotesource {
-  	text-align: right;
-    text-transform: uppercase;
-  }
-
-  .teaser-quote {
-    font-weight: 600;
-    font-size: 1.5em;
-    line-height: 0.8rem;
+  .user-slide {
+    padding: 1em 3em;
+    overflow: hidden;
   }
 
   img {
     float: left;
-    margin-right: 1em;
+    margin-right: 2em;
     border-radius: 0.5em;
   }
 
-  .slidesjs-container,.slidesjs-control {
-    height: auto !important;
+  blockquote {
+    margin: 0.5em 0 0;
+    float: left;
+    width: 70%;
+    position: relative;
   }
+
+  // FontAwesome 'right-quote' character (German typographical left quote)
+  blockquote:before {
+    position: absolute;
+    left: -0.3em;
+    top: -0.2em;
+    z-index: -1;
+    font: normal 4em FontAwesome;
+    content: '\f10e';
+    color: $lighter-gray;
+  }
+
+  .teaser-quotation {
+    margin: 0;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 1.1em;
+  }
+
+  .teaser-quotesource {
+    margin: 1em 0 0;
+  }
+
 }
 
 
@@ -522,6 +539,14 @@
 
   .billboard > article > h2 {
     font-size: 2em;
+  }
+
+  #userslides img {
+    display: none;
+  }
+
+  #userslides blockquote {
+    width: auto;
   }
 }
 
