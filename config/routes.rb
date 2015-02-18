@@ -55,7 +55,7 @@ Fairmondo::Application.routes.draw do
     get 'confirm', constraints: {format: 'js'}
     get 'rss'
     get 'reload', as: 'reload'
-    get 'contact', as: 'contact'
+    post 'contact/:resource_type/:resource_id', as: 'contact', action: 'contact'
     patch 'reindex/:article_id', action: 'reindex', as: 'reindex'
     get 'healthcheck'
     get 'newsletter_status', as: 'newsletter_status', constraints: {format: 'json'}
