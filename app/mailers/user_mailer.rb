@@ -5,9 +5,9 @@ class UserMailer < ActionMailer::Base
   before_filter :inline_logos
   layout 'email'
 
-  def contact(sender:, receiver:, text:)
+  def contact(sender:, resource_id:, text:)
     @sender   = sender
-    @receiver = receiver
+    @receiver = User.find resource_id
     @text     = text
     @subject  = I18n.t('email.user.contact.subject')
     mail to: @receiver.email, subject: @subject
