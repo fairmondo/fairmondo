@@ -1,0 +1,6 @@
+<% if @contact_form.errors.present? %>
+$("#contact_form").replaceWith("<%= j render "toolbox/contact", resource_type: params[:resource_type], resource_id: params[:resource_id] %>");
+<% else %>
+$("#contact_form").replaceWith("<p><%= I18n.t('users.profile.contact.success_notice') %></p>");
+$.colorbox.resize()
+<% end %>

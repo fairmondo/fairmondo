@@ -1,0 +1,5 @@
+- if @contact_form.errors.present?
+  render "toolbox/contact", resource_type: params[:resource_type], resource_id: params[:resource_id]
+- else
+  p
+    = I18n.t('users.profile.contact.success_notice')
