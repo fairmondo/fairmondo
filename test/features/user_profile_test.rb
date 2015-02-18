@@ -69,38 +69,10 @@ feature 'contacting users' do
   end
 
   scenario "user contacts seller" do
-    within('.contact_seller') do
-      fill_in 'contact[text]', with: 'foobar'
-      click_button I18n.t('users.profile.contact.action')
+    within('#contact_form') do
+      fill_in 'contact_form[text]', with: 'foobar'
+      click_button I18n.t('article.show.contact.action')
     end
     page.must_have_content I18n.t 'users.profile.contact.success_notice'
-  end
-
-  scenario "user contacts seller but unchecks email transfer acceptance" do
-    within('.contact_seller') do
-      fill_in 'contact[text]', with: 'foobar'
-      uncheck 'contact[email_transfer_accepted]'
-      click_button I18n.t('users.profile.contact.action')
-    end
-    page.must_have_content I18n.t('users.profile.contact.acceptance_error')
-  end
-
-  scenario "user contacts seller with blank message" do
-    within('.contact_seller') do
-      fill_in 'contact[text]', with: ''
-      click_button I18n.t('users.profile.contact.action')
-    end
-    page.must_have_content I18n.t('users.profile.contact.empty_error')
-  end
-
-  scenario "user contacts seller with message that exceeds 2000 character limit" do
-    text = ''
-    2001.times { text += 'a' }
-
-    within('.contact_seller') do
-      fill_in 'contact[text]', with: text
-      click_button I18n.t('users.profile.contact.action')
-    end
-    page.must_have_content I18n.t('users.profile.contact.long_error')
   end
 end
