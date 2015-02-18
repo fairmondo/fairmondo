@@ -3,15 +3,13 @@ module User::Validations
   extend ActiveSupport::Concern
 
   included do
-
     validates_presence_of :slug
 
     # Registration validations
-
     validates_inclusion_of :type, in: ["PrivateUser", "LegalEntity"]
     validates :nickname , presence: true, uniqueness: true
     validates :legal, acceptance: true, on: :create
-    validates_associated :standard_address
+    validates_associated :standard_address, unless: Proc.new { |u| u.encrypted_password_changed? }
 
     with_options if: :wants_to_sell? do |seller|
       seller.validates :standard_address, presence: true

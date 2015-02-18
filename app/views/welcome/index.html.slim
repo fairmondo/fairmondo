@@ -47,22 +47,6 @@
               'https://www.startnext.com/rundesache',
               target: '_blank'
 
-        / Valentines
-        .billboard#billboard-valentines
-          article
-            ul
-              li#billboard-valentines-link1
-                = link_to '/libraries/9082/?pk_campaign=bb7&pk_kwd=surprises' do
-                  p Überraschungen zum Valentinstag
-              li#billboard-valentines-link2
-                = link_to '/libraries/9084?pk_campaign=bb7&pk_kwd=forher' do
-                  div
-                  p Für Sie
-              li#billboard-valentines-link3
-                = link_to '/libraries/9085?pk_campaign=bb7&pk_kwd=forhim' do
-                  div
-                  p Für Ihn
-
         / Bücher
         .billboard#billboard-books
           article
@@ -116,16 +100,16 @@
         /        '/libraries/8216', id: 'billboard-ecobookstore-link2'
 
         / Produkte unter 15 EUR
-        / .billboard#billboard-gifts
-        /   article
-        /     h2
-        /       | Tolle <span id="billboard-gifts-gifts">Produkte</span> unter
-        /         <span id="billboard-gifts-price">15&thinsp;&euro;</span>
-        /     ul
-        /       li#billboard-gifts-link1
-        /         = link_to '/libraries/8052?pk_campaign=bb6&pk_kwd=geschenke' do
-        /           div
-        /           p Alle ansehen
+        .billboard#billboard-gifts
+          article
+            h2
+              | Tolle <span id="billboard-gifts-gifts">Produkte</span> unter
+                <span id="billboard-gifts-price">15&thinsp;&euro;</span>
+            ul
+              li#billboard-gifts-link1
+                = link_to '/libraries/8052?pk_campaign=bb6&pk_kwd=geschenke' do
+                  div
+                  p Alle ansehen
 
         / Edle Tropfen
         / .billboard#billboard-gourmet

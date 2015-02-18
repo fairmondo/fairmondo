@@ -83,5 +83,8 @@ class Cart < ActiveRecord::Base
     return :checkout_failed
   end
 
-
+  # checks if cart is empty
+  def empty?
+    !line_items.any?
+  end
 end

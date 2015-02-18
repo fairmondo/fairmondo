@@ -4,7 +4,7 @@ class CartsController < ApplicationController
 
   before_filter :generate_session, only: :edit
   before_filter :clear_session, only: :show # userhas the possibility to reset the session by continue buying
-  before_filter :set_cart, except: :empty_cart
+  before_filter :set_cart
   before_filter :dont_cache, only: [:edit, :update]
 
   before_filter :authorize_and_authenticate_user_on_cart, only: [:show, :send_via_email]
@@ -67,7 +67,7 @@ class CartsController < ApplicationController
   end
 
   def empty_cart
-    authorize Cart.new
+    authorize @cart
     render :empty_cart
   end
 
@@ -92,6 +92,7 @@ class CartsController < ApplicationController
     end
 
     def set_cart
+    begin
       @cart = Cart.includes(
         line_item_groups:[
           :seller,
@@ -102,7 +103,10 @@ class CartsController < ApplicationController
             article:[
               :seller,
               :images
-        ]}}]).find params[:id]
+            ]}}]).find(params[:id])
+    rescue
+      @cart = Cart.new
+    end
     end
 
     def authorize_and_authenticate_user_on_cart

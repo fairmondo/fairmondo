@@ -428,6 +428,19 @@ ActiveRecord::Schema.define(version: 20150204141529) do
 
   add_index "notices", ["user_id"], name: "index_notices_on_user_id", using: :btree
 
+  create_table "opening_times", force: true do |t|
+    t.integer  "user_id",    limit: 8
+    t.string   "monday"
+    t.string   "tuesday"
+    t.string   "wednesday"
+    t.string   "thursday"
+    t.string   "friday"
+    t.string   "saturday"
+    t.string   "sunday"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "payments", force: true do |t|
     t.string   "pay_key"
     t.string   "state"
