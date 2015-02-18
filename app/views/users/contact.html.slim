@@ -1,5 +1,6 @@
 
 / Contact Box (refactor when we have a real messaging system)
 .Content
-  h1= t('users.profile.contact.heading')
-  = render 'toolbox/contact', resource_type: :user, resource_id: @user.id
+  .contact_seller
+    h1= t('users.profile.contact.heading')
+    = render 'toolbox/contact', resource_type: :user, resource_id: @user.id
