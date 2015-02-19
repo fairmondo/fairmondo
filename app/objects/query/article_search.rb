@@ -22,7 +22,7 @@ class ArticleSearch
   # public api
 
   def category_facets
-    @_category_facets ||= Hash[@search.facets['categories']['terms'].map(&:values)] if @search && @search.facets
+    @_category_facets ||= Hash[@search.aggregations["category"]["buckets"].map(&:values)] if @search && @search.facets
   end
 
   def result
@@ -42,7 +42,7 @@ class ArticleSearch
       price_filter,
       category_filter,
       condition_filter,
-      category_facet,
+      category_aggregations,
       sorting
     ].compact.reduce(:merge).query_mode(1)
   end
@@ -111,10 +111,10 @@ class ArticleSearch
     end
 
     # facets
-    def category_facet
-      index.facets(categories: { terms: { field: :categories, size: 10000} , global: !@query.q? })
-      # If we ever hit 10000 categories+ this has to be upgraded
+    def category_aggregations
+      index.aggregations(category: {terms: {field: :categories, size: 10000}})
     end
+
 
     # sorting
     def sorting
