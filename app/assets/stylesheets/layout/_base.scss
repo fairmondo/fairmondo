@@ -34,11 +34,11 @@ h1,.h1,
 h2,.h2,
 h3,.h3,
 h4,.h4 {
-  font-weight: 400;
   line-height: 1.2;
 }
 
 h1,.h1 {
+  font-weight: normal;
   font-size: 2rem;
 
   /* We don't want the h1 to take up so much space on phones */
@@ -48,13 +48,15 @@ h1,.h1 {
   }
 }
 h2,.h2 {
+  font-weight: normal;
   font-size: 1.5rem;
 }
 h3,.h3 {
+  font-weight: normal;
   font-size: 1.3rem;
 }
 h4,.h4 {
-  font-weight: 700;
+  font-weight: bold;
 }
 
 
