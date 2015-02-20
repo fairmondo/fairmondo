@@ -51,7 +51,7 @@ module Article::State
       end
 
       event :activate do
-        transition [:preview,:locked] => :active
+        transition [:preview, :locked] => :active
       end
 
       # Theoretical event, can't be performed over state-machine because people with validation issues can't do stuff anymore

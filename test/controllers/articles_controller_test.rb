@@ -270,7 +270,7 @@ describe ArticlesController do
       end
 
       it "should be possible to get a new article from an existing one" do
-        article = FactoryGirl.create :locked_article, seller: user
+        article = FactoryGirl.create :article, seller: user
         get :new, edit_as_new: article.id
         assert_template :new
         draftarticle = @controller.instance_variable_get(:@article)
@@ -359,7 +359,7 @@ describe ArticlesController do
       end
 
       it "should successfully save an edit_as_new clone and transfer its slug and comments" do
-        original_article = FactoryGirl.create :locked_article, seller: user
+        original_article = FactoryGirl.create :article, seller: user
         comment = FactoryGirl.create :comment, commentable: original_article
         original_slug = original_article.slug
 
