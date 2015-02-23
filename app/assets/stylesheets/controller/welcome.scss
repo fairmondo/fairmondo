@@ -19,7 +19,9 @@
   @include clearfix;
 }
 
-.teaser > .teaser-inner > h2 { text-transform: uppercase; }
+.teaser > .teaser-inner > h2 {
+  font-weight: bold;
+}
 
 .teaser > .teaser-inner > h5 {
   text-transform: uppercase;
