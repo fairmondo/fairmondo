@@ -124,7 +124,7 @@ module ArticlesHelper
   #
   # @return Boolean
   def show_friendly_percent_for? article
-    article.friendly_percent && article.friendly_percent > 0 && article.friendly_percent_organisation && !article.seller_ngo
+    article.friendly_percent && article.friendly_percent > 0 && article.friendly_percent_organisation_nickname && !article.seller_ngo
   end
 
   def show_fair_percent_for? article
