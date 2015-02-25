@@ -37,8 +37,9 @@
       = render partial: 'categories/shared/category_tree_leaf',
                 object: displayed_category, as: :category,
                 locals: { subtree: displayed_subtree }
+
       = render partial: 'categories/shared/category_tree_leaf',
-                collection: displayed_category.sorted_siblings, as: :category
+                collection: displayed_category.sorted_siblings, as: :category, locals: {ignore_counts: true}
 
     - else  # If no category is selected
       / Show top categories
