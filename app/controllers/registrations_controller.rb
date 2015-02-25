@@ -53,14 +53,14 @@ class RegistrationsController < Devise::RegistrationsController
     address_params = params[:address] ? params.for(Address).refine : {}
     resource.build_standard_address_from address_params
 
-    successfully_updated  = update_account(account_update_params)
+    successfully_updated = update_account(account_update_params)
     if successfully_updated
 
       resource.save_already_validated_standard_address!
 
       if is_navigational_format?
         flash_key = update_needs_confirmation?(resource, prev_unconfirmed_email) ?
-           :changed_email : :updated
+          :changed_email : :updated
         set_flash_message :notice, flash_key
       end
 

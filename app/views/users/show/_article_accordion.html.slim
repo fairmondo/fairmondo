@@ -7,6 +7,11 @@
         - else
           = t("users.text.no_#{item_name}")
   - else
+    - if local_assigns.has_key? :item_link
+      p
+        strong
+          = link_to t("users.text.new_article"), item_link
+
     .ArticleListview
       - articles.each do |article|
         = render '/articles/shared/listitem', article: article

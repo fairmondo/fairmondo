@@ -59,7 +59,7 @@ class UserObserver < ActiveRecord::Observer
 
   def deactivate_and_close_active_articles_for_banned user
     # deactivates and closes all active articles of banned user
-    if user.banned_changed? && user.banned && user.articles.active.limit(1).any?
+    if user.banned && user.articles.active.limit(1).any?
       user.articles.active.find_each do |article|
         article.deactivate
         article.close

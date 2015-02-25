@@ -76,6 +76,7 @@ de:
       add_desription: "Beschreibung hinzufügen"
       no_seller_line_item_groups: 'Du hast bisher nichts verkauft.'
       no_buyer_line_item_groups: 'Du hast bisher nichts gekauft.'
+      new_article: 'Einen weiteren Artikel einstellen.'
     actions:
       edit_account: "Profil bearbeiten"
       show_account: "Profil"

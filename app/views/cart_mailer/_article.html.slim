@@ -18,6 +18,10 @@
       h4
         | Gesamtpreis
       = "#{bt.article_price * bt.quantity_bought}€"
+  - if bt.article_transport_time
+    .article-shipping_time
+      = "Lieferzeit: #{ bt.article_transport_time } Tage"
+
 - if bt.bike_courier_selected? && role == 'buyer'
   .message
     center

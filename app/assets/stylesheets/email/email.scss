@@ -251,6 +251,15 @@ hr {
   }
 }
 
+.article > .article-shipping_time {
+  @include span(3 of 3);
+  @include omega;
+
+  text-align: center;
+  padding-top: 0.7em;
+}
+
+
 .message {
   @include shadowless_whitebox;
   margin-bottom: 0.5em;
