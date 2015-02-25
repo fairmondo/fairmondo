@@ -1,4 +1,6 @@
 - count = search_cache.category_article_count category.id rescue nil
+- if local_assigns.has_key? :ignore_counts
+  - count = nil if ignore_counts
 - displayed_name = category.name
 - displayed_name += " (#{count})" if count
 - if count != 0
