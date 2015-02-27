@@ -20,7 +20,7 @@
 }
 
 .teaser > .teaser-inner > h2 {
-  font-weight: bold;
+  font-weight: 600;
 }
 
 .teaser > .teaser-inner > h5 {
@@ -224,7 +224,7 @@
   max-width: 300px;
   margin: 8% auto;
   font-size: 1.5em;
-  font-weight: 700;
+  font-weight: 600;
 }
 
 
@@ -294,35 +294,35 @@
 
 
 // Filters teaser
-#filters section {
+.teaser--filters {
   margin-bottom: 1em;
 }
 
-#filters section > .filter-wrapper {
+.teaser--filters > .teaser-inner {
   @include whitebox;
   overflow: hidden;
   padding: 0;
 }
 
-#filters section .filter-image {
+.teaser--filters .filter-image {
   position: relative;
   background-color: $white;
 }
 
-#filters section .filter-image p {
+.teaser--filters .filter-image p {
   position: absolute;
   margin: 0;
   padding: 0.2em 1em;
   border-radius: 0.5em;
 }
 
-#filters section .filter-image .filter-show {
+.teaser--filters .filter-image .filter-show {
   bottom: 5%;
   right: 5%;
   padding-bottom: 0.3em;
 }
 
-#filters section .filter-image .filter-label {
+.teaser--filters .filter-image .filter-label {
   right: 5%;
   top: 5%;
   min-width: 3em;
@@ -331,15 +331,21 @@
   text-align: center;
 }
 
-#filters section img {
+.teaser--filters img {
   width: 100%;
 }
 
-#filters .filter-text {
+.teaser--filters .filter-text {
   padding: 1.2em 0 1.2em;
 }
 
-#filters .filter-text h3 {
+.teaser--filters a:link,
+.teaser--filters a:visited,
+{
+  color: $white;
+}
+
+.teaser--filters h2 {
   margin: 0 7.5% 0.5em;
   font-size: 1.5em;
   font-weight: 600;
@@ -349,13 +355,9 @@
   }
 }
 
-#filters .filter-text p {
+.teaser--filters .filter-text p {
   margin: 0 7.5%;
   text-decoration: underline;
-}
-
-#filters section a {
-  color: $white;
 }
 
 #filter-fair .filter-image p, #filter-fair .filter-text {
@@ -505,7 +507,7 @@
   }
 
   // Filters teaser
-  #filters section {
+  .teaser--filters {
     @include span(2 of 4);
 
     &#filter-eco, &#filter-used {
@@ -589,15 +591,16 @@
     @include omega;
   }
 
+
   // Filters teaser
-  #filters section {
+  .teaser--filters {
     @include span(2 of 6);
 
     &#filter-small {
       @include omega;
     }
 
-    &:last-of-type {
+    &#filter-used {
       display: none;
     }
   }
@@ -667,10 +670,10 @@
   }
 
   // Filters teaser
-  #filters section {
+  .teaser--filters {
     @include span(2 of 8);
 
-    &:last-of-type {
+    &#filter-used {
       @include omega;
     }
   }
