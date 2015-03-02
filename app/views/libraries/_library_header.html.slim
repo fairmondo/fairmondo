@@ -16,7 +16,7 @@
         = link_to user_path(library.user) do
           = library.user_nickname
     .Library-info-thumbnails
-      - library.library_elements.preload(article_reduced: :title_image).first(10).each do |library_element|
+      - library.library_elements.active.preload(article_reduced: :title_image).first(11).each do |library_element|
         - if library_element.article_reduced
           = image_tag(library_element.article_reduced.title_image_url(:thumb), :title => library_element.article_reduced_title)
 

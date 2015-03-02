@@ -131,6 +131,11 @@ describe ArticlesController do
         assert_redirected_to( category_path(@hardware_category.id) )
       end
 
+      it 'for string with no suggestions must return empty array' do
+        get :index, article_search_form: {q: '@#$!' }
+        @controller.instance_variable_get(:@articles).must_equal []
+      end
+
       # wegreen search term
       describe '#wegreen_search_term' do
         it 'should return query string' do
@@ -503,6 +508,12 @@ describe ArticlesController do
         }]
       }.to_json)
 
+      get :autocomplete, q: '@#%$#@'
+      assert_response :success
+      response.body.must_equal({
+        query: '@#%$#@',
+        suggestions: []
+      }.to_json)
     end
 
     it "should rescue an Faraday::ConnectionFailed error" do
