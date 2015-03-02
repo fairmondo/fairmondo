@@ -30,8 +30,14 @@ feature 'User registration' do
     user = FactoryGirl.create :user
     visit root_path
 
-    page.must_have_link I18n.t('common.actions.login')
-    click_link I18n.t('common.actions.login')
+    # Check movile nav as well as desktop nav
+    within '.l-header-mnav' do
+      page.must_have_link I18n.t('common.actions.login')
+    end
+    within '.l-header-nav' do
+      page.must_have_link I18n.t('common.actions.login')
+      click_link I18n.t('common.actions.login')
+    end
 
     fill_in 'user_email', with: user.email
     fill_in 'user_password', with: 'password'

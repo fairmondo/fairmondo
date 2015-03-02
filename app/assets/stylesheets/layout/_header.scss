@@ -1,6 +1,12 @@
 $header-highlight-color: $even-lighter-gray;
 $header-nav-link-color-hover: $blue;
 
+ ul {
+  margin:0;
+  padding:0;
+  list-style: none;
+}
+
 // Peek fix
 #peek .wrapper {
   width: $screen-width !important;
@@ -59,6 +65,70 @@ $header-nav-link-color-hover: $blue;
 
 
 
+// Mobile Nav
+
+.l-header-mnav {
+  clear: both;
+  width: 100%;
+}
+
+.l-header-mnav-toggle {
+  display: block;
+  float: right;
+  width: 43px;
+  height: 43px;
+  background-color: white;
+  text-align: center;
+}
+
+.l-header-mnav-toggle::before {
+  display: inline-block;
+  content: "\f0c9";
+  font: normal 28px/45px FontAwesome;
+  color: $gray;
+}
+
+.l-header-mnav-toggle.l-header-mnav--active::before {
+  content: "\f00d";
+}
+
+.l-header-mnav-menu {
+  display: none;
+}
+
+.l-header-mnav-menu-item {
+  border-top: thin dotted $gray;
+  font-weight: bold;
+}
+
+.l-header-mnav-menu-item:first-child {
+  border-top: none;
+}
+
+.l-header-mnav-menu a,
+.l-header-mnav-menu a:visited {
+  display: block;
+  padding: 1em;
+  text-decoration: none;
+  color: black;
+}
+
+.l-header-mnav-menu a:hover,
+.l-header-mnav-menu a:active {
+  color: black;
+  text-decoration: none;
+  background-color: $blue;;
+}
+
+.l-header-mnav--parent > em {
+  display: block;
+  padding: 1em 1em 0.5em;
+  font-style: italic;
+  color: $gray;
+}
+
+
+
 // Nav
 
 .l-header-nav {
@@ -68,9 +138,6 @@ $header-nav-link-color-hover: $blue;
 }
 
 .l-header-nav > ul {
-  list-style: none;
-  margin:0;
-  padding:0;
   @include clear-links;
   > li {
     text-align: left;
@@ -141,15 +208,16 @@ ul.l-header-nav-dropdown > li, ul#devise_links > li {
 
 /********************************* Breakpoints ********************************/
 
-@include till-breakpoint($bp-mobile) {
-  .l-header-nav > ul > li > a,
-  .l-header-nav > ul > li > span {
-    font-size: 0.9em;
+@include till-breakpoint($bp-tablet) {
+  .l-header-rename,
+  .l-header-nav {
+    display: none;
   }
 }
 
-@include till-breakpoint($bp-mobile-horizontal-big) {
-  .l-header-rename {
+@include at-breakpoint($bp-tablet) {
+  .l-header-mnav,
+  .l-header-mnav-toggle {
     display: none;
   }
 }
