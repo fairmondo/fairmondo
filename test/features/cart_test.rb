@@ -60,7 +60,11 @@ feature 'Adding an Article to the cart' do
     visit article_path(article)
     click_button I18n.t('common.actions.to_cart')
     page.html.must_include I18n.t('line_item.notices.success_create', href: '/carts/1').html_safe
-    click_link I18n.t('common.actions.logout')
+
+    within '.l-header-nav' do
+      click_link I18n.t('common.actions.logout')
+    end
+
     page.wont_have_content I18n.t('header.cart.title', count: 1)
     login_as FactoryGirl.create(:user)
     page.wont_have_content I18n.t('header.cart.title', count: 1)

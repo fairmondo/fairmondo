@@ -82,6 +82,7 @@
 #= require visual/details
 #= require visual/iframe
 #= require visual/input_enforcement
+#= require visual/mobile_nav
 #= require visual/news_header_close
 #= require visual/notice_close
 #= require visual/notice_scroll
