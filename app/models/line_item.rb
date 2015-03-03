@@ -5,6 +5,7 @@ class LineItem < ActiveRecord::Base
 
   delegate :id, to: :cart, prefix: true
   delegate :quantity, :quantity_available, :price, :title, :transport_bike_courier,
+           :price_wo_vat,
            to: :article, prefix: true
 
   belongs_to :line_item_group, inverse_of: :line_items
@@ -53,4 +54,8 @@ class LineItem < ActiveRecord::Base
   # Handle line_item_count on Cart
   before_create  -> { Cart.increment_counter(:line_item_count, cart.id) }
   before_destroy -> { Cart.decrement_counter(:line_item_count, cart.id) }
+
+  def qualifies_for_belboon?
+    line_item_group.seller.is_a?(LegalEntity) && article.is_conventional?
+  end
 end

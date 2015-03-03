@@ -83,8 +83,9 @@ describe User do
     it { subject.must_respond_to :receive_comments_notification }
     it { subject.must_respond_to :admin }
     it { subject.must_respond_to :heavy_uploader }
-
+    it { subject.must_respond_to :belboon_tracking_token }
   end
+
   describe "associations" do
     it { subject.must have_many(:addresses).dependent(:destroy) }
     it { subject.must belong_to(:standard_address) }

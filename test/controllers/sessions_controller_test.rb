@@ -64,6 +64,13 @@ describe SessionsController do
       post :create, :user => {:email => @user.email, :password => 'password'}
       @cart.reload.user.must_equal @user
     end
+
+    it 'should save belboon tracking token in user if session has token' do
+      session[:belboon] = 'abcd,1234'
+      post :create, :user => {:email => @user.email, :password => 'password'}
+      @user.reload.belboon_tracking_token.must_equal 'abcd,1234'
+      session[:belboon].must_equal nil
+    end
   end
 
   describe "DELETE 'destroy'" do

@@ -13,7 +13,9 @@ class Cart < ActiveRecord::Base
   scope :open, -> { where.not(sold: true) }
 
   #Methods
-  delegate :total_purchase_donations, to: :user, prefix: true
+  delegate :total_purchase_donations,
+           :belboon_tracking_token,
+           :belboon_tracking_token_set_at, to: :user, prefix: true
 
   # Finds an existing cart for the logged in user or creates a new one
   # @param buyer [User, nil] logged in user or nil if user is not logged in

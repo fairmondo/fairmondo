@@ -1,4 +1,5 @@
 class CartsController < ApplicationController
+
   respond_to :html
   respond_to :js, if: lambda { request.xhr? }
 
@@ -10,7 +11,6 @@ class CartsController < ApplicationController
   before_filter :authorize_and_authenticate_user_on_cart, only: [:show, :send_via_email]
   skip_before_filter :authenticate_user!, only: [:show, :send_via_email, :empty_cart]
 
-
   def show
     if @cart.sold?
       # redirect directly to a purchase view if there is only one lig to purchase
@@ -21,6 +21,7 @@ class CartsController < ApplicationController
     end
     respond_with @cart
     # switch between pre and post purchase view happens in the template
+    clear_belboon_tracking_token_from_user if clear_tracking_token?
   end
 
   def edit
@@ -137,5 +138,9 @@ class CartsController < ApplicationController
           'cart.notices.checkout_success', euro: total_donations
         ).html_safe
       end
+    end
+
+    def clear_tracking_token?
+      @cart && @cart.sold?
     end
 end

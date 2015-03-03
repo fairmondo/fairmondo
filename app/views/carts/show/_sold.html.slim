@@ -4,3 +4,15 @@ p
   = t 'cart.texts.explain'
 - cart.line_item_groups.each do |group|
   = render 'line_item_groups/shared/listitem' , line_item_group: group
+
+- ordercode, value_wo_vat, tracking_token = '', '', ''
+
+- if current_user == cart.user && \
+  current_user.belboon_tracking_token
+  - ordercode = cart.id
+  - value_wo_vat = CartAbacus.new(cart).belboon_tracking_relevant_value.to_s
+  - tracking_token = current_user.belboon_tracking_token
+
+= render 'shared/belboon_tracking', ordercode: ordercode,
+  value_wo_vat: value_wo_vat,
+  tracking_token: tracking_token

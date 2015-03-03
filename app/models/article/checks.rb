@@ -31,7 +31,7 @@ module Article::Checks
   end
 
   def is_conventional?
-    self.condition == "new" && !self.fair && !self.small_and_precious && !self.ecologic
+    condition == "new" && !fair && !small_and_precious && !ecologic
   end
 
   def save_as_template?

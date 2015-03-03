@@ -27,6 +27,10 @@ class ApplicationController < ActionController::Base
   before_filter :unset_cart
   before_filter :profile_request
 
+  ## Affiliate Network
+  include BelboonTracking
+  before_filter :save_belboon_tracking_token_in_session, only: [:index, :show]
+
   layout :layout_by_param
 
   # Arcane
