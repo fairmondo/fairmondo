@@ -161,55 +161,53 @@
 
 
 / Filter boxes
-.teaser.teaser--full.teaser--clear#filters
+.teaser.teaser--clear.teaser--filters#filter-fair
   .teaser-inner
-    section#filter-fair
-      .filter-wrapper
-        = link_to '/articles?article_search_form[fair]=true'\
-                  '&pk_campaign=filterbox&pk_kwd=fair' do
-          .filter-text
-            h3= t('welcome.filter_boxes.fair.teaser_html')
-            p= t('welcome.filter_boxes.fair.description')
-          .filter-image
-            = image_tag 'welcome/filter-fair.jpg'
-            p.filter-show= t('welcome.filter_boxes.fair.link')
-            p.filter-label= t('welcome.filter_boxes.fair.label')
+    = link_to '/articles?article_search_form[fair]=true'\
+              '&pk_campaign=filterbox&pk_kwd=fair' do
+      .filter-text
+        h2= t('welcome.filter_boxes.fair.teaser_html')
+        p= t('welcome.filter_boxes.fair.description')
+      .filter-image
+        = image_tag 'welcome/filter-fair.jpg'
+        p.filter-show= t('welcome.filter_boxes.fair.link')
+        p.filter-label= t('welcome.filter_boxes.fair.label')
 
-    section#filter-eco
-      .filter-wrapper
-        = link_to '/articles?article_search_form[ecologic]=true'\
-                  '&pk_campaign=filterbox&pk_kwd=eco' do
-          .filter-text
-            h3= t('welcome.filter_boxes.ecologic.teaser_html')
-            p= t('welcome.filter_boxes.ecologic.description')
-          .filter-image
-            = image_tag 'welcome/filter-eco.jpg'
-            p.filter-show= t('welcome.filter_boxes.ecologic.link')
-            p.filter-label= t('welcome.filter_boxes.ecologic.label')
+.teaser.teaser--filters#filter-eco
+  .teaser-inner
+      = link_to '/articles?article_search_form[ecologic]=true'\
+                '&pk_campaign=filterbox&pk_kwd=eco' do
+        .filter-text
+          h2= t('welcome.filter_boxes.ecologic.teaser_html')
+          p= t('welcome.filter_boxes.ecologic.description')
+        .filter-image
+          = image_tag 'welcome/filter-eco.jpg'
+          p.filter-show= t('welcome.filter_boxes.ecologic.link')
+          p.filter-label= t('welcome.filter_boxes.ecologic.label')
 
-    section#filter-small
-      .filter-wrapper
-        = link_to '/articles?article_search_form[small_and_precious]=true'\
-                  '&pk_campaign=filterbox&pk_kwd=small' do
-          .filter-text
-            h3= t('welcome.filter_boxes.small.teaser_html')
-            p= t('welcome.filter_boxes.small.description')
-          .filter-image
-            = image_tag 'welcome/filter-small.jpg'
-            p.filter-show= t('welcome.filter_boxes.small.link')
-            p.filter-label= t('welcome.filter_boxes.small.label')
+.teaser.teaser--filters#filter-small
+  .teaser-inner
+    = link_to '/articles?article_search_form[small_and_precious]=true'\
+              '&pk_campaign=filterbox&pk_kwd=small' do
+      .filter-text
+        h2= t('welcome.filter_boxes.small.teaser_html')
+        p= t('welcome.filter_boxes.small.description')
+      .filter-image
+        = image_tag 'welcome/filter-small.jpg'
+        p.filter-show= t('welcome.filter_boxes.small.link')
+        p.filter-label= t('welcome.filter_boxes.small.label')
 
-    section#filter-used
-      .filter-wrapper
-        = link_to '/articles?article_search_form[condition]=old'\
-                  '&pk_campaign=filterbox&pk_kwd=used' do
-          .filter-text
-            h3= t('welcome.filter_boxes.used.teaser_html')
-            p= t('welcome.filter_boxes.used.description')
-          .filter-image
-            = image_tag 'welcome/filter-used.jpg'
-            p.filter-show= t('welcome.filter_boxes.used.link')
-            p.filter-label= t('welcome.filter_boxes.used.label')
+.teaser.teaser--filters#filter-used
+  .teaser-inner
+   = link_to '/articles?article_search_form[condition]=old'\
+              '&pk_campaign=filterbox&pk_kwd=used' do
+      .filter-text
+        h2= t('welcome.filter_boxes.used.teaser_html')
+        p= t('welcome.filter_boxes.used.description')
+      .filter-image
+        = image_tag 'welcome/filter-used.jpg'
+        p.filter-show= t('welcome.filter_boxes.used.link')
+        p.filter-label= t('welcome.filter_boxes.used.label')
 
 
 / Personalized library section, only shown if @last_hearted_libraries is set
