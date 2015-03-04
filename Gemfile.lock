@@ -439,6 +439,8 @@ GEM
       remotipart (~> 1.0)
       safe_yaml (~> 1.0)
       sass-rails (>= 4.0, < 6)
+    rails_admin_nested_set (0.4.0)
+      rails_admin (~> 0.6.6)
     rails_best_practices (1.15.4)
       activesupport
       awesome_print
@@ -694,6 +696,7 @@ DEPENDENCIES
   rails-observers
   rails-timeago
   rails_admin (>= 0.6.6)
+  rails_admin_nested_set
   rails_admin_statistics!
   rails_best_practices
   rake
