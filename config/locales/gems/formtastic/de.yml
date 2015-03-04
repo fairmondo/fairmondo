@@ -43,9 +43,8 @@ de:
         paypal_and_bank_account: "PayPal- und Bankkonto"
         paypal_account: "Deine Paypal E-Mail-Adresse"
         customer_number: "Kundennummer"
-        direct_debit1_html: "Ich ermächtige die Fairmondo eG widerruflich, die fälligen "
-        direct_debit2_html: " im Einzugsermächtigungsverfahren einzuziehen."
-        seller_fees: "Verkaufsgebühren"
+        direct_debit_html: "Hiermit erteile ich ein "
+        sepa: "SEPA Lastschriftmandat"
         unified_transport_maximum_articles: "Die Versandkosten gelten bis maximal"
         unified_transport_provider: "Der Kombiversand erfolgt als:"
         unified_transport_price: Versandkosten (€)
