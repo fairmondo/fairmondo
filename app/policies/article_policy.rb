@@ -38,6 +38,7 @@ class ArticlePolicy < Struct.new(:user, :article)
 
   def create?
     original = article.original
+    #binding.pry
     if original && original.seller == article.seller && (original.closed? || original.sold? || original.locked?)
       true
     elsif !original
