@@ -64,8 +64,6 @@ gem 'hogan_assets'
 gem 'formtastic', "~> 2.3.0.rc3"
 gem "recaptcha", :require => "recaptcha/rails" #Captcha Gem
 
-
-
 # ---------- Controller ----------
 
 gem 'arcane' # Parameter management for strong_parameters
@@ -74,7 +72,6 @@ gem 'devise' # authentication
 gem 'pundit' # authorization
 gem 'kaminari' # pagination
 gem 'responders'
-
 
 # ---------- Mail ----------
 
@@ -97,6 +94,7 @@ gem 'ibanomat' # accound number to IBAN
 gem 'memoist' # Support for memoization
 gem 'rails_admin', '>= 0.6.6' # Administrative backend
 gem 'rails_admin_statistics', github: 'KonstantinKo/rails_admin_statistics'
+gem 'rails_admin_nested_set'
 gem 'rack-rewrite' # Redirects
 gem 'json'
 gem 'nokogiri'
@@ -142,7 +140,6 @@ group :development do
   # er diagramm generation
   gem "rails-erd"
   gem 'thin' # Replace Webrick
-
 end
 
 group :test do
@@ -153,7 +150,6 @@ group :test do
   gem "fakeredis"
   gem "fakeweb", "~> 1.3"
 end
-
 
 group :development, :test do
   gem "parallel_tests"
@@ -195,12 +191,9 @@ group :development, :test do
   gem 'bullet' # Notify about n+1 queries
 end
 
-
-
 group :development,:test,:staging do
   gem 'factory_girl_rails'
   gem 'ffaker'
   # styleguides
   gem 'nkss-rails', github: 'nadarei/nkss-rails'
-
 end
