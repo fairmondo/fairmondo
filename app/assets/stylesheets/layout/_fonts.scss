@@ -5,18 +5,6 @@
 
 
 @font-face {
-    font-family: 'Open Sans';
-    font-weight: 300;
-    font-style: normal;
-    src: font-url('opensans/OpenSans-Light-webfont.eot');
-    src: font-url('opensans/OpenSans-Light-webfont.eot?#iefix') format('embedded-opentype'),
-         font-url('opensans/OpenSans-Light-webfont.woff') format('woff'),
-         font-url('opensans/OpenSans-Light-webfont.ttf') format('truetype'),
-         font-url('opensans/OpenSans-Light-webfont.svg#open_sanslight') format('svg');
-}
-
-
-@font-face {
   font-family: 'Open Sans';
   font-weight: 400;
   font-style: normal;
@@ -70,19 +58,6 @@
 /*
  * Italics
  */
-
-/*
-@font-face {
-  font-family: 'Open Sans';
-  font-weight: 300;
-  font-style: italic;
-  src: font-url('opensans/OpenSans-LightItalic-webfont.eot');
-  src: font-url('opensans/OpenSans-LightItalic-webfont.eot?#iefix') format('embedded-opentype'),
-       font-url('opensans/OpenSans-LightItalic-webfont.woff') format('woff'),
-       font-url('opensans/OpenSans-LightItalic-webfont.ttf') format('truetype'),
-       font-url('opensans/OpenSans-LightItalic-webfont.svg#open_sanslight_italic') format('svg');
-}
-*/
 
 /*
 @font-face {
