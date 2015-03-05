@@ -25,6 +25,8 @@ class ArticlesController < ApplicationController
   respond_to :html
   respond_to :json, only: [:show,:index]
 
+  before_filter :set_article, only: [:edit, :update, :destroy, :show]
+
   # Authorization
   skip_before_filter :authenticate_user!, only: [:show, :index, :new, :autocomplete]
   before_filter :seller_sign_in, only: :new
@@ -35,12 +37,22 @@ class ArticlesController < ApplicationController
 
   #search_cache
   before_filter :build_search_cache, only: :index
-  before_filter :category_specific_search, only: :index, unless: lambda { request.xhr? || request.format == :json }
+  before_filter :category_specific_search, only: :index,
+    unless: lambda { request.xhr? || request.format == :json }
 
   # Calculate value of active goods
   before_filter :check_value_of_goods, only: [:update], if: :activate_params_present?
 
-  before_filter :set_article, only: [:edit, :update, :destroy, :show]
+  # Calculate fees and donations
+  before_filter :calculate_fees_and_donations, only: :show,
+    if: lambda { !@article.active? && policy(@article).activate? }
+
+  # Flash image processing message
+  before_filter :flash_image_processing_message, only: :show,
+    if: lambda { !flash.now[:notice] &&
+                 @article.owned_by?(current_user) &&
+                 at_least_one_image_processing? }
+
 
   rescue_from ActiveRecord::RecordNotFound, with: :similar_articles, only: :show
 
@@ -56,15 +68,6 @@ class ArticlesController < ApplicationController
 
     @user_libraries = current_user.libraries if current_user
     @containing_libraries = @article.libraries.includes(user: [:image]).published.limit(10)
-
-    if !@article.active? && policy(@article).activate?
-      @article.calculate_fees_and_donations
-    end
-
-    if !flash.now[:notice] && @article.owned_by?(current_user) && at_least_one_image_processing?
-      flash.now[:notice] = t('article.notices.image_processing')
-    end
-
   rescue Pundit::NotAuthorizedError
     similar_articles @article.title
   end
@@ -75,7 +78,6 @@ class ArticlesController < ApplicationController
   end
 
   def new
-    ############### From Template ################
     if params[:template] && params[:template][:article_id].present?
       new_from_template
     elsif params[:edit_as_new]
@@ -122,6 +124,14 @@ class ArticlesController < ApplicationController
   ##### Private Helpers
 
   private
+
+    def calculate_fees_and_donations
+      @article.calculate_fees_and_donations
+    end
+
+    def flash_image_processing_message
+      flash.now[:notice] = t('article.notices.image_processing')
+    end
 
     def seller_sign_in
       # If user is not logged in, redirect to sign in page with parameter for
