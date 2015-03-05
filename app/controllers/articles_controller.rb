@@ -83,7 +83,7 @@ class ArticlesController < ApplicationController
     elsif params[:edit_as_new]
       @old_article = current_user.articles.find(params[:edit_as_new])
       @article = Article.edit_as_new @old_article
-      @old_article.deactivate!
+      @old_article.deactivate! if @old_article.active?
       @old_article.close_without_validation
     else
       @article = current_user.articles.build
