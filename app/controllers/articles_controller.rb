@@ -77,16 +77,11 @@ class ArticlesController < ApplicationController
   def new
     ############### From Template ################
     if params[:template] && params[:template][:article_id].present?
-      template = current_user.articles.unscoped.find(params[:template][:article_id])
-      @article = template.amoeba_dup
-      flash.now[:notice] = t('template.notices.applied', :name => template.article_template_name)
+      new_from_template
     elsif params[:edit_as_new]
-      @old_article = current_user.articles.find(params[:edit_as_new])
-      @article = Article.edit_as_new @old_article
-      @old_article.deactivate! if @old_article.active?
-      @old_article.close_without_validation
+      edit_as_new
     else
-      @article = current_user.articles.build
+      new_article
     end
     authorize @article
   end
@@ -118,7 +113,7 @@ class ArticlesController < ApplicationController
     if @article.preview?
       @article.destroy
     else
-      @article.deactivate!
+      @article.deactivate! if @article.active?
       @article.close_without_validation
     end
     respond_with @article, location: -> { user_path(current_user) }
@@ -153,25 +148,33 @@ class ArticlesController < ApplicationController
       # For changing the state of an article
       # Refer to Article::State
       if params[:activate]
-        @article.assign_attributes params.for(@article).refine
-        authorize @article, :activate?
-        if @article.activate
-          flash[:notice] = I18n.t('article.notices.create_html')
-          redirect_to @article
-        elsif @article.errors.keys.include? :tos_accepted
-          # TOS weren't accepted, redirect back to the form
-          flash[:error] = I18n.t('article.notices.activation_failed')
-          render :show
-        else
-          # The article became invalid so please try a new one
-          redirect_to new_article_path(:edit_as_new => @article.id)
-        end
+        activate!
       elsif params[:deactivate]
-        authorize @article, :deactivate?
-        @article.deactivate_without_validation
-        flash[:notice] = I18n.t('article.notices.deactivated')
-        redirect_to @article
+        deactivate!
       end
+    end
+
+    def activate!
+      @article.assign_attributes params.for(@article).refine
+      authorize @article, :activate?
+      if @article.activate
+        flash[:notice] = I18n.t('article.notices.create_html')
+        redirect_to @article
+      elsif @article.errors.keys.include? :tos_accepted
+        # TOS weren't accepted, redirect back to the form
+        flash[:error] = I18n.t('article.notices.activation_failed')
+        render :show
+      else
+        # The article became invalid so please try a new one
+        redirect_to new_article_path(:edit_as_new => @article.id)
+      end
+    end
+
+    def deactivate!
+      authorize @article, :deactivate?
+      @article.deactivate_without_validation
+      flash[:notice] = I18n.t('article.notices.deactivated')
+      redirect_to @article
     end
 
     def state_params_present?
@@ -181,6 +184,26 @@ class ArticlesController < ApplicationController
     def activate_params_present?
       !!params[:activate]
     end
+
+    # used in for new articles
+    #
+    def new_from_template
+      template = current_user.articles.unscoped.find(params[:template][:article_id])
+      @article = template.amoeba_dup
+      flash.now[:notice] = t('template.notices.applied', :name => template.article_template_name)
+    end
+
+    def edit_as_new
+      @old_article = current_user.articles.find(params[:edit_as_new])
+      @article = Article.edit_as_new @old_article
+      @old_article.deactivate! if @old_article.active?
+      @old_article.close_without_validation
+    end
+
+    def new_article
+      @article = current_user.articles.build
+    end
+
 
     ############ Images ################
 
@@ -204,7 +227,6 @@ class ArticlesController < ApplicationController
   ################## Inherited Resources
 
   protected
-
 
     def category_specific_search
       if @search_cache.category_id.present?
