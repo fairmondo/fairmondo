@@ -93,11 +93,6 @@ class ArticlesController < ApplicationController
 
   def edit
     authorize @article
-    unless @article.preview? || @article.template?
-      @article.deactivate!
-    end
-
-    respond_with @article
   end
 
   def create
