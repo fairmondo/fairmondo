@@ -21,7 +21,7 @@
 #
 class Category < ActiveRecord::Base
   extend FriendlyId
-  friendly_id :name, use: [:slugged, :finders]
+  friendly_id :slug_candidates, use: [:slugged, :finders]
 
   acts_as_nested_set
 
@@ -34,7 +34,7 @@ class Category < ActiveRecord::Base
   belongs_to :parent, class_name: 'Category', counter_cache: :children_count
 
   # Validations
-  validates :name, presence: true, uniqueness: true
+  validates :name, presence: true
 
   # Scopes
   CATEGORY_NAV_THRESHOLD = 38
@@ -84,6 +84,11 @@ class Category < ActiveRecord::Base
   end
 
   private
+
+    def slug_candidates
+      [:name, [:name, :id]]
+    end
+
     def delete_if_no_active_articles array
       array.delete_if do |node|
         node.children.empty? && node.active_articles.empty?
