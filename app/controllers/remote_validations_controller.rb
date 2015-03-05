@@ -3,7 +3,7 @@ class RemoteValidationsController < ApplicationController
   skip_before_filter :authenticate_user!
 
   def create
-    @validator = RemoteValidation.new params[:model], params[:field], params[:value], additional_params # doesn't get saved to database, doesn't need permit, handles request permissions itself
+    @validator = RemoteValidation.new params[:model], params[:field], params[:value], additional_params # don't get saved to database, don't need permit, handle request permissions themselves
     render json: { errors: @validator.errors }
   end
 

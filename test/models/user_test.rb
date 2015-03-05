@@ -83,8 +83,9 @@ describe User do
     it { subject.must_respond_to :receive_comments_notification }
     it { subject.must_respond_to :admin }
     it { subject.must_respond_to :heavy_uploader }
-
+    it { subject.must_respond_to :belboon_tracking_token }
   end
+
   describe "associations" do
     it { subject.must have_many(:addresses).dependent(:destroy) }
     it { subject.must belong_to(:standard_address) }
@@ -136,6 +137,18 @@ describe User do
       it { user.standard_address.must validate_presence_of :zip}
       it { user.standard_address.must validate_presence_of :city }
       it { user.standard_address.must validate_presence_of :country }
+    end
+  end
+
+  describe 'banning a user' do
+    it 'should deactivate all of users active articles' do
+      user = FactoryGirl.create :user
+      FactoryGirl.create :article, seller: user
+
+      assert_difference 'user.articles.active.count', -1, 'active articles of user shoud be deactivated' do
+        user.banned = true
+        user.save
+      end
     end
   end
 

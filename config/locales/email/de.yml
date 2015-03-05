@@ -104,8 +104,15 @@ de:
     cart:
       buyer:
         heading: 'Dein Einkauf auf Fairmondo'
-        text: "Vielen Dank für Deinen Einkauf! Alle Bestelldaten sind unten für Dich zusammengefasst.\n\nDein Fairmondo-Team."
+        text: |
+          Vielen Dank für Deinen Einkauf! Alle Bestelldaten sind unten für Dich
+          zusammengefasst.
+        total_donations: |
+          Mit Deinen Einkäufen hast Du Fairmondo bisher eine Spende von %{euro}
+          an Transparency International e.V. zur Bekämpfung von Korruption
+          ermöglicht.
         visit_your_profile: 'Um die gekauften Artikel zu bezahlen, besuche bitte Dein'
+        signoff: 'Dein Fairmondo-Team.'
         user_profile: 'Nutzer*innen-Profil'
         your_purchase: 'Dein Einkauf bei'
         your_message: 'Deine Nachricht an den*die Verkäufer*in'

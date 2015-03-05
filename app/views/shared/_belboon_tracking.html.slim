@@ -1,0 +1,10 @@
+/ oc –> ordercode, our cart_id
+/ sale -> order value without vat
+/ belboon -> the belboon tracking token
+
+= image_tag("https://www1.belboon.de/adtracking/sale/000020646.gif/oc=#{ ordercode }&sale=#{ value_wo_vat }&belboon=#{ tracking_token }", border: '0', height: '1', width: '1', id: 'bbconv')
+= javascript_include_tag('https://www1.belboon.de/adtracking/conversion.jssl')
+
+object.flash type='application/x-shockwave-flash' data='https://www1.belboon.de/adtracking/flash.swf' width='1' height='1'
+  param name='flashvars' value="pgmid=000020646&etype=sale&tparam=sale&evalue=#{ value_wo_vat }&oc=#{ ordercode }"
+  param name='movie' value='https://www1.belboon.de/adtracking/flash.swf'

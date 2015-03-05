@@ -80,4 +80,8 @@ module FormHelper
     link_to label, target, target: '_blank', onclick: on_click_open_link_in_label(target)
   end
 
+  def get_or_create_contact_form
+    @contact_form || ContactForm.new
+  end
+
 end

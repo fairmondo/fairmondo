@@ -11,6 +11,12 @@
   margin-bottom: 1em;
 }
 
+// Provide responsiveness for large images
+.content > .Content {
+  overflow-x: auto;
+}
+
+
 .content-nav, .content-share{
   @include at-breakpoint($bp-tablet-horizontal) {
    @include span(1 of 4 0.1) ;

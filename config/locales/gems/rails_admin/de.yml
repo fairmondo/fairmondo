@@ -94,6 +94,12 @@ de:
         title: "Historie von %{model_label} '%{object_label}'"
         menu: "Historie"
         breadcrumb: "Historie"
+      nested_set:
+        title: "%{model_label_plural} sortieren"
+        menu: "Sortieren"
+        breadcrumb: "Sortieren"
+        success: "Erfolgreich gespeichert"
+        error: 'Fehler'
     form:
       cancel: "Abbrechen"
       basic_info: "Grundlegende Informationen"

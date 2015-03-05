@@ -6,10 +6,13 @@ footer.l-footer
         = image_tag 'logo_small.png', alt: t('common.fairmondo_name')
 
       / Social media buttons
-      - if local_assigns.has_key?(:with_social_media_buttons)\
-           && with_social_media_buttons
+      - if with_social_media_buttons
         .socialshareprivacy[data={ uri: 'http://www.fairmondo.de/',
           title: 'Gutes einfach entdecken' }]
+
+        / Economy for the Common Good banner
+        = link_to '/contents/gwoe-bilanz' do
+          span.sprite_gemeinwohloekonomie
 
     / Feedback links
     ul#l-feedback
@@ -49,6 +52,9 @@ footer.l-footer
           li
             = link_to t('footer.contact'),
               '/contact'
+          li
+            = link_to t('footer.affiliate'),
+              'https://ui.belboon.com/partner20646.html'
 
       / Company
       section#l-footer-nav-fairmondo

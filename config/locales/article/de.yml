@@ -215,7 +215,7 @@ de:
         fee: "Gebühr bei Verkauf\n(%{fee} – max. %{max}, min. € 0,10):"
         total_fee_mass_upload: "Gebühr bei Verkauf aller Artikel (gemäß der angegebenen Stückzahl)"
         total: "Gesamtpreis bei Verkauf, inkl. 19% MwSt:"
-        total_mass_upload: "Gesamtpreis bei Verkauf des Artikels (gemäß der angegebenen Stückzahl), inkl. 19% MwSt:"
+        total_mass_upload: "Gebühren und Spenden bei Verkauf des gesamten Artikelkontingents, Gesamtpreis (inkl. 19% MwSt):"
         total_all_articles: "Gesamtpreis bei Verkauf aller Artikel (gemäß der angegebenen Stückzahl) inkl 19% MwSt:"
         quarter_fee: "Zzgl. der Quartalsgebühr von 1,‒ Euro (inkl. 19% MwSt)."
         netto: "Nettobetrag:"

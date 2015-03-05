@@ -1,20 +1,6 @@
+
 / Contact Box (refactor when we have a real messaging system)
-.Content.contact_seller
-  - if current_user
+.Content
+  .contact_seller
     h1= t('users.profile.contact.heading')
-    h4= t('users.profile.contact.description')
-    = semantic_form_for :contact, url: toolbox_contact_path, method: :get, html: { class: 'js-visual-submit' } do |f|
-      = f.inputs do
-        = f.hidden_field :user_id, value: resource.id
-        - text = (session[:seller_message]) ? session[:seller_message][resource.id.to_s] : nil
-        = f.input :text, as: :text, label: t('users.profile.contact.labels.text'),input_html: { rows: 4, value: text, placeholder: t('users.profile.contact.labels.text') }
-        = f.input :email_transfer_accepted, label: t('users.profile.contact.email_transfer_accepted_label'), as: :boolean, required: true, input_html: { checked: true }
-
-      = f.actions do
-        = f.action :submit, label: t('users.profile.contact.action'), button_html: {class: "Button"}
-  - else
-    | Um eine Rückfrage stellen zu können, musst Du dich bei Fairmondo
-    =<> link_to 'registrieren', new_user_registration_path
-    | und
-    =<> link_to('einloggen', new_user_session_path) + '.'
-
+    = render 'toolbox/contact', resource_type: :user, resource_id: @user.id

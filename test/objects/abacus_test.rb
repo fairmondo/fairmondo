@@ -195,11 +195,4 @@ describe 'Abacus' do
     #donations
     @abacus.donation_listing.donation_per_organisation[ngo].must_equal(Money.new(@line_item_group.business_transactions.map{ |t| t.article.calculated_friendly_cents * t.quantity_bought }.sum))
   end
-
-
-
-
-
-
-
 end

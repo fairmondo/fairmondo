@@ -4,7 +4,7 @@
     - if user_resource.is? current_user
       .user-edit
         a href="#{ edit_user_registration_path }"
-          span.sprite_pencil
+          = fa_icon 'pencil'
           =< t 'common.actions.edit_profile'
   .user-middle
     - if user_resource.about_me && !user_resource.about_me.empty?
@@ -14,8 +14,8 @@
       h4
         = t 'users.text.no_description'
       - if user_resource.is? current_user
-        a href="#{ edit_user_registration_path }"
-          = t 'users.text.add_desription'
+        = link_to t('users.text.add_desription'),
+          edit_user_registration_path(anchor: 'profile_step')
     .user-menu
       - if user_resource.is? current_user
         a.Button href="#{ user_path(current_user) }"

@@ -127,6 +127,21 @@ module Article::ExtendedAttributes
     end
   end
 
+  # Returns price without vat
+  #
+  # @api public
+  # @return Money
+  def price_wo_vat
+    case vat
+    when 7
+      price / 1.07
+    when 19
+      price / 1.19
+    else
+      price
+    end
+  end
+
   private
 
     # DRY method for selectable_transports and selectable_payments

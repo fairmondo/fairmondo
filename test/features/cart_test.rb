@@ -60,7 +60,11 @@ feature 'Adding an Article to the cart' do
     visit article_path(article)
     click_button I18n.t('common.actions.to_cart')
     page.html.must_include I18n.t('line_item.notices.success_create', href: '/carts/1').html_safe
-    click_link I18n.t('common.actions.logout')
+
+    within '.l-header-nav' do
+      click_link I18n.t('common.actions.logout')
+    end
+
     page.wont_have_content I18n.t('header.cart.title', count: 1)
     login_as FactoryGirl.create(:user)
     page.wont_have_content I18n.t('header.cart.title', count: 1)
@@ -124,13 +128,14 @@ feature 'updating quantity of the cart' do
 end
 
 feature 'Checkout' do
-  scenario 'Buying a cart with one item (default)' do
-
-    article = FactoryGirl.create(:article, title: 'foobar')
+  scenario 'Buying a cart with one item (default) from private user' do
+    seller = FactoryGirl.create :private_user
+    article = FactoryGirl.create(:article, title: 'foobar', seller: seller)
     login_as FactoryGirl.create(:user)
     visit article_path(article)
 
-    # add things to cart ( hard to generate this via factory because it is kinda hard to set a signed cookie in capybara )
+    # add things to cart ( hard to generate this via factory because it is
+    # kinda hard to set a signed cookie in capybara )
 
     click_button I18n.t('common.actions.to_cart')
     click_link(I18n.t('header.cart.title', count: 1), match: :first)
@@ -143,7 +148,8 @@ feature 'Checkout' do
     # Step 2
 
     click_button I18n.t('common.actions.continue')
-    page.find('.Payment-value--total').must_have_content(article.price + article.transport_type1_price)
+    page.find('.Payment-value--total').must_have_content(
+      article.price + article.transport_type1_price)
 
     # checkout
 
@@ -151,9 +157,12 @@ feature 'Checkout' do
     FastbillAPI.expects(:fastbill_chain)
 
     find('input.checkout_button').click
+    # No donation display, because private seller:
+    page.wont_have_content('Einkäufen hast Du Fairmondo bisher eine Spende')
     Cart.last.sold?.must_equal true
     visit line_item_group_path(LineItemGroup.last)
-    page.find('.Payment-value--total').must_have_content(article.price + article.transport_type1_price)
+    page.find('.Payment-value--total').must_have_content(
+      article.price + article.transport_type1_price)
     visit line_item_group_path(LineItemGroup.last, tab: "transports")
     page.must_have_selector('.transport_table')
     visit line_item_group_path(LineItemGroup.last, tab: "rating")
@@ -208,11 +217,14 @@ feature 'Checkout' do
 
 
 
-  scenario 'Buying a cart with one item and free transport and change the shipping address' do
+  scenario 'Buying a cart with one item and free transport and change the
+            shipping address' do
 
     seller = FactoryGirl.create :legal_entity, :with_free_transport_at_5
 
-    article = FactoryGirl.create(:article, title: 'foobar', price_cents: 600, seller: seller )
+    article = FactoryGirl.create(:article, title: 'foobar',
+                                           price_cents: 600,
+                                           seller: seller)
     buyer = FactoryGirl.create(:user)
     transport_address = FactoryGirl.create(:address, user: buyer)
     buyer.addresses << transport_address
@@ -238,6 +250,8 @@ feature 'Checkout' do
 
     expect_cart_emails
     find('input.checkout_button').click
+    page.must_have_content(
+      'Mit Deinen Einkäufen hast Du Fairmondo bisher eine Spende von 0,06 Euro')
     Cart.last.sold?.must_equal true
     Cart.last.line_item_groups.first.transport_address.must_equal transport_address
 
@@ -359,7 +373,6 @@ feature 'Checkout' do
     # Step 2
 
     click_button I18n.t('common.actions.continue')
-
 
     # checkout
     article.deactivate

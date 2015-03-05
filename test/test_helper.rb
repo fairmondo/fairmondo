@@ -6,7 +6,6 @@ require "minitest/rails/capybara"
 require "minitest/pride"
 require "mocha/mini_test"
 require 'capybara/rails'
-require 'pry-rescue/minitest' unless ENV["CI"]
 require Rails.root.join('test/support/spec_helpers/coverage.rb')
 
 require File.expand_path("../../config/environment", __FILE__)
@@ -17,6 +16,7 @@ require 'minitest/mock'
 require "minitest-matchers"
 require 'minitest/hell'
 require 'sidekiq/testing'
+require 'pry-rescue/minitest' if ENV['RESCUE']
 require 'fakeredis'
 require "savon/mock/spec_helper"
 
@@ -55,8 +55,11 @@ include Savon::SpecHelper
 savon.mock!
 
 Minitest.after_run do
-  rails_best_practices
-  brakeman
+  if $suite_passing
+    rails_best_practices
+    brakeman
+    # rubocop # TODO: uncomment and fix rubocop violations
+  end
 end
 
 class ActionController::TestCase
@@ -71,9 +74,18 @@ class ActiveSupport::TestCase
 
   fixtures :all
 
-end
+  before :each do
+    DatabaseCleaner.start
+  end
 
-DatabaseCleaner.strategy = :transaction
+  after :each do
+    DatabaseCleaner.clean
+
+    $suite_passing = false if failure
+  end
+
+  # Add more helper methods to be used by all tests here...
+end
 
 class MiniTest::Spec
   before :each do
@@ -82,7 +94,13 @@ class MiniTest::Spec
 
   after :each do
     DatabaseCleaner.clean
+
+    $suite_passing = false if failure
   end
 
   # Add more helper methods to be used by all tests here...
 end
+
+$suite_passing = true
+
+DatabaseCleaner.strategy = :transaction

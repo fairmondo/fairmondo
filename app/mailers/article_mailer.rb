@@ -35,10 +35,10 @@ class ArticleMailer < ActionMailer::Base
     mail(to: $email_addresses['ArticleMailer']['report'], from: mail, subject: "Article reported with ID: #{article.id}")
   end
 
-  def contact user, article, text
-    @user     = user
+  def contact(sender:, resource_id:, text:)
+    @user     = sender
     @text     = text
-    @article  = article
+    @article  = Article.find(resource_id)
     @from     = @user.email
     @subject  = I18n.t('article.show.contact.mail_subject')
     mail to: @article.seller_email, from: @from, subject: @subject

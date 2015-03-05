@@ -47,6 +47,9 @@ RailsAdmin.config do |config|
     statistics do
       only ['BusinessTransaction', 'User', 'PrivateUser', 'LegalEntity']
     end
+    nested_set do
+      only ['Category']
+    end
 
     ## With an audit adapter, you can add:
     # history_index
@@ -174,6 +177,10 @@ RailsAdmin.config do |config|
     field :weight
     field :view_columns
     field :slug
+    field :parent
+    field :children
+
+    nested_set(max_depth: 5)
   end
   config.model 'Discount' do
     navigation_label 'Thema: Artikel'

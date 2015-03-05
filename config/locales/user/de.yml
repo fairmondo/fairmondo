@@ -67,7 +67,6 @@ de:
     text:
       no_active_old: "Keine vorhanden"
       no_active: "Stelle hier Deinen ersten Artikel ein"
-      no_active_html: "%{href}"
       no_inactive: "Keine Artikel vorhanden"
       no_sold: "Keine verkauften Artikel vorhanden"
       no_bought: "Keine gekauften Artikel vorhanden"
@@ -77,6 +76,7 @@ de:
       add_desription: "Beschreibung hinzufügen"
       no_seller_line_item_groups: 'Du hast bisher nichts verkauft.'
       no_buyer_line_item_groups: 'Du hast bisher nichts gekauft.'
+      new_article: 'Einen weiteren Artikel einstellen.'
     actions:
       edit_account: "Profil bearbeiten"
       show_account: "Profil"

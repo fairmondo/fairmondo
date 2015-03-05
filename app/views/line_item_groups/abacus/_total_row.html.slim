@@ -3,3 +3,5 @@
     = t("cart.texts.total_for.#{payment}")
   .Payment-value.Payment-value--total
     = money total
+    - if payment == :voucher
+      =< '*'

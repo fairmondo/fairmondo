@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141217105742) do
+ActiveRecord::Schema.define(version: 20150226095925) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -588,6 +588,9 @@ ActiveRecord::Schema.define(version: 20141217105742) do
     t.boolean  "receive_comments_notification",                default: true
     t.boolean  "heavy_uploader",                               default: false
     t.boolean  "uses_vouchers",                                default: false
+    t.integer  "total_purchase_donations_cents",     limit: 8, default: 0
+    t.string   "belboon_tracking_token"
+    t.datetime "belboon_tracking_token_set_at"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree

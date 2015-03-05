@@ -1,0 +1,32 @@
+AllCops:
+  RunRailsCops: true
+  Exclude:
+    - 'db/**/*'
+    - 'lib/cert-quiz/**/*'
+    - 'vendor/**/*'
+    - 'config/application.rb'
+    - 'config/environments/**/*'
+    - 'config/initializers/**/*'
+    - 'test/test_helper.rb'
+    - 'test/support/**/*'
+
+Documentation:
+  Enabled: false
+
+MethodDefParentheses:
+  Enabled: false
+
+GuardClause:
+  Enabled: false
+
+RedundantSelf:
+  Enabled: false
+
+LineLength:
+  Enabled: false
+
+Style/SignalException:
+  Enabled: false
+
+Metrics/MethodLength:
+  Max: 10

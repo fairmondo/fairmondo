@@ -1,11 +1,11 @@
 @import "mixins/all";
-@import "billboards/billboard-valentines";
+@import "billboards/billboard-subscriptions";
 @import "billboards/billboard-ecobookstore";
-@import "billboards/billboard-toys";
+//@import "billboards/billboard-toys";
 @import "billboards/billboard-gifts";
-@import "billboards/billboard-gourmet";
+//@import "billboards/billboard-gourmet";
 @import "billboards/billboard-books";
-@import "billboards/billboard-bybike";
+//@import "billboards/billboard-bybike";
 
 
 /*
@@ -19,7 +19,9 @@
   @include clearfix;
 }
 
-.teaser > .teaser-inner > h2 { text-transform: uppercase; }
+.teaser > .teaser-inner > h2 {
+  font-weight: 600;
+}
 
 .teaser > .teaser-inner > h5 {
   text-transform: uppercase;
@@ -153,57 +155,7 @@
   min-height: 410px;
 }
 
-
-#startnext {
-  margin-bottom: 1em;
-}
-
-// Startnext widget
-#startnext-inner {
-  @include whitebox;
-  height: 396px;
-  padding: 0.5em;
-  overflow: hidden;
-}
-
-#startnext iframe
-{
-  border: 0;
-  height: 315px;
-  width: 100%;
-}
-
-#startnext ul {
-  list-style: none;
-  padding: 0;
-  margin: 0 0 0 0.3em;
-  font-size: 0.9em;
-
-  li {
-    padding-left: 1em;
-    font-size: 1em;
-    margin-bottom: 0.75em;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-
-
-    &:before {
-      content: '\f046'; /*fontawesome char code inside the '' */
-      font-family: FontAwesome;
-      color: $green;
-      display: inline-block;
-      margin-left: -1em; /*same as padding-left set on li*/
-      width: 1em; /*same as padding-left set on li*/
-    }
-  }
-}
-
-
-
-
 // USP teaser
-/*
 #usp { margin-bottom: 1em; }
 
 #usp-inner {
@@ -222,7 +174,7 @@
   max-width: 300px;
   margin: 8% auto;
   font-size: 1.5em;
-  font-weight: 700;
+  font-weight: 600;
 }
 
 
@@ -288,39 +240,37 @@
   }
 }
 
-*/
-
 
 // Filters teaser
-#filters section {
+.teaser--filters {
   margin-bottom: 1em;
 }
 
-#filters section > .filter-wrapper {
+.teaser--filters > .teaser-inner {
   @include whitebox;
   overflow: hidden;
   padding: 0;
 }
 
-#filters section .filter-image {
+.teaser--filters .filter-image {
   position: relative;
   background-color: $white;
 }
 
-#filters section .filter-image p {
+.teaser--filters .filter-image p {
   position: absolute;
   margin: 0;
   padding: 0.2em 1em;
   border-radius: 0.5em;
 }
 
-#filters section .filter-image .filter-show {
+.teaser--filters .filter-image .filter-show {
   bottom: 5%;
   right: 5%;
   padding-bottom: 0.3em;
 }
 
-#filters section .filter-image .filter-label {
+.teaser--filters .filter-image .filter-label {
   right: 5%;
   top: 5%;
   min-width: 3em;
@@ -329,15 +279,21 @@
   text-align: center;
 }
 
-#filters section img {
+.teaser--filters img {
   width: 100%;
 }
 
-#filters .filter-text {
+.teaser--filters .filter-text {
   padding: 1.2em 0 1.2em;
 }
 
-#filters .filter-text h3 {
+.teaser--filters a:link,
+.teaser--filters a:visited,
+{
+  color: $white;
+}
+
+.teaser--filters h2 {
   margin: 0 7.5% 0.5em;
   font-size: 1.5em;
   font-weight: 600;
@@ -347,13 +303,9 @@
   }
 }
 
-#filters .filter-text p {
+.teaser--filters .filter-text p {
   margin: 0 7.5%;
   text-decoration: underline;
-}
-
-#filters section a {
-  color: $white;
 }
 
 #filter-fair .filter-image p, #filter-fair .filter-text {
@@ -376,37 +328,54 @@
 
 // User quotes slides
 #userslides {
+  .slidesjs-container,.slidesjs-control {
+    height: auto !important;
+  }
+
   .teaser-inner {
-    padding: 1em 4em;
+    padding: 0;
   }
 
-  .teaser-quotation {
-    margin:0;
-		font-weight: 600;
-		font-style: italic;
-		font-size: 1.1rem;
-  }
-
-  .teaser-quotesource {
-  	text-align: right;
-    text-transform: uppercase;
-  }
-
-  .teaser-quote {
-    font-weight: 600;
-    font-size: 1.5em;
-    line-height: 0.8rem;
+  .user-slide {
+    padding: 1em 3em;
+    overflow: hidden;
   }
 
   img {
     float: left;
-    margin-right: 1em;
+    margin-right: 2em;
     border-radius: 0.5em;
   }
 
-  .slidesjs-container,.slidesjs-control {
-    height: auto !important;
+  blockquote {
+    margin: 0.5em 0 0;
+    float: left;
+    width: 70%;
+    position: relative;
   }
+
+  // FontAwesome 'right-quote' character (German typographical left quote)
+  blockquote:before {
+    position: absolute;
+    left: -0.3em;
+    top: -0.2em;
+    z-index: -1;
+    font: normal 4em FontAwesome;
+    content: '\f10e';
+    color: $lighter-gray;
+  }
+
+  .teaser-quotation {
+    margin: 0;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 1.1em;
+  }
+
+  .teaser-quotesource {
+    margin: 1em 0 0;
+  }
+
 }
 
 
@@ -480,13 +449,13 @@
     @include span(2 of 4);
   }
 
-  #usp, #startnext {
+  #usp {
     @include span(2 of 4);
     @include omega;
   }
 
   // Filters teaser
-  #filters section {
+  .teaser--filters {
     @include span(2 of 4);
 
     &#filter-eco, &#filter-used {
@@ -521,6 +490,14 @@
 
   .billboard > article > h2 {
     font-size: 2em;
+  }
+
+  #userslides img {
+    display: none;
+  }
+
+  #userslides blockquote {
+    width: auto;
   }
 }
 
@@ -557,20 +534,21 @@
 
 
   // USP teaser
-  #usp, #startnext {
+  #usp {
     @include span(2 of 6);
     @include omega;
   }
 
+
   // Filters teaser
-  #filters section {
+  .teaser--filters {
     @include span(2 of 6);
 
     &#filter-small {
       @include omega;
     }
 
-    &:last-of-type {
+    &#filter-used {
       display: none;
     }
   }
@@ -634,16 +612,16 @@
 
 
   // USP teaser
-  #usp, #startnext {
+  #usp {
     @include span(2 of 8);
     @include omega;
   }
 
   // Filters teaser
-  #filters section {
+  .teaser--filters {
     @include span(2 of 8);
 
-    &:last-of-type {
+    &#filter-used {
       @include omega;
     }
   }

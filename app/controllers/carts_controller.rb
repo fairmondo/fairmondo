@@ -1,15 +1,15 @@
 class CartsController < ApplicationController
+
   respond_to :html
   respond_to :js, if: lambda { request.xhr? }
 
   before_filter :generate_session, only: :edit
   before_filter :clear_session, only: :show # userhas the possibility to reset the session by continue buying
-  before_filter :set_cart, except: :empty_cart
+  before_filter :set_cart
   before_filter :dont_cache, only: [:edit, :update]
 
   before_filter :authorize_and_authenticate_user_on_cart, only: [:show, :send_via_email]
   skip_before_filter :authenticate_user!, only: [:show, :send_via_email, :empty_cart]
-
 
   def show
     if @cart.sold?
@@ -21,6 +21,7 @@ class CartsController < ApplicationController
     end
     respond_with @cart
     # switch between pre and post purchase view happens in the template
+    clear_belboon_tracking_token_from_user if clear_tracking_token?
   end
 
   def edit
@@ -56,7 +57,7 @@ class CartsController < ApplicationController
       # put it into the transaction of Cart#buy.        #
       ###################################################
       clear_session
-      flash[:notice] = I18n.t('cart.notices.checkout_success') if @cart.save
+      set_donation_flash if @cart.save
       cookies.delete :cart
       respond_with @cart
     when :checkout_failed
@@ -67,7 +68,7 @@ class CartsController < ApplicationController
   end
 
   def empty_cart
-    authorize Cart.new
+    authorize @cart
     render :empty_cart
   end
 
@@ -92,6 +93,7 @@ class CartsController < ApplicationController
     end
 
     def set_cart
+    begin
       @cart = Cart.includes(
         line_item_groups:[
           :seller,
@@ -102,7 +104,10 @@ class CartsController < ApplicationController
             article:[
               :seller,
               :images
-        ]}}]).find params[:id]
+            ]}}]).find(params[:id])
+    rescue
+      @cart = Cart.new
+    end
     end
 
     def authorize_and_authenticate_user_on_cart
@@ -122,5 +127,20 @@ class CartsController < ApplicationController
 
     def all_line_items_valid?
       @cart.line_item_groups.map(&:line_items).flatten.all?(&:valid?)
+    end
+
+    def set_donation_flash
+      total_donations = @cart.user.reload.total_purchase_donations
+      if total_donations == 0
+        flash[:notice] = I18n.t('cart.notices.checkout_success_no_donation')
+      else
+        flash[:notice] = I18n.t(
+          'cart.notices.checkout_success', euro: total_donations
+        ).html_safe
+      end
+    end
+
+    def clear_tracking_token?
+      @cart && @cart.sold?
     end
 end

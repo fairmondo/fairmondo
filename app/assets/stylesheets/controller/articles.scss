@@ -388,7 +388,7 @@ ul.category-selected-list {
   }
 }
 
-#contact_text {
+#contact_form_text {
   width: 100%;
 }
 
@@ -426,7 +426,6 @@ ul.category-selected-list {
 }
 
 // the sidebar box for books claim
-/*
 .books {
   padding: 0;
   margin-top: 1em;
@@ -435,21 +434,6 @@ ul.category-selected-list {
     display: block;
     width: 100%;
     margin: 0;
-  }
-}
-*/
-
-// the sidebar box for subscriptions
-.subscription {
-  @include whitebox;
-  padding: 0.5em;
-  margin-bottom: 1em;
-  text-align: center;
-
-  .iframe, iframe {
-    border: 0;
-    height: 300px;
-    width: 100%;
   }
 }
 

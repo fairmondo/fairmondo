@@ -61,6 +61,8 @@ class ArticleAutocomplete
 
     def formatted_suggestions results
       results.suggest["typos"].first["options"].map{ |o| { value: o["text"], data: {type: :suggest}} }
+    rescue
+      []
     end
 
     def formatted_total results
