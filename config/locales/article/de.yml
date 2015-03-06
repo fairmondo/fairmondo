@@ -232,9 +232,9 @@ de:
           %{percent}% des Artikelendpreises werden bei erfolgreichem Verkauf von Dir an %{ngo} gespendet. Auf den Spendenanteil fallen keine Verkaufsgebühren an. Informationen zur Spendenabwicklung findest Du <a href='https://www.fairmondo.de/faq#spa2' target='_blank'>hier</a> und in der Bestätigungsmail bei erfolgreichem Verkauf.
         fees_quarter_fee: "Zusätzlich zu den Verkaufsgebühren wird je Geschäftsquartal, in dem Du erfolgreich mindestens einmal verkauft hast, eine Quartalsgebühr von 1,‒ Euro fällig (inkl. 19% MwSt)."
         fees_mass_upload: "Bei erfolgreichem Verkauf jedes Artikels gehen 6% des Artikelendpreises an Fairmondo. Bei Artikeln unter dem Filter fair fallen lediglich 3% an. Der hier aufgeführte Betrag bezieht auf die summierten Gebühren beim erfolgreichen Verkauf aller Artikel (gemäß der angegebenen Stückzahl)."
-        fees_and_donations: "1% des Artikelendpreises wird bei erfolgreichem Verkauf durch uns automatisch an Initiativen, die sich gegen Korruption einsetzen, gespendet."
+        fees_and_donations: "1% des Artikelendpreises wird bei erfolgreichem Verkauf automatisch von Fairmondo an Initiativen, die sich gegen Korruption einsetzen, gespendet."
         friendly_percent: "%{percent}% des Artikelendpreises wird bei erfolgreichem Verkauf durch den*die Anbieter*in an %{ngo} gespendet."
-        fees_and_donations_mass_upload: "1% des Artikelendpreises wird bei erfolgreichem Verkauf automatisch an Initiativen, die sich gegen Korruption einsetzen, gespendet. Da das 1% für jeden Artikel einzeln berechnet, eventuell aufgerundet und dann für alle hochgeladenen Artikel summiert wird, ist der hier ausgewiesene Betrag möglicherweise höher als 1%."
+        fees_and_donations_mass_upload: "1% des Artikelendpreises wird bei erfolgreichem Verkauf automatisch von Fairmondo an Initiativen, die sich gegen Korruption einsetzen, gespendet. Da das 1% für jeden Artikel einzeln berechnet, eventuell aufgerundet und dann für alle hochgeladenen Artikel summiert wird, ist der hier ausgewiesene Betrag möglicherweise höher als 1%."
         fees: "Die Gebührentabelle findest Du <hier>."
         double_check: >
           Dann stelle Deinen Artikel ein. Das Einstellen des Artikels ist kostenlos, bei Verkauf fallen die unter Gebühren und Spenden gelisteten Verkaufsgebühren an.
