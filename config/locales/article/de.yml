@@ -82,7 +82,7 @@ de:
       fair_percent: "Das faire Prozent"
       friendly_percent: "Spendenanteil"
       will_be: " werden an "
-      donate_html: "1% werden von uns an <a href='http://www.transparency.de/' target='_blank'>Transparency International</a> gespendet"
+      donate_html: "1% werden von Fairmondo an <a href='http://www.transparency.de/' target='_blank'>Transparency International</a> gespendet"
       donate_ngo_html: "100% des Erlöses gehen an %{ngo}. Es fallen keine Fairmondo-Gebühren an."
       donate_ngo_short_html: "%{percent}% gehen an %{ngo}"
       friendly_percent_html: "Diese*r Anbieter*in spendet %{percent}% an %{ngo}"
@@ -118,6 +118,9 @@ de:
         article: 'Artikel'
       comments:
         legal_entity_publish_info: "Achtung: Neue Kommentare für Artikel von gewerblichen Nutzern werden nur zwischen 10 und 17 Uhr veröffentlicht."
+      tooltips:
+        disable: 'Wenn Du Deinen Artikel vom Marktplatz nimmst, ist dieser nicht mehr aktiv und kann nicht mehr gefunden und gekauft werden. Du findest die nicht aktiven Artikel in Deinem Profil unter Nicht eingestellte Artikel.'
+
     hero:
       search: "Suche nach"
       filter: "Filter nach"
