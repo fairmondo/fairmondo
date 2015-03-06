@@ -78,6 +78,7 @@ de:
       login: "Anmelden"
       sign_up: "Registrieren"
       edit_profile: "Profil bearbeiten"
+      my_profile: "Mein Profil"
       search: "Suche"
       report: "Melden"
       take_part: "Mitmachen"
@@ -112,7 +113,8 @@ de:
       relation: "Beziehung"
       inserted: "Artikel wurden bereits eingestellt"
       no_search_result_text: "Keine Suchergebnisse unter den Fairmondo-Artikeln"
-      libraries: "Meine Sammlungen"
+      libraries: "Sammlungen"
+      my_libraries: "Meine Sammlungen"
       about_terms: "Meine Firmendaten"
       more: "mehr anzeigen"
       less: "weniger anzeigen"
@@ -123,18 +125,22 @@ de:
       fair: "Fair"
       seller: "Händler*in"
       product: "Produkt"
-      libraries: "Sammlungen"
       article: "Artikel"
+      articles: "Artikel"
+      no_articles: "Keine Artikel"
       about_terms: "AGB / Widerrufserklärung / Impressum"
       about_terms_short: 'Impressum, AGB …'
       extended_search: "Erweiterte Suche"
       glue:
+        of: " von "
         from: " von "
         and: " und "
         by: " von "
         per: " pro "
         via: " per "
         ago: " vor %{time}"
+      glue_without_spaces:
+        of: "von"
 
   form:
     select_from_list: Bitte wähle aus der Liste aus

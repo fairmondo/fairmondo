@@ -254,7 +254,8 @@
         => t( 'welcome.trending_libraries.heading' )
         span.sprite_helper title="#{ t('libraries.tooltip') }"
 
-      = render partial: "libraries/library", collection: @trending_libraries, locals: { header_comments: false }
+      = render partial: 'libraries/library', collection: @trending_libraries,
+        locals: { piwik_campaign: 'libraries', piwik_keyword: 'welcome_page' }
 
       p.more
         = link_to( t( 'welcome.trending_libraries.more' ), libraries_path )

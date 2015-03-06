@@ -6,6 +6,8 @@ de:
       article_body: 'Du hast einen neuen Kommentar oder eine Rückfrage zu Deinem Artikel "%{title}" bekommen'
       user_body: "Du hast einen neuen Kommentar oder eine Rückfrage zu Deinem Profil bekommen"
   comments:
+    comments: "Kommentare"
+    jump_to: "Zu den Kommentaren"
     no_comments: "Es sind noch keine Kommentare vorhanden."
     login_href: "Melde dich an"
     login_to_comment: "%{href}, um Kommentare schreiben zu können."

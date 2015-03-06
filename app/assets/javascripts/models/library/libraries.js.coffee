@@ -20,21 +20,20 @@ You should have received a copy of the GNU Affero General Public License
 along with Fairmondo.  If not, see <http://www.gnu.org/licenses/>.
 ###
 
-# This function copies the first two comments to the comment preview for a given commentable (library)
-#
-document.Fairmondo.copyCommentsToPreview = (commentable_selector) ->
-  commentable = $(commentable_selector)
-  first_two_comments = $(commentable_selector + ".Comments-section .Comment-single:lt(2)").clone()
-  preview_element = $(commentable_selector + '.Library-comments')
-  preview_element.html(first_two_comments)
-
 $(document).always ->
-  $('.js-library-settings').hide()
-  $('.js-library-show-settings').click (e) =>
-    $(e.target).parent().parent().find('.js-library-settings').show()
-    $(e.target).hide()
 
+  # Hide edit section per default (not doing this per CSS because our
+  # current test suite doesn't support JavaScript
+  $('.library-edit-settings').hide()
+
+  # Show edit section when button is clicked
+  $('.js-library-edit-trigger').click (e) ->
+    $(e.target).siblings('.library-edit-settings').slideToggle('fast')
+    false
+
+  # Scroll to and focus on new library form in library index view
   $('#library-form-link a').click ->
-    $('html, body').animate
-      scrollTop: $('#library-form').offset().top, 'slow'
-    $('#new_library_name').focus()
+    $('html, body').animate(
+      { scrollTop: $('#library-form').offset().top }, ->
+        $('#new_library_name').focus()
+    )

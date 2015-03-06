@@ -48,6 +48,7 @@ class Library < ActiveRecord::Base
 
   has_many :hearts, as: :heartable
 
+  # Scopes
   scope :not_empty, -> { where('libraries.library_elements_count > 0') }
   scope :min_elem, -> (num) { where('libraries.library_elements_count >= ?', num) }
   scope :published, -> { where(public: true) }
@@ -56,7 +57,15 @@ class Library < ActiveRecord::Base
   scope :most_recent, -> { reorder(created_at: :desc) }
   scope :trending, -> { most_popular.not_empty.published }
   scope :audited, -> { where(audited: true) }
-  scope :trending_welcome_page, -> { trending.audited.limit(3) }
+  scope :trending_welcome_page, -> { trending.audited.limit(2) }
+
+  # libraries with most of the articles belonging to one of the given categories
+  scope :for_category, (lambda do |categories|
+    joins(articles: :categories)
+    .where(categories: { id: categories }, public: true)
+    .group('libraries.id')
+    .having('count(*) > libraries.library_elements_count / 2')
+  end)
 
   default_scope { order(updated_at: :desc) }
 

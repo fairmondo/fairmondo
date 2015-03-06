@@ -1,4 +1,4 @@
 .Comments-count
-  i.fa.fa-comments
-  | &nbsp;
-  = commentable.comments_count
+  = link_to '#comments', title: t("comments.jump_to") do
+    = fa_icon('comments 2x')
+  em= commentable.comments_count

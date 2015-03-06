@@ -151,7 +151,7 @@
             if (facebook_on) {
                 var fb_enc_uri = encodeURIComponent(uri + options.services.facebook.referrer_track);
                 var fb_code = '<iframe src="https://www.facebook.com/plugins/like.php?locale=' + options.services.facebook.language + '&amp;href=' + fb_enc_uri + '&amp;send=false&amp;layout=button_count&amp;width=120&amp;show_faces=false&amp;action=' + options.services.facebook.action + '&amp;colorscheme=light&amp;font&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:123px; height:21px;" allowTransparency="true"></iframe>';
-                var fb_dummy_btn = '<i class="fa fa-facebook-square fa-lg" id="facebook-dummy" title="' + options.services.facebook.txt_fb + '"></i>';
+                var fb_dummy_btn = '<i class="fa fa-facebook-square fa-2x" id="facebook-dummy" title="' + options.services.facebook.txt_fb + '"></i>';
 
                 context.append('<li class="facebook help_info"><span class="switch fa lock"></span><div class="fb_like dummy_btn">' + fb_dummy_btn + '</div></li>');
 
@@ -184,7 +184,7 @@
                 var twitter_enc_uri = encodeURIComponent(uri + options.services.twitter.referrer_track);
                 var twitter_count_url = encodeURIComponent(uri);
                 var twitter_code = '<iframe allowtransparency="true" frameborder="0" scrolling="no" src="https://platform.twitter.com/widgets/tweet_button.html?url=' + twitter_enc_uri + '&amp;counturl=' + twitter_count_url + '&amp;text=' + text + '&amp;count=horizontal&amp;lang=' + options.services.twitter.language + '" style="width:95px; height:25px;"></iframe>';
-                var twitter_dummy_btn = '<i class="fa fa-twitter-square fa-lg" id="twitter-dummy" title="' + options.services.twitter.txt_twitter + '"></i>';
+                var twitter_dummy_btn = '<i class="fa fa-twitter-square fa-2x" id="twitter-dummy" title="' + options.services.twitter.txt_twitter + '"></i>';
 
                 context.append('<li class="twitter help_info"><span class="switch fa lock"></span><div class="tweet dummy_btn">' + twitter_dummy_btn + '</div></li>');
 
@@ -212,7 +212,7 @@
 
                 // we use the Google+ "asynchronous" code, standard code is flaky if inserted into dom after load
                 var gplus_code = '<div class="g-plusone" data-size="medium" data-href="' + gplus_uri + '"></div><script type="text/javascript">window.___gcfg = {lang: "' + options.services.gplus.language + '"}; (function() { var po = document.createElement("script"); po.type = "text/javascript"; po.async = true; po.src = "https://apis.google.com/js/plusone.js"; var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(po, s); })(); </script>';
-                var gplus_dummy_btn = '<i class="fa fa-google-plus-square fa-lg" id="gplusone-dummy" title="' + options.services.gplus.txt_gplus + '"></i>';
+                var gplus_dummy_btn = '<i class="fa fa-google-plus-square fa-2x" id="gplusone-dummy" title="' + options.services.gplus.txt_gplus + '"></i>';
 
                 context.append('<li class="gplus help_info"><span class="switch fa lock"></span><div class="gplusone dummy_btn">' + gplus_dummy_btn + '</div></li>');
 
@@ -240,7 +240,7 @@
 
                 // we use the Google+ "asynchronous" code, standard code is flaky if inserted into dom after load
                 var pinterest_code = '<div class="pinterest"><a href="//pinterest.com/pin/create/button/" data-pin-do="buttonBookmark" ><img src="//assets.pinterest.com/images/pidgets/pin_it_button.png" /></a></div>';
-                var pinterest_dummy_btn = '<i class="fa fa-pinterest-square fa-lg" id="pinterest-dummy" title="' + options.services.pinterest.txt_pinterest + '"></i>';
+                var pinterest_dummy_btn = '<i class="fa fa-pinterest-square fa-2x" id="pinterest-dummy" title="' + options.services.pinterest.txt_pinterest + '"></i>';
 	            var pinterest_script = document.createElement('script');
 				pinterest_script.type = 'text/javascript';
 				pinterest_script.src='https://assets.pinterest.com/js/pinit.js';

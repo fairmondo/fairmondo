@@ -60,6 +60,7 @@ de:
       seller_line_item_groups: 'Deine Verkäufe'
       buyer_line_item_groups: 'Deine Einkäufe'
     no_img: "Noch+kein+Bild"
+    user_image: "Nutzerbild"
     headers:
       you: "Du"
       invitor: "Einladender"

@@ -31,15 +31,15 @@ feature 'Hearts for not-logged-in users' do
   scenario 'User visits library path, finds no hearts, ' +
            'then likes a library and finds his heart' do
     library = FactoryGirl.create(:library_with_elements, public: true)
-    visit libraries_path
+
+    visit library_path(library.id)
     page.must_have_selector('.Hearts-button')
-    page.must_have_selector('.Hearts-count')
-    within('.Hearts-count') { page.must_have_content '0' }
+    within('.Hearts-button em') { page.must_have_content '0' }
 
     # can't check JS (otherwise this would be click_link, wait...)
     library.hearts.create(user_token: 'RandomUserToken')
-    visit libraries_path
-    within('.Hearts-count') { page.must_have_content '1' }
+    visit library_path(library.id)
+    within('.Hearts-button em') { page.must_have_content '1' }
   end
 end
 
@@ -50,17 +50,16 @@ feature 'Hearts for logged-in users' do
     library = FactoryGirl.create(:library_with_elements, public: true)
     login_as user
 
-    visit libraries_path
+    visit library_path(library.id)
     page.must_have_selector('.Hearts-button')
-    page.must_have_selector('.Hearts-count')
-    within('.Hearts-count') { page.must_have_content '0' }
+    within('.Hearts-button em') { page.must_have_content '0' }
 
     h = user.hearts.create(heartable: library) # can't check JS
-    visit libraries_path
-    within('.Hearts-count') { page.must_have_content '1' }
+    visit library_path(library.id)
+    within('.Hearts-button em') { page.must_have_content '1' }
 
     h.destroy # can't check JS
-    visit libraries_path
-    within('.Hearts-count') { page.must_have_content '0' }
+    visit library_path(library.id)
+    within('.Hearts-button em') { page.must_have_content '0' }
   end
 end

@@ -22,8 +22,14 @@
 
 / Title
 h1.Title-next-to-tab
-  => t('libraries.title')
-  span.sprite_helper title="#{ t('libraries.tooltip') }"
+  - if user_focused?
+    - if @user == current_user
+      => "Meine Sammlungen"
+    - else
+      => "Sammlungen von #{@user.name}"
+  - else
+    => t('libraries.title')
+    span.sprite_helper title="#{ t('libraries.tooltip') }"
 
 / Tabs
 - if !user_focused? || @user == current_user
@@ -44,7 +50,7 @@ h1.Title-next-to-tab
 
 .libraries
   / Link to new library form
-  - if @library && policy(@library).create? && @libraries.length > 5
+  - if @library && policy(@library).create? && @libraries.length > 0
     p#library-form-link= link_to t('libraries.create_new'), '#library-form'
 
   / Sign-in message
@@ -61,7 +67,8 @@ h1.Title-next-to-tab
   / Libraries
   - if user_signed_in? || @mode != 'myfavorite'
     - if @libraries.any?
-      = render partial: "libraries/library", collection: @libraries
+      = render partial: 'libraries/library', collection: @libraries,
+        locals: { show_owner: !user_focused? }
       = paginate @libraries
     - else
       p= t('libraries.no_library')

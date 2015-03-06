@@ -1,8 +1,20 @@
 
 / insert elements that should only appear when there is nothing specific here
 - begin
-  = render "categories/show/#{resource.slug}", search_cache: @search_cache if resource.slug
+  = render "categories/show/#{resource.slug}",
+    search_cache: @search_cache if resource.slug
+  - render_libraries = true
 - rescue ActionView::MissingTemplate, ArgumentError
+  - render_libraries = true
 
 / Elements that always get displayed
-= render '/articles/shared/search_results', articles: @articles, search_cache: @search_cache
+= render '/articles/shared/search_results', articles: @articles,
+  search_cache: @search_cache
+
+/ Render matching library for category if there is any
+- if render_libraries && !@example_libraries.empty?
+  section.libraries
+    h2= t('libraries.of_category', category: @category.name)
+
+    = render partial: 'libraries/library', collection: @example_libraries,
+      locals: { piwik_campaign: 'libraries', piwik_keyword: 'category_page' }

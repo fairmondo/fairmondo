@@ -8,132 +8,123 @@ details.Library
 
 Styleguide Library
 */
+
 .Library {
-  display: block;
   margin-bottom: 1em;
+}
+
+.Library-wrapper {
+  position: relative;
   padding: 1em;
-  // @include whitebox;
-  border-radius: 0.5em;
-  border: 1px solid $lighter-gray;
-  box-shadow: $even-lighter-gray 0px 0px 2px 1px;
-  &:hover {
-    background-color: $even-lighter-gray;
+  overflow: hidden;
+
+  background-color: $even-lighter-gray;
+  transition: background-color 0.2s;
+
+  &:hover, &:active {
+    background-color: #dce8f0;
   }
 }
 
-/* Libraries that have been clicked on and are 'spread out' */
-.Library.open {
-  summary {
-    border-radius: 0.5em 0.5em 0 0;
-    &:hover {
-      background-color: $even-lighter-gray;
-    }
-  }
-}
-
-/* div tag containing all the articles of the library */
-.Library > .Library-details {
-  padding: em(10) em(20);
-}
-
-/* smoother ajax start transition */
-.Library .Grid--wider {
-  transition: opacity 0.2s;
-}
-
-/* Comments in the summary */
-.Library > summary > .Library-comments {
-  margin-top: 0.6rem;
-}
-
-.Library.open > summary > .Library-comments {
-  display: none;
+.Library-wrapper > a {
+  z-index: 10;
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }
 
 
-/* Div that contains the comments counter and the heart button */
-.Library-buttons {
-  float: right;
-
-  > div {
-    display: inline-block;
-  }
+.Library h3 {
+  font-size: 1em;
+  font-weight: 700;
+  margin: 0.25em 0 0.75em;
 }
 
-/* div containing the user image */
-.Library-userimage {
-  display: none;
+.Library p {
+  margin: 0;
+  color: $mid-dark-gray;
+  font-size: 0.8em;
+}
+
+.Library-thumbnails {
+  overflow: hidden;
+  // Min height for libraries without elements
+  min-height: 2em;
+}
+
+.Library-thumbnails li {
   float: left;
-  margin-right: 1em;
-  padding: 0.5em;
-  background-color: white;
-  border-radius: 0.6em;
-  img {
-    height: 6.3em;
-    width: 6.3em;
-  }
-  @include at-breakpoint($bp-tablet) {
-    display: block;
-  }
-}
-
-/* The biggest part of the library header containing title, user and preview thumbnails */
-.Library-info {
-  overflow: hidden;
-}
-
-.Library-info > .Library-info-text {
-  margin-bottom: 0.5em;
-}
-
-.Library-info > .Library-info-text > .Library-info-text-title {
-  font-size: 1.5em;
-}
-
-.Library-info > .Library-info-text > .Library-info-text-user {
-  font-weight: 600;
-}
-
-.Library-info > .Library-info-thumbnails {
-  height: 5.1em;
+  position: relative;
+  width: percentage(1 / 3);
+  height: 0;
+  // Calc padding-bottom so that is has an aspect ratio of 13/9 like the
+  // thumbnail images
+  padding-bottom: percentage((1 / 3) / (13 / 9));
   overflow: hidden;
 
   img {
-    height: 4.5em;
-    padding: 0.3em;
-    display: inline-block;
-    margin-right: 0.2em;
-    border-radius: 0.5em;
-    background-color: white;
+    box-sizing: border-box;
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 1px solid $light-gray;
+    border-left: none;
   }
 }
 
-/* Library-comments */
-.Library > .Library-comments {
+.Library-thumbnails li:first-child img {
+  border-left: 1px solid $light-gray;
+}
+
+.Library-footer {
   margin-top: 0.5em;
 }
 
-/* User-specific section, only exists if the library belongs to the user */
-.Library-details-user {
-  clear: both;
-  margin: em(10) em(20);
+.Library-footer-articles {
+  float: left;
 }
 
-.Library-details-user > .Library-details-user-warning {
-  color: $red;
-}
-
-.Library-details-user > .Library-details-user-actions {
+.Library-footer-heartsandcomments {
   float: right;
-  margin-bottom: 1em;
 }
 
-.Library-details-user > .Library-details-user-visibility {
-  font-weight: 600;
-}
-
-/* Contains the article grid */
-.Library-elements {
+.Library-footer-auditing {
   clear: both;
-  margin-top: 10px;
+}
+
+
+/******************************** Breakpoints *********************************/
+
+@include till-breakpoint($bp-mobile-horizontal) {
+  // Show only 3 thumbnails here
+  .Library-thumbnails li:nth-child(n+4)
+  {
+    display: none;
+  }
+}
+
+@include at-breakpoint($bp-mobile-horizontal) {
+  // Show 4 images in a row
+  .Library-thumbnails li {
+    width: percentage(1 / 4);
+    padding-bottom: percentage((1 / 4) / (13 / 9));
+  }
+}
+
+@include at-breakpoint($bp-tablet) {
+  .Library {
+    @include span(6 of 12);
+  }
+
+  .Library:nth-of-type(odd) {
+    clear: both;
+  }
+
+  .Library:nth-of-type(even) {
+    @include omega;
+  }
 }

@@ -157,24 +157,6 @@ feature 'comments for all users' do
       page.wont_have_content('Kommentar löschen')
     end
   end
-
-  scenario 'Guest is able to see the last two comments' +
-           ' of a library on the overview' do
-    library = FactoryGirl.create(:library, public: true)
-    article = FactoryGirl.create(:article)
-    article.libraries << library
-    user = FactoryGirl.create(:user)
-    FactoryGirl.create_pair(:comment,
-                            text: 'Test comment',
-                            commentable: library,
-                            user: user)
-
-    visit libraries_path
-
-    within("#library#{library.id} .Library-comments") do
-      page.must_have_content('Test comment')
-    end
-  end
 end
 
 feature 'comments on articles' do

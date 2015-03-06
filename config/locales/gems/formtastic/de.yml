@@ -198,6 +198,7 @@ de:
       library:
         name: Name
         public: Öffentlich
+        exhibition_name: Name der Queue
 
       business_transaction: &business_transaction
         tos_accepted: Ich akzeptiere die AGB und die Widerrufserklärung

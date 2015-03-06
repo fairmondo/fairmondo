@@ -4,13 +4,17 @@ class UserImage < Image
     :image,
     styles: {
       original: { geometry: '300>x300>', animated: false },
-      profile: { geometry: '300x300>', animated: false }
+      profile:  { geometry: '300x300>',  format: :jpg, animated: false },
+      thumb:    { geometry: '60x60#',    format: :jpg, animated: false }
     },
-    convert_options: { profile: '-quality 75 -strip -background white -gravity center -extent 300x300' },
+    convert_options: {
+      profile: '-quality 75 -strip -background white -gravity center -extent 300x300',
+      thumb: '-quality 75 -strip -background white'
+    },
     default_url: '/assets/missing.png',
     url: '/system/images/:id_partition/:style/:filename',
     path: 'public/system/images/:id_partition/:style/:filename',
-    only_process: [:profile]
+    only_process: [:profile, :thumb]
   )
 
   belongs_to :user, foreign_key: 'imageable_id'

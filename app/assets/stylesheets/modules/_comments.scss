@@ -34,6 +34,15 @@
   margin-right: 0.6em;
 }
 
+.Comments-section {
+  margin: 2em 0 1em;
+}
+
+.Comments-section h2 {
+  font-weight: 600;
+  font-size: 1em;
+}
+
 .Comments-section form li.input {
   list-style: none;
   overflow: visible !important;
@@ -46,9 +55,13 @@
 }
 
 .Comments-count {
-  margin-right: 0.5em;
-  > i.fa {
-    font-size: 1.2rem;
+  float: left;
+
+  em {
+    margin-left: 0.3em;
+    color: $secondary-color;
+    font-size: 1em;
+    line-height: 2em;
   }
 }
 
