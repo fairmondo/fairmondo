@@ -118,6 +118,7 @@ class ArticlesController < ApplicationController
       @article.deactivate! if @article.active?
       @article.close_without_validation
     end
+    flash[:notice] = I18n.t('article.notices.destroyed')
     respond_with @article, location: -> { user_path(current_user) }
   end
 
