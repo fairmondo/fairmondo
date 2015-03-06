@@ -87,8 +87,8 @@ describe ArticlePolicy do
         article.activate
       end
       it { subject.must_permit(:deactivate) }
+      it { subject.must_permit(:destroy)      }
       it { subject.must_deny(:activate)     }
-      it { subject.must_deny(:destroy)      }
     end
 
     describe "on an inactive article" do
