@@ -190,6 +190,7 @@ ul.category-selected-list {
 .contents > .info {
   @include clearfix;
   @include whitebox;
+  padding: 0.7em;
 }
 
 
