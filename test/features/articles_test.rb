@@ -84,7 +84,6 @@ feature 'Article creation' do
     end
 
     # Template
-    check 'article_save_as_template'
     fill_in 'article_article_template_name', with: 'template'
     assert_difference 'Article.unscoped.count', 2 do
       click_button I18n.t("article.labels.continue_to_preview")

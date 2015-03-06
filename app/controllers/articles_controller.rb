@@ -53,7 +53,6 @@ class ArticlesController < ApplicationController
                  @article.owned_by?(current_user) &&
                  at_least_one_image_processing? }
 
-
   rescue_from ActiveRecord::RecordNotFound, with: :similar_articles, only: :show
 
   #Autocomplete
@@ -94,6 +93,9 @@ class ArticlesController < ApplicationController
 
   def create
     @article = current_user.articles.build(params.for(Article).refine)
+    if params && params[:article][:article_template_name].present?
+      @article.save_as_template = '1'
+    end
     authorize @article
     save_images unless @article.save
     respond_with @article
@@ -201,18 +203,24 @@ class ArticlesController < ApplicationController
     def new_from_template
       template = current_user.articles.unscoped.find(params[:template][:article_id])
       @article = template.amoeba_dup
+      clear_template_name
       flash.now[:notice] = t('template.notices.applied', :name => template.article_template_name)
     end
 
     def edit_as_new
       @old_article = current_user.articles.find(params[:edit_as_new])
       @article = Article.edit_as_new @old_article
+      clear_template_name
       @old_article.deactivate! if @old_article.active?
       @old_article.close_without_validation
     end
 
     def new_article
       @article = current_user.articles.build
+    end
+
+    def clear_template_name
+      @article.article_template_name = nil
     end
 
 
