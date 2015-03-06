@@ -27,6 +27,7 @@
     .Accordion-step
       = render '/categories/select_categories/selected_categories', f: f
       = f.input :category_ids, as: :select, collection: Category.other_category_last.sorted.roots, tooltip: true, required: true, multiple: true, include_blank: true, input_html: {class: "category-nativeselect"}
+      = link_to 'Eine Übersicht aller Kategorien findest du hier', categories_path, target: 'blank'
       javascript:
         // transform multiple into single for js users (almost everyone)
         $('input[name="article[category_ids][]"][value=""]').remove();
