@@ -90,7 +90,13 @@ Fairmondo::Application.configure do
   Paperclip.options[:command_path] = "/usr/bin"
 
   ActionMailer::Base.delivery_method = :smtp
-  ActionMailer::Base.smtp_settings  = YAML.load(File.read(File.expand_path(File.join( Rails.root, 'config', 'actionmailer.yml')))).symbolize_keys
+  ActionMailer::Base.smtp_settings  = {
+    port: 25,
+    authentication: :login,
+    address: Rails.application.secrets.actionmailer_address,
+    user_name: Rails.application.secrets.actoinmailer_username,
+    password: Rails.application.secrets.actionmailer_password
+  }
 
   # Premailer configuration
   Premailer::Rails.config.merge!(base_url: "https://www.fairmondo.de")
