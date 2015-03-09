@@ -148,3 +148,15 @@
     width: 100%;
   }
 }
+
+.user-contents {
+  @include whitebox;
+
+  hr {
+    margin-top: 2em;
+    margin-bottom: 1em;
+    border: 0;
+    height: 1px;
+    background-color: $lighter-gray;
+  }
+}
