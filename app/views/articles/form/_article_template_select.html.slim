@@ -20,12 +20,16 @@
 / along with Fairmondo.  If not, see <http://www.gnu.org/licenses/>.
 /
 - if current_user.article_templates.any?
-  = semantic_form_for(:template, url: new_article_path, html: { method: :get}, builder: ::Fairtastic::FormBuilder) do |f|
+  = semantic_form_for(:template, url: new_article_path, \
+  html: { method: :get }, builder: ::Fairtastic::FormBuilder) do |f|
     = f.input_step :apply do
       .Accordion-step
         - if block_given?
           = yield
         = f.inputs do
-          = f.input :article_id, collection: current_user.article_templates.map { |temp| [temp.article_template_name, temp.id] }, prompt: t('template.prompts.article_id')
+          = f.input :article_id, \
+          collection: current_user.article_templates.map \
+          { |temp| [temp.article_template_name, temp.id, { selected: params[:template][:article_id].present? && params[:template][:article_id] == temp.id.to_s ? 'selected' : '' }] }, \
+          prompt: t('template.prompts.article_id')
         = f.actions do
           = f.action :submit, button_html: { class: 'Button Button--green'}
