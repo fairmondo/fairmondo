@@ -28,8 +28,9 @@
           = yield
         = f.inputs do
           = f.input :article_id, \
-          collection: current_user.article_templates.map \
-          { |temp| [temp.article_template_name, temp.id, { selected: params[:template][:article_id].present? && params[:template][:article_id] == temp.id.to_s ? 'selected' : '' }] }, \
+          collection: options_for_select(current_user.article_templates.map \
+          { |temp| [temp.article_template_name, temp.id] }, \
+          params[:template] && params[:template][:article_id].present? ? params[:template][:article_id] : '' ), \
           prompt: t('template.prompts.article_id')
         = f.actions do
           = f.action :submit, button_html: { class: 'Button Button--green'}
