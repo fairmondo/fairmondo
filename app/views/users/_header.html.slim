@@ -1,11 +1,6 @@
 .user-header
   .user-profile
     = render '/users/profile_img', user: user_resource
-    - if user_resource.is? current_user
-      .user-edit
-        a href="#{ edit_user_registration_path }"
-          = fa_icon 'pencil'
-          =< t 'common.actions.edit_profile'
   .user-middle
     - if user_resource.about_me && !user_resource.about_me.empty?
       .user-description data={ truncate: 250 }
@@ -18,9 +13,9 @@
           edit_user_registration_path(anchor: 'profile_step')
     .user-menu
       - if user_resource.is? current_user
-        a.Button href="#{ user_path(current_user) }"
-          span= fa_icon 'archive', class: 'fa-lg fa-fw'
-          = t 'common.text.my_articles'
+        a.Button href="#{ edit_user_registration_path }"
+          span= fa_icon 'pencil', class: 'fa-lg fa-fw'
+          = t 'common.actions.edit_profile'
       a.Button href="#{ user_libraries_path(user_resource) }"
         span= fa_icon 'cubes', class: 'fa-lg fa-fw'
         =< t 'common.text.libraries'
