@@ -213,38 +213,19 @@ class User < ActiveRecord::Base
   end
 
   # used to get the right time for bike delivery
-
   def pickup_time
-    days = { 1 => 'Mo', 2 => 'Di', 3 => 'Mi', 4 => 'Do', 5 => 'Fr' }
-    day_of_week = DateTime.now.cwday
-
     times = []
-    rev_times = []
-
-    days.sort_by{ |k, v| k }.each do |day|
-      if day[0] == day_of_week
-        for hour in 8..19 do
-          if hour >= Time.now.hour
-            unless (hour + 3) > 20
-              times.push "#{ day[1] } #{ hour + 2 }:00  bis #{ hour + 3 }:00"
-            end
-          end
-        end
-      elsif day[0] > day_of_week
-        for hour in 8..19 do
-          times.push "#{ day[1] } #{ hour }:00 bis #{ hour + 1 }:00"
-        end
-      else
-        for hour in 8..19 do
-          rev_times.push "#{ day[1] } #{ hour }:00 bis #{ hour + 1 }:00"
-        end
+    day_of_week = DateTime.now.cwday - 1 # array starts with 0
+    weekend = day_of_week > 4 # is it Saturday or Sunday
+    day_of_week = 0 if weekend
+    days = [ 'Mo', 'Di',  'Mi',  'Do', 'Fr' ]
+    (0..4).each do |iterator| # iterate through the next days
+      day = ( iterator + day_of_week ) % 5 # returns the place in the array for the day
+      start_time = (iterator == 0 && !weekend) ? ( Time.now.hour + 3 ) : 8 # on the current day we start later
+      for hour in start_time..19 do
+        times.push "#{ days[day] } #{ hour }:00  bis #{ hour + 1 }:00"
       end
     end
-
-    rev_times.each do |time|
-      times << time
-    end
-
     times
   end
 
