@@ -187,6 +187,7 @@ feature 'Checkout' do
     click_link I18n.t('cart.actions.checkout')
     page.check('cart_checkout_form_line_item_groups_1_tos_accepted')
     page.find('select#cart_checkout_form_line_item_groups_1_unified_payment_method').find("option[value='cash']").select_option
+    page.find('select#cart_checkout_form_line_item_groups_1_unified_payment_method').find("option[value='cash']").select_option
 
 
 
@@ -291,6 +292,10 @@ feature 'Checkout' do
     transport_notices[2].must_have_content(I18n.t('cart.texts.unified_transport_impossible'))
     page.check('cart_checkout_form_line_item_groups_1_tos_accepted')
     page.check('cart_checkout_form_line_item_groups_2_tos_accepted')
+
+    (4..5).each do |num|
+      page.find("select#cart_checkout_form_line_items_#{ num }_business_transaction_selected_transport").find("option[value=type1]").select_option
+    end
 
     # Step 2
 

@@ -55,8 +55,7 @@ class Library < ActiveRecord::Base
   scope :most_recent, -> { reorder(created_at: :desc)}
   scope :trending, -> { most_popular.not_empty.published }
   scope :audited, -> { where(audited: true) }
-  # scope :trending_welcome_page, -> { trending.audited.limit(3) }
-  scope :trending_welcome_page, -> { trending.audited.limit(5) }
+  scope :trending_welcome_page, -> { trending.audited.limit(3) }
 
   default_scope -> { order(updated_at: :desc) }
 
