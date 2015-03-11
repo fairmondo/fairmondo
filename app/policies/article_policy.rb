@@ -38,14 +38,10 @@ class ArticlePolicy < Struct.new(:user, :article)
 
   def create?
     original = article.original
-    #binding.pry
-    if original && original.seller == article.seller && (original.closed? || original.sold? || original.locked?)
-      true
-    elsif !original
-      true
-    else
-      false # Devise already ensured this user is logged in.
+    if original && original.seller != article.seller
+      return false
     end
+    return true
     # FUTURE: Maybe we should deny this for possible guest access.
   end
 

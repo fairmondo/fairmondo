@@ -211,8 +211,6 @@ class ArticlesController < ApplicationController
       @old_article = current_user.articles.find(params[:edit_as_new])
       @article = Article.edit_as_new @old_article
       clear_template_name
-      @old_article.deactivate! if @old_article.active?
-      @old_article.close_without_validation
     end
 
     def new_article
