@@ -281,7 +281,6 @@ describe ArticlesController do
         draftarticle = @controller.instance_variable_get(:@article)
         assert draftarticle.new_record?
         draftarticle.title.must_equal(article.title)
-        assert article.reload.closed? # still locked, not yet closed
         draftarticle.original.must_equal article
       end
 

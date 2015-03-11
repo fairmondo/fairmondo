@@ -16,6 +16,7 @@ class CartsController < ApplicationController
       # redirect directly to a purchase view if there is only one lig to purchase
       return redirect_to @cart.line_item_groups.first if @cart.line_item_groups.count == 1
     else
+      reject_orphaned_line_items
       @cart_abacus = CartAbacus.new @cart
       @line_items_valid = all_line_items_valid?
     end
@@ -90,6 +91,13 @@ class CartsController < ApplicationController
 
     def clear_session
       session[:cart_checkout] = nil
+    end
+
+    def reject_orphaned_line_items
+      orphaned = @cart.line_items.select(&:orphaned?).each(&:destroy)
+      if orphaned.any? #reload cart
+        set_cart
+      end
     end
 
     def set_cart
