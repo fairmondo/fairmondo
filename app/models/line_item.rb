@@ -53,9 +53,22 @@ class LineItem < ActiveRecord::Base
 
   # Handle line_item_count on Cart
   before_create  -> { Cart.increment_counter(:line_item_count, cart.id) }
-  before_destroy -> { Cart.decrement_counter(:line_item_count, cart.id) }
+  before_destroy -> { Cart.decrement_counter(:line_item_count, cart.id)  }
+  after_destroy do |record|
+    group = record.line_item_group
+    group.destroy if group.line_items.empty?
+  end
 
   def qualifies_for_belboon?
     line_item_group.seller.is_a?(LegalEntity) && article.is_conventional?
   end
+
+  def orphaned?
+    !self.article.present? || !self.article.valid? || !self.article.active?
+  end
+
+  private
+
+
+
 end
