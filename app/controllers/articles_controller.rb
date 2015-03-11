@@ -103,7 +103,7 @@ class ArticlesController < ApplicationController
 
   def update # Still needs Refactoring
     if state_params_present?
-      change_state!
+      change_state
     else
       authorize @article
       save_images unless @article.update(params.for(@article).refine)
@@ -157,17 +157,17 @@ class ArticlesController < ApplicationController
       end
     end
 
-    def change_state!
+    def change_state
       # For changing the state of an article
       # Refer to Article::State
       if params[:activate]
-        activate!
+        activate
       elsif params[:deactivate]
-        deactivate!
+        deactivate
       end
     end
 
-    def activate!
+    def activate
       @article.assign_attributes params.for(@article).refine
       authorize @article, :activate?
       if @article.activate
@@ -183,7 +183,7 @@ class ArticlesController < ApplicationController
       end
     end
 
-    def deactivate!
+    def deactivate
       authorize @article, :deactivate?
       @article.deactivate_without_validation
       flash[:notice] = I18n.t('article.notices.deactivated')
