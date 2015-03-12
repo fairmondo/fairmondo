@@ -11,7 +11,7 @@ json.donation do
     json.organization do
       json.name article.friendly_percent_organisation_nickname
       json.id article.friendly_percent_organisation_id
-      json.html_url user_url(article.friendly_percent_organisation)
+      json.html_url user_url(article.friendly_percent_organisation_id)
     end
   else
     json.nil!
