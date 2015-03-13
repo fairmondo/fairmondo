@@ -47,6 +47,8 @@ feature 'Article creation' do
       choose "article_condition_new"
     end
 
+    fill_in I18n.t('formtastic.labels.article.price'), with: '5,00'
+
     if @user.is_a? LegalEntity
       fill_in I18n.t('formtastic.labels.article.basic_price'), with: '99,99'
       select I18n.t("enumerize.article.basic_price_amount.kilogram"), from: I18n.t('formtastic.labels.article.basic_price_amount')
