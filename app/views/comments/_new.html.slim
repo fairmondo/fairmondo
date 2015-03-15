@@ -1,5 +1,13 @@
-= semantic_form_for([commentable, comment], remote: true, html: {id: "new_comment_#{commentable.id}"}) do |f|
-  = f.input :text, placeholder: t('comments.input_placeholder'), label: false, input_html: { class: "Comment", rows: 2 }
+/ Get the maximum comment length from the model validator (probably overkill)
+- maxlength = (Comment.validators_on(:text)\
+  .select { |v| v.class == ActiveModel::Validations::LengthValidator })\
+  .first.options[:maximum]
+
+= semantic_form_for([commentable, comment], remote: true,
+  html: { id: "new_comment_#{commentable.id}"} ) do |f|
+  = f.input :text, placeholder: t('comments.input_placeholder'), label: false,
+    input_html: { class: "Comment", rows: 3, maxlength: maxlength }
 
   = f.actions do
-    = f.action :submit, as: :button, label: t('comments.create'), button_html: { class: "Button Comment" }
+    = f.action :submit, as: :button, label: t('comments.create'),
+      button_html: { class: "Button Comment" }

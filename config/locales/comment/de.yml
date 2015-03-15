@@ -10,7 +10,7 @@ de:
     login_href: "Melde dich an"
     login_to_comment: "%{href}, um Kommentare schreiben zu können."
     seller_vacationing: "Es können keine neuen Kommentare erstellt werden, solange der Verkäufer im Urlaub ist."
-    input_placeholder: "Hinterlasse einen Kommentar"
+    input_placeholder: "Kommentar eintragen (max. 1.000 Zeichen)"
     create: "Kommentar erstellen"
     more: "Mehr Kommentare"
     delete: "Kommentar löschen"

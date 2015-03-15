@@ -36,7 +36,7 @@ class Comment < ActiveRecord::Base
 
   validates :commentable, presence: true
   validates :user, presence: true
-  validates :text, presence: true, length: { maximum: 240 }
+  validates :text, presence: true, length: { maximum: 1000 }
 
   default_scope { order(created_at: :desc) }
 
