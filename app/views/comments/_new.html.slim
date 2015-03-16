@@ -1,12 +1,8 @@
-/ Get the maximum comment length from the model validator (probably overkill)
-- maxlength = (Comment.validators_on(:text)\
-  .select { |v| v.class == ActiveModel::Validations::LengthValidator })\
-  .first.options[:maximum]
-
 = semantic_form_for([commentable, comment], remote: true,
   html: { id: "new_comment_#{commentable.id}"} ) do |f|
+  / Limit comment length to 1000 characters as in the model validation
   = f.input :text, placeholder: t('comments.input_placeholder'), label: false,
-    input_html: { class: "Comment", rows: 3, maxlength: maxlength }
+    input_html: { class: "Comment", rows: 3, maxlength: 1000 }
 
   = f.actions do
     = f.action :submit, as: :button, label: t('comments.create'),
