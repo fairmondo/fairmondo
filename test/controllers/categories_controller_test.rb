@@ -65,6 +65,18 @@ describe CategoriesController do
       assert_response :success
     end
 
+    it "should rescue an Faraday::TimeoutError error" do
+      Chewy::Query.any_instance.stubs(:to_a).raises(Faraday::TimeoutError.new("test"))
+      get :show, id: category.id, article_search_form: { q: 'foobar' }
+      assert_response :success
+    end
+
+    it "should rescue an Faraday::ClientError error" do
+      Chewy::Query.any_instance.stubs(:to_a).raises(Faraday::ClientError.new("test"))
+      get :show, id: category.id, article_search_form: { q: 'foobar' }
+      assert_response :success
+    end
+
     describe "search" do
       setup do
         ArticlesIndex.reset!

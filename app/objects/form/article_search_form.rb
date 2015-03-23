@@ -33,7 +33,11 @@ class ArticleSearchForm
     results.to_a # dont get rid of this as it will trigger the request and the rescue block can come in
     results
   rescue Faraday::ConnectionFailed
-    ArticlePolicy::Scope.new(nil, Article).resolve.page(page)
+    search_results_for_error_case page
+  rescue Faraday::TimeoutError
+    search_results_for_error_case page
+  rescue Faraday::ClientError
+    search_results_for_error_case page
   end
 
   # For the category tree to display wich categories have which counts
@@ -107,6 +111,9 @@ class ArticleSearchForm
   end
 
   private
+    def search_results_for_error_case page
+      ArticlePolicy::Scope.new(nil, Article).resolve.page(page)
+    end
 
     def filter_attributes
       clean_hash self.attributes
@@ -115,6 +122,4 @@ class ArticleSearchForm
     def clean_hash hash
       hash.select{ |k,v| v!=nil && v!=false }
     end
-
-
 end

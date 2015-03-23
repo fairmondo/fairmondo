@@ -7,7 +7,7 @@ class CartAbacus
     @group_totals = {}
     @line_item_totals = {}
     calculate_total
-    calculate_belboon_value if cart.user && cart.user_belboon_tracking_token
+    calculate_belboon_value if cart.user
   end
 
   private

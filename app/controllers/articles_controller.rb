@@ -59,7 +59,11 @@ class ArticlesController < ApplicationController
   def autocomplete
     render :json => ArticleAutocomplete.new(params[:q]).autocomplete
   rescue Faraday::ConnectionFailed
-    render :json => {query: params[:q], suggestions:[]}
+    search_results_for_error_case
+  rescue Faraday::TimeoutError
+    search_results_for_error_case
+  rescue Faraday::ClientError
+    search_results_for_error_case
   end
 
   def show
@@ -127,6 +131,9 @@ class ArticlesController < ApplicationController
   ##### Private Helpers
 
   private
+    def search_results_for_error_case
+      render :json => {query: params[:q], suggestions:[]}
+    end
 
     def calculate_fees_and_donations
       @article.calculate_fees_and_donations
