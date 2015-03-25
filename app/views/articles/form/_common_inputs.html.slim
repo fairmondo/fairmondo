@@ -47,8 +47,14 @@
     .Accordion-step
       = f.input :quantity, tooltip: true, input_html: { class: 'JS-enforce-input-constraints' }
     .Accordion-step
+      / Clear price input value for new articles if no template was used.
+      / Don't clear if the form had an error and the price was already entered.
+      - if (edit_form || params[:template] || (f.object.errors.any? && f.object.errors.messages[:price] == nil))
+        - clear_price = false
+      - else
+        - clear_price = true
       = f.input :price, tooltip: true, required: true,
-        input_html: { value: (edit_form ? number_with_precision(f.object.price, precision: 2) : ""),
+        input_html: { value: (clear_price ? "" : number_with_precision(f.object.price, precision: 2)),
           placeholder: "0,00",
           class: "JS-remote-validate-blur" }
     - if current_user.is_a?(LegalEntity)
