@@ -19,9 +19,9 @@
 / You should have received a copy of the GNU Affero General Public License
 / along with Fairmondo.  If not, see <http://www.gnu.org/licenses/>.
 /
-h1= t('article.titles.new')
+h1= t("article.titles.new")
 - if current_user.is_a?(PrivateUser)
   p= tinycms_content "article-introduction-private"
 - elsif current_user.is_a?(LegalEntity)
   p= tinycms_content "article-introduction-legal"
-= render 'form'
+= render "form", edit_form: params[:edit_as_new] ? true : false

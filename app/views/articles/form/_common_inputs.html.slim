@@ -20,6 +20,8 @@
 / along with Fairmondo.  If not, see <http://www.gnu.org/licenses/>.
 /
 / Lieferzeit, preise? (auch le), DELETE CHROME PASSWORD
+- edit_form = false unless local_assigns.has_key?(:edit_form)
+
 = f.input_step :title_and_categories, default_step: true do
   = f.inputs do
     .Accordion-step
@@ -45,7 +47,10 @@
     .Accordion-step
       = f.input :quantity, tooltip: true, input_html: { class: 'JS-enforce-input-constraints' }
     .Accordion-step
-      = f.input :price, tooltip: true, input_html: { value: number_with_precision(f.object.price, precision: 2), class: 'JS-remote-validate-blur' }, required: true
+      = f.input :price, tooltip: true, required: true,
+        input_html: { value: (edit_form ? number_with_precision(f.object.price, precision: 2) : ""),
+          placeholder: "0,00",
+          class: "JS-remote-validate-blur" }
     - if current_user.is_a?(LegalEntity)
       .Accordion-step
         = f.input :basic_price, tooltip: true, input_html: { value: number_with_precision(f.object.basic_price, precision: 2) }
