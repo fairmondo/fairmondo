@@ -49,11 +49,11 @@
 - ordercode, value_wo_vat, tracking_token = '', '', ''
 
 - if current_user == @line_item_group.buyer && \
-  current_user.belboon_tracking_token && \
   @line_item_group.seller.is_a?(LegalEntity)
   - ordercode = @line_item_group.cart.id
   - value_wo_vat = CartAbacus.new(@line_item_group.cart).belboon_tracking_relevant_value.to_s
-  - tracking_token = current_user.belboon_tracking_token
+  - if current_user.belboon_tracking_token
+    - tracking_token = current_user.belboon_tracking_token
 
 = render 'shared/belboon_tracking', ordercode: ordercode,
   value_wo_vat: value_wo_vat,

@@ -18,7 +18,14 @@ class ActiveUserArticles
       result.to_a # this will make sure the request is send
       result
     rescue Faraday::ConnectionFailed
-      @user.articles.includes(:images).where(state: 'active').page(page).per(per)
+      user_articles_for_error_case page, per
+    rescue Faraday::TimeoutError
+      user_articles_for_error_case page, per
+    rescue Faraday::ClientError
+      user_articles_for_error_case page, per
     end
 
+    def user_articles_for_error_case page, per
+      @user.articles.includes(:images).where(state: 'active').page(page).per(per)
+    end
 end

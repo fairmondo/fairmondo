@@ -214,8 +214,20 @@ describe ArticlesController do
         assert_template :article_closed
       end
 
-      it "doen't throw an error when the search for other users articles breaks" do
+      it "doesn't throw an error when the search for other users articles breaks" do
         Chewy::Query.any_instance.stubs(:to_a).raises(Faraday::ConnectionFailed.new("test")) # simulate connection error so that we dont have to use elastic
+        get :show, id: article.id
+        assert_template :show
+      end
+
+      it "doesn't throw an error when the search for other users articles breaks" do
+        Chewy::Query.any_instance.stubs(:to_a).raises(Faraday::TimeoutError.new("test")) # simulate connection error so that we dont have to use elastic
+        get :show, id: article.id
+        assert_template :show
+      end
+
+      it "doesn't throw an error when the search for other users articles breaks" do
+        Chewy::Query.any_instance.stubs(:to_a).raises(Faraday::ClientError.new("test")) # simulate connection error so that we dont have to use elastic
         get :show, id: article.id
         assert_template :show
       end
@@ -522,6 +534,40 @@ describe ArticlesController do
       assert_response :success
       response.body.must_equal({"query" => nil , "suggestions" => []}.to_json)
     end
-  end
 
+    it "should rescue an Faraday::TimeoutError error" do
+      ArticleAutocomplete.any_instance.stubs(:autocomplete).raises(Faraday::TimeoutError.new("test"))
+      get :autocomplete, keywords: 'chunky'
+      assert_response :success
+      response.body.must_equal({"query" => nil , "suggestions" => []}.to_json)
+    end
+
+    it "should rescue an Faraday::ClientError error" do
+      ArticleAutocomplete.any_instance.stubs(:autocomplete).raises(Faraday::ClientError.new("test"))
+      get :autocomplete, keywords: 'chunky'
+      assert_response :success
+      response.body.must_equal({"query" => nil , "suggestions" => []}.to_json)
+    end
+
+    it "should rescue an Faraday::ParsingError error" do
+      ArticleAutocomplete.any_instance.stubs(:autocomplete).raises(Faraday::ParsingError.new("test"))
+      get :autocomplete, keywords: 'chunky'
+      assert_response :success
+      response.body.must_equal({"query" => nil , "suggestions" => []}.to_json)
+    end
+
+    it "should rescue an Faraday::SSLError error" do
+      ArticleAutocomplete.any_instance.stubs(:autocomplete).raises(Faraday::SSLError.new("test"))
+      get :autocomplete, keywords: 'chunky'
+      assert_response :success
+      response.body.must_equal({"query" => nil , "suggestions" => []}.to_json)
+    end
+
+    it "should rescue an Faraday::ResourceNotFound error" do
+      ArticleAutocomplete.any_instance.stubs(:autocomplete).raises(Faraday::ResourceNotFound.new("test"))
+      get :autocomplete, keywords: 'chunky'
+      assert_response :success
+      response.body.must_equal({"query" => nil , "suggestions" => []}.to_json)
+    end
+  end
 end
