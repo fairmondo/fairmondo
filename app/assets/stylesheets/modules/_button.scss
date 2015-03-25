@@ -20,6 +20,7 @@ Styleguide Buttons
   text-align: center;
   color: white !important; // we want it to be readable
   background-color: $blue;
+  -webkit-appearance: none;
 
   &:hover {
     background-color: lighten($blue, 5%);
