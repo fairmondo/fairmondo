@@ -22,5 +22,14 @@ module Article::Scopes
         articles.friendly_percent_organisation_id,
         articles.transport_bike_courier')
     }
+
+    scope :belboon_trackable, -> {
+      where('state = ? AND
+            condition = ? AND
+            fair = ? AND
+            ecologic = ? AND
+            small_and_precious = ?',
+            'active', 'new', false, false, false)
+    }
   end
 end
