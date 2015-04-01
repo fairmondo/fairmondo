@@ -45,7 +45,7 @@ class BelboonArticleExporter
   ]
 
   FILE_NAME = Rails.env == 'production' ? \
-    '/var/www/fairnopoly/shared/public/fairmondo_articles.csv' : \
+    '/var/www/fairnopoly/shared/public/system/fairmondo_articles.csv' : \
     "#{ Rails.root }/public/fairmondo_articles.csv"
 
   def self.export(user)
