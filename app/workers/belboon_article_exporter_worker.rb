@@ -2,9 +2,13 @@ class BelboonArticleExporterWorker
   include Sidekiq::Worker
   include Sidetiq::Schedulable
 
-  recurrence { weekly(1).day_of_week(1).hour_of_day(2) }
+  recurrence  do
+    if Rails.env == 'production'
+      weekly.day(1).hour_of_day(2)
+    end
+  end
 
-  sidekiq_options queue: :sidekiq_pro,
+  sidekiq_options queue: :belboon_csv_export,
                   retry: 5,
                   backtrace: true
 
