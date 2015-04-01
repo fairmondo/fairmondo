@@ -2,7 +2,7 @@ class BelboonArticleExporterWorker
   include Sidekiq::Worker
   include Sidetiq::Schedulable
 
-  recurrance { weekly.day_of_week(1).hour_of_day(2) }
+  recurrence { weekly(1).day_of_week(1).hour_of_day(2) }
 
   sidekiq_options queue: :sidekiq_pro,
                   retry: 5,
