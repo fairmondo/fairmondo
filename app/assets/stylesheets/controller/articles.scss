@@ -117,6 +117,9 @@ ul.category-selected-list {
     margin-top: 0.8em;
     font-size: 1.2em;
   }
+  .Button {
+    padding: 0.5em;
+  }
 }
 
 // layout
@@ -186,6 +189,8 @@ ul.category-selected-list {
 
 .contents > .info {
   @include clearfix;
+  @include whitebox;
+  padding: 0.7em;
 }
 
 
@@ -216,7 +221,7 @@ ul.category-selected-list {
 
 .contents > .info > .left > h4.fair_percent {
   color: $gray;
-  font-weight: 300;
+  font-weight: normal;
   margin: 0.5em 0em;
 }
 
@@ -422,7 +427,6 @@ ul.category-selected-list {
 }
 
 // the sidebar box for books claim
-/*
 .books {
   padding: 0;
   margin-top: 1em;
@@ -431,21 +435,6 @@ ul.category-selected-list {
     display: block;
     width: 100%;
     margin: 0;
-  }
-}
-*/
-
-// the sidebar box for subscriptions
-.subscription {
-  @include whitebox;
-  padding: 0.5em;
-  margin-bottom: 1em;
-  text-align: center;
-
-  .iframe, iframe {
-    border: 0;
-    height: 300px;
-    width: 100%;
   }
 }
 

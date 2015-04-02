@@ -25,6 +25,8 @@ class ArticlesController < ApplicationController
   respond_to :html
   respond_to :json, only: [:show,:index]
 
+  before_filter :set_article, only: [:edit, :update, :destroy, :show]
+
   # Authorization
   skip_before_filter :authenticate_user!, only: [:show, :index, :new, :autocomplete]
   before_filter :seller_sign_in, only: :new
@@ -35,12 +37,21 @@ class ArticlesController < ApplicationController
 
   #search_cache
   before_filter :build_search_cache, only: :index
-  before_filter :category_specific_search, only: :index, unless: lambda { request.xhr? || request.format == :json }
+  before_filter :category_specific_search, only: :index,
+    unless: lambda { request.xhr? || request.format == :json }
 
   # Calculate value of active goods
   before_filter :check_value_of_goods, only: [:update], if: :activate_params_present?
 
-  before_filter :set_article, only: [:edit, :update, :destroy, :show]
+  # Calculate fees and donations
+  before_filter :calculate_fees_and_donations, only: :show,
+    if: lambda { !@article.active? && policy(@article).activate? }
+
+  # Flash image processing message
+  before_filter :flash_image_processing_message, only: :show,
+    if: lambda { !flash.now[:notice] &&
+                 @article.owned_by?(current_user) &&
+                 at_least_one_image_processing? }
 
   rescue_from ActiveRecord::RecordNotFound, with: :similar_articles, only: :show
 
@@ -48,7 +59,11 @@ class ArticlesController < ApplicationController
   def autocomplete
     render :json => ArticleAutocomplete.new(params[:q]).autocomplete
   rescue Faraday::ConnectionFailed
-    render :json => {query: params[:q], suggestions:[]}
+    search_results_for_error_case
+  rescue Faraday::TimeoutError
+    search_results_for_error_case
+  rescue Faraday::ClientError
+    search_results_for_error_case
   end
 
   def show
@@ -56,15 +71,6 @@ class ArticlesController < ApplicationController
 
     @user_libraries = current_user.libraries if current_user
     @containing_libraries = @article.libraries.includes(user: [:image]).published.limit(10)
-
-    if !@article.active? && policy(@article).activate?
-      @article.calculate_fees_and_donations
-    end
-
-    if !flash.now[:notice] && @article.owned_by?(current_user) && at_least_one_image_processing?
-      flash.now[:notice] = t('article.notices.image_processing')
-    end
-
   rescue Pundit::NotAuthorizedError
     similar_articles @article.title
   end
@@ -75,16 +81,12 @@ class ArticlesController < ApplicationController
   end
 
   def new
-    ############### From Template ################
     if params[:template] && params[:template][:article_id].present?
-      template = current_user.articles.unscoped.find(params[:template][:article_id])
-      @article = template.amoeba_dup
-      flash.now[:notice] = t('template.notices.applied', :name => template.article_template_name)
+      new_from_template
     elsif params[:edit_as_new]
-      @old_article = current_user.articles.find(params[:edit_as_new])
-      @article = Article.edit_as_new @old_article
+      edit_as_new
     else
-      @article = current_user.articles.build
+      new_article
     end
     authorize @article
   end
@@ -95,6 +97,9 @@ class ArticlesController < ApplicationController
 
   def create
     @article = current_user.articles.build(params.for(Article).refine)
+    if params && params[:article][:article_template_name].present?
+      @article.save_as_template = '1'
+    end
     authorize @article
     save_images unless @article.save
     respond_with @article
@@ -102,7 +107,7 @@ class ArticlesController < ApplicationController
 
   def update # Still needs Refactoring
     if state_params_present?
-      change_state!
+      change_state
     else
       authorize @article
       save_images unless @article.update(params.for(@article).refine)
@@ -115,15 +120,28 @@ class ArticlesController < ApplicationController
 
     if @article.preview?
       @article.destroy
-    elsif @article.locked?
+    else
+      @article.deactivate! if @article.active?
       @article.close_without_validation
     end
+    flash[:notice] = I18n.t('article.notices.destroyed')
     respond_with @article, location: -> { user_path(current_user) }
   end
 
   ##### Private Helpers
 
   private
+    def search_results_for_error_case
+      render :json => {query: params[:q], suggestions:[]}
+    end
+
+    def calculate_fees_and_donations
+      @article.calculate_fees_and_donations
+    end
+
+    def flash_image_processing_message
+      flash.now[:notice] = t('article.notices.image_processing')
+    end
 
     def seller_sign_in
       # If user is not logged in, redirect to sign in page with parameter for
@@ -146,29 +164,37 @@ class ArticlesController < ApplicationController
       end
     end
 
-    def change_state!
+    def change_state
       # For changing the state of an article
       # Refer to Article::State
       if params[:activate]
-        @article.assign_attributes params.for(@article).refine
-        authorize @article, :activate?
-        if @article.activate
-          flash[:notice] = I18n.t('article.notices.create_html')
-          redirect_to @article
-        elsif @article.errors.keys.include? :tos_accepted
-          # TOS weren't accepted, redirect back to the form
-          flash[:error] = I18n.t('article.notices.activation_failed')
-          render :show
-        else
-          # The article became invalid so please try a new one
-          redirect_to new_article_path(:edit_as_new => @article.id)
-        end
+        activate
       elsif params[:deactivate]
-        authorize @article, :deactivate?
-        @article.deactivate_without_validation
-        flash[:notice] = I18n.t('article.notices.deactivated')
-        redirect_to @article
+        deactivate
       end
+    end
+
+    def activate
+      @article.assign_attributes params.for(@article).refine
+      authorize @article, :activate?
+      if @article.activate
+        flash[:notice] = I18n.t('article.notices.create_html')
+        redirect_to @article
+      elsif @article.errors.keys.include? :tos_accepted
+        # TOS weren't accepted, redirect back to the form
+        flash[:error] = I18n.t('article.notices.activation_failed')
+        render :show
+      else
+        # The article became invalid so please try a new one
+        redirect_to new_article_path(:edit_as_new => @article.id)
+      end
+    end
+
+    def deactivate
+      authorize @article, :deactivate?
+      @article.deactivate_without_validation
+      flash[:notice] = I18n.t('article.notices.deactivated')
+      redirect_to @article
     end
 
     def state_params_present?
@@ -178,6 +204,30 @@ class ArticlesController < ApplicationController
     def activate_params_present?
       !!params[:activate]
     end
+
+    # used in for new articles
+    #
+    def new_from_template
+      template = current_user.articles.unscoped.find(params[:template][:article_id])
+      @article = template.amoeba_dup
+      clear_template_name
+      flash.now[:notice] = t('template.notices.applied', :name => template.article_template_name)
+    end
+
+    def edit_as_new
+      @old_article = current_user.articles.find(params[:edit_as_new])
+      @article = Article.edit_as_new @old_article
+      clear_template_name
+    end
+
+    def new_article
+      @article = current_user.articles.build
+    end
+
+    def clear_template_name
+      @article.article_template_name = nil
+    end
+
 
     ############ Images ################
 
@@ -201,7 +251,6 @@ class ArticlesController < ApplicationController
   ################## Inherited Resources
 
   protected
-
 
     def category_specific_search
       if @search_cache.category_id.present?

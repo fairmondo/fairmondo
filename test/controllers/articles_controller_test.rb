@@ -214,8 +214,20 @@ describe ArticlesController do
         assert_template :article_closed
       end
 
-      it "doen't throw an error when the search for other users articles breaks" do
+      it "doesn't throw an error when the search for other users articles breaks" do
         Chewy::Query.any_instance.stubs(:to_a).raises(Faraday::ConnectionFailed.new("test")) # simulate connection error so that we dont have to use elastic
+        get :show, id: article.id
+        assert_template :show
+      end
+
+      it "doesn't throw an error when the search for other users articles breaks" do
+        Chewy::Query.any_instance.stubs(:to_a).raises(Faraday::TimeoutError.new("test")) # simulate connection error so that we dont have to use elastic
+        get :show, id: article.id
+        assert_template :show
+      end
+
+      it "doesn't throw an error when the search for other users articles breaks" do
+        Chewy::Query.any_instance.stubs(:to_a).raises(Faraday::ClientError.new("test")) # simulate connection error so that we dont have to use elastic
         get :show, id: article.id
         assert_template :show
       end
@@ -275,13 +287,12 @@ describe ArticlesController do
       end
 
       it "should be possible to get a new article from an existing one" do
-        article = FactoryGirl.create :locked_article, seller: user
+        article = FactoryGirl.create :article, seller: user
         get :new, edit_as_new: article.id
         assert_template :new
         draftarticle = @controller.instance_variable_get(:@article)
         assert draftarticle.new_record?
         draftarticle.title.must_equal(article.title)
-        assert article.reload.locked? # still locked, not yet closed
         draftarticle.original.must_equal article
       end
 
@@ -364,13 +375,14 @@ describe ArticlesController do
       end
 
       it "should successfully save an edit_as_new clone and transfer its slug and comments" do
-        original_article = FactoryGirl.create :locked_article, seller: user
+        original_article = FactoryGirl.create :article, seller: user
+        article = FactoryGirl.create :article, original: original_article
         comment = FactoryGirl.create :comment, commentable: original_article
         original_slug = original_article.slug
 
         assert_difference 'Article.count', 1 do
           post :create,
-            article: @article_attrs.merge({original_id: original_article.id})
+            article: @article_attrs.merge({ original_id: original_article.id })
         end
         new_article = @controller.instance_variable_get(:@article)
 
@@ -408,7 +420,7 @@ describe ArticlesController do
         assert_no_difference 'Article.count' do
           put :update, id: @article.id, activate: true,
             article: { tos_accepted: '1' }
-          put :update, id: @article.id, deactivate: true
+          #put :update, id: @article.id, deactivate: true
           put :destroy, id: @article.id
         end
       end
@@ -522,6 +534,40 @@ describe ArticlesController do
       assert_response :success
       response.body.must_equal({"query" => nil , "suggestions" => []}.to_json)
     end
-  end
 
+    it "should rescue an Faraday::TimeoutError error" do
+      ArticleAutocomplete.any_instance.stubs(:autocomplete).raises(Faraday::TimeoutError.new("test"))
+      get :autocomplete, keywords: 'chunky'
+      assert_response :success
+      response.body.must_equal({"query" => nil , "suggestions" => []}.to_json)
+    end
+
+    it "should rescue an Faraday::ClientError error" do
+      ArticleAutocomplete.any_instance.stubs(:autocomplete).raises(Faraday::ClientError.new("test"))
+      get :autocomplete, keywords: 'chunky'
+      assert_response :success
+      response.body.must_equal({"query" => nil , "suggestions" => []}.to_json)
+    end
+
+    it "should rescue an Faraday::ParsingError error" do
+      ArticleAutocomplete.any_instance.stubs(:autocomplete).raises(Faraday::ParsingError.new("test"))
+      get :autocomplete, keywords: 'chunky'
+      assert_response :success
+      response.body.must_equal({"query" => nil , "suggestions" => []}.to_json)
+    end
+
+    it "should rescue an Faraday::SSLError error" do
+      ArticleAutocomplete.any_instance.stubs(:autocomplete).raises(Faraday::SSLError.new("test"))
+      get :autocomplete, keywords: 'chunky'
+      assert_response :success
+      response.body.must_equal({"query" => nil , "suggestions" => []}.to_json)
+    end
+
+    it "should rescue an Faraday::ResourceNotFound error" do
+      ArticleAutocomplete.any_instance.stubs(:autocomplete).raises(Faraday::ResourceNotFound.new("test"))
+      get :autocomplete, keywords: 'chunky'
+      assert_response :success
+      response.body.must_equal({"query" => nil , "suggestions" => []}.to_json)
+    end
+  end
 end

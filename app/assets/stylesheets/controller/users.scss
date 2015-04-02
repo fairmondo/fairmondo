@@ -90,10 +90,6 @@
   display:block;
 }
 
-.user-edit {
-  text-align: center;
-}
-
 .article_templates,.mass_uploads-table {
   th {
     border-bottom: lightgray solid 1px;
@@ -146,5 +142,17 @@
 
   #contact_form_text {
     width: 100%;
+  }
+}
+
+.user-contents {
+  @include whitebox;
+
+  hr {
+    margin-top: 2em;
+    margin-bottom: 1em;
+    border: 0;
+    height: 1px;
+    background-color: $lighter-gray;
   }
 }

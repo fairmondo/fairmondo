@@ -136,7 +136,7 @@ h1= t('common.actions.edit_profile')
           h3= 'Deine Versandaddressen'
 
           = render 'addresses/addresses', radio: false
-          = link_to 'neue Adresse hinzufügen', new_user_address_path(@user), { class: 'colorbox' }
+          = link_to 'neue Adresse hinzufügen', new_user_address_path(@user), { class: 'ungrouped_colorbox' }
 
     = f.input_step :profile, tooltip: true do
       = f.inputs do

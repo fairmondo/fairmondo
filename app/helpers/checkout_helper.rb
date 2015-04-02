@@ -30,10 +30,13 @@ module CheckoutHelper
   end
 
   def checkout_options_for_single_transport line_item, preview
-    line_item.article.selectable_transports.map do |transport|
+    transports = []
+    # pickup should be last in list, that's why we assign a large value for compariso reasons
+    preview[line_item].sort_by { |k, v| k == 'pickup' ? 1000000 : v.cents }.each do |transport, cost|
       provider = line_item.article.transport_provider transport
-      [ "#{ provider } (+#{ money(preview[line_item][transport]) })", transport ]
+      transports.push ["#{ provider } (+#{ money(cost) })", transport]
     end
+    transports
   end
 
   def unified_transport_first a,b

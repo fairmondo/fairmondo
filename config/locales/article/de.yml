@@ -82,7 +82,7 @@ de:
       fair_percent: "Das faire Prozent"
       friendly_percent: "Spendenanteil"
       will_be: " werden an "
-      donate_html: "1% werden von uns an <a href='http://www.transparency.de/' target='_blank'>Transparency International</a> gespendet"
+      donate_html: "1% werden von Fairmondo an <a href='http://www.transparency.de/' target='_blank'>Transparency International</a> gespendet"
       donate_ngo_html: "100% des Erlöses gehen an %{ngo}. Es fallen keine Fairmondo-Gebühren an."
       donate_ngo_short_html: "%{percent}% gehen an %{ngo}"
       friendly_percent_html: "Diese*r Anbieter*in spendet %{percent}% an %{ngo}"
@@ -118,6 +118,9 @@ de:
         article: 'Artikel'
       comments:
         legal_entity_publish_info: "Achtung: Neue Kommentare für Artikel von gewerblichen Nutzern werden nur zwischen 10 und 17 Uhr veröffentlicht."
+      tooltips:
+        disable: 'Wenn Du Deinen Artikel vom Marktplatz nimmst, ist dieser nicht mehr aktiv und kann nicht mehr gefunden und gekauft werden. Du findest die nicht aktiven Artikel in Deinem Profil unter Nicht eingestellte Artikel.'
+
     hero:
       search: "Suche nach"
       filter: "Filter nach"
@@ -181,6 +184,7 @@ de:
       deactivated: "Artikel wurde erfolgreich vom Marktplatz genommen!"
       max_limit: "Der maximale Warenwert wurde überschritten. Um weitere Artikel einstellen zu können, musst Du andere Artikel vom Marktplatz nehmen."
       image_processing: "Bitte beachte, dass einige der Bilder dieses Artikels noch darauf warten, von unserem System bearbeitet zu werden. Das kann einige Zeit dauern. Der Artikel kann trotzdem schon auf der Plattform angezeigt werden. Noch nicht bearbeitete Bilder werden temporär durch ein Sanduhr-Symbol ersetzt."
+      destroyed: "Dein Artikel wurde erfolgreich gelöscht."
     image:
       title: "Lade ein Bild hoch"
       upload: "Hochladen"
@@ -196,7 +200,7 @@ de:
     actions:
       edit: "Artikel bearbeiten"
       profile: "Anbieter*in ansehen"
-      show_user: "Zum Anbieter"
+      show_user: "Zum*zur Anbieter*in"
       report: "Feedback senden"
       reported: "Erfolgreich gesendet."
       reported-error: "Du musst einen Text schreiben um ein Feedback zu senden."
@@ -228,9 +232,9 @@ de:
           %{percent}% des Artikelendpreises werden bei erfolgreichem Verkauf von Dir an %{ngo} gespendet. Auf den Spendenanteil fallen keine Verkaufsgebühren an. Informationen zur Spendenabwicklung findest Du <a href='https://www.fairmondo.de/faq#spa2' target='_blank'>hier</a> und in der Bestätigungsmail bei erfolgreichem Verkauf.
         fees_quarter_fee: "Zusätzlich zu den Verkaufsgebühren wird je Geschäftsquartal, in dem Du erfolgreich mindestens einmal verkauft hast, eine Quartalsgebühr von 1,‒ Euro fällig (inkl. 19% MwSt)."
         fees_mass_upload: "Bei erfolgreichem Verkauf jedes Artikels gehen 6% des Artikelendpreises an Fairmondo. Bei Artikeln unter dem Filter fair fallen lediglich 3% an. Der hier aufgeführte Betrag bezieht auf die summierten Gebühren beim erfolgreichen Verkauf aller Artikel (gemäß der angegebenen Stückzahl)."
-        fees_and_donations: "1% des Artikelendpreises wird bei erfolgreichem Verkauf durch uns automatisch an Initiativen, die sich gegen Korruption einsetzen, gespendet."
+        fees_and_donations: "1% des Artikelendpreises wird bei erfolgreichem Verkauf automatisch von Fairmondo an Initiativen, die sich gegen Korruption einsetzen, gespendet."
         friendly_percent: "%{percent}% des Artikelendpreises wird bei erfolgreichem Verkauf durch den*die Anbieter*in an %{ngo} gespendet."
-        fees_and_donations_mass_upload: "1% des Artikelendpreises wird bei erfolgreichem Verkauf automatisch an Initiativen, die sich gegen Korruption einsetzen, gespendet. Da das 1% für jeden Artikel einzeln berechnet, eventuell aufgerundet und dann für alle hochgeladenen Artikel summiert wird, ist der hier ausgewiesene Betrag möglicherweise höher als 1%."
+        fees_and_donations_mass_upload: "1% des Artikelendpreises wird bei erfolgreichem Verkauf automatisch von Fairmondo an Initiativen, die sich gegen Korruption einsetzen, gespendet. Da das 1% für jeden Artikel einzeln berechnet, eventuell aufgerundet und dann für alle hochgeladenen Artikel summiert wird, ist der hier ausgewiesene Betrag möglicherweise höher als 1%."
         fees: "Die Gebührentabelle findest Du <hier>."
         double_check: >
           Dann stelle Deinen Artikel ein. Das Einstellen des Artikels ist kostenlos, bei Verkauf fallen die unter Gebühren und Spenden gelisteten Verkaufsgebühren an.

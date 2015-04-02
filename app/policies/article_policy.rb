@@ -29,7 +29,7 @@ class ArticlePolicy < Struct.new(:user, :article)
     # Active or sold articles can be shown to anyone.
     # All other state except of closedcan be shown to the
     # user who owns this article.
-    res = article.active? || article.sold? || (own? && !article.closed?) || bought_or_sold? || User.is_admin?(user)
+    article.active? || article.sold? || (own? && !article.closed?) || bought_or_sold? || User.is_admin?(user)
   end
 
   def new?
@@ -38,13 +38,10 @@ class ArticlePolicy < Struct.new(:user, :article)
 
   def create?
     original = article.original
-    if original && original.seller == article.seller && (original.locked? || original.sold?)
-      true
-    elsif !original
-      true
-    else
-      false # Devise already ensured this user is logged in.
+    if original && original.seller != article.seller
+      return false
     end
+    return true
     # FUTURE: Maybe we should deny this for possible guest access.
   end
 
@@ -60,7 +57,8 @@ class ArticlePolicy < Struct.new(:user, :article)
   end
 
   def destroy?
-    owned_and_deactivated? || own? && article.template?
+    own?
+    #owned_and_deactivated? || own? && article.template?
   end
 
   def activate?

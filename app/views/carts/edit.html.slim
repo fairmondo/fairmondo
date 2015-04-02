@@ -95,7 +95,7 @@
         fieldset.inputs#address_select
           = render 'addresses/addresses', radio: true, controls: true, value: (@cart_checkout_form.same_transport_address? ? 0 :  @cart_checkout_form.transport_address.id)
 
-        = link_to new_user_address_path(current_user, radio: true), { class: 'colorbox' } do
+        = link_to new_user_address_path(current_user, radio: true), { class: 'ungrouped_colorbox' } do
           .fa.fa-plus
           =< t('address.actions.new')
   .next_step_explanation
