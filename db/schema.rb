@@ -92,9 +92,9 @@ ActiveRecord::Schema.define(version: 20150226095925) do
     t.boolean  "borrowable",                                       default: false
     t.integer  "comments_count",                                   default: 0
     t.integer  "original_id",                            limit: 8
-    t.boolean  "payment_voucher",                                  default: false
     t.boolean  "transport_bike_courier",                           default: false
     t.integer  "transport_bike_courier_number",                    default: 1
+    t.boolean  "payment_voucher",                                  default: false
   end
 
   add_index "articles", ["created_at"], name: "index_articles_on_created_at", using: :btree
@@ -114,12 +114,12 @@ ActiveRecord::Schema.define(version: 20150226095925) do
 
   create_table "business_transactions", force: true do |t|
     t.string   "type_fix"
-    t.datetime "created_at",                                            null: false
-    t.datetime "updated_at",                                            null: false
+    t.datetime "created_at",                                          null: false
+    t.datetime "updated_at",                                          null: false
     t.datetime "expire"
     t.string   "selected_transport"
     t.string   "selected_payment"
-    t.boolean  "tos_accepted",                          default: false
+    t.boolean  "tos_accepted",                        default: false
     t.integer  "buyer_id",                  limit: 8
     t.string   "state"
     t.text     "message"
@@ -135,20 +135,20 @@ ActiveRecord::Schema.define(version: 20150226095925) do
     t.string   "country"
     t.integer  "seller_id",                 limit: 8
     t.datetime "sold_at"
-    t.boolean  "purchase_emails_sent",                  default: false
+    t.boolean  "purchase_emails_sent",                default: false
     t.string   "address_suffix"
     t.integer  "discount_id"
     t.integer  "discount_value_cents"
-    t.boolean  "billed_for_fair",                       default: false
-    t.boolean  "billed_for_fee",                        default: false
-    t.boolean  "billed_for_discount",                   default: false
+    t.boolean  "billed_for_fair",                     default: false
+    t.boolean  "billed_for_fee",                      default: false
+    t.boolean  "billed_for_discount",                 default: false
     t.integer  "line_item_group_id",        limit: 8
-    t.boolean  "refunded_fair",                         default: false
-    t.boolean  "refunded_fee",                          default: false
-    t.boolean  "tos_bike_courier_accepted",             default: false
+    t.boolean  "refunded_fair",                       default: false
+    t.boolean  "refunded_fee",                        default: false
+    t.boolean  "tos_bike_courier_accepted",           default: false
     t.text     "bike_courier_message"
-    t.string   "bike_courier_time",         limit: nil
-    t.boolean  "courier_emails_sent",                   default: false
+    t.string   "bike_courier_time"
+    t.boolean  "courier_emails_sent",                 default: false
     t.datetime "courier_emails_sent_at"
   end
 
@@ -427,6 +427,19 @@ ActiveRecord::Schema.define(version: 20150226095925) do
   end
 
   add_index "notices", ["user_id"], name: "index_notices_on_user_id", using: :btree
+
+  create_table "opening_times", force: true do |t|
+    t.integer  "user_id",    limit: 8
+    t.string   "monday"
+    t.string   "tuesday"
+    t.string   "wednesday"
+    t.string   "thursday"
+    t.string   "friday"
+    t.string   "saturday"
+    t.string   "sunday"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "payments", force: true do |t|
     t.string   "pay_key"
