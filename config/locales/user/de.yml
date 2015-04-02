@@ -107,3 +107,5 @@ de:
         long_error: 'Bitte benutze für Deine Rückfrage nicht mehr als 2000 Zeichen.'
         labels:
           text: "Deine Nachricht"
+    notices:
+      sepa_missing: 'Wir haben Änderungen am Lastschriftverfahren vorgenommen. Bitte bestätige deine Zustimmung zum Bankeinzug erneut.'

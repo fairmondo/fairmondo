@@ -50,15 +50,12 @@ class ApplicationController < ActionController::Base
 
   # Customize the Devise after_sign_in_path_for() for redirect to previous page after login
   def after_sign_in_path_for resource_or_scope
-    if resource_or_scope.is_a?(User) && resource_or_scope.banned?
-      sign_out resource_or_scope
-      flash.discard
-      "/banned"
-    elsif request.xhr? # AJAX request
-      toolbox_reload_path
-    else
-      stored_location_for(resource_or_scope) || redirect_back_location || user_path(resource_or_scope)
-    end
+    after_sign_in_if_banned(resource_or_scope) ||
+      after_sign_in_if_ajax ||
+      after_sign_in_if_sepa_required(resource_or_scope) ||
+      stored_location_for(resource_or_scope) ||
+      redirect_back_location ||
+      user_path(resource_or_scope)
   end
 
 
@@ -147,6 +144,28 @@ class ApplicationController < ActionController::Base
         "iframe"
       else
         nil
+      end
+    end
+
+    def after_sign_in_if_banned resource_or_scope
+      if resource_or_scope.is_a?(User) && resource_or_scope.banned?
+        sign_out resource_or_scope
+        flash.discard
+        "/banned"
+      end
+    end
+
+    def after_sign_in_if_ajax
+      toolbox_reload_path if request.xhr?
+    end
+
+    def after_sign_in_if_sepa_required user
+      # If a legal Entity hasn't accepted direct debit but has any articles
+      if user.is_a?(LegalEntity) && !user.direct_debit &&
+         Article.unscoped.where(seller: user).limit(1).count > 0
+
+        flash[:error] = t('users.notices.sepa_missing')
+        '/user/edit?incomplete_profile=true'
       end
     end
 end
