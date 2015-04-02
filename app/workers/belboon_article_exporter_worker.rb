@@ -12,7 +12,7 @@ class BelboonArticleExporterWorker
                   retry: 5,
                   backtrace: true
 
-  IDS = [1020]
+  IDS = YAML.load(File.read(File.expand_path(File.join( Rails.root, 'config', 'belboon_trackable_users.yml'))))[:users]
 
   def perform
     IDS.each do |id|
