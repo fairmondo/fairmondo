@@ -109,3 +109,5 @@ de:
           text: "Deine Nachricht"
       buttons:
         articles: 'Alle Artikel'
+    notices:
+      sepa_missing: 'Wir haben Änderungen am Lastschriftverfahren vorgenommen. Bitte bestätige deine Zustimmung zum Bankeinzug erneut.'

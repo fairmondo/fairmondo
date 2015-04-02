@@ -60,7 +60,9 @@ feature 'User registration' do
       click_button 'sign_up'
     end
   end
+end
 
+feature 'User sign in' do
   scenario "banned user wants to sing in" do
     user = FactoryGirl.create :user, banned: true
     FactoryGirl.create :content, key:'banned', body: '<p>You are banned.</p>'
@@ -72,6 +74,20 @@ feature 'User registration' do
 
     page.must_have_content 'You are banned.'
     page.wont_have_content I18n.t 'devise.sessions.signed_in'
+  end
+
+  scenario 'Legal entity who needs to reaccept direct debit signs in' do
+    user = FactoryGirl.create :legal_entity, direct_debit: false
+    FactoryGirl.create :article, seller: user
+    visit new_user_session_path
+
+    fill_in 'user_email', with: user.email
+    fill_in 'user_password', with: 'password'
+    click_button I18n.t('formtastic.actions.login')
+
+    page.must_have_content I18n.t 'devise.sessions.signed_in'
+    page.must_have_content I18n.t 'users.notices.sepa_missing'
+    current_path.must_equal '/user/edit'
   end
 end
 
