@@ -187,7 +187,7 @@ h1= t('common.actions.edit_profile')
         / only LegalEntities will be billed for fees
         - if resource.is_a?(LegalEntity)
           .Accordion-step
-            - direct_debit_link = link_to t('formtastic.labels.user.sepa'), '/sepa?layout=false', target: '_blank', class: 'colorbox'
+            - direct_debit_link = link_to t('formtastic.labels.user.sepa'), '/sepa?layout=false', target: '_blank', class: 'ungrouped_colorbox'
             = f.input :direct_debit, required: true, label: t('formtastic.labels.user.direct_debit_html').html_safe + direct_debit_link
 
         .Accordion-step
