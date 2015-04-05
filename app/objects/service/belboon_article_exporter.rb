@@ -2,9 +2,9 @@ class BelboonArticleExporter
   @@csv_options = { col_sep: ";",  encoding: 'utf-8' }
 
   EXPORT_MAPPING = {
-    'Merchant_ProductNumber' => 'slug',
-    'EAN_Code' => 'gtin',
-    'Product_Title' => 'title',
+    'Merchant_ProductNumber' => :slug,
+    'EAN_Code' => :gtin,
+    'Product_Title' => :title,
     'Manufacturer' => nil,
     'Brand' => nil,
     'Price' => lambda { |article| Money.new(article.price_cents).to_s.gsub(',', '.') },
@@ -23,11 +23,11 @@ class BelboonArticleExporter
     'Keywords' => nil,
     'Merchant_Product_Category' => nil,
     'Product_Description_Short' => nil,
-    'Product_Description_Long' => 'content',
-    'Last_Update' => 'updated_at',
+    'Product_Description_Long' => :content,
+    'Last_Update' => :updated_at,
     'Shipping' => nil,
     'Availability' => "'sofort lieferbar'",
-    'Optional_1' => nil,
+    'Optional_1' => :id,
     'Optional_2' => nil,
     'Optional_3' => nil,
     'Optional_4' => nil,
@@ -81,11 +81,11 @@ class BelboonArticleExporter
       user.articles.belboon_trackable.includes(:images)
     end
 
-    def self.thumb_image_path_for article
-      "https://www.fairmondo.de/#{ article.title_image_url :thumb }"
-    end
-
-    def self.medium_image_path_for article
-      "https://www.fairmondo.de/#{ article.title_image_url :medium }"
+    class << self
+      [:medium, :thumb].each do |style|
+        define_method "#{ style }_image_path_for" do |article|
+          "https://www.fairmondo.de/#{ article.title_image_url :style }"
+        end
+      end
     end
 end
