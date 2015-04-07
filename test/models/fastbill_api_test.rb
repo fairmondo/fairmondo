@@ -51,7 +51,7 @@ describe FastbillAPI do
         it "should set usage data for subscription" do
           db_business_transaction # to trigger observers before
           api = FastbillAPI.new db_business_transaction
-          api.expects(:fastbill_setusagedata ).twice
+          Fastbill::Automatic::Subscription.expects(:setusagedata).twice
           api.fastbill_chain
         end
       end
@@ -104,10 +104,9 @@ describe FastbillAPI do
 
     describe 'refund' do
       it 'should receive call' do
-        db_business_transaction.refund = FactoryGirl.create :refund
-        api = FastbillAPI.new db_business_transaction
-        api.expects(:fastbill_refund_fair)
-        api.expects(:fastbill_refund_fee)
+        FastbillAPI.any_instance.expects(:fastbill_refund_fair)
+        FastbillAPI.any_instance.expects(:fastbill_refund_fee)
+        FastbillRefundWorker.perform_async(db_business_transaction.id)
       end
     end
   end
