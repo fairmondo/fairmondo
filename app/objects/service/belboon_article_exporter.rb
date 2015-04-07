@@ -23,7 +23,7 @@ class BelboonArticleExporter
     'Keywords' => nil,
     'Merchant_Product_Category' => nil,
     'Product_Description_Short' => nil,
-    'Product_Description_Long' => 'content',
+    'Product_Description_Long' => 'Sanitize.clean(content)',
     'Last_Update' => 'updated_at',
     'Shipping' => nil,
     'Availability' => "'sofort lieferbar'",
@@ -44,9 +44,9 @@ class BelboonArticleExporter
     'Optional_1', 'Optional_2', 'Optional_3', 'Optional_4', 'Optional_5'
   ]
 
-  FILE_NAME = Rails.env == 'production' ? \
-    '/var/www/fairnopoly/shared/public/system/fairmondo_articles.csv' : \
-    "#{ Rails.root }/public/fairmondo_articles.csv"
+  FILE_NAME = Rails.env == 'development' ?
+    "#{ Rails.root }/public/fairmondo_articles.csv" :
+    '/var/www/fairnopoly/shared/public/system/fairmondo_articles.csv'
 
   def self.export(user)
     CSV.open(FILE_NAME, 'wb', @@csv_options) do |line|
