@@ -125,7 +125,6 @@ class BusinessTransaction < ActiveRecord::Base
   def refunded?
     refunded_fee && refunded_fair
   end
-  alias_method :billed_for_refund?, :refunded?
 
   def billed_for_refund_fair=(value)
     self.refunded_fair = value
