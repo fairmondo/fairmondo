@@ -2,32 +2,32 @@ class BelboonArticleExporter
   @@csv_options = { col_sep: ";",  encoding: 'utf-8' }
 
   EXPORT_MAPPING = {
-    'Merchant_ProductNumber' => :slug,
-    'EAN_Code' => :gtin,
-    'Product_Title' => :title,
+    'Merchant_ProductNumber' => 'slug',
+    'EAN_Code' => 'gtin',
+    'Product_Title' => 'title',
     'Manufacturer' => nil,
     'Brand' => nil,
-    'Price' => lambda { |article| Money.new(article.price_cents).to_s.gsub(',', '.') },
+    'Price' => "Money.new(self.price_cents).to_s.gsub(',', '.')",
     'Price_old' => nil,
     'Currency' => "'EUR'",
     'Valid_From' => nil,
     'Valid_To' => nil,
-    'DeepLink_URL' => lambda { |article| "https://www.fairmondo.de/articles/#{ article.slug }" },
+    'DeepLink_URL' => "'https://www.fairmondo.de/articles/' + slug",
     'Into_Basket_URL' => nil,
-    'Image_Small_URL' => lambda { |article| thumb_image_path_for article },
+    'Image_Small_URL' => "'https://www.fairmondo.de/' + title_image_url(:thumb)",
     'Image_Small_HEIGHT' => "'200'",
     'Image_Small_WIDTH' => "'280'",
-    'Image_Large_URL' => lambda { |article| medium_image_path_for article },
+    'Image_Large_URL' => "'https://www.fairmondo.de/' + title_image_url(:medium)",
     'Image_Large_HEIGHT' => "'360'",
     'Image_Large_WIDTH' => "'520'",
     'Keywords' => nil,
     'Merchant_Product_Category' => nil,
     'Product_Description_Short' => nil,
-    'Product_Description_Long' => :content,
-    'Last_Update' => :updated_at,
+    'Product_Description_Long' => 'content',
+    'Last_Update' => 'updated_at',
     'Shipping' => nil,
     'Availability' => "'sofort lieferbar'",
-    'Optional_1' => :id,
+    'Optional_1' => 'id',
     'Optional_2' => nil,
     'Optional_3' => nil,
     'Optional_4' => nil,
@@ -52,7 +52,7 @@ class BelboonArticleExporter
     CSV.open(FILE_NAME, 'wb', @@csv_options) do |line|
       line << EXPORT_HEADER
 
-      export_articles(user).find_each do |article|
+      exportable_articles_for(user).find_each do |article|
         line << line_for(article)
       end
     end
@@ -64,28 +64,16 @@ class BelboonArticleExporter
     def self.line_for article
       attrs = []
       EXPORT_HEADER.each do |attr|
-        if !EXPORT_MAPPING[attr].present?
-          attrs << EXPORT_MAPPING[attr]
-        elsif article.respond_to? EXPORT_MAPPING[attr]
-          attrs << "'#{ article.send(EXPORT_MAPPING[attr]) }'"
-        elsif EXPORT_MAPPING[attr].class != String && EXPORT_MAPPING[attr].lambda?
-          attrs << "'#{ EXPORT_MAPPING[attr].call(article) }'"
-        else
+        begin
+          attrs << "'#{ article.instance_eval(EXPORT_MAPPING[attr]) }'"
+        rescue
           attrs << EXPORT_MAPPING[attr]
         end
       end
       attrs
     end
 
-    def self.export_articles user
+    def self.exportable_articles_for user
       user.articles.belboon_trackable.includes(:images)
-    end
-
-    class << self
-      [:medium, :thumb].each do |style|
-        define_method "#{ style }_image_path_for" do |article|
-          "https://www.fairmondo.de/#{ article.title_image_url :style }"
-        end
-      end
     end
 end
