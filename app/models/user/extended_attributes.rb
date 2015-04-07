@@ -53,7 +53,7 @@ module User::ExtendedAttributes
     end
 
     # directly decrease donation cache
-    def descrease_purchase_donations! bt
+    def decrease_purchase_donations! bt
       update_column :total_purchase_donations_cents,
                     (total_purchase_donations_cents - bt.total_fair_cents)
     end

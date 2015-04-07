@@ -179,7 +179,8 @@ class User < ActiveRecord::Base
   # only update Fastbill profile if user is a Legal Entity
   def update_fastbill_profile
     if self.is_a?(LegalEntity) && self.has_fastbill_profile?
-      FastbillAPI.update_profile self
+      api = FastbillAPI.new
+      api.update_profile self
     end
   end
 

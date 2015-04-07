@@ -154,7 +154,7 @@ feature 'Checkout' do
     # checkout
 
     expect_cart_emails
-    FastbillAPI.expects(:fastbill_chain)
+    FastbillAPI.any_instance.expects(:fastbill_chain)
 
     find('input.checkout_button').click
     # No donation display, because private seller:
