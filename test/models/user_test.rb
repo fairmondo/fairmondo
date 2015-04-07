@@ -222,9 +222,9 @@ describe User do
 
     describe '#update_fastbill_profile' do
       let(:user) { FactoryGirl.create :legal_entity, :fastbill }
+      let(:api) { FastbillAPI.new }
 
       it 'should call FastBillAPI.update_profile if user has fastbill profile' do
-        # FastbillAPI.should receive(:update_profile).with(user)
         Fastbill::Automatic::Customer.expects(:get).returns [Fastbill::Automatic::Customer.new]
         Fastbill::Automatic::Customer.any_instance.stubs(:update_attributes)
         user.update_fastbill_profile

@@ -22,11 +22,10 @@
 
 class RefundObserver < ActiveRecord::Observer
 
-  def after_create(refund)
-    [ :fair, :fee ].each do | fee_type |
-      FastbillRefundWorker.perform_async( refund.business_transaction.id, fee_type ) if refund.business_transaction.send("billed_for_#{fee_type.to_s}")
-    end
-    RefundMailer.delay.refund_notification(refund)
+  def after_create refund
+    bt = refund.business_transaction
+    FastbillRefundWorker.perform_async bt.id
+    RefundMailer.delay.refund_notification refund
   end
 
 end

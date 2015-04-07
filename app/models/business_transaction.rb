@@ -125,6 +125,23 @@ class BusinessTransaction < ActiveRecord::Base
   def refunded?
     refunded_fee && refunded_fair
   end
+  alias_method :billed_for_refund?, :refunded?
+
+  def billed_for_refund_fair=(value)
+    self.refunded_fair = value
+  end
+
+  def billed_for_refund_fee=(value)
+    self.refunded_fee = value
+  end
+
+  def billed_for_refund_fair
+    refunded_fair
+  end
+
+  def billed_for_refund_fee
+    refunded_fee
+  end
 
   def bike_courier_selected?
     self.selected_transport == 'bike_courier'

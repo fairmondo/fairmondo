@@ -11,7 +11,8 @@ class FastbillWorker
       # check if bt is qualified for discount
       Discount.discount_chain(bt) if bt.article_discount_id
       # Start the fastbill chain, to create invoices and add items to invoice
-      FastbillAPI.fastbill_chain(bt)
+      api = FastbillAPI.new(bt)
+      api.fastbill_chain
     end
   end
 end

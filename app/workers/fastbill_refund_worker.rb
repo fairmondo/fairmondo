@@ -4,11 +4,18 @@ class FastbillRefundWorker
   sidekiq_options queue: :fastbill,
                   retry: 20,
                   backtrace: true
-  def perform business_transaction_id, fee_type
+
+  def perform id
     BusinessTransaction.transaction do
-      business_transaction = BusinessTransaction.lock.find(business_transaction_id)
-      # Start the fastbill chain, to create invoices and add items to invoice
-      FastbillAPI.fastbill_refund( business_transaction, fee_type.to_sym )
+      bt = BusinessTransaction.lock.find(id)
+
+      [:fair, :fee].each do |type|
+        if bt.send("billed_for_#{ type }?")
+          fastbill = FastbillAPI.new bt
+          fastbill.send("fastbill_refund_#{ type }")
+        end
+      end
     end
   end
+
 end
