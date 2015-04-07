@@ -62,16 +62,21 @@ class LegalEntity < User
   end
 
   def max_value_of_goods_cents
+    return commercial_seller_constants[:bad_salesvolume] if bad_seller?
+
     salesvolume = commercial_seller_constants[:standard_salesvolume]
-
-    salesvolume += commercial_seller_constants[:verified_bonus]  if self.verified
-    salesvolume *= commercial_seller_constants[:good_factor]     if good1_seller?
-    salesvolume *= commercial_seller_constants[:good_factor]**2  if good2_seller?
-    salesvolume *= commercial_seller_constants[:good_factor]**3  if good3_seller?
-    salesvolume *= commercial_seller_constants[:good_factor]**4  if good4_seller?
-    salesvolume = commercial_seller_constants[:bad_salesvolume]  if bad_seller?
-
+    salesvolume += commercial_seller_constants[:verified_bonus] if verified?
+    salesvolume *= good_factor
     salesvolume
+  end
+
+  def good_factor
+    (1..4).each do |value|
+      if self.send("good#{ value }_seller?")
+        return commercial_seller_constants[:good_factor]**value
+      end
+    end
+    1
   end
 
   def has_enough_positive_ratings_in last_ratings
