@@ -21,7 +21,6 @@
 #
 module ArticlesHelper
 
-
   # Conditions
   def condition_label article
     condition_text = t("enumerize.article.condition.#{article.condition}")
@@ -56,51 +55,6 @@ module ArticlesHelper
     end
 
     output
-  end
-
-  def transport_format_for method
-    type = "transport"
-    options_format_for type, method, true
-  end
-
-  def payment_format_for method
-    type = "payment"
-    options_format_for type, method
-  end
-
-  def options_format_for type, method, check_free_transport = false
-    if resource.send("#{type}_#{method}")
-      html = '<li>'
-
-      if method == 'type1' || method == 'type2'
-        html << resource.send("#{type}_#{method}_provider")
-      else
-        html << t("formtastic.labels.article.#{type}_#{method}")
-      end
-
-      price_method = "#{type}_#{method}_price"
-
-      if (check_free_transport &&
-          resource.seller.free_transport_available &&
-          resource.seller_free_transport_at_price <= resource.price &&
-          !resource.transport_bike_courier) ||
-          !resource.respond_to?(price_method.to_sym)
-        html << ' (kostenfrei)'
-      else
-        html << " zzgl. #{humanized_money_with_symbol(resource.send(price_method))}"
-      end
-
-      if type == 'transport' && method == 'pickup'
-        html << ", <br/>PLZ: #{resource.seller.standard_address_zip}"
-      end
-
-      if type == 'transport' && method == 'bike_courier'
-        html << " bar bei Lieferung (z.Z. nur im Berliner Innenstadtbereich verfügbar)"
-      end
-
-      html << '</li>'
-      html.html_safe
-    end
   end
 
   def default_organisation_from organisation_list

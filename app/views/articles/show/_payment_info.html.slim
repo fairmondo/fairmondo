@@ -1,0 +1,5 @@
+ul
+  - ["bank_transfer", "cash", "paypal", "cash_on_delivery", "invoice", "voucher"].each do |method|
+    - if resource.send("payment_#{ method }")
+      li
+        = t("formtastic.labels.article.payment_#{method}")

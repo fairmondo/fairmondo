@@ -1,0 +1,21 @@
+ul
+  - ["pickup", "type1", "type2", "bike_courier"].each do |method|
+    - if resource.send("transport_#{ method }")
+      li
+        - if method == 'type1' || method == 'type2'
+          = resource.send("transport_#{method}_provider")
+        - else
+          = t("formtastic.labels.article.transport_#{method}")
+        - price_method = "transport_#{method}_price"
+        - if (resource.seller.free_transport_available && \
+            resource.seller_free_transport_at_price <= resource.price && \
+            !resource.transport_bike_courier) || \
+            !resource.respond_to?(price_method.to_sym)
+          =< "(kostenfrei)"
+        - else
+          =< "zzgl. #{humanized_money_with_symbol(resource.send(price_method))}"
+        - if method == 'pickup'
+          br
+          = "PLZ: #{resource.seller.standard_address_zip}"
+        - if method == 'bike_courier'
+          =< "bar bei Lieferung (z.Z. nur im Berliner Innenstadtbereich verfügbar)"

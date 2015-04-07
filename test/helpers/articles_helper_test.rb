@@ -22,20 +22,6 @@
 require_relative '../test_helper'
 
 describe ArticlesHelper do
-  describe "options_format_for (type, method)" do
-    before do
-      helper.stubs(:resource).returns FactoryGirl.create :article, transport_pickup: true
-    end
-
-    it "should return 'kostenfrei'" do
-      helper.options_format_for("transport","pickup").must_match(/(kostenfrei)/)
-    end
-
-    it "should return 'zzgl.'" do
-      helper.options_format_for("transport","type1").must_match(/zzgl. /)
-    end
-  end
-
   describe 'default_organisation_from' do
     it 'should rescue from error and return nil' do
       assert_nil(helper.default_organisation_from([]))
