@@ -23,4 +23,5 @@ production:
   - [heavy_mass_upload, 3]
   - [heavy_mass_upload_rows, 3]
   - [cancellation_normalizer, 3]
-  - [broken_file_finder,2]
+  - [broken_file_finder, 2]
+  - [belboon_csv_export, 2]

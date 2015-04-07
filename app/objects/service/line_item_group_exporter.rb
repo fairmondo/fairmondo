@@ -25,6 +25,7 @@
 #    csv.flush
 #  end
 #
+# TODO refactor, does not seem to work
 #  def self.kind_of_address(obj, lig)
 #    option = nil
 #    if obj == lig.payment_address

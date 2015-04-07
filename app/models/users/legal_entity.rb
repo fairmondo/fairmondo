@@ -53,7 +53,7 @@ class LegalEntity < User
   end
 
   def commercial_seller_constants
-    commercial_seller_constants = {
+    {
       standard_salesvolume: $commercial_seller_constants['standard_salesvolume'],
       verified_bonus: $commercial_seller_constants['verified_bonus'],
       good_factor: $commercial_seller_constants['good_factor'],
