@@ -29,7 +29,7 @@ class User < ActiveRecord::Base
 
   friendly_id :nickname, use: [:slugged, :finders]
 
-  include Associations, ExtendedAttributes, Validations, State, Ratings
+  include Associations, ExtendedAttributes, Validations, State, Ratings, Scopes
   include Assets::Normalizer # for cancellation form
 
   # Include default devise modules. Others available are: :rememberable,
@@ -38,17 +38,6 @@ class User < ActiveRecord::Base
          :recoverable, :trackable, :validatable, :confirmable
 
   after_create :create_default_library
-
-
-  ####################################################
-  # Scopes
-  #
-  ####################################################
-  scope :sorted_ngo, -> { order(:nickname).where(ngo: true) }
-  scope :ngo_with_profile_image, -> { where(ngo: true).joins(:image).limit(6) }
-  scope :banned, -> { where(banned: true) }
-  scope :unbanned, -> { where('banned = ? OR banned IS NULL', false) }
-
 
   ####################################################
   # Methods
