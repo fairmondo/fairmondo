@@ -1,15 +1,16 @@
 class ArticleSearch
 
-  SORT = {  newest: { created_at: :desc },
-            cheapest: { price: :asc },
-            most_expensive: { price: :desc },
-            old: { condition: :desc },
-            new: { condition: :asc },
-            fair: { fair: :desc },
-            ecologic: { ecologic: :desc },
-            small_and_precious: { small_and_precious: :desc },
-            most_donated: { friendly_percent: :desc },
-            relevance: :_score
+  SORT = {
+    newest: { created_at: :desc },
+    cheapest: { price: :asc },
+    most_expensive: { price: :desc },
+    old: { condition: :desc },
+    new: { condition: :asc },
+    fair: { fair: :desc },
+    ecologic: { ecologic: :desc },
+    small_and_precious: { small_and_precious: :desc },
+    most_donated: { friendly_percent: :desc },
+    relevance: :_score
   }.stringify_keys
 
 
@@ -36,7 +37,8 @@ class ArticleSearch
   end
 
   def build
-    @search = [ query,
+    @search = [
+      query,
       boolead_filters,
       zip_filter,
       price_filter,

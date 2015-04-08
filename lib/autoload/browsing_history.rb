@@ -34,7 +34,10 @@ module BrowsingHistory
       new_url_hash[:method] != 'GET' &&
       !DISABLED_PARAMS_STORE_URLS.include?(new_url_hash[:path])
     end
-    DISABLED_PARAMS_STORE_URLS = ["/feedbacks", "/user/sign_in", "/user/password"]
+
+    DISABLED_PARAMS_STORE_URLS = [
+      '/feedbacks', '/user/sign_in', '/user/password'
+    ]
 
     def redirectable_url? url_hash
       url_hash[:method] == "GET" &&
@@ -42,9 +45,11 @@ module BrowsingHistory
       !DISABLED_REDIRECT_URLS.include?(url_hash[:path].split('?').first)
     end
 
-    DISABLED_REDIRECT_URLS = ["/user/sign_up", "/user/sign_in", "/user/sign_out", "/user/confirmation/new",
-      "/user/confirmation", "/user/password/new", "/user/password/edit",
-      "/toolbox/session_expired.json"]
+    DISABLED_REDIRECT_URLS = [
+      '/user/sign_up', '/user/sign_in', '/user/sign_out',
+      '/user/confirmation/new', '/user/confirmation', '/user/password/new',
+      '/user/password/edit', '/toolbox/session_expired.json'
+    ]
 
     def last_url_hash
       @last_url_hash ||= session[:previous_urls].first || {}

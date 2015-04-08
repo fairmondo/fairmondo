@@ -78,8 +78,8 @@ module Sanitization
           'a' => ['href', 'type', 'target'],
           'img' => ['src', 'alt'],
           'iframe' =>  # iframes aren't allowed for non-admins
-            ['src', 'frameborder', 'webkitallowfullscreen', 'mozallowfullscreen',
-            'allowfullscreen'],
+            ['src', 'frameborder', 'webkitallowfullscreen',
+             'mozallowfullscreen', 'allowfullscreen'],
           :all => admin_mode ?
             ['width', 'height', 'data', 'name', 'id', 'class', 'style', 'data-truncate'] :
             ['width', 'height', 'name']
