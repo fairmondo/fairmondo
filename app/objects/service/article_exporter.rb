@@ -1,6 +1,7 @@
 class ArticleExporter
   @@csv_options = { col_sep: ';',  encoding: 'utf-8' }
   @@export_attributes = MassUpload.article_attributes
+  @@questionnaires = [:fair_trust, :social_producer]
 
   class << self
     def export(csv, user, params = nil)
@@ -24,6 +25,7 @@ class ArticleExporter
 
     private
 
+
     def determine_articles_to_export user, params
       if params == 'active'
         user.articles.where(state: 'active').order('created_at ASC')
@@ -36,7 +38,7 @@ class ArticleExporter
 
     def create_row_for article
       row = {}
-      questionnaires.each do |type|
+      @@questionnaires.each do |type|
         row.merge!(send("provide_#{ type }_attributes_for", article))
       end
       row.merge!(article.attributes)
@@ -62,7 +64,7 @@ class ArticleExporter
       csv.puts CSV.generate_line @@export_attributes.map { |element| row[element] }, @@csv_options
     end
 
-    questionnaires.each do |type|
+    @@questionnaires.each do |type|
       define_method "provide_#{ type }_attributes_for" do |article|
         attributes = {}
         if article.send("#{ type }_questionnaire")
@@ -77,10 +79,6 @@ class ArticleExporter
         attributes[k] = v.any? ? v.join(',') : nil
       end
       attributes
-    end
-
-    def questionnaires
-      [:fair_trust, :social_producer]
     end
   end
 end
