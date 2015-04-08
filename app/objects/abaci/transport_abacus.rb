@@ -40,7 +40,7 @@ class TransportAbacus
 
   def calculate_total_transport
     @total_transport = Money.new(0)
-    @single_transports.each_pair { |k, v| @total_transport += v[:transport_price] }
+    @single_transports.each_pair { |_k, v| @total_transport += v[:transport_price] }
     @total_transport += @unified_transport[:transport_price] if @unified_transport
   end
 

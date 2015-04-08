@@ -29,7 +29,7 @@ namespace :db do
   end
 
   desc 'Get a list of articles from http://www.itemmaster.com'
-  task :seed_articles, [:number_of_items] => :environment do | t, args |
+  task :seed_articles, [:number_of_items] => :environment do | _t, args |
     require 'faker'
     require 'time'
     require 'net/http'

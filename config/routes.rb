@@ -166,7 +166,7 @@ Fairmondo::Application.routes.draw do
   require 'sidetiq/web'
 
   if Rails.env.development?
-    constraint = lambda { |request| true }
+    constraint = lambda { |_request| true }
   else
     constraint = lambda { |request| request.env['warden'].authenticate? and
       request.env['warden'].user.admin? }

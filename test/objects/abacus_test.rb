@@ -39,8 +39,8 @@ describe 'Abacus' do
     #transports
 
     @abacus.transport_listing.single_transports.size.must_equal 3
-    @abacus.transport_listing.single_transports.map{ |bt,transport| transport[:shipments] }.sort.must_equal [1,1,2]
-    @abacus.transport_listing.single_transports.map{ |bt,transport| transport[:total] }.sort.must_equal single_transport_totals.sort
+    @abacus.transport_listing.single_transports.map{ |_bt,transport| transport[:shipments] }.sort.must_equal [1,1,2]
+    @abacus.transport_listing.single_transports.map{ |_bt,transport| transport[:total] }.sort.must_equal single_transport_totals.sort
     @abacus.transport_listing.unified_transport.must_equal nil
 
     # payments
