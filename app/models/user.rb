@@ -127,10 +127,9 @@ class User < ActiveRecord::Base
   # get hearted libraries of current user
   def self.hearted_libraries_current(current_user)
     if current_user
-      current_user.hearted_libraries.published.
-                   no_admins.min_elem(2).
-                   where('users.id != ?', current_user.id).
-                   reorder('hearts.created_at DESC')
+      current_user.hearted_libraries.published
+        .no_admins.min_elem(2).where('users.id != ?', current_user.id)
+        .reorder('hearts.created_at DESC')
     end
   end
 

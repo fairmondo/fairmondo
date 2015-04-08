@@ -117,9 +117,9 @@ module Sanitization
     # @return [String] The modified string
     def self.modify string, remove_spaces
       if string.is_a? String
-        string.
-          strip(). # Remove leading and trailing white space
-          gsub(
+        string
+          .strip() # Remove leading and trailing white space
+          .gsub(
             /\s+/, (remove_spaces ? '' : ' ') # Either multiple whitespaces become one, or all whitespaces are removed
           )
       else
