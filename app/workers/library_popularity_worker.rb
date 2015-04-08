@@ -31,6 +31,5 @@ class LibraryPopularityWorker
     num_recent_comments = library.comments.where("updated_at > ? AND updated_at < ?", Time.now - 3.days, Time.now).count
     # Calculate popularity
     popularity = recency_factor * (num_hearts + num_recent_hearts + (num_comments + num_recent_comments) * 5)
-
   end
 end

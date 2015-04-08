@@ -2,7 +2,6 @@ class ArticleExporter
   @@csv_options = { col_sep: ";",  encoding: 'utf-8'}
 
   def self.export( csv, user, params = nil )
-
     # Generate proper headers and find out if we are messing with transactions
     export_attributes = MassUpload.article_attributes
 

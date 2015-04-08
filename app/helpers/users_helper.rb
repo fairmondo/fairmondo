@@ -41,7 +41,6 @@ module UsersHelper
   end
 
   def bank_account_line seller, attribute
-
     heading = content_tag(:div, class: 'heading' ) do
       "#{t("formtastic.labels.user.#{attribute}")}: "
     end

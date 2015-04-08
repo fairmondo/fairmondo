@@ -56,7 +56,6 @@ class BelboonArticleExporter
         line << line_for(article)
       end
     end
-
   end
 
   private

@@ -38,6 +38,5 @@ class FeedbackObserver < ActiveRecord::Observer
       when "become_donation_partner" then
         #FeedbackMailer.donation_partner(feedback).deliver
     end
-
   end
 end

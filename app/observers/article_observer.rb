@@ -31,7 +31,6 @@ class ArticleObserver < ActiveRecord::Observer
   end
 
   def after_save(article)
-
     # derive a template
     if article.save_as_template?
       cloned_article = article.amoeba_dup #duplicate the article

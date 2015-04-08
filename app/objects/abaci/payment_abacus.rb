@@ -18,13 +18,11 @@ class PaymentAbacus
       add_unified_transport_to_payment payment if unified_transport_payment == payment
       calculate_costs payment
     end
-
   end
 
   private
 
     def initialize business_transaction_abacus,transport_abacus
-
       @line_item_group = business_transaction_abacus.line_item_group
       @business_transaction_abacus = business_transaction_abacus
       @transport_abacus = transport_abacus
@@ -45,7 +43,6 @@ class PaymentAbacus
     end
 
     def add_single_transports_to_payment payment, business_transactions
-
       business_transactions.each do |bt|
         transport = @transport_abacus.single_transports[bt] unless bt.selected_transport == 'bike_courier'
         @payments[payment][:transports] << transport if transport

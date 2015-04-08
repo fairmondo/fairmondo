@@ -41,14 +41,12 @@ class BusinessTransactionAbacus
   private
 
     def initialize line_item_group
-
       @line_item_group = line_item_group
 
       @prices = {}
       @by_payment = {}
       @single_transports = []
       @unified_transport = []
-
     end
 
     def self.prices_of business_transaction

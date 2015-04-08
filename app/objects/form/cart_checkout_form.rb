@@ -59,7 +59,6 @@ class CartCheckoutForm
   private
 
     def build_form_objects_from params
-
       self.form_objects = []
 
       # build address if present
@@ -70,7 +69,6 @@ class CartCheckoutForm
       self.cart.line_item_groups.each do |group|
         update_line_item_group group, params
       end
-
     end
 
     def valid?

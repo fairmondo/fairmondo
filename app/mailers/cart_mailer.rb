@@ -28,7 +28,6 @@ class CartMailer < ActionMailer::Base
   end
 
   def seller_email(line_item_group)
-
     add_image_attachments_for line_item_group
 
     @line_item_group = line_item_group
