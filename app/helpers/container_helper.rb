@@ -48,7 +48,7 @@ module ContainerHelper
             locals: {
               heading: heading,
               frame_class: options[:frame_class] || '',
-              title_addition: options[:title_addition],
+              title_addition: options[:title_addition]
             }, &block
   end
 end

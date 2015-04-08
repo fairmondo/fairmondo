@@ -23,7 +23,7 @@ class UserRefinery < ApplicationRefinery
       :iban, :bic,
       :unified_transport_provider, :unified_transport_maximum_articles, :unified_transport_price,
       :free_transport_available, :free_transport_at_price,
-      { image_attributes: ImageRefinery.new(Image.new, user).default },
+      { image_attributes: ImageRefinery.new(Image.new, user).default }
     ]
     permitted += [ :terms, :cancellation, :about, :cancellation_form ] if user.is_a? LegalEntity
     permitted

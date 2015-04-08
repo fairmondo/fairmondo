@@ -43,8 +43,3 @@ describe FeedbacksController do
     end
   end
 end
-
-
-
-
-

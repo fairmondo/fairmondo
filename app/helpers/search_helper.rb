@@ -36,5 +36,3 @@ module SearchHelper
     @search_cache || ::ArticleSearchForm.new(attributes)
   end
 end
-
-

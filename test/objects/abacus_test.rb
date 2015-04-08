@@ -12,7 +12,7 @@ def article_attributes_for prices, transport_prices, transport_numbers
                     transport_type1_price: transport_prices[index],
                     transport_type2_price: transport_prices[index],
                     transport_type1_number: transport_numbers[index],
-                    transport_type2_number: transport_numbers[index],
+                    transport_type2_number: transport_numbers[index]
                   }
   end
   attributes

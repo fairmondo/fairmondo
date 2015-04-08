@@ -8,7 +8,3 @@ describe MassUploadsFinishWorker do
     mass_upload.state.must_equal 'finished'
   end
 end
-
-
-
-

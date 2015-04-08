@@ -15,7 +15,7 @@ class ArticlesIndex < Chewy::Index
         german_stop: {
           type: 'stop',
           stopwords: '_german_'
-        },
+        }
       },
       analyzer: {
         german_analyzer: {
@@ -26,7 +26,7 @@ class ArticlesIndex < Chewy::Index
                   'german_stop',
                   'german_normalization',
                   'german_decompound',
-                  'german_stemming',
+                  'german_stemming'
                   ]
         }
       }

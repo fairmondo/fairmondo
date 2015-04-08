@@ -82,4 +82,3 @@ FactoryGirl.define do
       awareness_raising_other 'Sonstiges'
   end
 end
-
