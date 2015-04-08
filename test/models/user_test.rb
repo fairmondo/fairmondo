@@ -259,7 +259,7 @@ describe User do
 
   describe 'subclasses' do
     describe PrivateUser do
-      let(:user) { FactoryGirl::create(:private_user) }
+      let(:user) { FactoryGirl.create(:private_user) }
 
       it 'should have a valid factory' do
         user.valid?.must_equal true
@@ -271,7 +271,7 @@ describe User do
     end
 
     describe LegalEntity do
-      let(:db_user) { FactoryGirl::create(:legal_entity) }
+      let(:db_user) { FactoryGirl.create(:legal_entity) }
 
       it 'should have a valid factory' do
         db_user.valid?.must_equal true
@@ -297,7 +297,7 @@ describe User do
 
   describe 'seller states' do
     describe PrivateUser do
-      let(:private_seller) { FactoryGirl::create(:private_user) }
+      let(:private_seller) { FactoryGirl.create(:private_user) }
 
       describe 'bad seller' do
         before :each do
@@ -409,7 +409,7 @@ describe User do
     end
 
     describe LegalEntity do
-      let(:commercial_seller) { FactoryGirl::create(:legal_entity) }
+      let(:commercial_seller) { FactoryGirl.create(:legal_entity) }
       subject { commercial_seller }
 
       describe 'bad seller' do
@@ -622,7 +622,7 @@ describe User do
 
   describe 'seller rating' do
     describe PrivateUser do
-      let(:private_seller) { FactoryGirl::create(:private_user) }
+      let(:private_seller) { FactoryGirl.create(:private_user) }
 
       describe 'with negative ratings over 25%' do
         before :each do
@@ -723,7 +723,7 @@ describe User do
     end
 
     describe LegalEntity do
-      let(:commercial_seller) { FactoryGirl::create(:legal_entity) }
+      let(:commercial_seller) { FactoryGirl.create(:legal_entity) }
 
       describe 'with negative ratings over 25%' do
         before :each do

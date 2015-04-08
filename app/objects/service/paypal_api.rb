@@ -7,7 +7,7 @@ class PaypalAPI
 
   def request_for payment
     begin
-      Timeout::timeout(15) do # 15 second timeout
+      Timeout.timeout(15) do # 15 second timeout
         paypal_client.pay(
           'returnUrl' => line_item_group_url(payment.line_item_group, paid: true),
           'requestEnvelope' => { 'errorLanguage' => 'en_US' },

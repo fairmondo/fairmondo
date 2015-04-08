@@ -25,7 +25,7 @@ class CleverreachAPI
     end
 
     def self.call function, message
-      Timeout::timeout(10) do # 10 second timeout
+      Timeout.timeout(10) do # 10 second timeout
         client.call function, message: message
       end
     end

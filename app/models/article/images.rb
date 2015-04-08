@@ -46,7 +46,7 @@ module Article::Images
       title_image && title_image.image.present? # && image_accessible?
     end
 
-    validates :external_title_image_url, :image_2_url, format: URI::regexp(%w(http https)), allow_blank: true
+    validates :external_title_image_url, :image_2_url, format: URI.regexp(%w(http https)), allow_blank: true
     # I18n.t('mass_uploads.errors.wrong_external_title_image_url')
     # I18n.t('mass_uploads.errors.wrong_image_2_url')
 
@@ -73,7 +73,7 @@ module Article::Images
 
     def load_new_image attribute, should_be_title
       begin
-        image = Timeout::timeout(60) do # 1 minute timeout (should even cover very large images)
+        image = Timeout.timeout(60) do # 1 minute timeout (should even cover very large images)
           self.images.build(image: URI.parse(self.send(attribute)), is_title: should_be_title, external_url: self.send(attribute))
         end
       rescue
