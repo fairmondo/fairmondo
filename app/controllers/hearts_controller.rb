@@ -7,8 +7,8 @@ class HeartsController < ApplicationController
 
   respond_to :js
 
-  skip_before_filter :authenticate_user!, only: :create
-  before_filter() { set_heartable(HEARTABLES) }
+  skip_before_action :authenticate_user!, only: :create
+  before_action() { set_heartable(HEARTABLES) }
 
   def create
     if user_signed_in?

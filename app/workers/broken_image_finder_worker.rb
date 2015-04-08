@@ -7,7 +7,7 @@ class BrokenImageFinderWorker
 
   def perform image_id
     path = ArticleImage.select("image_file_name,id").find(image_id).image.path
-    unless File.exists? path
+    unless File.exist? path
       Sidekiq.redis do |redis|
         redis.sadd("broken_image_files",image_id)
       end

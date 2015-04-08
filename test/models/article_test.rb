@@ -163,10 +163,9 @@ describe Article do
     end
 
     describe "#calculate_fees_and_donations" do
-
       it "should have 100 % friendly_percent for ngo" do
-         ngo_article.friendly_percent.must_equal 100
-       end
+        ngo_article.friendly_percent.must_equal 100
+      end
 
       #expand these unit tests!
       it "should return zeros on fee and fair cents with a friendly_percent of gt 100" do
@@ -205,7 +204,6 @@ describe Article do
         article.calculated_fair.must_equal 0
         article.calculated_fee.must_equal 0
       end
-
     end
   end
 
@@ -282,7 +280,7 @@ describe Article do
           article.title_image_url.must_equal 'missing.png'
         end
 
-         it "should return the first image's URL when one exists" do
+        it "should return the first image's URL when one exists" do
           article.images = [FactoryGirl.build(:article_fixture_image),FactoryGirl.build(:article_fixture_image)]
           article.images.each do |image|
             image.is_title = true

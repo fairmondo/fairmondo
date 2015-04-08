@@ -23,8 +23,8 @@ class ArticleTemplatesController < ApplicationController
   respond_to :html
   responders :location, :flash
 
-  before_filter -> { render_css_from_controller('articles') }, except: [:destroy]
-  before_filter :set_article_template, only: [:edit, :update, :destroy]
+  before_action -> { render_css_from_controller('articles') }, except: [:destroy]
+  before_action :set_article_template, only: [:edit, :update, :destroy]
 
   def new
     @article_template = current_user.articles.build

@@ -24,8 +24,8 @@ class LineItemsController < ApplicationController
   respond_to :json, only: [:create]
   responders :location
 
-  skip_before_filter :authenticate_user!, only: [:create, :update, :destroy]
-  before_filter :quantity_zero_means_destroy, only: [:update]
+  skip_before_action :authenticate_user!, only: [:create, :update, :destroy]
+  before_action :quantity_zero_means_destroy, only: [:update]
 
   def create
     @line_item = LineItem.find_or_new params.for(LineItem).refine, find_or_create_cart.id

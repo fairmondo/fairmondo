@@ -7,7 +7,7 @@ module Assets
     private
 
     def normalize_filename
-      self.class.attachment_definitions.each do |name, hash|
+      self.class.attachment_definitions.each do |name, _hash|
         attachment = self.send(name)
         if attachment.present?
           if self.new_record? || self.changed_attributes.keys.include?("#{name}_file_name")

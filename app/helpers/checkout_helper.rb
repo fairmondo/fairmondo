@@ -26,7 +26,7 @@ module CheckoutHelper
   end
 
   def checkout_options_for_payment selectables
-    selectables.map{ |payment| [ I18n.t("enumerize.business_transaction.selected_payment.#{payment.to_s}"),payment] }
+    selectables.map{ |payment| [ I18n.t("enumerize.business_transaction.selected_payment.#{payment}"),payment] }
   end
 
   def checkout_options_for_single_transport line_item, preview
@@ -67,7 +67,7 @@ module CheckoutHelper
   end
 
   def visual_checkout_step step, active, checked, link=nil
-    step_title = I18n.t("cart.steps.#{step.to_s}")
+    step_title = I18n.t("cart.steps.#{step}")
     content_tag :span, class: "visual_checkout_step #{active ? 'active' : ''}" do
       concat(content_tag(:i,'', class: (checked ? 'fa fa-check-square-o' : 'fa fa-square-o')))
       concat(' ')

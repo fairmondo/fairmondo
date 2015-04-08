@@ -17,6 +17,6 @@ class Rating < ActiveRecord::Base
 
   default_scope -> { order("created_at DESC") }
 
-  alias :value :rating # to avoid structure 'rating_rating' in shared/show_article_listitem
+  alias_method :value, :rating # to avoid structure 'rating_rating' in shared/show_article_listitem
 
 end

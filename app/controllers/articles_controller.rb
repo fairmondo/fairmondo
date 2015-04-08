@@ -25,30 +25,30 @@ class ArticlesController < ApplicationController
   respond_to :html
   respond_to :json, only: [:show,:index]
 
-  before_filter :set_article, only: [:edit, :update, :destroy, :show]
+  before_action :set_article, only: [:edit, :update, :destroy, :show]
 
   # Authorization
-  skip_before_filter :authenticate_user!, only: [:show, :index, :new, :autocomplete]
-  before_filter :seller_sign_in, only: :new
+  skip_before_action :authenticate_user!, only: [:show, :index, :new, :autocomplete]
+  before_action :seller_sign_in, only: :new
   skip_after_filter :verify_authorized_with_exceptions, only: [:autocomplete]
 
   # Layout Requirements
-  before_filter :ensure_complete_profile , only: [:new, :create]
+  before_action :ensure_complete_profile , only: [:new, :create]
 
   #search_cache
-  before_filter :build_search_cache, only: :index
-  before_filter :category_specific_search, only: :index,
+  before_action :build_search_cache, only: :index
+  before_action :category_specific_search, only: :index,
     unless: lambda { request.xhr? || request.format == :json }
 
   # Calculate value of active goods
-  before_filter :check_value_of_goods, only: [:update], if: :activate_params_present?
+  before_action :check_value_of_goods, only: [:update], if: :activate_params_present?
 
   # Calculate fees and donations
-  before_filter :calculate_fees_and_donations, only: :show,
+  before_action :calculate_fees_and_donations, only: :show,
     if: lambda { !@article.active? && policy(@article).activate? }
 
   # Flash image processing message
-  before_filter :flash_image_processing_message, only: :show,
+  before_action :flash_image_processing_message, only: :show,
     if: lambda { !flash.now[:notice] &&
                  @article.owned_by?(current_user) &&
                  at_least_one_image_processing? }

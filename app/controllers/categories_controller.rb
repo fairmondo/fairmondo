@@ -3,10 +3,10 @@ class CategoriesController < ApplicationController
   respond_to :html
   respond_to :json, only: [:index ,:show]
   respond_to :js, only: :show, if: lambda { request.xhr? }
-  before_filter :set_category, only: [:show, :select_category]
-  before_filter :build_category_search_cache, only: :show
-  skip_before_filter :authenticate_user!
-  before_filter :collection, only: [:index, :id_index]
+  before_action :set_category, only: [:show, :select_category]
+  before_action :build_category_search_cache, only: :show
+  skip_before_action :authenticate_user!
+  before_action :collection, only: [:index, :id_index]
 
   def index
     respond_with @categories

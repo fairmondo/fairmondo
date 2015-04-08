@@ -36,7 +36,7 @@ FactoryGirl.define do
     original_id { nil }
 
     trait :index_article do
-      after :create do |article, evaluator|
+      after :create do |article, _evaluator|
         Indexer.index_article article
       end
     end
@@ -44,7 +44,7 @@ FactoryGirl.define do
     basic_price_cents { Random.new.rand(500000)+1 }
     basic_price_amount {[:kilogram, :gram, :liter, :milliliter, :cubicmeter, :meter, :squaremeter, :portion].sample}
 
-    before :create do |article, evaluator|
+    before :create do |article, _evaluator|
       article.calculate_fees_and_donations
     end
 
@@ -102,7 +102,7 @@ FactoryGirl.define do
     end
 
     factory :article_with_business_transaction do
-      after :create do |article, evaluator|
+      after :create do |article, _evaluator|
         FactoryGirl.create :business_transaction, article: article
       end
     end

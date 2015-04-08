@@ -22,7 +22,6 @@
 require_relative '../test_helper'
 
 describe LibraryElementsController do
-
   describe 'Library Elements' do
     describe 'for non-signed-in users' do
       before :each do
@@ -64,11 +63,10 @@ describe LibraryElementsController do
 
       it 'shouldnt be possible to add elements to another users libraries' do
         @user.id.wont_be_same_as @different_user.id #by design
-         -> {
+        -> {
           post :create ,:user_id => @different_user, :library_element => {:library_id => @different_library_element.library }
         }.must_raise(Pundit::NotAuthorizedError)
       end
-
     end
   end
 end

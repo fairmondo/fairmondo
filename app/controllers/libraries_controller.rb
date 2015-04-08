@@ -25,11 +25,11 @@ class LibrariesController < ApplicationController
 
   respond_to :html
 
-  before_filter :set_user, if: :user_focused?, only: :index
-  before_filter :set_library, only: [:show, :update, :destroy, :admin_audit]
+  before_action :set_user, if: :user_focused?, only: :index
+  before_action :set_library, only: [:show, :update, :destroy, :admin_audit]
 
   # Authorization
-  skip_before_filter :authenticate_user!, only: [:index, :show]
+  skip_before_action :authenticate_user!, only: [:index, :show]
 
   def index
     # Build empty Library object if user creates a new library
@@ -99,7 +99,7 @@ class LibrariesController < ApplicationController
         end
         notice = {notice: "Added to library."}
       rescue => err #will throw errors e.g. if library already had that article
-        notice = {error: "Something went wrong: #{err.to_s}"} # Only visible for admins
+        notice = {error: "Something went wrong: #{err}"} # Only visible for admins
       end
     end
     redirect_to :back, flash: notice

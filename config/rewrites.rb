@@ -25,7 +25,7 @@ module Rack
     class FairmondoRuleSet
       attr_reader :rules
 
-      def initialize(options)
+      def initialize(_options)
         @rules = RewriteConfig.list.map do |rule|
           Rule.new(rule[:method], rule[:from], rule[:to], {if: rule[:if] })
         end

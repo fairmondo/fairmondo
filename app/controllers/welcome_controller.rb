@@ -21,7 +21,7 @@
 #
 class WelcomeController < ApplicationController
 
-  skip_before_filter :authenticate_user!, only: [:index, :feed, :landing]
+  skip_before_action :authenticate_user!, only: [:index, :feed, :landing]
 
   def index
     query_object = FeaturedLibraryQuery.new

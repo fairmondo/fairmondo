@@ -193,7 +193,7 @@ class User < ActiveRecord::Base
   end
 
   def build_standard_address_from address_params
-    self.standard_address ||= self.addresses.build if address_params.select{ |param,value| !value.empty? }.any?
+    self.standard_address ||= self.addresses.build if address_params.select{ |_param,value| !value.empty? }.any?
     self.standard_address.assign_attributes(address_params) if self.standard_address
   end
 

@@ -3,13 +3,13 @@ class CartsController < ApplicationController
   respond_to :html
   respond_to :js, if: lambda { request.xhr? }
 
-  before_filter :generate_session, only: :edit
-  before_filter :clear_session, only: :show # userhas the possibility to reset the session by continue buying
-  before_filter :set_cart
-  before_filter :dont_cache, only: [:edit, :update]
+  before_action :generate_session, only: :edit
+  before_action :clear_session, only: :show # userhas the possibility to reset the session by continue buying
+  before_action :set_cart
+  before_action :dont_cache, only: [:edit, :update]
 
-  before_filter :authorize_and_authenticate_user_on_cart, only: [:show, :send_via_email]
-  skip_before_filter :authenticate_user!, only: [:show, :send_via_email, :empty_cart]
+  before_action :authorize_and_authenticate_user_on_cart, only: [:show, :send_via_email]
+  skip_before_action :authenticate_user!, only: [:show, :send_via_email, :empty_cart]
 
   def show
     if @cart.sold?

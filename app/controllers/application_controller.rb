@@ -21,15 +21,15 @@
 class ApplicationController < ActionController::Base
 
   ## Global security
-  before_filter :authenticate_user!
+  before_action :authenticate_user!
 
   ## Global actions
-  before_filter :unset_cart
-  before_filter :profile_request
+  before_action :unset_cart
+  before_action :profile_request
 
   ## Affiliate Network
   include BelboonTracking
-  before_filter :save_belboon_tracking_token_in_session, only: [:index, :show]
+  before_action :save_belboon_tracking_token_in_session, only: [:index, :show]
 
   layout :layout_by_param
 
@@ -38,10 +38,10 @@ class ApplicationController < ActionController::Base
 
   # Pundit
   include Pundit
-  after_filter :verify_authorized_with_exceptions, except: [:index, :feed, :ipn_notification, :contact]
+  after_action :verify_authorized_with_exceptions, except: [:index, :feed, :ipn_notification, :contact]
 
   include BrowsingHistory # (lib/autoload) browsing history for redirects and feedback
-  after_filter :store_location
+  after_action :store_location
 
   protect_from_forgery
   skip_before_action :verify_authenticity_token, if: :json_request?

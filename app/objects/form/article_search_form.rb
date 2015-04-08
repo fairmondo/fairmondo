@@ -52,7 +52,7 @@ class ArticleSearchForm
   # Did this form get request parameters or is this an empty search where
   # someone just wants to look around? (category doesn't count)
   def search_request?
-    !filter_attributes.reject{ |k,v| k == :category_id }.empty?
+    !filter_attributes.reject{ |k,_v| k == :category_id }.empty?
   end
 
 
@@ -83,7 +83,7 @@ class ArticleSearchForm
   end
 
   def search_form_attributes
-    filter_attributes.reject { |k, v| [:q, :category_id].include?(k) }
+    filter_attributes.reject { |k, _v| [:q, :category_id].include?(k) }
   end
 
   def category_collection
@@ -120,6 +120,6 @@ class ArticleSearchForm
     end
 
     def clean_hash hash
-      hash.select{ |k,v| v!=nil && v!=false }
+      hash.select{ |_k,v| v!=nil && v!=false }
     end
 end

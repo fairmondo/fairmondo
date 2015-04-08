@@ -42,7 +42,7 @@ describe ToolboxController do
     end
   end
 
-   describe "GET 'confirm'" do
+  describe "GET 'confirm'" do
     describe "as js" do
       it "should be successful" do
         xhr :get, :confirm, format: :js

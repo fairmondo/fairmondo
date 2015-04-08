@@ -56,20 +56,20 @@ FactoryGirl.define do
     end
 
     trait :clear_fastbill do
-      after :create do |business_transaction, evaluator|
+      after :create do |business_transaction, _evaluator|
         business_transaction.seller.update_column(:fastbill_id, nil)
         business_transaction.seller.update_column(:fastbill_subscription_id, nil)
       end
     end
 
     trait :old do
-      after :create do |business_transaction, evaluator|
+      after :create do |business_transaction, _evaluator|
         business_transaction.update_attribute(:sold_at, 27.days.ago)
       end
     end
 
     trait :older do
-      after :create do |business_transaction, evaluator|
+      after :create do |business_transaction, _evaluator|
         business_transaction.update_attribute(:sold_at, 44.days.ago)
       end
     end
