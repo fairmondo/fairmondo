@@ -24,7 +24,5 @@ module STI
   #
   # @api public
   # @return [String] The parent's model_name
-  def model_name
-    superclass.model_name
-  end
+  delegate :model_name, to: :superclass
 end
