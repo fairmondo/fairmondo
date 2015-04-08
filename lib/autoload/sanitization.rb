@@ -19,27 +19,35 @@ module Sanitization
 
       # For each field: define a new method, then register a callback to that method
       fields.each do |field|
-        if field.is_a? Symbol
-          method_name = "sanitize_#{options[:method]}_#{field}"
-          define_method method_name, send("#{options[:method]}_sanitization", field, options[:admin], options[:remove_all_spaces])
-          before_validation method_name.to_sym, options
-
-
-          # TinyMCE contents are assumed to have HTML content and are now sanitized. So we can always give them the html_safe flag.
-          if options[:method] == 'tiny_mce'
-            define_method "#{field}_with_html_safe", Proc.new {
-              orig = send("#{field}_without_html_safe")
-              orig.is_a?(String) ? orig.html_safe : orig
-            }
-            define_method field, -> { read_attribute field } #no idea why this fix is needed
-            alias_method_chain field, :html_safe
-          end
-
-        end
+        create_sanitization_method_for field, options
       end
     end
 
   private
+    def create_sanitization_method_for field, options
+      if field.is_a? Symbol
+        method_name = "sanitize_#{ options[:method] }_#{ field }"
+        define_method method_name, send("#{ options[:method] }_sanitization",
+                                        field, options[:admin],
+                                        options[:remove_all_spaces])
+        before_validation method_name.to_sym, options
+        create_html_safe_method_for_tiny_mce field, options
+      end
+    end
+
+    def create_html_safe_method_for_tiny_mce field, options
+      # TinyMCE contents are assumed to have HTML content and are now sanitized. So we can always give them the html_safe flag.
+      if options[:method] == 'tiny_mce'
+        define_method "#{ field }_with_html_safe",
+          Proc.new {
+          orig = send("#{ field }_without_html_safe")
+          orig.is_a?(String) ? orig.html_safe : orig
+          }
+        define_method field, -> { read_attribute field } #no idea why this fix is needed
+        alias_method_chain field, :html_safe
+      end
+    end
+
     # Method content for sanitize_clean_X callbacks
     # @api private
     # @return [Proc]
