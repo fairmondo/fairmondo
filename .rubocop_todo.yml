@@ -97,11 +97,6 @@ Style/AccessorMethodName:
 Style/AsciiComments:
   Enabled: false
 
-# Offense count: 1
-# Cop supports --auto-correct.
-Style/BlockComments:
-  Enabled: false
-
 # Offense count: 7
 # Cop supports --auto-correct.
 Style/BlockEndNewline:
