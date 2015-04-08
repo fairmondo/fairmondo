@@ -1,7 +1,6 @@
 module Article::Validations
   extend ActiveSupport::Concern
 
-
   included do
     extend Tokenize
 
@@ -32,7 +31,7 @@ module Article::Validations
     }
 
     validates :vat , presence: true , inclusion: { in: [0, 7 ,19] },
-              if: :belongs_to_legal_entity?
+                     if: :belongs_to_legal_entity?
     validates :basic_price_cents, numericality: {
       greater_than_or_equal_to: 0, less_than_or_equal_to: 1000000
     }, allow_nil: false
@@ -76,7 +75,6 @@ module Article::Validations
     validate :only_one_title_image
     validate :bike_courier_requires_paypal, if: :transport_bike_courier
     validate :right_zip_for_courier, if: :transport_bike_courier
-
   end
 
   private
@@ -144,5 +142,4 @@ module Article::Validations
         errors.add(:transport_bike_courier, I18n.t('article.form.errors.wrong_zip_for_bike_transport'))
       end
     end
-
 end

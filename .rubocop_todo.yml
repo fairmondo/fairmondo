@@ -54,7 +54,7 @@ Metrics/BlockNesting:
 # Offense count: 10
 # Configuration parameters: CountComments.
 Metrics/ClassLength:
-  Max: 177
+  Max: 190
 
 # Offense count: 7
 Metrics/CyclomaticComplexity:
@@ -91,12 +91,6 @@ Rails/Validation:
 
 # Offense count: 8
 Style/AccessorMethodName:
-  Enabled: false
-
-# Offense count: 46
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedHashRocketStyle, EnforcedColonStyle, EnforcedLastArgumentHashStyle, SupportedLastArgumentHashStyles.
-Style/AlignHash:
   Enabled: false
 
 # Offense count: 46

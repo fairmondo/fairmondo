@@ -6,19 +6,20 @@ class MassUploadArticle < ActiveRecord::Base
   has_one :user, through: :mass_upload
   default_scope -> { order('row_index ASC') }
 
-  ACTION_MAPPING = { 'c' => :create ,
-              'create' => :create,
-              'u' => :update,
-              'update' => :update,
-              'x' => :delete,
-              'delete' => :delete,
-              'a' => :activate,
-              'activate' => :activate,
-              'd' => :deactivate,
-              'deactivate' => :deactivate,
-              'nothing' => :nothing
-            }
-  IDENTIFIERS = ['id', 'custom_seller_identifier']
+  ACTION_MAPPING = {
+    'c' => :create ,
+    'create' => :create,
+    'u' => :update,
+    'update' => :update,
+    'x' => :delete,
+    'delete' => :delete,
+    'a' => :activate,
+    'activate' => :activate,
+    'd' => :deactivate,
+    'deactivate' => :deactivate,
+    'nothing' => :nothing
+  }
+  IDENTIFIERS = %w(id custom_seller_identifier)
 
 
   def done?

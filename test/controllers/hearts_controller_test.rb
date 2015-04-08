@@ -95,7 +95,7 @@ describe HeartsController do
         @user = FactoryGirl.create(:user)
         @owned_heart = @library.hearts.create(heartable: @library, user: @user)
         @anonymous_heart = @library.hearts.create(heartable: @library,
-              user_token: "RandomUserTokenThiswouldActuallyBeRandomData")
+                                                  user_token: "RandomUserTokenThiswouldActuallyBeRandomData")
       end
 
       it "will not delete an owned heart" do
@@ -122,16 +122,16 @@ describe HeartsController do
         @owned_heart = @library.hearts.create(heartable: @library, user: @user)
         assert_difference "@library.hearts.count", -1 do
           delete :destroy, library_id: @library.id,
-            id: @owned_heart.id, format: :js
+                           id: @owned_heart.id, format: :js
         end
       end
 
       it "will not delete an anonymous heart" do
         @anonymous_heart = @library.hearts.create(heartable: @library,
-          user_token: "RandomUserTokenThiswouldActuallyBeRandomData")
+                                                  user_token: "RandomUserTokenThiswouldActuallyBeRandomData")
         assert_raises Pundit::NotAuthorizedError do
           delete :destroy, library_id: @library.id,
-            id: @anonymous_heart.id, format: :js
+                           id: @anonymous_heart.id, format: :js
         end
       end
 
@@ -141,7 +141,7 @@ describe HeartsController do
                                                       user: @another_user)
         assert_raises Pundit::NotAuthorizedError do
           delete :destroy, library_id: @library.id,
-            id: @another_users_heart.id, format: :js
+                           id: @another_users_heart.id, format: :js
         end
       end
 

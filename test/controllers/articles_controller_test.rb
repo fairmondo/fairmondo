@@ -34,22 +34,30 @@ describe ArticlesController do
         @electronic_category = Category.find_by_name!("Elektronik")
         @software_category = Category.find_by_name!("Software")
 
-        @normal_article = FactoryGirl.create(:article, :index_article,
-          price_cents: 1, title: "noraml article thing", content: "super thing",
-          created_at: 4.days.ago, id: 1234)
-        @second_hand_article = FactoryGirl.create(:second_hand_article,
-          :index_article, price_cents: 2, title: "muscheln",
+        @normal_article = FactoryGirl.create(
+          :article, :index_article,
+          price_cents: 1, title: "noraml article thing",
+          content: "super thing", created_at: 4.days.ago, id: 1234
+        )
+        @second_hand_article = FactoryGirl.create(
+          :second_hand_article, :index_article,
+          price_cents: 2, title: "muscheln",
           categories: [ @vehicle_category ], content: "muscheln am meer",
-          created_at: 3.days.ago, id: 1235)
-        @hardware_article = FactoryGirl.create(:second_hand_article,
-          :index_article, :simple_fair, :simple_ecologic,
-          :simple_small_and_precious,:with_ngo, price_cents: 3,
-          title: "muscheln 2", categories: [ @hardware_category ],
-          content: "abc" , created_at: 2.days.ago, id: 1236)
-        @no_second_hand_article = FactoryGirl.create :no_second_hand_article,
-          :index_article, price_cents: 4, title: "muscheln 3",
+          created_at: 3.days.ago, id: 1235
+        )
+        @hardware_article = FactoryGirl.create(
+          :second_hand_article, :index_article, :simple_fair,
+          :simple_ecologic, :simple_small_and_precious, :with_ngo,
+          price_cents: 3, title: "muscheln 2",
+          categories: [ @hardware_category ], content: "abc" ,
+          created_at: 2.days.ago, id: 1236
+        )
+        @no_second_hand_article = FactoryGirl.create(
+          :no_second_hand_article, :index_article,
+          price_cents: 4, title: "muscheln 3",
           categories: [ @hardware_category ], content: "cde", id: 1237,
           created_at: 1.day.ago
+        )
       end
 
       it "should work with all filters" do
@@ -139,8 +147,8 @@ describe ArticlesController do
       # wegreen search term
       describe '#wegreen_search_term' do
         it 'should return query string' do
-          article_search_form = ArticleSearchForm.new(q: "Dukannstmichnichtfinden")
-          article_search_form.wegreen_search_string.must_equal "Dukannstmichnichtfinden"
+          article_search_form = ArticleSearchForm.new q: 'cantfindme'
+          article_search_form.wegreen_search_string.must_equal 'cantfindme'
         end
 
         it 'should return category name' do
@@ -407,8 +415,8 @@ describe ArticlesController do
       it "should softdelete the locked article" do
         assert_no_difference 'Article.count' do
           put :update, id: @article.id, activate: true,
-            article: { tos_accepted: '1' }
-          #put :update, id: @article.id, deactivate: true
+                       article: { tos_accepted: '1' }
+          # put :update, id: @article.id, deactivate: true
           put :destroy, id: @article.id
         end
       end
@@ -447,7 +455,7 @@ describe ArticlesController do
 
       it "should work" do
         put :update, id: @article.id, article: { tos_accepted: '1' },
-          activate: true
+                     activate: true
         assert_redirected_to @article
         flash[:notice].must_equal I18n.t 'article.notices.create_html'
       end
@@ -457,7 +465,7 @@ describe ArticlesController do
         @article.save validate: false
         ## we now have an invalid record
         put :update, id: @article.id, article: { tos_accepted: '1' },
-          activate: true
+                     activate: true
         assert_redirected_to new_article_path(edit_as_new: @article.id)
       end
     end
@@ -492,7 +500,7 @@ describe ArticlesController do
     it "should be successful" do
       ArticlesIndex.reset!
       @article = FactoryGirl.create :article, :index_article,
-        title: 'chunky bacon'
+                                    title: 'chunky bacon'
       get :autocomplete, q: 'chunky'
       assert_response :success
       response.body.must_equal({

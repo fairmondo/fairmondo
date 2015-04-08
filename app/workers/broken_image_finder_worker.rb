@@ -2,8 +2,8 @@ class BrokenImageFinderWorker
   include Sidekiq::Worker
 
   sidekiq_options queue: :broken_file_finder,
-    retry: 0,
-    backtrace: true
+                  retry: 0,
+                  backtrace: true
 
   def perform image_id
     path = ArticleImage.select("image_file_name,id").find(image_id).image.path

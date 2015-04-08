@@ -2,8 +2,8 @@ class CancellationFormNormalizer
   include Sidekiq::Worker
 
   sidekiq_options queue: :cancellation_normalizer,
-    retry: 5,
-    backtrace: true
+                  retry: 5,
+                  backtrace: true
 
   def perform user_id
     user = User.find user_id
