@@ -104,7 +104,7 @@ module Article::ExtendedAttributes
   # @api public
   # @return [Array] An array with selected transport types.
   def selectable_transports
-    selectable "transport"
+    selectable 'transport'
   end
 
   # Returns an array with all selected payment types.
@@ -113,7 +113,7 @@ module Article::ExtendedAttributes
   # @api public
   # @return [Array] An array with selected payment types.
   def selectable_payments
-    selectable "payment"
+    selectable 'payment'
   end
 
   # Returns price for transport_bike_courier

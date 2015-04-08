@@ -22,7 +22,7 @@ class Feedback < ActiveRecord::Base
   extend ActiveModel::Naming
 
   # Optional image
-  has_one :image, class_name: "FeedbackImage", foreign_key: "imageable_id"
+  has_one :image, class_name: 'FeedbackImage', foreign_key: 'imageable_id'
   accepts_nested_attributes_for :image
 
   enumerize :variety, in: [ :report_article, :get_help, :send_feedback, :become_donation_partner ]
@@ -66,9 +66,9 @@ class Feedback < ActiveRecord::Base
   end
 
   def translate_subject
-    if self.variety == "send_feedback"
+    if self.variety == 'send_feedback'
       I18n.t("enumerize.feedback.feedback_subject.#{self.feedback_subject}")
-    elsif self.variety == "get_help"
+    elsif self.variety == 'get_help'
       I18n.t("enumerize.feedback.help_subject.#{self.help_subject}")
     end
   end

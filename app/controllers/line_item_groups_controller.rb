@@ -25,9 +25,9 @@ class LineItemGroupsController < ApplicationController
     end
 
     def set_tab
-      if params[:tab] == "payments" || (current_user == @line_item_group.buyer && !params[:tab])
+      if params[:tab] == 'payments' || (current_user == @line_item_group.buyer && !params[:tab])
         @tab = :payments
-      elsif params[:tab] == "transports" || (current_user == @line_item_group.seller && !params[:tab])
+      elsif params[:tab] == 'transports' || (current_user == @line_item_group.seller && !params[:tab])
         @tab = :transports
       else
         @tab = :rating

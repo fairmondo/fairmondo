@@ -29,7 +29,7 @@ describe ArticlePolicy do
   let(:original_article) { FactoryGirl.create :locked_article, seller: user }
   let(:user) { nil }
 
-  describe "for a visitor" do
+  describe 'for a visitor' do
     it { subject.must_permit(:index)           }
 
     it { subject.must_ultimately_deny(:new)    }
@@ -42,7 +42,7 @@ describe ArticlePolicy do
     it { subject.must_deny(:destroy)           }
     # it { subject.must_deny(:show)              }
 
-    describe "on an active article" do
+    describe 'on an active article' do
       before do
         article.tos_accepted = '1'
         article.activate
@@ -52,7 +52,7 @@ describe ArticlePolicy do
     end
   end
 
-  describe "for a random logged-in user" do
+  describe 'for a random logged-in user' do
     let(:user) { FactoryGirl.create :user }
 
     it { subject.must_permit(:index)           }
@@ -65,15 +65,15 @@ describe ArticlePolicy do
     it { subject.must_ultimately_deny(:report) }
     it { subject.must_deny(:destroy)           }
 
-    describe "on a cloned article" do
+    describe 'on a cloned article' do
       it { ArticlePolicy.new(user, cloned).must_deny(:create) }
     end
   end
 
-  describe "for the article owning user" do
+  describe 'for the article owning user' do
     let(:user) { article.seller }
 
-    describe "on all articles" do
+    describe 'on all articles' do
       it { subject.must_permit(:index)      }
       it { subject.must_permit(:new)        }
       it { subject.must_permit(:create)     }
@@ -81,7 +81,7 @@ describe ArticlePolicy do
       it { subject.must_deny(:report)       }
     end
 
-    describe "on an active article" do
+    describe 'on an active article' do
       before  do
         article.tos_accepted = '1'
         article.activate
@@ -91,13 +91,13 @@ describe ArticlePolicy do
       it { subject.must_deny(:activate)     }
     end
 
-    describe "on an inactive article" do
+    describe 'on an inactive article' do
       it { subject.must_deny(:deactivate)   }
       it { subject.must_permit(:activate)   }
       it { subject.must_permit(:destroy)    }
     end
 
-    describe "on a locked article" do
+    describe 'on a locked article' do
       before do
         article.tos_accepted = '1'
         article.activate
@@ -108,18 +108,18 @@ describe ArticlePolicy do
       it { subject.must_permit(:destroy)   }
     end
 
-    describe "on an unlocked article" do
+    describe 'on an unlocked article' do
       it { subject.must_permit(:edit)       }
       it { subject.must_permit(:update)     }
       it { subject.must_permit(:destroy)    }
     end
 
-    describe "on a clone of a locked article" do
+    describe 'on a clone of a locked article' do
       let(:cloned) { FactoryGirl.build :preview_article, original: original_article, seller: original_article.seller }
       it { ArticlePolicy.new(cloned.seller, cloned).must_permit(:create) }
     end
 
-    describe "on a clone of an active article" do
+    describe 'on a clone of an active article' do
       let(:original_article) { FactoryGirl.create :article, seller: user }
       it { ArticlePolicy.new(cloned.seller, cloned).must_deny(:create) }
     end

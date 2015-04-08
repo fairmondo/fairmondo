@@ -14,7 +14,7 @@ class HeartsController < ApplicationController
     if user_signed_in?
       @heart = @heartable.hearts.build(user: current_user)
     else
-      user_token = UserTokenGenerator.generate(request.env["HTTP_USER_AGENT"], request.env["REMOTE_ADDR"])
+      user_token = UserTokenGenerator.generate(request.env['HTTP_USER_AGENT'], request.env['REMOTE_ADDR'])
       @heart = @heartable.hearts.build(user_token: user_token)
     end
 
@@ -26,8 +26,8 @@ class HeartsController < ApplicationController
       # Please don't save this object from now on.
       @heartable.hearts_count += 1
     else
-      @message = "Jemand hat diese Sammlung schon von diesem Computer geherzt. " +
-                 "Wenn du das nicht warst, logge dich bitte ein!"
+      @message = 'Jemand hat diese Sammlung schon von diesem Computer geherzt. ' +
+                 'Wenn du das nicht warst, logge dich bitte ein!'
     end
   end
 

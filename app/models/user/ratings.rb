@@ -46,7 +46,7 @@ module User::Ratings
   # @param limit [Integer]
   # @return [Float]
   def calculate_percentage_of_biased_ratings(bias, limit)
-    biased_ratings = { "positive" => 0, "negative" => 0, "neutral" => 0}
+    biased_ratings = { 'positive' => 0, 'negative' => 0, 'neutral' => 0}
     self.ratings.select(:rating).limit(limit).each do |rating|
       biased_ratings[rating.value] += 1
     end

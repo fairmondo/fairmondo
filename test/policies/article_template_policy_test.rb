@@ -28,7 +28,7 @@ describe ArticleTemplatePolicy do
   let(:article_template) { FactoryGirl.create :article_template, :with_private_user }
   let(:user) { nil }
 
-  describe "for a visitor" do
+  describe 'for a visitor' do
     it { subject.must_deny(:new)     }
     it { subject.must_deny(:create)  }
     it { subject.must_deny(:edit)    }
@@ -36,7 +36,7 @@ describe ArticleTemplatePolicy do
     it { subject.must_deny(:destroy) }
   end
 
-  describe "for a random logged-in user" do
+  describe 'for a random logged-in user' do
     let(:user) { FactoryGirl.create :user }
     it { subject.must_deny(:new)                }
     it { subject.must_deny(:create)             }
@@ -45,7 +45,7 @@ describe ArticleTemplatePolicy do
     it { subject.must_deny(:destroy)            }
   end
 
-  describe "for the template owning user" do
+  describe 'for the template owning user' do
     let(:user) { article_template.seller }
     it { subject.must_permit(:new)           }
     it { subject.must_permit(:create)        }

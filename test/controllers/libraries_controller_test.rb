@@ -23,30 +23,30 @@ require_relative '../test_helper'
 
 describe LibrariesController do
   describe "GET 'index" do
-    describe "for non-signed-in users" do
+    describe 'for non-signed-in users' do
       before :each do
         @user = FactoryGirl.create(:user)
       end
 
-      it "should allow access" do
+      it 'should allow access' do
         get :index, user_id: @user.id
         assert_response :success
       end
     end
 
-    describe "for signed-in users" do
+    describe 'for signed-in users' do
       before :each do
         @library = FactoryGirl.create(:library)
 
         sign_in @library.user
       end
 
-      it "should be successful" do
+      it 'should be successful' do
         get :index, user_id: @library.user
         assert_response :success
       end
 
-      it "should be successful" do
+      it 'should be successful' do
         get :show, user_id: @library.user, id: @library.id
         assert_response :success
       end
@@ -97,7 +97,7 @@ describe LibrariesController do
     end
   end
 
-  describe "#update" do
+  describe '#update' do
     it 'should disable auditing for welcome page' do
     end
   end

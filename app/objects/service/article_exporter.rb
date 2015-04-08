@@ -1,5 +1,5 @@
 class ArticleExporter
-  @@csv_options = { col_sep: ";",  encoding: 'utf-8'}
+  @@csv_options = { col_sep: ';',  encoding: 'utf-8'}
 
   def self.export( csv, user, params = nil )
     # Generate proper headers and find out if we are messing with transactions
@@ -12,9 +12,9 @@ class ArticleExporter
       row = Hash.new
       row.merge!(provide_fair_attributes_for article)
       row.merge!(article.attributes)
-      row["categories"] = article.categories.map { |c| c.id }.join(",")
-      row["external_title_image_url"] = article.images.first.external_url if article.images.first
-      row["image_2_url"] = article.images[1].external_url if article.images[1]
+      row['categories'] = article.categories.map { |c| c.id }.join(',')
+      row['external_title_image_url'] = article.images.first.external_url if article.images.first
+      row['image_2_url'] = article.images[1].external_url if article.images[1]
       csv.puts CSV.generate_line export_attributes.map { |element| row[element] }, @@csv_options
     end
     csv.flush
@@ -29,10 +29,10 @@ class ArticleExporter
   end
 
   def self.determine_articles_to_export user, params
-    if params == "active"
-      user.articles.where(state: "active").order("created_at ASC").includes(:images,:categories,:social_producer_questionnaire,:fair_trust_questionnaire)
-    elsif params == "inactive"
-      user.articles.where("state = ? OR state = ?","preview","locked").order("created_at ASC").includes(:images,:categories,:social_producer_questionnaire,:fair_trust_questionnaire)
+    if params == 'active'
+      user.articles.where(state: 'active').order('created_at ASC').includes(:images,:categories,:social_producer_questionnaire,:fair_trust_questionnaire)
+    elsif params == 'inactive'
+      user.articles.where('state = ? OR state = ?','preview','locked').order('created_at ASC').includes(:images,:categories,:social_producer_questionnaire,:fair_trust_questionnaire)
     end
   end
 
@@ -50,7 +50,7 @@ class ArticleExporter
 
   def self.serialize_checkboxes_in attributes
     attributes.each do |k, v|
-      if k.include?("checkboxes")
+      if k.include?('checkboxes')
         if v.any?
           attributes[k] = v.join(',')
         else

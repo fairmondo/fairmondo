@@ -102,7 +102,7 @@ module ArticlesHelper
 
   def cost_info_for method
     if free_or_not_for? method
-      "(kostenfrei)"
+      '(kostenfrei)'
     else
       "zzgl. #{ humanized_money_with_symbol(resource.send("transport_#{ method }_price"))}"
     end
@@ -112,7 +112,7 @@ module ArticlesHelper
     if method == 'pickup'
       "(PLZ: #{ resource.seller.standard_address_zip })"
     elsif method == 'bike_courier'
-      "bar bei Lieferung (z.Z. nur im Berliner Innenstadtbereich verfügbar)"
+      'bar bei Lieferung (z.Z. nur im Berliner Innenstadtbereich verfügbar)'
     end
   end
 

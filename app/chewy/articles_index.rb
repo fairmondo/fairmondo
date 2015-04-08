@@ -19,8 +19,8 @@ class ArticlesIndex < Chewy::Index
       },
       analyzer: {
         german_analyzer: {
-          type: "custom",
-          tokenizer: "hyphen",
+          type: 'custom',
+          tokenizer: 'hyphen',
           filter: [
                   'lowercase',
                   'german_stop',
@@ -36,10 +36,10 @@ class ArticlesIndex < Chewy::Index
   define_type Article.active.includes(:seller, :title_image, :categories) do
     root _source: { excludes: ['content'] } do
       field :id, index: :not_analyzed
-      field :title, type: 'string', analyzer: "german_analyzer"
-      field :title_completion, value: -> { title || "" }, type: 'completion'
+      field :title, type: 'string', analyzer: 'german_analyzer'
+      field :title_completion, value: -> { title || '' }, type: 'completion'
 
-      field :content,  analyzer: "german_analyzer"
+      field :content,  analyzer: 'german_analyzer'
       field :gtin,  index: :not_analyzed
 
       # filters

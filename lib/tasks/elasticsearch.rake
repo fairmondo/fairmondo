@@ -2,12 +2,12 @@
 # Run with: rake elasticsearch:reindex
 
 namespace :elasticsearch do
-  desc "re-index elasticsearch"
+  desc 're-index elasticsearch'
   task reindex: :environment do
-    puts "reindexing ..."
+    puts 'reindexing ...'
 
     ArticlesIndex.reset! Time.now.to_i
 
-    puts "done."
+    puts 'done.'
   end
 end

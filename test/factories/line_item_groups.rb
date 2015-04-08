@@ -5,7 +5,7 @@ FactoryGirl.define do
     cart
     seller
     buyer
-    message "MyText"
+    message 'MyText'
     tos_accepted false
     transport_address { buyer.standard_address }
     payment_address { FactoryGirl.create :address, user_id: buyer.id }

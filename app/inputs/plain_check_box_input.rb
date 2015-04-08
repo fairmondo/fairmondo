@@ -29,7 +29,7 @@ class PlainCheckBoxInput < Formtastic::Inputs::BooleanInput
       method,
       label_text_with_embedded_checkbox,
       label_html_options.tap do |options|
-        options[:class] << "checkbox"
+        options[:class] << 'checkbox'
       end
     )
   end
@@ -38,12 +38,12 @@ class PlainCheckBoxInput < Formtastic::Inputs::BooleanInput
     opts = input_html_options
     if options[:js_toggle]
       css_class = options[:js_toggle].is_a?(String) ? options[:js_toggle] : "#{method}-checked"
-      opts["data-select-toggle"] ||= css_class
+      opts['data-select-toggle'] ||= css_class
     end
     template.check_box_tag("#{object_name}[#{method}]", checked_value, checked?, opts)
   end
 
   def wrapper_classes_raw
-    super << " boolean"
+    super << ' boolean'
   end
 end

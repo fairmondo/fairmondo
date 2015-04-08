@@ -25,11 +25,11 @@ module UsersHelper
   end
 
   def active_articles
-    resource.articles.where("state = ?", :active).includes(:images,:seller).page(params[:active_articles_page])
+    resource.articles.where('state = ?', :active).includes(:images,:seller).page(params[:active_articles_page])
   end
 
   def inactive_articles
-    resource.articles.where("state = ? OR state = ? OR state = ?", :preview, :locked, :inactive ).includes(:images,:seller).page(params[:inactive_articles_page])
+    resource.articles.where('state = ? OR state = ? OR state = ?', :preview, :locked, :inactive ).includes(:images,:seller).page(params[:inactive_articles_page])
   end
 
   def bought_line_item_groups

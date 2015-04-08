@@ -91,7 +91,7 @@ describe CartMailer do
     mail.must have_body_text(business_transaction.bike_courier_message)
   end
 
-  describe "sending email on voucher payment" do |_variable|
+  describe 'sending email on voucher payment' do |_variable|
     it 'displays donated money' do
       payment = FactoryGirl.create :voucher_payment, pay_key: '999999999a'
       seller = payment.line_item_group.seller

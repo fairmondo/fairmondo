@@ -40,22 +40,22 @@ describe Category do
 
   let(:category) { FactoryGirl::create(:category)}
 
-  it "has a valid Factory" do
+  it 'has a valid Factory' do
     category.valid?.must_equal true
   end
 
-  describe "associations" do
+  describe 'associations' do
     it {subject.must have_and_belong_to_many :articles}
   end
 
-  describe "methods" do
-    describe "#parent" do
-      it "should have the correct parent_id" do
+  describe 'methods' do
+    describe '#parent' do
+      it 'should have the correct parent_id' do
         @anotherCategory = FactoryGirl.create(:category, parent: category)
         @anotherCategory.parent.must_equal category
       end
 
-      it "should not have a parent_id without a parent" do
+      it 'should not have a parent_id without a parent' do
         @anotherCategory = FactoryGirl.create(:category)
         @anotherCategory.parent.wont_equal category
       end

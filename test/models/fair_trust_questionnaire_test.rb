@@ -3,7 +3,7 @@ require_relative '../test_helper'
 describe FairTrustQuestionnaire do
   subject { FairTrustQuestionnaire.new }
 
-  describe "attributes" do
+  describe 'attributes' do
     it { subject.must_respond_to :id }
     it { subject.must_respond_to :article_id }
     it { subject.must_respond_to :support }
@@ -28,14 +28,14 @@ describe FairTrustQuestionnaire do
     it { subject.must_respond_to :awareness_raising_other }
   end
 
-  describe "associations" do
+  describe 'associations' do
     it { subject.must belong_to :article }
   end
 
-  describe "validations" do
+  describe 'validations' do
     # Add later: shoulda-style checboxes size validations
     it { subject.must validate_presence_of :support }
-    describe "when support is checked" do
+    describe 'when support is checked' do
       subject { FairTrustQuestionnaire.new support: true }
       it { subject.must validate_presence_of :support_checkboxes }
       it { subject.must validate_presence_of :support_explanation }
@@ -51,7 +51,7 @@ describe FairTrustQuestionnaire do
     end
 
     it { subject.must validate_presence_of :labor_conditions }
-    describe "when labor_conditions is checked" do
+    describe 'when labor_conditions is checked' do
       subject { FairTrustQuestionnaire.new labor_conditions: true }
       it { subject.must validate_presence_of :labor_conditions_checkboxes }
       it { subject.must validate_presence_of :labor_conditions_explanation }
@@ -67,7 +67,7 @@ describe FairTrustQuestionnaire do
     end
 
     it { subject.wont validate_presence_of :environment_protection }
-    describe "when environment_protection is checked" do
+    describe 'when environment_protection is checked' do
       subject { FairTrustQuestionnaire.new environment_protection: true }
       it { subject.must validate_presence_of :environment_protection_checkboxes }
       it { subject.must ensure_length_of(:environment_protection_explanation).is_at_least 150 }
@@ -82,7 +82,7 @@ describe FairTrustQuestionnaire do
     end
 
     it { subject.must validate_presence_of :controlling }
-    describe "when controlling is checked" do
+    describe 'when controlling is checked' do
       subject { FairTrustQuestionnaire.new controlling: true }
       it { subject.must validate_presence_of :controlling_checkboxes }
       it { subject.must validate_presence_of :controlling_explanation }
@@ -98,7 +98,7 @@ describe FairTrustQuestionnaire do
     end
 
     it { subject.wont validate_presence_of :awareness_raising }
-    describe "when awareness_raising is checked" do
+    describe 'when awareness_raising is checked' do
       subject { FairTrustQuestionnaire.new awareness_raising: true }
       it { subject.must validate_presence_of :awareness_raising_checkboxes }
       it { subject.must ensure_length_of(:awareness_raising_explanation).is_at_least 150 }

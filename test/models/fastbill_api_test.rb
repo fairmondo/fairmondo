@@ -2,19 +2,19 @@ require_relative '../test_helper'
 include FastBillStubber
 
 describe FastbillAPI do
-  describe "methods" do
+  describe 'methods' do
     let( :business_transaction ) { BusinessTransaction.new }
     let( :db_business_transaction ) { FactoryGirl.create :business_transaction }
     let( :seller ) { db_business_transaction.seller }
 
-    describe "::fastbill_chain" do
-      it "should find seller of transaction" do
+    describe '::fastbill_chain' do
+      it 'should find seller of transaction' do
         api = FastbillAPI.new db_business_transaction
-        api.instance_eval("@seller").must_equal seller
+        api.instance_eval('@seller').must_equal seller
       end
 
-      describe "when seller is an NGO" do
-        it "should not contact Fastbill" do
+      describe 'when seller is an NGO' do
+        it 'should not contact Fastbill' do
           Fastbill::Automatic::Base.expects(:perform).never
           User.any_instance.stubs(:ngo).returns(:true)
           api = FastbillAPI.new db_business_transaction
@@ -22,9 +22,9 @@ describe FastbillAPI do
         end
       end
 
-      describe "when seller is not an NGO" do
-        describe "and has Fastbill profile" do
-          it "should not create new Fastbill profile" do
+      describe 'when seller is not an NGO' do
+        describe 'and has Fastbill profile' do
+          it 'should not create new Fastbill profile' do
             db_business_transaction # to trigger observers before
             seller.update_attributes(fastbill_id: '1234',
                                      fastbill_subscription_id: '4321')
@@ -35,9 +35,9 @@ describe FastbillAPI do
           end
         end
 
-        describe "and has no Fastbill profile" do
+        describe 'and has no Fastbill profile' do
           let(:db_business_transaction) { FactoryGirl.create :business_transaction, :clear_fastbill }
-          it "should create new Fastbill profile" do
+          it 'should create new Fastbill profile' do
             db_business_transaction # to trigger observers before
             api = FastbillAPI.new db_business_transaction
             api.expects(:fastbill_create_customer)
@@ -46,7 +46,7 @@ describe FastbillAPI do
           end
         end
 
-        it "should set usage data for subscription" do
+        it 'should set usage data for subscription' do
           db_business_transaction # to trigger observers before
           api = FastbillAPI.new db_business_transaction
           Fastbill::Automatic::Subscription.expects(:setusagedata).twice

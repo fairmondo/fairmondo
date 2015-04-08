@@ -2,9 +2,9 @@
 
 FactoryGirl.define do
   factory :notice do
-    message "MyText"
+    message 'MyText'
     open true
-    path "testpath"
+    path 'testpath'
     user
   end
 end

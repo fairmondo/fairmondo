@@ -48,7 +48,7 @@ class Comment < ActiveRecord::Base
       last_5pm = Time.now.hour >= LAST_PUBLISH_HOUR ? Time.now.beginning_of_day : Time.now.yesterday.beginning_of_day
       last_5pm += LAST_PUBLISH_HOUR.hours
 
-      where("comments.created_at <= ?", last_5pm)
+      where('comments.created_at <= ?', last_5pm)
     else
       where '1=1'
     end

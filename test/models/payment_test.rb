@@ -4,7 +4,7 @@ describe Payment do
   subject { payment }
   let(:payment) { FactoryGirl.create(:payment) }
 
-  describe "attributes" do
+  describe 'attributes' do
     it { subject.must_respond_to 'pay_key' }
     it { subject.must_respond_to 'line_item_group' }
     it { subject.must_respond_to 'error' }
@@ -13,7 +13,7 @@ describe Payment do
     it { subject.must_respond_to 'updated_at' }
   end
 
-  describe "associations" do
+  describe 'associations' do
     # it { subject.must have_many :business_transactions }
     it { subject.must belong_to :line_item_group }
   end
@@ -24,27 +24,27 @@ describe Payment do
   #   it { should validate_numericality_of :transaction_id }
   # end
 
-  describe "methods" do
-    describe "#init [state machine]" do
-      it "should initialize successfully" do
+  describe 'methods' do
+    describe '#init [state machine]' do
+      it 'should initialize successfully' do
         payment.state.must_equal 'pending'
         payment.init
         payment.state.must_equal 'initialized'
       end
     end
 
-    describe "#initialize_payment [private, called within init]" do
-      it "should return true for a base Payment" do
+    describe '#initialize_payment [private, called within init]' do
+      it 'should return true for a base Payment' do
         Payment.new.send(:initialize_payment).must_equal true
       end
 
-      it "should save errors on API failure" do
+      it 'should save errors on API failure' do
         PaypalAdaptive::Response.any_instance.stubs(:success?).returns(false)
         payment.expects(:error=)
         payment.send(:initialize_payment)
       end
 
-      it "should rescue a timeout and error instead" do
+      it 'should rescue a timeout and error instead' do
         Timeout.expects(:timeout).with(15).raises(Timeout::Error)
         payment.init
         payment.state.must_equal 'errored'

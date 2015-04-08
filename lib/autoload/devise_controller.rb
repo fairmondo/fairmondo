@@ -10,7 +10,7 @@ DeviseController.class_eval do
       if request.xhr?
         false
       else
-        "application_reduced"
+        'application_reduced'
       end
     end
 end

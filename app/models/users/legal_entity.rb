@@ -82,7 +82,7 @@ class LegalEntity < User
   def has_enough_positive_ratings_in last_ratings
     value = true
     last_ratings.each do |rating|
-      value = value && calculate_percentage_of_biased_ratings( "positive", rating ) > 90
+      value = value && calculate_percentage_of_biased_ratings( 'positive', rating ) > 90
     end
     value
   end

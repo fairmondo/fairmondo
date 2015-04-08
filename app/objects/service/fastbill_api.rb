@@ -86,7 +86,7 @@ class FastbillAPI
           subscription = Fastbill::Automatic::Subscription.create(
             article_number: '10',
             customer_id: @seller.fastbill_id,
-            next_event: Time.now.end_of_month.strftime("%Y-%m-%d %H:%M:%S")
+            next_event: Time.now.end_of_month.strftime('%Y-%m-%d %H:%M:%S')
           )
           @seller.update_column :fastbill_subscription_id, subscription.subscription_id
         end
@@ -102,7 +102,7 @@ class FastbillAPI
             quantity: quantity_for(type),
             unit_price: unit_price_for(type),
             description: description_for(type),
-            usage_date: @bt.sold_at.strftime("%Y-%m-%d %H:%M:%S")
+            usage_date: @bt.sold_at.strftime('%Y-%m-%d %H:%M:%S')
           )
           @bt.send("billed_for_#{ type }=", true)
           @bt.save

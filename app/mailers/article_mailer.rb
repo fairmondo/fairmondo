@@ -48,28 +48,28 @@ class ArticleMailer < ActionMailer::Base
     @article.calculate_fees_and_donations # just to be save
     @user    = @article.user
     terms_pdf
-    mail(to: @user.email, subject: "[Fairmondo] Du hast einen Artikel auf Fairmondo eingestellt")
+    mail(to: @user.email, subject: '[Fairmondo] Du hast einen Artikel auf Fairmondo eingestellt')
   end
 
   def mass_upload_activation_message mass_upload_id
     @mass_upload = MassUpload.find mass_upload_id
     @user = @mass_upload.user
     terms_pdf
-    mail(to: @user.email, subject: "[Fairmondo] Du hast Deine per CSV-Dateien eingestellten Artikel aktiviert")
+    mail(to: @user.email, subject: '[Fairmondo] Du hast Deine per CSV-Dateien eingestellten Artikel aktiviert')
   end
 
   def mass_upload_failed_message mass_upload_id
     @mass_upload = MassUpload.find mass_upload_id
     @user = @mass_upload.user
-    mail(to: @user.email, subject: "[Fairmondo] Bei deinem CSV-Upload sind Fehler aufgetreten")
+    mail(to: @user.email, subject: '[Fairmondo] Bei deinem CSV-Upload sind Fehler aufgetreten')
   end
 
   def mass_upload_finished_message mass_upload_id
     @mass_upload = MassUpload.find mass_upload_id
     @user = @mass_upload.user
-    subject = "[Fairmondo] Dein CSV-Upload ist abgeschlossen"
+    subject = '[Fairmondo] Dein CSV-Upload ist abgeschlossen'
     if @mass_upload.articles_for_mass_activation.any?
-      subject << ". Es liegen Artikel zur Aktivierung bereit!"
+      subject << '. Es liegen Artikel zur Aktivierung bereit!'
       @created_count = @mass_upload.created_articles.count
       @updated_count = @mass_upload.updated_articles.count
       @activated_count = @mass_upload.activated_articles.count

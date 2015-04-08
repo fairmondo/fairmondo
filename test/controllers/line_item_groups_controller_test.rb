@@ -30,12 +30,12 @@ describe LineItemGroupsController do
   end
 
   describe "GET 'show'" do
-    it "should show a success flash when redirected after paypal success" do
+    it 'should show a success flash when redirected after paypal success' do
       get :show, id: lig.id, paid: 'true'
       flash[:notice].must_equal I18n.t('line_item_group.notices.paypal_success')
     end
 
-    it "should show an error flash when redirected after paypal cancellation" do
+    it 'should show an error flash when redirected after paypal cancellation' do
       get :show, id: lig.id, paid: 'false'
       flash[:error].must_equal I18n.t('line_item_group.notices.paypal_cancel')
     end

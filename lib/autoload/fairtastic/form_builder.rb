@@ -59,12 +59,12 @@ module Fairtastic
     def nested_inputs_for(association_name, options = {}, &block)
       title = options[:name]
       title = localized_string(association_name, object, nil) if title == true
-      title ||= ""
+      title ||= ''
 
       tooltip = optional_tooltip_html(association_name, options)
       tooltip = template.content_tag(:span, tooltip) if tooltip.present?
 
-      title = template.content_tag(:h4, (title << tooltip).html_safe, class: "questionnaire-entry")
+      title = template.content_tag(:h4, (title << tooltip).html_safe, class: 'questionnaire-entry')
       title.html_safe << semantic_fields_for(association_name, options, &block)
     end
 
@@ -73,9 +73,9 @@ module Fairtastic
     def extended_fieldset_args(*args)
       options = args.extract_options!
       if options[:class]
-        options[:class] << " inputs"
+        options[:class] << ' inputs'
       else
-         options[:class] = "inputs"
+         options[:class] = 'inputs'
       end
       args << options
     end

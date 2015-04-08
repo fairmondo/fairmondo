@@ -19,12 +19,12 @@
 #
 module ContentHelper
   def tinycms_content(key)
-    render "contents/embed", content: find_content(key)
+    render 'contents/embed', content: find_content(key)
   end
 
   def tinycms_content_body(key)
     content = find_content(key)
-    content && content.body ? content.body : ""
+    content && content.body ? content.body : ''
   end
 
   def find_content key

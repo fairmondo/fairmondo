@@ -9,9 +9,9 @@ describe LibraryPopularityWorker do
     library.stub_chain(base, :where, :count).returns(num_current)
   end
 
-  describe "#popularity_for" do
+  describe '#popularity_for' do
     # first test: library with no comments or hearts should have popularity of 0.0
-    it "should calculate 0 for library with no hearts or comments" do
+    it 'should calculate 0 for library with no hearts or comments' do
       set_stubs(library, :hearts, 0, 0)
       set_stubs(library, :comments, 0, 0)
       library.updated_at = Time.now
@@ -25,7 +25,7 @@ describe LibraryPopularityWorker do
     # three comments with an < 3 days, they count extra = 3 x 5 -> 15
     # in sum: 96
     # library is younger than 3 days, so popularity = 96 * 10 -> 960
-    it "should calculate correct value for library with hearts and comments" do
+    it 'should calculate correct value for library with hearts and comments' do
       set_stubs(library, :hearts, 25, 6)
       set_stubs(library, :comments, 10, 3)
       library.updated_at = Time.now
@@ -34,7 +34,7 @@ describe LibraryPopularityWorker do
 
     # third test: set different updated_at values for the library
     # between 3 and 7 days: factor 2
-    it "should use a factor of 2 for a library aged 4 days" do
+    it 'should use a factor of 2 for a library aged 4 days' do
       set_stubs(library, :hearts, 25, 0)
       set_stubs(library, :comments, 0, 0)
       library.updated_at = 4.days.ago
@@ -42,7 +42,7 @@ describe LibraryPopularityWorker do
     end
 
     # fourth test: between 3 and 7 days: factor 2
-    it "should use a factor of 2 for a library aged 6 days" do
+    it 'should use a factor of 2 for a library aged 6 days' do
       set_stubs(library, :hearts, 25, 0)
       set_stubs(library, :comments, 0, 0)
       library.updated_at = 6.days.ago
@@ -50,7 +50,7 @@ describe LibraryPopularityWorker do
     end
 
     # fifth test: older than 7 days: factor 1
-    it "should use a factor of 1 for a library aged 8 days" do
+    it 'should use a factor of 1 for a library aged 8 days' do
       set_stubs(library, :hearts, 25, 0)
       set_stubs(library, :comments, 0, 0)
       library.updated_at = 8.days.ago
@@ -58,8 +58,8 @@ describe LibraryPopularityWorker do
     end
   end
 
-  describe "#perform" do
-    it "perform should call popularity_for to update the popularity database column" do
+  describe '#perform' do
+    it 'perform should call popularity_for to update the popularity database column' do
       library_db = FactoryGirl.create(:library)
       worker.stubs(:popularity_for).returns(50)
       worker.perform library_db.id

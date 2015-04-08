@@ -26,7 +26,7 @@ class FeaturedLibraryQuery
   private
 
     def ordered_active_one_day_exhibited limit
-      @relation.where("library_elements.exhibition_date IS NULL OR library_elements.exhibition_date >= ?", DateTime.now - 1.day).order("library_elements.created_at ASC").limit limit
+      @relation.where('library_elements.exhibition_date IS NULL OR library_elements.exhibition_date >= ?', DateTime.now - 1.day).order('library_elements.created_at ASC').limit limit
     end
 
     def set_exhibition_date_of library_element
@@ -49,6 +49,6 @@ class FeaturedLibraryQuery
     end
 
     def filler_query exhibits
-      @relation.where("library_elements.id NOT IN (?)", exhibits.map{|e| e.id } + [0] ).where("library_elements.exhibition_date IS NOT NULL AND library_elements.exhibition_date < ?", DateTime.now - 1.day)
+      @relation.where('library_elements.id NOT IN (?)', exhibits.map{|e| e.id } + [0] ).where('library_elements.exhibition_date IS NOT NULL AND library_elements.exhibition_date < ?', DateTime.now - 1.day)
     end
 end

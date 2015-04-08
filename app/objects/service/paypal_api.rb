@@ -9,15 +9,15 @@ class PaypalAPI
     begin
       Timeout::timeout(15) do # 15 second timeout
         paypal_client.pay(
-          "returnUrl" => line_item_group_url(payment.line_item_group, paid: true),
-          "requestEnvelope" => {"errorLanguage" => "en_US"},
-          "currencyCode" => "EUR",
-          "receiverList" => {
-            "receiver" => [{"email" => payment.line_item_group_seller_paypal_account, "amount" => payment.total_price.to_f.to_s}]},
-          "cancelUrl" => line_item_group_url(payment.line_item_group, paid: false),
-          "actionType" => "PAY",
-          "ipnNotificationUrl" => ipn_notification_url,
-          "trackingID" => payment.line_item_group_purchase_id
+          'returnUrl' => line_item_group_url(payment.line_item_group, paid: true),
+          'requestEnvelope' => {'errorLanguage' => 'en_US'},
+          'currencyCode' => 'EUR',
+          'receiverList' => {
+            'receiver' => [{'email' => payment.line_item_group_seller_paypal_account, 'amount' => payment.total_price.to_f.to_s}]},
+          'cancelUrl' => line_item_group_url(payment.line_item_group, paid: false),
+          'actionType' => 'PAY',
+          'ipnNotificationUrl' => ipn_notification_url,
+          'trackingID' => payment.line_item_group_purchase_id
         )
       end
     rescue Timeout::Error

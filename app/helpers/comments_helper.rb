@@ -29,15 +29,15 @@ module CommentsHelper
 
   # comments path depending on commentable class
   def comment_path commentable, comment
-    get_path "comment", commentable, comment
+    get_path 'comment', commentable, comment
   end
   # comments path depending on commentable class
   def comments_path commentable
-    get_path "comments", commentable
+    get_path 'comments', commentable
   end
 
   def comments_counter(commentable)
-    render partial: "comments/commentable_counter",
+    render partial: 'comments/commentable_counter',
            locals: { commentable: commentable }
   end
 

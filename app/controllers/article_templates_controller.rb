@@ -64,7 +64,7 @@ class ArticleTemplatesController < ApplicationController
     end
 
     def collection_url
-      user_path(current_user, anchor: "my_article_templates")
+      user_path(current_user, anchor: 'my_article_templates')
     end
 
     def save_images

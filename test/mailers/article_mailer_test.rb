@@ -31,13 +31,13 @@ describe ArticleMailer do
   let(:mass_upload) { FactoryGirl.create(:mass_upload) }
   let(:user) { FactoryGirl.create(:user) }
 
-  it "#report_article" do
-    mail =  ArticleMailer.report_article(article,user,"text")
-    mail.subject.must_include("Article reported")
-    mail.subject.must_equal("Article reported with ID: " + article.id.to_s)
+  it '#report_article' do
+    mail =  ArticleMailer.report_article(article,user,'text')
+    mail.subject.must_include('Article reported')
+    mail.subject.must_equal('Article reported with ID: ' + article.id.to_s)
   end
 
-  it "#contact" do
+  it '#contact' do
     mail =  ArticleMailer.contact(sender: user, resource_id: article.id, text: 'foobar')
 
     mail.must deliver_to article.seller_email

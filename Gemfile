@@ -14,21 +14,21 @@ end
 
 # ----------  Model ----------
 
-gem "paperclip", "4.2.0" # image uploads ### LOCKED Paperclip at version 4.2.0 until #1706 (https://github.com/thoughtbot/paperclip/issues/1706) is fixed
+gem 'paperclip', '4.2.0' # image uploads ### LOCKED Paperclip at version 4.2.0 until #1706 (https://github.com/thoughtbot/paperclip/issues/1706) is fixed
 gem 'money-rails', '> 0.12.0' # dealing with money in activerecord
 gem 'monetize' # parsing money
 gem 'enumerize', '>= 0.5.1' # enums as symbols in ar
 gem 'state_machine' # State Machines in Rails
 gem 'amoeba'
 gem 'sanitize' # Parser based sanitization
-gem 'awesome_nested_set' , ">= 3.0.0.rc.4"# tree structure for categories
-gem "friendly_id", ">= 4.0.9" # Friendly_id for beautiful links
+gem 'awesome_nested_set' , '>= 3.0.0.rc.4'# tree structure for categories
+gem 'friendly_id', '>= 4.0.9' # Friendly_id for beautiful links
 
 # pseudo models
 gem 'active_data'
 
 ## Indexing /Searching
-gem "chewy"
+gem 'chewy'
 # ---------- View ----------
 
 gem 'slim-rails', '>= 2.1.5'
@@ -36,9 +36,9 @@ gem 'jbuilder'
 
 ## CSS
 gem 'susy' ,'~> 2.1.1' # Grid framework is susy
-gem 'sass-rails', "~> 5.0.0"
-gem 'bourbon' , "<= 4.0.2" # easy ccs3
-gem "font-awesome-rails", '>= 4.2.0.0'
+gem 'sass-rails', '~> 5.0.0'
+gem 'bourbon' , '<= 4.0.2' # easy ccs3
+gem 'font-awesome-rails', '>= 4.2.0.0'
 gem 'sprite-factory'
 gem 'chunky_png' # needed for sprite-factory
 gem 'sprockets'
@@ -61,8 +61,8 @@ gem 'hogan_assets'
 
 ## Forms
 
-gem 'formtastic', "~> 2.3.0.rc3"
-gem "recaptcha", require: "recaptcha/rails" # Captcha Gem
+gem 'formtastic', '~> 2.3.0.rc3'
+gem 'recaptcha', require: 'recaptcha/rails' # Captcha Gem
 
 # ---------- Controller ----------
 
@@ -138,7 +138,7 @@ group :development do
   gem 'quiet_assets'
 
   # er diagramm generation
-  gem "rails-erd"
+  gem 'rails-erd'
   gem 'thin' # Replace Webrick
 end
 
@@ -147,13 +147,13 @@ group :test do
   gem 'rake'
   gem 'database_cleaner'
   gem 'colorize'
-  gem "fakeredis"
-  gem "fakeweb", "~> 1.3"
+  gem 'fakeredis'
+  gem 'fakeweb', '~> 1.3'
 end
 
 group :development, :test do
-  gem "parallel_tests"
-  gem "pry-rescue"
+  gem 'parallel_tests'
+  gem 'pry-rescue'
   gem 'pry-rails' # pry is awsome
   gem 'hirb' # hirb makes pry output even more awesome
   gem 'pry-byebug' # kickass debugging
@@ -174,7 +174,7 @@ group :development, :test do
   gem 'mocha'
 
   # Gem for testing emails
-  gem "email_spec"
+  gem 'email_spec'
 
   # Code Coverage
   gem 'simplecov'
@@ -184,8 +184,8 @@ group :development, :test do
   # gem 'mutant-rails' ... check back to see if they got it working: https://github.com/mockdeep/mutant-rails
 
   # test suite additions
-  gem "rails_best_practices"
-  gem 'brakeman', github: "presidentbeef/brakeman"  # security test: execute with 'brakeman' locked because of slim https://github.com/presidentbeef/brakeman/pull/602/files
+  gem 'rails_best_practices'
+  gem 'brakeman', github: 'presidentbeef/brakeman'  # security test: execute with 'brakeman' locked because of slim https://github.com/presidentbeef/brakeman/pull/602/files
   gem 'rubocop' # style enforcement
 
   gem 'bullet' # Notify about n+1 queries

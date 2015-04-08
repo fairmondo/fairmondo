@@ -31,11 +31,11 @@ module Article::Checks
   end
 
   def is_conventional?
-    condition == "new" && !fair && !small_and_precious && !ecologic
+    condition == 'new' && !fair && !small_and_precious && !ecologic
   end
 
   def save_as_template?
-    save_as_template == "1"
+    save_as_template == '1'
   end
 
   def should_get_a_slug?

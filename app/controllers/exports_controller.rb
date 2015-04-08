@@ -1,7 +1,7 @@
 class ExportsController < ApplicationController
   def show
     # Generate a Tempfile for the download
-    csv = Tempfile.new "export", encoding: 'utf-8'
+    csv = Tempfile.new 'export', encoding: 'utf-8'
     # export_type = ''
 
     # if params && params[:kind_of_article] == 'seller_line_item_groups'
@@ -18,7 +18,7 @@ class ExportsController < ApplicationController
       format.csv do
         send_file csv.path,
                   type: 'text/csv; charset=utf-8',
-                  filename: "Fairmondo_export_"\
+                  filename: 'Fairmondo_export_'\
                             "#{Time.now.strftime("%Y-%d-%m %H:%M:%S")}.csv"
       end
     end

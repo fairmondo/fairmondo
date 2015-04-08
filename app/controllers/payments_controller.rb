@@ -51,7 +51,7 @@ class PaymentsController < ApplicationController
         raise ActiveRecord::RecordNotFound
       end
     else
-      raise StandardError, "ipn could not be verified"
+      raise StandardError, 'ipn could not be verified'
     end
 
     render nothing: true

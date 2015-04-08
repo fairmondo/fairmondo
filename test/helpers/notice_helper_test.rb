@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Fairmondo.  If not, see <http://www.gnu.org/licenses/>.
 #
-require_relative "../test_helper"
+require_relative '../test_helper'
 
 describe NoticeHelper do
   # describe "#bootstrap_notice_mapper" do
@@ -37,7 +37,7 @@ describe NoticeHelper do
   #   end
   # end
 
-  describe "#main_notice_mapper" do
+  describe '#main_notice_mapper' do
     it "returns 'error' when given 'alert'" do
       helper.main_notice_mapper('alert').must_equal 'error'
     end

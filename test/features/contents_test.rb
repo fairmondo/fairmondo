@@ -2,31 +2,31 @@ require_relative '../test_helper'
 
 include Warden::Test::Helpers
 
-feature "CMS System" do
+feature 'CMS System' do
   let(:content) { FactoryGirl.create :content }
   let(:admin) { FactoryGirl.create :admin_user }
 
-  scenario "user visits an existing page" do
+  scenario 'user visits an existing page' do
     visit content_path content
     page.must_have_content content.body
   end
 
-  scenario "admin visists a non exsisting page" do
+  scenario 'admin visists a non exsisting page' do
     login_as admin
     visit content_path 'not-there'
     current_path.must_equal new_content_path
   end
-  scenario "guest visit non exsisting page" do
+  scenario 'guest visit non exsisting page' do
     -> { visit content_path 'not-there' }.must_raise ActiveRecord::RecordNotFound
   end
 
-  scenario "admin visits content index" do
+  scenario 'admin visits content index' do
     login_as admin
     visit contents_path
     current_path.must_equal contents_path
   end
 
-  scenario "guest visits content index" do
+  scenario 'guest visits content index' do
     visit contents_path
     current_path.must_equal new_user_session_path
   end

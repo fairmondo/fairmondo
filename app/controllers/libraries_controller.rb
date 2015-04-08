@@ -97,7 +97,7 @@ class LibrariesController < ApplicationController
         articles.each do |id|
           library.articles << Article.find(id) if id.present?
         end
-        notice = {notice: "Added to library."}
+        notice = {notice: 'Added to library.'}
       rescue => err # will throw errors e.g. if library already had that article
         notice = {error: "Something went wrong: #{err}"} # Only visible for admins
       end
@@ -112,7 +112,7 @@ class LibrariesController < ApplicationController
 
     article = Article.find(params[:article_id])
     library.articles.delete article
-    redirect_to :back, notice: "Deleted from library."
+    redirect_to :back, notice: 'Deleted from library.'
   end
 
   # for admins to audit libraries for display on the welcome page

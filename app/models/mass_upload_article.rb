@@ -89,7 +89,7 @@ class MassUploadArticle < ActiveRecord::Base
   end
 
   def prepare_categories
-    @article_attributes["category_ids"] = @article_attributes.delete("categories").split(",") if @article_attributes['categories']
+    @article_attributes['category_ids'] = @article_attributes.delete('categories').split(',') if @article_attributes['categories']
   end
 
   def prepare_questionaires
@@ -113,7 +113,7 @@ class MassUploadArticle < ActiveRecord::Base
     elsif action == nil
       @prepared_action = get_processing_default
     else
-      set_error I18n.t("mass_uploads.errors.unknown_action")
+      set_error I18n.t('mass_uploads.errors.unknown_action')
     end
   end
 
@@ -133,7 +133,7 @@ class MassUploadArticle < ActiveRecord::Base
     else
       @prepared_article.state = :locked
     end
-    @prepared_article.categories.clear if @article_attributes["category_ids"]
+    @prepared_article.categories.clear if @article_attributes['category_ids']
     @article_attributes.delete('id')
     @prepared_article.assign_attributes(@article_attributes)
   end
@@ -161,11 +161,11 @@ class MassUploadArticle < ActiveRecord::Base
   # We allow sellers to use their custom field as an identifier but we need the ID internally
   def find_by_id_or_custom_seller_identifier
     if IDENTIFIERS.select{ |v| @article_attributes.include?(v) && @article_attributes[v].present? }.empty?
-      set_error I18n.t("mass_uploads.errors.no_identifier")
+      set_error I18n.t('mass_uploads.errors.no_identifier')
       nil
     else
       article = @article_attributes['id'].present? ? find_article_by_id : find_article_by_custom_seller_identifier
-      set_error I18n.t("mass_uploads.errors.article_not_found") unless article.present?
+      set_error I18n.t('mass_uploads.errors.article_not_found') unless article.present?
       article
     end
   end

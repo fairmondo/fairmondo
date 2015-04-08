@@ -27,12 +27,12 @@ describe UserPolicy do
   let(:resource) { FactoryGirl.create :user }
   let(:user) { nil }
 
-  describe "for a visitor" do
+  describe 'for a visitor' do
     it { subject.must_permit(:show)    }
     it { subject.must_permit(:profile) }
   end
 
-  describe "for a random logged-in user" do
+  describe 'for a random logged-in user' do
     let(:user) { FactoryGirl.create :user }
 
     it { subject.must_permit(:show)             }

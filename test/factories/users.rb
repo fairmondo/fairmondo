@@ -22,11 +22,11 @@
 require 'ffaker'
 
 FactoryGirl.define do
-  factory :user, aliases: [:seller, :buyer, :sender, :rated_user] , class: ["PrivateUser", "LegalEntity"].sample do
+  factory :user, aliases: [:seller, :buyer, :sender, :rated_user] , class: ['PrivateUser', 'LegalEntity'].sample do
     email       { Faker::Internet.email }
     password    'password'
     sequence(:nickname) {|n| "#{Faker::Internet.user_name}#{n}" }
-    legal       "1"
+    legal       '1'
 
     about_me    { Faker::Lorem.paragraph( rand(7)+1 ) }
     terms    { Faker::Lorem.paragraph( rand(7)+1 ) }
@@ -40,17 +40,17 @@ FactoryGirl.define do
     bank_account_owner Faker::Name.name
     bank_name Faker::Name.name
 
-    iban {["DE","AT","CH"].sample+rand(99999999999999999999).to_s.center(20, rand(9).to_s)}
-    bic {["ABCDEF","ZJFBLO","TNAPIT","EMLOAB"].sample + rand(99).to_s.center(2, rand(9).to_s)}
+    iban {['DE','AT','CH'].sample+rand(99999999999999999999).to_s.center(20, rand(9).to_s)}
+    bic {['ABCDEF','ZJFBLO','TNAPIT','EMLOAB'].sample + rand(99).to_s.center(2, rand(9).to_s)}
 
     direct_debit true
     uses_vouchers false
     created_at { 2.month.ago }
 
-    seller_state "standard_seller"
-    buyer_state "standard_buyer"
+    seller_state 'standard_seller'
+    buyer_state 'standard_buyer'
 
-    unified_transport_provider "DHL"
+    unified_transport_provider 'DHL'
     unified_transport_price_cents 2000
     unified_transport_maximum_articles 12
 
@@ -66,12 +66,12 @@ FactoryGirl.define do
     end
 
     trait :missing_bank_data do
-      bank_code ""
-      bank_account_number ""
-      bank_account_owner ""
-      bank_name ""
-      iban ""
-      bic ""
+      bank_code ''
+      bank_account_number ''
+      bank_account_owner ''
+      bank_name ''
+      iban ''
+      bic ''
     end
 
     factory :admin_user do
@@ -99,10 +99,10 @@ FactoryGirl.define do
     end
 
     trait :no_bank_data do
-      bank_code ""
-      bank_account_number ""
-      iban ""
-      bic ""
+      bank_code ''
+      bank_account_number ''
+      iban ''
+      bic ''
     end
 
     trait :paypal_data do

@@ -25,7 +25,7 @@ include FastBillStubber
 include Warden::Test::Helpers
 
 feature 'User registration' do
-  scenario "user visits root path and signs in" do
+  scenario 'user visits root path and signs in' do
     user = FactoryGirl.create :user
     visit root_path
 
@@ -45,7 +45,7 @@ feature 'User registration' do
     page.must_have_content I18n.t 'devise.sessions.signed_in'
   end
 
-  scenario "guest registers a new user" do
+  scenario 'guest registers a new user' do
     visit new_user_registration_path
 
     within '#registration_form' do
@@ -62,7 +62,7 @@ feature 'User registration' do
 end
 
 feature 'User sign in' do
-  scenario "banned user wants to sing in" do
+  scenario 'banned user wants to sing in' do
     user = FactoryGirl.create :user, banned: true
     FactoryGirl.create :content, key:'banned', body: '<p>You are banned.</p>'
     visit new_user_session_path
@@ -90,14 +90,14 @@ feature 'User sign in' do
   end
 end
 
-feature "User account management" do
-  scenario "user updates his profile" do
+feature 'User account management' do
+  scenario 'user updates his profile' do
     user = FactoryGirl.create :user
     login_as user
 
     visit edit_user_registration_path user
     # Heading
-    page.must_have_css "h1", text: I18n.t('common.actions.edit_profile')
+    page.must_have_css 'h1', text: I18n.t('common.actions.edit_profile')
 
     # Account Data
     page.must_have_content I18n.t 'formtastic.labels.user.legal_entity'
@@ -171,7 +171,7 @@ feature "User account management" do
     current_path.must_equal user_path user
   end
 
-  scenario "user wants to change the email for his account" do
+  scenario 'user wants to change the email for his account' do
     @user = FactoryGirl.create :user
     login_as @user
     visit edit_user_registration_path @user
@@ -185,7 +185,7 @@ feature "User account management" do
     @user.reload.unconfirmed_email.must_equal 'chunky@bacon.com'
   end
 
-  scenario "user wants to change the email for account without a password" do
+  scenario 'user wants to change the email for account without a password' do
     @user = FactoryGirl.create :user
     login_as @user
     visit edit_user_registration_path @user
@@ -195,7 +195,7 @@ feature "User account management" do
     @user.reload.unconfirmed_email.wont_equal 'chunky@bacon.com'
   end
 
-  scenario "user wants to change the password for his account without having address" do
+  scenario 'user wants to change the password for his account without having address' do
     @user = FactoryGirl.create :incomplete_user
     login_as @user
     visit edit_user_registration_path @user
@@ -207,7 +207,7 @@ feature "User account management" do
     page.must_have_content I18n.t 'devise.registrations.updated'
   end
 
-  scenario "user wants to change the password for account without current password" do
+  scenario 'user wants to change the password for account without current password' do
     @user = FactoryGirl.create :user
     login_as @user
     visit edit_user_registration_path @user
@@ -220,7 +220,7 @@ feature "User account management" do
     end
   end
 
-  scenario "legal entity wants to update terms/cancelation/about" do
+  scenario 'legal entity wants to update terms/cancelation/about' do
     user = FactoryGirl.create :legal_entity
     login_as user
     visit edit_user_registration_path @user
@@ -244,7 +244,7 @@ feature "User account management" do
     user.about.must_equal 'foobar'
   end
 
-  scenario "private user wants to edit his account" do
+  scenario 'private user wants to edit his account' do
     @user =  FactoryGirl.create :private_user
     login_as @user
     visit edit_user_registration_path @user
@@ -259,13 +259,13 @@ feature "User account management" do
   end
 end
 
-feature "Newsletter" do
+feature 'Newsletter' do
   setup do
     @user = FactoryGirl.create :user
     login_as @user
   end
-  scenario "user wants to receive newsletter" do
-    fixture = File.read("test/fixtures/cleverreach_add_success.xml")
+  scenario 'user wants to receive newsletter' do
+    fixture = File.read('test/fixtures/cleverreach_add_success.xml')
     savon.expects(:receiver_add).with(message: :any).returns(fixture)
 
     visit edit_user_registration_path @user
@@ -274,8 +274,8 @@ feature "Newsletter" do
 
     @user.reload.newsletter.must_equal true
   end
-  scenario "user wants to unsubscribe to the newsletter" do
-    fixture = File.read("test/fixtures/cleverreach_remove_success.xml")
+  scenario 'user wants to unsubscribe to the newsletter' do
+    fixture = File.read('test/fixtures/cleverreach_remove_success.xml')
     savon.expects(:receiver_delete).with(message: :any).returns(fixture)
 
     @user.update_column :newsletter, true

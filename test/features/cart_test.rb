@@ -160,9 +160,9 @@ feature 'Checkout' do
     visit line_item_group_path(LineItemGroup.last)
     page.find('.Payment-value--total').must_have_content(
       article.price + article.transport_type1_price)
-    visit line_item_group_path(LineItemGroup.last, tab: "transports")
+    visit line_item_group_path(LineItemGroup.last, tab: 'transports')
     page.must_have_selector('.transport_table')
-    visit line_item_group_path(LineItemGroup.last, tab: "rating")
+    visit line_item_group_path(LineItemGroup.last, tab: 'rating')
   end
 
   scenario 'User selects cash as unified_payment and does not select pickup and changes it to pickup in the end' do
@@ -190,7 +190,7 @@ feature 'Checkout' do
     # Step 1 correct errors
 
     page.must_have_content I18n.t 'transaction.errors.combination_invalid',
-                                  selected_payment: I18n.t("enumerize.business_transaction.selected_payment.cash")
+                                  selected_payment: I18n.t('enumerize.business_transaction.selected_payment.cash')
 
     page.find('select#cart_checkout_form_line_items_1_business_transaction_selected_transport').find("option[value='pickup']").select_option
     page.find('select#cart_checkout_form_line_items_2_business_transaction_selected_transport').find("option[value='pickup']").select_option
@@ -281,7 +281,7 @@ feature 'Checkout' do
     page.check('cart_checkout_form_line_item_groups_2_tos_accepted')
 
     (4..5).each do |num|
-      page.find("select#cart_checkout_form_line_items_#{ num }_business_transaction_selected_transport").find("option[value=type1]").select_option
+      page.find("select#cart_checkout_form_line_items_#{ num }_business_transaction_selected_transport").find('option[value=type1]').select_option
     end
 
     # Step 2

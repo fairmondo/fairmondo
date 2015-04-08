@@ -29,7 +29,7 @@ class PlainRadioInput < Formtastic::Inputs::RadioInput
     opts = input_html_options
     if options[:js_toggle]
       css_class = "#{choice[1]}-"+method.to_s
-      opts["data-select-toggle"] ||= css_class
+      opts['data-select-toggle'] ||= css_class
     end
 
       template.content_tag(
@@ -40,7 +40,7 @@ class PlainRadioInput < Formtastic::Inputs::RadioInput
   end
 
   def wrapper_classes_raw
-    super << " radio"
+    super << ' radio'
   end
 
   def render_label?

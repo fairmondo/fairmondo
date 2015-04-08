@@ -70,19 +70,19 @@ class ApplicationController < ActionController::Base
     end
 
     def pundit_unverified_controller
-      (pundit_unverified_modules.include? self.class.name.split("::").first) || (pundit_unverified_classes.include? self.class.name)
+      (pundit_unverified_modules.include? self.class.name.split('::').first) || (pundit_unverified_classes.include? self.class.name)
     end
 
     def pundit_unverified_modules
-      ["Devise","RailsAdmin"]
+      ['Devise','RailsAdmin']
     end
 
     def pundit_unverified_classes
       [
-       "RegistrationsController", "SessionsController", "ConfirmationsController", "ToolboxController",
-       "BankDetailsController", "ExportsController", "WelcomeController",
-       "CategoriesController", "Peek::ResultsController", "StyleguidesController",
-       "RemoteValidationsController", "DiscourseController"
+       'RegistrationsController', 'SessionsController', 'ConfirmationsController', 'ToolboxController',
+       'BankDetailsController', 'ExportsController', 'WelcomeController',
+       'CategoriesController', 'Peek::ResultsController', 'StyleguidesController',
+       'RemoteValidationsController', 'DiscourseController'
       ]
     end
 
@@ -97,9 +97,9 @@ class ApplicationController < ActionController::Base
     # @api semipublic
     # @return [undefined]
     def dont_cache
-      response.headers["Cache-Control"] = "no-cache, no-store, max-age=0, must-revalidate"
-      response.headers["Pragma"] = "no-cache"
-      response.headers["Expires"] = "Fri, 01 Jan 1990 00:00:00 GMT"
+      response.headers['Cache-Control'] = 'no-cache, no-store, max-age=0, must-revalidate'
+      response.headers['Pragma'] = 'no-cache'
+      response.headers['Expires'] = 'Fri, 01 Jan 1990 00:00:00 GMT'
     end
 
     # If user wants to sell
@@ -139,7 +139,7 @@ class ApplicationController < ActionController::Base
 
     def layout_by_param
       if params[:iframe]
-        "iframe"
+        'iframe'
       else
         nil
       end
@@ -149,7 +149,7 @@ class ApplicationController < ActionController::Base
       if resource_or_scope.is_a?(User) && resource_or_scope.banned?
         sign_out resource_or_scope
         flash.discard
-        "/banned"
+        '/banned'
       end
     end
 

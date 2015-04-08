@@ -1,7 +1,7 @@
-require "test_helper"
+require 'test_helper'
 
 describe FeaturedLibraryQuery do
-  describe "#find" do
+  describe '#find' do
     it 'finds featured library elements and fills them if need be' do
       library = FactoryGirl.create :library, :public, exhibition_name: :queue1
       non_featured_element = FactoryGirl.create :library_element, library: library, exhibition_date: nil

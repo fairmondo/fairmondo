@@ -18,7 +18,7 @@ class CommentsController < ApplicationController
       format.js do
         if params[:comments_page]
           @comments = @comments.page(params[:comments_page])
-          render partial: "comments/index_paginated", locals: {
+          render partial: 'comments/index_paginated', locals: {
             comments: @comments,
             commentable: @commentable
           }

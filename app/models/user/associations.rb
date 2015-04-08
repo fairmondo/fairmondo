@@ -29,7 +29,7 @@ module User::Associations
     delegate :title, :first_name, :last_name, :company_name, :address_line_1, :address_line_2, :zip, :city, :country, to: :standard_address, prefix: true, allow_nil: true
 
     # Profile image
-    has_one :image, class_name: "UserImage", foreign_key: "imageable_id"
+    has_one :image, class_name: 'UserImage', foreign_key: 'imageable_id'
     accepts_nested_attributes_for :image, reject_if: :all_blank
 
     # Articles and Mass uploads

@@ -52,14 +52,14 @@ class Article < ActiveRecord::Base
     self.quantity_available -= value
     if self.quantity_available < 1
       self.remove_from_libraries
-      self.state = "sold"
+      self.state = 'sold'
     end
     self.save! # validation is performed on the attribute
   end
 
   def self.edit_as_new article
     new_article = article.amoeba_dup
-    new_article.state = "preview"
+    new_article.state = 'preview'
     new_article
   end
 

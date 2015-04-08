@@ -27,12 +27,12 @@ FactoryGirl.define do
     categories {|c| [c.association(:category)] }
     title     { Faker::Lorem.words(rand(3..5)).join(' ').titleize }
     content   { Faker::Lorem.paragraph(rand(7)+1) }
-    condition { ["new", "old"].sample }
+    condition { ['new', 'old'].sample }
     condition_extra {[:as_good_as_new, :as_good_as_warranted, :used_very_good, :used_good, :used_satisfying, :broken].sample}
     price_cents { Random.new.rand(40000)+1 }
     vat {[0,7,19].sample}
     quantity 1
-    state "active"
+    state 'active'
     original_id { nil }
 
     trait :index_article do
@@ -49,42 +49,42 @@ FactoryGirl.define do
     end
 
     transport_type1 true
-    transport_type1_provider "DHL Päckchen"
+    transport_type1_provider 'DHL Päckchen'
     transport_type1_price_cents { Random.new.rand(200)+1 }
-    transport_details "transport_details"
+    transport_details 'transport_details'
     payment_bank_transfer true
 
-    payment_details "payment_details"
+    payment_details 'payment_details'
 
     factory :article_template do
-      article_template_name { Faker::Lorem.words( rand(3)+2 ) * " " }
+      article_template_name { Faker::Lorem.words( rand(3)+2 ) * ' ' }
       state :template
     end
 
     factory :second_hand_article do
-      condition "old"
-      condition_extra "as_good_as_new"
+      condition 'old'
+      condition_extra 'as_good_as_new'
     end
 
     factory :no_second_hand_article do
-      condition "new"
+      condition 'new'
     end
 
     factory :preview_article do
       after(:build) do |article|
-        article.state = "preview"
+        article.state = 'preview'
       end
     end
 
     factory :closed_article do
       after(:build) do |article|
-        article.state = "closed"
+        article.state = 'closed'
       end
     end
 
     factory :locked_article do
       after(:build) do |article|
-        article.state = "locked"
+        article.state = 'locked'
       end
     end
 
@@ -206,7 +206,7 @@ FactoryGirl.define do
     trait :simple_small_and_precious do
       small_and_precious true
       small_and_precious_eu_small_enterprise true
-      small_and_precious_reason "a"*151
+      small_and_precious_reason 'a'*151
     end
 
     trait :with_larger_quantity do
@@ -222,7 +222,7 @@ FactoryGirl.define do
     end
 
     trait :invalid do
-      title ""
+      title ''
     end
   end
 end

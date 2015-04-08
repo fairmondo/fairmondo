@@ -13,7 +13,7 @@ class ContactForm
   end
 
   def get_mailer_for resource_type
-    return ArticleMailer if resource_type == "article"
-    return UserMailer if resource_type == "user"
+    return ArticleMailer if resource_type == 'article'
+    return UserMailer if resource_type == 'user'
   end
 end

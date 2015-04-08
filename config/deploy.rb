@@ -8,7 +8,7 @@ set :rbenv_ruby, '2.1.0'
 # Default branch is :master
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }
 
-set :deploy_to, "/var/www/fairnopoly"
+set :deploy_to, '/var/www/fairnopoly'
 
 # Default value for :scm is :git
 set :scm, :git
@@ -59,11 +59,11 @@ namespace :deploy do
     end
   end
 
-  after :finishing, "deploy:cleanup"
+  after :finishing, 'deploy:cleanup'
 end
 
 namespace :rails do
-  desc "Open the rails console on each of the remote servers"
+  desc 'Open the rails console on each of the remote servers'
   task :console do
     on roles(:console), primary: true do |host|
       rails_env = fetch(:stage)
@@ -73,7 +73,7 @@ namespace :rails do
     end
   end
 
-  desc "Open the rails dbconsole on each of the remote servers"
+  desc 'Open the rails dbconsole on each of the remote servers'
   task :dbconsole do
     on roles(:db), primary: true do |host|
       rails_env = fetch(:stage)

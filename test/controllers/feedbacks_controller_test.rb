@@ -27,14 +27,14 @@ describe FeedbacksController do
       @attributes = FactoryGirl.attributes_for :feedback, :report_article
     end
 
-    describe "for non-signed-in users" do
-      it "should create a feedback with variety report_article" do
+    describe 'for non-signed-in users' do
+      it 'should create a feedback with variety report_article' do
         assert_difference 'Feedback.count', 1 do
           post :create, feedback: @attributes
         end
       end
 
-      it "should create a feedback with variety report_article" do
+      it 'should create a feedback with variety report_article' do
         @controller.stubs(:verify_recaptcha).returns(false)
         assert_no_difference 'Feedback.count', 1 do
           post :create, feedback: @attributes

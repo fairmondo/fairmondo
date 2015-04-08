@@ -1,5 +1,5 @@
 class BelboonArticleExporter
-  @@csv_options = { col_sep: ";",  encoding: 'utf-8' }
+  @@csv_options = { col_sep: ';',  encoding: 'utf-8' }
 
   EXPORT_MAPPING = {
     'Merchant_ProductNumber' => 'slug',

@@ -19,7 +19,7 @@ class Statistic
   end
 
   def legal_entity_articles_count
-    Article.active.joins(:seller).where("users.type = ?", "LegalEntity").count
+    Article.active.joins(:seller).where('users.type = ?', 'LegalEntity').count
   end
 
   def private_users_count
@@ -27,7 +27,7 @@ class Statistic
   end
 
   def private_user_articles_count
-    Article.active.joins(:seller).where("users.type = ?", "PrivateUser").count
+    Article.active.joins(:seller).where('users.type = ?', 'PrivateUser').count
   end
 
   def sum_article_prices
@@ -35,7 +35,7 @@ class Statistic
   end
 
   def sum_article_prices_with_quantity
-    Money.new(Article.active.sum("price_cents * quantity"))
+    Money.new(Article.active.sum('price_cents * quantity'))
   end
 
   def sum_article_fees
@@ -43,7 +43,7 @@ class Statistic
   end
 
   def sum_article_fees_with_quantity
-    Money.new(Article.active.sum("calculated_fee_cents * quantity"))
+    Money.new(Article.active.sum('calculated_fee_cents * quantity'))
   end
 
   def sum_fair_article_fees
@@ -51,7 +51,7 @@ class Statistic
   end
 
   def sum_fair_article_fees_with_quantity
-    Money.new(Article.active.where(fair: true).sum("calculated_fee_cents * quantity"))
+    Money.new(Article.active.where(fair: true).sum('calculated_fee_cents * quantity'))
   end
 
   def sum_conventional_article_fees
@@ -59,7 +59,7 @@ class Statistic
   end
 
   def sum_conventional_article_fees_with_quantity
-    Money.new(Article.active.where(fair: false).sum("calculated_fee_cents * quantity"))
+    Money.new(Article.active.where(fair: false).sum('calculated_fee_cents * quantity'))
   end
 
   def sum_donations
@@ -67,7 +67,7 @@ class Statistic
   end
 
   def sum_donations_with_quantity
-    Money.new(Article.active.sum("calculated_fair_cents * quantity"))
+    Money.new(Article.active.sum('calculated_fair_cents * quantity'))
   end
 
   [:ecologic, :fair].each do |type|
@@ -87,15 +87,15 @@ class Statistic
   end
 
   def sum_sold_article_prices
-    Money.new(BusinessTransaction.joins(:article).sum("articles.price_cents * business_transactions.quantity_bought"))
+    Money.new(BusinessTransaction.joins(:article).sum('articles.price_cents * business_transactions.quantity_bought'))
   end
 
   def sum_sold_article_fees
-    Money.new(BusinessTransaction.joins(:article).sum("articles.calculated_fee_cents * business_transactions.quantity_bought"))
+    Money.new(BusinessTransaction.joins(:article).sum('articles.calculated_fee_cents * business_transactions.quantity_bought'))
   end
 
   def sum_sold_article_donations
-    Money.new(BusinessTransaction.joins(:article).sum("articles.calculated_fair_cents * business_transactions.quantity_bought"))
+    Money.new(BusinessTransaction.joins(:article).sum('articles.calculated_fair_cents * business_transactions.quantity_bought'))
   end
 
   def sold_articles_count_last_week
@@ -115,34 +115,34 @@ class Statistic
   end
 
   def sold_article_prices_last_week
-    Money.new(BusinessTransaction.last_week.joins(:article).sum("articles.price_cents * business_transactions.quantity_bought"))
+    Money.new(BusinessTransaction.last_week.joins(:article).sum('articles.price_cents * business_transactions.quantity_bought'))
   end
 
   def sold_article_prices_growth_rate
-    growth_rate BusinessTransaction.last_week.joins(:article).sum("articles.price_cents * business_transactions.quantity_bought") , BusinessTransaction.week_before_last_week.joins(:article).sum("articles.price_cents * business_transactions.quantity_bought")
+    growth_rate BusinessTransaction.last_week.joins(:article).sum('articles.price_cents * business_transactions.quantity_bought') , BusinessTransaction.week_before_last_week.joins(:article).sum('articles.price_cents * business_transactions.quantity_bought')
   end
 
   def sold_article_fees_last_week
-    Money.new(BusinessTransaction.last_week.joins(:article).sum("articles.calculated_fee_cents * business_transactions.quantity_bought"))
+    Money.new(BusinessTransaction.last_week.joins(:article).sum('articles.calculated_fee_cents * business_transactions.quantity_bought'))
   end
 
   def sold_article_fees_growth_rate
-    growth_rate BusinessTransaction.last_week.joins(:article).sum("articles.calculated_fee_cents * business_transactions.quantity_bought"), BusinessTransaction.week_before_last_week.joins(:article).sum("articles.calculated_fee_cents * business_transactions.quantity_bought")
+    growth_rate BusinessTransaction.last_week.joins(:article).sum('articles.calculated_fee_cents * business_transactions.quantity_bought'), BusinessTransaction.week_before_last_week.joins(:article).sum('articles.calculated_fee_cents * business_transactions.quantity_bought')
   end
 
   def sold_article_donations_last_week
-    Money.new(BusinessTransaction.last_week.joins(:article).sum("articles.calculated_fair_cents * business_transactions.quantity_bought"))
+    Money.new(BusinessTransaction.last_week.joins(:article).sum('articles.calculated_fair_cents * business_transactions.quantity_bought'))
   end
 
   def sold_article_donations_growth_rate
-    growth_rate BusinessTransaction.last_week.joins(:article).sum("articles.calculated_fair_cents * business_transactions.quantity_bought"), BusinessTransaction.week_before_last_week.joins(:article).sum("articles.calculated_fair_cents * business_transactions.quantity_bought")
+    growth_rate BusinessTransaction.last_week.joins(:article).sum('articles.calculated_fair_cents * business_transactions.quantity_bought'), BusinessTransaction.week_before_last_week.joins(:article).sum('articles.calculated_fair_cents * business_transactions.quantity_bought')
   end
 
   private
 
   def growth_rate last_week, week_before_last_week
     if week_before_last_week == 0
-      "-"
+      '-'
     else
        ((last_week.to_f / week_before_last_week.to_f - 1) * 100).round(2)
     end

@@ -23,17 +23,17 @@ require_relative '../test_helper'
 
 describe UsersController do
   describe "GET 'show'" do
-    describe "for non-signed-in users" do
+    describe 'for non-signed-in users' do
       before :each do
         @user = FactoryGirl.create(:user)
       end
 
-      it "should be successful" do
+      it 'should be successful' do
         get :show , id: @user
         assert_response :success
       end
 
-      it "render deleted user for banned users" do
+      it 'render deleted user for banned users' do
         @user.update_attribute(:banned,true)
         get :show , id: @user
         assert_response :success
@@ -41,13 +41,13 @@ describe UsersController do
       end
     end
 
-    describe "for signed-in users" do
+    describe 'for signed-in users' do
       before :each do
         @user = FactoryGirl.create(:user)
         sign_in @user
       end
 
-      it "should be successful" do
+      it 'should be successful' do
         get :show, id: @user
         assert_response :success
       end
@@ -59,13 +59,13 @@ describe UsersController do
         @user = FactoryGirl.create(:legal_entity)
       end
 
-      it "should be successful" do
+      it 'should be successful' do
         get :profile , id: @user, format: :pdf, print: 'terms'
         assert_response :success
       end
   end
 
-  describe "GET contact" do
+  describe 'GET contact' do
     let(:user) { FactoryGirl.create :user }
 
     it 'should be successful' do

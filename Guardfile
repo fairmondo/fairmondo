@@ -22,7 +22,7 @@
 #  watch(%r{^spec/acceptance/steps/(.+)_steps\.rb$})   { |m| Dir[File.join("**/#{m[1]}.feature")][0] || 'spec/acceptance' }
 # end
 
-guard 'ctags-bundler', src_path: ["app", "lib", "spec/support"] do
+guard 'ctags-bundler', src_path: ['app', 'lib', 'spec/support'] do
   watch(/^(app|lib|spec\/support)\/.*\.rb$/)
   watch('Gemfile.lock')
 end

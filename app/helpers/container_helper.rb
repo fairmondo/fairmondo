@@ -29,9 +29,9 @@ module ContainerHelper
   # @param block [Proc] The box's contents
   # @return [String] The compiled HTML of the box element
   def accordion_item(accordion_name, options = {}, &block)
-    header_class = options[:header_class] || ""
-    content_class = options[:content_class] || ""
-    render  layout: "accordion_layout",
+    header_class = options[:header_class] || ''
+    content_class = options[:content_class] || ''
+    render  layout: 'accordion_layout',
             locals: {
               accordion_name: accordion_name,
               accordion_title: options[:title] || t(accordion_name, scope: "#{controller_name}.boxes"),
@@ -44,10 +44,10 @@ module ContainerHelper
   end
 
   def gray_box(heading, options = {}, &block)
-    render  layout: "gray_box_layout",
+    render  layout: 'gray_box_layout',
             locals: {
               heading: heading,
-              frame_class: options[:frame_class] || "",
+              frame_class: options[:frame_class] || '',
               title_addition: options[:title_addition],
             }, &block
   end

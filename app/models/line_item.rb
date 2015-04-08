@@ -19,7 +19,7 @@ class LineItem < ActiveRecord::Base
 #  after_rollback :set_max_requested_quantity
 
   def self.find_or_new params, cart_id
-    joins(:cart).where("carts.id = ?", cart_id).find_by_article_id(params['article_id']) || new(params)
+    joins(:cart).where('carts.id = ?', cart_id).find_by_article_id(params['article_id']) || new(params)
   end
 
   def prepare_line_item_group_or_assign cart, quantity

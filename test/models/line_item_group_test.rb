@@ -6,11 +6,11 @@ describe LineItemGroup do
 
   subject { LineItemGroup.new }
 
-  it "has a valid Factory" do
+  it 'has a valid Factory' do
     line_item_group.must_be :valid?
   end
 
-  describe "attributes" do
+  describe 'attributes' do
     it { subject.must_respond_to :id }
     it { subject.must_respond_to :seller_id }
     it { subject.must_respond_to :buyer_id }

@@ -77,7 +77,7 @@ class User < ActiveRecord::Base
   # @api public
   # @param user [User] Usually current_user
   def is_pioneer?
-    self.created_at < Time.parse("2013-09-23 23:59:59.000000 CEST +02:00")
+    self.created_at < Time.parse('2013-09-23 23:59:59.000000 CEST +02:00')
   end
 
   # Static method to get admin status even if current_user is nil
@@ -91,7 +91,7 @@ class User < ActiveRecord::Base
   # @api public
   # @return [String] 8-digit number
   def customer_nr
-    id.to_s.rjust 8, "0"
+    id.to_s.rjust 8, '0'
   end
 
   # Get url for user image
@@ -106,7 +106,7 @@ class User < ActiveRecord::Base
   # @api public
   # @return [String]
   def address
-    string = ""
+    string = ''
     string += "#{standard_address_address_line_1}, "
     string += "#{standard_address_address_line_2}, " if standard_address_address_line_2.present?
     string += "#{standard_address_zip} #{standard_address_city}"
@@ -121,7 +121,7 @@ class User < ActiveRecord::Base
 
   # get all users with ngo status but not current
   def self.sorted_ngo_without_current(current_user)
-    self.order(:nickname).where("ngo = ? AND id != ?", true, current_user.id)
+    self.order(:nickname).where('ngo = ? AND id != ?', true, current_user.id)
   end
 
   # get hearted libraries of current user
@@ -174,7 +174,7 @@ class User < ActiveRecord::Base
   end
 
   def count_value_of_goods
-    value_of_goods_cents = self.articles.active.sum("price_cents * quantity")
+    value_of_goods_cents = self.articles.active.sum('price_cents * quantity')
     self.update_attribute(:value_of_goods_cents, value_of_goods_cents)
   end
 
@@ -235,6 +235,6 @@ class User < ActiveRecord::Base
     end
 
     def is_german?
-      self.standard_address && self.standard_address.country == "Deutschland"
+      self.standard_address && self.standard_address.country == 'Deutschland'
     end
 end

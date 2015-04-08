@@ -20,7 +20,7 @@ module BusinessTransaction::Discountable
 
   # finds all transactions that where discounted by specific discount
   def discounted
-    BusinessTransaction.where( "seller_id = ? AND discount_id = ?", self.seller, self.discount )
+    BusinessTransaction.where( 'seller_id = ? AND discount_id = ?', self.seller, self.discount )
   end
 
   # returns the number of articles, that have been discounted for specific discount
@@ -30,7 +30,7 @@ module BusinessTransaction::Discountable
 
   # returns the value of discounts granted for specific discount
   def value_discounted_articles
-    discounted.sum( "discount_value_cents * quantity_bought" ).to_i
+    discounted.sum( 'discount_value_cents * quantity_bought' ).to_i
   end
 
   def calculated_discount

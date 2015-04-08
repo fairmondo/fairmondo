@@ -87,16 +87,16 @@ describe Article do
     it { subject.must_respond_to :transport_bike_courier_number }
   end
 
-  describe "::Base" do
-    describe "associations" do
+  describe '::Base' do
+    describe 'associations' do
       it {subject.must have_many :images}
       it {subject.must have_and_belong_to_many :categories}
       it {subject.must belong_to :seller}
       it {subject.must have_many(:business_transactions)}
     end
 
-    describe "validations" do
-      describe "legal_entity seller" do
+    describe 'validations' do
+      describe 'legal_entity seller' do
         let (:special_article) do
           Article.new seller: LegalEntity.new, basic_price: 2
         end
@@ -104,8 +104,8 @@ describe Article do
       end
     end
 
-    describe "amoeba" do
-      it "should copy an article with images" do
+    describe 'amoeba' do
+      it 'should copy an article with images' do
         article = FactoryGirl.create :article, :with_fixture_image
         testpath = article.images.first.image.path # The image needs to be in place !!!
         FileUtils.mkpath File.dirname(testpath) # make the dir
@@ -117,9 +117,9 @@ describe Article do
       end
     end
 
-    describe "methods" do
-      describe "#owned_by?(user)" do
-        it "should return false when user is nil" do
+    describe 'methods' do
+      describe '#owned_by?(user)' do
+        it 'should return false when user is nil' do
           article.owned_by?(nil).must_equal nil
         end
 
@@ -127,69 +127,69 @@ describe Article do
           db_article.owned_by?(FactoryGirl.create(:user)).must_equal false
         end
 
-        it "should return true when article belongs to user" do
+        it 'should return true when article belongs to user' do
           db_article.owned_by?(db_article.seller).must_equal true
         end
       end
     end
   end
 
-  describe "::FeesAndDonations" do
+  describe '::FeesAndDonations' do
     before do
       article.seller = User.new
     end
 
-    describe "#fee_percentage" do
-      it "should return the fair percentage when article.fair" do
+    describe '#fee_percentage' do
+      it 'should return the fair percentage when article.fair' do
         article.fair = true
         article.send('fee_percentage').must_equal 0.03
       end
 
-      it "should return the default percentage when !article.fair" do
+      it 'should return the default percentage when !article.fair' do
         article.send('fee_percentage').must_equal 0.06
       end
 
-      it "should return 0 percentage when article.seller.ngo" do
+      it 'should return 0 percentage when article.seller.ngo' do
         article.seller.ngo = true
         article.send('fee_percentage').must_equal 0
       end
     end
 
-    describe "#calculate_fees_and_donations" do
-      it "should have 100 % friendly_percent for ngo" do
+    describe '#calculate_fees_and_donations' do
+      it 'should have 100 % friendly_percent for ngo' do
         ngo_article.friendly_percent.must_equal 100
       end
 
       # expand these unit tests!
-      it "should return zeros on fee and fair cents with a friendly_percent of gt 100" do
+      it 'should return zeros on fee and fair cents with a friendly_percent of gt 100' do
         article.friendly_percent = 101
         article.calculate_fees_and_donations
         article.calculated_fair.must_equal 0
         article.calculated_fee.must_equal 0
       end
 
-      it "should return zeros on fee and fair cents with a price of 0" do
+      it 'should return zeros on fee and fair cents with a price of 0' do
         article.price = 0
         article.calculate_fees_and_donations
         article.calculated_fair.must_equal 0
         article.calculated_fee.must_equal 0
       end
 
-      it "should return the max fee when calculated_fee gt max fee" do
+      it 'should return the max fee when calculated_fee gt max fee' do
         article.price = 9999
         article.fair = false
         article.calculate_fees_and_donations
         article.calculated_fee.must_equal Money.new(3000)
       end
 
-      it "should always round the fair cents up" do
+      it 'should always round the fair cents up' do
         article.price = 789.23
         article.fair = false
         article.calculate_fees_and_donations
         article.calculated_fair.must_equal Money.new(790)
       end
 
-      it "should be no fees for ngo" do
+      it 'should be no fees for ngo' do
         article.seller.ngo = true
         article.price = 999
 
@@ -200,29 +200,29 @@ describe Article do
     end
   end
 
-  describe "::Attributes" do
-    describe "validations" do
-      it "should throw an error if no payment option is selected" do
+  describe '::Attributes' do
+    describe 'validations' do
+      it 'should throw an error if no payment option is selected' do
         article.payment_cash = false
         article.save
-        article.errors[:payment_details].must_equal [I18n.t("article.form.errors.invalid_payment_option")]
+        article.errors[:payment_details].must_equal [I18n.t('article.form.errors.invalid_payment_option')]
       end
 
-      it "should throw an error if bank transfer is selected, but bank data is missing" do
+      it 'should throw an error if bank transfer is selected, but bank data is missing' do
         db_article.seller.stubs(:bank_account_exists?).returns(false)
         db_article.payment_bank_transfer = true
         db_article.save
-        db_article.errors[:payment_bank_transfer].must_equal [I18n.t("article.form.errors.bank_details_missing")]
+        db_article.errors[:payment_bank_transfer].must_equal [I18n.t('article.form.errors.bank_details_missing')]
       end
 
-      it "should throw an error if paypal is selected, but bank data is missing" do
+      it 'should throw an error if paypal is selected, but bank data is missing' do
         db_article.payment_paypal = true
         db_article.save
-        db_article.errors[:payment_paypal].must_equal [I18n.t("article.form.errors.paypal_details_missing")]
+        db_article.errors[:payment_paypal].must_equal [I18n.t('article.form.errors.paypal_details_missing')]
       end
 
-      it "should allow dashes in transport_time" do
-        db_article.transport_time = "3 – 5"
+      it 'should allow dashes in transport_time' do
+        db_article.transport_time = '3 – 5'
         db_article.save
         db_article.errors[:transport_time].must_equal []
       end
@@ -231,24 +231,24 @@ describe Article do
       it {subject.must validate_numericality_of(:transport_type2_number)}
     end
 
-    describe "methods" do
-      describe "#selectable_transports" do
-        it "should call the private selectable function" do
-          article.expects(:selectable).with("transport")
+    describe 'methods' do
+      describe '#selectable_transports' do
+        it 'should call the private selectable function' do
+          article.expects(:selectable).with('transport')
           article.selectable_transports
         end
       end
 
-      describe "#selectable_payments" do
-        it "should call the private selectable function" do
-          article.expects(:selectable).with("payment")
+      describe '#selectable_payments' do
+        it 'should call the private selectable function' do
+          article.expects(:selectable).with('payment')
           article.selectable_payments
         end
       end
 
-      describe "#selectable (private)" do
-        it "should return an array with selected transport options, the default being first" do
-          output = FactoryGirl.create(:article, :with_all_payments, :with_all_transports).send(:selectable, "transport")
+      describe '#selectable (private)' do
+        it 'should return an array with selected transport options, the default being first' do
+          output = FactoryGirl.create(:article, :with_all_payments, :with_all_transports).send(:selectable, 'transport')
           output.must_include 'pickup'
           output.must_include 'type1'
           output.must_include 'type2'
@@ -258,14 +258,14 @@ describe Article do
     end
   end
 
-  describe "::Images" do
-    describe "methods" do
-      describe "#title_image_url" do
+  describe '::Images' do
+    describe 'methods' do
+      describe '#title_image_url' do
         it "should return the first image's URL when one exists" do
           db_article.title_image_url.must_match %r#/system/images/000/000/001/original/test.png#
         end
 
-        it "should return the missing-image-url when no image is set" do
+        it 'should return the missing-image-url when no image is set' do
           article = FactoryGirl.create :article
           article.title_image_url.must_equal 'missing.png'
         end
@@ -277,16 +277,16 @@ describe Article do
             image.save
           end
           article.save
-          article.errors[:images].must_equal [I18n.t("article.form.errors.only_one_title_image")]
+          article.errors[:images].must_equal [I18n.t('article.form.errors.only_one_title_image')]
         end
 
-        it "should return the processing image while processing when requested a thumb" do
+        it 'should return the processing image while processing when requested a thumb' do
           title_image = FactoryGirl.create(:article_image, :processing)
           db_article.images = [title_image]
           db_article.title_image_url(:thumb).must_equal title_image.image.url(:thumb)
         end
 
-        it "should return the original image while processing when requested a medium image" do
+        it 'should return the original image while processing when requested a medium image' do
           title_image = FactoryGirl.create(:article_image, :processing)
           db_article.images = [title_image]
           db_article.title_image_url(:medium).must_equal title_image.original_image_url_while_processing
@@ -333,9 +333,9 @@ describe Article do
     end
   end
 
-  describe "::Categories" do
-    describe "#size_validator" do
-      it "should validate size of categories" do
+  describe '::Categories' do
+    describe '#size_validator' do
+      it 'should validate size of categories' do
         article_0cat = FactoryGirl.build :article
         article_0cat.categories = []
         article_1cat = FactoryGirl.build :article
@@ -350,10 +350,10 @@ describe Article do
     end
   end
 
-  describe "::State" do
-    describe "state machine hooks:" do
-      describe "on activate" do
-        it "should calculate the fees and donations" do
+  describe '::State' do
+    describe 'state machine hooks:' do
+      describe 'on activate' do
+        it 'should calculate the fees and donations' do
           article = FactoryGirl.create :preview_article
           article.calculated_fair_cents = 0
           article.calculated_fee_cents = 0
@@ -367,19 +367,19 @@ describe Article do
     end
   end
 
-  describe "::Template" do
+  describe '::Template' do
     before do
       @article = FactoryGirl.build :article, :with_private_user, article_template_name: 'Vorlage', state: :template
     end
 
-    describe "#save_as_template?" do
-      it "should return true when the save_as_template attribute is 1" do
-        @article.save_as_template = "1"
+    describe '#save_as_template?' do
+      it 'should return true when the save_as_template attribute is 1' do
+        @article.save_as_template = '1'
         @article.save_as_template?.must_equal true
       end
 
-      it "should return false when the save_as_template attribute is 0" do
-        @article.save_as_template = "0"
+      it 'should return false when the save_as_template attribute is 0' do
+        @article.save_as_template = '0'
         @article.save_as_template?.must_equal false
       end
     end

@@ -41,7 +41,7 @@ module BrowsingHistory
     ]
 
     def redirectable_url? url_hash
-      url_hash[:method] == "GET" &&
+      url_hash[:method] == 'GET' &&
       !url_hash[:xhr] &&
       !DISABLED_REDIRECT_URLS.include?(url_hash[:path].split('?').first)
     end

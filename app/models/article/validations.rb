@@ -91,7 +91,7 @@ module Article::Validations
 
     def transport_method_checked
       unless self.transport_pickup || self.transport_type1 || self.transport_type2 || self.transport_bike_courier
-        errors.add(:transport_details, I18n.t("article.form.errors.invalid_transport_option"))
+        errors.add(:transport_details, I18n.t('article.form.errors.invalid_transport_option'))
       end
     end
 
@@ -99,19 +99,19 @@ module Article::Validations
       unless self.payment_bank_transfer || self.payment_paypal ||
              self.payment_cash || self.payment_cash_on_delivery ||
              self.payment_invoice || self.payment_voucher
-        errors.add(:payment_details, I18n.t("article.form.errors.invalid_payment_option"))
+        errors.add(:payment_details, I18n.t('article.form.errors.invalid_payment_option'))
       end
     end
 
     def bank_account_exists
       unless self.seller.bank_account_exists?
-        errors.add(:payment_bank_transfer, I18n.t("article.form.errors.bank_details_missing"))
+        errors.add(:payment_bank_transfer, I18n.t('article.form.errors.bank_details_missing'))
       end
     end
 
     def paypal_account_exists
       unless self.seller.paypal_account_exists?
-        errors.add(:payment_paypal, I18n.t("article.form.errors.paypal_details_missing"))
+        errors.add(:payment_paypal, I18n.t('article.form.errors.paypal_details_missing'))
       end
     end
 
@@ -127,7 +127,7 @@ module Article::Validations
         count_images+=1 if image.is_title
       end
       if count_images > 1
-         errors.add(:images, I18n.t("article.form.errors.only_one_title_image"))
+         errors.add(:images, I18n.t('article.form.errors.only_one_title_image'))
       end
     end
 

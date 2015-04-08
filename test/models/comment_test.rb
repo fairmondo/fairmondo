@@ -19,17 +19,17 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Fairmondo.  If not, see <http://www.gnu.org/licenses/>.
 #
-require_relative "../test_helper"
+require_relative '../test_helper'
 
 describe Comment do
   subject { Comment.new }
 
-  describe "associations" do
+  describe 'associations' do
     it { subject.must belong_to :user }
     it { subject.must belong_to :commentable }
   end
 
-  describe "model attributes" do
+  describe 'model attributes' do
     it { subject.must_respond_to :id }
     it { subject.must_respond_to :created_at }
     it { subject.must_respond_to :updated_at }
@@ -38,19 +38,19 @@ describe Comment do
     it { subject.must_respond_to :user_id }
   end
 
-  describe "validations" do
+  describe 'validations' do
     it { subject.must validate_presence_of(:user) }
     it { subject.must validate_presence_of(:commentable) }
-    describe "for text" do
+    describe 'for text' do
       it { subject.must validate_presence_of(:text) }
       it { subject.must ensure_length_of(:text).is_at_most(1000) }
     end
   end
 
-  describe "#commentable_user" do
+  describe '#commentable_user' do
     let(:comment) { FactoryGirl.create(:comment) }
 
-    it "should return the owner of the commentable" do
+    it 'should return the owner of the commentable' do
       comment.commentable_user.must_equal(comment.commentable.user)
     end
   end

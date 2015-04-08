@@ -34,7 +34,7 @@ module Article::Images
           title_image.image.url(style)
         end
       else
-        "missing.png"
+        'missing.png'
       end
     end
 

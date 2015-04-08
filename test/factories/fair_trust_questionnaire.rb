@@ -24,7 +24,7 @@ FactoryGirl.define do
       support true
       support_checkboxes [:prefinance,:longterm,:development,:minimum_wage,:higher_prices,:direct_negotiations,:community,:premiums,:other ]
       support_explanation {Faker::Lorem.sentence(200)}
-      support_other "Sonstiges"
+      support_other 'Sonstiges'
 
       labor_conditions true
       labor_conditions_checkboxes [
@@ -40,7 +40,7 @@ FactoryGirl.define do
                 :other
               ]
       labor_conditions_explanation {Faker::Lorem.sentence(200)}
-      labor_conditions_other "Sonstiges"
+      labor_conditions_other 'Sonstiges'
 
       environment_protection true
       environment_protection_checkboxes [
@@ -54,7 +54,7 @@ FactoryGirl.define do
             :other
           ]
       environment_protection_explanation {Faker::Lorem.sentence(200)}
-      environment_protection_other "Sonstiges"
+      environment_protection_other 'Sonstiges'
 
       controlling true
       controlling_checkboxes [
@@ -66,7 +66,7 @@ FactoryGirl.define do
             :other
           ]
       controlling_explanation {Faker::Lorem.sentence(200)}
-      controlling_other "Sonstiges"
+      controlling_other 'Sonstiges'
 
       awareness_raising true
       awareness_raising_checkboxes [
@@ -79,7 +79,7 @@ FactoryGirl.define do
             :other
           ]
       awareness_raising_explanation {Faker::Lorem.sentence(200)}
-      awareness_raising_other "Sonstiges"
+      awareness_raising_other 'Sonstiges'
   end
 end
 

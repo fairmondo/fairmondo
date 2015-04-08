@@ -23,16 +23,16 @@ require_relative '../test_helper'
 
 describe WelcomeController do
   describe "GET 'index" do
-    describe "for non-signed-in users" do
-      it "should be successful" do
+    describe 'for non-signed-in users' do
+      it 'should be successful' do
         get :index
         assert_response :success
       end
 
-      it "should be successful" do
-        get :feed, format: "rss"
+      it 'should be successful' do
+        get :feed, format: 'rss'
         assert_response :success
-        response.content_type.must_equal("application/rss+xml")
+        response.content_type.must_equal('application/rss+xml')
       end
     end
   end

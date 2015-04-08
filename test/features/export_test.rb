@@ -2,10 +2,10 @@ require_relative '../test_helper'
 
 include Warden::Test::Helpers
 
-feature "Exports" do
+feature 'Exports' do
   let(:private_user)       { FactoryGirl.create :private_user }
   let(:legal_entity)       { FactoryGirl.create :legal_entity, :paypal_data }
-  let(:legal_entity_buyer) { FactoryGirl.create :legal_entity, email: "hans@dampf.de" }
+  let(:legal_entity_buyer) { FactoryGirl.create :legal_entity, email: 'hans@dampf.de' }
 
   scenario 'private user is on his profile and should not see export link' do
     login_as private_user
@@ -13,7 +13,7 @@ feature "Exports" do
     page.wont_have_link I18n.t('articles.export.inactive')
   end
 
-  scenario "legal entity exports his inactive and active articles" do
+  scenario 'legal entity exports his inactive and active articles' do
     login_as legal_entity
     visit new_mass_upload_path
 
@@ -54,7 +54,7 @@ feature "Exports" do
     attach_file('mass_upload_file', 'test/fixtures/mass_upload_wrong_article.csv')
     click_button I18n.t('mass_uploads.labels.upload_article')
     visit mass_upload_path(MassUpload.last)
-    click_link "Fehlerhafte Artikel exportieren"
+    click_link 'Fehlerhafte Artikel exportieren'
     page.source.must_equal IO.read('test/fixtures/mass_upload_wrong_article.csv')
   end
 end

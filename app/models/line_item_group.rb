@@ -45,7 +45,7 @@ class LineItemGroup < ActiveRecord::Base
 
   def transport_can_be_unified?
     return false unless self.seller.unified_transport_available?
-    articles_with_unified_transport_count = self.line_items.joins(:article).where("articles.unified_transport = ?", true ).count
+    articles_with_unified_transport_count = self.line_items.joins(:article).where('articles.unified_transport = ?', true ).count
     @transport_can_be_unified ||= (articles_with_unified_transport_count >= 2)
   end
 

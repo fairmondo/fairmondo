@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Fairmondo.  If not, see <http://www.gnu.org/licenses/>.
 #
-require_relative "../test_helper"
+require_relative '../test_helper'
 
 describe CommentMailer do
   include Rails.application.routes.url_helpers
@@ -30,7 +30,7 @@ describe CommentMailer do
   let(:comment) { FactoryGirl.create(:comment) }
   let(:commentable_owner) { FactoryGirl.create(:user) }
 
-  it "#report_comment" do
+  it '#report_comment' do
     mail = CommentMailer.report_comment(comment, commentable_owner).deliver
 
     assert_not ActionMailer::Base.deliveries.empty?

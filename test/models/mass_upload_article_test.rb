@@ -15,16 +15,16 @@ describe MassUploadArticle do
     it { subject.must_respond_to :article_csv }
     it { subject.must_respond_to :process_identifier }
   end
-  describe "methods" do
-    describe "#done?" do
+  describe 'methods' do
+    describe '#done?' do
       it do
-        MassUploadArticle.new(process_identifier: "test").done?.must_equal false
+        MassUploadArticle.new(process_identifier: 'test').done?.must_equal false
       end
       it do
-        MassUploadArticle.new(process_identifier: "test", validation_errors: "lala").done?.must_equal true
+        MassUploadArticle.new(process_identifier: 'test', validation_errors: 'lala').done?.must_equal true
       end
       it do
-        MassUploadArticle.new(process_identifier: "test", article: Article.new).done?.must_equal true
+        MassUploadArticle.new(process_identifier: 'test', article: Article.new).done?.must_equal true
       end
     end
   end

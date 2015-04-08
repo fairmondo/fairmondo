@@ -73,14 +73,14 @@ module Article::State
   end
 
   def deactivate_without_validation
-    self.state = "locked"
-    ArticleObserver.instance.send("after_deactivate",self,nil)
+    self.state = 'locked'
+    ArticleObserver.instance.send('after_deactivate',self,nil)
     self.save(validate: false) # do it anyways
   end
 
   def close_without_validation
-    self.state = "closed"
-    ArticleObserver.instance.send("after_close",self,nil)
+    self.state = 'closed'
+    ArticleObserver.instance.send('after_close',self,nil)
     self.save(validate: false) # do it anyways
   end
 end

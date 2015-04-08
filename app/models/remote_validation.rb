@@ -7,8 +7,8 @@ class RemoteValidation < Struct.new(:model, :field, :value, :additional_params)
   }
 
   def initialize model, field, value, additional_params
-    raise "Model not allowed" unless PERMITTED_FIELDS.keys.include? model
-    raise "Field not allowed" unless PERMITTED_FIELDS[model].include? field
+    raise 'Model not allowed' unless PERMITTED_FIELDS.keys.include? model
+    raise 'Field not allowed' unless PERMITTED_FIELDS[model].include? field
     super model, field, value, additional_params
   end
 

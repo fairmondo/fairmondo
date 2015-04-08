@@ -24,12 +24,12 @@ require_relative '../test_helper'
 include Warden::Test::Helpers
 
 feature 'User profile page' do
-  scenario "user visits his profile" do
+  scenario 'user visits his profile' do
     @user = FactoryGirl.create :user
     login_as @user
     visit user_path(@user)
-    page.must_have_content("Profil bearbeiten")
-    page.must_have_content("Sammlungen")
+    page.must_have_content('Profil bearbeiten')
+    page.must_have_content('Sammlungen')
     page.wont_have_content('Admin')
   end
 
@@ -40,7 +40,7 @@ feature 'User profile page' do
     page.must_have_content @user.nickname
   end
 
-  scenario "guest visits another users profile through an article" do
+  scenario 'guest visits another users profile through an article' do
     article = FactoryGirl.create :article
     visit article_path article
     find('.User-image a').click
@@ -67,7 +67,7 @@ feature 'contacting users' do
     end
   end
 
-  scenario "user contacts seller" do
+  scenario 'user contacts seller' do
     within('#contact_form') do
       fill_in 'contact_form[text]', with: 'foobar'
       click_button I18n.t('article.show.contact.action')

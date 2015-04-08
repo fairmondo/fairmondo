@@ -6,7 +6,7 @@ describe RefundPolicy do
   let( :refund ){ FactoryGirl.create :refund }
   subject { RefundPolicy.new( user, refund ) }
 
-  describe "for a visitor" do
+  describe 'for a visitor' do
     let( :user ) { nil }
     it 'should deny refund create for visitors' do
       subject.must_deny(:create)

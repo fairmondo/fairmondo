@@ -25,7 +25,7 @@ namespace :db do
     conn = ActiveRecord::Base.connection
     tables = conn.tables.map { |t| t }
     tables.each { |t| conn.execute("DROP TABLE IF EXISTS #{t}") }
-    puts "DROP finished."
+    puts 'DROP finished.'
   end
 
   desc 'Get a list of articles from http://www.itemmaster.com'
@@ -39,10 +39,10 @@ namespace :db do
     def create_users(count)
       n = count / 10
       user_list = []
-      print "Creating users"
+      print 'Creating users'
       counter = 0
       n.times do
-        print "."
+        print '.'
         user = FactoryGirl.build :user
         user_list << user
         counter +=1
@@ -52,7 +52,7 @@ namespace :db do
     end
 
     def get_articles(date, count)
-      puts "Getting articles from Item Master..."
+      puts 'Getting articles from Item Master...'
 
       uri = URI.parse("https://api.itemmaster.com/v2/item/?since=#{date}&idx=0&limit=#{count}")
       http = Net::HTTP.new(uri.host, uri.port)
@@ -71,17 +71,17 @@ namespace :db do
       count = 0
       faker_count = 0
 
-      print "Extracting titles and contents"
+      print 'Extracting titles and contents'
 
       xml_doc.elements.each('items/item') do |element|
-        print "."
-        name = element.elements["name"].to_s.slice(0..65)
+        print '.'
+        name = element.elements['name'].to_s.slice(0..65)
 
-        if element.elements["otherDescription"].to_s == "<otherDescription/>"
+        if element.elements['otherDescription'].to_s == '<otherDescription/>'
           articles[name] = Faker::Lorem.paragraph(rand(7)+1)
           faker_count += 1
         else
-          articles[name] = element.elements["otherDescription"].to_s.slice(0..255)
+          articles[name] = element.elements['otherDescription'].to_s.slice(0..255)
           count += 1
         end
       end
@@ -95,9 +95,9 @@ namespace :db do
       user = User.all[2..User.all.length]
       count = 0
       article_list = []
-      print "Creating an article for each entry."
+      print 'Creating an article for each entry.'
       articles.each_pair do |name, description|
-        print "."
+        print '.'
         @article = FactoryGirl.build :article, seller: user.sample,
                                                title: name,
                                                content: description,

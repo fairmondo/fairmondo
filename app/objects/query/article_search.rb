@@ -21,7 +21,7 @@ class ArticleSearch
   # public api
 
   def category_facets
-    @_category_facets ||= Hash[@search.aggregations["category"]["buckets"].map(&:values)] if @search && @search.facets
+    @_category_facets ||= Hash[@search.aggregations['category']['buckets'].map(&:values)] if @search && @search.facets
   end
 
   def result
@@ -67,8 +67,8 @@ class ArticleSearch
       index.query(simple_query_string: {
         query: @query.q,
         fields: query_fields,
-        analyzer: "german_analyzer",
-        default_operator: "and",
+        analyzer: 'german_analyzer',
+        default_operator: 'and',
         lenient: true
       })
     end
@@ -117,7 +117,7 @@ class ArticleSearch
     # sorting
     def sorting
       order = @query.order_by
-      order = @query.search_by_term? ? "relevance" : "newest" unless order
+      order = @query.search_by_term? ? 'relevance' : 'newest' unless order
       index.order(SORT[order])
     end
 end

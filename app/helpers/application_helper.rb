@@ -44,7 +44,7 @@ module ApplicationHelper
     end
   end
 
-  def truncate_and_sanitize_without_linebreaks(text = "", length = 70, omission ='', separator = ' ')
+  def truncate_and_sanitize_without_linebreaks(text = '', length = 70, omission ='', separator = ' ')
       truncate(Sanitize.clean(text), length: length, separator: separator, omission: omission ).gsub("\n", ' ')
   end
 
@@ -83,7 +83,7 @@ module ApplicationHelper
   end
 
   def on_login_page?
-    controller_name == "sessions"
+    controller_name == 'sessions'
   end
 
   def navigation_push

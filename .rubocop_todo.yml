@@ -407,12 +407,6 @@ Style/SpaceInsideParens:
 Style/SpecialGlobalVars:
   Enabled: false
 
-# Offense count: 1790
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-Style/StringLiterals:
-  Enabled: false
-
 # Offense count: 5
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles.
