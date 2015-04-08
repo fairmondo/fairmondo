@@ -22,7 +22,6 @@
 require_relative "../test_helper"
 
 describe WelcomeHelper do
-
   describe "#rss_image_extractor" do
     it "returns an image when there is one" do
       content = "<p><img src=\"test.png\"/>"
@@ -34,7 +33,5 @@ describe WelcomeHelper do
       content = "<p> testt test</p>"
       helper.rss_image_extractor(content).must_equal ''
     end
-
   end
-
 end

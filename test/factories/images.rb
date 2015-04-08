@@ -45,6 +45,5 @@ FactoryGirl.define do
       image_processing true
       after(:create) { |image| image.image.reprocess_without_delay! }
     end
-
   end
 end

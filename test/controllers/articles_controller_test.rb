@@ -25,7 +25,6 @@ describe ArticlesController do
   let(:user) { FactoryGirl.create(:user) }
 
   describe "#index" do
-
     describe "searching" do
       setup do
         ArticlesIndex.reset!
@@ -191,7 +190,6 @@ describe ArticlesController do
   describe "#show" do
     let(:article) { FactoryGirl.create(:article, seller: user) }
     describe "for all users" do
-
       it "should be successful" do
         article_fair_trust = FactoryGirl.create :fair_trust
         get :show, id: article_fair_trust
@@ -302,9 +300,7 @@ describe ArticlesController do
   end
 
   describe "#edit" do
-
     describe "for non-signed-in users" do
-
       it "should deny access" do
         @article = FactoryGirl.create :article
         get :edit, id: @article.id
@@ -489,13 +485,10 @@ describe ArticlesController do
         assert_redirected_to @article
         @article.reload.locked?.must_equal true
       end
-
     end
-
   end
 
   describe "#autocomplete" do #, search: true
-
     it "should be successful" do
       ArticlesIndex.reset!
       @article = FactoryGirl.create :article, :index_article,

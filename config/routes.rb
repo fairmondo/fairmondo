@@ -20,7 +20,6 @@
 # along with Fairmondo.  If not, see <http://www.gnu.org/licenses/>.
 #
 Fairmondo::Application.routes.draw do
-
   mount Nkss::Engine => '/styleguides' if Rails.env.development? || Rails.env.staging?
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
 
@@ -138,7 +137,6 @@ Fairmondo::Application.routes.draw do
     collection do
       post 'admin_add', as: 'admin_add_to'
       delete 'admin_remove/:article_id/:exhibition_name', action: 'admin_remove', as: 'admin_remove_from'
-
     end
   end
 

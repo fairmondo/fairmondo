@@ -31,7 +31,6 @@ module Article::FeesAndDonations
   }
 
   included do
-
     before_create :set_friendly_percent_for_ngo, if: :seller_ngo
 
     # Fees and donations
@@ -42,7 +41,6 @@ module Article::FeesAndDonations
      ## friendly percent
     validates_presence_of :friendly_percent_organisation_id, :if => :friendly_percent_gt_0?
     validates_presence_of :friendly_percent
-
   end
 
    ## -------------- Calculate Fees And Donations ---------------

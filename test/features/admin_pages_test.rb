@@ -24,7 +24,6 @@ require_relative '../test_helper'
 include Warden::Test::Helpers
 
 feature 'AdminPages' do
-
   before do
     @admin = FactoryGirl.create(:admin_user)
     login_as @admin
@@ -36,5 +35,4 @@ feature 'AdminPages' do
     click_on 'Admin'
     page.must_have_content('Administration')
   end
-
 end

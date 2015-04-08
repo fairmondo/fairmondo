@@ -3,7 +3,6 @@ include FastBillStubber
 
 describe FastbillAPI do
   describe "methods" do
-
     let( :business_transaction ) { BusinessTransaction.new }
     let( :db_business_transaction ) { FactoryGirl.create :business_transaction }
     let( :seller ) { db_business_transaction.seller }
@@ -25,7 +24,6 @@ describe FastbillAPI do
 
       describe "when seller is not an NGO" do
         describe "and has Fastbill profile" do
-
           it "should not create new Fastbill profile" do
             db_business_transaction # to trigger observers before
             seller.update_attributes(fastbill_id: '1234',

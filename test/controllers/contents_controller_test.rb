@@ -143,5 +143,4 @@ describe ContentsController do
       end
     end
   end
-
 end

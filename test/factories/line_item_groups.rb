@@ -21,7 +21,6 @@ FactoryGirl.define do
         line_item_group.line_items << FactoryGirl.create(:line_item, article: article, line_item_group: line_item_group)
       end
     end
-
   end
 
   trait :with_business_transactions do
@@ -40,9 +39,7 @@ FactoryGirl.define do
         bt = line_item_group.business_transactions.send(evaluator.build_or_create_bts, FactoryGirl.attributes_for(:business_transaction, *traits, line_item_group: line_item_group, seller: line_item_group.seller, article_attributes: evaluator.articles_attributes[index] || {} ))
         line_item_group.line_items << FactoryGirl.create(:line_item, article: bt.article) if evaluator.create_line_items
       end
-
     end
-
   end
 
   trait :sold do

@@ -22,7 +22,6 @@
 require_relative '../test_helper'
 
 describe RegistrationsController do
-
   before(:each) do
     request.env['devise.mapping'] = Devise.mappings[:user]
   end
@@ -37,7 +36,6 @@ describe RegistrationsController do
         get :edit
         assert_redirected_to(new_user_session_path)
       end
-
     end
 
     describe "for signed-in users" do

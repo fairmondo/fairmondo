@@ -36,5 +36,4 @@ describe LineItemGroup do
       end
     end
   end
-
 end

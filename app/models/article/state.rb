@@ -23,9 +23,7 @@ module Article::State
   extend ActiveSupport::Concern
 
   included do
-
     state_machine :initial => :preview do
-
       state :preview do
         # Inactive and editable
       end
@@ -66,9 +64,7 @@ module Article::State
       event :templatify do
         transition :preview => :template
       end
-
     end
-
   end
 
   def remove_from_libraries

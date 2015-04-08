@@ -20,12 +20,10 @@ class BusinessTransactionAbacus
 
   def prepare_and_sort_business_transactions
     line_item_group.business_transactions.each do |bt|
-
       @prices[bt] = self.class.prices_of(bt)
 
       prepare_transport_for bt
       prepare_payment_for bt
-
     end
   end
 

@@ -23,7 +23,6 @@ module Article::Commendation
   extend ActiveSupport::Concern
 
   included do
-
     ##### commendation
     ## fair
 

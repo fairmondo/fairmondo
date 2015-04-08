@@ -25,7 +25,6 @@ include FastBillStubber
 include Warden::Test::Helpers
 
 feature 'User registration' do
-
   scenario "user visits root path and signs in" do
     user = FactoryGirl.create :user
     visit root_path
@@ -184,7 +183,6 @@ feature "User account management" do
 
     page.must_have_content I18n.t 'devise.registrations.changed_email'
     @user.reload.unconfirmed_email.must_equal 'chunky@bacon.com'
-
   end
 
   scenario "user wants to change the email for account without a password" do
@@ -207,7 +205,6 @@ feature "User account management" do
     click_button I18n.t 'formtastic.actions.update'
     @user.reload.valid_password?('changedpassword').must_equal true
     page.must_have_content I18n.t 'devise.registrations.updated'
-
   end
 
   scenario "user wants to change the password for account without current password" do
@@ -245,7 +242,6 @@ feature "User account management" do
     user.reload.terms.must_equal 'foobar'
     user.cancellation.must_equal 'foobar'
     user.about.must_equal 'foobar'
-
   end
 
   scenario "private user wants to edit his account" do
@@ -269,7 +265,6 @@ feature "Newsletter" do
     login_as @user
   end
   scenario "user wants to receive newsletter" do
-
     fixture = File.read("test/fixtures/cleverreach_add_success.xml")
     savon.expects(:receiver_add).with(message: :any).returns(fixture)
 
@@ -280,7 +275,6 @@ feature "Newsletter" do
     @user.reload.newsletter.must_equal true
   end
   scenario "user wants to unsubscribe to the newsletter" do
-
     fixture = File.read("test/fixtures/cleverreach_remove_success.xml")
     savon.expects(:receiver_delete).with(message: :any).returns(fixture)
 

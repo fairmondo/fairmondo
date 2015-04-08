@@ -22,7 +22,6 @@
 require_relative '../test_helper'
 
 describe ToolboxController do
-
   let(:user) { FactoryGirl.create :user }
 
   #render_views
@@ -109,7 +108,6 @@ describe ToolboxController do
   end
 
   describe "#newsletter_status " do
-
     before do
       sign_in user
     end
@@ -131,7 +129,6 @@ describe ToolboxController do
       CleverreachAPI.expects(:get_status).with(user)
       get :newsletter_status, format: :json
     end
-
   end
 
   describe "PUT reindex" do

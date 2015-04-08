@@ -128,6 +128,5 @@ FactoryGirl.define do
       free_transport_at_price_cents 500
       free_transport_available true
     end
-
   end
 end

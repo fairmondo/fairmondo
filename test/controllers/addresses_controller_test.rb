@@ -22,7 +22,6 @@
 require_relative '../test_helper'
 
 describe AddressesController do
-
   let(:user) { FactoryGirl.create :user }
   let(:address) { FactoryGirl.create :address, user: user }
   let(:referenced_address) { FactoryGirl.create :address, :referenced , user: user}

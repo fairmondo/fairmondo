@@ -21,7 +21,6 @@ describe DiscourseController do
     end
 
     it 'should redirect to discourse forum with right params' do
-
       $DISCOURSE_SECRET = 'd836444a9e4084d5b224a60c208dce14'
       $DISCOURSE_URL = 'http://test.de/sessions/sso_login'
       get :sso, sso: 'bm9uY2U9Y2I2ODI1MWVlZmI1MjExZTU4YzAwZmYxMzk1ZjBjMGI=\n',

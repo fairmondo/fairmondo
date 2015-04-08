@@ -29,7 +29,6 @@ describe RefundsController do
   let( :business_transaction ){ FactoryGirl.create :business_transaction, :old, line_item_group: line_item_group }
 
   describe '#create' do
-
     describe 'for signed in users' do
       it 'should create refund request' do
         @refund_attrs = FactoryGirl.attributes_for :refund

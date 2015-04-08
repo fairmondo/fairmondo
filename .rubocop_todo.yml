@@ -171,12 +171,6 @@ Style/ElseAlignment:
 Style/EmptyElse:
   Enabled: false
 
-# Offense count: 202
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-Style/EmptyLinesAroundBlockBody:
-  Enabled: false
-
 # Offense count: 112
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles.

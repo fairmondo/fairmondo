@@ -3,7 +3,6 @@ require_relative '../test_helper'
 include Warden::Test::Helpers
 
 feature "Exports" do
-
   let(:private_user)       { FactoryGirl.create :private_user }
   let(:legal_entity)       { FactoryGirl.create :legal_entity, :paypal_data }
   let(:legal_entity_buyer) { FactoryGirl.create :legal_entity, :email => "hans@dampf.de" }
@@ -47,7 +46,6 @@ feature "Exports" do
     click_link I18n.t('articles.export.inactive')
 
     page.source.must_equal IO.read('test/fixtures/export_social_producer.csv', encoding: 'ascii-8bit')
-
   end
 
   scenario 'user exports erroneous articles' do

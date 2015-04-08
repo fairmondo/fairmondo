@@ -21,5 +21,4 @@ describe UserMailer do
     mail.must have_body_text " hat Dir eine Frage gestellt:"
     mail.must have_body_text text
   end
-
 end

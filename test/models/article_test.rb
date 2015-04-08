@@ -22,7 +22,6 @@
 require_relative '../test_helper'
 
 describe Article do
-
   let(:article) { Article.new }
   let(:db_article) { FactoryGirl.create(:article, :with_fixture_image) }
   let(:ngo_article) { FactoryGirl.create :article, :with_ngo }
@@ -103,7 +102,6 @@ describe Article do
         }
         it { special_article.must validate_presence_of :basic_price_amount }
       end
-
     end
 
     describe "amoeba" do
@@ -133,14 +131,12 @@ describe Article do
           db_article.owned_by?(db_article.seller).must_equal true
         end
       end
-
     end
   end
 
   describe "::FeesAndDonations" do
     before do
       article.seller = User.new
-
     end
 
     describe "#fee_percentage" do
@@ -157,7 +153,6 @@ describe Article do
         article.seller.ngo = true
         article.send('fee_percentage').must_equal 0
       end
-
     end
 
     describe "#calculate_fees_and_donations" do
@@ -237,7 +232,6 @@ describe Article do
     end
 
     describe "methods" do
-
       describe "#selectable_transports" do
         it "should call the private selectable function" do
           article.expects(:selectable).with("transport")
@@ -261,7 +255,6 @@ describe Article do
           output.must_include 'bike_courier'
         end
       end
-
     end
   end
 
@@ -298,7 +291,6 @@ describe Article do
           db_article.images = [title_image]
           db_article.title_image_url(:medium).must_equal title_image.original_image_url_while_processing
         end
-
       end
 
       # describe "#replace_image" do
@@ -390,7 +382,6 @@ describe Article do
         @article.save_as_template = "0"
         @article.save_as_template?.must_equal false
       end
-
     end
   end
 end

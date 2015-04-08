@@ -3,7 +3,6 @@ include FastBillStubber
 include Warden::Test::Helpers
 
 feature "Refunds" do
-
   def do_refund
     click_link I18n.t( 'refund.button' )
     page.must_have_content( I18n.t( 'refund.heading' ) )

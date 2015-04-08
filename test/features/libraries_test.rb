@@ -131,7 +131,6 @@ feature 'Library management' do
 
     page.must_have_selector 'a', text: 'foobar'
     page.must_have_content I18n.t('activerecord.errors.models.library.attributes.name.blank')
-
   end
 
   scenario "user deletes Library" do
@@ -178,7 +177,6 @@ feature 'Library management' do
       page.must_have_content I18n.t('library.no_products')
     end
   end
-
 end
 
 feature 'Library visibility' do
@@ -193,7 +191,6 @@ feature 'Library visibility' do
     visit user_libraries_path user
     page.must_have_content pub_lib.name
     page.wont_have_content priv_lib.name
-
   end
 end
 

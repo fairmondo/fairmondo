@@ -22,11 +22,8 @@
 require_relative '../test_helper'
 
 describe UsersController do
-
   describe "GET 'show'" do
-
     describe "for non-signed-in users" do
-
       before :each do
         @user = FactoryGirl.create(:user)
       end
@@ -42,11 +39,9 @@ describe UsersController do
         assert_response :success
         assert_template :user_deleted
       end
-
     end
 
     describe "for signed-in users" do
-
       before :each do
         @user = FactoryGirl.create(:user)
         sign_in @user

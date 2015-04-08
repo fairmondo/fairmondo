@@ -7,7 +7,6 @@ describe AddressPolicy do
   let(:user) { nil }
 
   context 'for a visitor' do
-
     it { subject.must_ultimately_deny(:create) }
     it { subject.must_ultimately_deny(:new) }
     it { subject.must_ultimately_deny(:edit) }

@@ -1,5 +1,4 @@
 namespace :code do
-
   desc "Append Licence Information to all Files"
   # Please put gem 'copyright-header'
   task :license => :environment do
@@ -18,7 +17,6 @@ namespace :code do
 
     command_line = CopyrightHeader::CommandLine.new( args )
     command_line.execute
-
   end
 
   desc "Remove Licence Information from all Files"
@@ -39,6 +37,5 @@ namespace :code do
 
     command_line = CopyrightHeader::CommandLine.new( args )
     command_line.execute
-
   end
 end

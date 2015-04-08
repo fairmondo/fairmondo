@@ -15,7 +15,6 @@ feature "CMS System" do
     login_as admin
     visit content_path 'not-there'
     current_path.must_equal new_content_path
-
   end
   scenario "guest visit non exsisting page" do
     -> { visit content_path 'not-there' }.must_raise ActiveRecord::RecordNotFound

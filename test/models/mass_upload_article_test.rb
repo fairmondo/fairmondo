@@ -28,5 +28,4 @@ describe MassUploadArticle do
       end
     end
   end
-
 end

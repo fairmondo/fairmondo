@@ -60,6 +60,5 @@ describe Category do
         @anotherCategory.parent.wont_equal category
       end
     end
-
   end
 end

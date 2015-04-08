@@ -54,7 +54,6 @@ describe 'Abacus' do
 
     # totals
     @abacus.total.must_equal @abacus.payment_listing.payments[:paypal][:total] +  @abacus.payment_listing.payments[:invoice][:total]
-
   end
 
   it 'calculates a total price, transport prices and payment totals for unified transports' do
@@ -83,7 +82,6 @@ describe 'Abacus' do
 
     #total
     @abacus.total.must_equal @abacus.payment_listing.payments[:paypal][:total]
-
   end
 
   it 'calculates a total price, transport prices and payment totals for unified transports and 2 single transports with cash_on_delivery' do
@@ -120,7 +118,6 @@ describe 'Abacus' do
     @abacus.payment_listing.payments[:bank_transfer][:transport_total].must_equal unified_transport_price
     @abacus.payment_listing.payments[:bank_transfer][:total].must_equal 5 * prices[0] + 5 * prices[1] + unified_transport_price
     @abacus.total.must_equal @abacus.payment_listing.payments[:bank_transfer][:total] + @abacus.payment_listing.payments[:cash_on_delivery][:total]
-
   end
 
   it 'calculates a total price, transport prices and payment totals for unified transports and single transports with unified payment' do
@@ -154,7 +151,6 @@ describe 'Abacus' do
     @abacus.payment_listing.payments[:bank_transfer][:transport_total].must_equal unified_transport_price
     @abacus.payment_listing.payments[:bank_transfer][:total].must_equal total
     @abacus.total.must_equal total
-
   end
 
   it 'calculates a total price, transport prices and payment totals for unified transports and 2 single transports with cash_on_delivery and a dontaion' do

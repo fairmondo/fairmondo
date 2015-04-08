@@ -25,7 +25,6 @@ include Warden::Test::Helpers
 include FastBillStubber
 
 feature 'User ratings' do
-
   let(:buyer) { FactoryGirl.create :user }
   let(:line_item_group) { FactoryGirl.create :line_item_group, :with_business_transactions, :sold, buyer: buyer }
 

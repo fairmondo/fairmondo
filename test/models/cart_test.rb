@@ -6,5 +6,4 @@ describe Cart do
   it "must be valid" do
     cart.must_be :valid?
   end
-
 end

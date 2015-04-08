@@ -3,7 +3,6 @@ include FastBillStubber
 include PunditMatcher
 
 describe RefundPolicy do
-
   let( :refund ){ FactoryGirl.create :refund }
   subject { RefundPolicy.new( user, refund ) }
 
@@ -31,7 +30,6 @@ describe RefundPolicy do
           it { subject.must_deny(:new) }
         end
       end
-
     end
 
     describe 'who does not own business_transaction' do

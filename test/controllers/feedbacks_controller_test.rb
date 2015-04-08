@@ -22,9 +22,7 @@
 require_relative '../test_helper'
 
 describe FeedbacksController do
-
   describe "POST 'create'" do
-
     before :each do
       @attributes = FactoryGirl.attributes_for :feedback, :report_article
     end
@@ -42,9 +40,7 @@ describe FeedbacksController do
           post :create, feedback: @attributes
         end
       end
-
     end
-
   end
 end
 

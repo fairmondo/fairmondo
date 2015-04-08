@@ -39,7 +39,6 @@ describe Discount do
         business_transaction.discount_id.must_equal discount.id
         business_transaction.discount_value_cents.must_equal 10 # minimum discount
       end
-
     end
   end
 end

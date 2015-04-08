@@ -30,7 +30,6 @@ feature "Article commendations" do
   scenario "user visits ecologic article" do
     visit article_path(@article)
     page.must_have_link(I18n.t 'formtastic.labels.article.ecologic')
-
   end
 
   scenario "user visits seller with ecologic article" do

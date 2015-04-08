@@ -68,5 +68,4 @@ describe RatingsController do
       end
     end
   end
-
 end

@@ -29,7 +29,6 @@ namespace :images do
   # Source: https://gist.github.com/jlecour/1276437
   desc "Destroy paperclip attachment files that are not attached to any record"
   task :clean_orphan_files => :environment do
-
     @last_path = nil
     @dry_run = %w(true 1).include? ENV['DRY_RUN']
     @styles = ["original","medium","thumb","profile"]
@@ -66,5 +65,4 @@ namespace :images do
 
     verify_directory(@root_dir, Image)
   end
-
 end

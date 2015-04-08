@@ -21,7 +21,6 @@ require 'ffaker'
 
 FactoryGirl.define do
   factory :fair_trust_questionnaire do
-
       support true
       support_checkboxes [:prefinance,:longterm,:development,:minimum_wage,:higher_prices,:direct_negotiations,:community,:premiums,:other ]
       support_explanation {Faker::Lorem.sentence(200)}
@@ -81,7 +80,6 @@ FactoryGirl.define do
           ]
       awareness_raising_explanation {Faker::Lorem.sentence(200)}
       awareness_raising_other "Sonstiges"
-
   end
 end
 

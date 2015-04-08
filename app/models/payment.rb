@@ -13,7 +13,6 @@ class Payment < ActiveRecord::Base
   validates :line_item_group_id, uniqueness: true, on: :create
 
   state_machine initial: :pending do
-
     state :pending, :initialized, :errored, :succeeded, :confirmed
 
     event :init do

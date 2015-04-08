@@ -24,7 +24,6 @@ module Article::Associations
   extend ActiveSupport::Concern
 
   included do
-
     has_and_belongs_to_many :categories
 
     has_many :business_transactions, inverse_of: :article
@@ -56,6 +55,5 @@ module Article::Associations
             class_name: "ArticleImage", foreign_key: "imageable_id"
 
     accepts_nested_attributes_for :images, allow_destroy: true
-
   end
 end

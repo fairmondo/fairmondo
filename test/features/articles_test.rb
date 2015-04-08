@@ -24,7 +24,6 @@ require_relative '../test_helper'
 include Warden::Test::Helpers
 
 feature 'Article creation' do
-
   before do
     @user = FactoryGirl.create :user
     login_as @user
@@ -184,7 +183,6 @@ feature "Article activation for legal entities" do
 end
 
 feature "Article search" do
-
   scenario "should show the page with search results" do
     ArticlesIndex.reset!
     visit root_path
@@ -227,7 +225,6 @@ feature "Update Articles" do
     @article.quantity_available_without_article_state.must_equal 20
     current_path.must_equal article_path @article
   end
-
 end
 
 feature 'report Articles' do
@@ -264,7 +261,6 @@ feature 'contacting sellers' do
 
     page.must_have_content I18n.t 'users.profile.contact.success_notice'
   end
-
 end
 
 feature "Article buyer actions" do
@@ -289,7 +285,6 @@ feature "Article buyer actions" do
 end
 
 feature  "Article view for guest users" do
-
   before do
     @seller = FactoryGirl.create :user, type: 'LegalEntity'
     @article_conventional = FactoryGirl.create :no_second_hand_article, :seller => @seller

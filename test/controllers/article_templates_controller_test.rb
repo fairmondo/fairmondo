@@ -22,7 +22,6 @@
 require_relative '../test_helper'
 
 describe ArticleTemplatesController do
-
   before :each do
     @user = FactoryGirl.create(:user)
     sign_in @user
@@ -48,7 +47,6 @@ describe ArticleTemplatesController do
   end
 
   describe "GET edit" do
-
     before do
       @article_template = FactoryGirl.create(:article_template, :seller => @user)
     end
@@ -98,13 +96,11 @@ describe ArticleTemplatesController do
   end
 
   describe "PUT update" do
-
     before :each do
       @article_template = FactoryGirl.create(:article_template, :seller => @user)
     end
 
     context "with valid params" do
-
       it "updates the requested article_template" do
         put :update, :id => @article_template.to_param, "article" => {"title" => "updated Title" }
         @article_template.reload
@@ -136,7 +132,6 @@ describe ArticleTemplatesController do
   end
 
   describe "DELETE destroy" do
-
     before :each do
       @article_template = FactoryGirl.create(:article_template, :seller => @user)
     end
@@ -152,5 +147,4 @@ describe ArticleTemplatesController do
        assert_redirected_to(user_url(@user, anchor: "my_article_templates"))
     end
   end
-
 end

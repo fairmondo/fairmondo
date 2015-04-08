@@ -23,7 +23,6 @@ require_relative '../test_helper'
 
 # KontoAPI::valid? and bank_name are automatically stubbed to true / Bankname
 describe BankDetailsController do
-
   setup do
     @user = FactoryGirl.create(:user)
     sign_in @user
@@ -125,7 +124,6 @@ describe BankDetailsController do
       end
     end
   end
-
 end
 
 # mit validen Parametern aufrufe, soll sie ein true zurückgeben

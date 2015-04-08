@@ -48,7 +48,6 @@ describe LibraryPolicy do
   end
 
   describe 'for the library owning user' do
-
     let(:user) { library.user       }
     it { subject.must_permit(:show)       }
     it { subject.must_permit(:create)     }

@@ -153,7 +153,6 @@ describe User do
   end
 
   describe "methods" do
-
     describe "#count_value_of_goods" do
       it "should sum the value of active goods" do
         article = FactoryGirl.create :article, seller: user
@@ -240,7 +239,6 @@ describe User do
     end
 
     describe "#calculate_percentage_of_biased_ratings" do
-
       before :each do
         last_ratings = []
         7.times{ last_ratings << Rating.new(:rating =>"positive") }
@@ -256,7 +254,6 @@ describe User do
       it "should be calculated correctly for negative ratings" do
         user.calculate_percentage_of_biased_ratings('negative',10).must_equal 10.0
       end
-
     end
   end
 
@@ -286,7 +283,6 @@ describe User do
 
       describe "validations" do
         describe "if LegalEntity wants to sell" do
-
           before :each do
             db_user.wants_to_sell = true
           end
@@ -294,10 +290,8 @@ describe User do
           it { db_user.must validate_presence_of :terms }
           it { db_user.must validate_presence_of :cancellation }
           it { db_user.must validate_presence_of :about }
-
         end
       end
-
     end
   end
 

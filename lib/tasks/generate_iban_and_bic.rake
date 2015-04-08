@@ -1,7 +1,6 @@
 namespace :iban do
   desc "generate iban and bic from KntNr and Plz"
   task :generate => :environment do
-
     user_without_iban = 0
     user_with_valid_kntNr = 0
 
@@ -20,6 +19,5 @@ namespace :iban do
     end
     puts "User without iban but with kntNr and Blz: " + user_without_iban.to_s
     puts "User without iban and correct kntNr and Blz: " + user_with_valid_kntNr.to_s
-
   end
 end

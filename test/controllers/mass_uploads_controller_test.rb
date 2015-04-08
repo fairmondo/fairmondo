@@ -22,17 +22,13 @@
 require_relative '../test_helper'
 
 describe MassUploadsController do
-
   # Strictly speaking not necessary since already tested in the feature tests
   describe "GET 'new'" do
-
     describe "for non-signed-in users" do
-
       it "should require login" do
         get :new
         assert_redirected_to(new_user_session_path)
       end
-
     end
 
     describe "for signed-in users" do

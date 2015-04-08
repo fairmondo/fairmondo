@@ -124,6 +124,5 @@ namespace :db do
 
     end_time = Time.now - start_time
     puts "\nThis took #{end_time} seconds."
-
   end
 end

@@ -4,7 +4,6 @@ module Article::ActiveRecordOverwrites
   # Overwrites for Activerecord Methods
 
   included do
-
     def category_ids= category_ids
       self.categories = []
       category_ids.each do |category_id|

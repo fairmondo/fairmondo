@@ -7,7 +7,6 @@ namespace :transactions do
       count = get_recursive_sold_count c
       puts "#{c.name}: #{count}"
     end
-
   end
 end
 

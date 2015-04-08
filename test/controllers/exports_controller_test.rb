@@ -22,7 +22,6 @@
 require_relative '../test_helper'
 
 describe ExportsController do
-
   describe "mass-upload creation" do
     before do
       @user = FactoryGirl.create :legal_entity, :paypal_data
@@ -63,6 +62,5 @@ describe ExportsController do
 #        assert_response :success
 #      end
 #    end
-
   end
 end

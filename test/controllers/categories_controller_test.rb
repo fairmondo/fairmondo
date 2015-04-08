@@ -26,7 +26,6 @@ describe CategoriesController do
 
   describe "GET ::index" do
     describe "for non-signed-in users" do
-
       it "should allow access and show some categories" do
         get :index
         assert_response :success
@@ -88,7 +87,6 @@ describe CategoriesController do
         @second_hand_article = FactoryGirl.create(:second_hand_article, :index_article, price_cents: 2, title: "muscheln", categories: [ @software_category ], content: "muscheln am meer", created_at: 3.days.ago)
         @hardware_article = FactoryGirl.create(:second_hand_article, :index_article, :simple_fair,:simple_ecologic,:simple_small_and_precious,:with_ngo, price_cents: 3, title: "muscheln 2", categories: [ @hardware_category ], content: "abc" , created_at: 2.days.ago)
         @no_second_hand_article = FactoryGirl.create :no_second_hand_article, :index_article ,price_cents: 4, title: "muscheln 3", categories: [ @hardware_category ], content: "cde"
-
       end
 
       it "should find the article in category 'Hardware' when filtering for 'Hardware'" do

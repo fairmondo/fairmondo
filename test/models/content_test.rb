@@ -40,7 +40,6 @@ describe Content do
         Content.find(content.key).must_equal content
       end
     end
-
   end
 
   describe "validations" do

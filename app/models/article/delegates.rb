@@ -24,7 +24,6 @@ module Article::Delegates
   extend ActiveSupport::Concern
 
   included do
-
     delegate :id, :terms, :cancellation, :about, :country, :ngo, :nickname,
              :email, :vacationing?, :free_transport_available,
              :free_transport_at_price,

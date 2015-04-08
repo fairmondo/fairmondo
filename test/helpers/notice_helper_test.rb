@@ -61,5 +61,4 @@ describe NoticeHelper do
   #     helper.render_data_confirm.must_be_instance_of String
   #   end
   # end
-
 end

@@ -11,7 +11,6 @@ class ArticleExporter
     csv.puts CSV.generate_line export_attributes, @@csv_options
 
     determine_articles_to_export( user, params ).find_each do |article|
-
       row = Hash.new
       row.merge!(provide_fair_attributes_for article)
       row.merge!(article.attributes)
@@ -19,7 +18,6 @@ class ArticleExporter
       row["external_title_image_url"] = article.images.first.external_url if article.images.first
       row["image_2_url"] = article.images[1].external_url if article.images[1]
       csv.puts CSV.generate_line export_attributes.map { |element| row[element] }, @@csv_options
-
     end
     csv.flush
   end

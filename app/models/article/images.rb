@@ -23,7 +23,6 @@ module Article::Images
   extend ActiveSupport::Concern
 
   included do
-
     delegate :external_url, to: :title_image, :prefix => true
     attr_accessor :external_title_image_url, :image_2_url # MassUpload
 

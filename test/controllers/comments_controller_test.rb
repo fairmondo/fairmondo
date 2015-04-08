@@ -78,7 +78,6 @@ describe CommentsController do
                               library_id: @library.id)
 
           @library.reload
-
         end
       end
     end

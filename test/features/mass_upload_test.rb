@@ -3,7 +3,6 @@ require_relative '../test_helper'
 include Warden::Test::Helpers
 
 feature "Access Mass-upload form" do
-
   scenario "guests wants to have a new mass_upload" do
     visit new_mass_upload_path
     current_path.must_equal new_user_session_path
@@ -136,7 +135,6 @@ feature "Uploading a CSV" do
   end
 
   scenario "legal entity deactivates Articles via CSV" do
-
     FactoryGirl.create :article, seller: @user
     FactoryGirl.create :article, custom_seller_identifier: 'abc123', seller: @user
     attach_file('mass_upload_file', 'test/fixtures/mass_deactivate.csv')
@@ -206,7 +204,6 @@ feature "Uploading a CSV" do
     click_link I18n.t("mass_uploads.labels.show_report")
 
     page.must_have_content I18n.t('mass_uploads.errors.unknown_action')
-
   end
 
   scenario "legal entity uploads a file with invalid articles" do

@@ -80,7 +80,6 @@ class BusinessTransaction < ActiveRecord::Base
   end
 
   state_machine initial: :sold do
-
     state :sold, :paid, :ready, :sent, :completed do
     end
 

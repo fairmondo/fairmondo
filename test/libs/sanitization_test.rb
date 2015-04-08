@@ -46,5 +46,4 @@ describe 'Sanitization' do
       end
     end
   end
-
 end

@@ -41,7 +41,6 @@ feature "Give Feedback" do
   end
 
   scenario "user sends feedback" do
-
     visit new_feedback_path(:variety => "send_feedback")
 
     fill_in 'feedback_from', with: 'test@test.de'

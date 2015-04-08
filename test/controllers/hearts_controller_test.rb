@@ -22,7 +22,6 @@
 require_relative "../test_helper"
 
 describe HeartsController do
-
   describe "POST Heart on libraries" do
     describe "for non-signed-in users" do
       before :each do
@@ -144,7 +143,6 @@ describe HeartsController do
                            id: @another_users_heart.id, format: :js
         end
       end
-
     end
   end
 end

@@ -18,7 +18,6 @@ feature 'Empty cart' do
 end
 
 feature 'Adding an Article to the cart' do
-
   scenario 'anonymous user adds article to his cart' do
     article = FactoryGirl.create(:article, title: 'foobar')
     visit article_path(article)
@@ -80,7 +79,6 @@ feature 'Adding an Article to the cart' do
     page.wont_have_content I18n.t('common.actions.to_cart')
     Cart.last.line_items.count.must_equal 1
     Cart.last.line_items.first.requested_quantity.must_equal 1
-
   end
 
   scenario 'logged-in user adds article that is available in quantity >= 2 twice to to his cart' do
@@ -107,7 +105,6 @@ feature 'Adding an Article to the cart' do
     Cart.last.line_items.count.must_equal 1
     Cart.last.line_items.first.requested_quantity.must_equal 1
   end
-
 end
 
 feature 'updating quantity of the cart' do
@@ -169,7 +166,6 @@ feature 'Checkout' do
   end
 
   scenario 'User selects cash as unified_payment and does not select pickup and changes it to pickup in the end' do
-
     seller = FactoryGirl.create :legal_entity, :paypal_data
     articles = [FactoryGirl.create(:article, :with_all_payments, :with_all_transports, seller: seller, unified_transport: false)]
     articles << FactoryGirl.create(:article, :with_all_payments, :with_all_transports, seller: seller, unified_transport: false)
@@ -211,12 +207,10 @@ feature 'Checkout' do
     find('input.checkout_button').click
 
     Cart.last.sold?.must_equal true
-
   end
 
   scenario 'Buying a cart with one item and free transport and change the
             shipping address' do
-
     seller = FactoryGirl.create :legal_entity, :with_free_transport_at_5
 
     article = FactoryGirl.create(:article, title: 'foobar',
@@ -251,11 +245,9 @@ feature 'Checkout' do
       'Mit Deinen Einkäufen hast Du Fairmondo bisher eine Spende von 0,06 Euro')
     Cart.last.sold?.must_equal true
     Cart.last.line_item_groups.first.transport_address.must_equal transport_address
-
   end
 
   scenario 'Buying a cart with items from different users' do
-
     unified_seller = FactoryGirl.create :legal_entity, :with_unified_transport_information, :paypal_data
     articles = [FactoryGirl.create(:article, :with_all_payments, :with_all_transports, title: 'unified1', seller: unified_seller),
                 FactoryGirl.create(:article, :with_all_payments, :with_all_transports, title: 'unified2', seller: unified_seller),
@@ -310,11 +302,9 @@ feature 'Checkout' do
     expect_cart_emails :twice
     find('input.checkout_button').click
     buyer.carts.last.sold?.must_equal true
-
   end
 
   scenario 'Trying to buy a cart with unified transport and cash on delivery and dont check agb. Afterwards try to resume with single transports' do
-
     seller = FactoryGirl.create :legal_entity, :with_unified_transport_information, :paypal_data
     articles = [FactoryGirl.create(:article, :with_all_payments, :with_all_transports, title: 'foobar', seller: seller )]
     articles << FactoryGirl.create(:article, :with_all_payments, :with_all_transports, title: 'foobar2', seller: seller )
@@ -350,11 +340,9 @@ feature 'Checkout' do
     expect_cart_emails
     find('input.checkout_button').click
     Cart.last.sold?.must_equal true
-
   end
 
   scenario 'Buying a cart with one item that is already deactivated by the time he buys it' do
-
     article = FactoryGirl.create(:article, title: 'foobar')
     login_as FactoryGirl.create(:user)
     visit article_path(article)
@@ -382,7 +370,6 @@ feature 'Checkout' do
   end
 
   scenario 'Buying a cart with one item that is already bought by the time he buys it' do
-
     article = FactoryGirl.create(:article, title: 'foobar')
     login_as FactoryGirl.create(:user)
     visit article_path(article)
@@ -410,7 +397,6 @@ feature 'Checkout' do
   end
 
   scenario 'Buying a cart with an invalid line item' do
-
     article = FactoryGirl.create(:article, title: 'foobar')
     login_as FactoryGirl.create(:user)
     visit article_path(article)
@@ -421,7 +407,6 @@ feature 'Checkout' do
   end
 
   scenario 'Buying a cart with an incomplete user and adding address during checkout' do
-
     article = FactoryGirl.create(:article, title: 'foobar')
     login_as FactoryGirl.create(:incomplete_user)
     visit article_path(article)

@@ -32,7 +32,6 @@ class PrivateUser < User
       transition bad_seller: :standard_seller, if: lambda { |user| (user.percentage_of_positive_ratings > 75) }
       transition standard_seller: :good_seller, if: lambda { |user| (user.percentage_of_positive_ratings > 90) }
     end
-
   end
 
   def private_seller_constants

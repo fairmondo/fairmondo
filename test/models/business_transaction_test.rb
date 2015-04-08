@@ -56,7 +56,6 @@ class BusinessTransactionTest < ActiveSupport::TestCase
   end
 
   describe "methods" do
-
   end
 end
 

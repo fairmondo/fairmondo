@@ -24,7 +24,6 @@ require_relative '../test_helper'
 include Warden::Test::Helpers
 
 feature 'User profile page' do
-
   scenario "user visits his profile" do
     @user = FactoryGirl.create :user
     login_as @user
