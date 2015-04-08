@@ -54,7 +54,7 @@ class SizeValidator < ActiveModel::EachValidator
     end
 
     msg = I18n.t("#{msg_key}_#{attribute}",
-        :default => default, :scope => ["errors.messages"], :count => count)
+                 :default => default, :scope => ["errors.messages"], :count => count)
 
     attrs = options[:add_errors_to] || [attribute]
     attrs.each do |attr|

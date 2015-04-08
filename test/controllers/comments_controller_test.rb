@@ -28,9 +28,9 @@ describe CommentsController do
       @library = FactoryGirl.create(:library, public: true)
       @user = FactoryGirl.create(:user)
       @comment = FactoryGirl.create(:comment,
-                                 text: "Test comment",
-                                 commentable: @library,
-                                 user: @user)
+                                    text: "Test comment",
+                                    commentable: @library,
+                                    user: @user)
     end
 
     it "should return the comments of the library for guests" do
@@ -107,9 +107,9 @@ describe CommentsController do
       @user = FactoryGirl.create(:user)
       sign_in @user
       @comment = FactoryGirl.create(:comment,
-                                 text: "Test comment",
-                                 commentable: @library,
-                                 user: @user)
+                                    text: "Test comment",
+                                    commentable: @library,
+                                    user: @user)
     end
 
     it "it should remove the comment" do

@@ -51,7 +51,7 @@ class CommonSenseValidator < ActiveModel::EachValidator
   def common_sense_check selected_payment, selected_transport
     if (selected_payment == 'cash_on_delivery' && selected_transport == 'pickup') or (selected_payment == 'cash' && selected_transport != 'pickup')
       I18n.t 'transaction.errors.combination_invalid',
-            selected_payment: I18n.t("enumerize.business_transaction.selected_payment.#{selected_payment}")
+             selected_payment: I18n.t("enumerize.business_transaction.selected_payment.#{selected_payment}")
     elsif (selected_payment != 'paypal' && selected_transport == 'bike_courier')
       I18n.t 'transaction.errors.bike_courier_requires_paypal'
     end

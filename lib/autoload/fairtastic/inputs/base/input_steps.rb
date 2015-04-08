@@ -43,12 +43,11 @@ module Fairtastic
             @input_step_with_errors = false
           end
 
-          template.content_tag(:div,
-          step_heading_html(step_key, options) << template.content_tag(:div,block_content, :class => "Accordion-content" ) ,
-          :class => css, :id => "#{step_key}_step"
+          template.content_tag(
+            :div,
+            step_heading_html(step_key, options) << template.content_tag(:div,block_content, :class => "Accordion-content" ),
+            :class => css, :id => "#{step_key}_step"
           )
-
-
         end
 
         private
@@ -67,8 +66,6 @@ module Fairtastic
           end
           tooltip = optional_tooltip_html("#{step_key}_input_step", options)
           template.content_tag(:a,   template.content_tag(:i,"", :class => "icon-arrow") << prefix.html_safe << (localized_string(step_key, object, "input_steps") || "").html_safe << tooltip, :href => "##{step_key}_step" ,:class => "Accordion-header")
-
-
         end
 
         def optional_tooltip_html(method, options = {})
@@ -80,7 +77,6 @@ module Fairtastic
             ""
           end
         end
-
       end
     end
   end

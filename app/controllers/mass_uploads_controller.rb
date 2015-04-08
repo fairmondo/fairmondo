@@ -12,8 +12,10 @@ class MassUploadsController < ApplicationController
     @erroneous_articles = @mass_upload.erroneous_articles.page(params[:erroneous_articles_page])
 
     respond_with @mass_upload do |format|
-      format.csv { send_data ArticleExporter.export_erroneous_articles(@mass_upload.erroneous_articles),
-                   {filename: "Fairmondo_export_errors_#{Time.now.strftime("%Y-%d-%m %H:%M:%S")}.csv"} }
+      format.csv do
+        send_data ArticleExporter.export_erroneous_articles(@mass_upload.erroneous_articles),
+                  filename: "Fairmondo_export_errors_#{Time.now.strftime("%Y-%d-%m %H:%M:%S")}.csv"
+      end
     end
   end
 

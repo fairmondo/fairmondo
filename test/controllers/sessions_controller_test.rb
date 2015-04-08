@@ -77,8 +77,8 @@ describe SessionsController do
   describe "DELETE 'destroy'" do
     before do
       @user = FactoryGirl.create :user,
-        belboon_tracking_token: 'abcd,1234',
-        belboon_tracking_token_set_at: 9.days.ago
+                                 belboon_tracking_token: 'abcd,1234',
+                                 belboon_tracking_token_set_at: 9.days.ago
       sign_in @user
       cookies.signed[:cart] = 1
     end

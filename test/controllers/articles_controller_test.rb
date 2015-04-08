@@ -358,7 +358,7 @@ describe ArticlesController do
 
       it "should save images even if article is invalid" do
         @article_attrs = FactoryGirl.attributes_for :article, :invalid,
-          categories: [FactoryGirl.create(:category).id]
+                                                    categories: [FactoryGirl.create(:category).id]
         @article_attrs[:images_attributes] = { "0" => { image: fixture_file_upload("/test.png", 'image/png') }}
         assert_difference 'Image.count', 1 do
           post :create, article: @article_attrs
@@ -367,7 +367,7 @@ describe ArticlesController do
 
       it "should not raise an error for very high quantity values" do
         post :create,
-          article: @article_attrs.merge(quantity: "100000000000000000000000")
+             article: @article_attrs.merge(quantity: "100000000000000000000000")
         assert_template :new
       end
 
@@ -379,7 +379,7 @@ describe ArticlesController do
 
         assert_difference 'Article.count', 1 do
           post :create,
-            article: @article_attrs.merge({ original_id: original_article.id })
+               article: @article_attrs.merge({ original_id: original_article.id })
         end
         new_article = @controller.instance_variable_get(:@article)
 
@@ -400,7 +400,7 @@ describe ArticlesController do
       before :each do
         @article = FactoryGirl.create :preview_article, seller: user
         @article_attrs = FactoryGirl.attributes_for :article,
-          categories: [FactoryGirl.create(:category)]
+                                                    categories: [FactoryGirl.create(:category)]
         @article_attrs.delete :seller
         sign_in user
       end
@@ -428,7 +428,7 @@ describe ArticlesController do
       before :each do
         @article = FactoryGirl.create :preview_article, seller: user
         @article_attrs = FactoryGirl.attributes_for :article,
-          categories: [FactoryGirl.create(:category)]
+                                                    categories: [FactoryGirl.create(:category)]
         @article_attrs.delete :seller
         sign_in user
       end

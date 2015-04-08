@@ -196,7 +196,7 @@ feature 'Checkout' do
     # Step 1 correct errors
 
     page.must_have_content I18n.t 'transaction.errors.combination_invalid',
-            selected_payment: I18n.t("enumerize.business_transaction.selected_payment.cash")
+                                  selected_payment: I18n.t("enumerize.business_transaction.selected_payment.cash")
 
     page.find('select#cart_checkout_form_line_items_1_business_transaction_selected_transport').find("option[value='pickup']").select_option
     page.find('select#cart_checkout_form_line_items_2_business_transaction_selected_transport').find("option[value='pickup']").select_option

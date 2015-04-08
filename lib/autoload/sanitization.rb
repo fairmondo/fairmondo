@@ -39,10 +39,10 @@ module Sanitization
       # TinyMCE contents are assumed to have HTML content and are now sanitized. So we can always give them the html_safe flag.
       if options[:method] == 'tiny_mce'
         define_method "#{ field }_with_html_safe",
-          Proc.new {
-          orig = send("#{ field }_without_html_safe")
-          orig.is_a?(String) ? orig.html_safe : orig
-          }
+                      Proc.new {
+                        orig = send("#{ field }_without_html_safe")
+                        orig.is_a?(String) ? orig.html_safe : orig
+                      }
         define_method field, -> { read_attribute field } #no idea why this fix is needed
         alias_method_chain field, :html_safe
       end

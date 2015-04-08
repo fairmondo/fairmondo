@@ -27,9 +27,11 @@ class LibraryElementsController < ApplicationController
       current_user.library_elements.build(params.for(LibraryElement).refine)
     authorize @library_element
     if @library_element.save
-      flash[:notice] = I18n.t('library_element.notice.success',
-        href: library_path(@library_element.library),
-        title: @library_element.library_name).html_safe
+      flash[:notice] =
+        I18n.t('library_element.notice.success',
+               href: library_path(@library_element.library),
+               title: @library_element.library_name
+        ).html_safe
     end
 
     redirect_to :back

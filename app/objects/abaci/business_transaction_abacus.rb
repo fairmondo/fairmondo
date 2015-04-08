@@ -1,13 +1,13 @@
 class BusinessTransactionAbacus
 
   attr_reader :prices,
-  :by_payment,
-  :single_transports,
-  :unified_transport,
-  :total_retail_price,
-  :total_net_price,
-  :total_vat,
-  :line_item_group
+              :by_payment,
+              :single_transports,
+              :unified_transport,
+              :total_retail_price,
+              :total_net_price,
+              :total_vat,
+              :line_item_group
 
   def self.calculate line_item_group
      abacus = BusinessTransactionAbacus.new(line_item_group)
