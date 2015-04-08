@@ -53,7 +53,7 @@ class ArticlesController < ApplicationController
   # Flash image processing message
   before_action :flash_image_processing_message,
                 only: :show,
-                if: lambda do
+                if: -> do
                   !flash.now[:notice] &&
                     @article.owned_by?(current_user) &&
                     at_least_one_image_processing?
