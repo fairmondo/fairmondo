@@ -25,7 +25,6 @@ class ArticleExporter
 
     private
 
-
     def determine_articles_to_export user, params
       if params == 'active'
         user.articles.where(state: 'active').order('created_at ASC')
