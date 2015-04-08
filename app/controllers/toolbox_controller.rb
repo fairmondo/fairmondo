@@ -12,6 +12,7 @@ class ToolboxController < ApplicationController
       format.json { render status: 200, json: { expired: current_user.nil? } }
     end
   end
+
   def confirm
     respond_to do |format|
       format.js
