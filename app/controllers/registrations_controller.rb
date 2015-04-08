@@ -108,7 +108,6 @@ class RegistrationsController < Devise::RegistrationsController
       respond_with resource
     end
 
-
   protected
 
     def configure_permitted_parameters

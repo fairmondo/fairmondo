@@ -16,7 +16,7 @@ module Article::ActiveRecordOverwrites
     def images_attributes=(attributes)
       self.images.clear
       attributes.each do |_key, image_attributes|
-        if image_attributes.has_key?(:id)
+        if image_attributes.key?(:id)
           unless image_attributes[:_destroy] == '1'
             self.images << update_existing_image(image_attributes)
           end
@@ -45,7 +45,7 @@ module Article::ActiveRecordOverwrites
 
     def update_existing_image image_attributes
       image = Image.find(image_attributes[:id])
-      if image_attributes.has_key? :image # updated the image itself
+      if image_attributes.key? :image # updated the image itself
         image.image = image_attributes[:image]
       end
       image.is_title = image_attributes[:is_title]

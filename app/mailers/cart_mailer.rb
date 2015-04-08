@@ -34,7 +34,7 @@ class CartMailer < ActionMailer::Base
     @business_transaction = business_transaction
     @buyer           = business_transaction.buyer
     @seller          = business_transaction.seller
-    @subject         = "[Fairmondo] Artikel ausliefern"
+    @subject         = '[Fairmondo] Artikel ausliefern'
     @courier_email   = Rails.env == 'production' ? $courier['email'] : 'test@test.com'
 
     if @business_transaction.line_item_group.paypal_payment && @business_transaction.line_item_group.paypal_payment.confirmed?
@@ -67,6 +67,7 @@ class CartMailer < ActionMailer::Base
   end
 
   private
+
     def add_image_attachments_for line_item_group
       line_item_group.line_items.each do |li|
         attachment = image_attachment_for li
@@ -82,7 +83,7 @@ class CartMailer < ActionMailer::Base
     end
 
     def add_bike_courier_documents_for lig
-      unless lig.business_transactions.select{|bt| bt.selected_transport == 'bike_courier'}.empty?
+      unless lig.business_transactions.select { |bt| bt.selected_transport == 'bike_courier' }.empty?
         filename = $courier['tos']
         attachments[filename] = File.read(Rails.root.join("app/assets/docs/#{ filename }"))
       end

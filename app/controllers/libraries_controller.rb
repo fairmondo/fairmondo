@@ -135,7 +135,7 @@ class LibrariesController < ApplicationController
     end
 
     def user_focused?
-      params.has_key?(:user_id)
+      params.key?(:user_id)
     end
 
     def focus
