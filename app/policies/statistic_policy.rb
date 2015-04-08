@@ -9,6 +9,7 @@ class StatisticPolicy < Struct.new(:user, :statistic)
   end
 
   private
+
     def admin?
       User.is_admin? user
     end

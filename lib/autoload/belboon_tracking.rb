@@ -4,6 +4,7 @@
 module BelboonTracking
 
   private
+
     def save_belboon_tracking_token_in_session
       session[:belboon] ||= params[:belboon]
     end

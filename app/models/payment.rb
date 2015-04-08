@@ -54,6 +54,7 @@ class Payment < ActiveRecord::Base
   end
 
   protected
+
     # called within init
     def initialize_payment
       true

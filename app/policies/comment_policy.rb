@@ -11,6 +11,7 @@ class CommentPolicy < Struct.new(:user, :comment)
   end
 
   private
+
     def logged_in?
       user
     end

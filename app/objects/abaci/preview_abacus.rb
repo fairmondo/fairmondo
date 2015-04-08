@@ -32,6 +32,7 @@ class PreviewAbacus
   end
 
   private
+
     def check_free_transport
       total = calculate_total_retail_price
       seller = @line_item_group.seller

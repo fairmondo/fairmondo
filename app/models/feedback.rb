@@ -84,6 +84,7 @@ class Feedback < ActiveRecord::Base
   end
 
   private
+
     # For validation
     # @api private
 

@@ -42,6 +42,7 @@ class BusinessTransactionAbacus
   end
 
   private
+
     def initialize line_item_group
 
       @line_item_group = line_item_group

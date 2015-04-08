@@ -24,6 +24,7 @@ class FeaturedLibraryQuery
   end
 
   private
+
     def ordered_active_one_day_exhibited limit
       @relation.where("library_elements.exhibition_date IS NULL OR library_elements.exhibition_date >= ?", DateTime.now - 1.day).order("library_elements.created_at ASC").limit limit
     end

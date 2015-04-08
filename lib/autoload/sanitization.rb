@@ -4,6 +4,7 @@ module Sanitization
   require 'cgi'
 
   protected
+
     # DSL method to sanitize specific fields automatically before the validation step
     #
     # @api semipublic
@@ -24,6 +25,7 @@ module Sanitization
     end
 
   private
+
     def create_sanitization_method_for field, options
       if field.is_a? Symbol
         method_name = "sanitize_#{ options[:method] }_#{ field }"

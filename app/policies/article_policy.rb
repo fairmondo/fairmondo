@@ -82,6 +82,7 @@ class ArticlePolicy < Struct.new(:user, :article)
   end
 
   private
+
     def own?
       user && user.id == article.seller.id
     end

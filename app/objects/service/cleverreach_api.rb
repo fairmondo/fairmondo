@@ -15,6 +15,7 @@ class CleverreachAPI
   end
 
   private
+
     def self.client
       Savon.client wsdl: 'http://api.cleverreach.com/soap/interface_v5.1.php?wsdl'
     end

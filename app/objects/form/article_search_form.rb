@@ -108,6 +108,7 @@ class ArticleSearchForm
   end
 
   private
+
     def search_results_for_error_case page
       ArticlePolicy::Scope.new(nil, Article).resolve.page(page)
     end

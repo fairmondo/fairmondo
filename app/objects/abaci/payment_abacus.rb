@@ -23,6 +23,7 @@ class PaymentAbacus
   end
 
   private
+
     def initialize business_transaction_abacus,transport_abacus
 
       @line_item_group = business_transaction_abacus.line_item_group

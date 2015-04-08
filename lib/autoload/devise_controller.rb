@@ -5,6 +5,7 @@ DeviseController.class_eval do
   layout :layout
 
   protected
+
     def layout
       if request.xhr?
         false

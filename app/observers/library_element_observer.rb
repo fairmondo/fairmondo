@@ -33,6 +33,7 @@ class LibraryElementObserver < ActiveRecord::Observer
   end
 
   private
+
     def update_library library_element
       library_element.library.update_attribute(:updated_at, Time.now) if library_element.library
     end

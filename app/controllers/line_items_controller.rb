@@ -66,6 +66,7 @@ class LineItemsController < ApplicationController
   end
 
   private
+
     def find_or_create_cart
       @cart = Cart.find(cookies.signed[:cart]) rescue Cart.current_or_new_for(current_user) # find cart from cookie or get one
       refresh_cookie @cart # set cookie anew

@@ -8,6 +8,7 @@ class RemoteValidationsController < ApplicationController
   end
 
   private
+
     def additional_params
       params.except :model, :field, :value, :controller, :action, :format
     end

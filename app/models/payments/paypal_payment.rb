@@ -27,6 +27,7 @@ class PaypalPayment < Payment
   end
 
   private
+
     # send paypal request on init
     def initialize_payment
       response = PaypalAPI.new.request_for(self)

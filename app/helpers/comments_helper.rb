@@ -58,6 +58,7 @@ module CommentsHelper
   end
 
   private
+
     def get_path specific, *attrs
       send("#{attrs.first.class.name.downcase}_#{specific}_path", *attrs)
     end

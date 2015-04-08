@@ -74,6 +74,7 @@ module Article::Commendation
   end
 
   private
+
     def remove_fair_trust_questionnaire_unless_required
       self.fair_trust_questionnaire = nil unless self.fair_kind == "fair_trust"
     end

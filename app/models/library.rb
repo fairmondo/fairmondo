@@ -81,6 +81,7 @@ class Library < ActiveRecord::Base
   end
 
   private
+
     # when an exhibition name is set to a library, remove the same exhibition
     # name from all other libraries.
     def uniquify_exhibition_name

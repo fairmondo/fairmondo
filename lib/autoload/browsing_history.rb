@@ -2,6 +2,7 @@
 # @TODO prevent devise from clearing this after sign_out
 module BrowsingHistory
   protected
+
     # store up to MAX_STORED_STEPS requests in session
     def store_location
       ensure_session_key

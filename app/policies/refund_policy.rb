@@ -8,6 +8,7 @@ class RefundPolicy < Struct.new(:user, :refund)
   end
 
   private
+
     def own?
       user && user.id == refund.business_transaction_seller.id
     end

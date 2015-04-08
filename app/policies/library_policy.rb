@@ -50,6 +50,7 @@ class LibraryPolicy < Struct.new(:user, :library)
   end
 
   private
+
     def own?
       user && user.id == library.user_id
     end

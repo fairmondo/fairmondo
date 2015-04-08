@@ -80,6 +80,7 @@ class LineItemGroup < ActiveRecord::Base
   end
 
   private
+
     def self.can_be_unified_for? record, type
       if type == :unified_transport
         record.transport_can_be_unified?

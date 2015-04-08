@@ -19,6 +19,7 @@ class RemoteValidation < Struct.new(:model, :field, :value, :additional_params)
   end
 
   private
+
     def create_validator
       if additional_params['id'] # is update
         validator = model.classify.constantize.find additional_params['id']

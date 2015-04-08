@@ -13,6 +13,7 @@ class ActiveUserArticles
   end
 
   private
+
     def finder page, per
       result = ArticlesIndex.all.filter(term: {seller_id: @user.id}).page(page).per(per)
       result.to_a # this will make sure the request is send

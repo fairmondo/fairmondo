@@ -139,6 +139,7 @@ class ArticlesController < ApplicationController
   ##### Private Helpers
 
   private
+
     def search_results_for_error_case
       render :json => {query: params[:q], suggestions:[]}
     end
