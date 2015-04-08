@@ -82,58 +82,58 @@ module Article::FeesAndDonations
 
   private
 
-    def friendly_percent_gt_0?
-      self.friendly_percent.present? &&
-      self.friendly_percent > 0
-    end
+  def friendly_percent_gt_0?
+    self.friendly_percent.present? &&
+    self.friendly_percent > 0
+  end
 
-    def set_friendly_percent_for_ngo
-      if self.seller.ngo
-         self.friendly_percent = 100
-         self.friendly_percent_organisation_id = self.seller.id
-      end
+  def set_friendly_percent_for_ngo
+    if self.seller.ngo
+      self.friendly_percent = 100
+      self.friendly_percent_organisation_id = self.seller.id
     end
+  end
 
-    def friendly_percent_result_cents
-      # At the moment there is no friendly percent
+  def friendly_percent_result_cents
+    # At the moment there is no friendly percent
+    # for rounding -> always round up (e.g. 900,1 cents are 901 cents)
+    # (self.price_cents * (self.friendly_percent / 100.0)).ceil
+    # NGOs are not allowed to give donation to other NGO
+    self.seller.ngo ? 0 : (self.price_cents * (self.friendly_percent / 100.0)).ceil
+  end
+
+  ## fees and donations
+
+  def fair_percentage
+    self.seller.ngo ? 0 : 0.01
+  end
+
+  def fair_percent_result
+    # for rounding -> always round up (e.g. 900,1 cents are 901 cents)
+    Money.new(((self.price_cents - friendly_percent_result_cents) * fair_percentage).ceil)
+  end
+
+  def fee_percentage
+    if self.seller.ngo
+      0
+    elsif fair?
+      TRANSACTION_FEES[:fair]
+    else
+      TRANSACTION_FEES[:default]
+    end
+  end
+
+  def fee_result
+    if self.seller.ngo
+      0
+    else
       # for rounding -> always round up (e.g. 900,1 cents are 901 cents)
-      # (self.price_cents * (self.friendly_percent / 100.0)).ceil
-      # NGOs are not allowed to give donation to other NGO
-      self.seller.ngo ? 0 : (self.price_cents * (self.friendly_percent / 100.0)).ceil
+      r = Money.new(((self.price_cents - friendly_percent_result_cents) * fee_percentage).ceil)
+      max = fair? ? Money.new(TRANSACTION_FEES[:max_fair] * 100) : Money.new(TRANSACTION_FEES[:max_default] * 100)
+      min = Money.new(TRANSACTION_FEES[:min] * 100)
+      r = min if r < min
+      r = max if r > max
+      r
     end
-
-    ## fees and donations
-
-    def fair_percentage
-      self.seller.ngo ? 0 : 0.01
-    end
-
-    def fair_percent_result
-      # for rounding -> always round up (e.g. 900,1 cents are 901 cents)
-      Money.new(((self.price_cents - friendly_percent_result_cents) * fair_percentage).ceil)
-    end
-
-    def fee_percentage
-      if self.seller.ngo
-        0
-      elsif fair?
-        TRANSACTION_FEES[:fair]
-      else
-        TRANSACTION_FEES[:default]
-      end
-    end
-
-    def fee_result
-      if self.seller.ngo
-        0
-      else
-        # for rounding -> always round up (e.g. 900,1 cents are 901 cents)
-        r = Money.new(((self.price_cents - friendly_percent_result_cents) * fee_percentage).ceil)
-        max = fair? ? Money.new(TRANSACTION_FEES[:max_fair] * 100) : Money.new(TRANSACTION_FEES[:max_default] * 100)
-        min = Money.new(TRANSACTION_FEES[:min] * 100)
-        r = min if r < min
-        r = max if r > max
-        r
-      end
-    end
+  end
 end

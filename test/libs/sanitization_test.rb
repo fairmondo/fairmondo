@@ -1,7 +1,7 @@
 require_relative '../test_helper'
 
 def test_sanitize_mce field, admin = false
-   Sanitization.send('sanitize_tiny_mce', field, admin)
+  Sanitization.send('sanitize_tiny_mce', field, admin)
 end
 
 describe 'Sanitization' do

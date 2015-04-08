@@ -43,20 +43,20 @@ class FeedbacksController < ApplicationController
 
   private
 
-    def redirect_path
-      if @feedback.variety == 'report_article'
-        article_path Article.find @feedback.article_id
-      else
-        root_path
-      end
+  def redirect_path
+    if @feedback.variety == 'report_article'
+      article_path Article.find @feedback.article_id
+    else
+      root_path
     end
+  end
 
-    def handle_recaptcha
-      params[:feedback]['recaptcha'] = '0'
-      if verify_recaptcha
-        params[:feedback]['recaptcha'] = '1'
-      else
-        flash.delete :recaptcha_error
-      end
+  def handle_recaptcha
+    params[:feedback]['recaptcha'] = '0'
+    if verify_recaptcha
+      params[:feedback]['recaptcha'] = '1'
+    else
+      flash.delete :recaptcha_error
     end
+  end
 end

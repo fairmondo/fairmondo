@@ -22,7 +22,7 @@ class BusinessTransactionsController < ApplicationController
 
   private
 
-    def set_business_transaction
-      @business_transaction = BusinessTransaction.find(params[:id])
-    end
+  def set_business_transaction
+    @business_transaction = BusinessTransaction.find(params[:id])
+  end
 end

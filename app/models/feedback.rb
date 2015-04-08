@@ -85,20 +85,20 @@ class Feedback < ActiveRecord::Base
 
   private
 
-    # For validation
-    # @api private
+  # For validation
+  # @api private
 
-    def needs_subject?
-      self.variety == 'send_feedback' ||
-      self.variety == 'get_help'
-    end
+  def needs_subject?
+    self.variety == 'send_feedback' ||
+    self.variety == 'get_help'
+  end
 
-    def needs_from?
-      self.variety == 'become_donation_partner' ||
-      self.variety == 'get_help'
-    end
+  def needs_from?
+    self.variety == 'become_donation_partner' ||
+    self.variety == 'get_help'
+  end
 
-    def donation_partner_application?
-      self.variety == 'become_donation_partner'
-    end
+  def donation_partner_application?
+    self.variety == 'become_donation_partner'
+  end
 end

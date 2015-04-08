@@ -50,13 +50,13 @@ class LibraryPolicy < Struct.new(:user, :library)
 
   private
 
-    def own?
-      user && user.id == library.user_id
-    end
+  def own?
+    user && user.id == library.user_id
+  end
 
-    def admin?
-      User.is_admin? user
-    end
+  def admin?
+    User.is_admin? user
+  end
 
   class Scope < Struct.new(:current_user, :user, :scope)
     def resolve

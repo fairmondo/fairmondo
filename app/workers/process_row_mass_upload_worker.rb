@@ -26,10 +26,10 @@ class ProcessRowMassUploadWorker
                   backtrace: true
 
   sidekiq_retries_exhausted do |msg|
-     Sidekiq.logger.warn "Failed #{msg['class']} with #{msg['args']}: #{msg['error_message']}"
-     mass_upload = MassUpload.find msg['args'].first
-     mass_upload_article = mass_upload.mass_upload_articles.where(row_index: msg['args'].last).first
-     mass_upload_article.update_attributes(action: :error, validation_errors: msg['args'][1]) if mass_upload_article
+    Sidekiq.logger.warn "Failed #{msg['class']} with #{msg['args']}: #{msg['error_message']}"
+    mass_upload = MassUpload.find msg['args'].first
+    mass_upload_article = mass_upload.mass_upload_articles.where(row_index: msg['args'].last).first
+    mass_upload_article.update_attributes(action: :error, validation_errors: msg['args'][1]) if mass_upload_article
     # see method call args order of perform method for msg array explanation
   end
 

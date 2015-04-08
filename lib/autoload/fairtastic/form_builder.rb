@@ -48,10 +48,10 @@ module Fairtastic
       relation = @object.send(record_or_name_or_array)
       if relation.is_a?(ActiveRecord::Relation) || relation.is_a?(Array)
         relation.each do |item|
-           @input_step_with_errors ||= item.errors.present?
+          @input_step_with_errors ||= item.errors.present?
         end
       else
-         @input_step_with_errors ||= (relation && relation.errors.present?)
+        @input_step_with_errors ||= (relation && relation.errors.present?)
       end
       super
     end
@@ -75,7 +75,7 @@ module Fairtastic
       if options[:class]
         options[:class] << ' inputs'
       else
-         options[:class] = 'inputs'
+        options[:class] = 'inputs'
       end
       args << options
     end

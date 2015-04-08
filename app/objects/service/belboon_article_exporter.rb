@@ -60,19 +60,19 @@ class BelboonArticleExporter
 
   private
 
-    def self.line_for article
-      attrs = []
-      EXPORT_HEADER.each do |attr|
-        begin
-          attrs << "'#{ article.instance_eval(EXPORT_MAPPING[attr]) }'"
-        rescue
-          attrs << "'#{ EXPORT_MAPPING[attr] }'"
-        end
+  def self.line_for article
+    attrs = []
+    EXPORT_HEADER.each do |attr|
+      begin
+        attrs << "'#{ article.instance_eval(EXPORT_MAPPING[attr]) }'"
+      rescue
+        attrs << "'#{ EXPORT_MAPPING[attr] }'"
       end
-      attrs
     end
+    attrs
+  end
 
-    def self.exportable_articles_for user
-      user.articles.belboon_trackable.includes(:images)
-    end
+  def self.exportable_articles_for user
+    user.articles.belboon_trackable.includes(:images)
+  end
 end

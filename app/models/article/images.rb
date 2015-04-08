@@ -77,8 +77,8 @@ module Article::Images
           self.images.build(image: URI.parse(self.send(attribute)), is_title: should_be_title, external_url: self.send(attribute))
         end
       rescue
-         self.errors.add(attribute, I18n.t('mass_uploads.errors.image_not_available'))
-         image = nil
+        self.errors.add(attribute, I18n.t('mass_uploads.errors.image_not_available'))
+        image = nil
       end
       image
     end

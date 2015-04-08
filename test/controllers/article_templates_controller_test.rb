@@ -144,7 +144,7 @@ describe ArticleTemplatesController do
 
     it 'redirects to the article_templates list' do
       delete :destroy, id: @article_template.to_param
-       assert_redirected_to(user_url(@user, anchor: 'my_article_templates'))
+      assert_redirected_to(user_url(@user, anchor: 'my_article_templates'))
     end
   end
 end

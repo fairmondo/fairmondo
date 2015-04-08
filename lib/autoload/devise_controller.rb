@@ -6,11 +6,11 @@ DeviseController.class_eval do
 
   protected
 
-    def layout
-      if request.xhr?
-        false
-      else
-        'application_reduced'
-      end
+  def layout
+    if request.xhr?
+      false
+    else
+      'application_reduced'
     end
+  end
 end

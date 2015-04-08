@@ -79,67 +79,67 @@ module Article::Validations
 
   private
 
-    def set_sellers_nested_validations
-      seller.bank_account_validation = true if payment_bank_transfer
-      seller.paypal_validation = true if payment_paypal
-    end
+  def set_sellers_nested_validations
+    seller.bank_account_validation = true if payment_bank_transfer
+    seller.paypal_validation = true if payment_paypal
+  end
 
-    def ensure_no_redundant_categories
-      self.category_ids =  categories.reject { |c| categories.any? { |other| c != nil && other.is_descendant_of?(c) } }.uniq { |c| c.id }.map(&:id) if self.categories
-      true
-    end
+  def ensure_no_redundant_categories
+    self.category_ids =  categories.reject { |c| categories.any? { |other| c != nil && other.is_descendant_of?(c) } }.uniq { |c| c.id }.map(&:id) if self.categories
+    true
+  end
 
-    def transport_method_checked
-      unless self.transport_pickup || self.transport_type1 || self.transport_type2 || self.transport_bike_courier
-        errors.add(:transport_details, I18n.t('article.form.errors.invalid_transport_option'))
-      end
+  def transport_method_checked
+    unless self.transport_pickup || self.transport_type1 || self.transport_type2 || self.transport_bike_courier
+      errors.add(:transport_details, I18n.t('article.form.errors.invalid_transport_option'))
     end
+  end
 
-    def payment_method_checked
-      unless self.payment_bank_transfer || self.payment_paypal ||
-             self.payment_cash || self.payment_cash_on_delivery ||
-             self.payment_invoice || self.payment_voucher
-        errors.add(:payment_details, I18n.t('article.form.errors.invalid_payment_option'))
-      end
+  def payment_method_checked
+    unless self.payment_bank_transfer || self.payment_paypal ||
+           self.payment_cash || self.payment_cash_on_delivery ||
+           self.payment_invoice || self.payment_voucher
+      errors.add(:payment_details, I18n.t('article.form.errors.invalid_payment_option'))
     end
+  end
 
-    def bank_account_exists
-      unless self.seller.bank_account_exists?
-        errors.add(:payment_bank_transfer, I18n.t('article.form.errors.bank_details_missing'))
-      end
+  def bank_account_exists
+    unless self.seller.bank_account_exists?
+      errors.add(:payment_bank_transfer, I18n.t('article.form.errors.bank_details_missing'))
     end
+  end
 
-    def paypal_account_exists
-      unless self.seller.paypal_account_exists?
-        errors.add(:payment_paypal, I18n.t('article.form.errors.paypal_details_missing'))
-      end
+  def paypal_account_exists
+    unless self.seller.paypal_account_exists?
+      errors.add(:payment_paypal, I18n.t('article.form.errors.paypal_details_missing'))
     end
+  end
 
-    def bank_transfer_available
-      if self.seller.created_at > 1.month.ago && self.price_cents >= 10000 && self.seller.type == 'PrivateUser'
-        errors.add(:payment_bank_transfer, I18n.t('article.form.errors.bank_transfer_not_allowed'))
-      end
+  def bank_transfer_available
+    if self.seller.created_at > 1.month.ago && self.price_cents >= 10000 && self.seller.type == 'PrivateUser'
+      errors.add(:payment_bank_transfer, I18n.t('article.form.errors.bank_transfer_not_allowed'))
     end
+  end
 
-    def only_one_title_image
-      count_images = 0
-      self.images.each do |image|
-        count_images += 1 if image.is_title
-      end
-      if count_images > 1
-         errors.add(:images, I18n.t('article.form.errors.only_one_title_image'))
-      end
+  def only_one_title_image
+    count_images = 0
+    self.images.each do |image|
+      count_images += 1 if image.is_title
     end
+    if count_images > 1
+      errors.add(:images, I18n.t('article.form.errors.only_one_title_image'))
+    end
+  end
 
-    def bike_courier_requires_paypal
-      unless self.transport_bike_courier && self.payment_paypal
-        errors.add(:payment_details, I18n.t('article.form.errors.invalid_payment_for_bike_courier'))
-      end
+  def bike_courier_requires_paypal
+    unless self.transport_bike_courier && self.payment_paypal
+      errors.add(:payment_details, I18n.t('article.form.errors.invalid_payment_for_bike_courier'))
     end
+  end
 
-    def right_zip_for_courier
-      unless $courier['zip'].include? self.seller.standard_address_zip
-        errors.add(:transport_bike_courier, I18n.t('article.form.errors.wrong_zip_for_bike_transport'))
-      end
+  def right_zip_for_courier
+    unless $courier['zip'].include? self.seller.standard_address_zip
+      errors.add(:transport_bike_courier, I18n.t('article.form.errors.wrong_zip_for_bike_transport'))
     end
+  end
 end

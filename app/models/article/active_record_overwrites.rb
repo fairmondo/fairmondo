@@ -43,12 +43,12 @@ module Article::ActiveRecordOverwrites
 
   private
 
-    def update_existing_image image_attributes
-      image = Image.find(image_attributes[:id])
-      if image_attributes.key? :image # updated the image itself
-        image.image = image_attributes[:image]
-      end
-      image.is_title = image_attributes[:is_title]
-      image
+  def update_existing_image image_attributes
+    image = Image.find(image_attributes[:id])
+    if image_attributes.key? :image # updated the image itself
+      image.image = image_attributes[:image]
     end
+    image.is_title = image_attributes[:is_title]
+    image
+  end
 end

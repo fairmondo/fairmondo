@@ -139,131 +139,131 @@ class ArticlesController < ApplicationController
 
   private
 
-    def search_results_for_error_case
-      render json: { query: params[:q], suggestions: [] }
-    end
+  def search_results_for_error_case
+    render json: { query: params[:q], suggestions: [] }
+  end
 
-    def calculate_fees_and_donations
-      @article.calculate_fees_and_donations
-    end
+  def calculate_fees_and_donations
+    @article.calculate_fees_and_donations
+  end
 
-    def flash_image_processing_message
-      flash.now[:notice] = t('article.notices.image_processing')
-    end
+  def flash_image_processing_message
+    flash.now[:notice] = t('article.notices.image_processing')
+  end
 
-    def seller_sign_in
-      # If user is not logged in, redirect to sign in page with parameter for
-      # sessions view.
-      unless user_signed_in?
-        redirect_to controller: :sessions, action: :new, seller: true
-      end
+  def seller_sign_in
+    # If user is not logged in, redirect to sign in page with parameter for
+    # sessions view.
+    unless user_signed_in?
+      redirect_to controller: :sessions, action: :new, seller: true
     end
+  end
 
-    def set_article
-      @article = Article.find(params[:id])
+  def set_article
+    @article = Article.find(params[:id])
+  end
+
+  def similar_articles query
+    query ||= params[:id].gsub(/\-/, ' ')
+    @similar_articles = ArticleSearchForm.new(q: query).search(1)
+    respond_with @similar_articles do |format|
+      format.html { render 'article_closed' }
+      format.json { render 'article_closed' }
     end
+  end
 
-    def similar_articles query
-      query ||= params[:id].gsub(/\-/, ' ')
-      @similar_articles = ArticleSearchForm.new(q: query).search(1)
-      respond_with @similar_articles do |format|
-        format.html { render 'article_closed' }
-        format.json { render 'article_closed' }
-      end
+  def change_state
+    # For changing the state of an article
+    # Refer to Article::State
+    if params[:activate]
+      activate
+    elsif params[:deactivate]
+      deactivate
     end
+  end
 
-    def change_state
-      # For changing the state of an article
-      # Refer to Article::State
-      if params[:activate]
-        activate
-      elsif params[:deactivate]
-        deactivate
-      end
-    end
-
-    def activate
-      @article.assign_attributes params.for(@article).refine
-      authorize @article, :activate?
-      if @article.activate
-        flash[:notice] = I18n.t('article.notices.create_html')
-        redirect_to @article
-      elsif @article.errors.keys.include? :tos_accepted
-        # TOS weren't accepted, redirect back to the form
-        flash[:error] = I18n.t('article.notices.activation_failed')
-        render :show
-      else
-        # The article became invalid so please try a new one
-        redirect_to new_article_path(edit_as_new: @article.id)
-      end
-    end
-
-    def deactivate
-      authorize @article, :deactivate?
-      @article.deactivate_without_validation
-      flash[:notice] = I18n.t('article.notices.deactivated')
+  def activate
+    @article.assign_attributes params.for(@article).refine
+    authorize @article, :activate?
+    if @article.activate
+      flash[:notice] = I18n.t('article.notices.create_html')
       redirect_to @article
+    elsif @article.errors.keys.include? :tos_accepted
+      # TOS weren't accepted, redirect back to the form
+      flash[:error] = I18n.t('article.notices.activation_failed')
+      render :show
+    else
+      # The article became invalid so please try a new one
+      redirect_to new_article_path(edit_as_new: @article.id)
     end
+  end
 
-    def state_params_present?
-      params[:activate] || params[:deactivate]
-    end
+  def deactivate
+    authorize @article, :deactivate?
+    @article.deactivate_without_validation
+    flash[:notice] = I18n.t('article.notices.deactivated')
+    redirect_to @article
+  end
 
-    def activate_params_present?
-      !!params[:activate]
-    end
+  def state_params_present?
+    params[:activate] || params[:deactivate]
+  end
 
-    # used in for new articles
-    #
-    def new_from_template
-      template = current_user.articles.unscoped.find(params[:template][:article_id])
-      @article = template.amoeba_dup
-      clear_template_name
-      flash.now[:notice] = t('template.notices.applied', name: template.article_template_name)
-    end
+  def activate_params_present?
+    !!params[:activate]
+  end
 
-    def edit_as_new
-      @old_article = current_user.articles.find(params[:edit_as_new])
-      @article = Article.edit_as_new @old_article
-      clear_template_name
-    end
+  # used in for new articles
+  #
+  def new_from_template
+    template = current_user.articles.unscoped.find(params[:template][:article_id])
+    @article = template.amoeba_dup
+    clear_template_name
+    flash.now[:notice] = t('template.notices.applied', name: template.article_template_name)
+  end
 
-    def new_article
-      @article = current_user.articles.build
-    end
+  def edit_as_new
+    @old_article = current_user.articles.find(params[:edit_as_new])
+    @article = Article.edit_as_new @old_article
+    clear_template_name
+  end
 
-    def clear_template_name
-      @article.article_template_name = nil
-    end
+  def new_article
+    @article = current_user.articles.build
+  end
 
-    ############ Images ################
+  def clear_template_name
+    @article.article_template_name = nil
+  end
 
-    def save_images
-      # At least try to save the images -> not persisted in browser
-      @article.images.each_with_index do |image, index|
-        if image.new_record?
-          # strange HACK because paperclip will now rollback uploaded files and we want the file to be saved anyway
-          # if you find out a way to break out a running transaction please refactor to images_attributes
-          image.image = params[:article][:images_attributes][index.to_s][:image]
-        end
-        image.save
+  ############ Images ################
+
+  def save_images
+    # At least try to save the images -> not persisted in browser
+    @article.images.each_with_index do |image, index|
+      if image.new_record?
+        # strange HACK because paperclip will now rollback uploaded files and we want the file to be saved anyway
+        # if you find out a way to break out a running transaction please refactor to images_attributes
+        image.image = params[:article][:images_attributes][index.to_s][:image]
       end
+      image.save
     end
+  end
 
-    def at_least_one_image_processing?
-      processing_thumbs = @article.thumbnails.select { |thumb| thumb.image.processing? }
-      !processing_thumbs.empty? || (@article.title_image && @article.title_image.image.processing?)
-    end
+  def at_least_one_image_processing?
+    processing_thumbs = @article.thumbnails.select { |thumb| thumb.image.processing? }
+    !processing_thumbs.empty? || (@article.title_image && @article.title_image.image.processing?)
+  end
 
   ################## Inherited Resources
 
   protected
 
-    def category_specific_search
-      if @search_cache.category_id.present?
-        params[:article_search_form].delete(:category_id)
-        params.delete(:article_search_form) if params[:article_search_form].empty?
-        redirect_to category_path(@search_cache.category_id, params)
-      end
+  def category_specific_search
+    if @search_cache.category_id.present?
+      params[:article_search_form].delete(:category_id)
+      params.delete(:article_search_form) if params[:article_search_form].empty?
+      redirect_to category_path(@search_cache.category_id, params)
     end
+  end
 end

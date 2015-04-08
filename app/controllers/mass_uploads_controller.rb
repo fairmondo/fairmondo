@@ -41,7 +41,7 @@ class MassUploadsController < ApplicationController
 
   private
 
-    def set_mass_upload
-      @mass_upload = current_user.mass_uploads.find(params[:id])
-    end
+  def set_mass_upload
+    @mass_upload = current_user.mass_uploads.find(params[:id])
+  end
 end

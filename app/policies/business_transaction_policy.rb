@@ -5,7 +5,7 @@ class BusinessTransactionPolicy < Struct.new(:user, :business_transaction)
 
   private
 
-    def own?
-      user && business_transaction.seller == user
-    end
+  def own?
+    user && business_transaction.seller == user
+  end
 end

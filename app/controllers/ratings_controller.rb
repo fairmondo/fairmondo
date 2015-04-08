@@ -50,15 +50,15 @@ class RatingsController < ApplicationController
 
   private
 
-    def set_user
-      @user = User.find(params[:user_id])
-    end
+  def set_user
+    @user = User.find(params[:user_id])
+  end
 
-    # def set_business_transaction
-    #  @business_transaction = BusinessTransaction.find(params[:business_transaction_id])
-    # end
+  # def set_business_transaction
+  #  @business_transaction = BusinessTransaction.find(params[:business_transaction_id])
+  # end
 
-    def set_line_item_group
-      @line_item_group = LineItemGroup.find(params[:line_item_group_id])
-    end
+  def set_line_item_group
+    @line_item_group = LineItemGroup.find(params[:line_item_group_id])
+  end
 end

@@ -81,35 +81,35 @@ class LineItemGroup < ActiveRecord::Base
 
   private
 
-    def self.can_be_unified_for? record, type
-      if type == :unified_transport
-        record.transport_can_be_unified?
-      elsif type == :unified_payment
-        record.payment_can_be_unified?
-      end
+  def self.can_be_unified_for? record, type
+    if type == :unified_transport
+      record.transport_can_be_unified?
+    elsif type == :unified_payment
+      record.payment_can_be_unified?
     end
+  end
 
-    def has_business_transactions?
-      self.business_transactions.any?
-    end
+  def has_business_transactions?
+    self.business_transactions.any?
+  end
 
-    def cash_on_delivery_with_unified_transport?
-      self.business_transactions.to_a.select { |bt| bt.article.unified_transport? && bt.selected_payment.cash_on_delivery? }.any?
-    end
+  def cash_on_delivery_with_unified_transport?
+    self.business_transactions.to_a.select { |bt| bt.article.unified_transport? && bt.selected_payment.cash_on_delivery? }.any?
+  end
 
-    def bike_courier_with_unified_transport?
-      self.business_transactions.to_a.select { |bt| bt.article.unified_transport? && bt.selected_payment.cash_on_delivery? }.any?
-    end
+  def bike_courier_with_unified_transport?
+    self.business_transactions.to_a.select { |bt| bt.article.unified_transport? && bt.selected_payment.cash_on_delivery? }.any?
+  end
 
-    def no_unified_transports_with_cash_on_delivery
-      if self.unified_transport? && cash_on_delivery_with_unified_transport?
-        errors.add(:unified_transport, I18n.t('transaction.errors.cash_on_delivery_with_unified_transport'))
-      end
+  def no_unified_transports_with_cash_on_delivery
+    if self.unified_transport? && cash_on_delivery_with_unified_transport?
+      errors.add(:unified_transport, I18n.t('transaction.errors.cash_on_delivery_with_unified_transport'))
     end
+  end
 
-    def no_unified_transports_with_bike_courier
-      if self.unified_transport? && bike_courier_with_unified_transport?
-        errors.add(:unified_transport, I18n.t('transaction.errors.bike_courier_with_unified_transport'))
-      end
+  def no_unified_transports_with_bike_courier
+    if self.unified_transport? && bike_courier_with_unified_transport?
+      errors.add(:unified_transport, I18n.t('transaction.errors.bike_courier_with_unified_transport'))
     end
+  end
 end

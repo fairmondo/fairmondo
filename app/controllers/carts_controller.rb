@@ -83,22 +83,22 @@ class CartsController < ApplicationController
 
   private
 
-    def generate_session
-      session[:cart_checkout] ||= {}
-    end
+  def generate_session
+    session[:cart_checkout] ||= {}
+  end
 
-    def clear_session
-      session[:cart_checkout] = nil
-    end
+  def clear_session
+    session[:cart_checkout] = nil
+  end
 
-    def reject_orphaned_line_items
-      orphaned = @cart.line_items.select(&:orphaned?).each(&:destroy)
-      if orphaned.any? # reload cart
-        set_cart
-      end
+  def reject_orphaned_line_items
+    orphaned = @cart.line_items.select(&:orphaned?).each(&:destroy)
+    if orphaned.any? # reload cart
+      set_cart
     end
+  end
 
-    def set_cart
+  def set_cart
     begin
       @cart = Cart.includes(
         line_item_groups: [
@@ -114,39 +114,39 @@ class CartsController < ApplicationController
     rescue
       @cart = Cart.new
     end
+  end
+
+  def authorize_and_authenticate_user_on_cart
+    if @cart.user_id # cart belongs to user
+      authenticate_user! # and can only be accessed by a logged in user
+    else # otherwise
+      @cart.cookie_content = cookies.signed[:cart] # we need the cookie content to authorize the cart
     end
 
-    def authorize_and_authenticate_user_on_cart
-      if @cart.user_id # cart belongs to user
-        authenticate_user! # and can only be accessed by a logged in user
-      else # otherwise
-        @cart.cookie_content = cookies.signed[:cart] # we need the cookie content to authorize the cart
-      end
+    authorize @cart
+  end
 
-      authorize @cart
-    end
+  def prepare_overview_variables
+    @abaci = @cart.line_item_groups.map { |group| Abacus.new(group) }
+    @total = @abaci.map(&:total).sum
+  end
 
-    def prepare_overview_variables
-      @abaci = @cart.line_item_groups.map { |group| Abacus.new(group) }
-      @total = @abaci.map(&:total).sum
-    end
+  def all_line_items_valid?
+    @cart.line_item_groups.map(&:line_items).flatten.all?(&:valid?)
+  end
 
-    def all_line_items_valid?
-      @cart.line_item_groups.map(&:line_items).flatten.all?(&:valid?)
+  def set_donation_flash
+    total_donations = @cart.user.reload.total_purchase_donations
+    if total_donations == 0
+      flash[:notice] = I18n.t('cart.notices.checkout_success_no_donation')
+    else
+      flash[:notice] = I18n.t(
+        'cart.notices.checkout_success', euro: total_donations
+      ).html_safe
     end
+  end
 
-    def set_donation_flash
-      total_donations = @cart.user.reload.total_purchase_donations
-      if total_donations == 0
-        flash[:notice] = I18n.t('cart.notices.checkout_success_no_donation')
-      else
-        flash[:notice] = I18n.t(
-          'cart.notices.checkout_success', euro: total_donations
-        ).html_safe
-      end
-    end
-
-    def clear_tracking_token?
-      @cart && @cart.sold?
-    end
+  def clear_tracking_token?
+    @cart && @cart.sold?
+  end
 end

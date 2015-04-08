@@ -49,75 +49,75 @@ class ArticleSearch
 
   private
 
-    def initialize query
-      @query = query
+  def initialize query
+    @query = query
+  end
+
+  # text queries
+
+  def query
+    if @query.search_by_term?
+      [query_string, query_gtin].reduce(:merge)
+    else
+      index.all
     end
+  end
 
-    # text queries
+  def query_string
+    index.query(simple_query_string: {
+                  query: @query.q,
+                  fields: query_fields,
+                  analyzer: 'german_analyzer',
+                  default_operator: 'and',
+                  lenient: true
+                })
+  end
 
-    def query
-      if @query.search_by_term?
-        [query_string, query_gtin].reduce(:merge)
-      else
-        index.all
-      end
+  def query_gtin
+    index.query(term: { gtin: { value: @query.q, boost: 100 } })
+  end
+
+  def query_fields
+    fields = [:title, :friendly_percent_organization_nickname]
+    fields += [:content] if @query.search_in_content?
+    fields
+  end
+
+  # filters
+
+  def boolead_filters
+    filters = []
+    [:fair, :ecologic, :small_and_precious, :swappable, :borrowable].each do |field|
+      filters << index.filter(term: { field => true }) if @query.send(field)
     end
+    filters.reduce(:merge)
+  end
 
-    def query_string
-      index.query(simple_query_string: {
-        query: @query.q,
-        fields: query_fields,
-        analyzer: 'german_analyzer',
-        default_operator: 'and',
-        lenient: true
-      })
-    end
+  def zip_filter
+    index.filter(prefix: { zip: @query.zip }) if @query.zip.present?
+  end
 
-    def query_gtin
-      index.query(term: { gtin: { value: @query.q, boost: 100 } })
-    end
+  def price_filter
+    index.filter(range: { price: @query.price_range })
+  end
 
-    def query_fields
-      fields = [:title, :friendly_percent_organization_nickname]
-      fields += [:content] if @query.search_in_content?
-      fields
-    end
+  def condition_filter
+    index.filter(term: { condition: @query.condition }) if @query.condition.present?
+  end
 
-    # filters
+  def category_filter
+    index.filter(terms: { categories: [@query.category_id] }) if @query.category_id.present?
+  end
 
-    def boolead_filters
-      filters = []
-      [:fair, :ecologic, :small_and_precious, :swappable, :borrowable].each do |field|
-        filters << index.filter(term: { field => true }) if @query.send(field)
-      end
-      filters.reduce(:merge)
-    end
+  # facets
+  def category_aggregations
+    index.aggregations(category: { terms: { field: :categories, size: 10000 } })
+  end
 
-    def zip_filter
-      index.filter(prefix: { zip: @query.zip }) if @query.zip.present?
-    end
-
-    def price_filter
-      index.filter(range: { price: @query.price_range })
-    end
-
-    def condition_filter
-      index.filter(term: { condition: @query.condition }) if @query.condition.present?
-    end
-
-    def category_filter
-      index.filter(terms: { categories: [@query.category_id] }) if @query.category_id.present?
-    end
-
-    # facets
-    def category_aggregations
-      index.aggregations(category: { terms: { field: :categories, size: 10000 } })
-    end
-
-    # sorting
-    def sorting
-      order = @query.order_by
-      order = @query.search_by_term? ? 'relevance' : 'newest' unless order
-      index.order(SORT[order])
-    end
+  # sorting
+  def sorting
+    order = @query.order_by
+    order = @query.search_by_term? ? 'relevance' : 'newest' unless order
+    index.order(SORT[order])
+  end
 end

@@ -35,21 +35,21 @@ class CategoriesController < ApplicationController
 
   private
 
-    def set_category
-      @category = Category.find(params[:id])
-    end
+  def set_category
+    @category = Category.find(params[:id])
+  end
 
-    def articles
-      @articles = @search_cache.search params[:page]
-    end
+  def articles
+    @articles = @search_cache.search params[:page]
+  end
 
-    def as_json
-      @children = params[:hide_empty] ? @category.children_with_active_articles : @category.children
-      render json: @children.map { |child| { id: child.id, name: child.name } }.to_json
-    end
+  def as_json
+    @children = params[:hide_empty] ? @category.children_with_active_articles : @category.children
+    render json: @children.map { |child| { id: child.id, name: child.name } }.to_json
+  end
 
-    def build_category_search_cache
-      build_search_cache
-      @search_cache.category_id = @category.id
-    end
+  def build_category_search_cache
+    build_search_cache
+    @search_cache.category_id = @category.id
+  end
 end

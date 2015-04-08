@@ -25,11 +25,11 @@ class AddressPolicy < Struct.new(:user, :address)
 
   private
 
-    def standard_address?
-      user.standard_address_id == address.id
-    end
+  def standard_address?
+    user.standard_address_id == address.id
+  end
 
-    def own?
-      user && user.id == address.user_id
-    end
+  def own?
+    user && user.id == address.user_id
+  end
 end

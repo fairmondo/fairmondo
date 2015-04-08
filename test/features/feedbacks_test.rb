@@ -23,8 +23,8 @@ include Warden::Test::Helpers
 
 feature 'Give Feedback' do
   setup do
-     @user = FactoryGirl.create :user
-     login_as @user
+    @user = FactoryGirl.create :user
+    login_as @user
   end
   scenario 'user wants help' do
     visit new_feedback_path(variety: 'get_help')

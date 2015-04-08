@@ -5,7 +5,7 @@ class RefundMailer < ActionMailer::Base
     @refund = refund
     mail(to: 'storno@fairmondo.de',
          subject: '[Fairmondo] ' + 'Rueckerstattung: Transationsnummer: ' + "#{refund.business_transaction.id}") do |format|
-          format.text
+      format.text
     end
   end
 end

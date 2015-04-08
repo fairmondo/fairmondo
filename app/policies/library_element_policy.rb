@@ -34,11 +34,11 @@ class LibraryElementPolicy < Struct.new(:user, :library_element)
 
   private
 
-    def own?
-      user && user.id == library_element.library_user_id
-    end
+  def own?
+    user && user.id == library_element.library_user_id
+  end
 
-    def active?
-      library_element.article_reduced && library_element.article_reduced.active?
-    end
+  def active?
+    library_element.article_reduced && library_element.article_reduced.active?
+  end
 end

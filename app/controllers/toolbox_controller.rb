@@ -61,19 +61,19 @@ class ToolboxController < ApplicationController
 
   private
 
-    def get_feed_items
-      begin
-        Timeout.timeout(10) do # 10 second timeout
-          OpenSSL::SSL::SSLContext::DEFAULT_PARAMS[:ssl_version] = 'SSLv23' # See comment to http://stackoverflow.com/q/20169301/409087
-          # TODO Set /etc/ssl/certs as sll_ca_folder to remove this hack
-          feed = open 'https://info.fairmondo.de/?feed=rss', ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE
-          OpenSSL::SSL::SSLContext::DEFAULT_PARAMS[:ssl_version] = 'SSLv23'
+  def get_feed_items
+    begin
+      Timeout.timeout(10) do # 10 second timeout
+        OpenSSL::SSL::SSLContext::DEFAULT_PARAMS[:ssl_version] = 'SSLv23' # See comment to http://stackoverflow.com/q/20169301/409087
+        # TODO Set /etc/ssl/certs as sll_ca_folder to remove this hack
+        feed = open 'https://info.fairmondo.de/?feed=rss', ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE
+        OpenSSL::SSL::SSLContext::DEFAULT_PARAMS[:ssl_version] = 'SSLv23'
 
-          rss = RSS::Parser.parse(feed.read, false)
-          rss.items.first(3)
-        end
-      rescue Timeout::Error
-        nil
+        rss = RSS::Parser.parse(feed.read, false)
+        rss.items.first(3)
       end
+    rescue Timeout::Error
+      nil
     end
+  end
 end

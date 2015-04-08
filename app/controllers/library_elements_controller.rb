@@ -45,7 +45,7 @@ class LibraryElementsController < ApplicationController
 
   private
 
-    def set_library_element
-      @library_element = LibraryElement.find(params[:id])
-    end
+  def set_library_element
+    @library_element = LibraryElement.find(params[:id])
+  end
 end

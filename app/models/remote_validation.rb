@@ -20,14 +20,14 @@ class RemoteValidation < Struct.new(:model, :field, :value, :additional_params)
 
   private
 
-    def create_validator
-      if additional_params['id'] # is update
-        validator = model.classify.constantize.find additional_params['id']
-        validator.send "#{field}=", value
-      else # is create
-        validator = model.classify.constantize.new field => value
-      end
-      additional_params.each { |k, v| validator.send("#{k}=", v) unless k == 'id' } # assign other supporting fields
-      validator
+  def create_validator
+    if additional_params['id'] # is update
+      validator = model.classify.constantize.find additional_params['id']
+      validator.send "#{field}=", value
+    else # is create
+      validator = model.classify.constantize.new field => value
     end
+    additional_params.each { |k, v| validator.send("#{k}=", v) unless k == 'id' } # assign other supporting fields
+    validator
+  end
 end

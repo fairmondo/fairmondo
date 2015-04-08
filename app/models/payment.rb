@@ -53,8 +53,8 @@ class Payment < ActiveRecord::Base
 
   protected
 
-    # called within init
-    def initialize_payment
-      true
-    end
+  # called within init
+  def initialize_payment
+    true
+  end
 end

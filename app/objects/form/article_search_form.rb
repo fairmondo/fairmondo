@@ -109,15 +109,15 @@ class ArticleSearchForm
 
   private
 
-    def search_results_for_error_case page
-      ArticlePolicy::Scope.new(nil, Article).resolve.page(page)
-    end
+  def search_results_for_error_case page
+    ArticlePolicy::Scope.new(nil, Article).resolve.page(page)
+  end
 
-    def filter_attributes
-      clean_hash self.attributes
-    end
+  def filter_attributes
+    clean_hash self.attributes
+  end
 
-    def clean_hash hash
-      hash.select { |_k, v| v != nil && v != false }
-    end
+  def clean_hash hash
+    hash.select { |_k, v| v != nil && v != false }
+  end
 end

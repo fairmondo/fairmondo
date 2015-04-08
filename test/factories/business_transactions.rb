@@ -44,7 +44,7 @@ FactoryGirl.define do
     end
 
     trait :bought_nothing do
-       quantity_bought 0
+      quantity_bought 0
     end
 
     trait :bought_ten do

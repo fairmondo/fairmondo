@@ -143,16 +143,16 @@ module Article::ExtendedAttributes
 
   private
 
-    # DRY method for selectable_transports and selectable_payments
-    #
-    # @api private
-    # @return [Array] An array with selected attribute types
-    def selectable attribute
-      # Get all selected attributes
-      output = []
-      eval("#{attribute.upcase}_TYPES").each do |e|
-        output << e.to_s if self.send "#{attribute}_#{e}"
-      end
-      output
+  # DRY method for selectable_transports and selectable_payments
+  #
+  # @api private
+  # @return [Array] An array with selected attribute types
+  def selectable attribute
+    # Get all selected attributes
+    output = []
+    eval("#{attribute.upcase}_TYPES").each do |e|
+      output << e.to_s if self.send "#{attribute}_#{e}"
     end
+    output
+  end
 end

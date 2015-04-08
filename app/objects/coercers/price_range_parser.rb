@@ -37,7 +37,7 @@ class PriceRangeParser
 
   private
 
-    def show_to?
-      !@empty && @to_money.cents >= 0 && @to_money >= @from_money
-    end
+  def show_to?
+    !@empty && @to_money.cents >= 0 && @to_money >= @from_money
+  end
 end

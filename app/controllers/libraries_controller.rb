@@ -126,35 +126,35 @@ class LibrariesController < ApplicationController
 
   private
 
-    def set_library
-      @library = Library.find(params[:id])
-    end
+  def set_library
+    @library = Library.find(params[:id])
+  end
 
-    def set_user
-      @user = User.find(params[:user_id])
-    end
+  def set_user
+    @user = User.find(params[:user_id])
+  end
 
-    def user_focused?
-      params.key?(:user_id)
-    end
+  def user_focused?
+    params.key?(:user_id)
+  end
 
-    def focus
-      if user_focused?
-        @user.libraries
-      else
-        case index_mode
-        when 'trending'
-          Library.trending
-        when 'myfavorite'
-          current_user.hearted_libraries.reorder('hearts.created_at DESC')
-        when 'new'
-          Library
-        end
+  def focus
+    if user_focused?
+      @user.libraries
+    else
+      case index_mode
+      when 'trending'
+        Library.trending
+      when 'myfavorite'
+        current_user.hearted_libraries.reorder('hearts.created_at DESC')
+      when 'new'
+        Library
       end
     end
+  end
 
-    # Configure the libraries collection that is displayed
-    def index_mode
-      @mode ||= params[:mode] || 'new'
-    end
+  # Configure the libraries collection that is displayed
+  def index_mode
+    @mode ||= params[:mode] || 'new'
+  end
 end

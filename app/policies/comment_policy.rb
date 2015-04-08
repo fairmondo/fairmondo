@@ -12,15 +12,15 @@ class CommentPolicy < Struct.new(:user, :comment)
 
   private
 
-    def logged_in?
-      user
-    end
+  def logged_in?
+    user
+  end
 
-    def own?
-      user && user.id == comment.user_id
-    end
+  def own?
+    user && user.id == comment.user_id
+  end
 
-    def admin?
-      User.is_admin? user
-    end
+  def admin?
+    User.is_admin? user
+  end
 end

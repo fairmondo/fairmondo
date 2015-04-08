@@ -95,7 +95,7 @@ describe BankDetailsController do
     end
     context 'as html' do
       it 'should fail' do
-         -> { get :check }.must_raise ActionController::UnknownFormat
+        -> { get :check }.must_raise ActionController::UnknownFormat
       end
     end
   end

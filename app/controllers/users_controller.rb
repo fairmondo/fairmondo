@@ -48,25 +48,25 @@ class UsersController < ApplicationController
 
   private
 
-    def user_deleted
-      render :user_deleted
-    end
+  def user_deleted
+    render :user_deleted
+  end
 
-    def set_user
-      @user = User.find(params[:id])
-    end
+  def set_user
+    @user = User.find(params[:id])
+  end
 
-    def check_for_complete_mass_uploads
-      if user_signed_in?
-        current_user.mass_uploads.processing.each do |mu|
-          mu.finish
-        end
+  def check_for_complete_mass_uploads
+    if user_signed_in?
+      current_user.mass_uploads.processing.each do |mu|
+        mu.finish
       end
     end
+  end
 
-    def sanitize_print_param
-      if params[:print] && ['terms', 'cancellation'].include?(params[:print])
-        @print = params[:print]
-      end
+  def sanitize_print_param
+    if params[:print] && ['terms', 'cancellation'].include?(params[:print])
+      @print = params[:print]
     end
+  end
 end

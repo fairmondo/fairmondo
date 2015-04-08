@@ -143,23 +143,6 @@ Style/GlobalVars:
 Style/IfUnlessModifier:
   Enabled: false
 
-# Offense count: 8
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-Style/IndentHash:
-  Enabled: false
-
-# Offense count: 285
-# Cop supports --auto-correct.
-Style/IndentationConsistency:
-  Enabled: false
-
-# Offense count: 32
-# Cop supports --auto-correct.
-# Configuration parameters: Width.
-Style/IndentationWidth:
-  Enabled: false
-
 # Offense count: 40
 # Cop supports --auto-correct.
 Style/Lambda:

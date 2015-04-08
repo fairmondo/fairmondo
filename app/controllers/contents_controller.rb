@@ -76,7 +76,7 @@ class ContentsController < ApplicationController
 
   private
 
-    def set_content
-      @content = Content.find(params[:id])
-    end
+  def set_content
+    @content = Content.find(params[:id])
+  end
 end

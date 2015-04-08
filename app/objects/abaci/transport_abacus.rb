@@ -51,40 +51,40 @@ class TransportAbacus
 
   private
 
-    def initialize business_transaction_abacus
-      @line_item_group = business_transaction_abacus.line_item_group
-      @business_transaction_abacus = business_transaction_abacus
-    end
+  def initialize business_transaction_abacus
+    @line_item_group = business_transaction_abacus.line_item_group
+    @business_transaction_abacus = business_transaction_abacus
+  end
 
-    def calculate_single_transport_for bt
-      single_transport_price, transport_number = bt.article.transport_details_for bt.selected_transport.to_sym
-      shipments = self.class.number_of_shipments(bt.quantity_bought, transport_number)
-      transport_price = transport_price_for(single_transport_price, shipments)
-      cash_on_delivery_price = self.class.cash_on_delivery_price(bt, shipments)
-      total_without_cash_on_delivery = retail_price(bt) + transport_price
-      total = total_without_cash_on_delivery + (cash_on_delivery_price || Money.new(0))
-      {
-        method: bt.selected_transport.to_sym,
-        provider: bt.article.transport_provider(bt.selected_transport),
-        shipments: shipments,
-        per_shipment: single_transport_price,
-        transport_price: transport_price,
-        cash_on_delivery: cash_on_delivery_price,
-        total_without_cash_on_delivery: total_without_cash_on_delivery,
-        total: total
-      }
-    end
+  def calculate_single_transport_for bt
+    single_transport_price, transport_number = bt.article.transport_details_for bt.selected_transport.to_sym
+    shipments = self.class.number_of_shipments(bt.quantity_bought, transport_number)
+    transport_price = transport_price_for(single_transport_price, shipments)
+    cash_on_delivery_price = self.class.cash_on_delivery_price(bt, shipments)
+    total_without_cash_on_delivery = retail_price(bt) + transport_price
+    total = total_without_cash_on_delivery + (cash_on_delivery_price || Money.new(0))
+    {
+      method: bt.selected_transport.to_sym,
+      provider: bt.article.transport_provider(bt.selected_transport),
+      shipments: shipments,
+      per_shipment: single_transport_price,
+      transport_price: transport_price,
+      cash_on_delivery: cash_on_delivery_price,
+      total_without_cash_on_delivery: total_without_cash_on_delivery,
+      total: total
+    }
+  end
 
-    def transport_price_for single_transport_price, number_of_shipments
-      @free_transport ? Money.new(0) : (single_transport_price * number_of_shipments)
-    end
+  def transport_price_for single_transport_price, number_of_shipments
+    @free_transport ? Money.new(0) : (single_transport_price * number_of_shipments)
+  end
 
-    def self.cash_on_delivery_price business_transaction, number_of_shipments
-      return nil unless business_transaction.selected_payment.cash_on_delivery?
-      business_transaction.article_payment_cash_on_delivery_price * number_of_shipments
-    end
+  def self.cash_on_delivery_price business_transaction, number_of_shipments
+    return nil unless business_transaction.selected_payment.cash_on_delivery?
+    business_transaction.article_payment_cash_on_delivery_price * number_of_shipments
+  end
 
-    def retail_price business_transaction
-      @business_transaction_abacus.prices[business_transaction][:retail_price]
-    end
+  def retail_price business_transaction
+    @business_transaction_abacus.prices[business_transaction][:retail_price]
+  end
 end

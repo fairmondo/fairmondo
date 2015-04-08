@@ -32,29 +32,29 @@ class PreviewAbacus
 
   private
 
-    def check_free_transport
-      total = calculate_total_retail_price
-      seller = @line_item_group.seller
-      @free_transport_at_price = seller.free_transport_at_price if seller.free_transport_available
-      @free_transport = (free_transport_at_price && total >= free_transport_at_price)
+  def check_free_transport
+    total = calculate_total_retail_price
+    seller = @line_item_group.seller
+    @free_transport_at_price = seller.free_transport_at_price if seller.free_transport_available
+    @free_transport = (free_transport_at_price && total >= free_transport_at_price)
+  end
+
+  def calculate_total_retail_price
+    @line_item_group.line_items.map { |item| item.requested_quantity * item.article_price }.sum || Money.new(0)
+  end
+
+  def transport_prices_for line_item
+    article = line_item.article
+    transport_hash = article.selectable_transports.map do |transport|
+      single_transport_price, transport_number = article.transport_details_for transport.to_sym
+      number_of_shipments = TransportAbacus.number_of_shipments line_item.requested_quantity, transport_number
+      [transport, transport_price(single_transport_price, number_of_shipments)]
     end
 
-    def calculate_total_retail_price
-      @line_item_group.line_items.map { |item| item.requested_quantity * item.article_price }.sum || Money.new(0)
-    end
+    transport_hash.to_h
+  end
 
-    def transport_prices_for line_item
-      article = line_item.article
-      transport_hash = article.selectable_transports.map do |transport|
-        single_transport_price, transport_number = article.transport_details_for transport.to_sym
-        number_of_shipments = TransportAbacus.number_of_shipments line_item.requested_quantity, transport_number
-        [transport, transport_price(single_transport_price, number_of_shipments)]
-      end
-
-      transport_hash.to_h
-    end
-
-    def transport_price transport_price, number_of_shipments
-      @free_transport ? Money.new(0) : (number_of_shipments * transport_price)
-    end
+  def transport_price transport_price, number_of_shipments
+    @free_transport ? Money.new(0) : (number_of_shipments * transport_price)
+  end
 end

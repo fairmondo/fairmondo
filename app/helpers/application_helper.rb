@@ -45,7 +45,7 @@ module ApplicationHelper
   end
 
   def truncate_and_sanitize_without_linebreaks(text = '', length = 70, omission = '', separator = ' ')
-      truncate(Sanitize.clean(text), length: length, separator: separator, omission: omission).gsub("\n", ' ')
+    truncate(Sanitize.clean(text), length: length, separator: separator, omission: omission).gsub("\n", ' ')
   end
 
   # Login form anywhere - https://github.com/plataformatec/devise/wiki/How-To:-Display-a-custom-sign_in-form-anywhere-in-your-app

@@ -12,36 +12,36 @@ class CartAbacus
 
   private
 
-    def calculate_total
-      @cart.line_item_groups.each do |group|
-        calculate_group group
-      end
-      @total = Money.new(@group_totals.values.sum)
+  def calculate_total
+    @cart.line_item_groups.each do |group|
+      calculate_group group
     end
+    @total = Money.new(@group_totals.values.sum)
+  end
 
-    def calculate_group group
-      prices = group.line_items.map { |line_item| calculate_line_item line_item }
+  def calculate_group group
+    prices = group.line_items.map { |line_item| calculate_line_item line_item }
 
-      group_total = Money.new(prices.sum)
-      @group_totals[group] = group_total
-      group_total
-    end
+    group_total = Money.new(prices.sum)
+    @group_totals[group] = group_total
+    group_total
+  end
 
-    def calculate_line_item line_item
-      line_item_total = line_item.requested_quantity * line_item.article_price
-      @line_item_totals[line_item] = line_item_total
-      line_item_total
-    end
+  def calculate_line_item line_item
+    line_item_total = line_item.requested_quantity * line_item.article_price
+    @line_item_totals[line_item] = line_item_total
+    line_item_total
+  end
 
-    # Belboon Stuff
-    #
-    def calculate_belboon_value
-      line_items = @cart.line_items.select { |line_item| line_item.qualifies_for_belboon? }
-      values = line_items.map { |line_item| calculate_belboon_line_item(line_item) if line_item.qualifies_for_belboon? }
-      @belboon_tracking_relevant_value = Money.new(values.sum)
-    end
+  # Belboon Stuff
+  #
+  def calculate_belboon_value
+    line_items = @cart.line_items.select { |line_item| line_item.qualifies_for_belboon? }
+    values = line_items.map { |line_item| calculate_belboon_line_item(line_item) if line_item.qualifies_for_belboon? }
+    @belboon_tracking_relevant_value = Money.new(values.sum)
+  end
 
-    def calculate_belboon_line_item(line_item)
-      line_item.requested_quantity * line_item.article_price_wo_vat
-    end
+  def calculate_belboon_line_item(line_item)
+    line_item.requested_quantity * line_item.article_price_wo_vat
+  end
 end

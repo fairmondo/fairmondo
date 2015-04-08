@@ -85,13 +85,13 @@ class Category < ActiveRecord::Base
 
   private
 
-    def slug_candidates
-      [:name, [:name, :id]]
-    end
+  def slug_candidates
+    [:name, [:name, :id]]
+  end
 
-    def delete_if_no_active_articles array
-      array.delete_if do |node|
-        node.children.empty? && node.active_articles.empty?
-      end
+  def delete_if_no_active_articles array
+    array.delete_if do |node|
+      node.children.empty? && node.active_articles.empty?
     end
+  end
 end

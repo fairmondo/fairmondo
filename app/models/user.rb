@@ -222,18 +222,18 @@ class User < ActiveRecord::Base
 
   private
 
-    # @api private
-    def create_default_library
-      if self.libraries.empty?
-        Library.create(name: I18n.t('library.default'), public: false, user_id: self.id)
-      end
+  # @api private
+  def create_default_library
+    if self.libraries.empty?
+      Library.create(name: I18n.t('library.default'), public: false, user_id: self.id)
     end
+  end
 
-    def wants_to_sell?
-      self.wants_to_sell
-    end
+  def wants_to_sell?
+    self.wants_to_sell
+  end
 
-    def is_german?
-      self.standard_address && self.standard_address.country == 'Deutschland'
-    end
+  def is_german?
+    self.standard_address && self.standard_address.country == 'Deutschland'
+  end
 end

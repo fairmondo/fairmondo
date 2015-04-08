@@ -69,20 +69,20 @@ module Article::Commendation
   end
 
   def has_commendation?
-     self.fair || self.ecologic || self.small_and_precious
+    self.fair || self.ecologic || self.small_and_precious
   end
 
   private
 
-    def remove_fair_trust_questionnaire_unless_required
-      self.fair_trust_questionnaire = nil unless self.fair_kind == 'fair_trust'
-    end
+  def remove_fair_trust_questionnaire_unless_required
+    self.fair_trust_questionnaire = nil unless self.fair_kind == 'fair_trust'
+  end
 
-    def remove_social_producer_questionnaire_unless_required
-      self.social_producer_questionnaire = nil unless self.fair_kind == 'social_producer'
-    end
+  def remove_social_producer_questionnaire_unless_required
+    self.social_producer_questionnaire = nil unless self.fair_kind == 'social_producer'
+  end
 
-    def delete_fair_kind_unless_fair
-      self.fair_kind = nil unless fair?
-    end
+  def delete_fair_kind_unless_fair
+    self.fair_kind = nil unless fair?
+  end
 end

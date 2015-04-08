@@ -28,15 +28,15 @@ class PaypalPayment < Payment
 
   private
 
-    # send paypal request on init
-    def initialize_payment
-      response = PaypalAPI.new.request_for(self)
-      if response.success?
-        self.pay_key = response['payKey']
-        true # continue
-      else
-        self.error = response.errors.to_json
-        false # errored instead of initialized
-      end
+  # send paypal request on init
+  def initialize_payment
+    response = PaypalAPI.new.request_for(self)
+    if response.success?
+      self.pay_key = response['payKey']
+      true # continue
+    else
+      self.error = response.errors.to_json
+      false # errored instead of initialized
     end
+  end
 end

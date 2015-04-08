@@ -27,7 +27,7 @@ class PaypalAPI
 
   private
 
-    def paypal_client
-      PaypalAdaptive::Request.new
-    end
+  def paypal_client
+    PaypalAdaptive::Request.new
+  end
 end

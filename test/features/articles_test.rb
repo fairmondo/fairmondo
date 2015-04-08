@@ -292,7 +292,7 @@ feature 'Article view for guest users' do
 
   scenario 'user visits an article' do
     visit article_path @article_conventional
-     page.must_have_link('Transparency International', href: 'http://www.transparency.de/')
+    page.must_have_link('Transparency International', href: 'http://www.transparency.de/')
   end
 
   scenario 'user visits article list' do

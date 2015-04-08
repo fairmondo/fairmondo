@@ -68,35 +68,35 @@ class CartMailer < ActionMailer::Base
 
   private
 
-    def add_image_attachments_for line_item_group
-      line_item_group.line_items.each do |li|
-        attachment = image_attachment_for li
-        attachments.inline[li.article.title_image.image_file_name] = attachment if attachment
-      end
+  def add_image_attachments_for line_item_group
+    line_item_group.line_items.each do |li|
+      attachment = image_attachment_for li
+      attachments.inline[li.article.title_image.image_file_name] = attachment if attachment
     end
+  end
 
-    def add_legal_documents_for lig
-      if lig.seller.is_a?(LegalEntity) && lig.seller.terms && lig.seller.cancellation
-        filename = "#{ lig.seller_nickname }_agb_und_widerrruf.pdf"
-        attachments[filename] = TermsAndCancellationPdf.new(lig).render
-      end
+  def add_legal_documents_for lig
+    if lig.seller.is_a?(LegalEntity) && lig.seller.terms && lig.seller.cancellation
+      filename = "#{ lig.seller_nickname }_agb_und_widerrruf.pdf"
+      attachments[filename] = TermsAndCancellationPdf.new(lig).render
     end
+  end
 
-    def add_bike_courier_documents_for lig
-      unless lig.business_transactions.select { |bt| bt.selected_transport == 'bike_courier' }.empty?
-        filename = $courier['tos']
-        attachments[filename] = File.read(Rails.root.join("app/assets/docs/#{ filename }"))
-      end
+  def add_bike_courier_documents_for lig
+    unless lig.business_transactions.select { |bt| bt.selected_transport == 'bike_courier' }.empty?
+      filename = $courier['tos']
+      attachments[filename] = File.read(Rails.root.join("app/assets/docs/#{ filename }"))
     end
+  end
 
-    def image_attachment_for line_item
-      image = line_item.article.title_image
-      if image
-        attachment = {
-          content: File.read("#{ Rails.root }/#{ image.image.path(:thumb) }"),
-          mime_type: image.image.content_type
-        } rescue nil
-        attachment
-      end
+  def image_attachment_for line_item
+    image = line_item.article.title_image
+    if image
+      attachment = {
+        content: File.read("#{ Rails.root }/#{ image.image.path(:thumb) }"),
+        mime_type: image.image.content_type
+      } rescue nil
+      attachment
     end
+  end
 end

@@ -16,17 +16,17 @@ class CleverreachAPI
 
   private
 
-    def self.client
-      Savon.client wsdl: 'http://api.cleverreach.com/soap/interface_v5.1.php?wsdl'
-    end
+  def self.client
+    Savon.client wsdl: 'http://api.cleverreach.com/soap/interface_v5.1.php?wsdl'
+  end
 
-    def self.message_with hash
-      { apiKey: API_KEY, listId: LIST_ID }.merge hash rescue hash # in case api key wasn't defined
-    end
+  def self.message_with hash
+    { apiKey: API_KEY, listId: LIST_ID }.merge hash rescue hash # in case api key wasn't defined
+  end
 
-    def self.call function, message
-      Timeout.timeout(10) do # 10 second timeout
-        client.call function, message: message
-      end
+  def self.call function, message
+    Timeout.timeout(10) do # 10 second timeout
+      client.call function, message: message
     end
+  end
 end

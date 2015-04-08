@@ -54,7 +54,7 @@ class SingleSignOn
 
   def custom_fields
   end
-    @custom_fields ||= {}
+  @custom_fields ||= {}
 
   def sign(payload)
     OpenSSL::HMAC.hexdigest('sha256', sso_secret, payload)

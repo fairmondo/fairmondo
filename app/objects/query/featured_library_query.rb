@@ -25,30 +25,30 @@ class FeaturedLibraryQuery
 
   private
 
-    def ordered_active_one_day_exhibited limit
-      @relation.where('library_elements.exhibition_date IS NULL OR library_elements.exhibition_date >= ?', DateTime.now - 1.day).order('library_elements.created_at ASC').limit limit
-    end
+  def ordered_active_one_day_exhibited limit
+    @relation.where('library_elements.exhibition_date IS NULL OR library_elements.exhibition_date >= ?', DateTime.now - 1.day).order('library_elements.created_at ASC').limit limit
+  end
 
-    def set_exhibition_date_of library_element
-      library_element.update_column :exhibition_date, DateTime.now
-    end
+  def set_exhibition_date_of library_element
+    library_element.update_column :exhibition_date, DateTime.now
+  end
 
-    # Conditional scope, used when one_day_exhibited doesn't return enough results
-    # @return [Array] exhibits plus older ones to fill empty spaces
-    def fill_exhibits_randomly exhibits, count
-      max_offset = filler_query(exhibits).count - 1
-      (count - exhibits.length).times do
-        random_offset = rand 0..max_offset
-        if filler_library_element = filler_query(exhibits).offset(random_offset).first
-          set_exhibition_date_of filler_library_element
-          exhibits << filler_library_element
-        end
-        max_offset -= 1
+  # Conditional scope, used when one_day_exhibited doesn't return enough results
+  # @return [Array] exhibits plus older ones to fill empty spaces
+  def fill_exhibits_randomly exhibits, count
+    max_offset = filler_query(exhibits).count - 1
+    (count - exhibits.length).times do
+      random_offset = rand 0..max_offset
+      if filler_library_element = filler_query(exhibits).offset(random_offset).first
+        set_exhibition_date_of filler_library_element
+        exhibits << filler_library_element
       end
-      exhibits
+      max_offset -= 1
     end
+    exhibits
+  end
 
-    def filler_query exhibits
-      @relation.where('library_elements.id NOT IN (?)', exhibits.map { |e| e.id } + [0]).where('library_elements.exhibition_date IS NOT NULL AND library_elements.exhibition_date < ?', DateTime.now - 1.day)
-    end
+  def filler_query exhibits
+    @relation.where('library_elements.id NOT IN (?)', exhibits.map { |e| e.id } + [0]).where('library_elements.exhibition_date IS NOT NULL AND library_elements.exhibition_date < ?', DateTime.now - 1.day)
+  end
 end

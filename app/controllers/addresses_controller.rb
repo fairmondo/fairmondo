@@ -46,7 +46,7 @@ class AddressesController < ApplicationController
 
   private
 
-    def set_address
-      @address = current_user.addresses.find(params[:id])
-    end
+  def set_address
+    @address = current_user.addresses.find(params[:id])
+  end
 end

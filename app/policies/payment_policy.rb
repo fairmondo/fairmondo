@@ -30,13 +30,13 @@ class PaymentPolicy < Struct.new(:user, :payment)
 
   private
 
-    def buyer_is_user?
-      payment.line_item_group_buyer_id == user.id
-    end
+  def buyer_is_user?
+    payment.line_item_group_buyer_id == user.id
+  end
 
-    def type_allowed?
-      payment.line_item_group.business_transactions.map(&:selected_payment).map do |p|
-        Payment.parse_type p
-      end.include? payment.type
-    end
+  def type_allowed?
+    payment.line_item_group.business_transactions.map(&:selected_payment).map do |p|
+      Payment.parse_type p
+    end.include? payment.type
+  end
 end

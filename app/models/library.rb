@@ -82,14 +82,14 @@ class Library < ActiveRecord::Base
 
   private
 
-    # when an exhibition name is set to a library, remove the same exhibition
-    # name from all other libraries.
-    def uniquify_exhibition_name
-      if self.exhibition_name
-        Library.where(exhibition_name: self.exhibition_name).where('id != ?', self.id).each do |library|
-          library.update_attribute(:exhibition_name, nil)
-        end
+  # when an exhibition name is set to a library, remove the same exhibition
+  # name from all other libraries.
+  def uniquify_exhibition_name
+    if self.exhibition_name
+      Library.where(exhibition_name: self.exhibition_name).where('id != ?', self.id).each do |library|
+        library.update_attribute(:exhibition_name, nil)
       end
-      true
     end
+    true
+  end
 end
