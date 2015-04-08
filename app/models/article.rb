@@ -57,7 +57,6 @@ class Article < ActiveRecord::Base
     self.save! # validation is performed on the attribute
   end
 
-
   def self.edit_as_new article
     new_article = article.amoeba_dup
     new_article.state = "preview"
@@ -92,7 +91,5 @@ class Article < ActiveRecord::Base
       end
     }
   end
-
-
 
 end

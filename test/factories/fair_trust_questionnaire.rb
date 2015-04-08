@@ -82,7 +82,6 @@ FactoryGirl.define do
       awareness_raising_explanation {Faker::Lorem.sentence(200)}
       awareness_raising_other "Sonstiges"
 
-
   end
 end
 

@@ -57,7 +57,6 @@ module CheckoutHelper
     I18n.t('cart.texts.terms_and_cancellation_label', terms: terms_link, cancellation: cancellation_link).html_safe
   end
 
-
   def line_item_group_title group
     t('cart.texts.line_item_group_by', seller: link_to(group.seller_nickname, user_path(group.seller))).html_safe
   end

@@ -69,6 +69,4 @@ class LineItem < ActiveRecord::Base
 
   private
 
-
-
 end

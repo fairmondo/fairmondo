@@ -52,5 +52,4 @@ class PlainRadioInput < Formtastic::Inputs::RadioInput
     end
   end
 
-
 end

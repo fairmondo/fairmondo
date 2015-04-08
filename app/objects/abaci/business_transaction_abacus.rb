@@ -53,7 +53,6 @@ class BusinessTransactionAbacus
 
     end
 
-
     def self.prices_of business_transaction
       {
         retail_price: retail_price_of(business_transaction),

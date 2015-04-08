@@ -13,7 +13,6 @@ class ArticleSearch
     relevance: :_score
   }.stringify_keys
 
-
   # Index
 
   def index
@@ -99,7 +98,6 @@ class ArticleSearch
       index.filter(prefix: { zip: @query.zip }) if @query.zip.present?
     end
 
-
     def price_filter
       index.filter(range: {price: @query.price_range })
     end
@@ -117,13 +115,11 @@ class ArticleSearch
       index.aggregations(category: {terms: {field: :categories, size: 10000}})
     end
 
-
     # sorting
     def sorting
       order = @query.order_by
       order = @query.search_by_term? ? "relevance" : "newest" unless order
       index.order(SORT[order])
     end
-
 
 end

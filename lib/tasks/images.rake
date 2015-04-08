@@ -26,7 +26,6 @@ namespace :images do
     end
   end
 
-
   # Source: https://gist.github.com/jlecour/1276437
   desc "Destroy paperclip attachment files that are not attached to any record"
   task :clean_orphan_files => :environment do
@@ -50,7 +49,6 @@ namespace :images do
       end
     end
 
-
     def verify_directory(start_dir, model)
       @last_path = start_dir.to_s
       if start_dir.children.any? {|e| @styles.include? e.basename.to_s}
@@ -66,9 +64,7 @@ namespace :images do
       end
     end
 
-
     verify_directory(@root_dir, Image)
   end
-
 
 end

@@ -46,7 +46,6 @@ namespace :deploy do
 
   after :publishing, :restart
 
-
   before :updated, 'eye:quiet'
   after :published, 'eye:quit'
   after :published, 'eye:init'
@@ -64,8 +63,6 @@ namespace :deploy do
 
   after :finishing, "deploy:cleanup"
 end
-
-
 
 namespace :rails do
   desc "Open the rails console on each of the remote servers"

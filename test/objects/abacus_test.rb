@@ -68,7 +68,6 @@ describe 'Abacus' do
     shipments = 20.fdiv(@line_item_group.unified_transport_maximum_articles).ceil
     transport_price = @line_item_group.unified_transport_price * shipments
 
-
     # transports
     @abacus.transport_listing.single_transports.size.must_equal 0
     @abacus.transport_listing.unified_transport[:shipments].must_equal shipments

@@ -77,7 +77,6 @@ describe BankDetailsController do
     end
   end
 
-
   describe "GET 'check'" do
     context "as ajax" do
       context "if parameter validation was successful" do
@@ -128,7 +127,6 @@ describe BankDetailsController do
   end
 
 end
-
 
 # mit validen Parametern aufrufe, soll sie ein true zurückgeben
 # mit nicht-validen Parametern aufrufe, soll sie ein false zurückgeben

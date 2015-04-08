@@ -84,7 +84,6 @@ module Article::Images
       image
     end
 
-
     def cleanup_images
       self.images.each do |i|
         i.write_path_to_file_for('deletions')

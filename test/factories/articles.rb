@@ -48,7 +48,6 @@ FactoryGirl.define do
       article.calculate_fees_and_donations
     end
 
-
     transport_type1 true
     transport_type1_provider "DHL Päckchen"
     transport_type1_price_cents { Random.new.rand(200)+1 }

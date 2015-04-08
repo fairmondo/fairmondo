@@ -18,7 +18,6 @@ class RemoteValidation < Struct.new(:model, :field, :value, :additional_params)
     validator.errors[field]
   end
 
-
   private
     def create_validator
       if additional_params['id'] # is update

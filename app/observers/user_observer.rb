@@ -40,7 +40,6 @@ class UserObserver < ActiveRecord::Observer
     CleverreachAPI.add(user) if user.newsletter?
   end
 
-
   private
 
   def update_fastbill_account_for user

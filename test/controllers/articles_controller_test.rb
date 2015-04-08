@@ -317,7 +317,6 @@ describe ArticlesController do
         sign_in user
       end
 
-
       it "should be successful for the seller" do
         @article = FactoryGirl.create :preview_article, seller: user
         get :edit, id: @article.id

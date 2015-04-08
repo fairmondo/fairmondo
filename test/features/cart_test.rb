@@ -189,8 +189,6 @@ feature 'Checkout' do
     page.find('select#cart_checkout_form_line_item_groups_1_unified_payment_method').find("option[value='cash']").select_option
     page.find('select#cart_checkout_form_line_item_groups_1_unified_payment_method').find("option[value='cash']").select_option
 
-
-
     click_button I18n.t('common.actions.continue')
 
     # Step 1 correct errors
@@ -215,8 +213,6 @@ feature 'Checkout' do
     Cart.last.sold?.must_equal true
 
   end
-
-
 
   scenario 'Buying a cart with one item and free transport and change the
             shipping address' do
@@ -257,7 +253,6 @@ feature 'Checkout' do
     Cart.last.line_item_groups.first.transport_address.must_equal transport_address
 
   end
-
 
   scenario 'Buying a cart with items from different users' do
 
@@ -309,7 +304,6 @@ feature 'Checkout' do
     totals.map(&:text).sort.each_with_index do |total, i|
       total.must_equal totals_expected[i]
     end
-
 
     # checkout
 
@@ -406,7 +400,6 @@ feature 'Checkout' do
     # Step 2
 
     click_button I18n.t('common.actions.continue')
-
 
     # checkout
     article.update_attribute(:quantity_available, 0)

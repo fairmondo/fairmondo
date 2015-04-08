@@ -236,7 +236,6 @@ class ArticlesController < ApplicationController
       @article.article_template_name = nil
     end
 
-
     ############ Images ################
 
     def save_images

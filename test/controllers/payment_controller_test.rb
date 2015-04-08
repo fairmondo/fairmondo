@@ -27,7 +27,6 @@ describe PaymentsController do
   let(:bt) { lig.business_transactions.first }
   let(:buyer) { bt.buyer }
 
-
   before do
     sign_in buyer
   end

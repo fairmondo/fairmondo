@@ -11,7 +11,6 @@ namespace :transactions do
   end
 end
 
-
 def get_recursive_sold_count category
   count = 0
   category.children.each do |c|

@@ -147,7 +147,6 @@ Fairmondo::Application.routes.draw do
   get 'new_libraries', to: 'libraries#index', defaults: { mode: 'new' }
   get 'myfavorite_libraries', to: 'libraries#index', defaults: { mode: 'myfavorite' }
 
-
   # categories routes
   resources :categories, only: [:index,:show] do
     member do

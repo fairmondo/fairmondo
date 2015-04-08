@@ -58,7 +58,6 @@ class ApplicationController < ActionController::Base
       user_path(resource_or_scope)
   end
 
-
   protected
 
     def json_request?

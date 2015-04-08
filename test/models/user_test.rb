@@ -260,7 +260,6 @@ describe User do
     end
   end
 
-
   describe "subclasses" do
     describe PrivateUser do
       let(:user) { FactoryGirl::create(:private_user) }

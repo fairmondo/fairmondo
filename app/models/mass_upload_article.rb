@@ -21,7 +21,6 @@ class MassUploadArticle < ActiveRecord::Base
   }
   IDENTIFIERS = %w(id custom_seller_identifier)
 
-
   def done?
     self.article.present? || self.validation_errors.present?
   end
@@ -30,7 +29,6 @@ class MassUploadArticle < ActiveRecord::Base
     mass_upload_article = mass_upload.mass_upload_articles.where(:row_index => index).first
     mass_upload_article || mass_upload.mass_upload_articles.create!(:row_index => index)
   end
-
 
   def process article_attributes
     @original_attributes = article_attributes
@@ -74,7 +72,6 @@ class MassUploadArticle < ActiveRecord::Base
   def update_index
     Indexer.index_article @prepared_article
   end
-
 
   ##################################### Prepare Attributes ####################################
 

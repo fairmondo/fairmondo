@@ -10,7 +10,6 @@ class ArticleExporter
     #write the headers and set options for csv generation
     csv.puts CSV.generate_line export_attributes, @@csv_options
 
-
     determine_articles_to_export( user, params ).find_each do |article|
 
       row = Hash.new
@@ -25,7 +24,6 @@ class ArticleExporter
     csv.flush
   end
 
-
   def self.export_erroneous_articles erroneous_articles
     csv = CSV.generate_line( MassUpload.article_attributes, @@csv_options )
     erroneous_articles.each do |article|
@@ -34,7 +32,6 @@ class ArticleExporter
     csv
   end
 
-
   def self.determine_articles_to_export user, params
     if params == "active"
       user.articles.where(:state => "active").order("created_at ASC").includes(:images,:categories,:social_producer_questionnaire,:fair_trust_questionnaire)
@@ -42,7 +39,6 @@ class ArticleExporter
       user.articles.where("state = ? OR state = ?","preview","locked").order("created_at ASC").includes(:images,:categories,:social_producer_questionnaire,:fair_trust_questionnaire)
     end
   end
-
 
   def self.provide_fair_attributes_for article
     attributes = Hash.new
@@ -55,7 +51,6 @@ class ArticleExporter
     end
     serialize_checkboxes_in attributes
   end
-
 
   def self.serialize_checkboxes_in attributes
     attributes.each do |k, v|

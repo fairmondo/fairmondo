@@ -55,7 +55,6 @@ class ArticleSearchForm
     !filter_attributes.reject{ |k,_v| k == :category_id }.empty?
   end
 
-
   # Check if an attribute has a specific value and if it is set exclusively,
   #
   #   exclusive_value?(:fair, true)
@@ -64,7 +63,6 @@ class ArticleSearchForm
     attrs = filter_attributes
     attrs.length == 1 && attrs[key] == value
   end
-
 
   def fresh?
     filter_attributes.empty?
@@ -91,7 +89,6 @@ class ArticleSearchForm
     categories.push(Category.find(self.category_id)) if self.category_id.present?
     categories
   end
-
 
   def wegreen_search_string
     if search_by_term?

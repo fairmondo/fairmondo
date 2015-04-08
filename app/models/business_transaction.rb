@@ -61,8 +61,6 @@ class BusinessTransaction < ActiveRecord::Base
   delegate :payment_address, :transport_address, :purchase_id, :cart_id, to: :line_item_group
   #delegate :buyer, :seller, to: :line_item_group
 
-
-
   validates :selected_transport, inclusion: { in: proc { |record| record.article.selectable_transports } }, presence: true , unless: :is_in_unified_transport?
   validates :selected_payment, inclusion: { in: proc { |record| record.article.selectable_payments } }, common_sense: true, presence: true
 
@@ -103,7 +101,6 @@ class BusinessTransaction < ActiveRecord::Base
     end
   end
 
-
   # TODO Check if there is a better way -> only used in export model
   def selected_transport_provider
     if self.selected_transport == "pickup"
@@ -116,7 +113,6 @@ class BusinessTransaction < ActiveRecord::Base
       self.article.transport_type2_provider
     end
   end
-
 
   def is_in_unified_transport?
     article.unified_transport? && line_item_group.unified_transport?

@@ -23,7 +23,6 @@ require_relative '../test_helper'
 
 include Warden::Test::Helpers
 
-
 feature "Libraries on welcome page" do
   setup do
     @user = FactoryGirl.create :user
@@ -35,7 +34,6 @@ feature "Libraries on welcome page" do
 
     @admin = FactoryGirl.create :admin_user
   end
-
 
   scenario "Personalized library section" do
     # Create two hearts (including new libraries)
@@ -53,7 +51,6 @@ feature "Libraries on welcome page" do
     assert page.has_content?(heart1.heartable.name)
     assert page.has_content?(heart2.heartable.name)
   end
-
 
   scenario "Combined scenario for trending libraries" do
     login_as @admin
@@ -90,7 +87,6 @@ feature "Libraries on welcome page" do
   end
 end
 
-
 feature 'Library management' do
   setup do
     @user = FactoryGirl.create :user
@@ -123,7 +119,6 @@ feature 'Library management' do
     end
     page.must_have_selector 'a', text: 'bazfuz'
   end
-
 
   scenario "user updates library with a blank name" do
     library = FactoryGirl.create :library, name: 'foobar', user: @user
@@ -201,7 +196,6 @@ feature 'Library visibility' do
 
   end
 end
-
 
 feature "Featured (exhibited) libraries" do
   scenario "user visits root path with exhibition" do

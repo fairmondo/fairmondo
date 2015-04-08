@@ -49,7 +49,6 @@ class TransportAbacus
     quantity.fdiv(maximum_per_shipment).ceil
   end
 
-
   private
     def initialize business_transaction_abacus
       @line_item_group = business_transaction_abacus.line_item_group
@@ -87,7 +86,5 @@ class TransportAbacus
     def retail_price business_transaction
       @business_transaction_abacus.prices[business_transaction][:retail_price]
     end
-
-
 
 end

@@ -25,7 +25,6 @@ class ProcessRowMassUploadWorker
                   retry: 20,
                   backtrace: true
 
-
   sidekiq_retries_exhausted do |msg|
      Sidekiq.logger.warn "Failed #{msg['class']} with #{msg['args']}: #{msg['error_message']}"
      mass_upload = MassUpload.find msg['args'].first

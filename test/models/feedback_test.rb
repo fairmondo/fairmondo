@@ -38,7 +38,6 @@ describe Feedback do
     it { subject.must allow_value('test@test.museum').for :from }
     it { subject.must allow_value('test@test.co.uk').for :from }
 
-
     describe "when validating send_feedback" do
       before { subject.variety = 'send_feedback' }
       it { subject.must validate_presence_of :feedback_subject }

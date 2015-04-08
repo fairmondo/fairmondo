@@ -36,7 +36,6 @@ module NoticeHelper
     end
   end
 
-
   def render_data_confirm
     confirm_text = I18n.t('common.text.confirm_yes')
     cancel_text  = I18n.t('common.text.confirm_no')

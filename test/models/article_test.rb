@@ -137,7 +137,6 @@ describe Article do
     end
   end
 
-
   describe "::FeesAndDonations" do
     before do
       article.seller = User.new
@@ -238,7 +237,6 @@ describe Article do
     end
 
     describe "methods" do
-
 
       describe "#selectable_transports" do
         it "should call the private selectable function" do

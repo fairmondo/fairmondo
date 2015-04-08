@@ -145,7 +145,6 @@ class MassUpload < ActiveRecord::Base
     end
   end
 
-
   private
 
     # Check if finish conditions are met

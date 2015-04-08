@@ -2,7 +2,6 @@ require_relative '../test_helper'
 
 include Warden::Test::Helpers
 
-
 feature "Access Mass-upload form" do
 
   scenario "guests wants to have a new mass_upload" do
@@ -15,7 +14,6 @@ feature "Access Mass-upload form" do
     visit new_article_path
     page.wont_have_link(I18n.t('users.boxes.import'), href: new_mass_upload_path)
   end
-
 
   scenario "legal_entity user wants to access a new mass_upload over new Articles page" do
     user = FactoryGirl.create :legal_entity
@@ -76,7 +74,6 @@ feature "Uploading a CSV" do
     Article.find(3).title.must_equal "Name von Artikel 3"
   end
 
-
   scenario "legal entity uploads some articles activates them; articles aresold and updated with another CSV" do
     # create articles
     attach_file('mass_upload_file', 'test/fixtures/mass_upload_correct.csv')
@@ -109,7 +106,6 @@ feature "Uploading a CSV" do
     article2.active?.must_equal true
     Article.find(3).title.must_equal "Name von Artikel 3"
   end
-
 
   scenario "legal entity deletes an Articles via CSV" do
     FactoryGirl.create :article, seller: @user
@@ -148,8 +144,6 @@ feature "Uploading a CSV" do
     Article.find(1).locked?.must_equal true
     Article.find(2).locked?.must_equal true
   end
-
-
 
   scenario "legal entity tries to delete an article that belongs to another user" do
     FactoryGirl.create :article
@@ -204,7 +198,6 @@ feature "Uploading a CSV" do
     Article.unscoped.where(:title => "neuer titel").size.must_equal 2
   end
 
-
   scenario "legal entity uploads a file with an unknown action" do
     FactoryGirl.create :article, seller: @user
 
@@ -225,14 +218,11 @@ feature "Uploading a CSV" do
     page.must_have_content(I18n.t('mass_uploads.errors.wrong_article_message'))
   end
 
-
-
   scenario "legal entity uploads a file with an invalid encoding" do
     attach_file('mass_upload_file', 'test/fixtures/mass_upload_wrong_encoding.csv')
     click_button I18n.t('mass_uploads.labels.upload_article')
     page.must_have_content(I18n.t('mass_uploads.errors.wrong_encoding'))
   end
-
 
   scenario "legal entity uploads a file with illegal quoting" do
     attach_file('mass_upload_file', 'test/fixtures/mass_upload_illegal_quoting.csv')

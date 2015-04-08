@@ -32,7 +32,6 @@ class FairTrustQuestionnaire < ActiveRecord::Base
 
   belongs_to :article
 
-
   # Question 1: supports marginalized workers (req)
 
   serialize :support_checkboxes, Array

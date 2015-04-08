@@ -74,5 +74,4 @@ module User::Ratings
     purchase_volume
   end
 
-
 end

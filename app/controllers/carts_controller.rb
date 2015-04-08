@@ -38,7 +38,6 @@ class CartsController < ApplicationController
     end
   end
 
-
   # buy cart
   def update
     authorize @cart

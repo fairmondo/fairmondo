@@ -4,7 +4,6 @@ class ContactForm
   attribute :email_transfer_accepted, type: Boolean, default: true
   attribute :text, type: String
 
-
   validates :email_transfer_accepted, acceptance: { accept: true }
   validates :text, length: { maximum: 2000 }, presence: true
 

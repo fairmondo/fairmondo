@@ -52,7 +52,6 @@ describe UsersController do
         sign_in @user
       end
 
-
       it "should be successful" do
         get :show, :id => @user
         assert_response :success

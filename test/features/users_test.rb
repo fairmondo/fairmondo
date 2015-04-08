@@ -254,7 +254,6 @@ feature "User account management" do
     visit edit_user_registration_path @user
     page.wont_have_css 'h3', text: I18n.t('users.form_titles.contact_person')
 
-
     within '#edit_user' do # id of the form
       page.wont_have_css 'h3', text: I18n.t('formtastic.input_steps.user.terms')
       page.wont_have_content I18n.t 'formtastic.labels.user.terms'
@@ -263,7 +262,6 @@ feature "User account management" do
     end
   end
 end
-
 
 feature "Newsletter" do
   setup do

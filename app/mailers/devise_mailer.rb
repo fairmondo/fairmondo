@@ -25,7 +25,6 @@ class DeviseMailer < Devise::Mailer
   before_filter :inline_logos
   layout 'email'
 
-
   def welcome_mail(record, token, _opts={})
     attachments['AGB_Fairmondo.pdf'] = File.read(Rails.root.join('app/assets/docs/AGB.pdf'))
     attachments['Datenschutz_Fairmondo.pdf'] = File.read(Rails.root.join('app/assets/docs/Datenschutz_Fairmondo_FINAL.pdf'))

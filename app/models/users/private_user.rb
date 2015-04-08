@@ -56,7 +56,6 @@ class PrivateUser < User
     salesvolume
   end
 
-
   def can_refund? business_transaction
     Time.now >= business_transaction.sold_at + 14.days && Time.now <= business_transaction.sold_at + 28.days
   end

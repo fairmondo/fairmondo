@@ -65,6 +65,4 @@ module User::State
     RatingMailer.delay.bad_seller_notification(self)
   end
 
-
-
 end

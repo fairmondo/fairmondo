@@ -72,7 +72,6 @@ module Article::ExtendedAttributes
     }, allow_nil: true
   end
 
-
   def transport_details_for type
     case type
     when :type1

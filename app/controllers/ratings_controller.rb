@@ -48,7 +48,6 @@ class RatingsController < ApplicationController
     respond_with(@ratings)
   end
 
-
   private
 
     def set_user

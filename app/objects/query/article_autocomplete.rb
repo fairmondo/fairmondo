@@ -11,7 +11,6 @@ class ArticleAutocomplete
     { query: @query , suggestions: suggestions }
   end
 
-
   private
 
     # ES Queries

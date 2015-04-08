@@ -5,7 +5,6 @@ class BusinessTransactionMailerWorker
                   retry: 5,
                   backtrace: true
 
-
   def perform business_transaction_id, type
 
     business_transaction = BusinessTransaction.find business_transaction_id

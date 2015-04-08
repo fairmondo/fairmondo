@@ -35,7 +35,6 @@ module Fairtastic
       super(*extended_fieldset_args(*args),&block)
     end
 
-
     def semantic_errors(*args)
       args.inject([]) do |_array, method|
         errors = Array(@object.errors[method.to_sym]).to_sentence
@@ -43,7 +42,6 @@ module Fairtastic
       end
       super
     end
-
 
     # Make Accordions red if contains errors
     def semantic_fields_for(record_or_name_or_array, *args, &block)

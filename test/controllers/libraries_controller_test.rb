@@ -76,7 +76,6 @@ describe LibrariesController do
       end
     end
 
-
     describe "with parameter 'iframe=true'" do
       it 'should render the iframe layout' do
         get :index, iframe: true

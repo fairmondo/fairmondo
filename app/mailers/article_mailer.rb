@@ -26,7 +26,6 @@ class ArticleMailer < ActionMailer::Base
   before_filter :inline_logos, except: :report_article
   layout 'email', except: :report_article
 
-
   def report_article article, user, text
     @text = text
     @article = article

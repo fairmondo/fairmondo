@@ -138,7 +138,6 @@ class Statistic
     growth_rate BusinessTransaction.last_week.joins(:article).sum("articles.calculated_fair_cents * business_transactions.quantity_bought"), BusinessTransaction.week_before_last_week.joins(:article).sum("articles.calculated_fair_cents * business_transactions.quantity_bought")
   end
 
-
   private
 
   def growth_rate last_week, week_before_last_week
