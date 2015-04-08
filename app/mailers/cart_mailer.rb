@@ -8,16 +8,8 @@ class CartMailer < ActionMailer::Base
   def buyer_email(cart)
     cart.line_item_groups.each do |lig|
       add_image_attachments_for lig
-
-      if lig.seller.is_a?(LegalEntity) && lig.seller.terms && lig.seller.cancellation
-        filename = "#{ lig.seller_nickname }_agb_und_widerrruf.pdf"
-        attachments[filename] = TermsAndCancellationPdf.new(lig).render
-      end
-
-      unless lig.business_transactions.select { |bt| bt.selected_transport == 'bike_courier' }.empty?
-        filename = $courier['tos']
-        attachments[filename] = File.read(Rails.root.join("app/assets/docs/#{ filename }"))
-      end
+      add_legal_documents_for lig
+      add_bike_courier_documents_for lig
     end
 
     @cart = cart
@@ -39,15 +31,15 @@ class CartMailer < ActionMailer::Base
   end
 
   def courier_notification(business_transaction)
-     @business_transaction = business_transaction
-     @buyer           = business_transaction.buyer
-     @seller          = business_transaction.seller
-     @subject         = '[Fairmondo] Artikel ausliefern'
-     @courier_email   = Rails.env == 'production' ? $courier['email'] : 'test@test.com'
+    @business_transaction = business_transaction
+    @buyer           = business_transaction.buyer
+    @seller          = business_transaction.seller
+    @subject         = "[Fairmondo] Artikel ausliefern"
+    @courier_email   = Rails.env == 'production' ? $courier['email'] : 'test@test.com'
 
-     if @business_transaction.line_item_group.paypal_payment && @business_transaction.line_item_group.paypal_payment.confirmed? # && @business_transaction.ready?
-       mail(to: @courier_email, subject: @subject, bcc: 'bybike@fairmondo.de')
-     end
+    if @business_transaction.line_item_group.paypal_payment && @business_transaction.line_item_group.paypal_payment.confirmed?
+      mail(to: @courier_email, subject: @subject, bcc: 'bybike@fairmondo.de')
+    end
   end
 
   def voucher_paid_email payment_id
@@ -75,11 +67,24 @@ class CartMailer < ActionMailer::Base
   end
 
   private
-
     def add_image_attachments_for line_item_group
       line_item_group.line_items.each do |li|
         attachment = image_attachment_for li
         attachments.inline[li.article.title_image.image_file_name] = attachment if attachment
+      end
+    end
+
+    def add_legal_documents_for lig
+      if lig.seller.is_a?(LegalEntity) && lig.seller.terms && lig.seller.cancellation
+        filename = "#{ lig.seller_nickname }_agb_und_widerrruf.pdf"
+        attachments[filename] = TermsAndCancellationPdf.new(lig).render
+      end
+    end
+
+    def add_bike_courier_documents_for lig
+      unless lig.business_transactions.select{|bt| bt.selected_transport == 'bike_courier'}.empty?
+        filename = $courier['tos']
+        attachments[filename] = File.read(Rails.root.join("app/assets/docs/#{ filename }"))
       end
     end
 

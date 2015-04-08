@@ -31,8 +31,7 @@ class RegistrationsController < Devise::RegistrationsController
     # Check if parameters have been provided by a landing page and set object attributes accordingly
     resource.assign_attributes(params[:external_user].for(resource).on(:create).refine) if params[:external_user]
 
-    @validatable = devise_mapping.validatable?
-    if @validatable
+    if devise_mapping.validatable?
       @minimum_password_length = resource_class.password_length.min
     end
     respond_with self.resource
@@ -45,29 +44,15 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def update
-    self.resource = resource_class.to_adapter.get!(send(:"current_#{resource_name}").to_key)
-    prev_unconfirmed_email = resource.unconfirmed_email if resource.respond_to?(:unconfirmed_email)
-
+    self.resource = resource_class.to_adapter.get!(send(:"current_#{ resource_name }").to_key)
     address_params = params[:address] ? params.for(Address).refine : {}
     resource.build_standard_address_from address_params
+    prev_unconfirmed_email = resource.unconfirmed_email if resource.respond_to?(:unconfirmed_email)
 
-    successfully_updated = update_account(account_update_params)
-    if successfully_updated
-
-      resource.save_already_validated_standard_address!
-
-      if is_navigational_format?
-        flash_key = update_needs_confirmation?(resource, prev_unconfirmed_email) ?
-          :changed_email : :updated
-        set_flash_message :notice, flash_key
-      end
-
-      sign_in resource_name, resource, bypass: true
-      respond_with resource, location: after_update_path_for(resource)
+    if update_account(account_update_params)
+      actions_for_successful_update_for resource, prev_unconfirmed_email
     else
-      clean_up_passwords resource
-      resource.image.save if resource.image
-      respond_with resource
+      actions_for_unsuccessful_update_for resource
     end
   end
 
@@ -103,6 +88,26 @@ class RegistrationsController < Devise::RegistrationsController
         resource.update_without_password(account_update_params)
       end
     end
+
+    def actions_for_successful_update_for resource, prev_unconfirmed_email = nil
+      resource.save_already_validated_standard_address!
+
+      if is_navigational_format?
+        flash_key = update_needs_confirmation?(resource, prev_unconfirmed_email) ?
+          :changed_email : :updated
+        set_flash_message :notice, flash_key
+      end
+
+      sign_in resource_name, resource, bypass: true
+      respond_with resource, location: after_update_path_for(resource)
+    end
+
+    def actions_for_unsuccessful_update_for resource
+      clean_up_passwords resource
+      resource.image.save if resource.image
+      respond_with resource
+    end
+
 
   protected
 
