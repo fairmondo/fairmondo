@@ -31,11 +31,6 @@ Lint/HandleExceptions:
 Lint/ParenthesesAsGroupedExpression:
   Enabled: false
 
-# Offense count: 7
-# Cop supports --auto-correct.
-Lint/UnusedMethodArgument:
-  Enabled: false
-
 # Offense count: 3
 Lint/UselessAccessModifier:
   Enabled: false

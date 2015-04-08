@@ -46,12 +46,12 @@ class ArticleObserver < ActiveRecord::Observer
     article.discount_id = Discount.current.last.id if article.qualifies_for_discount?
   end
 
-  def before_activate(article, transition)
+  def before_activate(article, _transition)
     article.changing_state = true
     article.calculate_fees_and_donations
   end
 
-  def after_activate(article, transition)
+  def after_activate(article, _transition)
     ArticleMailer.delay.article_activation_message(article.id)
     Indexer.index_article article
   end
@@ -59,7 +59,7 @@ class ArticleObserver < ActiveRecord::Observer
   # before_deactivate and before_close will only work on state_changes
   # without validation when you implement it in article/state.rb
 
-  def after_deactivate(article, transition)
+  def after_deactivate(article, _transition)
     article.library_elements.update_all(inactive: true)
     Indexer.index_article article
   end
@@ -73,7 +73,7 @@ class ArticleObserver < ActiveRecord::Observer
     end
   end
 
-  def after_close(article, transition)
+  def after_close(article, _transition)
     article.remove_from_libraries
     article.cleanup_images unless article.business_transactions.any?
     Indexer.index_article article

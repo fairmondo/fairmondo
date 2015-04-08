@@ -51,7 +51,7 @@ module Sanitization
     # Method content for sanitize_clean_X callbacks
     # @api private
     # @return [Proc]
-    def clean_sanitization field, admin_mode, remove_spaces_mode # admin_mode not used
+    def clean_sanitization field, _admin_mode, remove_spaces_mode # admin_mode not used
       Proc.new { self.send("#{field}=", Sanitization.sanitize_clean(self.send(field), remove_spaces_mode)) }
     end
 
