@@ -25,7 +25,7 @@
 
 module Fairtastic
   class FormBuilder < Formtastic::FormBuilder
-    #include Fairtastic::Helpers::FieldsetWrapper
+    # include Fairtastic::Helpers::FieldsetWrapper
     include Fairtastic::Helpers::InputHelper
     include Fairtastic::Inputs::Base::InputSteps
 

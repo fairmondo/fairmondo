@@ -59,7 +59,7 @@ class BusinessTransaction < ActiveRecord::Base
            to: :article_seller, prefix: true
   delegate :url, to: :article_seller_cancellation_form, prefix: true
   delegate :payment_address, :transport_address, :purchase_id, :cart_id, to: :line_item_group
-  #delegate :buyer, :seller, to: :line_item_group
+  # delegate :buyer, :seller, to: :line_item_group
 
   validates :selected_transport, inclusion: { in: proc { |record| record.article.selectable_transports } }, presence: true , unless: :is_in_unified_transport?
   validates :selected_payment, inclusion: { in: proc { |record| record.article.selectable_payments } }, common_sense: true, presence: true
@@ -76,7 +76,7 @@ class BusinessTransaction < ActiveRecord::Base
 
     # custom validations
     bt.validate :transport_address_in_area?
-    #bt.validate :right_time_frame_for_bike_courier?
+    # bt.validate :right_time_frame_for_bike_courier?
   end
 
   state_machine initial: :sold do

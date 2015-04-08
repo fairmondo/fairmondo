@@ -26,7 +26,7 @@ FactoryGirl.define do
   trait :with_business_transactions do
     transient do
       articles_attributes []
-      articles {[]} #dont override
+      articles {[]} # dont override
       create_line_items false
       traits [[:paypal, :transport_type1], [:invoice, :transport_type2]]
       build_or_create_bts { sold ? :create : :build }

@@ -60,35 +60,35 @@ describe ArticlesController do
       end
 
       it "should work with all filters" do
-        #should find the article with title 'muscheln' when searching for muscheln
+        # should find the article with title 'muscheln' when searching for muscheln
         get :index, article_search_form: {q: "muscheln" }
         @controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.sort.must_equal [@second_hand_article,@hardware_article,@no_second_hand_article].map(&:id).sort
 
-        #should find the article with title 'muscheln' when searching for muschel
+        # should find the article with title 'muscheln' when searching for muschel
         get :index, article_search_form: {q: "muschel" }
         @controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.sort.must_equal [@second_hand_article,@hardware_article,@no_second_hand_article].map(&:id).sort
 
-        #should find the article with content 'meer' when searching for meer
+        # should find the article with content 'meer' when searching for meer
         get :index, article_search_form: {q: "meer" , search_in_content: "1"}
         @controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.sort.must_equal [@second_hand_article].map(&:id).sort
 
-        #should find the article with price 1 when filtering <= 1
+        # should find the article with price 1 when filtering <= 1
         get :index, article_search_form: { price_to: "0,01" }
         @controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.sort.must_equal [@normal_article].map(&:id).sort
 
-        #should find the article with price 4 when filtering >= 4
+        # should find the article with price 4 when filtering >= 4
         get :index, article_search_form: { price_from: "0,04" }
         @controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.sort.must_equal [@no_second_hand_article].map(&:id).sort
 
-        #should find the article with price 2 and 3 when filtering >= 2 <= 3
+        # should find the article with price 2 and 3 when filtering >= 2 <= 3
         get :index, article_search_form: { price_to: "0,03" , price_from: "0,02" }
         @controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.sort.must_equal [@second_hand_article,@hardware_article].map(&:id).sort
 
-        #order by price asc
+        # order by price asc
         get :index, article_search_form: { order_by: "cheapest" }
         @controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.must_equal [@normal_article,@second_hand_article,@hardware_article,@no_second_hand_article].map(&:id)
 
-        #order by newest
+        # order by newest
         get :index, article_search_form: { order_by: "newest" }
         @controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.must_equal [@no_second_hand_article,@hardware_article,@second_hand_article,@normal_article].map(&:id)
 
@@ -389,7 +389,7 @@ describe ArticlesController do
     end
   end
 
-  #TODO: add more tests for delete
+  # TODO: add more tests for delete
   describe "#destroy" do
     describe "for signed-in users" do
       before :each do
@@ -488,7 +488,7 @@ describe ArticlesController do
     end
   end
 
-  describe "#autocomplete" do #, search: true
+  describe "#autocomplete" do # , search: true
     it "should be successful" do
       ArticlesIndex.reset!
       @article = FactoryGirl.create :article, :index_article,

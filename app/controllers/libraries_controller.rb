@@ -98,14 +98,14 @@ class LibrariesController < ApplicationController
           library.articles << Article.find(id) if id.present?
         end
         notice = {notice: "Added to library."}
-      rescue => err #will throw errors e.g. if library already had that article
+      rescue => err # will throw errors e.g. if library already had that article
         notice = {error: "Something went wrong: #{err}"} # Only visible for admins
       end
     end
     redirect_to :back, flash: notice
   end
 
-  #for admins to quickly remove an article from a featured library
+  # for admins to quickly remove an article from a featured library
   def admin_remove
     library = Library.where(exhibition_name: params[:exhibition_name]).first
     authorize library

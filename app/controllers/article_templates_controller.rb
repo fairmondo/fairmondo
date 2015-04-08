@@ -68,7 +68,7 @@ class ArticleTemplatesController < ApplicationController
     end
 
     def save_images
-      #At least try to save the images -> not persisted in browser
+      # At least try to save the images -> not persisted in browser
       @article_template.images.each do |image|
         image.save
       end

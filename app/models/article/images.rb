@@ -43,12 +43,12 @@ module Article::Images
     end
 
     def title_image_present?
-      title_image && title_image.image.present? #&& image_accessible?
+      title_image && title_image.image.present? # && image_accessible?
     end
 
     validates :external_title_image_url, :image_2_url, format: URI::regexp(%w(http https)), allow_blank: true
-    #I18n.t('mass_uploads.errors.wrong_external_title_image_url')
-    #I18n.t('mass_uploads.errors.wrong_image_2_url')
+    # I18n.t('mass_uploads.errors.wrong_external_title_image_url')
+    # I18n.t('mass_uploads.errors.wrong_image_2_url')
 
     after_validation :store_external_images
     after_save :cleanup_old_images

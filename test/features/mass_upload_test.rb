@@ -80,7 +80,7 @@ feature "Uploading a CSV" do
     click_link I18n.t("mass_uploads.labels.show_report")
     click_button I18n.t('mass_uploads.labels.mass_activate_articles')
 
-    #sell all articles
+    # sell all articles
     Article.all.each do |article|
       FactoryGirl.create :business_transaction, :pickup, article: article, line_item_group: (FactoryGirl.create :line_item_group, :sold , articles: [article])
     end

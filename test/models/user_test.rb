@@ -332,7 +332,7 @@ describe User do
           private_seller.trustcommunity = true
           private_seller.max_value_of_goods_cents.must_equal $private_seller_constants['bad_salesvolume']
         end
-      end #/bad seller
+      end # /bad seller
 
       describe "standard seller" do
         before :each do
@@ -367,7 +367,7 @@ describe User do
           private_seller.trustcommunity = true
           private_seller.max_value_of_goods_cents.must_equal( $private_seller_constants['standard_salesvolume'] + $private_seller_constants['trusted_bonus'] + $private_seller_constants['verified_bonus'] )
         end
-      end #/standard seller
+      end # /standard seller
 
       describe "good seller" do
         before :each do
@@ -397,7 +397,7 @@ describe User do
           private_seller.trustcommunity = true
           private_seller.max_value_of_goods_cents.must_equal(( $private_seller_constants['standard_salesvolume'] + $private_seller_constants['trusted_bonus'] + $private_seller_constants['verified_bonus'] )* $private_seller_constants['good_factor'] )
         end
-      end #/good seller
+      end # /good seller
 
       it "should have valid private_seller_constants" do
         private_seller.private_seller_constants[:standard_salesvolume].must_equal $private_seller_constants['standard_salesvolume']
@@ -431,7 +431,7 @@ describe User do
           commercial_seller.verified = true
           commercial_seller.max_value_of_goods_cents.must_equal $commercial_seller_constants['bad_salesvolume']
         end
-      end #/bad seller
+      end # /bad seller
 
       describe "standard seller" do
         before :each do
@@ -452,7 +452,7 @@ describe User do
           commercial_seller.verified = true
           commercial_seller.max_value_of_goods_cents.must_equal( $commercial_seller_constants['standard_salesvolume'] + $commercial_seller_constants['verified_bonus'] )
         end
-      end #/standard seller
+      end # /standard seller
 
       describe "good1 seller" do
         before :each do
@@ -473,7 +473,7 @@ describe User do
           commercial_seller.verified = true
           commercial_seller.max_value_of_goods_cents.must_equal(( $commercial_seller_constants['standard_salesvolume'] + $commercial_seller_constants['verified_bonus'] ) * $commercial_seller_constants['good_factor'] )
         end
-      end #/good1 seller
+      end # /good1 seller
 
       describe "good2 seller" do
         before :each do
@@ -494,7 +494,7 @@ describe User do
           commercial_seller.verified = true
           commercial_seller.max_value_of_goods_cents.must_equal(( $commercial_seller_constants['standard_salesvolume'] + $commercial_seller_constants['verified_bonus'] ) * ( $commercial_seller_constants['good_factor']**2 ) )
         end
-      end #/good2 seller
+      end # /good2 seller
 
       describe "good3 seller" do
         before :each do
@@ -515,7 +515,7 @@ describe User do
           commercial_seller.verified = true
           commercial_seller.max_value_of_goods_cents.must_equal(( $commercial_seller_constants['standard_salesvolume'] + $commercial_seller_constants['verified_bonus'] ) * ( $commercial_seller_constants['good_factor']**3 ) )
         end
-      end #/good3 seller
+      end # /good3 seller
 
       describe "good4 seller" do
         before :each do
@@ -531,7 +531,7 @@ describe User do
           commercial_seller.verified = true
           commercial_seller.max_value_of_goods_cents.must_equal(( $commercial_seller_constants['standard_salesvolume'] + $commercial_seller_constants['verified_bonus'] ) * ( $commercial_seller_constants['good_factor']**4 ) )
         end
-      end #/good4 seller
+      end # /good4 seller
 
       it "should have valid commercial_seller_constants" do
         commercial_seller.commercial_seller_constants[:standard_salesvolume].must_equal $commercial_seller_constants['standard_salesvolume']

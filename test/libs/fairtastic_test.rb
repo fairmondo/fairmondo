@@ -22,7 +22,7 @@
 require "test_helper"
 
 describe 'Fairtastic' do
-  #include RSpec::Rails::HelperExampleGroup
+  # include RSpec::Rails::HelperExampleGroup
 
   describe "InputSteps" do
     before :each do

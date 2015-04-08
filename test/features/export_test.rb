@@ -25,7 +25,7 @@ feature "Exports" do
 
     click_link I18n.t('articles.export.inactive')
 
-    page.source.must_equal IO.read('test/fixtures/mass_upload_export.csv', encoding: 'ascii-8bit') #page source returns ascii-8 bit
+    page.source.must_equal IO.read('test/fixtures/mass_upload_export.csv', encoding: 'ascii-8bit') # page source returns ascii-8 bit
 
     visit user_path(legal_entity)
     # activate all articles

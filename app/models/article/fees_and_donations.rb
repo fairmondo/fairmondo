@@ -97,7 +97,7 @@ module Article::FeesAndDonations
     def friendly_percent_result_cents
       # At the moment there is no friendly percent
       # for rounding -> always round up (e.g. 900,1 cents are 901 cents)
-      #(self.price_cents * (self.friendly_percent / 100.0)).ceil
+      # (self.price_cents * (self.friendly_percent / 100.0)).ceil
       # NGOs are not allowed to give donation to other NGO
       self.seller.ngo ? 0 : (self.price_cents * (self.friendly_percent / 100.0)).ceil
     end

@@ -20,7 +20,7 @@
 # along with Fairmondo.  If not, see <http://www.gnu.org/licenses/>.
 #
 class DeviseMailer < Devise::Mailer
-  #helper :application # gives access to all helpers defined within `application_helper`.
+  # helper :application # gives access to all helpers defined within `application_helper`.
   include MailerHelper
   before_filter :inline_logos
   layout 'email'

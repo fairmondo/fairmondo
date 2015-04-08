@@ -35,7 +35,7 @@ class ArticlesController < ApplicationController
   # Layout Requirements
   before_action :ensure_complete_profile , only: [:new, :create]
 
-  #search_cache
+  # search_cache
   before_action :build_search_cache, only: :index
   before_action :category_specific_search,
                 only: :index,
@@ -62,7 +62,7 @@ class ArticlesController < ApplicationController
   rescue_from ActiveRecord::RecordNotFound, with: :similar_articles,
                                             only: :show
 
-  #Autocomplete
+  # Autocomplete
   def autocomplete
     render json: ArticleAutocomplete.new(params[:q]).autocomplete
   rescue Faraday::ConnectionFailed
@@ -239,7 +239,7 @@ class ArticlesController < ApplicationController
     ############ Images ################
 
     def save_images
-      #At least try to save the images -> not persisted in browser
+      # At least try to save the images -> not persisted in browser
       @article.images.each_with_index do |image,index|
         if image.new_record?
           # strange HACK because paperclip will now rollback uploaded files and we want the file to be saved anyway

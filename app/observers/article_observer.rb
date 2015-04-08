@@ -33,11 +33,11 @@ class ArticleObserver < ActiveRecord::Observer
   def after_save(article)
     # derive a template
     if article.save_as_template?
-      cloned_article = article.amoeba_dup #duplicate the article
-      cloned_article.save_as_template = "0" #no loops
+      cloned_article = article.amoeba_dup # duplicate the article
+      cloned_article.save_as_template = "0" # no loops
       article.update_column(:article_template_name, nil)
       cloned_article.templatify
-      cloned_article.save #save the cloned article
+      cloned_article.save # save the cloned article
     end
   end
 
@@ -87,8 +87,8 @@ class ArticleObserver < ActiveRecord::Observer
 
       original_article.library_elements.update_all(article_id: article.id, inactive:false)
 
-      #do not remove sold articles, we want to keep them
-      #if the old article has errors we still want to remove it from the marketplace
+      # do not remove sold articles, we want to keep them
+      # if the old article has errors we still want to remove it from the marketplace
       original_article.close_without_validation
 
       # the original has been handled. now unset the reference (for policy)

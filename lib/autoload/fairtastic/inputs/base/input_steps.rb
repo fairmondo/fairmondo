@@ -32,11 +32,11 @@ module Fairtastic
             options[:class] = "#{step_key}-step-inputs"
           end
 
-          #evaluate the block before setting css class for errors
+          # evaluate the block before setting css class for errors
           block_content = inputs(options.except(:tooltip), &block)
 
-          #if we detect an error at an input we set the error class of input step
-          #after setting reset the block error
+          # if we detect an error at an input we set the error class of input step
+          # after setting reset the block error
           if @input_step_with_errors || options[:has_errors]
             css << " Accordion-item--errors"
             @input_step_with_errors = false

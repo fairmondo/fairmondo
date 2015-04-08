@@ -26,7 +26,7 @@ class CartsController < ApplicationController
 
   def edit
     authorize @cart
-    @cart_checkout_form = CartCheckoutForm.new(session, @cart, params[:checkout]) #try the old session data
+    @cart_checkout_form = CartCheckoutForm.new(session, @cart, params[:checkout]) # try the old session data
     if !all_line_items_valid?
       redirect_to cart_path @cart
     elsif @cart_checkout_form.session_valid? && params[:checkout]
@@ -93,7 +93,7 @@ class CartsController < ApplicationController
 
     def reject_orphaned_line_items
       orphaned = @cart.line_items.select(&:orphaned?).each(&:destroy)
-      if orphaned.any? #reload cart
+      if orphaned.any? # reload cart
         set_cart
       end
     end

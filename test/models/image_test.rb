@@ -68,7 +68,7 @@ describe Image do
       end
 
       it "should return the normal url when not processing" do
-        #image.image_processing = false
+        # image.image_processing = false
         image.url_or_original_while_processing.must_equal image.image.url(:thumb)
       end
     end

@@ -109,7 +109,7 @@ describe Article do
         article = FactoryGirl.create :article, :with_fixture_image
         testpath = article.images.first.image.path # The image needs to be in place !!!
         FileUtils.mkpath File.dirname(testpath) # make the dir
-        FileUtils.cp(Rails.root.join('test', 'fixtures', 'test.png'), testpath) #copy the image
+        FileUtils.cp(Rails.root.join('test', 'fixtures', 'test.png'), testpath) # copy the image
 
         dup = article.amoeba_dup
         dup.images[0].id.wont_equal article.images[0].id
@@ -160,7 +160,7 @@ describe Article do
         ngo_article.friendly_percent.must_equal 100
       end
 
-      #expand these unit tests!
+      # expand these unit tests!
       it "should return zeros on fee and fair cents with a friendly_percent of gt 100" do
         article.friendly_percent = 101
         article.calculate_fees_and_donations

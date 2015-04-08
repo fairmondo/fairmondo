@@ -114,7 +114,7 @@ Fairmondo::Application.routes.draw do
 
   resources :feedbacks, only: [:create,:new]
 
-  #the user routes
+  # the user routes
 
   resources :users, only: [:show] do
     resources :addresses, except: [:index, :show]

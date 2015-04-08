@@ -299,11 +299,11 @@ feature  "Article view for guest users" do
     visit articles_path
   end
 
-  #scenario 'user opens a conventional article from a user that is not whitelisted' do
+  # scenario 'user opens a conventional article from a user that is not whitelisted' do
   #  $exceptions_on_fairmondo['no_fair_alternative']['user_ids'] = []
   #  visit article_path @article_conventional
   #  page.assert_selector('div.fair_alternative')
-  #end
+  # end
 
   scenario  "user opens a conventional article from a user that is whitelisted" do
     $exceptions_on_fairmondo['no_fair_alternative']['user_ids'] = [@seller.id]

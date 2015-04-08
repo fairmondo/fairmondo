@@ -8,7 +8,7 @@ class ToolboxController < ApplicationController
 
   def session_expired
     respond_to do |format|
-      #Devise.sign_out_all_scopes ? sign_out : sign_out(resource_name) #for testing purposes
+      # Devise.sign_out_all_scopes ? sign_out : sign_out(resource_name) #for testing purposes
       format.json { render status: 200, json: { expired: current_user.nil? } }
     end
   end
@@ -63,7 +63,7 @@ class ToolboxController < ApplicationController
 
     def get_feed_items
       begin
-        Timeout::timeout(10) do #10 second timeout
+        Timeout::timeout(10) do # 10 second timeout
           OpenSSL::SSL::SSLContext::DEFAULT_PARAMS[:ssl_version] = 'SSLv23' # See comment to http://stackoverflow.com/q/20169301/409087
                                                                            # TODO Set /etc/ssl/certs as sll_ca_folder to remove this hack
           feed = open 'https://info.fairmondo.de/?feed=rss', ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE

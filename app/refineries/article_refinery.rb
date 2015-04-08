@@ -12,7 +12,7 @@ class ArticleRefinery < ApplicationRefinery
       :payment_paypal, :payment_invoice, :payment_voucher,
       :payment_cash_on_delivery, :payment_cash_on_delivery_price,
       :payment_cash_on_delivery_price_cents,
-      #Basic price attrs
+      # Basic price attrs
       :basic_price, :basic_price_cents, :basic_price_amount,
       # Transport attrs
       :transport_pickup,

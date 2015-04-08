@@ -4,7 +4,7 @@ module BusinessTransaction::Refundable
   included do
     has_one :refund, inverse_of: :business_transaction
 
-    #fields of refund model, that should be available through transaction
+    # fields of refund model, that should be available through transaction
     delegate :description, :reason, to: :refund, prefix: true
   end
 

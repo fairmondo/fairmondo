@@ -28,7 +28,7 @@ class Feedback < ActiveRecord::Base
   enumerize :variety, in: [ :report_article, :get_help, :send_feedback, :become_donation_partner ]
 
   enumerize :feedback_subject, in: [ :dealer, :technics, :other]
-                                     #, :private, :buyer, :seller,:event, :cooperative, :hero, :ngo, :honor, :trust_community
+                                     # , :private, :buyer, :seller,:event, :cooperative, :hero, :ngo, :honor, :trust_community
 
   enumerize :help_subject, in: [ :marketplace,  :technics, :cooperative,
                                  :hero,  :other ]
@@ -53,7 +53,7 @@ class Feedback < ActiveRecord::Base
   validates_presence_of :organisation , if: :donation_partner_application?
   validates :text, length: { minimum: 100 }, if: :donation_partner_application?
 
-  #Relations
+  # Relations
   belongs_to :user
   belongs_to :article
 

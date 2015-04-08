@@ -40,7 +40,7 @@ gem 'sass-rails', "~> 5.0.0"
 gem 'bourbon' , "<= 4.0.2" # easy ccs3
 gem "font-awesome-rails", '>= 4.2.0.0'
 gem 'sprite-factory'
-gem 'chunky_png' #needed for sprite-factory
+gem 'chunky_png' # needed for sprite-factory
 gem 'sprockets'
 
 ## JS
@@ -62,7 +62,7 @@ gem 'hogan_assets'
 ## Forms
 
 gem 'formtastic', "~> 2.3.0.rc3"
-gem "recaptcha", require: "recaptcha/rails" #Captcha Gem
+gem "recaptcha", require: "recaptcha/rails" # Captcha Gem
 
 # ---------- Controller ----------
 
@@ -82,7 +82,7 @@ gem 'premailer-rails' # creates emails with inline css from html files with exte
 gem 'sidekiq', '>= 3.2.5'
 gem 'sinatra', '>= 1.3.0', require: nil
 gem 'delayed_paperclip' # handle image processing with sidekiq
-gem 'bluepill' #legacy, remove when eye stable
+gem 'bluepill' # legacy, remove when eye stable
 gem 'eye' # sidekiq process monitoring
 gem 'sidetiq' # process scheduling
 
@@ -131,8 +131,8 @@ group :development do
   gem 'meta_request'
 
   # HAML Conversion tools
-  #gem "erb2haml" see html2haml
-  #gem "html2haml" need to wait for new release 2.0.0 is still in beta if you need it
+  # gem "erb2haml" see html2haml
+  # gem "html2haml" need to wait for new release 2.0.0 is still in beta if you need it
 
   # Quiet Assets to disable asset pipeline in log
   gem 'quiet_assets'

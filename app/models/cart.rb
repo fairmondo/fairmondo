@@ -12,7 +12,7 @@ class Cart < ActiveRecord::Base
   scope :newest, -> { order(created_at: :desc) }
   scope :open, -> { where.not(sold: true) }
 
-  #Methods
+  # Methods
   delegate :total_purchase_donations,
            :belboon_tracking_token,
            :belboon_tracking_token_set_at, to: :user, prefix: true

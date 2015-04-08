@@ -54,7 +54,7 @@ class LineItemGroup < ActiveRecord::Base
   end
 
   def unified_payments_selectable
-    @unified_payments_selectable ||= ( self.line_items.map{|l| l.article.selectable_payments}.inject(:&) || [] ) #intersection of selectable_payments
+    @unified_payments_selectable ||= ( self.line_items.map{|l| l.article.selectable_payments}.inject(:&) || [] ) # intersection of selectable_payments
   end
 
   def unified_payment_method= value

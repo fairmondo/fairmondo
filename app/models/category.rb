@@ -44,12 +44,12 @@ class Category < ActiveRecord::Base
   scope :all_by_id, -> { order('id ASC') }
   scope :other_category_last, -> {
     order("CASE WHEN name = 'Weitere' THEN 1 ELSE 0 END")
-  } #i18n!
+  } # i18n!
   scope :weighted, -> {
     where('weight >= ?', CATEGORY_NAV_THRESHOLD)
       .order('weight IS NULL, weight desc')
   }
-  scope :other_category, -> { where(parent_id: nil, name: 'Weitere') } #18n!
+  scope :other_category, -> { where(parent_id: nil, name: 'Weitere') } # 18n!
   scope :other_categories, -> {
     where 'parent_id IS NULL AND weight < ? OR weight IS NULL',
           CATEGORY_NAV_THRESHOLD

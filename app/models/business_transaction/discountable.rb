@@ -3,7 +3,7 @@ module BusinessTransaction::Discountable
 
   included do
     belongs_to :discount, foreign_key: 'discount_id'
-    #fields for discounts
+    # fields for discounts
     delegate :discount_id, to: :article, prefix: true
     delegate :max_discounted_value_cents, :num_of_discountable_articles, :title, to: :discount, prefix: true
   end

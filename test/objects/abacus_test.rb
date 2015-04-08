@@ -36,7 +36,7 @@ describe 'Abacus' do
     abacus_for(traits,attributes)
 
     single_transport_totals = [ (prices[0]*5+transport_prices[0]), (prices[1]+transport_prices[1]), (prices[2]*10+transport_prices[2]*2) ]
-    #transports
+    # transports
 
     @abacus.transport_listing.single_transports.size.must_equal 3
     @abacus.transport_listing.single_transports.map{ |_bt,transport| transport[:shipments] }.sort.must_equal [1,1,2]
@@ -80,7 +80,7 @@ describe 'Abacus' do
     @abacus.payment_listing.payments[:paypal][:total].must_equal (5 * prices[0] + 5 * prices[1] + 10 * prices[2] + transport_price)
     @abacus.payment_listing.payments.size.must_equal 1
 
-    #total
+    # total
     @abacus.total.must_equal @abacus.payment_listing.payments[:paypal][:total]
   end
 
@@ -187,7 +187,7 @@ describe 'Abacus' do
     @abacus.payment_listing.payments[:bank_transfer][:total].must_equal 5 * prices[0] + 5 * prices[1]
     @abacus.total.must_equal @abacus.payment_listing.payments[:bank_transfer][:total] + @abacus.payment_listing.payments[:cash_on_delivery][:total]
 
-    #donations
+    # donations
     @abacus.donation_listing.donation_per_organisation[ngo].must_equal(Money.new(@line_item_group.business_transactions.map{ |t| t.article.calculated_friendly_cents * t.quantity_bought }.sum))
   end
 end

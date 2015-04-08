@@ -45,7 +45,7 @@ module Sanitization
                         orig = send("#{ field }_without_html_safe")
                         orig.is_a?(String) ? orig.html_safe : orig
                       }
-        define_method field, -> { read_attribute field } #no idea why this fix is needed
+        define_method field, -> { read_attribute field } # no idea why this fix is needed
         alias_method_chain field, :html_safe
       end
     end

@@ -2,16 +2,16 @@ class ExportsController < ApplicationController
   def show
     # Generate a Tempfile for the download
     csv = Tempfile.new "export", encoding: 'utf-8'
-    #export_type = ''
+    # export_type = ''
 
-    #if params && params[:kind_of_article] == 'seller_line_item_groups'
+    # if params && params[:kind_of_article] == 'seller_line_item_groups'
     #  LineItemGroupExporter.export(csv, current_user, params)
     #  export_type = 'purchase'
-    #else
+    # else
     #
     #  ArticleExporter.export(csv, current_user, params[:kind_of_article])
     #  export_type = 'article'
-    #end
+    # end
     ArticleExporter.export(csv, current_user, params[:kind_of_article])
 
     respond_to do |format|

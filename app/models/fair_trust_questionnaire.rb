@@ -95,7 +95,7 @@ class FairTrustQuestionnaire < ActiveRecord::Base
     :other
   ], multiple: true
 
-  #validates :environment_protection, presence: true
+  # validates :environment_protection, presence: true
   validates :environment_protection_checkboxes, presence: true,
                                                 if: :environment_protection
   validates :environment_protection_explanation, length: {minimum: 150, maximum: 10000},
@@ -136,7 +136,7 @@ class FairTrustQuestionnaire < ActiveRecord::Base
     :other
   ], multiple: true
 
-  #validates :awareness_raising, presence: true
+  # validates :awareness_raising, presence: true
   validates :awareness_raising_checkboxes, presence: true,
                                            if: :awareness_raising
   validates :awareness_raising_explanation, length: {minimum: 150, maximum: 10000},

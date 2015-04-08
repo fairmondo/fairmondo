@@ -40,5 +40,5 @@ describe StatisticsController do
     end
   end
 
-  #context "as a random user" do #-- gets tested by policy spec
+  # context "as a random user" do #-- gets tested by policy spec
 end

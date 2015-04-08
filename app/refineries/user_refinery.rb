@@ -13,7 +13,7 @@ class UserRefinery < ApplicationRefinery
 
   def update
     permitted = [
-      :current_password, #<- update specific
+      :current_password, # <- update specific
       :email, :password, :password_confirmation, :remember_me, :type,
       :nickname, :legal, :paypal_account,
       :invitor_id, :banned, :about_me, :bank_code, #:trustcommunity,

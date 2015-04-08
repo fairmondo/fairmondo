@@ -27,7 +27,7 @@ class CartCheckoutForm
       get_seller_specifics_from session
       return valid?
     end
-    nil #for safety
+    nil # for safety
   end
 
   def process params

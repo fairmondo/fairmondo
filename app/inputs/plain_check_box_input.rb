@@ -21,7 +21,7 @@
 #
 # We cannot namespace them properly as formtastic's lookup chain would not find them
 # see  lib/formtastic/helpers/input_helper.rb
-#module Fairtastic
+# module Fairtastic
 #  module Inputs
 class PlainCheckBoxInput < Formtastic::Inputs::BooleanInput
   def label_with_nested_checkbox

@@ -30,7 +30,7 @@ class ProcessRowMassUploadWorker
      mass_upload = MassUpload.find msg['args'].first
      mass_upload_article = mass_upload.mass_upload_articles.where(row_index: msg['args'].last).first
      mass_upload_article.update_attributes(action: :error, validation_errors: msg['args'][1]) if mass_upload_article
-     #see method call args order of perform method for msg array explanation
+     # see method call args order of perform method for msg array explanation
   end
 
   def perform mass_upload_id, unsanitized_row_hash, index

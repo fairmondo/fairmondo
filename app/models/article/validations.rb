@@ -25,7 +25,7 @@ module Article::Validations
     validates :condition, presence: true
     validates :condition_extra, presence: true, if: :old?
 
-    #money_rails and price
+    # money_rails and price
     validates :price_cents, presence: true, numericality: {
       greater_than_or_equal_to: 0, less_than_or_equal_to: 1000000
     }
@@ -61,7 +61,7 @@ module Article::Validations
     validates :quantity_available, numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 10000 }
     validates :tos_accepted, acceptance: true, presence: true, on: :update, if: lambda { |art| art.changing_state && art.belongs_to_legal_entity? }
 
-    #images
+    # images
 
     validates :images, size: { in: 0..5  } # lower to 3 if the old 5 article pics are all gone
 

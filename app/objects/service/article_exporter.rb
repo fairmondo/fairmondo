@@ -5,7 +5,7 @@ class ArticleExporter
     # Generate proper headers and find out if we are messing with transactions
     export_attributes = MassUpload.article_attributes
 
-    #write the headers and set options for csv generation
+    # write the headers and set options for csv generation
     csv.puts CSV.generate_line export_attributes, @@csv_options
 
     determine_articles_to_export( user, params ).find_each do |article|

@@ -40,7 +40,7 @@ class Library < ActiveRecord::Base
   ]
   before_update :uniquify_exhibition_name
 
-  #Relations
+  # Relations
   belongs_to :user
 
   has_many :library_elements, dependent: :destroy

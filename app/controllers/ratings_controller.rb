@@ -24,7 +24,7 @@ class RatingsController < ApplicationController
   respond_to :html
 
   before_action :set_user
-  #before_filter :set_business_transaction, only: :new
+  # before_filter :set_business_transaction, only: :new
   before_action :set_line_item_group, only: :new
   skip_before_action :authenticate_user!, only: :index
 
@@ -54,9 +54,9 @@ class RatingsController < ApplicationController
       @user = User.find(params[:user_id])
     end
 
-    #def set_business_transaction
+    # def set_business_transaction
     #  @business_transaction = BusinessTransaction.find(params[:business_transaction_id])
-    #end
+    # end
 
     def set_line_item_group
       @line_item_group = LineItemGroup.find(params[:line_item_group_id])
