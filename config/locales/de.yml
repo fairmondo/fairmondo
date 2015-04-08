@@ -145,7 +145,7 @@ de:
     notices:
       applied: "Die Vorlage %{name} wurde erfolgreich übernommen"
     prompts:
-      article_id: "Bitte wähle eine Vorlage"
+      article_id: "Leere Vorlage"
     errors:
       article_id: "Bitte wähle eine Vorlage"
 
