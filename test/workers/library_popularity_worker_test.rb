@@ -15,7 +15,7 @@ describe LibraryPopularityWorker do
       set_stubs(library, :hearts, 0, 0)
       set_stubs(library, :comments, 0, 0)
       library.updated_at = Time.now
-      assert_equal worker.popularity_for(library), 0, 'new library'
+      assert_equal worker.send(:popularity_for, library), 0, 'new library'
     end
 
     # second test: create several hearts and comments
@@ -29,7 +29,7 @@ describe LibraryPopularityWorker do
       set_stubs(library, :hearts, 25, 6)
       set_stubs(library, :comments, 10, 3)
       library.updated_at = Time.now
-      assert_equal worker.popularity_for(library), 960, 'library with hearts and comments'
+      assert_equal worker.send(:popularity_for, library), 960, 'library with hearts and comments'
     end
 
     # third test: set different updated_at values for the library
@@ -38,7 +38,7 @@ describe LibraryPopularityWorker do
       set_stubs(library, :hearts, 25, 0)
       set_stubs(library, :comments, 0, 0)
       library.updated_at = 4.days.ago
-      assert_equal worker.popularity_for(library), 50, 'library updated 4 days ago'
+      assert_equal worker.send(:popularity_for, library), 50, 'library updated 4 days ago'
     end
 
     # fourth test: between 3 and 7 days: factor 2
@@ -46,7 +46,7 @@ describe LibraryPopularityWorker do
       set_stubs(library, :hearts, 25, 0)
       set_stubs(library, :comments, 0, 0)
       library.updated_at = 6.days.ago
-      assert_equal worker.popularity_for(library), 50, 'library updated 6 days ago'
+      assert_equal worker.send(:popularity_for, library), 50, 'library updated 6 days ago'
     end
 
     # fifth test: older than 7 days: factor 1
@@ -54,7 +54,7 @@ describe LibraryPopularityWorker do
       set_stubs(library, :hearts, 25, 0)
       set_stubs(library, :comments, 0, 0)
       library.updated_at = 8.days.ago
-      assert_equal worker.popularity_for(library), 25, 'library updated 8 days ago'
+      assert_equal worker.send(:popularity_for, library), 25, 'library updated 8 days ago'
     end
   end
 
