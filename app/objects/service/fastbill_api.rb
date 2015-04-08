@@ -2,8 +2,7 @@ class FastbillAPI
   require 'fastbill-automatic'
 
   def initialize bt = nil
-    @bt = bt
-    if @bt
+    if @bt = bt
       @seller  = bt.seller
       @article = bt.article
     end
@@ -23,7 +22,7 @@ class FastbillAPI
         end
 
         [:fair, :fee].each do |type|
-          self.send "fastbill_#{ type }"
+          send "fastbill_#{ type }"
         end
 
         fastbill_discount if @bt.discount
