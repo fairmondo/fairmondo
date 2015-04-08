@@ -168,8 +168,9 @@ Fairmondo::Application.routes.draw do
   if Rails.env.development?
     constraint = lambda { |_request| true }
   else
-    constraint = lambda { |request| request.env['warden'].authenticate? &&
-      request.env['warden'].user.admin? }
+    constraint = lambda { |request|
+      request.env['warden'].authenticate? && request.env['warden'].user.admin?
+    }
   end
 
   constraints constraint do
