@@ -26,11 +26,11 @@ class UsersController < ApplicationController
   respond_to :js, if: lambda { request.xhr? }
   respond_to :pdf, only: :profile
 
-  before_filter :check_for_complete_mass_uploads, only: [:show]
-  before_filter :set_user
-  before_filter :dont_cache, only: [:show]
-  before_filter :sanitize_print_param, only: [:profile]
-  skip_before_filter :authenticate_user!, only: [:show, :profile, :contact]
+  before_action :check_for_complete_mass_uploads, only: [:show]
+  before_action :set_user
+  before_action :dont_cache, only: [:show]
+  before_action :sanitize_print_param, only: [:profile]
+  skip_before_action :authenticate_user!, only: [:show, :profile, :contact]
 
   rescue_from Pundit::NotAuthorizedError, :with => :user_deleted
 

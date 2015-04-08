@@ -23,10 +23,10 @@ class RatingsController < ApplicationController
   responders :location, :flash
   respond_to :html
 
-  before_filter :set_user
+  before_action :set_user
   #before_filter :set_business_transaction, only: :new
-  before_filter :set_line_item_group, only: :new
-  skip_before_filter :authenticate_user!, only: :index
+  before_action :set_line_item_group, only: :new
+  skip_before_action :authenticate_user!, only: :index
 
   def new
     @rating = Rating.new(line_item_group_id: @line_item_group.id)

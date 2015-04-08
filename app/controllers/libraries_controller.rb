@@ -25,11 +25,11 @@ class LibrariesController < ApplicationController
 
   respond_to :html
 
-  before_filter :set_user, if: :user_focused?, only: :index
-  before_filter :set_library, only: [:show, :update, :destroy, :admin_audit]
+  before_action :set_user, if: :user_focused?, only: :index
+  before_action :set_library, only: [:show, :update, :destroy, :admin_audit]
 
   # Authorization
-  skip_before_filter :authenticate_user!, only: [:index, :show]
+  skip_before_action :authenticate_user!, only: [:index, :show]
 
   def index
     # Build empty Library object if user creates a new library

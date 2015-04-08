@@ -1,7 +1,7 @@
 class AddressesController < ApplicationController
   respond_to :html, only: [:edit, :new]
   respond_to :js, if: lambda { request.xhr? }
-  before_filter :set_address, except: [ :new, :create]
+  before_action :set_address, except: [ :new, :create]
 
   def new
     @address = current_user.addresses.build

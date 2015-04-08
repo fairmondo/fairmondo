@@ -20,7 +20,7 @@
 # along with Fairmondo.  If not, see <http://www.gnu.org/licenses/>.
 #
 class LibraryElementsController < ApplicationController
-  before_filter :set_library_element, except: :create
+  before_action :set_library_element, except: :create
 
   def create
     @library_element =

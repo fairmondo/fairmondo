@@ -2,8 +2,8 @@ class LineItemGroupsController < ApplicationController
 
   respond_to :html
 
-  before_filter :set_line_item_group
-  before_filter :set_tab
+  before_action :set_line_item_group
+  before_action :set_tab
 
   def show
     authorize @line_item_group

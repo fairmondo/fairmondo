@@ -69,12 +69,6 @@ Metrics/MethodLength:
 Metrics/PerceivedComplexity:
   Max: 9
 
-# Offense count: 66
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles, Include.
-Rails/ActionFilter:
-  Enabled: false
-
 # Offense count: 5
 # Configuration parameters: Include.
 Rails/DefaultScope:

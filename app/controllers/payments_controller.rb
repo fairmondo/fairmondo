@@ -1,5 +1,5 @@
 class PaymentsController < ApplicationController
-  skip_before_filter :authenticate_user!, only: :ipn_notification
+  skip_before_action :authenticate_user!, only: :ipn_notification
   protect_from_forgery except: :ipn_notification
   respond_to :html, except: :ipn_notification
 

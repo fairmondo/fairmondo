@@ -7,9 +7,9 @@ class CommentsController < ApplicationController
 
   respond_to :js
 
-  before_filter(only: [:index, :create, :update, :destroy]) { set_commentable(COMMENTABLES) }
-  before_filter :set_comment, only: [:update, :destroy]
-  skip_before_filter :authenticate_user!, only: [:index]
+  before_action(only: [:index, :create, :update, :destroy]) { set_commentable(COMMENTABLES) }
+  before_action :set_comment, only: [:update, :destroy]
+  skip_before_action :authenticate_user!, only: [:index]
 
   def index
     @comment = Comment.new

@@ -21,9 +21,9 @@
 #
 class RegistrationsController < Devise::RegistrationsController
 
-  before_filter :dont_cache, only: [ :edit ]
-  before_filter :configure_permitted_parameters
-  skip_before_filter :authenticate_user!, only: [ :create, :new ]
+  before_action :dont_cache, only: [ :edit ]
+  before_action :configure_permitted_parameters
+  skip_before_action :authenticate_user!, only: [ :create, :new ]
 
   # GET /resource/sign_up
   def new
