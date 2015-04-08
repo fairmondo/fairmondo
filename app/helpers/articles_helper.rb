@@ -89,8 +89,43 @@ module ArticlesHelper
     article.belongs_to_legal_entity? && !article.could_be_book_price_agreement? && article.friendly_percent != 100
   end
 
-  #def export_time_ranges
-  #  # specify time range in months
-  #  ['all', '1', '3', '6', '12']
-  #end
+  def available_transport method
+    resource.send("transport_#{ method }")
+  end
+
+  def transport_string_for method
+    if ['type1', 'type2'].include?(method)
+      resource.send("transport_#{method}_provider")
+    else
+      t("formtastic.labels.article.transport_#{method}")
+    end
+  end
+
+  def cost_info_for method
+    if free_or_not_for? method
+      "(kostenfrei)"
+    else
+      "zzgl. #{ humanized_money_with_symbol(resource.send("transport_#{ method }_price"))}"
+    end
+  end
+
+  def additional_info_for method
+    if method == 'pickup'
+      "(PLZ: #{ resource.seller.standard_address_zip })"
+    elsif method == 'bike_courier'
+      "bar bei Lieferung (z.Z. nur im Berliner Innenstadtbereich verfügbar)"
+    end
+  end
+
+  def free_or_not_for? method
+    resource.seller.free_transport_available &&
+      resource.seller_free_transport_at_price <= resource.price &&
+      !resource.transport_bike_courier ||
+      !resource.respond_to?("transport_#{ method }_price")
+  end
+
+    #def export_time_ranges
+    #  # specify time range in months
+    #  ['all', '1', '3', '6', '12']
+    #end
 end

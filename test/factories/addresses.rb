@@ -19,20 +19,16 @@ FactoryGirl.define do
       after(:create) { |address| FactoryGirl.create(:line_item_group, payment_address: address) }
     end
 
-  trait :fixture_address do
-    title 'Herr'
-    first_name 'Hans'
-    last_name 'Gutmut'
-    company_name 'Goldene Gans gGmbH'
-    address_line_1 'Dorfstr. 23'
-    address_line_2 'Am Brunnen'
-    zip '10999'
-    city 'Kleines Dorf'
-    country 'Deutschland'
+    trait :fixture_address do
+      title 'Herr'
+      first_name 'Hans'
+      last_name 'Gutmut'
+      company_name 'Goldene Gans gGmbH'
+      address_line_1 'Dorfstr. 23'
+      address_line_2 'Am Brunnen'
+      zip '10999'
+      city 'Kleines Dorf'
+      country 'Deutschland'
+    end
   end
-
-
-  end
-
-
 end

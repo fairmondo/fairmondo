@@ -11,7 +11,7 @@ describe FastbillAPI do
     describe "::fastbill_chain" do
       it "should find seller of transaction" do
         api = FastbillAPI.new db_business_transaction
-        api.seller.must_equal seller
+        api.instance_eval("@seller").must_equal seller
       end
 
       describe "when seller is an NGO" do

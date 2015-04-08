@@ -1,8 +1,6 @@
 class FastbillAPI
   require 'fastbill-automatic'
 
-  attr_accessor :seller
-
   def initialize bt=nil
     @bt = bt
     if @bt
