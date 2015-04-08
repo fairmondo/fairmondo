@@ -184,7 +184,6 @@ feature "User account management" do
 
     page.must_have_content I18n.t 'devise.registrations.changed_email'
     @user.reload.unconfirmed_email.must_equal 'chunky@bacon.com'
-
   end
 
   scenario "user wants to change the email for account without a password" do
