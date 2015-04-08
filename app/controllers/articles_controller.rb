@@ -253,7 +253,7 @@ class ArticlesController < ApplicationController
 
     def at_least_one_image_processing?
       processing_thumbs = @article.thumbnails.select { |thumb| thumb.image.processing? }
-      !processing_thumbs.empty? || (@article.title_image and @article.title_image.image.processing?)
+      !processing_thumbs.empty? || (@article.title_image && @article.title_image.image.processing?)
     end
 
   ################## Inherited Resources

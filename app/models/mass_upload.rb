@@ -150,7 +150,7 @@ class MassUpload < ActiveRecord::Base
 
     # Check if finish conditions are met
     def can_finish?
-      self.row_count and
+      self.row_count &&
       self.processed_articles_count >= self.row_count
     end
 end
