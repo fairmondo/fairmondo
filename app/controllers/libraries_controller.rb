@@ -99,7 +99,7 @@ class LibrariesController < ApplicationController
         end
         notice = {notice: "Added to library."}
       rescue => err #will throw errors e.g. if library already had that article
-        notice = {error: "Something went wrong: #{err.to_s}"} # Only visible for admins
+        notice = {error: "Something went wrong: #{err}"} # Only visible for admins
       end
     end
     redirect_to :back, flash: notice

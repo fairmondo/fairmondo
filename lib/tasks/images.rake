@@ -7,9 +7,9 @@ namespace :images do
     Image.all.each_with_index do |image,index|
       begin
         image.image.reprocess!
-        puts index.to_s + " / #{count.to_s}  - ID: #{image.id} - OK"
+        puts index.to_s + " / #{count}  - ID: #{image.id} - OK"
       rescue => e
-        puts index.to_s + " / #{count.to_s}  - ID: #{image.id} - Exception: #{ e } (#{ e.class })"
+        puts index.to_s + " / #{count}  - ID: #{image.id} - Exception: #{ e } (#{ e.class })"
       end
     end
   end
@@ -19,9 +19,9 @@ namespace :images do
     Image.all.each_with_index do |image,index|
       begin
         image.image.reprocess! :thumb
-        puts index.to_s + " / #{count.to_s}  - ID: #{image.id} - OK"
+        puts index.to_s + " / #{count}  - ID: #{image.id} - OK"
       rescue => e
-        puts index.to_s + " / #{count.to_s}  - ID: #{image.id} - Exception: #{ e } (#{ e.class })"
+        puts index.to_s + " / #{count}  - ID: #{image.id} - Exception: #{ e } (#{ e.class })"
       end
     end
   end
