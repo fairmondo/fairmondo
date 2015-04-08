@@ -27,7 +27,7 @@ FactoryGirl.define do
       seller { FactoryGirl.create(:seller, :paypal_data) }
       buyer { FactoryGirl.create :user }
       article_attributes { Hash.new }
-      article_all_attributes { article_attributes.merge({ seller: seller, quantity: (quantity_bought + 1) }) }
+      article_all_attributes { article_attributes.merge(seller: seller, quantity: (quantity_bought + 1)) }
     end
 
     article { FactoryGirl.create :article, :with_fixture_image, :with_all_payments, :with_all_transports, article_all_attributes }

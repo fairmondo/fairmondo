@@ -27,7 +27,7 @@ module Rack
 
       def initialize(_options)
         @rules = RewriteConfig.list.map do |rule|
-          Rule.new(rule[:method], rule[:from], rule[:to], {if: rule[:if] })
+          Rule.new(rule[:method], rule[:from], rule[:to], if: rule[:if])
         end
       end
     end

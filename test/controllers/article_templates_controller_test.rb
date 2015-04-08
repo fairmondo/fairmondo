@@ -52,7 +52,7 @@ describe ArticleTemplatesController do
     end
 
     it "assigns the requested article_template as @article_template" do
-      get :edit, {id: @article_template.to_param}
+      get :edit, id: @article_template.to_param
       assigns(:article_template).must_equal(@article_template)
       assert_template(:edit)
     end
@@ -108,12 +108,12 @@ describe ArticleTemplatesController do
       end
 
       it "assigns the requested article_template as @article_template" do
-        put :update, {id: @article_template.to_param, article: valid_update_attributes}
+        put :update, id: @article_template.to_param, article: valid_update_attributes
         assigns(:article_template).must_equal(@article_template)
       end
 
       it "redirects to the collection" do
-        put :update, {id: @article_template.to_param, article: valid_update_attributes}
+        put :update, id: @article_template.to_param, article: valid_update_attributes
         assert_redirected_to(user_url(@user, anchor: "my_article_templates"))
       end
     end
@@ -121,11 +121,11 @@ describe ArticleTemplatesController do
     context "with invalid params" do
       it "should try to save the images anyway" do
         @controller.expects(:save_images)
-        put :update, {id: @article_template.to_param, article: invalid_attributes}
+        put :update, id: @article_template.to_param, article: invalid_attributes
       end
 
       it "should re-render the :edit template" do
-        put :update, {id: @article_template.to_param, article: invalid_attributes}
+        put :update, id: @article_template.to_param, article: invalid_attributes
         assert_template(:edit)
       end
     end
@@ -143,7 +143,7 @@ describe ArticleTemplatesController do
     end
 
     it "redirects to the article_templates list" do
-      delete :destroy, {id: @article_template.to_param}
+      delete :destroy, id: @article_template.to_param
        assert_redirected_to(user_url(@user, anchor: "my_article_templates"))
     end
   end

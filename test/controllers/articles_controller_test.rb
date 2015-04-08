@@ -374,7 +374,7 @@ describe ArticlesController do
 
         assert_difference 'Article.count', 1 do
           post :create,
-               article: @article_attrs.merge({ original_id: original_article.id })
+               article: @article_attrs.merge(original_id: original_article.id)
         end
         new_article = @controller.instance_variable_get(:@article)
 

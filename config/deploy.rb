@@ -27,9 +27,7 @@ set :linked_dirs, %w{log tmp/pids public/system public/assets tmp/cache}
 
 set :keep_releases, 10
 
-set :ssh_options, {
-  forward_agent: true
-}
+set :ssh_options, forward_agent: true
 
 # Sidekiq
 # set :sidekiq_role, :sidekiq
