@@ -1,3 +1,5 @@
+inherit_from: .rubocop_todo.yml # TODO: remove this once worked through list
+
 AllCops:
   RunRailsCops: true
   Exclude:
@@ -27,6 +29,3 @@ LineLength:
 
 Style/SignalException:
   Enabled: false
-
-Metrics/MethodLength:
-  Max: 10

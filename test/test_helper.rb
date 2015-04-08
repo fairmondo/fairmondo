@@ -58,7 +58,7 @@ Minitest.after_run do
   if $suite_passing
     rails_best_practices
     brakeman
-    # rubocop # TODO: uncomment and fix rubocop violations
+    rubocop # TODO: uncomment and fix rubocop violations
   end
 end
 
