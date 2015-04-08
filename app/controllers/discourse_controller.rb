@@ -1,5 +1,4 @@
 class DiscourseController < ApplicationController
-
   MAP_USER = {
     email: :email,
     name: :fullname,

@@ -171,12 +171,6 @@ Style/ElseAlignment:
 Style/EmptyElse:
   Enabled: false
 
-# Offense count: 112
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-Style/EmptyLinesAroundClassBody:
-  Enabled: false
-
 # Offense count: 22
 # Cop supports --auto-correct.
 Style/EmptyLinesAroundMethodBody:

@@ -41,5 +41,4 @@ class HeartsController < ApplicationController
     # Please don't save this object from now on.
     @heartable.hearts_count -= 1
   end
-
 end

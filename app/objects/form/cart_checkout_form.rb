@@ -145,5 +145,4 @@ class CartCheckoutForm
         group.assign_attributes(checkout_session_params.for(group).on(:checkout_session).refine)
       end
     end
-
 end

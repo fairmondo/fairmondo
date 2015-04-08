@@ -21,7 +21,6 @@
 #
 
 class LibraryElementObserver < ActiveRecord::Observer
-
   # A new element updates the library in general
   def after_save library_element
     update_library library_element

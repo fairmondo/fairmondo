@@ -94,5 +94,4 @@ class CartMailer < ActionMailer::Base
         attachment
       end
     end
-
 end

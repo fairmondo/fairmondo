@@ -96,5 +96,4 @@ class ArticleObserver < ActiveRecord::Observer
       article.update_column :original_id, nil
     end
   end
-
 end

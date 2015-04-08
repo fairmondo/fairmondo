@@ -1,5 +1,4 @@
 class Address < ActiveRecord::Base
-
   belongs_to :user
   has_one :connected_user, class_name: 'User', foreign_key: :standard_address_id, inverse_of: :standard_address
 
@@ -50,5 +49,4 @@ class Address < ActiveRecord::Base
   def is_standard_address?
     connected_user.present?
   end
-
 end

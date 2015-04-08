@@ -1,3 +1,2 @@
 class CategoryRefinery < ApplicationRefinery
-
 end

@@ -142,5 +142,4 @@ class FairTrustQuestionnaire < ActiveRecord::Base
   validates :awareness_raising_explanation, length: {minimum: 150, maximum: 10000},
                                             if: :awareness_raising
   validates :awareness_raising_other, fair_trust_other: true
-
 end

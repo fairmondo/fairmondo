@@ -19,7 +19,6 @@
 # along with Fairmondo.  If not, see <http://www.gnu.org/licenses/>.
 #
 class ApplicationController < ActionController::Base
-
   ## Global security
   before_action :authenticate_user!
 

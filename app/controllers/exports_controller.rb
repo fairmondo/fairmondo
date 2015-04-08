@@ -1,5 +1,4 @@
 class ExportsController < ApplicationController
-
   def show
     # Generate a Tempfile for the download
     csv = Tempfile.new "export", encoding: 'utf-8'

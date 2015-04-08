@@ -1,5 +1,4 @@
 class ArticleExporter
-
   @@csv_options = { col_sep: ";",  encoding: 'utf-8'}
 
   def self.export( csv, user, params = nil )
@@ -62,5 +61,4 @@ class ArticleExporter
     end
     attributes
   end
-
 end

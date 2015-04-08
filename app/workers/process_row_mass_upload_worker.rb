@@ -41,5 +41,4 @@ class ProcessRowMassUploadWorker
       mass_upload_article.process unsanitized_row_hash
     end
   end
-
 end

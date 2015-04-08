@@ -20,7 +20,6 @@
 # along with Fairmondo.  If not, see <http://www.gnu.org/licenses/>.
 #
 class LibraryElementPolicy < Struct.new(:user, :library_element)
-
   def show?
     active?
   end

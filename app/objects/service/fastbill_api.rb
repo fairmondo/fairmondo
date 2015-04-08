@@ -172,5 +172,4 @@ class FastbillAPI
       fee -= discount_wo_vat if @bt.discount
       fee
     end
-
 end

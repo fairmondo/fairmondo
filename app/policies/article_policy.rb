@@ -20,7 +20,6 @@
 # along with Fairmondo.  If not, see <http://www.gnu.org/licenses/>.
 #
 class ArticlePolicy < Struct.new(:user, :article)
-
   def index?
     true
   end

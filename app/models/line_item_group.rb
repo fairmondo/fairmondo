@@ -112,5 +112,4 @@ class LineItemGroup < ActiveRecord::Base
         errors.add(:unified_transport, I18n.t('transaction.errors.bike_courier_with_unified_transport'))
       end
     end
-
 end

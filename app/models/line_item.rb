@@ -1,5 +1,4 @@
 class LineItem < ActiveRecord::Base
-
   attr_accessor :business_transaction # temporary saving the data
   attr_accessor :cart_cookie # temp storage to validate with pundit
 
@@ -68,5 +67,4 @@ class LineItem < ActiveRecord::Base
   end
 
   private
-
 end

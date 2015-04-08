@@ -1,5 +1,4 @@
 class ActiveUserArticles
-
   def initialize user
     @user = user;
   end

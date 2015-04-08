@@ -1,5 +1,4 @@
 class CartsController < ApplicationController
-
   respond_to :html
   respond_to :js, if: lambda { request.xhr? }
 

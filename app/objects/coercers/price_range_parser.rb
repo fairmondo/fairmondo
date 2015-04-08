@@ -1,5 +1,4 @@
 class PriceRangeParser
-
   def initialize from, to
     @empty = from.blank? && to.blank?
     @from_money = Monetize.parse(from)
@@ -41,5 +40,4 @@ class PriceRangeParser
     def show_to?
       !@empty && @to_money.cents >= 0 && @to_money >= @from_money
     end
-
 end

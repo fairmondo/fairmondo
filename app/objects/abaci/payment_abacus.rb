@@ -1,5 +1,4 @@
 class PaymentAbacus
-
   UNIFIED_TRANSPORT_PAYMENT_ORDER = [:paypal, :invoice, :bank_transfer]
   UNIFIED_TRANSPORT_PAYMENT_ORDER_MERGED = (UNIFIED_TRANSPORT_PAYMENT_ORDER + Article::PAYMENT_TYPES).uniq
   attr_reader :payments

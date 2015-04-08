@@ -1,5 +1,4 @@
 class Indexer
-
   def self.index_article article
     SearchIndexWorker.perform_async(:article, article.id)
   end
@@ -14,5 +13,4 @@ class Indexer
     activation_ids = MassUpload.find(mass_upload_id).articles_for_mass_activation.pluck(:id)
     Indexer.index_articles activation_ids
   end
-
 end

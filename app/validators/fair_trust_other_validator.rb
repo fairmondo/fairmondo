@@ -1,5 +1,4 @@
 class FairTrustOtherValidator < ActiveModel::EachValidator
-
   # validates presence and length of value when 'Sonstiges' is selected in
   # fair trust questionnnaire
   def validate_each(record, attribute, value)
@@ -21,5 +20,4 @@ class FairTrustOtherValidator < ActiveModel::EachValidator
       end
     end
   end
-
 end

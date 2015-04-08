@@ -1,5 +1,4 @@
 class AddressPolicy < Struct.new(:user, :address)
-
   def new?
     own?
   end
@@ -33,5 +32,4 @@ class AddressPolicy < Struct.new(:user, :address)
     def own?
       user && user.id == address.user_id
     end
-
 end

@@ -20,7 +20,6 @@
 # along with Fairmondo.  If not, see <http://www.gnu.org/licenses/>.
 #
 class LibraryPolicy < Struct.new(:user, :library)
-
   def create?
     own?
   end

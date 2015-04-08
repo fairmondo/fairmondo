@@ -39,5 +39,4 @@ class DeviseMailer < Devise::Mailer
 
     super
   end
-
 end

@@ -1,5 +1,4 @@
 class Payment < ActiveRecord::Base
-
   has_many :business_transactions, through: :line_item_group # +multiple bt can have one payment, if unified
   belongs_to :line_item_group, inverse_of: :payments
   # # all bts will have the same line_item_group, so it's actually has_one, but rails doesn't understand that

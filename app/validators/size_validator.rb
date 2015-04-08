@@ -61,5 +61,4 @@ class SizeValidator < ActiveModel::EachValidator
       record.errors[attr] << msg
     end
   end
-
 end

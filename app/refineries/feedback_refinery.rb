@@ -1,5 +1,4 @@
 class FeedbackRefinery < ApplicationRefinery
-
   def create
     [
       :from, :subject, :text, :variety, :article_id, :feedback_subject,

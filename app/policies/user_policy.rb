@@ -20,7 +20,6 @@
 # along with Fairmondo.  If not, see <http://www.gnu.org/licenses/>.
 #
 class UserPolicy < Struct.new( :user, :resource )
-
   def profile?
     true unless banned?
   end

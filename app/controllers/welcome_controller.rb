@@ -20,7 +20,6 @@
 # along with Fairmondo.  If not, see <http://www.gnu.org/licenses/>.
 #
 class WelcomeController < ApplicationController
-
   skip_before_action :authenticate_user!, only: [:index, :feed, :landing]
 
   def index

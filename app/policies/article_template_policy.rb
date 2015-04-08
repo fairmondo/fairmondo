@@ -20,7 +20,6 @@
 # along with Fairmondo.  If not, see <http://www.gnu.org/licenses/>.
 #
 class ArticleTemplatePolicy < Struct.new(:user, :article_template)
-
   def new?
     create?
   end

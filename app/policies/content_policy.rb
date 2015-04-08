@@ -1,5 +1,4 @@
 class ContentPolicy < Struct.new(:user, :category)
-
   def index?
     admin?
   end

@@ -20,7 +20,6 @@
 # along with Fairmondo.  If not, see <http://www.gnu.org/licenses/>.
 #
 class LibraryElement < ActiveRecord::Base
-
   delegate :name, :user_id , to: :library , prefix: true
   delegate :title, to: :article_reduced, prefix: true
 

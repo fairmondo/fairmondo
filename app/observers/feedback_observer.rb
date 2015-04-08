@@ -21,7 +21,6 @@
 #
 
 class FeedbackObserver < ActiveRecord::Observer
-
   def after_save(feedback)
     # Send the feedback
     case feedback.variety
@@ -41,5 +40,4 @@ class FeedbackObserver < ActiveRecord::Observer
     end
 
   end
-
 end

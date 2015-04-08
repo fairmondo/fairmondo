@@ -189,5 +189,4 @@ class MassUploadArticle < ActiveRecord::Base
     reconstructed_line = MassUpload.article_attributes.map{ |column| @original_attributes[column] }
     CSV.generate_line(reconstructed_line, col_sep: ';')
   end
-
 end

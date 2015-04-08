@@ -20,5 +20,4 @@ class AfterBuyWorker
       Indexer.index_article article
     end
   end
-
 end

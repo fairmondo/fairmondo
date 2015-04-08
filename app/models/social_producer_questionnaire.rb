@@ -80,5 +80,4 @@ class SocialProducerQuestionnaire < ActiveRecord::Base
       errors.add(:base,I18n.t('article.form.errors.social_producer_questionnaire.no_social_producer'))
     end
   end
-
 end

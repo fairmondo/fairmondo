@@ -1,5 +1,4 @@
 class BusinessTransactionAbacus
-
   attr_reader :prices,
               :by_payment,
               :single_transports,

@@ -39,5 +39,4 @@ class ZipValidator < ActiveModel::EachValidator
   def only_numbers?(value)
     value.to_s.match(/^\d*$/)
   end
-
 end

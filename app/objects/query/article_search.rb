@@ -1,5 +1,4 @@
 class ArticleSearch
-
   SORT = {
     newest: { created_at: :desc },
     cheapest: { price: :asc },
@@ -121,5 +120,4 @@ class ArticleSearch
       order = @query.search_by_term? ? "relevance" : "newest" unless order
       index.order(SORT[order])
     end
-
 end

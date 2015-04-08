@@ -20,7 +20,6 @@
 # along with Fairmondo.  If not, see <http://www.gnu.org/licenses/>.
 #
 class ArticlesController < ApplicationController
-
   responders :location
   respond_to :html
   respond_to :json, only: [:show,:index]

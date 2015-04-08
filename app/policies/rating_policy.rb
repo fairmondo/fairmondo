@@ -20,7 +20,6 @@
 # along with Fairmondo.  If not, see <http://www.gnu.org/licenses/>.
 #
 class RatingPolicy < Struct.new(:user, :rating)
-
   def new?
     is_buyer? && has_not_rated_this? && is_not_seller?
   end
@@ -42,5 +41,4 @@ class RatingPolicy < Struct.new(:user, :rating)
     def is_not_seller?
       rating.line_item_group.seller != user
     end
-
 end

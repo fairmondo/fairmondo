@@ -1,5 +1,4 @@
 class Abacus
-
   attr_reader :line_item_group,
               :business_transaction_listing,
               :transport_listing,

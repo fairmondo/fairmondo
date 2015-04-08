@@ -12,5 +12,4 @@ class UserMailer < ActionMailer::Base
     @subject  = I18n.t('email.user.contact.subject')
     mail to: @receiver.email, subject: @subject
   end
-
 end

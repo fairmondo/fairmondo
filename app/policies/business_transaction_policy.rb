@@ -1,5 +1,4 @@
 class BusinessTransactionPolicy < Struct.new(:user, :business_transaction)
-
   def set_transport_ready?
     own?
   end

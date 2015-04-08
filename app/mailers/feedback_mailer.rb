@@ -20,7 +20,6 @@
 # along with Fairmondo.  If not, see <http://www.gnu.org/licenses/>.
 #
 class FeedbackMailer < ActionMailer::Base
-
   def feedback_and_help( feedback, topic )
     @feedback = feedback
     @feedback_subject = @feedback.translate_subject
@@ -41,5 +40,4 @@ class FeedbackMailer < ActionMailer::Base
       mail(to: $email_addresses['FeedbackMailer'][@feedback.variety], from: @feedback.from, subject: 'Spendenpartner*in Anfrage' )
     end
   end
-
 end

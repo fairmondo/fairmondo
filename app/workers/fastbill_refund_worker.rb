@@ -15,5 +15,4 @@ class FastbillRefundWorker
       end
     end
   end
-
 end

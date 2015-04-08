@@ -1,5 +1,4 @@
 class DonationAbacus
-
   attr_reader :donations, :donation_total, :donation_per_organisation
 
   def self.calculate line_item_group

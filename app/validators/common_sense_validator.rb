@@ -56,5 +56,4 @@ class CommonSenseValidator < ActiveModel::EachValidator
       I18n.t 'transaction.errors.bike_courier_requires_paypal'
     end
   end
-
 end

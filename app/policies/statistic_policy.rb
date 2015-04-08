@@ -1,5 +1,4 @@
 class StatisticPolicy < Struct.new(:user, :statistic)
-
   def general?
     admin?
   end

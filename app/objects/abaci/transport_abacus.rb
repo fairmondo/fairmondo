@@ -87,5 +87,4 @@ class TransportAbacus
     def retail_price business_transaction
       @business_transaction_abacus.prices[business_transaction][:retail_price]
     end
-
 end

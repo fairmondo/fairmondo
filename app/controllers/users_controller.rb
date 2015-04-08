@@ -20,7 +20,6 @@
 # along with Fairmondo.  If not, see <http://www.gnu.org/licenses/>.
 #
 class UsersController < ApplicationController
-
   include NoticeHelper
   respond_to :html
   respond_to :js, if: lambda { request.xhr? }
@@ -70,5 +69,4 @@ class UsersController < ApplicationController
         @print = params[:print]
       end
     end
-
 end

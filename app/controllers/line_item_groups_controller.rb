@@ -1,5 +1,4 @@
 class LineItemGroupsController < ApplicationController
-
   respond_to :html
 
   before_action :set_line_item_group

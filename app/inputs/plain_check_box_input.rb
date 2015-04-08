@@ -24,7 +24,6 @@
 #module Fairtastic
 #  module Inputs
 class PlainCheckBoxInput < Formtastic::Inputs::BooleanInput
-
   def label_with_nested_checkbox
     builder.label(
       method,

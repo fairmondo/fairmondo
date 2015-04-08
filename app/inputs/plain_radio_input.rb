@@ -25,7 +25,6 @@
 #  module Inputs
 
 class PlainRadioInput < Formtastic::Inputs::RadioInput
-
   def choice_html(choice)
     opts = input_html_options
     if options[:js_toggle]
@@ -51,5 +50,4 @@ class PlainRadioInput < Formtastic::Inputs::RadioInput
       false
     end
   end
-
 end

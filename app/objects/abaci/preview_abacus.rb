@@ -1,5 +1,4 @@
 class PreviewAbacus
-
   attr_reader :transports, :unified_transport, :unified_transport_price,
               :number_of_shipments, :free_transport, :free_transport_at_price
 
@@ -58,5 +57,4 @@ class PreviewAbacus
     def transport_price transport_price, number_of_shipments
       @free_transport ? Money.new(0) : (number_of_shipments * transport_price)
     end
-
 end

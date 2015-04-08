@@ -1,5 +1,4 @@
 class BusinessTransactionRefinery < ApplicationRefinery
-
   def default
     [
       :selected_transport,
@@ -10,5 +9,4 @@ class BusinessTransactionRefinery < ApplicationRefinery
       :tos_bike_courier_accepted
     ]
   end
-
 end

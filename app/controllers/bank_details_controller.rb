@@ -1,5 +1,4 @@
 class BankDetailsController < ApplicationController
-
   def check
     @result = KontoAPI::valid?( ktn: params[:bank_account_number], blz: params[:bank_code] )
     respond_to do |format|

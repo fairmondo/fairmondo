@@ -20,7 +20,6 @@
 # along with Fairmondo.  If not, see <http://www.gnu.org/licenses/>.
 #
 class MassUpload < ActiveRecord::Base
-
   include Assets::Normalizer
 
   state_machine :initial => :pending do
