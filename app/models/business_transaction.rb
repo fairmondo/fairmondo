@@ -84,7 +84,7 @@ class BusinessTransaction < ActiveRecord::Base
     end
 
     event :pay do
-      transition :sold => :paid
+      transition sold: :paid
     end
 
     event :prepare do
@@ -96,7 +96,7 @@ class BusinessTransaction < ActiveRecord::Base
     end
 
     event :receive do
-      transition :sent => :completed
+      transition sent: :completed
     end
   end
 

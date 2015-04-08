@@ -11,7 +11,7 @@ feature "Refunds" do
     page.must_have_selector( '#refund_reason' )
     page.must_have_selector( '#refund_description' )
     page.must_have_button( I18n.t( 'common.actions.send' ) )
-    fill_in 'refund_description', :with => 'a' * 160
+    fill_in 'refund_description', with: 'a' * 160
     click_button I18n.t( 'common.actions.send' )
     page.must_have_content(I18n.t('flash.refunds.create.notice' ))
   end

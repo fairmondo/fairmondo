@@ -27,7 +27,7 @@ feature "Give Feedback" do
      login_as @user
   end
   scenario "user wants help" do
-    visit new_feedback_path(:variety => "get_help")
+    visit new_feedback_path(variety: "get_help")
 
     fill_in 'feedback_from', with: 'test@test.de'
     fill_in 'feedback_subject', with: 'test'
@@ -41,7 +41,7 @@ feature "Give Feedback" do
   end
 
   scenario "user sends feedback" do
-    visit new_feedback_path(:variety => "send_feedback")
+    visit new_feedback_path(variety: "send_feedback")
 
     fill_in 'feedback_from', with: 'test@test.de'
     fill_in 'feedback_subject', with: 'test'

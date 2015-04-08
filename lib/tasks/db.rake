@@ -113,7 +113,7 @@ namespace :db do
     month = 24
     date = (start_time - (60*60*24*7*4*month)).strftime('%Y%m%d')
 
-    args.with_defaults :number_of_items => 100
+    args.with_defaults number_of_items: 100
     count = args.number_of_items.to_i
 
     xml_doc = get_articles(date, count)

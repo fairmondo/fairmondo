@@ -1,5 +1,5 @@
 class CategoriesController < ApplicationController
-  layout false, :only => :select_category
+  layout false, only: :select_category
   respond_to :html
   respond_to :json, only: [:index ,:show]
   respond_to :js, only: :show, if: lambda { request.xhr? }

@@ -26,8 +26,8 @@ class MassUploadArticle < ActiveRecord::Base
   end
 
   def self.find_or_create_from_row_index index, mass_upload
-    mass_upload_article = mass_upload.mass_upload_articles.where(:row_index => index).first
-    mass_upload_article || mass_upload.mass_upload_articles.create!(:row_index => index)
+    mass_upload_article = mass_upload.mass_upload_articles.where(row_index: index).first
+    mass_upload_article || mass_upload.mass_upload_articles.create!(row_index: index)
   end
 
   def process article_attributes

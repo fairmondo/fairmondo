@@ -69,7 +69,7 @@ feature 'User ratings' do
   scenario "user visits profile of another user and checks his ratings" do
     @rating = FactoryGirl.create :rating, rated_user: line_item_group.seller, rating_user: line_item_group.buyer, line_item_group: line_item_group
     login_as line_item_group.buyer
-    visit user_ratings_path(:user_id => line_item_group.seller.id)
+    visit user_ratings_path(user_id: line_item_group.seller.id)
 
     page.must_have_content(line_item_group.seller.nickname)
     page.must_have_content(@rating.text)

@@ -29,13 +29,13 @@ describe UsersController do
       end
 
       it "should be successful" do
-        get :show , :id => @user
+        get :show , id: @user
         assert_response :success
       end
 
       it "render deleted user for banned users" do
         @user.update_attribute(:banned,true)
-        get :show , :id => @user
+        get :show , id: @user
         assert_response :success
         assert_template :user_deleted
       end
@@ -48,7 +48,7 @@ describe UsersController do
       end
 
       it "should be successful" do
-        get :show, :id => @user
+        get :show, id: @user
         assert_response :success
       end
     end

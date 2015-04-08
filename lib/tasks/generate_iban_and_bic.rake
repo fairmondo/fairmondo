@@ -1,13 +1,13 @@
 namespace :iban do
   desc "generate iban and bic from KntNr and Plz"
-  task :generate => :environment do
+  task generate: :environment do
     user_without_iban = 0
     user_with_valid_kntNr = 0
 
     User.all.each do |user|
       if user.bank_code? && user.bank_account_number? && !user.iban? && !user.bic?
         user_without_iban += 1
-        bank_info = Ibanomat.find :bank_code => user.bank_code, :bank_account_number => user.bank_account_number
+        bank_info = Ibanomat.find bank_code: user.bank_code, bank_account_number: user.bank_account_number
         if !bank_info[:iban].blank? && !bank_info[:bic].blank? && bank_info[:return_code] == "00"
           user_with_valid_kntNr += 1
           #puts bank_info[:iban]

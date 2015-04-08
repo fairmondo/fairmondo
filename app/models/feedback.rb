@@ -22,7 +22,7 @@ class Feedback < ActiveRecord::Base
   extend ActiveModel::Naming
 
   # Optional image
-  has_one :image, :class_name => "FeedbackImage", foreign_key: "imageable_id"
+  has_one :image, class_name: "FeedbackImage", foreign_key: "imageable_id"
   accepts_nested_attributes_for :image
 
   enumerize :variety, in: [ :report_article, :get_help, :send_feedback, :become_donation_partner ]

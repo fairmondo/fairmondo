@@ -34,7 +34,7 @@ module ContainerHelper
     render  layout: "accordion_layout",
             locals: {
               accordion_name: accordion_name,
-              accordion_title: options[:title] || t(accordion_name, :scope => "#{controller_name}.boxes"),
+              accordion_title: options[:title] || t(accordion_name, scope: "#{controller_name}.boxes"),
               accordion_tooltip: options[:tooltip],
               accordion_header_class: header_class,
               accordion_content_class: content_class,

@@ -51,7 +51,7 @@ describe Category do
   describe "methods" do
     describe "#parent" do
       it "should have the correct parent_id" do
-        @anotherCategory = FactoryGirl.create(:category, :parent => category)
+        @anotherCategory = FactoryGirl.create(:category, parent: category)
         @anotherCategory.parent.must_equal category
       end
 

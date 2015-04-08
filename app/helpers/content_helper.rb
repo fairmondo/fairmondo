@@ -19,7 +19,7 @@
 #
 module ContentHelper
   def tinycms_content(key)
-    render "contents/embed", :content => find_content(key)
+    render "contents/embed", content: find_content(key)
   end
 
   def tinycms_content_body(key)
@@ -28,7 +28,7 @@ module ContentHelper
   end
 
   def find_content key
-    ::Content.find_or_create_by(:key => key.to_s.parameterize)
+    ::Content.find_or_create_by(key: key.to_s.parameterize)
   end
 
   def tinycms_content_body_sanitized(key)

@@ -15,12 +15,12 @@ class Payment < ActiveRecord::Base
     state :pending, :initialized, :errored, :succeeded, :confirmed
 
     event :init do
-      transition :pending => :initialized, if: :initialize_payment
-      transition :pending => :errored
+      transition pending: :initialized, if: :initialize_payment
+      transition pending: :errored
     end
 
     event :success do
-      transition :initialized => :succeeded
+      transition initialized: :succeeded
     end
 
     event :confirm do

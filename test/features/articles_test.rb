@@ -109,7 +109,7 @@ feature 'Article creation' do
     visit new_article_path
     fill_form_with_valid_article
     # choose friendly_percent
-    select('35', :from => 'article_friendly_percent')
+    select('35', from: 'article_friendly_percent')
 
     assert_no_difference 'Article.unscoped.count'  do
       click_button I18n.t("article.labels.continue_to_preview")
@@ -138,7 +138,7 @@ feature "Article activation for private users" do
   scenario "private user adds goods for more than 500000" do
     user = FactoryGirl.create :private_user
     FactoryGirl.create :article, seller: user, price_cents: 600000
-    article = FactoryGirl.create :preview_article, :user_id => user.id
+    article = FactoryGirl.create :preview_article, user_id: user.id
     login_as user
     visit article_path(article)
     click_button I18n.t("article.labels.submit_free")
@@ -287,12 +287,12 @@ end
 feature  "Article view for guest users" do
   before do
     @seller = FactoryGirl.create :user, type: 'LegalEntity'
-    @article_conventional = FactoryGirl.create :no_second_hand_article, :seller => @seller
+    @article_conventional = FactoryGirl.create :no_second_hand_article, seller: @seller
   end
 
   scenario "user visits an article" do
     visit article_path @article_conventional
-     page.must_have_link("Transparency International", :href => "http://www.transparency.de/")
+     page.must_have_link("Transparency International", href: "http://www.transparency.de/")
   end
 
   scenario "user visits article list" do
@@ -316,9 +316,9 @@ feature 'other Articles of the same user' do
   setup do
     seller = FactoryGirl.create :user
     ArticlesIndex.reset!
-    @article = FactoryGirl.create :article, :index_article, :seller => seller
-    @article_active = FactoryGirl.create :article, :index_article, :seller => seller
-    @article_locked = FactoryGirl.create :preview_article, :index_article, :seller => seller
+    @article = FactoryGirl.create :article, :index_article, seller: seller
+    @article_active = FactoryGirl.create :article, :index_article, seller: seller
+    @article_locked = FactoryGirl.create :preview_article, :index_article, seller: seller
   end
 
   scenario 'user wants to see other articles of the same seller' do

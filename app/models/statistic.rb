@@ -1,7 +1,7 @@
 # Non-ActiveRecord Placeholder
 class Statistic
   def statistics_category_articles c
-    a = Article.new(:categories => [c])
+    a = Article.new(categories: [c])
     articles = a.find_like_this(1)
     articles.total
   rescue
@@ -47,19 +47,19 @@ class Statistic
   end
 
   def sum_fair_article_fees
-    Money.new(Article.active.where(:fair => true).sum(:calculated_fee_cents))
+    Money.new(Article.active.where(fair: true).sum(:calculated_fee_cents))
   end
 
   def sum_fair_article_fees_with_quantity
-    Money.new(Article.active.where(:fair => true).sum("calculated_fee_cents * quantity"))
+    Money.new(Article.active.where(fair: true).sum("calculated_fee_cents * quantity"))
   end
 
   def sum_conventional_article_fees
-    Money.new(Article.active.where(:fair => false).sum(:calculated_fee_cents))
+    Money.new(Article.active.where(fair: false).sum(:calculated_fee_cents))
   end
 
   def sum_conventional_article_fees_with_quantity
-    Money.new(Article.active.where(:fair => false).sum("calculated_fee_cents * quantity"))
+    Money.new(Article.active.where(fair: false).sum("calculated_fee_cents * quantity"))
   end
 
   def sum_donations

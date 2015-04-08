@@ -37,7 +37,7 @@ class LegalEntity < User
     seller.validates :cancellation, presence: true, on: :update
   end
 
-  state_machine :seller_state, :initial => :standard_seller do
+  state_machine :seller_state, initial: :standard_seller do
     event :rate_up do
       transition standard_seller: :good1_seller, good1_seller: :good2_seller, good2_seller: :good3_seller, good3_seller: :good4_seller
     end

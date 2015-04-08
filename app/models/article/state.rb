@@ -23,7 +23,7 @@ module Article::State
   extend ActiveSupport::Concern
 
   included do
-    state_machine :initial => :preview do
+    state_machine initial: :preview do
       state :preview do
         # Inactive and editable
       end
@@ -54,15 +54,15 @@ module Article::State
 
       # Theoretical event, can't be performed over state-machine because people with validation issues can't do stuff anymore
       event :deactivate do
-        transition :active => :locked
+        transition active: :locked
       end
 
       event :close do
-        transition :locked => :closed
+        transition locked: :closed
       end
 
       event :templatify do
-        transition :preview => :template
+        transition preview: :template
       end
     end
   end
@@ -75,12 +75,12 @@ module Article::State
   def deactivate_without_validation
     self.state = "locked"
     ArticleObserver.instance.send("after_deactivate",self,nil)
-    self.save(:validate => false) # do it anyways
+    self.save(validate: false) # do it anyways
   end
 
   def close_without_validation
     self.state = "closed"
     ArticleObserver.instance.send("after_close",self,nil)
-    self.save(:validate => false) # do it anyways
+    self.save(validate: false) # do it anyways
   end
 end

@@ -62,7 +62,7 @@ gem 'hogan_assets'
 ## Forms
 
 gem 'formtastic', "~> 2.3.0.rc3"
-gem "recaptcha", :require => "recaptcha/rails" #Captcha Gem
+gem "recaptcha", require: "recaptcha/rails" #Captcha Gem
 
 # ---------- Controller ----------
 
@@ -80,7 +80,7 @@ gem 'premailer-rails' # creates emails with inline css from html files with exte
 # ---------- Background Processing ----------
 
 gem 'sidekiq', '>= 3.2.5'
-gem 'sinatra', '>= 1.3.0', :require => nil
+gem 'sinatra', '>= 1.3.0', require: nil
 gem 'delayed_paperclip' # handle image processing with sidekiq
 gem 'bluepill' #legacy, remove when eye stable
 gem 'eye' # sidekiq process monitoring
@@ -178,7 +178,7 @@ group :development, :test do
 
   # Code Coverage
   gem 'simplecov'
-  gem 'simplecov-json', :require => false
+  gem 'simplecov-json', require: false
   gem 'coveralls', require: false
   # Mutation Coverage
   # gem 'mutant-rails' ... check back to see if they got it working: https://github.com/mockdeep/mutant-rails

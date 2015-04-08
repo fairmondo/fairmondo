@@ -23,7 +23,7 @@ module Article::Images
   extend ActiveSupport::Concern
 
   included do
-    delegate :external_url, to: :title_image, :prefix => true
+    delegate :external_url, to: :title_image, prefix: true
     attr_accessor :external_title_image_url, :image_2_url # MassUpload
 
     def title_image_url style = nil
@@ -46,7 +46,7 @@ module Article::Images
       title_image && title_image.image.present? #&& image_accessible?
     end
 
-    validates :external_title_image_url, :image_2_url, :format => URI::regexp(%w(http https)), allow_blank: true
+    validates :external_title_image_url, :image_2_url, format: URI::regexp(%w(http https)), allow_blank: true
     #I18n.t('mass_uploads.errors.wrong_external_title_image_url')
     #I18n.t('mass_uploads.errors.wrong_image_2_url')
 

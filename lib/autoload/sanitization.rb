@@ -86,8 +86,8 @@ module Sanitization
             ['width', 'height', 'data', 'name', 'id', 'class', 'style', 'data-truncate'] :
             ['width', 'height', 'name']
         },
-        :css => {
-          :properties => admin_mode ?
+        css: {
+          properties: admin_mode ?
             ['text-align', 'margin', 'margin-top', 'margin-bottom', 'margin-left', 'margin-right', 'tab-stops',  'font-family', 'font-size', 'line-height', 'padding', 'padding-top', 'padding-bottom', 'padding-left', 'padding-right', 'cursor', 'height', 'width', 'font-variant', 'font-style', 'color', 'font-weight', 'text-decoration'] :
             []
         },

@@ -44,7 +44,7 @@ describe MassUploadsController do
 
   describe "mass-upload creation" do
     let(:user) { FactoryGirl.create(:legal_entity, :paypal_data) }
-    let(:attributes) { FactoryGirl.attributes_for(:mass_upload, :user => user) }
+    let(:attributes) { FactoryGirl.attributes_for(:mass_upload, user: user) }
 
     before do
       sign_in user
@@ -55,7 +55,7 @@ describe MassUploadsController do
         assert_difference 'MassUpload.count', 1 do
           post :create, mass_upload: attributes
         end
-        assert_redirected_to user_path(user, :anchor => 'my_mass_uploads')
+        assert_redirected_to user_path(user, anchor: 'my_mass_uploads')
         MassUpload.last.articles.count.must_equal(3)
       end
       it "should create a mass-upload object for heavy uploaders" do
@@ -63,7 +63,7 @@ describe MassUploadsController do
         assert_difference 'MassUpload.count', 1 do
           post :create, mass_upload: attributes
         end
-        assert_redirected_to user_path(user, :anchor => 'my_mass_uploads')
+        assert_redirected_to user_path(user, anchor: 'my_mass_uploads')
         MassUpload.last.articles.count.must_equal(3)
       end
     end
@@ -73,7 +73,7 @@ describe MassUploadsController do
         post :create, mass_upload: attributes
         mass_upload = MassUpload.last
         mass_upload.finish!
-        post :update, :id => MassUpload.last.id
+        post :update, id: MassUpload.last.id
         assert_redirected_to user_path(user)
         MassUpload.last.articles.first.active?.must_equal true
       end

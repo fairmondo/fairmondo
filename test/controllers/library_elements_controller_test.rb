@@ -30,12 +30,12 @@ describe LibraryElementsController do
       end
 
       it 'should deny access to create' do
-        put :create, :user_id => @user
+        put :create, user_id: @user
         assert_redirected_to(new_user_session_path)
       end
 
       it 'should deny access to destroy' do
-        put :destroy, :user_id => @user, :id => @library_element
+        put :destroy, user_id: @user, id: @library_element
         assert_redirected_to(new_user_session_path)
       end
     end
@@ -52,19 +52,19 @@ describe LibraryElementsController do
 
       it 'destroy a library element' do
         assert_difference 'LibraryElement.count', -1 do
-          delete :destroy,:user_id => @user, :id => @library_element
+          delete :destroy,user_id: @user, id: @library_element
         end
       end
 
       it 'shouldnt be possible to delete another users elements' do
         @user.id.wont_be_same_as @different_user.id #by design
-        -> { delete :destroy,:user_id => @different_user, :id => @different_library_element }.must_raise(Pundit::NotAuthorizedError)
+        -> { delete :destroy,user_id: @different_user, id: @different_library_element }.must_raise(Pundit::NotAuthorizedError)
       end
 
       it 'shouldnt be possible to add elements to another users libraries' do
         @user.id.wont_be_same_as @different_user.id #by design
         -> {
-          post :create ,:user_id => @different_user, :library_element => {:library_id => @different_library_element.library }
+          post :create ,user_id: @different_user, library_element: {library_id: @different_library_element.library }
         }.must_raise(Pundit::NotAuthorizedError)
       end
     end

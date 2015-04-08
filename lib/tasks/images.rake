@@ -2,7 +2,7 @@
 
 namespace :images do
   desc "Refresh Image styles"
-  task :refresh => :environment do
+  task refresh: :environment do
     count = Image.all.count
     Image.all.each_with_index do |image,index|
       begin
@@ -14,7 +14,7 @@ namespace :images do
     end
   end
 
-  task :refresh_thumbs => :environment do
+  task refresh_thumbs: :environment do
     count = Image.all.count
     Image.all.each_with_index do |image,index|
       begin
@@ -28,7 +28,7 @@ namespace :images do
 
   # Source: https://gist.github.com/jlecour/1276437
   desc "Destroy paperclip attachment files that are not attached to any record"
-  task :clean_orphan_files => :environment do
+  task clean_orphan_files: :environment do
     @last_path = nil
     @dry_run = %w(true 1).include? ENV['DRY_RUN']
     @styles = ["original","medium","thumb","profile"]

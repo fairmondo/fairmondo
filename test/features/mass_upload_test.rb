@@ -193,7 +193,7 @@ feature "Uploading a CSV" do
     a4.reload.active?.must_equal true
     a5.reload.active?.must_equal true
     Article.unscoped.size.must_equal 8 # 5 created by factory, 3 createdby csv
-    Article.unscoped.where(:title => "neuer titel").size.must_equal 2
+    Article.unscoped.where(title: "neuer titel").size.must_equal 2
   end
 
   scenario "legal entity uploads a file with an unknown action" do

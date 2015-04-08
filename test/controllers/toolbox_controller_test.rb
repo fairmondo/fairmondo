@@ -58,7 +58,7 @@ describe ToolboxController do
 
   describe "GET 'rss'" do
     before(:each) do
-      FakeWeb.register_uri(:get, 'https://info.fairmondo.de/?feed=rss', :body => "<?xml version=\"1.0\" encoding=\"UTF-8\" ?><rss version=\"2.0\"></rss>")
+      FakeWeb.register_uri(:get, 'https://info.fairmondo.de/?feed=rss', body: "<?xml version=\"1.0\" encoding=\"UTF-8\" ?><rss version=\"2.0\"></rss>")
     end
 
     describe "as html" do

@@ -39,7 +39,7 @@ class Article < ActiveRecord::Base
     ]
   end
 
-  friendly_id :slug_candidates, :use => [:slugged, :finders]
+  friendly_id :slug_candidates, use: [:slugged, :finders]
 
   def should_generate_new_friendly_id?
     super && slug == nil && should_get_a_slug?

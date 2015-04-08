@@ -64,7 +64,7 @@ class ArticlesController < ApplicationController
 
   #Autocomplete
   def autocomplete
-    render :json => ArticleAutocomplete.new(params[:q]).autocomplete
+    render json: ArticleAutocomplete.new(params[:q]).autocomplete
   rescue Faraday::ConnectionFailed
     search_results_for_error_case
   rescue Faraday::TimeoutError
@@ -140,7 +140,7 @@ class ArticlesController < ApplicationController
   private
 
     def search_results_for_error_case
-      render :json => {query: params[:q], suggestions:[]}
+      render json: {query: params[:q], suggestions:[]}
     end
 
     def calculate_fees_and_donations
@@ -194,7 +194,7 @@ class ArticlesController < ApplicationController
         render :show
       else
         # The article became invalid so please try a new one
-        redirect_to new_article_path(:edit_as_new => @article.id)
+        redirect_to new_article_path(edit_as_new: @article.id)
       end
     end
 
@@ -219,7 +219,7 @@ class ArticlesController < ApplicationController
       template = current_user.articles.unscoped.find(params[:template][:article_id])
       @article = template.amoeba_dup
       clear_template_name
-      flash.now[:notice] = t('template.notices.applied', :name => template.article_template_name)
+      flash.now[:notice] = t('template.notices.applied', name: template.article_template_name)
     end
 
     def edit_as_new

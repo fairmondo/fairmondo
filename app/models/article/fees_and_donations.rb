@@ -39,7 +39,7 @@ module Article::FeesAndDonations
     monetize :calculated_fee_cents, allow_nil: true
 
      ## friendly percent
-    validates_presence_of :friendly_percent_organisation_id, :if => :friendly_percent_gt_0?
+    validates_presence_of :friendly_percent_organisation_id, if: :friendly_percent_gt_0?
     validates_presence_of :friendly_percent
   end
 

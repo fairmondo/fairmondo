@@ -116,11 +116,11 @@ Fairmondo::Application.routes.draw do
 
   #the user routes
 
-  resources :users, :only => [:show] do
+  resources :users, only: [:show] do
     resources :addresses, except: [:index, :show]
-    resources :libraries, :except => [:new,:edit]
+    resources :libraries, except: [:new,:edit]
     resources :library_elements, only: [:create, :destroy]
-    resources :ratings, :only => [:create, :index] do
+    resources :ratings, only: [:create, :index] do
       get '/:line_item_group_id', to: 'ratings#new', as: 'line_item_group', on: :new
     end
     member do
@@ -157,7 +157,7 @@ Fairmondo::Application.routes.draw do
 
   post '/remote_validations/:model/:field/:value', to: 'remote_validations#create', as: 'remote_validation', constraints: {format: 'json'}
 
-  root :to => 'welcome#index' # Workaround for double root https://github.com/gregbell/active_admin/issues/2049
+  root to: 'welcome#index' # Workaround for double root https://github.com/gregbell/active_admin/issues/2049
 
   require 'sidekiq/web'
   require 'sidetiq/web'

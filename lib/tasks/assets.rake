@@ -1,6 +1,6 @@
 namespace :assets do
   desc 'recreate sprite images and css'
-  task :resprite => :environment do
+  task resprite: :environment do
     require 'sprite_factory'
 
     SpriteFactory.report  = true                         # output report during generation

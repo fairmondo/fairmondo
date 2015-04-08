@@ -186,12 +186,6 @@ Style/For:
 Style/GlobalVars:
   Enabled: false
 
-# Offense count: 261
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-Style/HashSyntax:
-  Enabled: false
-
 # Offense count: 12
 # Configuration parameters: MaxLineLength.
 Style/IfUnlessModifier:

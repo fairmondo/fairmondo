@@ -45,7 +45,7 @@ module Article::Validations
 
     # transport
 
-    validates :transport_type1_provider, :transport_type2_provider, :length => { :maximum => 255 }
+    validates :transport_type1_provider, :transport_type2_provider, length: { maximum: 255 }
     validates :transport_type1_price, :transport_type1_provider, presence: true, if: :transport_type1
     validates :transport_type2_price, :transport_type2_provider, presence: true, if: :transport_type2
     validates :transport_type1_number, :transport_type2_number, numericality: { greater_than: 0 }
@@ -56,14 +56,14 @@ module Article::Validations
     # payment
 
     validates :payment_cash_on_delivery_price, presence: true, if: :payment_cash_on_delivery
-    validates :payment_details, length: { :maximum => 2500 }
+    validates :payment_details, length: { maximum: 2500 }
     validates :quantity, presence: true, numericality: { greater_than_or_equal_to: 1, less_than_or_equal_to: 10000 }
     validates :quantity_available, numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 10000 }
     validates :tos_accepted, acceptance: true, presence: true, on: :update, if: lambda { |art| art.changing_state && art.belongs_to_legal_entity? }
 
     #images
 
-    validates :images, :size => { :in => 0..5  } # lower to 3 if the old 5 article pics are all gone
+    validates :images, size: { in: 0..5  } # lower to 3 if the old 5 article pics are all gone
 
     # custom validations
 

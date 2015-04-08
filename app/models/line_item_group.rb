@@ -23,8 +23,8 @@ class LineItemGroup < ActiveRecord::Base
   delegate :value, to: :rating, prefix: true
   delegate :pay_key, to: :voucher_payment, prefix: true
 
-  monetize :unified_transport_price_cents, :allow_nil => true
-  monetize :free_transport_at_price_cents, :allow_nil => true
+  monetize :unified_transport_price_cents, allow_nil: true
+  monetize :free_transport_at_price_cents, allow_nil: true
 
   auto_sanitize :message
 

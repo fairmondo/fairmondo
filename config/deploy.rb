@@ -67,7 +67,7 @@ end
 namespace :rails do
   desc "Open the rails console on each of the remote servers"
   task :console do
-    on roles(:console), :primary => true do |host|
+    on roles(:console), primary: true do |host|
       rails_env = fetch(:stage)
       within current_path do
         execute_interactively "~/.rbenv/bin/rbenv exec bundle exec rails console #{rails_env}",host
@@ -77,7 +77,7 @@ namespace :rails do
 
   desc "Open the rails dbconsole on each of the remote servers"
   task :dbconsole do
-    on roles(:db), :primary => true do |host|
+    on roles(:db), primary: true do |host|
       rails_env = fetch(:stage)
       within current_path do
         execute_interactively "~/.rbenv/bin/rbenv exec bundle exec rails dbconsole #{rails_env}",host

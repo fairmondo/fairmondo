@@ -22,9 +22,9 @@
 class PrivateUser < User
   extend STI
 
-  state_machine :seller_state, :initial => :standard_seller do
+  state_machine :seller_state, initial: :standard_seller do
     event :rate_up do
-      transition :standard_seller => :good_seller
+      transition standard_seller: :good_seller
     end
 
     event :update_seller_state do
@@ -36,11 +36,11 @@ class PrivateUser < User
 
   def private_seller_constants
     {
-      :standard_salesvolume => $private_seller_constants['standard_salesvolume'],
-      :verified_bonus => $private_seller_constants['verified_bonus'],
-      :trusted_bonus => $private_seller_constants['trusted_bonus'],
-      :good_factor => $private_seller_constants['good_factor'],
-      :bad_salesvolume => $private_seller_constants['bad_salesvolume']
+      standard_salesvolume: $private_seller_constants['standard_salesvolume'],
+      verified_bonus: $private_seller_constants['verified_bonus'],
+      trusted_bonus: $private_seller_constants['trusted_bonus'],
+      good_factor: $private_seller_constants['good_factor'],
+      bad_salesvolume: $private_seller_constants['bad_salesvolume']
     }
   end
 

@@ -163,8 +163,8 @@ feature 'Library management' do
     seller = @user
     article = FactoryGirl.create :article, seller: seller
     buyer = FactoryGirl.create :buyer
-    library = FactoryGirl.create :library, :user => buyer, :public => true
-    FactoryGirl.create :library_element, :article => article, :library => library
+    library = FactoryGirl.create :library, user: buyer, public: true
+    FactoryGirl.create :library_element, article: article, library: library
 
     login_as seller
     visit article_path article

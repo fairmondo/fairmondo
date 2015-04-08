@@ -30,7 +30,7 @@ class ArticleExporter
 
   def self.determine_articles_to_export user, params
     if params == "active"
-      user.articles.where(:state => "active").order("created_at ASC").includes(:images,:categories,:social_producer_questionnaire,:fair_trust_questionnaire)
+      user.articles.where(state: "active").order("created_at ASC").includes(:images,:categories,:social_producer_questionnaire,:fair_trust_questionnaire)
     elsif params == "inactive"
       user.articles.where("state = ? OR state = ?","preview","locked").order("created_at ASC").includes(:images,:categories,:social_producer_questionnaire,:fair_trust_questionnaire)
     end
