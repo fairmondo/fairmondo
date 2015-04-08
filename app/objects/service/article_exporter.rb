@@ -1,7 +1,6 @@
 class ArticleExporter
   @@csv_options = { col_sep: ';',  encoding: 'utf-8' }
   @@export_attributes = MassUpload.article_attributes
-  @@questionnaires = [:fair_trust, :social_producer]
 
   class << self
     def export(csv, user, params = nil)
@@ -37,21 +36,33 @@ class ArticleExporter
 
     def create_row_for article
       row = {}
-      @@questionnaires.each do |type|
+      questionnaires.each do |type|
         row.merge!(send("provide_#{ type }_attributes_for", article))
       end
       row.merge!(article.attributes)
-      row['categories'] = article.categories.map { |c| c.id }.join(',')
-      row['external_title_image_url'] = article.images.first.external_url if article.images.first
-      row['image_2_url'] = article.images[1].external_url if article.images[1]
+      row['categories'] = categories_for article
+      row['external_title_image_url'] = first_image_url_for article
+      row['image_2_url'] = second_image_url_for article
       row
+    end
+
+    def categories_for article
+      article.categories.map { |c| c.id }.join(',')
+    end
+
+    def first_image_url_for article
+      article.images.first.external_url if article.images.first
+    end
+
+    def second_image_url_for article
+      article.images[1].external_url if article.images[1]
     end
 
     def write_row_to_csv csv, row
       csv.puts CSV.generate_line @@export_attributes.map { |element| row[element] }, @@csv_options
     end
 
-    @@questionnaires.each do |type|
+    questionnaires.each do |type|
       define_method "provide_#{ type }_attributes_for" do |article|
         attributes = {}
         if article.send("#{ type }_questionnaire")
@@ -66,6 +77,10 @@ class ArticleExporter
         attributes[k] = v.any? ? v.join(',') : nil
       end
       attributes
+    end
+
+    def questionnaires
+      [:fair_trust, :social_producer]
     end
   end
 end
