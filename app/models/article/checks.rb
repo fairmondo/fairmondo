@@ -67,7 +67,7 @@ module Article::Checks
   # should the fair alternative be shown for the seller
   def show_fair_alternative_for_seller?
     if $exceptions_on_fairmondo['no_fair_alternative'] && $exceptions_on_fairmondo['no_fair_alternative']['user_ids']
-        $exceptions_on_fairmondo['no_fair_alternative']['user_ids'].each do |user_id|
+      $exceptions_on_fairmondo['no_fair_alternative']['user_ids'].each do |user_id|
         if self.seller.id == user_id
           return false
         end

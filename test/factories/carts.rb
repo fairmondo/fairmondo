@@ -20,7 +20,7 @@ FactoryGirl.define do
     end
   end
 
-   trait :with_line_item_groups_from_legal_entity do
+  trait :with_line_item_groups_from_legal_entity do
     transient do
       line_item_group_count 3
     end
@@ -33,6 +33,4 @@ FactoryGirl.define do
       end
     end
   end
-
-
 end

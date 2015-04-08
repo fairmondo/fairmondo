@@ -440,7 +440,7 @@ describe User do
         end
       end #/bad seller
 
-       describe "standard seller" do
+      describe "standard seller" do
         before :each do
           commercial_seller.seller_state = "standard_seller"
         end
@@ -594,7 +594,7 @@ describe User do
       it "should have a purchasevolume of 24 if trusted" do
         user.trustcommunity = true
         user.purchase_volume.must_equal 24
-        end
+      end
     end
 
     describe "good buyer" do
@@ -653,7 +653,7 @@ describe User do
           private_seller.update_rating_counter
           private_seller.seller_state.must_equal "bad_seller"
         end
-         it "should stay bad seller" do
+        it "should stay bad seller" do
           private_seller.seller_state = "bad_seller"
           private_seller.update_rating_counter
           private_seller.seller_state.must_equal "bad_seller"
@@ -696,7 +696,7 @@ describe User do
           private_seller.update_rating_counter
           private_seller.seller_state.must_equal "standard_seller"
         end
-         it "should change from bad to standard seller" do
+        it "should change from bad to standard seller" do
           private_seller.seller_state = "bad_seller"
           private_seller.update_rating_counter
           private_seller.seller_state.must_equal "standard_seller"
@@ -975,8 +975,6 @@ describe User do
           commercial_seller.seller_state.must_equal "good4_seller"
         end
       end
-
     end
   end
-
 end

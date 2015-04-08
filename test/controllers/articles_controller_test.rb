@@ -24,7 +24,7 @@ require_relative '../test_helper'
 describe ArticlesController do
   let(:user) { FactoryGirl.create(:user) }
 
-   describe "#index" do
+  describe "#index" do
 
     describe "searching" do
       setup do
@@ -177,7 +177,6 @@ describe ArticlesController do
         get :index
         assert_template(:index)
       end
-
     end
   end
 
@@ -265,18 +264,14 @@ describe ArticlesController do
   end
 
   describe "#new" do
-
     describe "for non-signed-in users" do
-
       it "should require login" do
         get :new
         assert_redirected_to(new_user_session_url(seller: true))
       end
-
     end
 
     describe "for signed-in users" do
-
       before :each do
         sign_in user
       end
@@ -295,7 +290,6 @@ describe ArticlesController do
         draftarticle.title.must_equal(article.title)
         draftarticle.original.must_equal article
       end
-
     end
   end
 
@@ -308,11 +302,9 @@ describe ArticlesController do
         get :edit, id: @article.id
         assert_redirected_to(new_user_session_path)
       end
-
     end
 
     describe "for signed-in users" do
-
       before :each do
         sign_in user
       end
@@ -324,7 +316,6 @@ describe ArticlesController do
         assert_template :edit
       end
 
-
       it "should not be able to edit other users articles" do
         @article = FactoryGirl.create :preview_article, seller: (FactoryGirl.create(:user))
 
@@ -334,7 +325,6 @@ describe ArticlesController do
   end
 
   describe "#create" do
-
     before :each do
       @article_attrs = FactoryGirl.attributes_for :article, category_ids: [FactoryGirl.create(:category).id]
     end
@@ -348,7 +338,6 @@ describe ArticlesController do
     end
 
     describe "for signed-in users" do
-
       before :each do
         sign_in user
       end
@@ -394,7 +383,6 @@ describe ArticlesController do
         assert_equal original_article.comments.count, 0
         assert_equal comment, new_article.comments.first
       end
-
     end
   end
 
@@ -424,7 +412,6 @@ describe ArticlesController do
           put :destroy, id: @article.id
         end
       end
-
     end
   end
 

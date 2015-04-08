@@ -10,11 +10,6 @@
 Lint/AssignmentInCondition:
   Enabled: false
 
-# Offense count: 12
-# Cop supports --auto-correct.
-Lint/BlockAlignment:
-  Enabled: false
-
 # Offense count: 2
 # Cop supports --auto-correct.
 Lint/DeprecatedClassMethods:
