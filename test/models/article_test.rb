@@ -97,9 +97,9 @@ describe Article do
 
     describe "validations" do
       describe "legal_entity seller" do
-        let (:special_article) {
+        let (:special_article) do
           Article.new seller: LegalEntity.new, basic_price: 2
-        }
+        end
         it { special_article.must validate_presence_of :basic_price_amount }
       end
     end

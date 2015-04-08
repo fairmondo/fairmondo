@@ -165,9 +165,9 @@ Fairmondo::Application.routes.draw do
   if Rails.env.development?
     constraint = lambda { |_request| true }
   else
-    constraint = lambda { |request|
+    constraint = lambda do |request|
       request.env['warden'].authenticate? && request.env['warden'].user.admin?
-    }
+    end
   end
 
   constraints constraint do
@@ -178,9 +178,9 @@ Fairmondo::Application.routes.draw do
   get 'discourse/sso'
 
   # TinyCMS Routes Catchup
-  scope constraints: lambda {|request|
+  scope(constraints: ->(request) do
     request.params[:id] && !['assets','system','admin','public','favicon.ico', 'favicon'].any?{|url| request.params[:id].match(/^#{url}/)}
-  } do
+  end) do
     get '/*id' => 'contents#show'
   end
 end

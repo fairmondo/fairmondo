@@ -50,9 +50,9 @@ class ArticlesIndex < Chewy::Index
       field :swappable, type: 'boolean'
       field :borrowable, type: 'boolean'
       field :condition, index: :not_analyzed
-      field :categories, index: :not_analyzed, value: -> {
+      field :categories, index: :not_analyzed, value: -> do
         categories.map{ |c| c.self_and_ancestors.map(&:id) }.flatten
-      }
+      end
 
       # sorting
       field :created_at, type: 'date'
@@ -72,11 +72,11 @@ class ArticlesIndex < Chewy::Index
 
       field :transport_pickup, type: 'boolean'
       field :transport_bike_courier, type: 'boolean'
-      field :zip, value: -> {
+      field :zip, value: -> do
         if self.transport_pickup || self.seller.is_a?(LegalEntity)
           self.seller.standard_address_zip
         end
-      }
+      end
 
       # seller attributes
       field :belongs_to_legal_entity? , type: 'boolean'

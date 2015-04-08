@@ -53,11 +53,11 @@ class ArticlesController < ApplicationController
   # Flash image processing message
   before_action :flash_image_processing_message,
                 only: :show,
-                if: lambda {
+                if: lambda do
                   !flash.now[:notice] &&
                     @article.owned_by?(current_user) &&
                     at_least_one_image_processing?
-                }
+                end
 
   rescue_from ActiveRecord::RecordNotFound, with: :similar_articles,
                                             only: :show

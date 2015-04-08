@@ -9,15 +9,15 @@ FactoryGirl.define do
   end
 
   trait :with_conventional_article do
-    article {
+    article do
       FactoryGirl.create(:article, :with_legal_entity, condition: 'new')
-    }
+    end
   end
 
   trait :with_fair_article do
-    article {
+    article do
       FactoryGirl.create(:article, :with_legal_entity, :simple_fair,
                          condition: 'new')
-    }
+    end
   end
 end
