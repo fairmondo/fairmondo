@@ -19,7 +19,7 @@ class ExportsController < ApplicationController
         send_file csv.path,
                   type: 'text/csv; charset=utf-8',
                   filename: 'Fairmondo_export_'\
-                            "#{Time.now.strftime("%Y-%d-%m %H:%M:%S")}.csv"
+                            "#{Time.now.strftime('%Y-%d-%m %H:%M:%S')}.csv"
       end
     end
   end

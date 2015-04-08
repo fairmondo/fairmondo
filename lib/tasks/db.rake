@@ -62,7 +62,7 @@ namespace :db do
       articles_xml = http.request(request).body
       doc = REXML::Document.new(articles_xml)
 
-      puts "Completed task 'Getting articles'. #{doc.elements["items"].attributes["count"]} articles have been fetched.\n"
+      puts "Completed task 'Getting articles'. #{doc.elements['items'].attributes['count']} articles have been fetched.\n"
       return doc
     end
 
