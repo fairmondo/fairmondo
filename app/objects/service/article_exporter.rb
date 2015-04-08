@@ -1,14 +1,14 @@
 class ArticleExporter
-  @@csv_options = { col_sep: ';',  encoding: 'utf-8'}
+  @@csv_options = { col_sep: ';',  encoding: 'utf-8' }
 
-  def self.export( csv, user, params = nil )
+  def self.export(csv, user, params = nil)
     # Generate proper headers and find out if we are messing with transactions
     export_attributes = MassUpload.article_attributes
 
     # write the headers and set options for csv generation
     csv.puts CSV.generate_line export_attributes, @@csv_options
 
-    determine_articles_to_export( user, params ).find_each do |article|
+    determine_articles_to_export(user, params).find_each do |article|
       row = Hash.new
       row.merge!(provide_fair_attributes_for article)
       row.merge!(article.attributes)
@@ -21,7 +21,7 @@ class ArticleExporter
   end
 
   def self.export_erroneous_articles erroneous_articles
-    csv = CSV.generate_line( MassUpload.article_attributes, @@csv_options )
+    csv = CSV.generate_line(MassUpload.article_attributes, @@csv_options)
     erroneous_articles.each do |article|
       csv += article.article_csv
     end
@@ -30,9 +30,9 @@ class ArticleExporter
 
   def self.determine_articles_to_export user, params
     if params == 'active'
-      user.articles.where(state: 'active').order('created_at ASC').includes(:images,:categories,:social_producer_questionnaire,:fair_trust_questionnaire)
+      user.articles.where(state: 'active').order('created_at ASC').includes(:images, :categories, :social_producer_questionnaire, :fair_trust_questionnaire)
     elsif params == 'inactive'
-      user.articles.where('state = ? OR state = ?','preview','locked').order('created_at ASC').includes(:images,:categories,:social_producer_questionnaire,:fair_trust_questionnaire)
+      user.articles.where('state = ? OR state = ?', 'preview', 'locked').order('created_at ASC').includes(:images, :categories, :social_producer_questionnaire, :fair_trust_questionnaire)
     end
   end
 

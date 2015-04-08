@@ -7,7 +7,7 @@ class FeaturedLibraryQuery
   def set exhibition_name
     @exhibition_name = exhibition_name
     @library = Library.where(exhibition_name: exhibition_name).first
-    @relation = LibraryElement.where(library_id: @library.id).includes(article: [:images,:seller]).joins(:article).where("articles.state = 'active'") if @library
+    @relation = LibraryElement.where(library_id: @library.id).includes(article: [:images, :seller]).joins(:article).where("articles.state = 'active'") if @library
     self
   end
 
@@ -18,9 +18,9 @@ class FeaturedLibraryQuery
     exhibits.each do |exhibit|
       set_exhibition_date_of exhibit unless exhibit.exhibition_date # fills nil
     end
-    exhibits = fill_exhibits_randomly( exhibits, count ) unless exhibits.length >= count
+    exhibits = fill_exhibits_randomly(exhibits, count) unless exhibits.length >= count
 
-    { library: @library, exhibits: exhibits.map{ |exhibit| exhibit.article } }
+    { library: @library, exhibits: exhibits.map { |exhibit| exhibit.article } }
   end
 
   private
@@ -49,6 +49,6 @@ class FeaturedLibraryQuery
     end
 
     def filler_query exhibits
-      @relation.where('library_elements.id NOT IN (?)', exhibits.map{|e| e.id } + [0] ).where('library_elements.exhibition_date IS NOT NULL AND library_elements.exhibition_date < ?', DateTime.now - 1.day)
+      @relation.where('library_elements.id NOT IN (?)', exhibits.map { |e| e.id } + [0]).where('library_elements.exhibition_date IS NOT NULL AND library_elements.exhibition_date < ?', DateTime.now - 1.day)
     end
 end

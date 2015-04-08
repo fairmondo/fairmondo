@@ -4,7 +4,7 @@ require 'timeout'
 class ToolboxController < ApplicationController
   respond_to :js, :json
 
-  skip_before_action :authenticate_user!, only: [ :session_expired, :confirm, :rss, :reload, :healthcheck ]
+  skip_before_action :authenticate_user!, only: [:session_expired, :confirm, :rss, :reload, :healthcheck]
 
   def session_expired
     respond_to do |format|

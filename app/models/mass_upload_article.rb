@@ -7,7 +7,7 @@ class MassUploadArticle < ActiveRecord::Base
   default_scope -> { order('row_index ASC') }
 
   ACTION_MAPPING = {
-    'c' => :create ,
+    'c' => :create,
     'create' => :create,
     'u' => :update,
     'update' => :update,
@@ -65,7 +65,7 @@ class MassUploadArticle < ActiveRecord::Base
     if @prepared_action == :error
       self.update_attributes(article_csv: original_csv, validation_errors: @error_text, action: :error)
     else
-      self.update_attributes(article_id: @prepared_article.id, action: @prepared_action ) # save action and article
+      self.update_attributes(article_id: @prepared_article.id, action: @prepared_action) # save action and article
     end
   end
 
@@ -160,7 +160,7 @@ class MassUploadArticle < ActiveRecord::Base
 
   # We allow sellers to use their custom field as an identifier but we need the ID internally
   def find_by_id_or_custom_seller_identifier
-    if IDENTIFIERS.select{ |v| @article_attributes.include?(v) && @article_attributes[v].present? }.empty?
+    if IDENTIFIERS.select { |v| @article_attributes.include?(v) && @article_attributes[v].present? }.empty?
       set_error I18n.t('mass_uploads.errors.no_identifier')
       nil
     else
@@ -186,7 +186,7 @@ class MassUploadArticle < ActiveRecord::Base
   end
 
   def original_csv
-    reconstructed_line = MassUpload.article_attributes.map{ |column| @original_attributes[column] }
+    reconstructed_line = MassUpload.article_attributes.map { |column| @original_attributes[column] }
     CSV.generate_line(reconstructed_line, col_sep: ';')
   end
 end

@@ -60,7 +60,7 @@ module Article::Images
     end
 
     def replace_image should_be_title, attribute
-      old_image = self.images.select{|i| i.is_title == should_be_title}.first
+      old_image = self.images.select { |i| i.is_title == should_be_title }.first
       return if old_image && old_image.external_url == self.send(attribute)
       self.images.delete old_image if old_image # delete this image from the instance to not cause unique validation errors
       image = load_new_image attribute, should_be_title

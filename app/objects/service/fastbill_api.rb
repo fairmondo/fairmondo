@@ -1,7 +1,7 @@
 class FastbillAPI
   require 'fastbill-automatic'
 
-  def initialize bt=nil
+  def initialize bt = nil
     @bt = bt
     if @bt
       @seller  = bt.seller
@@ -114,7 +114,7 @@ class FastbillAPI
       if type == :discount
         "#{ @bt.id } #{ @article.title } (#{ @bt.discount_title })"
       else
-        "#{ @bt.id } #{ @article.title } (#{ I18n.t( 'invoice.' + type.to_s ) })"
+        "#{ @bt.id } #{ @article.title } (#{ I18n.t('invoice.' + type.to_s) })"
       end
     end
 

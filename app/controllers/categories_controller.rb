@@ -1,7 +1,7 @@
 class CategoriesController < ApplicationController
   layout false, only: :select_category
   respond_to :html
-  respond_to :json, only: [:index ,:show]
+  respond_to :json, only: [:index, :show]
   respond_to :js, only: :show, if: lambda { request.xhr? }
   before_action :set_category, only: [:show, :select_category]
   before_action :build_category_search_cache, only: :show
@@ -45,7 +45,7 @@ class CategoriesController < ApplicationController
 
     def as_json
       @children = params[:hide_empty] ? @category.children_with_active_articles : @category.children
-      render json: @children.map { |child| {id: child.id, name: child.name} }.to_json
+      render json: @children.map { |child| { id: child.id, name: child.name } }.to_json
     end
 
     def build_category_search_cache

@@ -82,7 +82,7 @@ feature 'Uploading a CSV' do
 
     # sell all articles
     Article.all.each do |article|
-      FactoryGirl.create :business_transaction, :pickup, article: article, line_item_group: (FactoryGirl.create :line_item_group, :sold , articles: [article])
+      FactoryGirl.create :business_transaction, :pickup, article: article, line_item_group: (FactoryGirl.create :line_item_group, :sold, articles: [article])
     end
 
     # change them
@@ -182,7 +182,7 @@ feature 'Uploading a CSV' do
     a4 = FactoryGirl.create :article, seller: @user # problems with dup and images while testing
     a5 = FactoryGirl.create :preview_article, seller: @user
 
-    attach_file('mass_upload_file','test/fixtures/mass_upload_correct_multiple_action.csv')
+    attach_file('mass_upload_file', 'test/fixtures/mass_upload_correct_multiple_action.csv')
     click_button I18n.t('mass_uploads.labels.upload_article')
     click_link I18n.t('mass_uploads.labels.show_report')
     click_button I18n.t('mass_uploads.labels.mass_activate_articles')

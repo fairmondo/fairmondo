@@ -2,7 +2,7 @@ require_relative '../test_helper'
 
 include Warden::Test::Helpers
 
-def expect_cart_emails arg= :once
+def expect_cart_emails arg = :once
   Mail::Message.any_instance.stubs(:deliver)
   CartMailer.expects(:seller_email).returns(Mail::Message.new).send arg
   CartMailer.expects(:buyer_email).returns(Mail::Message.new)
@@ -291,7 +291,7 @@ feature 'Checkout' do
 
     totals_expected =
       [articles[0..2].map(&:price).sum + unified_seller.unified_transport_price + articles[2].transport_type1_price,
-       articles[3..4].map(&:price).sum + articles[3..4].map(&:transport_type1_price).sum].map{|t| t.format_with_settings(symbol_position: :after)}.sort
+       articles[3..4].map(&:price).sum + articles[3..4].map(&:transport_type1_price).sum].map { |t| t.format_with_settings(symbol_position: :after) }.sort
 
     totals.map(&:text).sort.each_with_index do |total, i|
       total.must_equal totals_expected[i]
@@ -306,8 +306,8 @@ feature 'Checkout' do
 
   scenario 'Trying to buy a cart with unified transport and cash on delivery and dont check agb. Afterwards try to resume with single transports' do
     seller = FactoryGirl.create :legal_entity, :with_unified_transport_information, :paypal_data
-    articles = [FactoryGirl.create(:article, :with_all_payments, :with_all_transports, title: 'foobar', seller: seller )]
-    articles << FactoryGirl.create(:article, :with_all_payments, :with_all_transports, title: 'foobar2', seller: seller )
+    articles = [FactoryGirl.create(:article, :with_all_payments, :with_all_transports, title: 'foobar', seller: seller)]
+    articles << FactoryGirl.create(:article, :with_all_payments, :with_all_transports, title: 'foobar2', seller: seller)
 
     login_as FactoryGirl.create(:user)
     articles.each do |article|

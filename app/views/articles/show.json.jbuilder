@@ -1,4 +1,4 @@
-json.(@article,:id,:slug,:title,:price_cents,:quantity_available)
+json.(@article, :id, :slug, :title, :price_cents, :quantity_available)
 json.partial! 'articles/show/legal_entity', article: @article
 json.partial! 'articles/show/tags', article: @article
 json.partial! 'articles/show/donation', article: @article
@@ -23,11 +23,11 @@ end
 json.seller do
   json.type @article.seller.type.underscore
   if @article.seller.is_a?(LegalEntity) && @article.seller.ngo
-    json.type_name  t('users.legal_status.show.ngo')
+    json.type_name t('users.legal_status.show.ngo')
   elsif @article.seller.is_a? LegalEntity
-    json.type_name  t('users.legal_status.show.legal_entity')
+    json.type_name t('users.legal_status.show.legal_entity')
   else
-    json.type_name  t('users.legal_status.show.private_user')
+    json.type_name t('users.legal_status.show.private_user')
   end
   json.ngo @article.seller.ngo
   json.name @article.seller.name
@@ -47,5 +47,5 @@ end
 json.content @article.content
 json.payment_html render(partial: '/articles/show/payment', formats: [:html])
 json.transport_html render(partial: '/articles/show/transport', formats: [:html])
-json.commendation_html render(partial: '/articles/show/commendation', formats: [:html], locals: {commendation_link: url_for(controller: 'contents', action: 'show', id: 'faq', anchor: 'f1', only_path: false)})
+json.commendation_html render(partial: '/articles/show/commendation', formats: [:html], locals: { commendation_link: url_for(controller: 'contents', action: 'show', id: 'faq', anchor: 'f1', only_path: false) })
 json.html_url article_url(@article)

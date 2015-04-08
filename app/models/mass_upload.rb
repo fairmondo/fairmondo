@@ -71,7 +71,7 @@ class MassUpload < ActiveRecord::Base
   has_many :deleted_articles, -> { where('mass_upload_articles.action' => 'delete') }, through: :mass_upload_articles, source: :article
   has_many :deactivated_articles, -> { where('mass_upload_articles.action' => 'deactivate') }, through: :mass_upload_articles, source: :article
   has_many :activated_articles, -> { where('mass_upload_articles.action' => 'activate') }, through: :mass_upload_articles, source: :article
-  has_many :articles_for_mass_activation, -> { where("mass_upload_articles.action IN ('create', 'update', 'activate')") } , through: :mass_upload_articles, source: :article
+  has_many :articles_for_mass_activation, -> { where("mass_upload_articles.action IN ('create', 'update', 'activate')") }, through: :mass_upload_articles, source: :article
   has_many :skipped_articles, -> { where('mass_upload_articles.action' => 'nothing') }, through: :mass_upload_articles, source: :article
 
   has_many :valid_mass_upload_articles, -> { where(validation_errors: nil).where.not(article_id: nil) }, class_name: 'MassUploadArticle'

@@ -97,9 +97,9 @@ class LibrariesController < ApplicationController
         articles.each do |id|
           library.articles << Article.find(id) if id.present?
         end
-        notice = {notice: 'Added to library.'}
+        notice = { notice: 'Added to library.' }
       rescue => err # will throw errors e.g. if library already had that article
-        notice = {error: "Something went wrong: #{err}"} # Only visible for admins
+        notice = { error: "Something went wrong: #{err}" } # Only visible for admins
       end
     end
     redirect_to :back, flash: notice

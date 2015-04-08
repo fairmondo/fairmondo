@@ -36,7 +36,7 @@ describe ToolboxController do
 
     describe 'as html' do
       it 'should fail' do
-        ->{ get :session_expired }.must_raise ActionController::UnknownFormat
+        -> { get :session_expired }.must_raise ActionController::UnknownFormat
       end
     end
   end

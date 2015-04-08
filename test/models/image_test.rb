@@ -56,7 +56,7 @@ describe Image do
   describe 'methods' do
     describe '::reprocess' do
       it 'should call reprocess on image Object' do
-        Image.stub_chain(:find,:image,:reprocess!) # for coverage / flush_errors with should_receive
+        Image.stub_chain(:find, :image, :reprocess!) # for coverage / flush_errors with should_receive
         Image.reprocess 1
       end
     end

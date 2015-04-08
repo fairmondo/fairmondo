@@ -15,7 +15,7 @@ namespace :code do
       output_dir: './'
     }
 
-    command_line = CopyrightHeader::CommandLine.new( args )
+    command_line = CopyrightHeader::CommandLine.new(args)
     command_line.execute
   end
 
@@ -35,7 +35,7 @@ namespace :code do
       output_dir: './'
     }
 
-    command_line = CopyrightHeader::CommandLine.new( args )
+    command_line = CopyrightHeader::CommandLine.new(args)
     command_line.execute
   end
 end

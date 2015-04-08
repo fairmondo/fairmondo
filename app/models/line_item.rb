@@ -51,7 +51,7 @@ class LineItem < ActiveRecord::Base
   #  end
 
   # Handle line_item_count on Cart
-  before_create  -> { Cart.increment_counter(:line_item_count, cart.id) }
+  before_create -> { Cart.increment_counter(:line_item_count, cart.id) }
   before_destroy -> { Cart.decrement_counter(:line_item_count, cart.id)  }
   after_destroy do |record|
     group = record.line_item_group

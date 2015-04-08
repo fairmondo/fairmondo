@@ -91,7 +91,7 @@ describe PaymentsController do
     # TODO find out why this test passes and coverall thinks corresponding line is not touched
     it "should send email for each business transaction in payment's line item group if  bike_courier is selected" do
       payment
-      payment.line_item_group.business_transactions.select{|bt| bt.selected_payment == 'paypal'}.first.update_attribute(:selected_transport, :bike_courier)
+      payment.line_item_group.business_transactions.select { |bt| bt.selected_payment == 'paypal' }.first.update_attribute(:selected_transport, :bike_courier)
       CartMailer.any_instance.expects(:courier_notification).with(payment.line_item_group.business_transactions.first)
       post :ipn_notification, pay_key: '1234', status: 'COMPLETED'
     end

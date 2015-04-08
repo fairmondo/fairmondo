@@ -22,7 +22,7 @@ class PriceRangeParser
   end
 
   def form_values
-    [from,to]
+    [from, to]
   end
 
   def formated_prices

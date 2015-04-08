@@ -91,16 +91,16 @@ class ArticlePolicy < Struct.new(:user, :article)
     end
 
     def owned_and_deactivated?
-      own? && ( article.preview? || article.locked? )
+      own? && (article.preview? || article.locked?)
     end
 
     def bought_or_sold?
-      LineItemGroup.where(id: article.business_transactions.pluck(:line_item_group_id)).where('seller_id = ? OR buyer_id = ?',user,user).limit(1).any?
+      LineItemGroup.where(id: article.business_transactions.pluck(:line_item_group_id)).where('seller_id = ? OR buyer_id = ?', user, user).limit(1).any?
     end
 
   class Scope < Struct.new(:user, :scope)
     def resolve
-      scope.where(state: 'active').includes(:images,:seller)
+      scope.where(state: 'active').includes(:images, :seller)
     end
   end
 end

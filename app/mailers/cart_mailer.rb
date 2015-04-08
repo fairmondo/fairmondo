@@ -14,7 +14,7 @@ class CartMailer < ActionMailer::Base
         attachments[filename] = TermsAndCancellationPdf.new(lig).render
       end
 
-      unless lig.business_transactions.select{|bt| bt.selected_transport == 'bike_courier'}.empty?
+      unless lig.business_transactions.select { |bt| bt.selected_transport == 'bike_courier' }.empty?
         filename = $courier['tos']
         attachments[filename] = File.read(Rails.root.join("app/assets/docs/#{ filename }"))
       end

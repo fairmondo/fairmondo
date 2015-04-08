@@ -44,7 +44,7 @@ module Fairtastic
 
           template.content_tag(
             :div,
-            step_heading_html(step_key, options) << template.content_tag(:div,block_content, class: 'Accordion-content' ),
+            step_heading_html(step_key, options) << template.content_tag(:div, block_content, class: 'Accordion-content'),
             class: css, id: "#{step_key}_step"
           )
         end
@@ -64,14 +64,14 @@ module Fairtastic
             prefix << ' '
           end
           tooltip = optional_tooltip_html("#{step_key}_input_step", options)
-          template.content_tag(:a,   template.content_tag(:i,'', class: 'icon-arrow') << prefix.html_safe << (localized_string(step_key, object, 'input_steps') || '').html_safe << tooltip, href: "##{step_key}_step" ,class: 'Accordion-header')
+          template.content_tag(:a,   template.content_tag(:i, '', class: 'icon-arrow') << prefix.html_safe << (localized_string(step_key, object, 'input_steps') || '').html_safe << tooltip, href: "##{step_key}_step", class: 'Accordion-header')
         end
 
         def optional_tooltip_html(method, options = {})
           tooltip_text = options[:tooltip]
           tooltip_text = localized_string(method, nil, 'tooltips') if options[:tooltip] == true
           if tooltip_text
-            template.content_tag(:span, '' ,class: 'sprite_helper' ,title: tooltip_text)
+            template.content_tag(:span, '', class: 'sprite_helper', title: tooltip_text)
           else
             ''
           end

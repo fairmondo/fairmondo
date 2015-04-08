@@ -25,11 +25,11 @@ module UsersHelper
   end
 
   def active_articles
-    resource.articles.where('state = ?', :active).includes(:images,:seller).page(params[:active_articles_page])
+    resource.articles.where('state = ?', :active).includes(:images, :seller).page(params[:active_articles_page])
   end
 
   def inactive_articles
-    resource.articles.where('state = ? OR state = ? OR state = ?', :preview, :locked, :inactive ).includes(:images,:seller).page(params[:inactive_articles_page])
+    resource.articles.where('state = ? OR state = ? OR state = ?', :preview, :locked, :inactive).includes(:images, :seller).page(params[:inactive_articles_page])
   end
 
   def bought_line_item_groups
@@ -41,14 +41,14 @@ module UsersHelper
   end
 
   def bank_account_line seller, attribute
-    heading = content_tag(:div, class: 'heading' ) do
+    heading = content_tag(:div, class: 'heading') do
       "#{t("formtastic.labels.user.#{attribute}")}: "
     end
-    value = content_tag(:div, class: 'value' ) do
+    value = content_tag(:div, class: 'value') do
       seller.send(attribute)
     end
     content_tag(:div, class: 'line') do
-      safe_join([heading,value])
+      safe_join([heading, value])
     end
   end
 end

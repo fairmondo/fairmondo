@@ -28,7 +28,7 @@ class Library < ActiveRecord::Base
   delegate :nickname, to: :user, prefix: true
 
   validates :name, :user, presence: true
-  validates :name, uniqueness: {scope: :user_id}, length: {maximum: 70}
+  validates :name, uniqueness: { scope: :user_id }, length: { maximum: 70 }
 
   enumerize :exhibition_name, in: [
     :donation_articles, :old, :queue1, :queue2, :queue3, :queue4,
@@ -53,7 +53,7 @@ class Library < ActiveRecord::Base
   scope :published, -> { where(public: true) }
   scope :no_admins, -> { joins(:user).where('users.admin = ?', false) }
   scope :most_popular, -> { reorder('libraries.popularity DESC, libraries.updated_at DESC') }
-  scope :most_recent, -> { reorder(created_at: :desc)}
+  scope :most_recent, -> { reorder(created_at: :desc) }
   scope :trending, -> { most_popular.not_empty.published }
   scope :audited, -> { where(audited: true) }
   scope :trending_welcome_page, -> { trending.audited.limit(3) }

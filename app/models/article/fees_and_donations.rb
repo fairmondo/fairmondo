@@ -47,7 +47,7 @@ module Article::FeesAndDonations
 
   def could_be_book_price_agreement?
     book_category_id = $exceptions_on_fairmondo['book_price_agreement']['category'].to_i
-    is_a_book = self.categories.map{|c| c.self_and_ancestors.map(&:id)}.flatten.include? book_category_id
+    is_a_book = self.categories.map { |c| c.self_and_ancestors.map(&:id) }.flatten.include? book_category_id
     is_a_book && self.condition == 'new'
   end
 
@@ -129,8 +129,8 @@ module Article::FeesAndDonations
       else
         # for rounding -> always round up (e.g. 900,1 cents are 901 cents)
         r = Money.new(((self.price_cents - friendly_percent_result_cents) * fee_percentage).ceil)
-        max = fair? ? Money.new(TRANSACTION_FEES[:max_fair]*100) : Money.new(TRANSACTION_FEES[:max_default]*100)
-        min = Money.new(TRANSACTION_FEES[:min]*100)
+        max = fair? ? Money.new(TRANSACTION_FEES[:max_fair] * 100) : Money.new(TRANSACTION_FEES[:max_default] * 100)
+        min = Money.new(TRANSACTION_FEES[:min] * 100)
         r = min if r < min
         r = max if r > max
         r

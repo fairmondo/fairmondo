@@ -3,9 +3,9 @@ include FastBillStubber
 
 describe FastbillAPI do
   describe 'methods' do
-    let( :business_transaction ) { BusinessTransaction.new }
-    let( :db_business_transaction ) { FactoryGirl.create :business_transaction }
-    let( :seller ) { db_business_transaction.seller }
+    let(:business_transaction) { BusinessTransaction.new }
+    let(:db_business_transaction) { FactoryGirl.create :business_transaction }
+    let(:seller) { db_business_transaction.seller }
 
     describe '::fastbill_chain' do
       it 'should find seller of transaction' do

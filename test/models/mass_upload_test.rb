@@ -24,7 +24,7 @@ describe MassUpload do
 
     describe '#get_csv_encoding' do
       it 'should detect a Windows-1252 encoding' do
-        MassUpload::Checks.get_csv_encoding( 'test/fixtures/mass_upload_cp1252.csv').must_equal 'Windows-1252'
+        MassUpload::Checks.get_csv_encoding('test/fixtures/mass_upload_cp1252.csv').must_equal 'Windows-1252'
       end
 
       it 'should detect a Mac Roman encoding' do
@@ -41,7 +41,7 @@ describe MassUpload do
       end
 
       it 'should default to a utf-8 encoding' do
-        MassUpload::Checks.get_csv_encoding( 'test/fixtures/mass_upload_correct.csv').must_equal 'utf-8'
+        MassUpload::Checks.get_csv_encoding('test/fixtures/mass_upload_correct.csv').must_equal 'utf-8'
       end
     end
   end

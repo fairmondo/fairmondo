@@ -64,7 +64,7 @@ end
 feature 'User sign in' do
   scenario 'banned user wants to sing in' do
     user = FactoryGirl.create :user, banned: true
-    FactoryGirl.create :content, key:'banned', body: '<p>You are banned.</p>'
+    FactoryGirl.create :content, key: 'banned', body: '<p>You are banned.</p>'
     visit new_user_session_path
 
     fill_in 'user_email', with: user.email

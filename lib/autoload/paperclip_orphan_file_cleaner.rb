@@ -2,7 +2,7 @@
 class PaperclipOrphanFileCleaner
   def self.reverse_id_partition(path)
     parts = path.to_s.split('/')[-3..-1]
-    if parts.all? { |e| e =~ /^\d{3}$/}
+    if parts.all? { |e| e =~ /^\d{3}$/ }
       parts.join.to_i
     end
   end
@@ -14,7 +14,7 @@ class PaperclipOrphanFileCleaner
   def self.move_to_deleted_directory(old_path)
     parts = old_path.to_s.split('/')
     if parts.include?('images')
-      new_dir = old_path.to_s.gsub(/\bimages\b/,'images_deleted')
+      new_dir = old_path.to_s.gsub(/\bimages\b/, 'images_deleted')
       new_path = Pathname.new(new_dir)
       new_path.mkpath
 

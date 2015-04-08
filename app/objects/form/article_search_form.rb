@@ -21,7 +21,7 @@ class ArticleSearchForm
   attribute :transport_bike_courier, type: Boolean
 
   enumerize :condition, in: [:new, :old]
-  enumerize :order_by, in: [:newest,:cheapest,:most_expensive,:old,:new,:fair,:ecologic,:small_and_precious,:most_donated]
+  enumerize :order_by, in: [:newest, :cheapest, :most_expensive, :old, :new, :fair, :ecologic, :small_and_precious, :most_donated]
 
   def searched_category category_id = self.category_id
     @searched_category ||= Category.includes(:children).find(category_id.to_i) rescue nil
@@ -52,7 +52,7 @@ class ArticleSearchForm
   # Did this form get request parameters or is this an empty search where
   # someone just wants to look around? (category doesn't count)
   def search_request?
-    !filter_attributes.reject{ |k,_v| k == :category_id }.empty?
+    !filter_attributes.reject { |k, _v| k == :category_id }.empty?
   end
 
   # Check if an attribute has a specific value and if it is set exclusively,
@@ -104,7 +104,7 @@ class ArticleSearchForm
     @price_range ||= PriceRangeParser.new(price_from, price_to)
     # set the values for proper formatting
     self.price_from, self.price_to = @price_range.form_values
-    {gte: @price_range.from_cents , lte: @price_range.to_cents }
+    { gte: @price_range.from_cents, lte: @price_range.to_cents }
   end
 
   private
@@ -118,6 +118,6 @@ class ArticleSearchForm
     end
 
     def clean_hash hash
-      hash.select{ |_k,v| v!=nil && v!=false }
+      hash.select { |_k, v| v != nil && v != false }
     end
 end

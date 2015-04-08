@@ -12,12 +12,12 @@ class TransportAbacus
 
   def check_free_transport
     @free_transport_at_price = @line_item_group.free_transport_at_price
-    @free_transport = ( @free_transport_at_price &&  @business_transaction_abacus.total_retail_price >= @free_transport_at_price )
+    @free_transport = (@free_transport_at_price &&  @business_transaction_abacus.total_retail_price >= @free_transport_at_price)
   end
 
   def calculate_single_transports
     result = @business_transaction_abacus.single_transports.map do |bt|
-      [bt,calculate_single_transport_for(bt)]
+      [bt, calculate_single_transport_for(bt)]
     end
     @single_transports = result.to_h
   end
@@ -26,7 +26,7 @@ class TransportAbacus
     number_of_items = @business_transaction_abacus.unified_transport.map(&:quantity_bought).sum
     shipments = self.class.number_of_shipments(number_of_items, @line_item_group.unified_transport_maximum_articles)
     transport_price = transport_price_for(@line_item_group.unified_transport_price, shipments)
-    total_retail_price = @business_transaction_abacus.unified_transport.map{ |bt| retail_price(bt)}.sum
+    total_retail_price = @business_transaction_abacus.unified_transport.map { |bt| retail_price(bt) }.sum
     @unified_transport = {
       method: :unified,
       business_transactions: @business_transaction_abacus.unified_transport,
@@ -62,7 +62,7 @@ class TransportAbacus
       transport_price = transport_price_for(single_transport_price, shipments)
       cash_on_delivery_price = self.class.cash_on_delivery_price(bt, shipments)
       total_without_cash_on_delivery = retail_price(bt) + transport_price
-      total = total_without_cash_on_delivery + ( cash_on_delivery_price || Money.new(0) )
+      total = total_without_cash_on_delivery + (cash_on_delivery_price || Money.new(0))
       {
         method: bt.selected_transport.to_sym,
         provider: bt.article.transport_provider(bt.selected_transport),

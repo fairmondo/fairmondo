@@ -32,7 +32,7 @@ describe ArticleMailer do
   let(:user) { FactoryGirl.create(:user) }
 
   it '#report_article' do
-    mail =  ArticleMailer.report_article(article,user,'text')
+    mail =  ArticleMailer.report_article(article, user, 'text')
     mail.subject.must_include('Article reported')
     mail.subject.must_equal('Article reported with ID: ' + article.id.to_s)
   end

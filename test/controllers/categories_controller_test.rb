@@ -84,36 +84,36 @@ describe CategoriesController do
         @software_category = Category.find_by_name!('Software')
 
         @ngo_article = FactoryGirl.create(:article, :index_article, price_cents: 1, title: 'ngo article thing', content: 'super thing', created_at: 4.days.ago)
-        @second_hand_article = FactoryGirl.create(:second_hand_article, :index_article, price_cents: 2, title: 'muscheln', categories: [ @software_category ], content: 'muscheln am meer', created_at: 3.days.ago)
-        @hardware_article = FactoryGirl.create(:second_hand_article, :index_article, :simple_fair,:simple_ecologic,:simple_small_and_precious,:with_ngo, price_cents: 3, title: 'muscheln 2', categories: [ @hardware_category ], content: 'abc' , created_at: 2.days.ago)
-        @no_second_hand_article = FactoryGirl.create :no_second_hand_article, :index_article ,price_cents: 4, title: 'muscheln 3', categories: [ @hardware_category ], content: 'cde'
+        @second_hand_article = FactoryGirl.create(:second_hand_article, :index_article, price_cents: 2, title: 'muscheln', categories: [@software_category], content: 'muscheln am meer', created_at: 3.days.ago)
+        @hardware_article = FactoryGirl.create(:second_hand_article, :index_article, :simple_fair, :simple_ecologic, :simple_small_and_precious, :with_ngo, price_cents: 3, title: 'muscheln 2', categories: [@hardware_category], content: 'abc', created_at: 2.days.ago)
+        @no_second_hand_article = FactoryGirl.create :no_second_hand_article, :index_article, price_cents: 4, title: 'muscheln 3', categories: [@hardware_category], content: 'cde'
       end
 
       it "should find the article in category 'Hardware' when filtering for 'Hardware'" do
         get :show, id: @hardware_category.id
-        @controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.sort.must_equal [@no_second_hand_article,@hardware_article].map(&:id).sort
+        @controller.instance_variable_get(:@articles).map { |a| a.id.to_i }.sort.must_equal [@no_second_hand_article, @hardware_article].map(&:id).sort
       end
 
       it "should find the article in category 'Hardware' when filtering for the ancestor 'Elektronik'" do
         get :show, id: @electronic_category.id
-        @controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.sort.must_equal [@no_second_hand_article,@hardware_article,@second_hand_article].map(&:id).sort
+        @controller.instance_variable_get(:@articles).map { |a| a.id.to_i }.sort.must_equal [@no_second_hand_article, @hardware_article, @second_hand_article].map(&:id).sort
       end
 
       it 'should ignore the category_id field and always search in the given category' do
         get :show, id: @hardware_category.id, article_search_form: { category_id: @software_category.id }
-        @controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.sort.must_equal [@no_second_hand_article,@hardware_article].map(&:id).sort
+        @controller.instance_variable_get(:@articles).map { |a| a.id.to_i }.sort.must_equal [@no_second_hand_article, @hardware_article].map(&:id).sort
       end
 
       context "and searching for 'muscheln'" do
         it 'should chain both filters' do
           get :show, id: @hardware_category.id, article_search_form: { q: 'muscheln' }
-          @controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.sort.must_equal [@hardware_article, @no_second_hand_article].map(&:id).sort
+          @controller.instance_variable_get(:@articles).map { |a| a.id.to_i }.sort.must_equal [@hardware_article, @no_second_hand_article].map(&:id).sort
         end
 
         context 'and filtering for condition' do
           it 'should chain all filters' do
             get :show, id: @hardware_category.id, article_search_form: { q: 'muscheln', condition: :old }
-            @controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.must_equal [@hardware_article].map(&:id)
+            @controller.instance_variable_get(:@articles).map { |a| a.id.to_i }.must_equal [@hardware_article].map(&:id)
           end
         end
       end

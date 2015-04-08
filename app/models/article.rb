@@ -35,7 +35,7 @@ class Article < ActiveRecord::Base
     [
       :title,
       [:title, :seller_nickname],
-      [:title, :seller_nickname, :created_at ]
+      [:title, :seller_nickname, :created_at]
     ]
   end
 

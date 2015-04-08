@@ -57,7 +57,7 @@ class ArticleSearch
 
     def query
       if @query.search_by_term?
-        [query_string,query_gtin].reduce(:merge)
+        [query_string, query_gtin].reduce(:merge)
       else
         index.all
       end
@@ -74,11 +74,11 @@ class ArticleSearch
     end
 
     def query_gtin
-      index.query(term: {gtin: {value: @query.q, boost: 100}})
+      index.query(term: { gtin: { value: @query.q, boost: 100 } })
     end
 
     def query_fields
-      fields = [:title,:friendly_percent_organization_nickname]
+      fields = [:title, :friendly_percent_organization_nickname]
       fields += [:content] if @query.search_in_content?
       fields
     end
@@ -87,8 +87,8 @@ class ArticleSearch
 
     def boolead_filters
       filters = []
-      [:fair,:ecologic,:small_and_precious,:swappable,:borrowable].each do |field|
-        filters << index.filter(term: {field => true }) if @query.send(field)
+      [:fair, :ecologic, :small_and_precious, :swappable, :borrowable].each do |field|
+        filters << index.filter(term: { field => true }) if @query.send(field)
       end
       filters.reduce(:merge)
     end
@@ -98,20 +98,20 @@ class ArticleSearch
     end
 
     def price_filter
-      index.filter(range: {price: @query.price_range })
+      index.filter(range: { price: @query.price_range })
     end
 
     def condition_filter
-      index.filter(term: {condition: @query.condition}) if @query.condition.present?
+      index.filter(term: { condition: @query.condition }) if @query.condition.present?
     end
 
     def category_filter
-      index.filter(terms: {categories: [@query.category_id]}) if @query.category_id.present?
+      index.filter(terms: { categories: [@query.category_id] }) if @query.category_id.present?
     end
 
     # facets
     def category_aggregations
-      index.aggregations(category: {terms: {field: :categories, size: 10000}})
+      index.aggregations(category: { terms: { field: :categories, size: 10000 } })
     end
 
     # sorting

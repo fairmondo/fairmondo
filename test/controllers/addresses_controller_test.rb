@@ -24,12 +24,12 @@ require_relative '../test_helper'
 describe AddressesController do
   let(:user) { FactoryGirl.create :user }
   let(:address) { FactoryGirl.create :address, user: user }
-  let(:referenced_address) { FactoryGirl.create :address, :referenced , user: user}
+  let(:referenced_address) { FactoryGirl.create :address, :referenced, user: user }
 
   describe 'GET ::new' do
     it 'should render addresse\'s new_template' do
       sign_in user
-      xhr :get , :new, user_id: user.id
+      xhr :get, :new, user_id: user.id
       assert_response :success
       assert_template :new
     end

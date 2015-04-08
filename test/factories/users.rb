@@ -22,26 +22,26 @@
 require 'ffaker'
 
 FactoryGirl.define do
-  factory :user, aliases: [:seller, :buyer, :sender, :rated_user] , class: ['PrivateUser', 'LegalEntity'].sample do
+  factory :user, aliases: [:seller, :buyer, :sender, :rated_user], class: ['PrivateUser', 'LegalEntity'].sample do
     email       { Faker::Internet.email }
-    password    'password'
-    sequence(:nickname) {|n| "#{Faker::Internet.user_name}#{n}" }
-    legal       '1'
+    password 'password'
+    sequence(:nickname) { |n| "#{Faker::Internet.user_name}#{n}" }
+    legal '1'
 
-    about_me    { Faker::Lorem.paragraph( rand(7)+1 ) }
-    terms    { Faker::Lorem.paragraph( rand(7)+1 ) }
-    cancellation    { Faker::Lorem.paragraph( rand(7)+1 ) }
-    about    { Faker::Lorem.paragraph( rand(7)+1 ) }
+    about_me    { Faker::Lorem.paragraph(rand(7) + 1) }
+    terms    { Faker::Lorem.paragraph(rand(7) + 1) }
+    cancellation    { Faker::Lorem.paragraph(rand(7) + 1) }
+    about    { Faker::Lorem.paragraph(rand(7) + 1) }
 
     confirmed_at Time.now
 
-    bank_code {rand(99999999).to_s.center(8, rand(9).to_s)}
-    bank_account_number {rand(99999999).to_s.center(8, rand(9).to_s)}
+    bank_code { rand(99999999).to_s.center(8, rand(9).to_s) }
+    bank_account_number { rand(99999999).to_s.center(8, rand(9).to_s) }
     bank_account_owner Faker::Name.name
     bank_name Faker::Name.name
 
-    iban {['DE','AT','CH'].sample+rand(99999999999999999999).to_s.center(20, rand(9).to_s)}
-    bic {['ABCDEF','ZJFBLO','TNAPIT','EMLOAB'].sample + rand(99).to_s.center(2, rand(9).to_s)}
+    iban { ['DE', 'AT', 'CH'].sample + rand(99999999999999999999).to_s.center(20, rand(9).to_s) }
+    bic { ['ABCDEF', 'ZJFBLO', 'TNAPIT', 'EMLOAB'].sample + rand(99).to_s.center(2, rand(9).to_s) }
 
     direct_debit true
     uses_vouchers false
@@ -58,7 +58,7 @@ FactoryGirl.define do
       create_standard_address true
     end
 
-    after(:create) do |user,evaluator|
+    after(:create) do |user, evaluator|
       if evaluator.create_standard_address
         address = FactoryGirl.create(:address, user: user)
         user.update_attribute(:standard_address_id, address.id)

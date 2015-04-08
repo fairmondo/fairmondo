@@ -105,13 +105,13 @@ describe ContentsController do
 
     context 'with valid params' do
       it 'should assign the requested content as @content' do
-        patch :update, id: content.to_param, content: {body: 'Foobar'}
+        patch :update, id: content.to_param, content: { body: 'Foobar' }
         assigns(:content).key.must_equal content.to_param
         assigns(:content).body.must_equal 'Foobar'
       end
 
       it 'should redirect to the content' do
-        patch :update, id: content.to_param, content: {body: 'Barbaz'}
+        patch :update, id: content.to_param, content: { body: 'Barbaz' }
         assert_redirected_to content
       end
     end
@@ -130,7 +130,7 @@ describe ContentsController do
 
       it 'should redirect to the contents list' do
         delete :destroy, id: content.to_param
-        assert_redirected_to  contents_url
+        assert_redirected_to contents_url
       end
     end
 

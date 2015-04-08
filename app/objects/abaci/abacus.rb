@@ -17,6 +17,6 @@ class Abacus
   end
 
   def calculate_total
-    @payment_listing.payments.map{ |_payment,hash| hash[:total] }.sum
+    @payment_listing.payments.map { |_payment, hash| hash[:total] }.sum
   end
 end

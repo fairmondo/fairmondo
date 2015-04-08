@@ -33,11 +33,11 @@ class PaymentsController < ApplicationController
 
       if payment
         payment.last_ipn = params.to_json
-        if params && params[:status] == 'COMPLETED'# && params[:sender_email] == payment.line_item_group_buyer_email
+        if params && params[:status] == 'COMPLETED' # && params[:sender_email] == payment.line_item_group_buyer_email
           payment.confirm
 
           # Only send email to courier service if bike_courier is the selected transport
-          bts = payment.line_item_group.business_transactions.select{ |bt| bt.bike_courier_selected? }
+          bts = payment.line_item_group.business_transactions.select { |bt| bt.bike_courier_selected? }
           if bts.any?
             bts.each do |bt|
               # raise StandardError, 'SCHAU WOHER ICH KOMME'

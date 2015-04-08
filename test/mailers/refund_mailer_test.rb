@@ -8,11 +8,11 @@ describe RefundMailer do
 
   it '#refund_notification' do
     refund = FactoryGirl.create :refund, reason: 'not_in_stock'
-    mail =  RefundMailer.refund_notification( refund )
-    mail.must deliver_to( 'storno@fairmondo.de' )
-    mail.must have_subject('[Fairmondo] Rueckerstattung: Transationsnummer: ' + "#{refund.business_transaction.id}" )
-    mail.must have_body_text( refund.business_transaction.id.to_s )
-    mail.must have_body_text( refund.reason )
-    mail.must have_body_text( refund.description )
+    mail =  RefundMailer.refund_notification(refund)
+    mail.must deliver_to('storno@fairmondo.de')
+    mail.must have_subject('[Fairmondo] Rueckerstattung: Transationsnummer: ' + "#{refund.business_transaction.id}")
+    mail.must have_body_text(refund.business_transaction.id.to_s)
+    mail.must have_body_text(refund.reason)
+    mail.must have_body_text(refund.description)
   end
 end

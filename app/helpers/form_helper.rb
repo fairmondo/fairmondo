@@ -33,7 +33,7 @@ module FormHelper
   def semantic_relation_field_for form, key, relation, &block
     form.semantic_fields_for key do |fields|
       items = relation.collect do |item|
-        fields.semantic_fields_for item.id.to_s.to_sym , item do |item_fields|
+        fields.semantic_fields_for item.id.to_s.to_sym, item do |item_fields|
           capture(item, item_fields, &block)
         end
       end

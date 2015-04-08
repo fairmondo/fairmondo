@@ -25,13 +25,13 @@ class Feedback < ActiveRecord::Base
   has_one :image, class_name: 'FeedbackImage', foreign_key: 'imageable_id'
   accepts_nested_attributes_for :image
 
-  enumerize :variety, in: [ :report_article, :get_help, :send_feedback, :become_donation_partner ]
+  enumerize :variety, in: [:report_article, :get_help, :send_feedback, :become_donation_partner]
 
-  enumerize :feedback_subject, in: [ :dealer, :technics, :other]
+  enumerize :feedback_subject, in: [:dealer, :technics, :other]
                                      # , :private, :buyer, :seller,:event, :cooperative, :hero, :ngo, :honor, :trust_community
 
-  enumerize :help_subject, in: [ :marketplace,  :technics, :cooperative,
-                                 :hero,  :other ]
+  enumerize :help_subject, in: [:marketplace,  :technics, :cooperative,
+                                :hero,  :other]
                                   #:comm_deal_fair, :comm_deal, :private_deal, :buy,:ngo, :honor, :trust_community
 
   # Validations
@@ -50,7 +50,7 @@ class Feedback < ActiveRecord::Base
   # validations for donation_partner
   validates_presence_of :forename, if: :donation_partner_application?
   validates_presence_of :lastname, if: :donation_partner_application?
-  validates_presence_of :organisation , if: :donation_partner_application?
+  validates_presence_of :organisation, if: :donation_partner_application?
   validates :text, length: { minimum: 100 }, if: :donation_partner_application?
 
   # Relations

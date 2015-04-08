@@ -29,7 +29,7 @@ namespace :db do
   end
 
   desc 'Get a list of articles from http://www.itemmaster.com'
-  task :seed_articles, [:number_of_items] => :environment do | _t, args |
+  task :seed_articles, [:number_of_items] => :environment do |_t, args|
     require 'faker'
     require 'time'
     require 'net/http'
@@ -45,7 +45,7 @@ namespace :db do
         print '.'
         user = FactoryGirl.build :user
         user_list << user
-        counter +=1
+        counter += 1
       end
       User.import user_list
       puts "\n#{n} users have been created."
@@ -78,7 +78,7 @@ namespace :db do
         name = element.elements['name'].to_s.slice(0..65)
 
         if element.elements['otherDescription'].to_s == '<otherDescription/>'
-          articles[name] = Faker::Lorem.paragraph(rand(7)+1)
+          articles[name] = Faker::Lorem.paragraph(rand(7) + 1)
           faker_count += 1
         else
           articles[name] = element.elements['otherDescription'].to_s.slice(0..255)
@@ -111,7 +111,7 @@ namespace :db do
     # Variables and lists and hashes
     start_time = Time.now
     month = 24
-    date = (start_time - (60*60*24*7*4*month)).strftime('%Y%m%d')
+    date = (start_time - (60 * 60 * 24 * 7 * 4 * month)).strftime('%Y%m%d')
 
     args.with_defaults number_of_items: 100
     count = args.number_of_items.to_i

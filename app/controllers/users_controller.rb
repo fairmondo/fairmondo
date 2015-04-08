@@ -65,7 +65,7 @@ class UsersController < ApplicationController
     end
 
     def sanitize_print_param
-      if params[:print] && ['terms','cancellation'].include?(params[:print])
+      if params[:print] && ['terms', 'cancellation'].include?(params[:print])
         @print = params[:print]
       end
     end

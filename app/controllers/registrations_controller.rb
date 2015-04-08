@@ -20,9 +20,9 @@
 # along with Fairmondo.  If not, see <http://www.gnu.org/licenses/>.
 #
 class RegistrationsController < Devise::RegistrationsController
-  before_action :dont_cache, only: [ :edit ]
+  before_action :dont_cache, only: [:edit]
   before_action :configure_permitted_parameters
-  skip_before_action :authenticate_user!, only: [ :create, :new ]
+  skip_before_action :authenticate_user!, only: [:create, :new]
 
   # GET /resource/sign_up
   def new
@@ -111,7 +111,7 @@ class RegistrationsController < Devise::RegistrationsController
         u.for(User.new).as(resource).on(:create).refine
       end
       devise_parameter_sanitizer.for(:account_update) do |u|
-        u.for(User.new).as(resource).on(:update).refine# permit(*UserRefinery.new(resource).default, :current_password)
+        u.for(User.new).as(resource).on(:update).refine # permit(*UserRefinery.new(resource).default, :current_password)
       end
     end
 end

@@ -26,7 +26,7 @@ include Warden::Test::Helpers
 
 feature 'comments for all users' do
   before do
-    UserTokenGenerator.stubs( :generate ).returns('some long string that is very secret')
+    UserTokenGenerator.stubs(:generate).returns('some long string that is very secret')
   end
   scenario 'Guest visits library with no comments' do
     library = FactoryGirl.create(:library, public: true)

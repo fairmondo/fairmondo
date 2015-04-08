@@ -24,7 +24,7 @@ include ActionDispatch::TestProcess
 FactoryGirl.define do
   factory :image do
     image { fixture_file_upload(Rails.root.join('test', 'fixtures', 'test2.png'), 'image/png') }
-    image_content_type    'image/png'
+    image_content_type 'image/png'
     image_file_size       { Random.new.rand(1..5) }
     after(:create) { |image| image.image_processing = false }
 

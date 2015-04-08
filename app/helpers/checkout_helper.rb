@@ -25,7 +25,7 @@ module CheckoutHelper
   end
 
   def checkout_options_for_payment selectables
-    selectables.map{ |payment| [ I18n.t("enumerize.business_transaction.selected_payment.#{payment}"),payment] }
+    selectables.map { |payment| [I18n.t("enumerize.business_transaction.selected_payment.#{payment}"), payment] }
   end
 
   def checkout_options_for_single_transport line_item, preview
@@ -38,7 +38,7 @@ module CheckoutHelper
     transports
   end
 
-  def unified_transport_first a,b
+  def unified_transport_first a, b
     a_value = a.article.unified_transport
     b_value = b.article.unified_transport
     if a_value == b_value
@@ -64,10 +64,10 @@ module CheckoutHelper
     render 'carts/checkout/visual_steps', step: step, cart: cart
   end
 
-  def visual_checkout_step step, active, checked, link=nil
+  def visual_checkout_step step, active, checked, link = nil
     step_title = I18n.t("cart.steps.#{step}")
     content_tag :span, class: "visual_checkout_step #{active ? 'active' : ''}" do
-      concat(content_tag(:i,'', class: (checked ? 'fa fa-check-square-o' : 'fa fa-square-o')))
+      concat(content_tag(:i, '', class: (checked ? 'fa fa-check-square-o' : 'fa fa-square-o')))
       concat(' ')
       concat(link ? link_to(step_title, link) : step_title)
     end

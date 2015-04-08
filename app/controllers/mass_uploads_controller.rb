@@ -3,7 +3,7 @@ class MassUploadsController < ApplicationController
   respond_to :html
   respond_to :csv, only: :show
 
-  before_action :ensure_complete_profile , only: [:new, :create]
+  before_action :ensure_complete_profile, only: [:new, :create]
   before_action :set_mass_upload, only: [:show, :update]
   before_action :check_value_of_goods, only: [:update]
 

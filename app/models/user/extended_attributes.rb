@@ -30,7 +30,7 @@ module User::ExtendedAttributes
     auto_sanitize :about_me, :terms, :cancellation, :about, method: 'tiny_mce'
 
     attr_accessor :wants_to_sell
-    attr_accessor :bank_account_validation , :paypal_validation
+    attr_accessor :bank_account_validation, :paypal_validation
     attr_accessor :fastbill_profile_update
 
     monetize :unified_transport_price_cents,

@@ -74,7 +74,7 @@ class ApplicationController < ActionController::Base
     end
 
     def pundit_unverified_modules
-      ['Devise','RailsAdmin']
+      ['Devise', 'RailsAdmin']
     end
 
     def pundit_unverified_classes
@@ -113,7 +113,7 @@ class ApplicationController < ActionController::Base
 
     def check_value_of_goods
       current_user.count_value_of_goods
-      if current_user.value_of_goods_cents > ( current_user.max_value_of_goods_cents + current_user.max_value_of_goods_cents_bonus )
+      if current_user.value_of_goods_cents > (current_user.max_value_of_goods_cents + current_user.max_value_of_goods_cents_bonus)
         flash[:error] = I18n.t('article.notices.max_limit')
         redirect_to user_path(current_user)
       end

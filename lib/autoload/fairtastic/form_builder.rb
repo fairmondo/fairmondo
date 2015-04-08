@@ -32,13 +32,13 @@ module Fairtastic
     @@default_form_class = 'formtastic'
 
     def inputs(*args, &block)
-      super(*extended_fieldset_args(*args),&block)
+      super(*extended_fieldset_args(*args), &block)
     end
 
     def semantic_errors(*args)
       args.inject([]) do |_array, method|
         errors = Array(@object.errors[method.to_sym]).to_sentence
-        @input_step_with_errors ||=errors.present?
+        @input_step_with_errors ||= errors.present?
       end
       super
     end
@@ -48,7 +48,7 @@ module Fairtastic
       relation = @object.send(record_or_name_or_array)
       if relation.kind_of?(ActiveRecord::Relation) || relation.kind_of?(Array)
         relation.each do |item|
-           @input_step_with_errors ||=item.errors.present?
+           @input_step_with_errors ||= item.errors.present?
         end
       else
          @input_step_with_errors ||= (relation && relation.errors.present?)

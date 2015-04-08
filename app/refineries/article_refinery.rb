@@ -34,27 +34,27 @@ class ArticleRefinery < ApplicationRefinery
       :small_and_precious_handmade,
       { fair_trust_questionnaire_attributes: [
         # Question 1: supports marginalized workers (req)
-        :support, :support_explanation, :support_other, {support_checkboxes:[]},
+        :support, :support_explanation, :support_other, { support_checkboxes: [] },
         # Question 2: labor conditions acceptable? (req)
-        :labor_conditions, {labor_conditions_checkboxes:[]},
+        :labor_conditions, { labor_conditions_checkboxes: [] },
         :labor_conditions_explanation, :labor_conditions_other,
         # Question 3: is production environmentally friendly (opt)
-        :environment_protection, {environment_protection_checkboxes:[]},
+        :environment_protection, { environment_protection_checkboxes: [] },
         :environment_protection_explanation, :environment_protection_other,
         # Question 4: does controlling of these standards exist (req)
-        :controlling, {controlling_checkboxes:[]}, :controlling_explanation,
+        :controlling, { controlling_checkboxes: [] }, :controlling_explanation,
         :controlling_other,
         # Question 5: awareness raising programs supported? (opt)
-        :awareness_raising, {awareness_raising_checkboxes:[]},
+        :awareness_raising, { awareness_raising_checkboxes: [] },
         :awareness_raising_explanation, :awareness_raising_other
-      ]},
+      ] },
       { social_producer_questionnaire_attributes: [
-        :nonprofit_association, {nonprofit_association_checkboxes:[]},
+        :nonprofit_association, { nonprofit_association_checkboxes: [] },
         :social_businesses_muhammad_yunus,
-        {social_businesses_muhammad_yunus_checkboxes:[]},
-        :social_entrepreneur, {social_entrepreneur_checkboxes:[]},
+        { social_businesses_muhammad_yunus_checkboxes: [] },
+        :social_entrepreneur, { social_entrepreneur_checkboxes: [] },
         :social_entrepreneur_explanation
-      ]},
+      ] },
       # Image attrs
       { images_attributes: ImageRefinery.new(Image.new, user).default(true) },
       :image_2_url,

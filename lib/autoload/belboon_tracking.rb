@@ -32,7 +32,7 @@ module BelboonTracking
     end
 
     def clear_token
-      current_user.update_attributes( belboon_tracking_token: nil,
-                                      belboon_tracking_token_set_at: nil )
+      current_user.update_attributes(belboon_tracking_token: nil,
+                                     belboon_tracking_token_set_at: nil)
     end
 end

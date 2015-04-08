@@ -43,7 +43,7 @@ class Cart < ActiveRecord::Base
   end
 
   def line_item_for article
-    items = line_items.select{ |item| item.article_id == article.id }
+    items = line_items.select { |item| item.article_id == article.id }
     items.any? ? items.first : nil
   end
 
@@ -62,7 +62,7 @@ class Cart < ActiveRecord::Base
         line_item_group.generate_purchase_id
       end
       # sort this by article_id to prevent deadlocks
-      locked_article_ids_with_quantities.sort.each do |article_id,quantity|
+      locked_article_ids_with_quantities.sort.each do |article_id, quantity|
         article = Article.lock.find(article_id) # locks always need to refind records
         article.buy!(quantity)
       end

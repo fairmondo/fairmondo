@@ -8,7 +8,7 @@ class ArticleAutocomplete
 
   def autocomplete
     suggestions = @query.present? ? format(build) : []
-    { query: @query , suggestions: suggestions }
+    { query: @query, suggestions: suggestions }
   end
 
   private
@@ -24,7 +24,7 @@ class ArticleAutocomplete
     end
 
     def prefix_query
-      index.query(prefix: {title: @query}).limit(LIMIT)
+      index.query(prefix: { title: @query }).limit(LIMIT)
     end
 
     def suggest
@@ -33,7 +33,7 @@ class ArticleAutocomplete
                         term:
                           { field: :title,
                             suggest_mode: 'popular',
-                            sort: 'frequency' ,
+                            sort: 'frequency',
                             analyzer: :simple,
                             size: 3
                           }
@@ -59,13 +59,13 @@ class ArticleAutocomplete
     end
 
     def formatted_suggestions results
-      results.suggest['typos'].first['options'].map{ |o| { value: o['text'], data: {type: :suggest}} }
+      results.suggest['typos'].first['options'].map { |o| { value: o['text'], data: { type: :suggest } } }
     rescue
       []
     end
 
     def formatted_total results
       total = results.total_count
-      total > LIMIT ? [{ value: @query, data: { type: :more, count: total }}] : []
+      total > LIMIT ? [{ value: @query, data: { type: :more, count: total } }] : []
     end
 end

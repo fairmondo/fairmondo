@@ -22,7 +22,7 @@ class PreviewAbacus
   end
 
   def calculate_unified_transport_price
-    unified_transport_items = @line_item_group.line_items.select{ |line_item| line_item.article.unified_transport? }
+    unified_transport_items = @line_item_group.line_items.select { |line_item| line_item.article.unified_transport? }
     seller = @line_item_group.seller
     requested_articles = unified_transport_items.map(&:requested_quantity).sum
     @number_of_shipments = TransportAbacus.number_of_shipments requested_articles, seller.unified_transport_maximum_articles
@@ -36,11 +36,11 @@ class PreviewAbacus
       total = calculate_total_retail_price
       seller = @line_item_group.seller
       @free_transport_at_price = seller.free_transport_at_price if seller.free_transport_available
-      @free_transport = ( free_transport_at_price && total >= free_transport_at_price )
+      @free_transport = (free_transport_at_price && total >= free_transport_at_price)
     end
 
     def calculate_total_retail_price
-      @line_item_group.line_items.map{ |item| item.requested_quantity * item.article_price }.sum || Money.new(0)
+      @line_item_group.line_items.map { |item| item.requested_quantity * item.article_price }.sum || Money.new(0)
     end
 
     def transport_prices_for line_item

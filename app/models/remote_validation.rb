@@ -2,8 +2,8 @@
 class RemoteValidation < Struct.new(:model, :field, :value, :additional_params)
   # custom dependent enumerization
   PERMITTED_FIELDS = {
-    'line_item' => [ 'requested_quantity' ],
-    'article' => [ 'title', 'quantity', 'transport_time', 'price' ]
+    'line_item' => ['requested_quantity'],
+    'article' => ['title', 'quantity', 'transport_time', 'price']
   }
 
   def initialize model, field, value, additional_params
@@ -27,7 +27,7 @@ class RemoteValidation < Struct.new(:model, :field, :value, :additional_params)
       else # is create
         validator = model.classify.constantize.new field => value
       end
-      additional_params.each { |k,v| validator.send("#{k}=", v) unless k == 'id' } # assign other supporting fields
+      additional_params.each { |k, v| validator.send("#{k}=", v) unless k == 'id' } # assign other supporting fields
       validator
     end
 end

@@ -22,8 +22,8 @@ require 'ffaker'
 FactoryGirl.define do
   factory :fair_trust_questionnaire do
       support true
-      support_checkboxes [:prefinance,:longterm,:development,:minimum_wage,:higher_prices,:direct_negotiations,:community,:premiums,:other ]
-      support_explanation {Faker::Lorem.sentence(200)}
+      support_checkboxes [:prefinance, :longterm, :development, :minimum_wage, :higher_prices, :direct_negotiations, :community, :premiums, :other]
+      support_explanation { Faker::Lorem.sentence(200) }
       support_other 'Sonstiges'
 
       labor_conditions true
@@ -39,7 +39,7 @@ FactoryGirl.define do
                 :child_labor_restrictions,
                 :other
               ]
-      labor_conditions_explanation {Faker::Lorem.sentence(200)}
+      labor_conditions_explanation { Faker::Lorem.sentence(200) }
       labor_conditions_other 'Sonstiges'
 
       environment_protection true
@@ -53,7 +53,7 @@ FactoryGirl.define do
             :ecological_farming_transition,
             :other
           ]
-      environment_protection_explanation {Faker::Lorem.sentence(200)}
+      environment_protection_explanation { Faker::Lorem.sentence(200) }
       environment_protection_other 'Sonstiges'
 
       controlling true
@@ -65,7 +65,7 @@ FactoryGirl.define do
             :own_system,
             :other
           ]
-      controlling_explanation {Faker::Lorem.sentence(200)}
+      controlling_explanation { Faker::Lorem.sentence(200) }
       controlling_other 'Sonstiges'
 
       awareness_raising true
@@ -78,7 +78,7 @@ FactoryGirl.define do
             :fair_trade_concept,
             :other
           ]
-      awareness_raising_explanation {Faker::Lorem.sentence(200)}
+      awareness_raising_explanation { Faker::Lorem.sentence(200) }
       awareness_raising_other 'Sonstiges'
   end
 end

@@ -4,7 +4,7 @@ namespace :images do
   desc 'Refresh Image styles'
   task refresh: :environment do
     count = Image.all.count
-    Image.all.each_with_index do |image,index|
+    Image.all.each_with_index do |image, index|
       begin
         image.image.reprocess!
         puts index.to_s + " / #{count}  - ID: #{image.id} - OK"
@@ -16,7 +16,7 @@ namespace :images do
 
   task refresh_thumbs: :environment do
     count = Image.all.count
-    Image.all.each_with_index do |image,index|
+    Image.all.each_with_index do |image, index|
       begin
         image.image.reprocess! :thumb
         puts index.to_s + " / #{count}  - ID: #{image.id} - OK"
@@ -31,7 +31,7 @@ namespace :images do
   task clean_orphan_files: :environment do
     @last_path = nil
     @dry_run = %w(true 1).include? ENV['DRY_RUN']
-    @styles = ['original','medium','thumb','profile']
+    @styles = ['original', 'medium', 'thumb', 'profile']
     @root_dir = Pathname.new(Rails.root + 'public/system/images')
 
     Signal.trap('USR1') do
@@ -50,7 +50,7 @@ namespace :images do
 
     def verify_directory(start_dir, model)
       @last_path = start_dir.to_s
-      if start_dir.children.any? {|e| @styles.include? e.basename.to_s}
+      if start_dir.children.any? { |e| @styles.include? e.basename.to_s }
         PaperclipOrphanFileCleaner.delay.move_dir_if_orphan(start_dir, model)
       else
         start_dir.children.sort.each do |entry|

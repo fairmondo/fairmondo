@@ -81,7 +81,7 @@ module Article::ExtendedAttributes
     when :bike_courier
       [self.transport_bike_courier_price, self.transport_bike_courier_number]
     else
-      [Money.new(0),0]
+      [Money.new(0), 0]
     end
   end
 

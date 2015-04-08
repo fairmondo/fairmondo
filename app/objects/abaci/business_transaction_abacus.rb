@@ -27,11 +27,11 @@ class BusinessTransactionAbacus
   end
 
   def calculate_total_retail_price
-    @total_retail_price = @prices.values.map{ |prices| prices[:retail_price] }.sum
+    @total_retail_price = @prices.values.map { |prices| prices[:retail_price] }.sum
   end
 
   def calculate_total_net_price
-    @total_net_price = @prices.values.map{ |prices| prices[:net_price] }.sum
+    @total_net_price = @prices.values.map { |prices| prices[:net_price] }.sum
   end
 
   def calculate_total_vat
@@ -64,7 +64,7 @@ class BusinessTransactionAbacus
 
     # net article price * quantity
     def self.net_price_of business_transaction
-      ( business_transaction.article_price / (( 100 + business_transaction.article_vat ) / 100.0 )) * business_transaction.quantity_bought
+      (business_transaction.article_price / ((100 + business_transaction.article_vat) / 100.0)) * business_transaction.quantity_bought
     end
 
     def prepare_payment_for business_transaction

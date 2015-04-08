@@ -32,7 +32,7 @@ class SingleSignOn
       sso.send("#{k}=", val)
     end
 
-    decoded_hash.each do |k,v|
+    decoded_hash.each do |k, v|
       # 1234567
       # # custom.
       # #
@@ -60,7 +60,7 @@ class SingleSignOn
     OpenSSL::HMAC.hexdigest('sha256', sso_secret, payload)
   end
 
-  def to_url(base_url=nil)
+  def to_url(base_url = nil)
     base = "#{base_url || sso_url}"
     "#{base}#{base.include?('?') ? '&' : '?'}#{payload}"
   end
@@ -77,7 +77,7 @@ class SingleSignOn
       payload[k] = val
     end
     if @custom_fields
-      @custom_fields.each do |k,v|
+      @custom_fields.each do |k, v|
         payload["custom.#{k}"] = v.to_s
       end
     end

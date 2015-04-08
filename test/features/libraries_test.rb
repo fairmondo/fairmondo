@@ -181,7 +181,7 @@ end
 
 feature 'Library visibility' do
   before do
-    UserTokenGenerator.stubs( :generate ).returns('some long string that is very secret')
+    UserTokenGenerator.stubs(:generate).returns('some long string that is very secret')
   end
   scenario 'user browses through libraries' do
     user = FactoryGirl.create :user

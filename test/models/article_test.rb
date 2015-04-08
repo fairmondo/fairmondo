@@ -89,10 +89,10 @@ describe Article do
 
   describe '::Base' do
     describe 'associations' do
-      it {subject.must have_many :images}
-      it {subject.must have_and_belong_to_many :categories}
-      it {subject.must belong_to :seller}
-      it {subject.must have_many(:business_transactions)}
+      it { subject.must have_many :images }
+      it { subject.must have_and_belong_to_many :categories }
+      it { subject.must belong_to :seller }
+      it { subject.must have_many(:business_transactions) }
     end
 
     describe 'validations' do
@@ -227,8 +227,8 @@ describe Article do
         db_article.errors[:transport_time].must_equal []
       end
 
-      it {subject.must validate_numericality_of(:transport_type1_number)}
-      it {subject.must validate_numericality_of(:transport_type2_number)}
+      it { subject.must validate_numericality_of(:transport_type1_number) }
+      it { subject.must validate_numericality_of(:transport_type2_number) }
     end
 
     describe 'methods' do
@@ -271,7 +271,7 @@ describe Article do
         end
 
         it "should return the first image's URL when one exists" do
-          article.images = [FactoryGirl.build(:article_fixture_image),FactoryGirl.build(:article_fixture_image)]
+          article.images = [FactoryGirl.build(:article_fixture_image), FactoryGirl.build(:article_fixture_image)]
           article.images.each do |image|
             image.is_title = true
             image.save

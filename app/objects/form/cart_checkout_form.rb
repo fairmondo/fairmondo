@@ -72,7 +72,7 @@ class CartCheckoutForm
     end
 
     def valid?
-      invalid_objects = form_objects.select{ |object| !object.valid? }
+      invalid_objects = form_objects.select { |object| !object.valid? }
       invalid_objects.empty?
     end
 

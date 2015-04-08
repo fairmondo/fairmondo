@@ -20,7 +20,7 @@ class CartAbacus
     end
 
     def calculate_group group
-      prices = group.line_items.map{ |line_item| calculate_line_item line_item }
+      prices = group.line_items.map { |line_item| calculate_line_item line_item }
 
       group_total = Money.new(prices.sum)
       @group_totals[group] = group_total
@@ -36,8 +36,8 @@ class CartAbacus
     # Belboon Stuff
     #
     def calculate_belboon_value
-      line_items = @cart.line_items.select{ |line_item| line_item.qualifies_for_belboon? }
-      values = line_items.map{ |line_item| calculate_belboon_line_item(line_item) if line_item.qualifies_for_belboon? }
+      line_items = @cart.line_items.select { |line_item| line_item.qualifies_for_belboon? }
+      values = line_items.map { |line_item| calculate_belboon_line_item(line_item) if line_item.qualifies_for_belboon? }
       @belboon_tracking_relevant_value = Money.new(values.sum)
     end
 

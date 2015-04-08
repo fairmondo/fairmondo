@@ -26,11 +26,11 @@ class LegalEntity < User
   validates :terms, length: { maximum: 20000, tokenizer: tokenizer_without_html }
   validates :about, length: { maximum: 10000, tokenizer: tokenizer_without_html }
   validates :cancellation, length: { maximum: 10000, tokenizer: tokenizer_without_html }
-  validates_attachment :cancellation_form, size: { in: 1..2.megabytes }, file_name: {matches: [/pdf\Z/]}
+  validates_attachment :cancellation_form, size: { in: 1..2.megabytes }, file_name: { matches: [/pdf\Z/] }
 
   with_options if: :wants_to_sell? do |seller|
     # validates legal entity
-    seller.validates :direct_debit, acceptance: {accept: true}, on: :update
+    seller.validates :direct_debit, acceptance: { accept: true }, on: :update
     seller.validates :bank_account_owner, :iban, :bic,  presence: true
     seller.validates :terms, presence: true, on: :update
     seller.validates :about, presence: true, on: :update
@@ -43,12 +43,12 @@ class LegalEntity < User
     end
 
     event :update_seller_state do
-      transition all => :bad_seller, if: lambda {|user| (user.percentage_of_negative_ratings > 25) }
-      transition bad_seller: :standard_seller, if: lambda {|user| (user.percentage_of_positive_ratings > 75) }
-      transition standard_seller: :good1_seller, if: lambda {|user| (user.percentage_of_positive_ratings > 90) }
-      transition good1_seller: :good2_seller, if: lambda {|user| (user.percentage_of_positive_ratings > 90 && user.has_enough_positive_ratings_in([100])) }
-      transition good2_seller: :good3_seller, if: lambda {|user| (user.percentage_of_positive_ratings > 90 && user.has_enough_positive_ratings_in([100, 500])) }
-      transition good3_seller: :good4_seller, if: lambda {|user| (user.percentage_of_positive_ratings > 90 && user.has_enough_positive_ratings_in([100, 500, 1000])) }
+      transition all => :bad_seller, if: lambda { |user| (user.percentage_of_negative_ratings > 25) }
+      transition bad_seller: :standard_seller, if: lambda { |user| (user.percentage_of_positive_ratings > 75) }
+      transition standard_seller: :good1_seller, if: lambda { |user| (user.percentage_of_positive_ratings > 90) }
+      transition good1_seller: :good2_seller, if: lambda { |user| (user.percentage_of_positive_ratings > 90 && user.has_enough_positive_ratings_in([100])) }
+      transition good2_seller: :good3_seller, if: lambda { |user| (user.percentage_of_positive_ratings > 90 && user.has_enough_positive_ratings_in([100, 500])) }
+      transition good3_seller: :good4_seller, if: lambda { |user| (user.percentage_of_positive_ratings > 90 && user.has_enough_positive_ratings_in([100, 500, 1000])) }
     end
   end
 
@@ -82,7 +82,7 @@ class LegalEntity < User
   def has_enough_positive_ratings_in last_ratings
     value = true
     last_ratings.each do |rating|
-      value = value && calculate_percentage_of_biased_ratings( 'positive', rating ) > 90
+      value = value && calculate_percentage_of_biased_ratings('positive', rating) > 90
     end
     value
   end

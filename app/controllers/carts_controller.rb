@@ -101,16 +101,16 @@ class CartsController < ApplicationController
     def set_cart
     begin
       @cart = Cart.includes(
-        line_item_groups:[
+        line_item_groups: [
           :seller,
           :business_transactions,
           :transport_address,
           :payment_address,
-          {line_items:{
-            article:[
+          { line_items: {
+            article: [
               :seller,
               :images
-            ]}}]).find(params[:id])
+            ] } }]).find(params[:id])
     rescue
       @cart = Cart.new
     end

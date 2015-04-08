@@ -81,7 +81,7 @@ describe ArticleTemplatesController do
     context 'with invalid params' do
       it 'should try to save the images anyway' do
         attrs = invalid_attributes
-        attrs[:images_attributes] = {'0' => {'image' => fixture_file_upload('/test.png')}}
+        attrs[:images_attributes] = { '0' => { 'image' => fixture_file_upload('/test.png') } }
 
         Image.any_instance.expects(:save)
 
@@ -102,7 +102,7 @@ describe ArticleTemplatesController do
 
     context 'with valid params' do
       it 'updates the requested article_template' do
-        put :update, :id => @article_template.to_param, 'article' => {'title' => 'updated Title' }
+        put :update, :id => @article_template.to_param, 'article' => { 'title' => 'updated Title' }
         @article_template.reload
         @article_template.title.must_equal 'updated Title'
       end

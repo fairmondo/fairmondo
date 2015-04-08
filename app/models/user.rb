@@ -193,7 +193,7 @@ class User < ActiveRecord::Base
   end
 
   def build_standard_address_from address_params
-    self.standard_address ||= self.addresses.build if address_params.select{ |_param,value| !value.empty? }.any?
+    self.standard_address ||= self.addresses.build if address_params.select { |_param, value| !value.empty? }.any?
     self.standard_address.assign_attributes(address_params) if self.standard_address
   end
 
@@ -210,10 +210,10 @@ class User < ActiveRecord::Base
     day_of_week = DateTime.now.cwday - 1 # array starts with 0
     weekend = day_of_week > 4 # is it Saturday or Sunday
     day_of_week = 0 if weekend
-    days = [ 'Mo', 'Di',  'Mi',  'Do', 'Fr' ]
+    days = ['Mo', 'Di',  'Mi',  'Do', 'Fr']
     (0..4).each do |iterator| # iterate through the next days
-      day = ( iterator + day_of_week ) % 5 # returns the place in the array for the day
-      start_time = (iterator == 0 && !weekend) ? ( Time.now.hour + 3 ) : 8 # on the current day we start later
+      day = (iterator + day_of_week) % 5 # returns the place in the array for the day
+      start_time = (iterator == 0 && !weekend) ? (Time.now.hour + 3) : 8 # on the current day we start later
       for hour in start_time..19 do
         times.push "#{ days[day] } #{ hour }:00  bis #{ hour + 1 }:00"
       end

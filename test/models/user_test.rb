@@ -100,9 +100,9 @@ describe User do
 
   describe 'validations' do
     describe 'always' do
-      it {user.must validate_presence_of :email}
-      it {user.must validate_presence_of :nickname}
-      it {user.must validate_uniqueness_of :nickname}
+      it { user.must validate_presence_of :email }
+      it { user.must validate_presence_of :nickname }
+      it { user.must validate_uniqueness_of :nickname }
     end
 
     describe 'on create' do
@@ -115,15 +115,15 @@ describe User do
           user.standard_address.country = 'Deutschland'
         end
 
-        it {user.standard_address.must allow_value('12345').for :zip}
-        it {user.standard_address.wont allow_value('a1b2c').for :zip}
-        it {user.standard_address.wont allow_value('123456').for :zip}
-        it {user.standard_address.wont allow_value('1234').for :zip}
+        it { user.standard_address.must allow_value('12345').for :zip }
+        it { user.standard_address.wont allow_value('a1b2c').for :zip }
+        it { user.standard_address.wont allow_value('123456').for :zip }
+        it { user.standard_address.wont allow_value('1234').for :zip }
       end
 
       describe 'address validation' do
-        it {user.standard_address.must allow_value('Test Str. 1a').for :address_line_1}
-        it {user.standard_address.wont allow_value('Test Str.').for :address_line_1}
+        it { user.standard_address.must allow_value('Test Str. 1a').for :address_line_1 }
+        it { user.standard_address.wont allow_value('Test Str.').for :address_line_1 }
       end
     end
 
@@ -134,7 +134,7 @@ describe User do
       it { user.standard_address.must validate_presence_of :first_name }
       it { user.standard_address.must validate_presence_of :last_name }
       it { user.standard_address.must validate_presence_of :address_line_1 }
-      it { user.standard_address.must validate_presence_of :zip}
+      it { user.standard_address.must validate_presence_of :zip }
       it { user.standard_address.must validate_presence_of :city }
       it { user.standard_address.must validate_presence_of :country }
     end
@@ -241,18 +241,18 @@ describe User do
     describe '#calculate_percentage_of_biased_ratings' do
       before :each do
         last_ratings = []
-        7.times{ last_ratings << Rating.new(rating: 'positive') }
-        1.times{ last_ratings << Rating.new(rating: 'negative') }
-        2.times{ last_ratings << Rating.new(rating: 'neutral') }
+        7.times { last_ratings << Rating.new(rating: 'positive') }
+        1.times { last_ratings << Rating.new(rating: 'negative') }
+        2.times { last_ratings << Rating.new(rating: 'neutral') }
 
-        user.stub_chain(:ratings,:select,:limit).returns last_ratings
+        user.stub_chain(:ratings, :select, :limit).returns last_ratings
       end
 
       it 'should be calculated correctly for positive ratings' do
-        user.calculate_percentage_of_biased_ratings('positive',10).must_equal 70.0
+        user.calculate_percentage_of_biased_ratings('positive', 10).must_equal 70.0
       end
       it 'should be calculated correctly for negative ratings' do
-        user.calculate_percentage_of_biased_ratings('negative',10).must_equal 10.0
+        user.calculate_percentage_of_biased_ratings('negative', 10).must_equal 10.0
       end
     end
   end
@@ -359,13 +359,13 @@ describe User do
         it 'should have a salesvolume of standard_salesvolume + verified_bonus if verified' do
           private_seller.verified = true
           private_seller.trustcommunity = false
-          private_seller.max_value_of_goods_cents.must_equal( $private_seller_constants['standard_salesvolume'] + $private_seller_constants['verified_bonus'] )
+          private_seller.max_value_of_goods_cents.must_equal($private_seller_constants['standard_salesvolume'] + $private_seller_constants['verified_bonus'])
         end
 
         it 'should have a salesvolume of standard_salesvolume + trusted_bonus + verified_bonus if trusted and verified' do
           private_seller.verified = true
           private_seller.trustcommunity = true
-          private_seller.max_value_of_goods_cents.must_equal( $private_seller_constants['standard_salesvolume'] + $private_seller_constants['trusted_bonus'] + $private_seller_constants['verified_bonus'] )
+          private_seller.max_value_of_goods_cents.must_equal($private_seller_constants['standard_salesvolume'] + $private_seller_constants['trusted_bonus'] + $private_seller_constants['verified_bonus'])
         end
       end # /standard seller
 
@@ -377,25 +377,25 @@ describe User do
         it 'should have a salesvolume of standard_salesvolume * good_factor if not trusted and not verified' do
           private_seller.verified = false
           private_seller.trustcommunity = false
-          private_seller.max_value_of_goods_cents.must_equal( $private_seller_constants['standard_salesvolume'] * $private_seller_constants['good_factor'] )
+          private_seller.max_value_of_goods_cents.must_equal($private_seller_constants['standard_salesvolume'] * $private_seller_constants['good_factor'])
         end
 
         it 'should have a salesvolume of (standard_salesvolume + trusted_bonus ) * good_factor if trusted' do
           private_seller.verified = false
           private_seller.trustcommunity = true
-          private_seller.max_value_of_goods_cents.must_equal(( $private_seller_constants['standard_salesvolume'] + $private_seller_constants['trusted_bonus'] ) * $private_seller_constants['good_factor'] )
+          private_seller.max_value_of_goods_cents.must_equal(($private_seller_constants['standard_salesvolume'] + $private_seller_constants['trusted_bonus']) * $private_seller_constants['good_factor'])
         end
 
         it 'should have a salesvolume of (standard_salesvolume + verified_bonus ) * good_factor if verified' do
           private_seller.verified = true
           private_seller.trustcommunity = false
-          private_seller.max_value_of_goods_cents.must_equal(( $private_seller_constants['standard_salesvolume'] + $private_seller_constants['verified_bonus'] ) * $private_seller_constants['good_factor'] )
+          private_seller.max_value_of_goods_cents.must_equal(($private_seller_constants['standard_salesvolume'] + $private_seller_constants['verified_bonus']) * $private_seller_constants['good_factor'])
         end
 
         it 'should have a salesvolume of (standard_salesvolume + trusted_bonus + verified_bonus ) * good_factor if trusted and verified' do
           private_seller.verified = true
           private_seller.trustcommunity = true
-          private_seller.max_value_of_goods_cents.must_equal(( $private_seller_constants['standard_salesvolume'] + $private_seller_constants['trusted_bonus'] + $private_seller_constants['verified_bonus'] )* $private_seller_constants['good_factor'] )
+          private_seller.max_value_of_goods_cents.must_equal(($private_seller_constants['standard_salesvolume'] + $private_seller_constants['trusted_bonus'] + $private_seller_constants['verified_bonus']) * $private_seller_constants['good_factor'])
         end
       end # /good seller
 
@@ -450,7 +450,7 @@ describe User do
 
         it 'should have a salesvolume of standard_salesvolume + verified_bonus if verified' do
           commercial_seller.verified = true
-          commercial_seller.max_value_of_goods_cents.must_equal( $commercial_seller_constants['standard_salesvolume'] + $commercial_seller_constants['verified_bonus'] )
+          commercial_seller.max_value_of_goods_cents.must_equal($commercial_seller_constants['standard_salesvolume'] + $commercial_seller_constants['verified_bonus'])
         end
       end # /standard seller
 
@@ -471,7 +471,7 @@ describe User do
 
         it 'should have a salesvolume of ( standard_salesvolume + verified_bonus ) * good_factor if verified' do
           commercial_seller.verified = true
-          commercial_seller.max_value_of_goods_cents.must_equal(( $commercial_seller_constants['standard_salesvolume'] + $commercial_seller_constants['verified_bonus'] ) * $commercial_seller_constants['good_factor'] )
+          commercial_seller.max_value_of_goods_cents.must_equal(($commercial_seller_constants['standard_salesvolume'] + $commercial_seller_constants['verified_bonus']) * $commercial_seller_constants['good_factor'])
         end
       end # /good1 seller
 
@@ -487,12 +487,12 @@ describe User do
 
         it 'should have a salesvolume of standard_salesvolume * good_factor^2 if not verified' do
           commercial_seller.verified = false
-          commercial_seller.max_value_of_goods_cents.must_equal $commercial_seller_constants['standard_salesvolume'] * ( $commercial_seller_constants['good_factor']**2 )
+          commercial_seller.max_value_of_goods_cents.must_equal $commercial_seller_constants['standard_salesvolume'] * ($commercial_seller_constants['good_factor']**2)
         end
 
         it 'should have a salesvolume of ( standard_salesvolume + verified_bonus ) * good_factor^2 if verified' do
           commercial_seller.verified = true
-          commercial_seller.max_value_of_goods_cents.must_equal(( $commercial_seller_constants['standard_salesvolume'] + $commercial_seller_constants['verified_bonus'] ) * ( $commercial_seller_constants['good_factor']**2 ) )
+          commercial_seller.max_value_of_goods_cents.must_equal(($commercial_seller_constants['standard_salesvolume'] + $commercial_seller_constants['verified_bonus']) * ($commercial_seller_constants['good_factor']**2))
         end
       end # /good2 seller
 
@@ -508,12 +508,12 @@ describe User do
 
         it 'should have a salesvolume of standard_salesvolume * good_factor^3 if not verified' do
           commercial_seller.verified = false
-          commercial_seller.max_value_of_goods_cents.must_equal $commercial_seller_constants['standard_salesvolume'] * ( $commercial_seller_constants['good_factor']**3 )
+          commercial_seller.max_value_of_goods_cents.must_equal $commercial_seller_constants['standard_salesvolume'] * ($commercial_seller_constants['good_factor']**3)
         end
 
         it 'should have a salesvolume of ( standard_salesvolume + verified_bonus ) * good_factor^3 if verified' do
           commercial_seller.verified = true
-          commercial_seller.max_value_of_goods_cents.must_equal(( $commercial_seller_constants['standard_salesvolume'] + $commercial_seller_constants['verified_bonus'] ) * ( $commercial_seller_constants['good_factor']**3 ) )
+          commercial_seller.max_value_of_goods_cents.must_equal(($commercial_seller_constants['standard_salesvolume'] + $commercial_seller_constants['verified_bonus']) * ($commercial_seller_constants['good_factor']**3))
         end
       end # /good3 seller
 
@@ -524,12 +524,12 @@ describe User do
 
         it 'should have a salesvolume of standard_salesvolume * good_factor^4 if not verified' do
           commercial_seller.verified = false
-          commercial_seller.max_value_of_goods_cents.must_equal $commercial_seller_constants['standard_salesvolume'] * ( $commercial_seller_constants['good_factor']**4 )
+          commercial_seller.max_value_of_goods_cents.must_equal $commercial_seller_constants['standard_salesvolume'] * ($commercial_seller_constants['good_factor']**4)
         end
 
         it 'should have a salesvolume of ( standard_salesvolume + verified_bonus ) * good_factor^4 if verified' do
           commercial_seller.verified = true
-          commercial_seller.max_value_of_goods_cents.must_equal(( $commercial_seller_constants['standard_salesvolume'] + $commercial_seller_constants['verified_bonus'] ) * ( $commercial_seller_constants['good_factor']**4 ) )
+          commercial_seller.max_value_of_goods_cents.must_equal(($commercial_seller_constants['standard_salesvolume'] + $commercial_seller_constants['verified_bonus']) * ($commercial_seller_constants['good_factor']**4))
         end
       end # /good4 seller
 

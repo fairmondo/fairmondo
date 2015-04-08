@@ -30,8 +30,8 @@ module Article::Validations
       greater_than_or_equal_to: 0, less_than_or_equal_to: 1000000
     }
 
-    validates :vat , presence: true , inclusion: { in: [0, 7 ,19] },
-                     if: :belongs_to_legal_entity?
+    validates :vat, presence: true, inclusion: { in: [0, 7, 19] },
+                    if: :belongs_to_legal_entity?
     validates :basic_price_cents, numericality: {
       greater_than_or_equal_to: 0, less_than_or_equal_to: 1000000
     }, allow_nil: false
@@ -41,7 +41,7 @@ module Article::Validations
     # legal entity attributes
 
     validates :custom_seller_identifier, length: { maximum: 65 }, allow_nil: true, allow_blank: true
-    validates :gtin, length: { minimum: 8, maximum: 14} , allow_nil: true, allow_blank: true
+    validates :gtin, length: { minimum: 8, maximum: 14 }, allow_nil: true, allow_blank: true
 
     # transport
 
@@ -85,7 +85,7 @@ module Article::Validations
     end
 
     def ensure_no_redundant_categories
-      self.category_ids =  categories.reject{|c| categories.any? {|other| c!=nil && other.is_descendant_of?(c) } }.uniq{|c| c.id}.map(&:id) if self.categories
+      self.category_ids =  categories.reject { |c| categories.any? { |other| c != nil && other.is_descendant_of?(c) } }.uniq { |c| c.id }.map(&:id) if self.categories
       true
     end
 
@@ -124,7 +124,7 @@ module Article::Validations
     def only_one_title_image
       count_images = 0
       self.images.each do |image|
-        count_images+=1 if image.is_title
+        count_images += 1 if image.is_title
       end
       if count_images > 1
          errors.add(:images, I18n.t('article.form.errors.only_one_title_image'))

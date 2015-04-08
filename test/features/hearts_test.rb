@@ -25,7 +25,7 @@ include Warden::Test::Helpers
 
 feature 'Hearts for not-logged-in users' do
   before do
-    UserTokenGenerator.stubs( :generate ).returns('some long string that is very secret')
+    UserTokenGenerator.stubs(:generate).returns('some long string that is very secret')
   end
 
   scenario 'User visits library path, finds no hearts, ' +

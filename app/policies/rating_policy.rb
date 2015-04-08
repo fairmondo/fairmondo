@@ -31,7 +31,7 @@ class RatingPolicy < Struct.new(:user, :rating)
   private
 
     def has_not_rated_this?
-      (user.given_ratings.select {|r| r.line_item_group == rating.line_item_group } ).empty?
+      (user.given_ratings.select { |r| r.line_item_group == rating.line_item_group }).empty?
     end
 
     def is_buyer?

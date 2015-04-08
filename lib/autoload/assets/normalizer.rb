@@ -12,7 +12,7 @@ module Assets
         if attachment.present?
           if self.new_record? || self.changed_attributes.keys.include?("#{name}_file_name")
             normalized_file_name = Assets::Filename.normalize(attachment.instance_read(:file_name))
-            attachment.instance_write(:file_name, normalized_file_name )
+            attachment.instance_write(:file_name, normalized_file_name)
           end
         end
       end

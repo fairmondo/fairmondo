@@ -4,7 +4,7 @@ class PaymentAbacus
   attr_reader :payments
 
   def self.calculate business_transaction_abacus, transport_abacus
-    abacus = PaymentAbacus.new(business_transaction_abacus,transport_abacus)
+    abacus = PaymentAbacus.new(business_transaction_abacus, transport_abacus)
     abacus.calculate_payments
     abacus
   end
@@ -12,7 +12,7 @@ class PaymentAbacus
   def calculate_payments
     unified_transport_payment = @line_item_group.unified_transport ? get_unified_transport_payment_method : nil
 
-    @business_transaction_abacus.by_payment.map do |payment,bts|
+    @business_transaction_abacus.by_payment.map do |payment, bts|
       initialize_payment payment, bts
       add_single_transports_to_payment payment, bts
       add_unified_transport_to_payment payment if unified_transport_payment == payment
@@ -22,7 +22,7 @@ class PaymentAbacus
 
   private
 
-    def initialize business_transaction_abacus,transport_abacus
+    def initialize business_transaction_abacus, transport_abacus
       @line_item_group = business_transaction_abacus.line_item_group
       @business_transaction_abacus = business_transaction_abacus
       @transport_abacus = transport_abacus
@@ -62,11 +62,11 @@ class PaymentAbacus
     end
 
     def calculate_attribute_total payment, attribute
-      Money.new( @payments[payment][:transports].map{ |h| h[attribute] || Money.new(0) }.sum )
+      Money.new(@payments[payment][:transports].map { |h| h[attribute] || Money.new(0) }.sum)
     end
 
     def calculate_total payment
-      total = @payments[payment][:business_transactions].map{ |bt| @business_transaction_abacus.prices[bt][:retail_price] }.sum
+      total = @payments[payment][:business_transactions].map { |bt| @business_transaction_abacus.prices[bt][:retail_price] }.sum
       total += @payments[payment][:transport_total]
       total += @payments[payment][:cash_on_delivery_total] if payment == :cash_on_delivery
       total

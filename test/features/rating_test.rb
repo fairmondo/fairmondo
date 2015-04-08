@@ -34,7 +34,7 @@ feature 'User ratings' do
   end
 
   scenario "user rates a line_item_group he didn't make" do
-    login_as  FactoryGirl.create :user
+    login_as FactoryGirl.create :user
     -> { visit line_item_group_new_user_rating_path(line_item_group.seller, line_item_group) }.must_raise Pundit::NotAuthorizedError
   end
 
@@ -55,7 +55,7 @@ feature 'User ratings' do
 
   scenario 'user tries to give a rating without entering a value' do
     login_as buyer
-    visit line_item_group_new_user_rating_path(line_item_group.seller,line_item_group)
+    visit line_item_group_new_user_rating_path(line_item_group.seller, line_item_group)
     click_button 'Bewertung speichern'
     page.must_have_button 'Bewertung speichern' # test if still on same page
   end

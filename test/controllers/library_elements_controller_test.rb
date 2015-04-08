@@ -42,29 +42,29 @@ describe LibraryElementsController do
 
     describe 'for signed-in users' do
       before :each do
-        @library_element= FactoryGirl.create(:library_element)
+        @library_element = FactoryGirl.create(:library_element)
         @library = FactoryGirl.create(:library)
         @user = @library_element.library.user
-        @different_library_element= FactoryGirl.create(:library_element)
+        @different_library_element = FactoryGirl.create(:library_element)
         @different_user = @different_library_element.library.user
         sign_in @user
       end
 
       it 'destroy a library element' do
         assert_difference 'LibraryElement.count', -1 do
-          delete :destroy,user_id: @user, id: @library_element
+          delete :destroy, user_id: @user, id: @library_element
         end
       end
 
       it 'shouldnt be possible to delete another users elements' do
         @user.id.wont_be_same_as @different_user.id # by design
-        -> { delete :destroy,user_id: @different_user, id: @different_library_element }.must_raise(Pundit::NotAuthorizedError)
+        -> { delete :destroy, user_id: @different_user, id: @different_library_element }.must_raise(Pundit::NotAuthorizedError)
       end
 
       it 'shouldnt be possible to add elements to another users libraries' do
         @user.id.wont_be_same_as @different_user.id # by design
         -> do
-          post :create ,user_id: @different_user, library_element: {library_id: @different_library_element.library }
+          post :create, user_id: @different_user, library_element: { library_id: @different_library_element.library }
         end.must_raise(Pundit::NotAuthorizedError)
       end
     end

@@ -41,105 +41,105 @@ describe ArticlesController do
         @second_hand_article = FactoryGirl.create(
           :second_hand_article, :index_article,
           price_cents: 2, title: 'muscheln',
-          categories: [ @vehicle_category ], content: 'muscheln am meer',
+          categories: [@vehicle_category], content: 'muscheln am meer',
           created_at: 3.days.ago, id: 1235
         )
         @hardware_article = FactoryGirl.create(
           :second_hand_article, :index_article, :simple_fair,
           :simple_ecologic, :simple_small_and_precious, :with_ngo,
           price_cents: 3, title: 'muscheln 2',
-          categories: [ @hardware_category ], content: 'abc' ,
+          categories: [@hardware_category], content: 'abc',
           created_at: 2.days.ago, id: 1236
         )
         @no_second_hand_article = FactoryGirl.create(
           :no_second_hand_article, :index_article,
           price_cents: 4, title: 'muscheln 3',
-          categories: [ @hardware_category ], content: 'cde', id: 1237,
+          categories: [@hardware_category], content: 'cde', id: 1237,
           created_at: 1.day.ago
         )
       end
 
       it 'should work with all filters' do
         # should find the article with title 'muscheln' when searching for muscheln
-        get :index, article_search_form: {q: 'muscheln' }
-        @controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.sort.must_equal [@second_hand_article,@hardware_article,@no_second_hand_article].map(&:id).sort
+        get :index, article_search_form: { q: 'muscheln' }
+        @controller.instance_variable_get(:@articles).map { |a| a.id.to_i }.sort.must_equal [@second_hand_article, @hardware_article, @no_second_hand_article].map(&:id).sort
 
         # should find the article with title 'muscheln' when searching for muschel
-        get :index, article_search_form: {q: 'muschel' }
-        @controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.sort.must_equal [@second_hand_article,@hardware_article,@no_second_hand_article].map(&:id).sort
+        get :index, article_search_form: { q: 'muschel' }
+        @controller.instance_variable_get(:@articles).map { |a| a.id.to_i }.sort.must_equal [@second_hand_article, @hardware_article, @no_second_hand_article].map(&:id).sort
 
         # should find the article with content 'meer' when searching for meer
-        get :index, article_search_form: {q: 'meer' , search_in_content: '1'}
-        @controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.sort.must_equal [@second_hand_article].map(&:id).sort
+        get :index, article_search_form: { q: 'meer', search_in_content: '1' }
+        @controller.instance_variable_get(:@articles).map { |a| a.id.to_i }.sort.must_equal [@second_hand_article].map(&:id).sort
 
         # should find the article with price 1 when filtering <= 1
         get :index, article_search_form: { price_to: '0,01' }
-        @controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.sort.must_equal [@normal_article].map(&:id).sort
+        @controller.instance_variable_get(:@articles).map { |a| a.id.to_i }.sort.must_equal [@normal_article].map(&:id).sort
 
         # should find the article with price 4 when filtering >= 4
         get :index, article_search_form: { price_from: '0,04' }
-        @controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.sort.must_equal [@no_second_hand_article].map(&:id).sort
+        @controller.instance_variable_get(:@articles).map { |a| a.id.to_i }.sort.must_equal [@no_second_hand_article].map(&:id).sort
 
         # should find the article with price 2 and 3 when filtering >= 2 <= 3
-        get :index, article_search_form: { price_to: '0,03' , price_from: '0,02' }
-        @controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.sort.must_equal [@second_hand_article,@hardware_article].map(&:id).sort
+        get :index, article_search_form: { price_to: '0,03', price_from: '0,02' }
+        @controller.instance_variable_get(:@articles).map { |a| a.id.to_i }.sort.must_equal [@second_hand_article, @hardware_article].map(&:id).sort
 
         # order by price asc
         get :index, article_search_form: { order_by: 'cheapest' }
-        @controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.must_equal [@normal_article,@second_hand_article,@hardware_article,@no_second_hand_article].map(&:id)
+        @controller.instance_variable_get(:@articles).map { |a| a.id.to_i }.must_equal [@normal_article, @second_hand_article, @hardware_article, @no_second_hand_article].map(&:id)
 
         # order by newest
         get :index, article_search_form: { order_by: 'newest' }
-        @controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.must_equal [@no_second_hand_article,@hardware_article,@second_hand_article,@normal_article].map(&:id)
+        @controller.instance_variable_get(:@articles).map { |a| a.id.to_i }.must_equal [@no_second_hand_article, @hardware_article, @second_hand_article, @normal_article].map(&:id)
 
         # order by condition old
         get :index, article_search_form: { order_by: 'old', q: 'muscheln' }
         result = @controller.instance_variable_get(:@articles)
-        result.map{|a| a.id.to_i }.last.must_equal @no_second_hand_article.id
+        result.map { |a| a.id.to_i }.last.must_equal @no_second_hand_article.id
         result.size.must_equal 3
 
         # order by condition new"
         get :index, article_search_form: { order_by: 'new', q: 'muscheln' }
         result = @controller.instance_variable_get(:@articles)
-        result.map{|a| a.id.to_i }.first.must_equal @no_second_hand_article.id
+        result.map { |a| a.id.to_i }.first.must_equal @no_second_hand_article.id
         result.size.must_equal 3
 
         # order by fair
         get :index, article_search_form: { order_by: 'fair' }
         @controller.instance_variable_get(:@articles)
         result = @controller.instance_variable_get(:@articles)
-        result.map{|a| a.id.to_i }.first.must_equal @hardware_article.id
+        result.map { |a| a.id.to_i }.first.must_equal @hardware_article.id
         result.size.must_equal 4
 
         # order by ecologic
         get :index, article_search_form: { order_by: 'ecologic' }
         result = @controller.instance_variable_get(:@articles)
-        result.map{|a| a.id.to_i }.first.must_equal @hardware_article.id
+        result.map { |a| a.id.to_i }.first.must_equal @hardware_article.id
         result.size.must_equal 4
 
         # order by small_and_precious
         get :index, article_search_form: { order_by: 'small_and_precious' }
         result = @controller.instance_variable_get(:@articles)
-        result.map{|a| a.id.to_i }.first.must_equal @hardware_article.id
+        result.map { |a| a.id.to_i }.first.must_equal @hardware_article.id
         result.size.must_equal 4
 
         # order by price desc
         get :index, article_search_form: { order_by: 'most_expensive' }
-        @controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.must_equal [@normal_article, @second_hand_article, @hardware_article, @no_second_hand_article].reverse.map(&:id)
+        @controller.instance_variable_get(:@articles).map { |a| a.id.to_i }.must_equal [@normal_article, @second_hand_article, @hardware_article, @no_second_hand_article].reverse.map(&:id)
 
         # order by friendly_percent desc
         get :index, article_search_form: { order_by: 'most_donated' }
         result = @controller.instance_variable_get(:@articles)
-        result.map{|a| a.id.to_i }.first.must_equal @hardware_article.id
+        result.map { |a| a.id.to_i }.first.must_equal @hardware_article.id
         result.size.must_equal 4
 
         search_params = { article_search_form: { category_id: @hardware_category.id } }
         get :index, search_params
-        assert_redirected_to( category_path(@hardware_category.id) )
+        assert_redirected_to(category_path(@hardware_category.id))
       end
 
       it 'for string with no suggestions must return empty array' do
-        get :index, article_search_form: {q: '@#$!' }
+        get :index, article_search_form: { q: '@#$!' }
         @controller.instance_variable_get(:@articles).must_equal []
       end
 
@@ -354,7 +354,7 @@ describe ArticlesController do
       it 'should save images even if article is invalid' do
         @article_attrs = FactoryGirl.attributes_for :article, :invalid,
                                                     categories: [FactoryGirl.create(:category).id]
-        @article_attrs[:images_attributes] = { '0' => { image: fixture_file_upload('/test.png', 'image/png') }}
+        @article_attrs[:images_attributes] = { '0' => { image: fixture_file_upload('/test.png', 'image/png') } }
         assert_difference 'Image.count', 1 do
           post :create, article: @article_attrs
         end
@@ -473,7 +473,7 @@ describe ArticlesController do
 
       it 'should work' do
         put :update, id: @article.id, deactivate: true
-        assert_redirected_to  @article
+        assert_redirected_to @article
         flash[:notice].must_equal(I18n.t 'article.notices.deactivated')
       end
 
@@ -519,42 +519,42 @@ describe ArticlesController do
       ArticleAutocomplete.any_instance.stubs(:autocomplete).raises(Faraday::ConnectionFailed.new('test'))
       get :autocomplete, keywords: 'chunky'
       assert_response :success
-      response.body.must_equal({'query' => nil , 'suggestions' => []}.to_json)
+      response.body.must_equal({ 'query' => nil, 'suggestions' => [] }.to_json)
     end
 
     it 'should rescue an Faraday::TimeoutError error' do
       ArticleAutocomplete.any_instance.stubs(:autocomplete).raises(Faraday::TimeoutError.new('test'))
       get :autocomplete, keywords: 'chunky'
       assert_response :success
-      response.body.must_equal({'query' => nil , 'suggestions' => []}.to_json)
+      response.body.must_equal({ 'query' => nil, 'suggestions' => [] }.to_json)
     end
 
     it 'should rescue an Faraday::ClientError error' do
       ArticleAutocomplete.any_instance.stubs(:autocomplete).raises(Faraday::ClientError.new('test'))
       get :autocomplete, keywords: 'chunky'
       assert_response :success
-      response.body.must_equal({'query' => nil , 'suggestions' => []}.to_json)
+      response.body.must_equal({ 'query' => nil, 'suggestions' => [] }.to_json)
     end
 
     it 'should rescue an Faraday::ParsingError error' do
       ArticleAutocomplete.any_instance.stubs(:autocomplete).raises(Faraday::ParsingError.new('test'))
       get :autocomplete, keywords: 'chunky'
       assert_response :success
-      response.body.must_equal({'query' => nil , 'suggestions' => []}.to_json)
+      response.body.must_equal({ 'query' => nil, 'suggestions' => [] }.to_json)
     end
 
     it 'should rescue an Faraday::SSLError error' do
       ArticleAutocomplete.any_instance.stubs(:autocomplete).raises(Faraday::SSLError.new('test'))
       get :autocomplete, keywords: 'chunky'
       assert_response :success
-      response.body.must_equal({'query' => nil , 'suggestions' => []}.to_json)
+      response.body.must_equal({ 'query' => nil, 'suggestions' => [] }.to_json)
     end
 
     it 'should rescue an Faraday::ResourceNotFound error' do
       ArticleAutocomplete.any_instance.stubs(:autocomplete).raises(Faraday::ResourceNotFound.new('test'))
       get :autocomplete, keywords: 'chunky'
       assert_response :success
-      response.body.must_equal({'query' => nil , 'suggestions' => []}.to_json)
+      response.body.must_equal({ 'query' => nil, 'suggestions' => [] }.to_json)
     end
   end
 end

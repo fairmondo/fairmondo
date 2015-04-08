@@ -44,8 +44,8 @@ module ApplicationHelper
     end
   end
 
-  def truncate_and_sanitize_without_linebreaks(text = '', length = 70, omission ='', separator = ' ')
-      truncate(Sanitize.clean(text), length: length, separator: separator, omission: omission ).gsub("\n", ' ')
+  def truncate_and_sanitize_without_linebreaks(text = '', length = 70, omission = '', separator = ' ')
+      truncate(Sanitize.clean(text), length: length, separator: separator, omission: omission).gsub("\n", ' ')
   end
 
   # Login form anywhere - https://github.com/plataformatec/devise/wiki/How-To:-Display-a-custom-sign_in-form-anywhere-in-your-app
@@ -54,7 +54,7 @@ module ApplicationHelper
   end
 
   # Rails 4 included feature
-  def cache_if (condition, name = {}, &block)
+  def cache_if(condition, name = {}, &block)
     if condition
       cache(name, &block)
     else
@@ -87,6 +87,6 @@ module ApplicationHelper
   end
 
   def navigation_push
-    on_login_page? ? { } : { push: true }
+    on_login_page? ? {} : { push: true }
   end
 end

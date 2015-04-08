@@ -52,7 +52,7 @@ feature 'Article creation' do
       fill_in I18n.t('formtastic.labels.article.basic_price'), with: '99,99'
       select I18n.t('enumerize.article.basic_price_amount.kilogram'), from: I18n.t('formtastic.labels.article.basic_price_amount')
       if @user.country == 'Deutschland'
-        select 7 ,from: I18n.t('formtastic.labels.article.vat')
+        select 7, from: I18n.t('formtastic.labels.article.vat')
       end
     end
     fill_in I18n.t('formtastic.labels.article.content'), with: 'Article content'
@@ -100,7 +100,7 @@ feature 'Article creation' do
     # Increase Quantity
     fill_in 'article_quantity', with: '2'
 
-    assert_difference 'Article.unscoped.count' ,1 do
+    assert_difference 'Article.unscoped.count', 1 do
       click_button I18n.t('article.labels.continue_to_preview')
     end
   end
@@ -164,7 +164,7 @@ feature 'Article activation for legal entities' do
   let(:article) { FactoryGirl.create :preview_article, seller: user }
 
   scenario 'legal entity adds goods for more than 5000000' do
-    6.times { FactoryGirl.create :article, seller: user , price_cents: 1000000 }
+    6.times { FactoryGirl.create :article, seller: user, price_cents: 1000000 }
     login_as user
     visit article_path(article)
     click_button I18n.t('article.labels.submit')
@@ -284,7 +284,7 @@ feature 'Article buyer actions' do
   # add more
 end
 
-feature  'Article view for guest users' do
+feature 'Article view for guest users' do
   before do
     @seller = FactoryGirl.create :user, type: 'LegalEntity'
     @article_conventional = FactoryGirl.create :no_second_hand_article, seller: @seller
@@ -305,7 +305,7 @@ feature  'Article view for guest users' do
   #  page.assert_selector('div.fair_alternative')
   # end
 
-  scenario  'user opens a conventional article from a user that is whitelisted' do
+  scenario 'user opens a conventional article from a user that is whitelisted' do
     $exceptions_on_fairmondo['no_fair_alternative']['user_ids'] = [@seller.id]
     visit article_path @article_conventional
     page.assert_no_selector('div.fair_alternative')

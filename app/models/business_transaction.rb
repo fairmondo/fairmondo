@@ -54,14 +54,14 @@ class BusinessTransaction < ActiveRecord::Base
            :zip, :city, :country, to: :payment_address, prefix: true
   delegate :email, :fullname, :nickname, :phone, :mobile, :address,
            :bank_account_owner, :bank_account_number, :bank_code, :bank_name,
-           :about, :terms, :cancellation, :paypal_account,:ngo, :iban, :bic,
+           :about, :terms, :cancellation, :paypal_account, :ngo, :iban, :bic,
            :vacationing?, :cancellation_form,
            to: :article_seller, prefix: true
   delegate :url, to: :article_seller_cancellation_form, prefix: true
   delegate :payment_address, :transport_address, :purchase_id, :cart_id, to: :line_item_group
   # delegate :buyer, :seller, to: :line_item_group
 
-  validates :selected_transport, inclusion: { in: proc { |record| record.article.selectable_transports } }, presence: true , unless: :is_in_unified_transport?
+  validates :selected_transport, inclusion: { in: proc { |record| record.article.selectable_transports } }, presence: true, unless: :is_in_unified_transport?
   validates :selected_payment, inclusion: { in: proc { |record| record.article.selectable_payments } }, common_sense: true, presence: true
 
   validates :line_item_group, presence: true

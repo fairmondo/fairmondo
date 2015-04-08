@@ -38,14 +38,14 @@ describe Category do
     it { subject.must_respond_to :weight }
   end
 
-  let(:category) { FactoryGirl::create(:category)}
+  let(:category) { FactoryGirl::create(:category) }
 
   it 'has a valid Factory' do
     category.valid?.must_equal true
   end
 
   describe 'associations' do
-    it {subject.must have_and_belong_to_many :articles}
+    it { subject.must have_and_belong_to_many :articles }
   end
 
   describe 'methods' do

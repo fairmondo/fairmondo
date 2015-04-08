@@ -9,7 +9,7 @@ gem 'activerecord-session_store' # sessions in activerecord
 platforms :ruby do
   gem 'sqlite3', group: :test # sqlite3 for inmemory testing db
   gem 'therubyracer' # js runtime
-  gem 'pg', group: [:production,:staging,:development] # postgres
+  gem 'pg', group: [:production, :staging, :development] # postgres
 end
 
 # ----------  Model ----------
@@ -21,7 +21,7 @@ gem 'enumerize', '>= 0.5.1' # enums as symbols in ar
 gem 'state_machine' # State Machines in Rails
 gem 'amoeba'
 gem 'sanitize' # Parser based sanitization
-gem 'awesome_nested_set' , '>= 3.0.0.rc.4'# tree structure for categories
+gem 'awesome_nested_set', '>= 3.0.0.rc.4' # tree structure for categories
 gem 'friendly_id', '>= 4.0.9' # Friendly_id for beautiful links
 
 # pseudo models
@@ -35,9 +35,9 @@ gem 'slim-rails', '>= 2.1.5'
 gem 'jbuilder'
 
 ## CSS
-gem 'susy' ,'~> 2.1.1' # Grid framework is susy
+gem 'susy', '~> 2.1.1' # Grid framework is susy
 gem 'sass-rails', '~> 5.0.0'
-gem 'bourbon' , '<= 4.0.2' # easy ccs3
+gem 'bourbon', '<= 4.0.2' # easy ccs3
 gem 'font-awesome-rails', '>= 4.2.0.0'
 gem 'sprite-factory'
 gem 'chunky_png' # needed for sprite-factory
@@ -101,7 +101,7 @@ gem 'nokogiri'
 gem 'prawn_rails' # pdf generation
 
 # ---------- Monitoring ----------
-gem 'newrelic_rpm',  group: [:production,:staging]
+gem 'newrelic_rpm',  group: [:production, :staging]
 gem 'rack-mini-profiler'
 gem 'lograge'
 
@@ -191,7 +191,7 @@ group :development, :test do
   gem 'bullet' # Notify about n+1 queries
 end
 
-group :development,:test,:staging do
+group :development, :test, :staging do
   gem 'factory_girl_rails'
   gem 'ffaker'
   # styleguides

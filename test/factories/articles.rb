@@ -24,13 +24,13 @@ require 'ffaker'
 FactoryGirl.define do
   factory :article, aliases: [:appended_object] do
     seller      # alias for User -> see spec/factories/users.rb
-    categories {|c| [c.association(:category)] }
+    categories { |c| [c.association(:category)] }
     title     { Faker::Lorem.words(rand(3..5)).join(' ').titleize }
-    content   { Faker::Lorem.paragraph(rand(7)+1) }
+    content   { Faker::Lorem.paragraph(rand(7) + 1) }
     condition { ['new', 'old'].sample }
-    condition_extra {[:as_good_as_new, :as_good_as_warranted, :used_very_good, :used_good, :used_satisfying, :broken].sample}
-    price_cents { Random.new.rand(40000)+1 }
-    vat {[0,7,19].sample}
+    condition_extra { [:as_good_as_new, :as_good_as_warranted, :used_very_good, :used_good, :used_satisfying, :broken].sample }
+    price_cents { Random.new.rand(40000) + 1 }
+    vat { [0, 7, 19].sample }
     quantity 1
     state 'active'
     original_id { nil }
@@ -41,8 +41,8 @@ FactoryGirl.define do
       end
     end
 
-    basic_price_cents { Random.new.rand(500000)+1 }
-    basic_price_amount {[:kilogram, :gram, :liter, :milliliter, :cubicmeter, :meter, :squaremeter, :portion].sample}
+    basic_price_cents { Random.new.rand(500000) + 1 }
+    basic_price_amount { [:kilogram, :gram, :liter, :milliliter, :cubicmeter, :meter, :squaremeter, :portion].sample }
 
     before :create do |article, _evaluator|
       article.calculate_fees_and_donations
@@ -50,14 +50,14 @@ FactoryGirl.define do
 
     transport_type1 true
     transport_type1_provider 'DHL Päckchen'
-    transport_type1_price_cents { Random.new.rand(200)+1 }
+    transport_type1_price_cents { Random.new.rand(200) + 1 }
     transport_details 'transport_details'
     payment_bank_transfer true
 
     payment_details 'payment_details'
 
     factory :article_template do
-      article_template_name { Faker::Lorem.words( rand(3)+2 ) * ' ' }
+      article_template_name { Faker::Lorem.words(rand(3) + 2) * ' ' }
       state :template
     end
 
@@ -125,11 +125,11 @@ FactoryGirl.define do
     end
 
     trait :with_child_category do
-      categories {|c| [c.association(:category), c.association(:child_category)] }
+      categories { |c| [c.association(:category), c.association(:child_category)] }
     end
 
     trait :with_3_categories do # This should fail validation, so only use with FactoryGirl.build
-      categories {|c| [c.association(:category), c.association(:category), c.association(:category)] }
+      categories { |c| [c.association(:category), c.association(:category), c.association(:category)] }
     end
 
     trait :with_fixture_image do
@@ -206,15 +206,15 @@ FactoryGirl.define do
     trait :simple_small_and_precious do
       small_and_precious true
       small_and_precious_eu_small_enterprise true
-      small_and_precious_reason 'a'*151
+      small_and_precious_reason 'a' * 151
     end
 
     trait :with_larger_quantity do
-      quantity { (rand(100)+2) }
+      quantity { (rand(100) + 2) }
     end
 
     trait :with_custom_seller_identifier do
-      custom_seller_identifier {Faker::Lorem.characters(10)}
+      custom_seller_identifier { Faker::Lorem.characters(10) }
     end
 
     trait :with_discount do

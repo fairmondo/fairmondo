@@ -68,7 +68,7 @@ namespace :rails do
     on roles(:console), primary: true do |host|
       rails_env = fetch(:stage)
       within current_path do
-        execute_interactively "~/.rbenv/bin/rbenv exec bundle exec rails console #{rails_env}",host
+        execute_interactively "~/.rbenv/bin/rbenv exec bundle exec rails console #{rails_env}", host
       end
     end
   end
@@ -78,12 +78,12 @@ namespace :rails do
     on roles(:db), primary: true do |host|
       rails_env = fetch(:stage)
       within current_path do
-        execute_interactively "~/.rbenv/bin/rbenv exec bundle exec rails dbconsole #{rails_env}",host
+        execute_interactively "~/.rbenv/bin/rbenv exec bundle exec rails dbconsole #{rails_env}", host
       end
     end
   end
 
-  def execute_interactively(command,host)
+  def execute_interactively(command, host)
     command_string = "ssh -l #{host.user} #{host} -p 22 -t 'cd #{deploy_to}/current && #{command}'"
     puts command_string
     exec command_string

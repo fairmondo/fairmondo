@@ -5,7 +5,7 @@ class ArticlesIndex < Chewy::Index
     },
     analysis: {
       filter: {
-        german_decompound:{
+        german_decompound: {
           type: 'decompound'
         },
         german_stemming: {
@@ -51,7 +51,7 @@ class ArticlesIndex < Chewy::Index
       field :borrowable, type: 'boolean'
       field :condition, index: :not_analyzed
       field :categories, index: :not_analyzed, value: -> do
-        categories.map{ |c| c.self_and_ancestors.map(&:id) }.flatten
+        categories.map { |c| c.self_and_ancestors.map(&:id) }.flatten
       end
 
       # sorting
@@ -79,7 +79,7 @@ class ArticlesIndex < Chewy::Index
       end
 
       # seller attributes
-      field :belongs_to_legal_entity? , type: 'boolean'
+      field :belongs_to_legal_entity?, type: 'boolean'
       field :seller_ngo, type: 'boolean'
       field :seller_nickname, index: :not_analyzed
       field :seller_id, index: :not_analyzed

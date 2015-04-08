@@ -22,7 +22,7 @@
 class ArticlesController < ApplicationController
   responders :location
   respond_to :html
-  respond_to :json, only: [:show,:index]
+  respond_to :json, only: [:show, :index]
 
   before_action :set_article, only: [:edit, :update, :destroy, :show]
 
@@ -33,7 +33,7 @@ class ArticlesController < ApplicationController
   skip_after_filter :verify_authorized_with_exceptions, only: [:autocomplete]
 
   # Layout Requirements
-  before_action :ensure_complete_profile , only: [:new, :create]
+  before_action :ensure_complete_profile, only: [:new, :create]
 
   # search_cache
   before_action :build_search_cache, only: :index
@@ -140,7 +140,7 @@ class ArticlesController < ApplicationController
   private
 
     def search_results_for_error_case
-      render json: {query: params[:q], suggestions:[]}
+      render json: { query: params[:q], suggestions: [] }
     end
 
     def calculate_fees_and_donations
@@ -164,7 +164,7 @@ class ArticlesController < ApplicationController
     end
 
     def similar_articles query
-      query ||= params[:id].gsub(/\-/,' ')
+      query ||= params[:id].gsub(/\-/, ' ')
       @similar_articles = ArticleSearchForm.new(q: query).search(1)
       respond_with @similar_articles do |format|
         format.html { render 'article_closed' }
@@ -240,7 +240,7 @@ class ArticlesController < ApplicationController
 
     def save_images
       # At least try to save the images -> not persisted in browser
-      @article.images.each_with_index do |image,index|
+      @article.images.each_with_index do |image, index|
         if image.new_record?
           # strange HACK because paperclip will now rollback uploaded files and we want the file to be saved anyway
           # if you find out a way to break out a running transaction please refactor to images_attributes

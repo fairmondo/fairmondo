@@ -12,10 +12,10 @@ module BusinessTransaction::Refundable
   #
   # checks if user has requested refund for this transaction
   def requested_refund?
-    Refund.where( business_transaction_id: self.id ).any?
+    Refund.where(business_transaction_id: self.id).any?
   end
 
   def refundable?
-    ( self.seller.can_refund? self ) && ( !self.requested_refund? )
+    (self.seller.can_refund? self) && (!self.requested_refund?)
   end
 end

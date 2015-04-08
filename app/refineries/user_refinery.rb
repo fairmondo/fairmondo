@@ -25,7 +25,7 @@ class UserRefinery < ApplicationRefinery
       :free_transport_available, :free_transport_at_price,
       { image_attributes: ImageRefinery.new(Image.new, user).default }
     ]
-    permitted += [ :terms, :cancellation, :about, :cancellation_form ] if user.is_a? LegalEntity
+    permitted += [:terms, :cancellation, :about, :cancellation_form] if user.is_a? LegalEntity
     permitted
   end
 end

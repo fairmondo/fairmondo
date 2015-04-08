@@ -2,15 +2,15 @@ class CleverreachAPI
   require 'savon'
 
   def self.add user
-    call :receiver_add, message_with( user: { email: user.email } ) rescue false # mostly rescuing TimeOut
+    call :receiver_add, message_with(user: { email: user.email }) rescue false # mostly rescuing TimeOut
   end
 
   def self.remove user
-    call :receiver_delete, message_with( email: user.email ) rescue false
+    call :receiver_delete, message_with(email: user.email) rescue false
   end
 
   def self.get_status user
-    response = call :receiver_get_by_email, message_with( email: user.email )
+    response = call :receiver_get_by_email, message_with(email: user.email)
     response.to_hash[:receiver_get_by_email_response][:return][:status] == 'SUCCESS' rescue false
   end
 

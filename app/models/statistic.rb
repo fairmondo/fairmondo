@@ -9,7 +9,7 @@ class Statistic
   end
 
   def statistics_category_sales c
-    BusinessTransaction.includes(article: [:categories]).where(categories: {id: c.id}).sold.count
+    BusinessTransaction.includes(article: [:categories]).where(categories: { id: c.id }).sold.count
   rescue
     0
   end
@@ -74,7 +74,7 @@ class Statistic
     define_method("#{type}_article_percentage") do
       count = Article.active.where(type => true).count
       count_total =  Article.active.count
-      (count * 1.0 / (count_total==0 ? 1 : count_total))*100
+      (count * 1.0 / (count_total == 0 ? 1 : count_total)) * 100
     end
   end
 
@@ -103,7 +103,7 @@ class Statistic
   end
 
   def sold_articles_count_growth_rate
-    growth_rate BusinessTransaction.last_week.count , BusinessTransaction.week_before_last_week.count
+    growth_rate BusinessTransaction.last_week.count, BusinessTransaction.week_before_last_week.count
   end
 
   def sold_articles_count_with_quantity_last_week
@@ -111,7 +111,7 @@ class Statistic
   end
 
   def sold_articles_count_with_quantity_growth_rate
-    growth_rate sold_articles_count_with_quantity_last_week ,  BusinessTransaction.week_before_last_week.sum(:quantity_bought)
+    growth_rate sold_articles_count_with_quantity_last_week,  BusinessTransaction.week_before_last_week.sum(:quantity_bought)
   end
 
   def sold_article_prices_last_week
@@ -119,7 +119,7 @@ class Statistic
   end
 
   def sold_article_prices_growth_rate
-    growth_rate BusinessTransaction.last_week.joins(:article).sum('articles.price_cents * business_transactions.quantity_bought') , BusinessTransaction.week_before_last_week.joins(:article).sum('articles.price_cents * business_transactions.quantity_bought')
+    growth_rate BusinessTransaction.last_week.joins(:article).sum('articles.price_cents * business_transactions.quantity_bought'), BusinessTransaction.week_before_last_week.joins(:article).sum('articles.price_cents * business_transactions.quantity_bought')
   end
 
   def sold_article_fees_last_week
