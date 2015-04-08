@@ -20,7 +20,6 @@
 # along with Fairmondo.  If not, see <http://www.gnu.org/licenses/>.
 #
 module ArticlesHelper
-
   # Conditions
   def condition_label article
     condition_text = t("enumerize.article.condition.#{article.condition}")

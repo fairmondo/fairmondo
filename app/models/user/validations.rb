@@ -28,5 +28,4 @@ module User::Validations
 
     validates_inclusion_of :type, in: ["LegalEntity"], if: :is_ngo?
   end
-
 end

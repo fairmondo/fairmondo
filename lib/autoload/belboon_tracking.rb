@@ -2,7 +2,6 @@
 ## Belboon, see https://www.belboon.com
 
 module BelboonTracking
-
   private
 
     def save_belboon_tracking_token_in_session

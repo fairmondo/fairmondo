@@ -20,7 +20,6 @@
 # along with Fairmondo.  If not, see <http://www.gnu.org/licenses/>.
 #
 module FormHelper
-
   # Creates semantic fields for an activerecord relation without having to deal with
   # accepts_nested_attributes_for. The fields will generate params like this:
   # _key_: { _id_ => { fields } }
@@ -83,5 +82,4 @@ module FormHelper
   def get_or_create_contact_form
     @contact_form || ContactForm.new
   end
-
 end

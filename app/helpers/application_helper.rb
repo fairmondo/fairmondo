@@ -20,7 +20,6 @@
 # along with Fairmondo.  If not, see <http://www.gnu.org/licenses/>.
 #
 module ApplicationHelper
-
   def title(title = nil)
     if title.present?
       content_for :title, title
@@ -90,5 +89,4 @@ module ApplicationHelper
   def navigation_push
     on_login_page? ? { } : { push: true }
   end
-
 end

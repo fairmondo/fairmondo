@@ -7,5 +7,4 @@ module User::Scopes
     scope :banned, -> { where(banned: true) }
     scope :unbanned, -> { where('banned = ? OR banned IS NULL', false) }
   end
-
 end

@@ -51,5 +51,4 @@ module ContainerHelper
               title_addition: options[:title_addition],
             }, &block
   end
-
 end

@@ -18,7 +18,6 @@
 # along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
 module ContentHelper
-
   def tinycms_content(key)
     render "contents/embed", :content => find_content(key)
   end
@@ -36,5 +35,4 @@ module ContentHelper
     content = tinycms_content_body(key)
     Sanitize.clean(content)
   end
-
 end

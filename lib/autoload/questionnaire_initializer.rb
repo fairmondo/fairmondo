@@ -1,5 +1,4 @@
 module QuestionnaireInitializer
-
   # Whoever wrote this method - please document and write tests for it
   def initialize(*args)
     if args.present?
@@ -9,5 +8,4 @@ module QuestionnaireInitializer
     end
     super
   end
-
 end

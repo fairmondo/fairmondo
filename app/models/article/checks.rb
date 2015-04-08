@@ -75,5 +75,4 @@ module Article::Checks
     end
     true
   end
-
 end

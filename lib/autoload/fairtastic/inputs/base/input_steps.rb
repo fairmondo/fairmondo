@@ -23,7 +23,6 @@ module Fairtastic
   module Inputs
     module Base
       module InputSteps
-
         def input_step(step_key, options = {}, &block)
           css = "Accordion-item"
 

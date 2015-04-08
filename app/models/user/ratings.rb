@@ -73,5 +73,4 @@ module User::Ratings
     purchase_volume = buyer_constants[:bad_purchasevolume]  if bad_buyer?
     purchase_volume
   end
-
 end

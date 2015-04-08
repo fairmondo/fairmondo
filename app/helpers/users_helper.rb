@@ -51,5 +51,4 @@ module UsersHelper
       safe_join([heading,value])
     end
   end
-
 end

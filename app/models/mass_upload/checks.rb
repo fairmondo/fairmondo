@@ -37,5 +37,4 @@ module MassUpload::Checks
       'utf-8'
     end
   end
-
 end

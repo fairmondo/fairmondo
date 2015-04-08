@@ -22,7 +22,6 @@
 module Fairtastic
   module Helpers
     module InputHelper
-
       include Formtastic::Helpers::InputHelper
 
       def input(method, options = {})
@@ -30,7 +29,6 @@ module Fairtastic
 
         super
       end
-
     end
   end
 end

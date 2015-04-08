@@ -20,7 +20,6 @@
 # along with Fairmondo.  If not, see <http://www.gnu.org/licenses/>.
 #
 module CheckoutHelper
-
   def unified_transport_label_for group, price
     I18n.t('cart.texts.unified_transport', provider: group.seller.unified_transport_provider, price: money(price))
   end
@@ -79,5 +78,4 @@ module CheckoutHelper
   def courier_time_for line_item
     seller = line_item.article_seller
   end
-
 end

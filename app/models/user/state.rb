@@ -62,5 +62,4 @@ module User::State
   def send_bad_seller_notification
     RatingMailer.delay.bad_seller_notification(self)
   end
-
 end
