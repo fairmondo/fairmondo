@@ -480,7 +480,7 @@ describe ArticlesController do
       it 'should work with an invalid article' do
         @article.title = nil
         @article.save validate: false
-        ## we now have an invalid record
+         ## we now have an invalid record
          put :update, id: @article.id, deactivate: true
         assert_redirected_to @article
         @article.reload.locked?.must_equal true

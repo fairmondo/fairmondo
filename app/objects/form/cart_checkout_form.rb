@@ -77,7 +77,7 @@ class CartCheckoutForm
     end
 
     def update_line_item_group group, params
-      # builds business_transactions
+        # builds business_transactions
         group.line_items.each do |item|
           transaction_params = params[:line_items][item.id.to_s] rescue nil
           create_business_transaction_for group, item, transaction_params

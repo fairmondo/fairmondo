@@ -34,7 +34,7 @@ module Article::ExtendedAttributes
     attr_accessor :action, :save_as_template, :tos_accepted,
                   :changing_state
     attr_writer :article_search_form
-                # find a way to remove this! arcane won't like it
+    # find a way to remove this! arcane won't like it
 
     # Auto Sanitize
 

@@ -23,7 +23,7 @@ module BrowsingHistory
       nil
     end
 
-  # pseudo private (functions should only be called from this module)
+    # pseudo private (functions should only be called from this module)
 
     MAX_STORED_STEPS = 10
 

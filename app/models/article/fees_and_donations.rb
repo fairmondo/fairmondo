@@ -38,12 +38,12 @@ module Article::FeesAndDonations
     monetize :calculated_friendly_cents, allow_nil: true
     monetize :calculated_fee_cents, allow_nil: true
 
-     ## friendly percent
+    ## friendly percent
     validates_presence_of :friendly_percent_organisation_id, if: :friendly_percent_gt_0?
     validates_presence_of :friendly_percent
   end
 
-   ## -------------- Calculate Fees And Donations ---------------
+  ## -------------- Calculate Fees And Donations ---------------
 
   def could_be_book_price_agreement?
     book_category_id = $exceptions_on_fairmondo['book_price_agreement']['category'].to_i

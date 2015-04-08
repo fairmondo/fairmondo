@@ -28,11 +28,11 @@ class Feedback < ActiveRecord::Base
   enumerize :variety, in: [:report_article, :get_help, :send_feedback, :become_donation_partner]
 
   enumerize :feedback_subject, in: [:dealer, :technics, :other]
-                                     # , :private, :buyer, :seller,:event, :cooperative, :hero, :ngo, :honor, :trust_community
+  # , :private, :buyer, :seller,:event, :cooperative, :hero, :ngo, :honor, :trust_community
 
   enumerize :help_subject, in: [:marketplace,  :technics, :cooperative,
                                 :hero,  :other]
-                                  #:comm_deal_fair, :comm_deal, :private_deal, :buy,:ngo, :honor, :trust_community
+  #:comm_deal_fair, :comm_deal, :private_deal, :buy,:ngo, :honor, :trust_community
 
   # Validations
   validates_presence_of :text

@@ -123,8 +123,8 @@ module ArticlesHelper
       !resource.respond_to?("transport_#{ method }_price")
   end
 
-    # def export_time_ranges
-    #  # specify time range in months
-    #  ['all', '1', '3', '6', '12']
-    # end
+  # def export_time_ranges
+  #  # specify time range in months
+  #  ['all', '1', '3', '6', '12']
+  # end
 end

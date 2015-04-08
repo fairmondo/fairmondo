@@ -11,7 +11,7 @@ namespace :iban do
         if !bank_info[:iban].blank? && !bank_info[:bic].blank? && bank_info[:return_code] == '00'
           user_with_valid_kntNr += 1
           # puts bank_info[:iban]
-           # puts bank_info[:bic]
+          # puts bank_info[:bic]
           user.update_attribute(:iban, bank_info[:iban])
           user.update_attribute(:bic, bank_info[:bic])
         end

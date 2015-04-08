@@ -16,7 +16,7 @@ class LineItem < ActiveRecord::Base
     less_than_or_equal_to: ->(line_item) { line_item.article_quantity_available }
   }
 
-#  after_rollback :set_max_requested_quantity
+  #  after_rollback :set_max_requested_quantity
 
   def self.find_or_new params, cart_id
     joins(:cart).where('carts.id = ?', cart_id).find_by_article_id(params['article_id']) || new(params)

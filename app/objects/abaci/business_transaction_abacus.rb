@@ -57,7 +57,7 @@ class BusinessTransactionAbacus
       }
     end
 
-     # article price * quanity
+    # article price * quanity
     def self.retail_price_of business_transaction
       business_transaction.article_price * business_transaction.quantity_bought
     end

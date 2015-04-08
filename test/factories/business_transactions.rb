@@ -125,9 +125,9 @@ FactoryGirl.define do
       selected_payment 'voucher'
     end
 
-#    trait :mangopay do
-#      selected_payment 'mangopay'
-#      payment
-#    end
+    #    trait :mangopay do
+    #      selected_payment 'mangopay'
+    #      payment
+    #    end
   end
 end
