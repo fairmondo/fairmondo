@@ -67,7 +67,7 @@ namespace :db do
     end
 
     def extract_articles_from_xml(xml_doc)
-      articles = Hash.new
+      articles = {}
       count = 0
       faker_count = 0
 

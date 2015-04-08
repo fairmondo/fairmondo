@@ -128,11 +128,6 @@ Style/DoubleNegation:
 Style/EmptyElse:
   Enabled: false
 
-# Offense count: 3
-# Cop supports --auto-correct.
-Style/EmptyLiteral:
-  Enabled: false
-
 # Offense count: 1
 # Configuration parameters: EnforcedStyle, SupportedStyles.
 Style/For:

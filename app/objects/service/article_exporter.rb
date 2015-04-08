@@ -9,7 +9,7 @@ class ArticleExporter
     csv.puts CSV.generate_line export_attributes, @@csv_options
 
     determine_articles_to_export(user, params).find_each do |article|
-      row = Hash.new
+      row = {}
       row.merge!(provide_fair_attributes_for article)
       row.merge!(article.attributes)
       row['categories'] = article.categories.map { |c| c.id }.join(',')
@@ -37,7 +37,7 @@ class ArticleExporter
   end
 
   def self.provide_fair_attributes_for article
-    attributes = Hash.new
+    attributes = {}
     if article.fair_trust_questionnaire
       attributes.merge!(article.fair_trust_questionnaire.attributes)
     end
