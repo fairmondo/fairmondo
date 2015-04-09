@@ -114,13 +114,9 @@ module Article::FeesAndDonations
   end
 
   def fee_percentage
-    if seller.ngo
-      0
-    elsif fair?
-      TRANSACTION_FEES[:fair]
-    else
-      TRANSACTION_FEES[:default]
-    end
+    return 0 if seller.ngo
+    return TRANSACTION_FEES[:fair] if fair?
+    TRANSACTION_FEES[:default]
   end
 
   def fee_result
@@ -130,11 +126,15 @@ module Article::FeesAndDonations
   end
 
   def fee_for_article
-    # for rounding -> always round up (e.g. 900,1 cents are 901 cents)
-    result = Money.new(((price_cents - friendly_percent_result_cents) * fee_percentage).ceil)
+    result = actual_fee
     result = min_fee if result < min_fee
     result = max_fee if result > max_fee
     result
+  end
+
+  def actual_fee
+    # for rounding -> always round up (e.g. 900,1 cents are 901 cents)
+    Money.new(((price_cents - friendly_percent_result_cents) * fee_percentage).ceil)
   end
 
   def max_fee

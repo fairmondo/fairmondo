@@ -4,9 +4,7 @@ class FairTrustOtherValidator < ActiveModel::EachValidator
   def validate_each(record, attribute, value)
     if record.send("#{ attribute.to_s.chomp('_other') }_checkboxes").include? :other
       case
-      when !value
-        record.errors[attribute] << I18n.t('active_record.error_messages.blank')
-      when value.length == 0
+      when !value || value.length == 0
         record.errors[attribute] << I18n.t('active_record.error_messages.blank')
       when value.length < 5
         record.errors[attribute] << I18n.t('active_record.error_messages.too_short', count: 5)
