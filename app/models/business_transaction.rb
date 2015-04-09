@@ -100,16 +100,16 @@ class BusinessTransaction < ActiveRecord::Base
     end
   end
 
-  # TODO Check if there is a better way -> only used in export model
   def selected_transport_provider
-    if self.selected_transport == 'pickup'
+    case selected_transport
+    when 'pickup'
       'pickup'
-    elsif self.selected_transport == 'bike_courier'
+    when 'bike_courier'
       'bike_courier'
-    elsif self.selected_transport == 'type1'
-      self.article.transport_type1_provider
-    elsif self.selected_transport == 'type2'
-      self.article.transport_type2_provider
+    when 'type1'
+      article.transport_type1_provider
+    when 'type2'
+      article.transport_type2_provider
     end
   end
 

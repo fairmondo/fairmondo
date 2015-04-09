@@ -20,44 +20,11 @@
 # along with Fairmondo.  If not, see <http://www.gnu.org/licenses/>.
 #
 class ArticlesController < ApplicationController
+  include ArticleControllerFilters
+
   responders :location
   respond_to :html
   respond_to :json, only: [:show, :index]
-
-  before_action :set_article, only: [:edit, :update, :destroy, :show]
-
-  # Authorization
-  skip_before_action :authenticate_user!,
-                     only: [:show, :index, :new, :autocomplete]
-  before_action :seller_sign_in, only: :new
-  skip_after_filter :verify_authorized_with_exceptions, only: [:autocomplete]
-
-  # Layout Requirements
-  before_action :ensure_complete_profile, only: [:new, :create]
-
-  # search_cache
-  before_action :build_search_cache, only: :index
-  before_action :category_specific_search,
-                only: :index,
-                unless: lambda { request.xhr? || request.format == :json }
-
-  # Calculate value of active goods
-  before_action :check_value_of_goods, only: [:update],
-                                       if: :activate_params_present?
-
-  # Calculate fees and donations
-  before_action :calculate_fees_and_donations,
-                only: :show,
-                if: lambda { !@article.active? && policy(@article).activate? }
-
-  # Flash image processing message
-  before_action :flash_image_processing_message,
-                only: :show,
-                if: -> do
-                  !flash.now[:notice] &&
-                    @article.owned_by?(current_user) &&
-                    at_least_one_image_processing?
-                end
 
   rescue_from ActiveRecord::RecordNotFound, with: :similar_articles,
                                             only: :show
@@ -87,6 +54,16 @@ class ArticlesController < ApplicationController
     respond_with @articles
   end
 
+  def create
+    @article = current_user.articles.build(params.for(Article).refine)
+    if params && params[:article][:article_template_name].present?
+      @article.save_as_template = '1'
+    end
+    authorize @article
+    save_images unless @article.save
+    respond_with @article
+  end
+
   def new
     if params[:template] && params[:template][:article_id].present?
       new_from_template
@@ -100,16 +77,6 @@ class ArticlesController < ApplicationController
 
   def edit
     authorize @article
-  end
-
-  def create
-    @article = current_user.articles.build(params.for(Article).refine)
-    if params && params[:article][:article_template_name].present?
-      @article.save_as_template = '1'
-    end
-    authorize @article
-    save_images unless @article.save
-    respond_with @article
   end
 
   def update # Still needs Refactoring
