@@ -6,12 +6,25 @@ module BrowsingHistory
     # store up to MAX_STORED_STEPS requests in session
     def store_location
       ensure_session_key
-      unless last_url_hash[:path] == new_url_hash[:path] && last_url_hash[:method] == new_url_hash[:method] # store unique requests only
-        new_url_hash[:params] = recursive_stringify(request.params) if should_store_params?
+      unless last_path_and_method_equal_new_path_and_method?
+        store_new_url_hash_params
         session[:previous_urls].prepend new_url_hash
       end
-      session[:previous_urls].pop if session[:previous_urls].count > MAX_STORED_STEPS
+      clear_previous_urls
       true
+    end
+
+    def last_path_and_method_equal_new_path_and_method?
+      last_url_hash[:path] == new_url_hash[:path] &&
+        last_url_hash[:method] == new_url_hash[:method]
+    end
+
+    def store_new_url_hash_params
+      new_url_hash[:params] = recursive_stringify(request.params) if should_store_params?
+    end
+
+    def clear_previous_urls
+      session[:previous_urls].pop if session[:previous_urls].count > MAX_STORED_STEPS
     end
 
     # @return [String] most recently called redirectable path
