@@ -63,13 +63,7 @@ class LibrariesController < ApplicationController
 
     # Both .js responses are only for the articles view!
     respond_with @library do |format|
-      if @library.save
-        format.html { redirect_to user_libraries_path(current_user, anchor: "library#{@library.id}") }
-        format.js
-      else
-        format.html { redirect_to user_libraries_path(current_user), alert: @library.errors.values.first.first }
-        format.js { render :new }
-      end
+      create_response_for format
     end
   end
 
@@ -126,5 +120,15 @@ class LibrariesController < ApplicationController
 
   def signed_in_or_not_favorite?
     user_signed_in? || index_mode != 'myfavorite'
+  end
+
+  def create_response_for format
+    if @library.save
+      format.html { redirect_to user_libraries_path(current_user, anchor: "library#{@library.id}") }
+      format.js
+    else
+      format.html { redirect_to user_libraries_path(current_user), alert: @library.errors.values.first.first }
+      format.js { render :new }
+    end
   end
 end
