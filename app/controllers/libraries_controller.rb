@@ -39,7 +39,7 @@ class LibrariesController < ApplicationController
     @library = @user.libraries.build if signed_in_user_with_focus?
 
     if signed_in_or_not_favorite?
-      @libraries = LibraryPolicy::Scope.new(current_user, @user, focus.includes(user: [:image]))
+      @libraries = LibraryPolicy::Scope.new(current_user, @user, focus.includes(user: :image))
         .resolve
         .page(params[:page])
         .per(12)
@@ -61,7 +61,6 @@ class LibrariesController < ApplicationController
     @library = current_user.libraries.build(params.for(Library).refine)
     authorize @library
 
-    # Both .js responses are only for the articles view!
     respond_with @library do |format|
       create_response_for format
     end
@@ -123,6 +122,7 @@ class LibrariesController < ApplicationController
   end
 
   def create_response_for format
+    # Both .js responses are only for the articles view!
     if @library.save
       format.html { redirect_to user_libraries_path(current_user, anchor: "library#{@library.id}") }
       format.js

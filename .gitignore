@@ -119,3 +119,6 @@ paypal_adaptive.yml
 *.DS_Store
 
 config/courier.yml
+
+# Foreman Procfile
+Procfile

@@ -3,10 +3,9 @@
     p
       strong= t("users.text.no_#{item_name}")
   - else
-    - line_item_groups.each do |group|
-      - if group.articles.any?
-        = render 'line_item_groups/shared/listitem',
-          line_item_group: group
+    - line_item_groups.select { |lig| lig.articles.any? }.each do |group|
+      = render 'line_item_groups/shared/listitem',
+        line_item_group: group
     = paginate line_item_groups,
       link_attributes: { data: {scroll: false} },
       params: { active_accordion: item_name },

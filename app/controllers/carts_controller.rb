@@ -109,7 +109,7 @@ class CartsController < ApplicationController
           { line_items: {
             article: [
               :seller,
-              :images
+              :title_image
             ] } }]).find(params[:id])
     rescue
       @cart = Cart.new

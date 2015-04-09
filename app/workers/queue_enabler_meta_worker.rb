@@ -12,7 +12,7 @@ class QueueEnablerMetaWorker
 
   def perform
     NIGHT_WORKER.each do |queue_name|
-      Sidekiq::Queue.new(queue_name).unpause!
+      Sidekiq::Queue.new(queue_name).unpause! if Rails.env.production?
     end
   end
 end
