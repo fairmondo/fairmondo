@@ -27,16 +27,20 @@ class LibrariesController < ApplicationController
 
   before_action :set_user, if: :user_focused?, only: :index
   before_action :set_library, only: [:show, :update, :destroy, :admin_audit]
+  before_action :set_exhibition, only: :admin_add
 
   # Authorization
   skip_before_action :authenticate_user!, only: [:index, :show]
 
   def index
     # Build empty Library object if user creates a new library
-    @library = @user.libraries.build if user_signed_in? && user_focused?
+    @library = @user.libraries.build if signed_in_user_with_focus?
 
-    if user_signed_in? || index_mode != 'myfavorite'
-      @libraries = LibraryPolicy::Scope.new(current_user, @user, focus.includes(user: [:image])).resolve.page(params[:page]).per(12)
+    if signed_in_or_not_favorite?
+      @libraries = LibraryPolicy::Scope.new(current_user, @user, focus.includes(user: [:image]))
+        .resolve
+        .page(params[:page])
+        .per(12)
     end
 
     respond_to do |format|
@@ -54,9 +58,6 @@ class LibrariesController < ApplicationController
   def create
     @library = current_user.libraries.build(params.for(Library).refine)
     authorize @library
-
-    # Ist article-Id vorhanden?
-    @article_id ||= params[:article_id]
 
     # Both .js responses are only for the articles view!
     respond_with @library do |format|
@@ -87,31 +88,17 @@ class LibrariesController < ApplicationController
 
   # for admins to quickly add one or more articles to any library
   def admin_add
-    library = Library.where(exhibition_name: params[:library][:exhibition_name]).first
-    authorize library
-
-    if params[:library][:exhibition_name] && (params[:library][:articles] || params[:library][:article_id])
-      articles = params[:library][:articles] || [params[:library][:article_id]]
-
-      begin
-        articles.each do |id|
-          library.articles << Article.find(id) if id.present?
-        end
-        notice = { notice: 'Added to library.' }
-      rescue => err # will throw errors e.g. if library already had that article
-        notice = { error: "Something went wrong: #{err}" } # Only visible for admins
-      end
-    end
-    redirect_to :back, flash: notice
+    authorize @exhibition
+    add_articles_to_exhibition if can_add_to_exhibition?
+    redirect_to :back, flash: @admin_add_notice
   end
-
+  #
   # for admins to quickly remove an article from a featured library
   def admin_remove
     library = Library.where(exhibition_name: params[:exhibition_name]).first
     authorize library
 
-    article = Article.find(params[:article_id])
-    library.articles.delete article
+    library.articles.delete Article.find(params[:article_id])
     redirect_to :back, notice: 'Deleted from library.'
   end
 
@@ -139,22 +126,54 @@ class LibrariesController < ApplicationController
   end
 
   def focus
-    if user_focused?
+    case
+    when user_focused?
       @user.libraries
-    else
-      case index_mode
-      when 'trending'
-        Library.trending
-      when 'myfavorite'
-        current_user.hearted_libraries.reorder('hearts.created_at DESC')
-      when 'new'
-        Library
-      end
+    when index_mode == 'trending'
+      Library.trending
+    when index_mode == 'myfavorite'
+      current_user.hearted_libraries.reorder('hearts.created_at DESC')
+    when index_mode == 'new'
+      Library
     end
   end
 
   # Configure the libraries collection that is displayed
   def index_mode
     @mode ||= params[:mode] || 'new'
+  end
+
+  def signed_in_user_with_focus?
+    user_signed_in? && user_focused?
+  end
+
+  def signed_in_or_not_favorite?
+    user_signed_in? || index_mode != 'myfavorite'
+  end
+
+  def set_exhibition
+    @exhibition = Library
+      .where(exhibition_name: params[:library][:exhibition_name])
+      .first
+  end
+
+  def can_add_to_exhibition?
+    params[:library][:exhibition_name] &&
+      (params[:library][:articles] ||
+       params[:library][:article_id])
+  end
+
+  def add_articles_to_exhibition
+    @exhibition.articles << Article.find(article_ids_from_params)
+    @admin_add_notice = { notice: 'Added to library.' }
+  rescue => err
+    # will throw errors e.g. if library already had that article
+    # Only visible for admins
+    @admin_add_notice = { error: "Something went wrong: #{err}" }
+  end
+
+  def article_ids_from_params
+    (params[:library][:articles] || [params[:library][:article_id]])
+      .select(&:present?)
   end
 end
