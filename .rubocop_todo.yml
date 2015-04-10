@@ -14,10 +14,6 @@ Lint/AssignmentInCondition:
 Lint/HandleExceptions:
   Enabled: false
 
-# Offense count: 2
-Lint/Void:
-  Enabled: false
-
 # Offense count: 68
 Metrics/AbcSize:
   Max: 43

@@ -108,7 +108,6 @@ describe AddressesController do
       user = FactoryGirl.create :incomplete_user
       address = FactoryGirl.create :address, user: user
       sign_in user
-      address # can cause new addresses
       assert_difference('Address.count', -1) do
         xhr :delete, :destroy, user_id: user.id, id: address.id
       end
@@ -118,7 +117,6 @@ describe AddressesController do
       user = FactoryGirl.create :incomplete_user
       referenced_address = FactoryGirl.create :address, :referenced, user: user
       sign_in user
-      referenced_address # can cause new addresses
       assert_difference('Address.count', 0) do
         xhr :delete, :destroy, user_id: referenced_address.user.id, id: referenced_address.id
       end
