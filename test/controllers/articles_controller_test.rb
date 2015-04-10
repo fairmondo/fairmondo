@@ -368,7 +368,7 @@ describe ArticlesController do
 
       it 'should successfully save an edit_as_new clone and transfer its slug and comments' do
         original_article = FactoryGirl.create :article, seller: user
-        article = FactoryGirl.create :article, original: original_article
+        FactoryGirl.create :article, original: original_article
         comment = FactoryGirl.create :comment, commentable: original_article
         original_slug = original_article.slug
 

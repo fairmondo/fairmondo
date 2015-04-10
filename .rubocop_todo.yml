@@ -14,10 +14,6 @@ Lint/AssignmentInCondition:
 Lint/HandleExceptions:
   Enabled: false
 
-# Offense count: 23
-Lint/UselessAssignment:
-  Enabled: false
-
 # Offense count: 2
 Lint/Void:
   Enabled: false

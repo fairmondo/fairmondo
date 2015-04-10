@@ -56,7 +56,7 @@ module User::Ratings
   end
 
   def buyer_constants
-    buyer_constants = {
+    {
       not_registered_purchasevolume: 4,
       standard_purchasevolume: 12,
       trusted_bonus: 12,

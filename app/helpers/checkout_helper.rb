@@ -76,6 +76,6 @@ module CheckoutHelper
   # Show valid range of shipping times for courier_service
   #
   def courier_time_for line_item
-    seller = line_item.article_seller
+    line_item.article_seller
   end
 end

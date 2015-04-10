@@ -36,21 +36,21 @@ module ArticlesHelper
     attribute_list << t('article.show.title.small_and_precious') if search_cache.small_and_precious
 
     output = attribute_list.concatenate.capitalize + ' '
-    output += search_cache.searched_category.name + ' ' if search_cache.searched_category
+    output << search_cache.searched_category.name + ' ' if search_cache.searched_category
 
-    output += t('article.show.title.article')
+    output << t('article.show.title.article')
   end
 
   def breadcrumbs_for category
     output = ''
     category.self_and_ancestors.each do |c|
       last = c == category
-      output += '<span>'
-      output += "<a href='#{category_path(c)}' class='#{(last ? 'last' : nil)}'>"
-      output += c.name
-      output += '</a>'
-      output += '</span>'
-      output += ' > ' unless last
+      output << '<span>'
+      output << "<a href='#{category_path(c)}' class='#{(last ? 'last' : nil)}'>"
+      output << c.name
+      output << '</a>'
+      output << '</span>'
+      output << ' > ' unless last
     end
 
     output

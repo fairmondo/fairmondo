@@ -51,10 +51,10 @@ feature 'comments for all users' do
   scenario 'Guest visits library with a comment' do
     library = FactoryGirl.create(:library, public: true)
     user = FactoryGirl.create(:user)
-    comment = FactoryGirl.create(:comment,
-                                 text: 'Test comment',
-                                 commentable: library,
-                                 user: user)
+    FactoryGirl.create(:comment,
+                       text: 'Test comment',
+                       commentable: library,
+                       user: user)
 
     visit library_path(library)
 
@@ -68,11 +68,11 @@ feature 'comments for all users' do
   scenario 'Guest visits library with more than 5 comments' do
     library = FactoryGirl.create(:library, public: true)
     user = FactoryGirl.create(:user)
-    comment = FactoryGirl.create_list(:comment,
-                                      10,
-                                      text: 'Test comment',
-                                      commentable: library,
-                                      user: user)
+    FactoryGirl.create_list(:comment,
+                            10,
+                            text: 'Test comment',
+                            commentable: library,
+                            user: user)
 
     visit library_path(library)
 
@@ -97,10 +97,10 @@ feature 'comments for all users' do
     library = FactoryGirl.create(:library, public: true)
     user = FactoryGirl.create(:user)
     login_as user
-    comment = FactoryGirl.create(:comment,
-                                 text: 'Test comment',
-                                 commentable: library,
-                                 user: user)
+    FactoryGirl.create(:comment,
+                       text: 'Test comment',
+                       commentable: library,
+                       user: user)
 
     visit library_path(library)
 
@@ -113,10 +113,10 @@ feature 'comments for all users' do
     library = FactoryGirl.create(:library, public: true)
     user = FactoryGirl.create(:admin_user)
     login_as user
-    comment = FactoryGirl.create(:comment,
-                                 text: 'Test comment',
-                                 commentable: library,
-                                 user: library.user)
+    FactoryGirl.create(:comment,
+                       text: 'Test comment',
+                       commentable: library,
+                       user: library.user)
 
     visit library_path(library)
 
@@ -128,10 +128,10 @@ feature 'comments for all users' do
   scenario 'Guest is unable to delete a comment' do
     library = FactoryGirl.create(:library, public: true)
     user = FactoryGirl.create(:user)
-    comment = FactoryGirl.create(:comment,
-                                 text: 'Test comment',
-                                 commentable: library,
-                                 user: user)
+    FactoryGirl.create(:comment,
+                       text: 'Test comment',
+                       commentable: library,
+                       user: user)
 
     visit library_path(library)
 
@@ -146,10 +146,10 @@ feature 'comments for all users' do
     user2 = FactoryGirl.create(:user)
     login_as user2
 
-    comment = FactoryGirl.create(:comment,
-                                 text: 'Test comment',
-                                 commentable: library,
-                                 user: user)
+    FactoryGirl.create(:comment,
+                       text: 'Test comment',
+                       commentable: library,
+                       user: user)
 
     visit library_path(library)
 
@@ -164,10 +164,10 @@ feature 'comments for all users' do
     article = FactoryGirl.create(:article)
     article.libraries << library
     user = FactoryGirl.create(:user)
-    comment = FactoryGirl.create_pair(:comment,
-                                      text: 'Test comment',
-                                      commentable: library,
-                                      user: user)
+    FactoryGirl.create_pair(:comment,
+                            text: 'Test comment',
+                            commentable: library,
+                            user: user)
 
     visit libraries_path
 
@@ -204,16 +204,16 @@ feature 'comments on articles' do
     user = FactoryGirl.create(:user)
     login_as user
     time5pm = (Time.now.utc.beginning_of_day + 17.hours)
-    comment1 = FactoryGirl.create(:comment,
-                                  text: 'Earlier Comment',
-                                  commentable: article,
-                                  user: user,
-                                  created_at: time5pm - 1.minute)
-    comment2 = FactoryGirl.create(:comment,
-                                  text: 'Later Comment',
-                                  commentable: article,
-                                  user: user,
-                                  created_at: time5pm + 1.minute)
+    FactoryGirl.create(:comment,
+                       text: 'Earlier Comment',
+                       commentable: article,
+                       user: user,
+                       created_at: time5pm - 1.minute)
+    FactoryGirl.create(:comment,
+                       text: 'Later Comment',
+                       commentable: article,
+                       user: user,
+                       created_at: time5pm + 1.minute)
 
     Time.stubs(:now).returns(time5pm + 2.minutes)
     visit article_path(article)
@@ -230,11 +230,11 @@ feature 'comments on articles' do
     user = FactoryGirl.create(:user)
     login_as user
     time10am = (Time.now.utc.beginning_of_day + 10.hours)
-    comment1 = FactoryGirl.create(:comment,
-                                  text: 'Some Comment',
-                                  commentable: article,
-                                  user: user,
-                                  created_at: time10am - 2.minutes)
+    FactoryGirl.create(:comment,
+                       text: 'Some Comment',
+                       commentable: article,
+                       user: user,
+                       created_at: time10am - 2.minutes)
 
     Time.stubs(:now).returns(time10am - 1.minute)
     visit article_path(article)

@@ -116,7 +116,7 @@ feature 'Uploading a CSV' do
   end
 
   scenario 'legal entity tries to delete an already closed Article via CSV' do
-    article = FactoryGirl.create :closed_article, seller: @user
+    FactoryGirl.create :closed_article, seller: @user
     attach_file('mass_upload_file', 'test/fixtures/mass_upload_single_delete.csv')
     click_button I18n.t('mass_uploads.labels.upload_article')
     click_link I18n.t('mass_uploads.labels.show_report')
