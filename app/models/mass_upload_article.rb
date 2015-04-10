@@ -4,7 +4,7 @@ class MassUploadArticle < ActiveRecord::Base
   belongs_to :article
   belongs_to :mass_upload
   has_one :user, through: :mass_upload
-  default_scope -> { order('row_index ASC') }
+  default_scope { order('row_index ASC') }
 
   ACTION_MAPPING = {
     'c' => :create,

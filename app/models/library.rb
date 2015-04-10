@@ -58,7 +58,7 @@ class Library < ActiveRecord::Base
   scope :audited, -> { where(audited: true) }
   scope :trending_welcome_page, -> { trending.audited.limit(3) }
 
-  default_scope -> { order(updated_at: :desc) }
+  default_scope { order(updated_at: :desc) }
 
   # Returns true if the library contains article
   def includes_article? article

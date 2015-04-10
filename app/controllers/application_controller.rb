@@ -113,7 +113,7 @@ class ApplicationController < ActionController::Base
 
   def check_value_of_goods
     current_user.count_value_of_goods
-    if current_user.value_of_goods_cents > (current_user.max_value_of_goods_cents + current_user.max_value_of_goods_cents_bonus)
+    if value_of_goods_exceeded?
       flash[:error] = I18n.t('article.notices.max_limit')
       redirect_to user_path(current_user)
     end
@@ -165,5 +165,9 @@ class ApplicationController < ActionController::Base
       flash[:error] = t('users.notices.sepa_missing')
       '/user/edit?incomplete_profile=true'
     end
+  end
+
+  def value_of_goods_exceeded?
+    current_user.value_of_goods_cents > (current_user.max_value_of_goods_cents + current_user.max_value_of_goods_cents_bonus)
   end
 end
