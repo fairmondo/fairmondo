@@ -48,31 +48,31 @@ class BelboonArticleExporter
     "#{ Rails.root }/public/fairmondo_articles.csv" :
     '/var/www/fairnopoly/shared/public/system/fairmondo_articles.csv'
 
-  def self.export(user)
-    CSV.open(FILE_NAME, 'wb', @@csv_options) do |line|
-      line << EXPORT_HEADER
+  class << self
+    def export(user)
+      CSV.open(FILE_NAME, 'wb', @@csv_options) do |line|
+        line << EXPORT_HEADER
 
-      exportable_articles_for(user).find_each do |article|
-        line << line_for(article)
+        exportable_articles_for(user).find_each do |article|
+          line << line_for(article)
+        end
       end
     end
-  end
 
-  private
-
-  def self.line_for article
-    attrs = []
-    EXPORT_HEADER.each do |attr|
-      begin
-        attrs << "'#{ article.instance_eval(EXPORT_MAPPING[attr]) }'"
-      rescue
-        attrs << "'#{ EXPORT_MAPPING[attr] }'"
+    def line_for article
+      attrs = []
+      EXPORT_HEADER.each do |attr|
+        begin
+          attrs << "'#{ article.instance_eval(EXPORT_MAPPING[attr]) }'"
+        rescue
+          attrs << "'#{ EXPORT_MAPPING[attr] }'"
+        end
       end
+      attrs
     end
-    attrs
-  end
 
-  def self.exportable_articles_for user
-    user.articles.belboon_trackable.includes(:images)
+    def exportable_articles_for user
+      user.articles.belboon_trackable.includes(:images)
+    end
   end
 end

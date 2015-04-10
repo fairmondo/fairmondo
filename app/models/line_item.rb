@@ -65,6 +65,4 @@ class LineItem < ActiveRecord::Base
   def orphaned?
     !self.article.present? || !self.article.valid? || !self.article.active?
   end
-
-  private
 end
