@@ -41,10 +41,6 @@ class ArticleObserver < ActiveRecord::Observer
     end
   end
 
-  def before_create article
-    article.discount_id = Discount.current.last.id if article.qualifies_for_discount?
-  end
-
   def before_activate(article, _transition)
     article.changing_state = true
     article.calculate_fees_and_donations
@@ -64,18 +60,14 @@ class ArticleObserver < ActiveRecord::Observer
   end
 
   def before_create(article)
+    set_discount_for article
+
     if original_article = article.original # handle saving of an edit_as_new clone
       # move slug to new article
       old_slug = original_article.slug
       original_article.update_column :slug, (old_slug + original_article.id.to_s)
       article.slug = old_slug
     end
-  end
-
-  def after_close(article, _transition)
-    article.remove_from_libraries
-    article.cleanup_images unless article.business_transactions.any?
-    Indexer.index_article article
   end
 
   def after_create article
@@ -94,5 +86,17 @@ class ArticleObserver < ActiveRecord::Observer
       # the original has been handled. now unset the reference (for policy)
       article.update_column :original_id, nil
     end
+  end
+
+  def after_close(article, _transition)
+    article.remove_from_libraries
+    article.cleanup_images unless article.business_transactions.any?
+    Indexer.index_article article
+  end
+
+  private
+
+  def set_discount_for article
+    article.discount_id = Discount.current.last.id if article.qualifies_for_discount?
   end
 end

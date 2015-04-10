@@ -17,7 +17,7 @@ module ArticleControllerFilters
     before_action :build_search_cache, only: :index
     before_action :category_specific_search,
                   only: :index,
-                  unless: lambda { request.xhr? || request.format == :json }
+                  unless: -> { request.xhr? || request.format == :json }
 
     # Calculate value of active goods
     before_action :check_value_of_goods, only: [:update],
@@ -26,15 +26,19 @@ module ArticleControllerFilters
     # Calculate fees and donations
     before_action :calculate_fees_and_donations,
                   only: :show,
-                  if: lambda { !@article.active? && policy(@article).activate? }
+                  if: -> { !@article.active? && policy(@article).activate? }
 
     # Flash image processing message
     before_action :flash_image_processing_message,
                   only: :show,
-                  if: -> do
-                    !flash.now[:notice] &&
-                      @article.owned_by?(current_user) &&
-                      at_least_one_image_processing?
-                  end
+                  if: :show_image_processing_message?
+
+    private
+
+    def show_image_processing_message?
+      !flash.now[:notice] &&
+        @article.owned_by?(current_user) &&
+        at_least_one_image_processing?
+    end
   end
 end
