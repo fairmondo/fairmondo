@@ -35,12 +35,12 @@ class Feedback < ActiveRecord::Base
   #:comm_deal_fair, :comm_deal, :private_deal, :buy,:ngo, :honor, :trust_community
 
   # Validations
-  validates_presence_of :text
-  validates_presence_of :variety
-  validates_presence_of :from, if: :needs_from?
-  validates_presence_of :feedback_subject, if: proc { self.variety == 'send_feedback' }
-  validates_presence_of :help_subject, if: proc { self.variety == 'get_help' }
-  validates_presence_of :subject, if: :needs_subject?
+  validates :text, presence: true
+  validates :variety, presence: true
+  validates :from, presence: true, if: :needs_from?
+  validates :feedback_subject, presence: true, if: proc { self.variety == 'send_feedback' }
+  validates :help_subject, presence: true, if: proc { self.variety == 'get_help' }
+  validates :subject, presence: true, if: :needs_subject?
 
   validates :from, format: { with: /\A[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]+\z/ }, allow_blank: true
   validates :subject, length: { maximum: 254 }
@@ -48,9 +48,9 @@ class Feedback < ActiveRecord::Base
   validates :recaptcha, presence: true, acceptance: true, on: :create, unless: :donation_partner_application?
 
   # validations for donation_partner
-  validates_presence_of :forename, if: :donation_partner_application?
-  validates_presence_of :lastname, if: :donation_partner_application?
-  validates_presence_of :organisation, if: :donation_partner_application?
+  validates :forename, presence: true, if: :donation_partner_application?
+  validates :lastname, presence: true, if: :donation_partner_application?
+  validates :organisation, presence: true, if: :donation_partner_application?
   validates :text, length: { minimum: 100 }, if: :donation_partner_application?
 
   # Relations

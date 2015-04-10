@@ -26,13 +26,13 @@ module Article::Commendation
     ##### commendation
     ## fair
 
-    validates_presence_of :fair_kind, if: :fair?
+    validates :fair_kind, presence: true, if: :fair?
 
     before_validation :delete_fair_kind_unless_fair
 
     enumerize :fair_kind, in: [:fair_seal, :fair_trust, :social_producer]
 
-    validates_presence_of :fair_seal, if: lambda { |obj| obj.fair_kind == 'fair_seal' && obj.fair? }
+    validates :fair_seal, presence: true, if: lambda { |obj| obj.fair_kind == 'fair_seal' && obj.fair? }
     enumerize :fair_seal, in: [:trans_fair, :gots_fwf, :weltladen, :wtfo]
 
     ### fair trust questionnaire
@@ -51,21 +51,21 @@ module Article::Commendation
 
     ## ecologic
 
-    validates_presence_of :ecologic_kind, if: :ecologic?
-    validates_presence_of :ecologic_seal, if: lambda { |obj| obj.ecologic_kind == 'ecologic_seal' && obj.ecologic? }
-    validates_presence_of :upcycling_reason, if: lambda { |obj| obj.ecologic_kind == 'upcycling'  && obj.ecologic? }
-    validates :upcycling_reason, length: { minimum: 150, maximum: 2500 }, if: lambda { |obj| obj.ecologic_kind == 'upcycling'  && obj.ecologic? }
+    validates :ecologic_kind, presence: true, if: :ecologic?
+    validates :ecologic_seal, presence: true, if: lambda { |obj| obj.ecologic_kind == 'ecologic_seal' && obj.ecologic? }
+    validates :upcycling_reason, presence: true, if: lambda { |obj| obj.ecologic_kind == 'upcycling'  && obj.ecologic? }
+    validates :upcycling_reason, presence: true, length: { minimum: 150, maximum: 2500 }, if: lambda { |obj| obj.ecologic_kind == 'upcycling'  && obj.ecologic? }
 
     enumerize :ecologic_seal, in: [:bio_siegel, :eg_bio_siegel, :ecovin, :naturland, :gaea_e_v_oekologischer_landbau, :biokreis, :bioland, :biopark, :demeter, :europaeisches_umweltzeichen, :gots, :textiles_vertrauen_nach_oeko_tex_standard_100plus, :ivn_zertifiziert_naturtextil, :ivn_zertifiziert_naturtextil_best, :rainforest_alliance, :der_blaue_engel, :deutsches_gueteband_wein, :ecogarantie, :fsc_pure_papier, :fsc_pure_holz, :greenline, :gut, :kork_logo, :kompostierbar_compostable, :kontrollierte_natur_kosmetik_bdih, :natrue_natural_cosmetics_with_organic_portion, :natrue_organic_cosmetics, :natureplus, :oeko_control, :tco_certified, :utz_certified, :tuev_eco_kreis]
     enumerize :ecologic_kind, in: [:ecologic_seal, :upcycling]
 
     ## small_and_precious
 
-    validates_presence_of :small_and_precious_eu_small_enterprise, if: :small_and_precious?
-    validates_presence_of :small_and_precious_reason, if: :small_and_precious?
-    validates :small_and_precious_reason, length: { minimum: 150, maximum: 2500 }, if: :small_and_precious?
-    # validates_presence_of :small_and_precious_handmade, :if => :small_and_precious?  # this allows only value true, but not false
-    validates_inclusion_of :small_and_precious_handmade, in: [true, false], if: :small_and_precious?
+    validates :small_and_precious_eu_small_enterprise, presence: true, if: :small_and_precious?
+    validates :small_and_precious_reason, presence: true,
+                                          length: { minimum: 150, maximum: 2500 },
+                                          if: :small_and_precious?
+    validates :small_and_precious_handmade, inclusion: { in: [true, false] }, if: :small_and_precious?
   end
 
   def has_commendation?

@@ -37,7 +37,7 @@ class SocialProducerQuestionnaire < ActiveRecord::Base
   validates :social_entrepreneur_checkboxes, size: { in: 1..-1 }, if: :social_entrepreneur?
   validates :social_entrepreneur_explanation, length: { minimum: 150, maximum: 10000 },
                                               if: :social_entrepreneur?
-  validates_presence_of :social_entrepreneur_explanation, if: :social_entrepreneur?
+  validates :social_entrepreneur_explanation, presence: true, if: :social_entrepreneur?
 
   serialize :nonprofit_association_checkboxes, Array
   enumerize :nonprofit_association_checkboxes, in: [

@@ -3,10 +3,10 @@ module User::Validations
   extend ActiveSupport::Concern
 
   included do
-    validates_presence_of :slug
+    validates :slug, presence: true
 
     # Registration validations
-    validates_inclusion_of :type, in: ['PrivateUser', 'LegalEntity']
+    validates :type, inclusion: { in: ['PrivateUser', 'LegalEntity'] }
     validates :nickname, presence: true, uniqueness: true
     validates :legal, acceptance: true, on: :create
     validates_associated :standard_address, unless: Proc.new { |u| u.encrypted_password_changed? }
@@ -26,6 +26,6 @@ module User::Validations
 
     validates :about_me, length: { maximum: 2500, tokenizer: tokenizer_without_html }
 
-    validates_inclusion_of :type, in: ['LegalEntity'], if: :is_ngo?
+    validates :type, inclusion: { in: ['LegalEntity'] }, if: :is_ngo?
   end
 end
