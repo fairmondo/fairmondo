@@ -11,15 +11,6 @@ Lint/AssignmentInCondition:
   Enabled: false
 
 # Offense count: 1
-# Configuration parameters: AlignWith, SupportedStyles.
-Lint/EndAlignment:
-  Enabled: false
-
-# Offense count: 1
-Lint/Eval:
-  Enabled: false
-
-# Offense count: 1
 Lint/HandleExceptions:
   Enabled: false
 

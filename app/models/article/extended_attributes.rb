@@ -150,7 +150,7 @@ module Article::ExtendedAttributes
   def selectable attribute
     # Get all selected attributes
     output = []
-    eval("#{attribute.upcase}_TYPES").each do |e|
+    instance_eval("#{attribute.upcase}_TYPES").each do |e|
       output << e.to_s if self.send "#{attribute}_#{e}"
     end
     output
