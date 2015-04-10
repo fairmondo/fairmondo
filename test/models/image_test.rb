@@ -45,9 +45,9 @@ describe Image do
   end
 
   describe 'associations' do
-    let (:article_image) { ArticleImage.new }
-    let (:feedback_image) { FeedbackImage.new }
-    let (:user_image) { UserImage.new }
+    let(:article_image) { ArticleImage.new }
+    let(:feedback_image) { FeedbackImage.new }
+    let(:user_image) { UserImage.new }
     it { article_image.must belong_to :article }
     it { feedback_image.must belong_to :feedback }
     it { user_image.must belong_to :user }

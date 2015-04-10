@@ -45,12 +45,12 @@ describe 'Abacus' do
 
     # payments
     @abacus.payment_listing.payments[:paypal][:transport_total].must_equal transport_prices[0..1].sum
-    @abacus.payment_listing.payments[:invoice][:transport_total].must_equal (transport_prices[2] * 2)
+    @abacus.payment_listing.payments[:invoice][:transport_total].must_equal(transport_prices[2] * 2)
     @abacus.payment_listing.payments[:paypal][:cash_on_delivery_total].must_equal nil
     @abacus.payment_listing.payments[:invoice][:cash_on_delivery_total].must_equal nil
     @abacus.payment_listing.payments.size.must_equal 2
-    @abacus.payment_listing.payments[:paypal][:total].must_equal (transport_prices[0..1].sum + prices[0] * 5 + prices[1])
-    @abacus.payment_listing.payments[:invoice][:total].must_equal ((transport_prices[2] * 2) + prices[2] * 10)
+    @abacus.payment_listing.payments[:paypal][:total].must_equal(transport_prices[0..1].sum + prices[0] * 5 + prices[1])
+    @abacus.payment_listing.payments[:invoice][:total].must_equal((transport_prices[2] * 2) + prices[2] * 10)
 
     # totals
     @abacus.total.must_equal @abacus.payment_listing.payments[:paypal][:total] +  @abacus.payment_listing.payments[:invoice][:total]
@@ -77,7 +77,7 @@ describe 'Abacus' do
     # payments
     @abacus.payment_listing.payments[:paypal][:cash_on_delivery_total].must_equal nil
     @abacus.payment_listing.payments[:paypal][:transport_total] = transport_price
-    @abacus.payment_listing.payments[:paypal][:total].must_equal (5 * prices[0] + 5 * prices[1] + 10 * prices[2] + transport_price)
+    @abacus.payment_listing.payments[:paypal][:total].must_equal(5 * prices[0] + 5 * prices[1] + 10 * prices[2] + transport_price)
     @abacus.payment_listing.payments.size.must_equal 1
 
     # total
@@ -114,7 +114,7 @@ describe 'Abacus' do
     @abacus.payment_listing.payments.size.must_equal 2
     @abacus.payment_listing.payments[:cash_on_delivery][:cash_on_delivery_total].must_equal cash_on_delivery_prices.sum
     @abacus.payment_listing.payments[:cash_on_delivery][:transport_total].must_equal single_transport_prices.sum
-    @abacus.payment_listing.payments[:cash_on_delivery][:total].must_equal ( 10 * prices[2] + 10 * prices[3] + cash_on_delivery_prices.sum + single_transport_prices.sum)
+    @abacus.payment_listing.payments[:cash_on_delivery][:total].must_equal(10 * prices[2] + 10 * prices[3] + cash_on_delivery_prices.sum + single_transport_prices.sum)
     @abacus.payment_listing.payments[:bank_transfer][:transport_total].must_equal unified_transport_price
     @abacus.payment_listing.payments[:bank_transfer][:total].must_equal 5 * prices[0] + 5 * prices[1] + unified_transport_price
     @abacus.total.must_equal @abacus.payment_listing.payments[:bank_transfer][:total] + @abacus.payment_listing.payments[:cash_on_delivery][:total]
@@ -182,7 +182,7 @@ describe 'Abacus' do
     @abacus.payment_listing.payments.size.must_equal 2
     @abacus.payment_listing.payments[:cash_on_delivery][:cash_on_delivery_total].must_equal cash_on_delivery_prices.sum
     @abacus.payment_listing.payments[:cash_on_delivery][:transport_total].must_equal Money.new(0)
-    @abacus.payment_listing.payments[:cash_on_delivery][:total].must_equal ( 10 * prices[2] + 10 * prices[3] + cash_on_delivery_prices.sum)
+    @abacus.payment_listing.payments[:cash_on_delivery][:total].must_equal(10 * prices[2] + 10 * prices[3] + cash_on_delivery_prices.sum)
     @abacus.payment_listing.payments[:bank_transfer][:transport_total].must_equal Money.new(0)
     @abacus.payment_listing.payments[:bank_transfer][:total].must_equal 5 * prices[0] + 5 * prices[1]
     @abacus.total.must_equal @abacus.payment_listing.payments[:bank_transfer][:total] + @abacus.payment_listing.payments[:cash_on_delivery][:total]

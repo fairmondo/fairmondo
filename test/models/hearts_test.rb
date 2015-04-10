@@ -18,9 +18,9 @@ class HeartTest < ActiveSupport::TestCase
     it { subject.must belong_to :user  }
   end
 
-  let (:heart) { Heart.new }
-  let (:user) { FactoryGirl.create(:user) }
-  let (:heartable) { FactoryGirl.create(:library) }
+  let(:heart) { Heart.new }
+  let(:user) { FactoryGirl.create(:user) }
+  let(:heartable) { FactoryGirl.create(:library) }
 
   describe 'validations' do
     it { subject.must validate_presence_of(:user) }
@@ -28,7 +28,7 @@ class HeartTest < ActiveSupport::TestCase
   end
 
   describe 'database uniqueness index' do
-    let (:second_heart) { Heart.new(user: user, heartable: heartable) }
+    let(:second_heart) { Heart.new(user: user, heartable: heartable) }
 
     before do
       heart.user = user

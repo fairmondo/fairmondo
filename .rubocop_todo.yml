@@ -14,10 +14,6 @@ Lint/AssignmentInCondition:
 Lint/HandleExceptions:
   Enabled: false
 
-# Offense count: 15
-Lint/ParenthesesAsGroupedExpression:
-  Enabled: false
-
 # Offense count: 3
 Lint/UselessAccessModifier:
   Enabled: false
