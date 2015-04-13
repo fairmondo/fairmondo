@@ -22,10 +22,10 @@
 
 class UserObserver < ActiveRecord::Observer
   def before_save user
-    if ( user.bank_account_number_changed? ||  user.bank_code_changed? )
+    case
+    when ( user.bank_account_number_changed? ||  user.bank_code_changed? )
       check_blz_and_ktn( user.id, user.bank_account_number, user.bank_code )
-    end
-    if ( user.iban_changed? || user.bic_changed? )
+    when ( user.iban_changed? || user.bic_changed? )
       check_bic_and_iban( user.id, user.iban, user.bic )
     end
   end
@@ -76,5 +76,4 @@ class UserObserver < ActiveRecord::Observer
       end
     end
   end
-
 end
