@@ -31,7 +31,7 @@ puts '* Make sure you are in the fairmondo root directory.'
 puts '* Please do not run this script more than once.'
 puts "\nPress enter to continue (or type \"abort\" to exit)."
 
-unless gets.chomp === 'abort'
+unless gets.chomp == 'abort'
   puts "\n\nOK. Here we go:"
 
   puts 'First we have to make sure you have postgres installed correctly...'
@@ -86,13 +86,13 @@ unless gets.chomp === 'abort'
 
   puts "\n\n\nDo you want to set up reCAPTCHA support? Without it you won't be able to access certain pages like the user registration. But you will need to set up a Google account."
   puts "Press enter to continue (or type \"abort\" to skip the reCAPTCHA setup)."
-  unless gets.chomp === 'abort'
+  unless gets.chomp == 'abort'
     puts "\n\nOK. Please go to https://www.google.com/recaptcha/admin/list and \"Add a New Site\". Ensure that you enable all domains."
     puts "After clicking on \"Create Key\" you should get a public and a private key."
     puts "\nPlease enter the public key below or type in \"abort\" if you changed your mind."
     public_key = gets.chomp
 
-    unless public_key === 'abort'
+    unless public_key == 'abort'
       puts 'Now please enter your private key:'
       private_key = gets.chomp
 

@@ -47,13 +47,13 @@ Rails/Output:
   Enabled: false
 
 # Offense count: 3
-Style/CaseEquality:
-  Enabled: false
+#Style/CaseEquality:
+#  Enabled: false
 
 # Offense count: 10
 # Configuration parameters: IndentWhenRelativeTo, SupportedStyles, IndentOneStep.
-Style/CaseIndentation:
-  Enabled: false
+#Style/CaseIndentation:
+#  Enabled: false
 
 # Offense count: 24
 # Configuration parameters: EnforcedStyle, SupportedStyles.

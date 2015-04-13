@@ -6,10 +6,10 @@ class SearchIndexWorker
                   backtrace: true
 
   def perform type, ids
-    type = case type.to_sym
-    when :article
-      ArticlesIndex::Article
-    end
+    type =  case type.to_sym
+            when :article
+              ArticlesIndex::Article
+            end
 
     Chewy.atomic do
       type.import! ids, batch_size: 100
