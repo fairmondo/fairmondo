@@ -10,7 +10,7 @@ class PaymentAbacus
   end
 
   def calculate_payments
-    unified_transport_payment = @line_item_group.unified_transport ? get_unified_transport_payment_method : nil
+    unified_transport_payment = @line_item_group.unified_transport ? acquire_unified_transport_payment_method : nil
 
     @business_transaction_abacus.by_payment.map do |payment, bts|
       initialize_payment payment, bts
@@ -29,7 +29,7 @@ class PaymentAbacus
     @payments = {}
   end
 
-  def get_unified_transport_payment_method
+  def acquire_unified_transport_payment_method
     available_payments = @business_transaction_abacus.by_payment.keys
 
     UNIFIED_TRANSPORT_PAYMENT_ORDER_MERGED.each do |payment|

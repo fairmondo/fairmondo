@@ -100,11 +100,11 @@ describe BankDetailsController do
     end
   end
 
-  describe "GET 'get_bank_name'" do
+  describe "GET 'acquire_bank_name'" do
     context 'as ajax' do
       context 'if parameter validation was successful' do
         it 'should return the bankname' do
-          get :get_bank_name, format: :json
+          get :acquire_bank_name, format: :json
           response.body.must_equal "\"Bankname\""
         end
       end
@@ -112,7 +112,7 @@ describe BankDetailsController do
       context 'if parameter validation failed' do
         it 'should return an empty string' do
           KontoAPI.stubs(:bank_name).returns('')
-          get :get_bank_name, format: :json
+          get :acquire_bank_name, format: :json
           response.body.must_equal "\"\""
         end
       end
@@ -120,7 +120,7 @@ describe BankDetailsController do
 
     context 'as html' do
       it 'should fail' do
-        -> { get :get_bank_name }.must_raise ActionController::UnknownFormat
+        -> { get :acquire_bank_name }.must_raise ActionController::UnknownFormat
       end
     end
   end

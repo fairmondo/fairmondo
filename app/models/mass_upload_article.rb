@@ -99,7 +99,7 @@ class MassUploadArticle < ActiveRecord::Base
 
   # Defaults: create when no ID is set, does nothing when an ID exists
   # @return [String]
-  def get_processing_default
+  def acquire_processing_default
     return :nothing if @article_attributes['id']
     return :nothing if @article_attributes['custom_seller_identifier'] && find_article_by_custom_seller_identifier.present?
     return :create
@@ -111,9 +111,9 @@ class MassUploadArticle < ActiveRecord::Base
     if ACTION_MAPPING.keys.include? action
       @prepared_action = ACTION_MAPPING[action]
     elsif action == nil
-      @prepared_action = get_processing_default
+      @prepared_action = acquire_processing_default
     else
-      set_error I18n.t('mass_uploads.errors.unknown_action')
+      put_error I18n.t('mass_uploads.errors.unknown_action')
     end
   end
 
@@ -150,7 +150,7 @@ class MassUploadArticle < ActiveRecord::Base
   end
 
   def validate_article
-    set_error @prepared_article.errors.full_messages.join("\n") unless @prepared_article.valid?
+    put_error @prepared_article.errors.full_messages.join("\n") unless @prepared_article.valid?
   end
 
   def calculate_fees
@@ -161,11 +161,11 @@ class MassUploadArticle < ActiveRecord::Base
   # We allow sellers to use their custom field as an identifier but we need the ID internally
   def find_by_id_or_custom_seller_identifier
     if IDENTIFIERS.select { |v| @article_attributes.include?(v) && @article_attributes[v].present? }.empty?
-      set_error I18n.t('mass_uploads.errors.no_identifier')
+      put_error I18n.t('mass_uploads.errors.no_identifier')
       nil
     else
       article = @article_attributes['id'].present? ? find_article_by_id : find_article_by_custom_seller_identifier
-      set_error I18n.t('mass_uploads.errors.article_not_found') unless article.present?
+      put_error I18n.t('mass_uploads.errors.article_not_found') unless article.present?
       article
     end
   end
@@ -180,7 +180,7 @@ class MassUploadArticle < ActiveRecord::Base
 
   # error handling
 
-  def set_error error
+  def put_error error
     @prepared_action = :error
     @error_text = error
   end

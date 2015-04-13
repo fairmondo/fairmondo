@@ -61,7 +61,7 @@ class Feedback < ActiveRecord::Base
   # @api public
   # @param current_user [User, nil]
   # @return [undefined]
-  def set_user_id current_user
+  def put_user_id current_user
     self.user_id = current_user.id if current_user
   end
 

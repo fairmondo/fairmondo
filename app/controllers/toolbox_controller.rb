@@ -20,7 +20,7 @@ class ToolboxController < ApplicationController
   end
 
   def rss
-    @items = get_feed_items
+    @items = acquire_feed_items
     respond_to do |format|
       format.html { render layout: false }
     end
@@ -61,7 +61,7 @@ class ToolboxController < ApplicationController
 
   private
 
-  def get_feed_items
+  def acquire_feed_items
     begin
       Timeout.timeout(10) do # 10 second timeout
         OpenSSL::SSL::SSLContext::DEFAULT_PARAMS[:ssl_version] = 'SSLv23' # See comment to http://stackoverflow.com/q/20169301/409087

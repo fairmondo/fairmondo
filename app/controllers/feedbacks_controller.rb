@@ -26,7 +26,7 @@ class FeedbacksController < ApplicationController
     handle_recaptcha
     @feedback = Feedback.new(params.for(Feedback).refine)
     authorize @feedback
-    @feedback.set_user_id current_user
+    @feedback.put_user_id current_user
     @feedback.source_page = JSON.pretty_generate session[:previous_urls]
     @feedback.user_agent = request.env['HTTP_USER_AGENT']
     flash[:notice] = I18n.t('article.actions.reported') if @feedback.save

@@ -60,7 +60,7 @@ class ArticleObserver < ActiveRecord::Observer
   end
 
   def before_create(article)
-    set_discount_for article
+    put_discount_for article
 
     if original_article = article.original # handle saving of an edit_as_new clone
       # move slug to new article
@@ -96,7 +96,7 @@ class ArticleObserver < ActiveRecord::Observer
 
   private
 
-  def set_discount_for article
+  def put_discount_for article
     article.discount_id = Discount.current.last.id if article.qualifies_for_discount?
   end
 end

@@ -46,10 +46,6 @@ Rails/HasAndBelongsToMany:
 Rails/Output:
   Enabled: false
 
-# Offense count: 8
-#Style/AccessorMethodName:
-#  Enabled: false
-
 # Offense count: 2
 Style/AsciiComments:
   Enabled: false

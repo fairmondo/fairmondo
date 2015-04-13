@@ -52,17 +52,17 @@ describe Feedback do
   end
 
   describe 'methods' do
-    describe '#set_user_id(current_user)' do
+    describe '#put_user_id(current_user)' do
       it 'should set the user_id when signed a user is given' do
         user = FactoryGirl.create :user
         f = Feedback.new
-        f.set_user_id user
+        f.put_user_id user
         f.user_id.must_equal user.id
       end
 
       it 'should not set the user_id when signed out' do
         f = Feedback.new
-        f.set_user_id nil
+        f.put_user_id nil
         f.user_id.must_equal nil
       end
     end

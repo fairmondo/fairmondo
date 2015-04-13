@@ -2,7 +2,7 @@
   - if current_user
       p
         = t('article.show.contact.description')
-      = semantic_form_for get_or_create_contact_form , url: toolbox_contact_path(resource_type: resource_type, resource_id: resource_id), remote: true, method: :post do |f|
+      = semantic_form_for acquire_or_create_contact_form , url: toolbox_contact_path(resource_type: resource_type, resource_id: resource_id), remote: true, method: :post do |f|
         = f.inputs do
           = f.input :email_transfer_accepted, label: t('article.show.contact.email_transfer_accepted_label'), as: :boolean, required: true
           = f.input :text, as: :text, input_html: { rows: 4 }

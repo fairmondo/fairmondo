@@ -22,7 +22,7 @@ $(document).ready ->
 
 
 getBankName = (bank_code) ->
-  $.getJSON '/bank_details/get_bank_name.json', "bank_code="+bank_code, (data) ->
+  $.getJSON '/bank_details/acquire_bank_name.json', "bank_code="+bank_code, (data) ->
     if data
       $('#bank_name').val data
       checkBankDetails account, bank_code
