@@ -16,7 +16,7 @@ require 'minitest/mock'
 require "minitest-matchers"
 require 'minitest/hell'
 require 'sidekiq/testing'
-require 'pry-rescue/minitest' if ENV['RESCUE']
+#require 'pry-rescue/minitest' if ENV['RESCUE']
 require 'fakeredis'
 require "savon/mock/spec_helper"
 

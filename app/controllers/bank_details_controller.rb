@@ -1,6 +1,7 @@
 class BankDetailsController < ApplicationController
   def check
-    @result = KontoAPI.valid?(ktn: params[:bank_account_number], blz: params[:bank_code])
+    @result = KontoAPI.valid?(ktn: params[:bank_account_number],
+                              blz: params[:bank_code])
     respond_to do |format|
       format.json { render json: @result.to_json }
     end

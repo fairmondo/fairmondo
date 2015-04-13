@@ -119,8 +119,6 @@ gem 'paypal_adaptive'
 # ---------- Development ----------
 
 group :development do
-  gem 'spring' # faster rails start
-
   # Better error messages
   gem 'better_errors'
   gem 'binding_of_caller'
@@ -130,16 +128,20 @@ group :development do
   # debugging in chrome with RailsPanel
   gem 'meta_request'
 
-  # HAML Conversion tools
-  # gem "erb2haml" see html2haml
-  # gem "html2haml" need to wait for new release 2.0.0 is still in beta if you need it
-
   # Quiet Assets to disable asset pipeline in log
   gem 'quiet_assets'
 
   # er diagramm generation
   gem 'rails-erd'
   gem 'thin' # Replace Webrick
+
+  # Guard
+  gem 'guard'
+  gem 'guard-ctags-bundler'
+  gem 'rb-readline'
+  gem 'guard-minitest'
+  gem 'guard-rubocop'
+  gem 'guard-livereload', '~> 2.4', require: false
 end
 
 group :test do
@@ -180,8 +182,6 @@ group :development, :test do
   gem 'simplecov'
   gem 'simplecov-json', require: false
   gem 'coveralls', require: false
-  # Mutation Coverage
-  # gem 'mutant-rails' ... check back to see if they got it working: https://github.com/mockdeep/mutant-rails
 
   # test suite additions
   gem 'rails_best_practices'
@@ -194,6 +194,7 @@ end
 group :development, :test, :staging do
   gem 'factory_girl_rails'
   gem 'ffaker'
+
   # styleguides
   gem 'nkss-rails', github: 'nadarei/nkss-rails'
 end

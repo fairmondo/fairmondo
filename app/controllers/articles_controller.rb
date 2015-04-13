@@ -44,7 +44,7 @@ class ArticlesController < ApplicationController
     authorize @article
 
     @user_libraries = current_user.libraries if current_user
-    @containing_libraries = @article.libraries.includes(user: [:image]).published.limit(10)
+    @containing_libraries = @article.libraries.published.limit(10)
   rescue Pundit::NotAuthorizedError
     similar_articles @article.title
   end
