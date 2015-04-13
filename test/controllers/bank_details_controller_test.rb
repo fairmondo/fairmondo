@@ -125,6 +125,3 @@ describe BankDetailsController do
     end
   end
 end
-
-# mit validen Parametern aufrufe, soll sie ein true zurückgeben
-# mit nicht-validen Parametern aufrufe, soll sie ein false zurückgeben
