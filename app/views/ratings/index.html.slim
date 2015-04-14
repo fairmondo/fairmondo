@@ -34,12 +34,12 @@
               p
                 a href="#{ user_path(rating.rating_user) }"
                   = rating.rating_user.nickname
-                = " am #{l rating.created_at, format: :short}"
+                = " am #{l rating.created_at}"
             - else
               p
                 a href="#{ user_path(rating.rating_user) }"
                   = rating.rating_user.nickname
-                = " schrieb am #{l rating.created_at, format: :short}:"
+                = " schrieb am #{l rating.created_at}:"
           - unless rating.text.empty?
             p
               q
