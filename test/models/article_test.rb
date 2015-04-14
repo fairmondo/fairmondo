@@ -86,6 +86,15 @@ describe Article do
     it { subject.must_respond_to :discount_id }
     it { subject.must_respond_to :transport_bike_courier }
     it { subject.must_respond_to :transport_bike_courier_number }
+
+    # Statemachine state
+    it { subject.must_respond_to :preview? }
+    it { subject.must_respond_to :locked? }
+    it { subject.must_respond_to :template? }
+    it { subject.must_respond_to :sold? }
+    it { subject.must_respond_to :active? }
+    it { subject.must_respond_to :closed? }
+
   end
 
   describe "::Base" do

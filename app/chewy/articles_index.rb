@@ -33,9 +33,7 @@ class ArticlesIndex < Chewy::Index
     }
   })
 
-
-
-  define_type Article.active.includes(:seller, :title_image, :categories) do
+  define_type Article.active.includes(:seller, :title_image, :categories), delete_if: ->(article) { article.sold? || article.closed? } do
     root _source: { excludes: ['content'] } do
       field :id, index: :not_analyzed
       field :title, type: 'string', analyzer: "german_analyzer"

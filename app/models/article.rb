@@ -52,7 +52,7 @@ class Article < ActiveRecord::Base
     self.quantity_available -= value
     if self.quantity_available < 1
       self.remove_from_libraries
-      self.state = "sold"
+      self.buy_out!
     end
     self.save! # validation is performed on the attribute
   end

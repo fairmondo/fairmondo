@@ -40,6 +40,10 @@ class ArticleObserver < ActiveRecord::Observer
       cloned_article.templatify
       cloned_article.save #save the cloned article
     end
+
+    if article.state_changed? && article.sold?
+      Indexer.index_article article
+    end
   end
 
   def before_create article

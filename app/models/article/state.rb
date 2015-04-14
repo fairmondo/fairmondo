@@ -67,8 +67,10 @@ module Article::State
         transition :preview => :template
       end
 
+      event :buy_out do
+        transition active: :sold
+      end
     end
-
   end
 
   def remove_from_libraries
