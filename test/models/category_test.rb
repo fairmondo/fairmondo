@@ -51,13 +51,13 @@ describe Category do
   describe 'methods' do
     describe '#parent' do
       it 'should have the correct parent_id' do
-        @anotherCategory = FactoryGirl.create(:category, parent: category)
-        @anotherCategory.parent.must_equal category
+        @another_category = FactoryGirl.create(:category, parent: category)
+        @another_category.parent.must_equal category
       end
 
       it 'should not have a parent_id without a parent' do
-        @anotherCategory = FactoryGirl.create(:category)
-        @anotherCategory.parent.wont_equal category
+        @another_category = FactoryGirl.create(:category)
+        @another_category.parent.wont_equal category
       end
     end
   end
