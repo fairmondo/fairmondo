@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Fairmondo.  If not, see <http://www.gnu.org/licenses/>.
 #
-unless %x( pwd ) =~ /fairmondo\n$/
+unless ` pwd ` =~ /fairmondo\n$/
   puts 'You need to run this setup script from the Fairmondo root directory.'
   exit 1
 end
@@ -36,7 +36,7 @@ unless gets.chomp == 'abort'
 
   puts 'First we have to make sure you have postgres installed correctly...'
   puts '(This may take a while.)'
-  puts %x( gem install pg )
+  puts ` gem install pg `
   unless $?.exitstatus == 0
     puts "\n\nIt doesn't look like that worked."
     puts "\nPlease make sure you have postgres installed."
@@ -51,7 +51,7 @@ unless gets.chomp == 'abort'
 
   puts 'Installing gems...'
   puts '(This may take a while.)'
-  puts %x( bundle install )
+  puts ` bundle install `
   unless $?.exitstatus == 0
     puts "\n\n---------------------------------"
     puts "\n\nIt doesn't look like that worked."
@@ -61,28 +61,28 @@ unless gets.chomp == 'abort'
   end
 
   puts 'Copying development environment...'
-  %x( cp config/environments/development.example.rb config/environments/development.rb )
+  ` cp config/environments/development.example.rb config/environments/development.rb `
 
   puts 'Copying secret token...'
-  %x( cp config/initializers/secret_token.example config/initializers/secret_token.rb )
+  ` cp config/initializers/secret_token.example config/initializers/secret_token.rb `
 
   puts 'Copying email_addresses.yml...'
-  %x( cp config/email_addresses.yml.example config/email_addresses.yml )
+  ` cp config/email_addresses.yml.example config/email_addresses.yml `
 
   puts 'Creating Fairmondo database...'
-  %x( rake db:create )
+  ` rake db:create `
 
   puts 'Migrating database...'
-  %x( rake db:migrate )
+  ` rake db:migrate `
 
   puts 'Seeding database...'
-  %x( rake db:seed )
+  ` rake db:seed `
 
   puts 'Preparing test database...'
-  %x( rake db:test:prepare )
+  ` rake db:test:prepare `
 
   puts 'Running local sidekiq...'
-  %x( bundle exec sidekiq --daemon --logfile log/sidekiq.log )
+  ` bundle exec sidekiq --daemon --logfile log/sidekiq.log `
 
   puts "\n\n\nDo you want to set up reCAPTCHA support? Without it you won't be able to access certain pages like the user registration. But you will need to set up a Google account."
   puts "Press enter to continue (or type \"abort\" to skip the reCAPTCHA setup)."
@@ -97,7 +97,7 @@ unless gets.chomp == 'abort'
       private_key = gets.chomp
 
       puts 'Creating api.yml...'
-      %x( printf "recaptcha:\n public: #{public_key}\n private: #{private_key}\n" | cat > config/api.yml )
+      ` printf "recaptcha:\n public: #{public_key}\n private: #{private_key}\n" | cat > config/api.yml `
     end
   end
 

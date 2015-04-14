@@ -236,5 +236,5 @@ Style/TrivialAccessors:
 
 # Offense count: 12
 # Cop supports --auto-correct.
-Style/UnneededPercentX:
-  Enabled: false
+#Style/UnneededPercentX:
+#  Enabled: false
