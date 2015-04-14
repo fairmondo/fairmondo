@@ -90,7 +90,7 @@ module Article::ExtendedAttributes
     when 'pickup'
       I18n.t('enumerize.business_transaction.selected_transport.pickup')
     when 'bike_courier'
-      $courier['name']
+      COURIER['name']
     when 'type1'
       self.transport_type1_provider
     when 'type2'
@@ -122,7 +122,7 @@ module Article::ExtendedAttributes
   # @return Money
   def transport_bike_courier_price
     if transport_bike_courier
-      Money.new($courier['price'])
+      Money.new(COURIER['price'])
     end
   end
 

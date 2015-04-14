@@ -159,7 +159,7 @@ class BusinessTransaction < ActiveRecord::Base
   # Custom conditions for validations
   #
   def transport_address_in_area?
-    unless $courier['zip'].split(' ').include?(self.transport_address_zip)
+    unless COURIER['zip'].split(' ').include?(self.transport_address_zip)
       errors.add(
         :selected_transport,
         I18n.t('transaction.errors.transport_address_not_in_area')

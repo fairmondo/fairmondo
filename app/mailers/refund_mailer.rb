@@ -1,5 +1,5 @@
 class RefundMailer < ActionMailer::Base
-  default from: $email_addresses['default']
+  default from: EMAIL_ADDRESSES['default']
 
   def refund_notification refund
     @refund = refund

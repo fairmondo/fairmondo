@@ -46,7 +46,7 @@ module Article::FeesAndDonations
   ## -------------- Calculate Fees And Donations ---------------
 
   def could_be_book_price_agreement?
-    book_category_id = $exceptions_on_fairmondo['book_price_agreement']['category'].to_i
+    book_category_id = EXCEPTIONS_ON_FAIRMONDO['book_price_agreement']['category'].to_i
     is_a_book = categories.map { |c| c.self_and_ancestors.map(&:id) }.flatten.include? book_category_id
     is_a_book && condition == 'new'
   end

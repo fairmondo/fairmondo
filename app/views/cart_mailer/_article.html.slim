@@ -25,9 +25,9 @@
 - if bt.bike_courier_selected? && role == 'buyer'
   .message
     center
-      | "Dieser Artikel wird per Fahrradkurier geliefert. Bitte halte zum Lieferzeitpunkt die Lieferkosten von #{ humanized_money_with_symbol Money.new($courier['price']) } in bar bereit."
+      | "Dieser Artikel wird per Fahrradkurier geliefert. Bitte halte zum Lieferzeitpunkt die Lieferkosten von #{ humanized_money_with_symbol Money.new(COURIER['price']) } in bar bereit."
       br
-      = link_to "Hier findest Du die AGB von #{ $courier['name'] }", attachments[$courier['tos']].url
+      = link_to "Hier findest Du die AGB von #{ COURIER['name'] }", attachments[COURIER['tos']].url
 - if bt.bike_courier_selected? && role == 'seller'
   .message
     | "Für diesen Artikel wurde die Versandart Fahrradkurier gewählt, bitte verpacke ihn umgehend und bestätige durch Drücken des Buttons, dass der Artikel zum Versand bereit ist. Erst dann wird der Kurierdienst benachrichtigt."

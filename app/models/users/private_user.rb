@@ -36,11 +36,11 @@ class PrivateUser < User
 
   def private_seller_constants
     {
-      standard_salesvolume: $private_seller_constants['standard_salesvolume'],
-      verified_bonus: $private_seller_constants['verified_bonus'],
-      trusted_bonus: $private_seller_constants['trusted_bonus'],
-      good_factor: $private_seller_constants['good_factor'],
-      bad_salesvolume: $private_seller_constants['bad_salesvolume']
+      standard_salesvolume: PRIVATE_SELLER_CONSTANTS['standard_salesvolume'],
+      verified_bonus: PRIVATE_SELLER_CONSTANTS['verified_bonus'],
+      trusted_bonus: PRIVATE_SELLER_CONSTANTS['trusted_bonus'],
+      good_factor: PRIVATE_SELLER_CONSTANTS['good_factor'],
+      bad_salesvolume: PRIVATE_SELLER_CONSTANTS['bad_salesvolume']
     }
   end
 

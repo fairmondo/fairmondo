@@ -22,7 +22,7 @@
 class ArticleMailer < ActionMailer::Base
   include MailerHelper
 
-  default from: $email_addresses['default']
+  default from: EMAIL_ADDRESSES['default']
   before_filter :inline_logos, except: :report_article
   layout 'email', except: :report_article
 
@@ -30,8 +30,8 @@ class ArticleMailer < ActionMailer::Base
     @text = text
     @article = article
     @user = user
-    mail = @user ? @user.email : $email_addresses['default']
-    mail(to: $email_addresses['ArticleMailer']['report'], from: mail, subject: "Article reported with ID: #{article.id}")
+    mail = @user ? @user.email : EMAIL_ADDRESSES['default']
+    mail(to: EMAIL_ADDRESSES['ArticleMailer']['report'], from: mail, subject: "Article reported with ID: #{article.id}")
   end
 
   def contact(sender:, resource_id:, text:)

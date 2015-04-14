@@ -15,7 +15,7 @@
             = render '/line_item_groups/abacus/cash_on_delivery_row', cash_on_delivery_total: hash[:cash_on_delivery_total]
             = render '/line_item_groups/abacus/total_row', total: hash[:total], payment: payment
               - if transport == 'bike_courier'
-                = render '/line_item_groups/abacus/bike_courier_row', bike_courier_total: $courier['price']
+                = render '/line_item_groups/abacus/bike_courier_row', bike_courier_total: COURIER['price']
           - if payment == :voucher
             .Payment-voucher_info
               = t('cart.texts.voucher_info')

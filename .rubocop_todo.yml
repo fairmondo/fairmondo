@@ -46,15 +46,6 @@ Rails/HasAndBelongsToMany:
 Rails/Output:
   Enabled: false
 
-# Offense count: 3
-#Style/CaseEquality:
-#  Enabled: false
-
-# Offense count: 10
-# Configuration parameters: IndentWhenRelativeTo, SupportedStyles, IndentOneStep.
-#Style/CaseIndentation:
-#  Enabled: false
-
 # Offense count: 24
 # Configuration parameters: EnforcedStyle, SupportedStyles.
 Style/ClassAndModuleChildren:
@@ -84,8 +75,8 @@ Style/For:
 
 # Offense count: 101
 # Configuration parameters: AllowedVariables.
-Style/GlobalVars:
-  Enabled: false
+#Style/GlobalVars:
+#  Enabled: false
 
 # Offense count: 12
 # Configuration parameters: MaxLineLength.

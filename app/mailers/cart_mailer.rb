@@ -2,7 +2,7 @@ class CartMailer < ActionMailer::Base
   include MailerHelper
   before_filter :inline_logos, except: :courier_notification
 
-  default from: $email_addresses['default']
+  default from: EMAIL_ADDRESSES['default']
   layout 'email', except: :courier_notification
 
   def buyer_email(cart)
@@ -35,7 +35,7 @@ class CartMailer < ActionMailer::Base
     @buyer           = business_transaction.buyer
     @seller          = business_transaction.seller
     @subject         = '[Fairmondo] Artikel ausliefern'
-    @courier_email   = Rails.env == 'production' ? $courier['email'] : 'test@test.com'
+    @courier_email   = Rails.env == 'production' ? COURIER['email'] : 'test@test.com'
 
     if @business_transaction.line_item_group.paypal_payment && @business_transaction.line_item_group.paypal_payment.confirmed?
       mail(to: @courier_email, subject: @subject, bcc: 'bybike@fairmondo.de')
@@ -84,7 +84,7 @@ class CartMailer < ActionMailer::Base
 
   def add_bike_courier_documents_for lig
     unless lig.business_transactions.select { |bt| bt.selected_transport == 'bike_courier' }.empty?
-      filename = $courier['tos']
+      filename = COURIER['tos']
       attachments[filename] = File.read(Rails.root.join("app/assets/docs/#{ filename }"))
     end
   end

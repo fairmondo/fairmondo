@@ -24,20 +24,20 @@ class FeedbackMailer < ActionMailer::Base
     @feedback = feedback
     @feedback_subject = @feedback.translate_subject
     @last_article_id = @feedback.last_article_id
-    from = feedback.from? ? feedback.from : $email_addresses['default']
+    from = feedback.from? ? feedback.from : EMAIL_ADDRESSES['default']
 
     attachments[feedback.image.image_file_name] = File.read(Rails.root.join(feedback.image.image.path(:original))) if feedback.image
 
-    if $email_addresses
-      mail(to: $email_addresses['FeedbackMailer'][@feedback.variety][topic], from: from, subject: @feedback.subject)
+    if EMAIL_ADDRESSES
+      mail(to: EMAIL_ADDRESSES['FeedbackMailer'][@feedback.variety][topic], from: from, subject: @feedback.subject)
     end
   end
 
   def donation_partner(feedback)
     @feedback = feedback
     @last_article_id = @feedback.last_article_id
-    if $email_addresses
-      mail(to: $email_addresses['FeedbackMailer'][@feedback.variety], from: @feedback.from, subject: 'Spendenpartner*in Anfrage')
+    if EMAIL_ADDRESSES
+      mail(to: EMAIL_ADDRESSES['FeedbackMailer'][@feedback.variety], from: @feedback.from, subject: 'Spendenpartner*in Anfrage')
     end
   end
 end

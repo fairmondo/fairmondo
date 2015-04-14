@@ -138,7 +138,7 @@ module Article::Validations
   end
 
   def right_zip_for_courier
-    unless $courier['zip'].include? self.seller.standard_address_zip
+    unless COURIER['zip'].include? self.seller.standard_address_zip
       errors.add(:transport_bike_courier, I18n.t('article.form.errors.wrong_zip_for_bike_transport'))
     end
   end
