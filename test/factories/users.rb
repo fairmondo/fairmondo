@@ -22,7 +22,7 @@
 require 'ffaker'
 
 FactoryGirl.define do
-  factory :user, aliases: [:seller, :buyer, :sender, :rated_user], class: ['PrivateUser', 'LegalEntity'].sample do
+  factory :user, aliases: [:seller, :buyer, :sender, :rated_user], class: %w(PrivateUser LegalEntity).sample do
     email       { Faker::Internet.email }
     password 'password'
     sequence(:nickname) { |n| "#{Faker::Internet.user_name}#{n}" }
@@ -40,8 +40,8 @@ FactoryGirl.define do
     bank_account_owner Faker::Name.name
     bank_name Faker::Name.name
 
-    iban { ['DE', 'AT', 'CH'].sample + rand(99999999999999999999).to_s.center(20, rand(9).to_s) }
-    bic { ['ABCDEF', 'ZJFBLO', 'TNAPIT', 'EMLOAB'].sample + rand(99).to_s.center(2, rand(9).to_s) }
+    iban { %w(DE AT CH).sample + rand(99999999999999999999).to_s.center(20, rand(9).to_s) }
+    bic { %w(ABCDEF ZJFBLO TNAPIT EMLOAB).sample + rand(99).to_s.center(2, rand(9).to_s) }
 
     direct_debit true
     uses_vouchers false

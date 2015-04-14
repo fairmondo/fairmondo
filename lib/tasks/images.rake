@@ -31,7 +31,7 @@ namespace :images do
   task clean_orphan_files: :environment do
     @last_path = nil
     @dry_run = %w(true 1).include? ENV['DRY_RUN']
-    @styles = ['original', 'medium', 'thumb', 'profile']
+    @styles = %w(original medium thumb profile)
     @root_dir = Pathname.new(Rails.root + 'public/system/images')
 
     Signal.trap('USR1') do

@@ -77,14 +77,13 @@ module Sanitization
         %w(a b i strong em p h1 h2 h3 h4 h5 h6 br hr ul ol li img div span iframe) :
         %w(b i strong em p h1 h2 h3 h4 h5 h6 br hr ul ol li),
       attributes: {
-        'a' => ['href', 'type', 'target'],
-        'img' => ['src', 'alt'],
+        'a' => %w(href type target),
+        'img' => %w(src alt),
         'iframe' =>  # iframes aren't allowed for non-admins
-          ['src', 'frameborder', 'webkitallowfullscreen',
-           'mozallowfullscreen', 'allowfullscreen'],
+          %w(src frameborder webkitallowfullscreen mozallowfullscreen allowfullscreen),
         :all => admin_mode ?
           ['width', 'height', 'data', 'name', 'id', 'class', 'style', 'data-truncate'] :
-          ['width', 'height', 'name']
+          %w(width height name)
       },
       css: {
         properties: admin_mode ?

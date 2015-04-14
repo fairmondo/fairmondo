@@ -74,7 +74,7 @@ class ApplicationController < ActionController::Base
   end
 
   def pundit_unverified_modules
-    ['Devise', 'RailsAdmin']
+    %w(Devise RailsAdmin)
   end
 
   def pundit_unverified_classes

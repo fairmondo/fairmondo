@@ -93,7 +93,7 @@ module ArticlesHelper
   end
 
   def transport_string_for method
-    if ['type1', 'type2'].include?(method)
+    if %w(type1 type2).include?(method)
       resource.send("transport_#{method}_provider")
     else
       t("formtastic.labels.article.transport_#{method}")

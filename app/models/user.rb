@@ -209,7 +209,7 @@ class User < ActiveRecord::Base
     day_of_week = DateTime.now.cwday - 1 # array starts with 0
     weekend = day_of_week > 4 # is it Saturday or Sunday
     day_of_week = 0 if weekend
-    days = ['Mo', 'Di',  'Mi',  'Do', 'Fr']
+    days = %w(Mo Di Mi Do Fr)
     (0..4).each do |iterator| # iterate through the next days
       day = (iterator + day_of_week) % 5 # returns the place in the array for the day
       start_time = (iterator == 0 && !weekend) ? (Time.now.hour + 3) : 8 # on the current day we start later

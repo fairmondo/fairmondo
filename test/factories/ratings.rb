@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :rating do
-    rating { ['positive', 'neutral', 'negative'].sample }
+    rating { %w(positive neutral negative).sample }
     text 'Die ist eine Bewertung!'
     line_item_group { FactoryGirl.create :line_item_group, :with_business_transactions, :sold }
     rated_user { line_item_group.seller }

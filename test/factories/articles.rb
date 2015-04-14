@@ -27,7 +27,7 @@ FactoryGirl.define do
     categories { |c| [c.association(:category)] }
     title     { Faker::Lorem.words(rand(3..5)).join(' ').titleize }
     content   { Faker::Lorem.paragraph(rand(7) + 1) }
-    condition { ['new', 'old'].sample }
+    condition { %w(new old).sample }
     condition_extra { [:as_good_as_new, :as_good_as_warranted, :used_very_good, :used_good, :used_satisfying, :broken].sample }
     price_cents { Random.new.rand(40000) + 1 }
     vat { [0, 7, 19].sample }

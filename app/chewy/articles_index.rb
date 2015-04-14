@@ -21,13 +21,7 @@ class ArticlesIndex < Chewy::Index
         german_analyzer: {
           type: 'custom',
           tokenizer: 'hyphen',
-          filter: [
-            'lowercase',
-            'german_stop',
-            'german_normalization',
-            'german_decompound',
-            'german_stemming'
-          ]
+          filter: %w(lowercase german_stop german_normalization german_decompound german_stemming)
         }
       }
     }

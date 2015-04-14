@@ -22,8 +22,8 @@
 module MassUpload::Questionnaire
   extend ActiveSupport::Concern
 
-  FTQ_ATTRIBUTES = FairTrustQuestionnaire.column_names - ['id', 'article_id']
-  SPQ_ATTRIBUTES = SocialProducerQuestionnaire.column_names - ['id', 'article_id']
+  FTQ_ATTRIBUTES = FairTrustQuestionnaire.column_names - %w(id article_id)
+  SPQ_ATTRIBUTES = SocialProducerQuestionnaire.column_names - %w(id article_id)
 
   def self.include_fair_questionnaires(attributes)
     ftq = attributes.extract!(*FTQ_ATTRIBUTES)

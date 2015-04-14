@@ -36,7 +36,7 @@ guard 'livereload' do
   watch(%r{(app|vendor)(/assets/\w+/(.+\.(css|js|html|png|jpg))).*}) { |m| "/assets/#{m[3]}" }
 end
 
-guard 'ctags-bundler', src_path: ['app', 'lib'] do
+guard 'ctags-bundler', src_path: %w(app lib) do
   watch(/^(app|lib|)\/.*\.rb$/)
   watch('Gemfile.lock')
 end

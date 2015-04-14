@@ -6,7 +6,7 @@ module User::Validations
     validates :slug, presence: true
 
     # Registration validations
-    validates :type, inclusion: { in: ['PrivateUser', 'LegalEntity'] }
+    validates :type, inclusion: { in: %w(PrivateUser LegalEntity) }
     validates :nickname, presence: true, uniqueness: true
     validates :legal, acceptance: true, on: :create
     validates_associated :standard_address, unless: Proc.new { |u| u.encrypted_password_changed? }
