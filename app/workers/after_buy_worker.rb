@@ -11,7 +11,7 @@ class AfterBuyWorker
     CartMailerWorker.perform_async cart.id
 
     cart.line_item_groups.map(&:business_transactions).flatten.each do |bt|
-      unless bt.seller.is_a?(PrivateUser) && (bt.voucher_selected? || bt.article_price <= 0)
+      unless bt.seller.is_a?(PrivateUser) || (bt.voucher_selected? || bt.article_price <= 0)
         FastbillWorker.perform_in 5.seconds, bt.id
       end
     end
