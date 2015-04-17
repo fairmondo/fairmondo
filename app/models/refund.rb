@@ -6,7 +6,11 @@ class Refund < ActiveRecord::Base
   belongs_to :business_transaction
 
   validates :reason, presence: true
-  validates :description, presence: true, length: { minimum: 150 }, length: { maximum: 1000, tokenizer: tokenizer_without_html }
+  validates :description, presence: true,
+                          length: {
+                            minimum: 150,
+                            maximum: 1000,
+                            tokenizer: tokenizer_without_html }
   validates :business_transaction_id, presence: true, uniqueness: true
 
   delegate :seller, :seller_nickname, to: :business_transaction, prefix: true

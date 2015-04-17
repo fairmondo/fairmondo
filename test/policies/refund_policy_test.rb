@@ -20,7 +20,11 @@ describe RefundPolicy do
 
       describe 'that is sold' do
         describe 'and is not refunded' do
-          let(:refund) { Refund.new business_transaction: FactoryGirl.create(:business_transaction, :old) }
+          let(:refund) do
+            Refund.new business_transaction:
+                         FactoryGirl.create(:business_transaction, :old)
+          end
+
           it { subject.must_permit(:create) }
           it { subject.must_permit(:new) }
         end

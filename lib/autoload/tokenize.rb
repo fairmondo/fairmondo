@@ -3,6 +3,6 @@ module Tokenize
   extend ActiveSupport::Concern
 
   def tokenizer_without_html
-    lambda { |string| auto_sanitize(string).split(//) }
+    -> (string) { auto_sanitize(string).first.split(//) }
   end
 end
