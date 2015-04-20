@@ -122,3 +122,4 @@ config/courier.yml
 
 # Foreman Procfile
 Procfile
+public/fairmondo_articles.csv
