@@ -21,7 +21,6 @@
 #
 
 class LibraryElementObserver < ActiveRecord::Observer
-
   # A new element updates the library in general
   def after_save library_element
     update_library library_element
@@ -33,7 +32,8 @@ class LibraryElementObserver < ActiveRecord::Observer
   end
 
   private
-    def update_library library_element
-      library_element.library.update_attribute(:updated_at, Time.now) if library_element.library
-    end
+
+  def update_library library_element
+    library_element.library.update_attribute(:updated_at, Time.now) if library_element.library
+  end
 end

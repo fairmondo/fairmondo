@@ -24,12 +24,12 @@ require_relative '../test_helper'
 describe LibraryElement do
   subject { LibraryElement.new }
 
-  describe "associations" do
+  describe 'associations' do
     it { subject.must belong_to :article }
     it { subject.must belong_to :library }
   end
 
-  describe "model attributes" do
+  describe 'model attributes' do
     it { subject.must_respond_to :id }
     it { subject.must_respond_to :created_at }
     it { subject.must_respond_to :updated_at }
@@ -39,8 +39,8 @@ describe LibraryElement do
     it { subject.must_respond_to :article_id }
   end
 
-  describe "validations" do
-    describe "for library_id" do
+  describe 'validations' do
+    describe 'for library_id' do
       it { subject.must validate_presence_of(:library_id) }
       it { subject.must validate_uniqueness_of(:library_id).scoped_to(:article_id) }
     end

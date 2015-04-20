@@ -7,7 +7,7 @@ describe ContentPolicy do
   let(:content) { FactoryGirl.create :content }
   let(:user) { nil }
 
-  describe "for a visitor" do
+  describe 'for a visitor' do
     it { subject.must_permit(:show)      }
     it { subject.must_permit(:not_found) }
     it { subject.must_deny(:index)       }
@@ -18,7 +18,7 @@ describe ContentPolicy do
     it { subject.must_deny(:destroy)     }
   end
 
-  describe "for a random logged-in user" do
+  describe 'for a random logged-in user' do
     let(:user) { FactoryGirl.create :user }
     it { subject.must_permit(:show)      }
     it { subject.must_permit(:not_found) }
@@ -30,7 +30,7 @@ describe ContentPolicy do
     it { subject.must_deny(:destroy)            }
   end
 
-  describe "for an admin user" do
+  describe 'for an admin user' do
     let(:user) { FactoryGirl.create :admin_user }
     it { subject.must_permit(:show)      }
     it { subject.must_permit(:not_found) }

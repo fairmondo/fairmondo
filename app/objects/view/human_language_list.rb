@@ -1,5 +1,4 @@
 class HumanLanguageList < Array
-
   # Make list human readable
   # @return String
   def concatenate

@@ -13,5 +13,4 @@ class LineItemGroupRefinery < ApplicationRefinery
      :unified_transport_price_cents,
      :free_transport_at_price_cents]
   end
-
 end

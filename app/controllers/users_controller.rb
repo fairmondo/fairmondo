@@ -20,19 +20,18 @@
 # along with Fairmondo.  If not, see <http://www.gnu.org/licenses/>.
 #
 class UsersController < ApplicationController
-
   include NoticeHelper
   respond_to :html
   respond_to :js, if: lambda { request.xhr? }
   respond_to :pdf, only: :profile
 
-  before_filter :check_for_complete_mass_uploads, only: [:show]
-  before_filter :set_user
-  before_filter :dont_cache, only: [:show]
-  before_filter :sanitize_print_param, only: [:profile]
-  skip_before_filter :authenticate_user!, only: [:show, :profile, :contact]
+  before_action :check_for_complete_mass_uploads, only: [:show]
+  before_action :set_user
+  before_action :dont_cache, only: [:show]
+  before_action :sanitize_print_param, only: [:profile]
+  skip_before_action :authenticate_user!, only: [:show, :profile, :contact]
 
-  rescue_from Pundit::NotAuthorizedError, :with => :user_deleted
+  rescue_from Pundit::NotAuthorizedError, with: :user_deleted
 
   def profile
     authorize @user
@@ -49,26 +48,25 @@ class UsersController < ApplicationController
 
   private
 
-    def user_deleted
-      render :user_deleted
-    end
+  def user_deleted
+    render :user_deleted
+  end
 
-    def set_user
-      @user = User.find(params[:id])
-    end
+  def set_user
+    @user = User.find(params[:id])
+  end
 
-    def check_for_complete_mass_uploads
-      if user_signed_in?
-        current_user.mass_uploads.processing.each do |mu|
-          mu.finish
-        end
+  def check_for_complete_mass_uploads
+    if user_signed_in?
+      current_user.mass_uploads.processing.each do |mu|
+        mu.finish
       end
     end
+  end
 
-    def sanitize_print_param
-      if params[:print] && ['terms','cancellation'].include?(params[:print])
-        @print = params[:print]
-      end
+  def sanitize_print_param
+    if params[:print] && %w(terms cancellation).include?(params[:print])
+      @print = params[:print]
     end
-
+  end
 end

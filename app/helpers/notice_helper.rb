@@ -20,7 +20,6 @@
 # along with Fairmondo.  If not, see <http://www.gnu.org/licenses/>.
 #
 module NoticeHelper
-
   def main_notice_mapper(type)
     case type
     when 'alert'
@@ -36,7 +35,6 @@ module NoticeHelper
     end
   end
 
-
   def render_data_confirm
     confirm_text = I18n.t('common.text.confirm_yes')
     cancel_text  = I18n.t('common.text.confirm_no')
@@ -46,5 +44,4 @@ module NoticeHelper
       concat("<a class=\"Button cancel\"  > #{cancel_text} </a>".html_safe)
     end
   end
-
 end

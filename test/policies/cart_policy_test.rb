@@ -7,7 +7,7 @@ describe CartPolicy do
   let(:cart) { FactoryGirl.create :cart }
   let(:user) { nil }
 
-  describe "for a visitor" do
+  describe 'for a visitor' do
     it { subject.must_deny(:show)   }
     it { subject.must_deny(:edit)   }
     it { subject.must_deny(:update) }
@@ -15,7 +15,7 @@ describe CartPolicy do
     it { subject.must_deny(:send_via_email) }
   end
 
-  describe "for a random logged-in user" do
+  describe 'for a random logged-in user' do
     let(:user) { FactoryGirl.create :user }
     it { subject.must_deny(:show)   }
     it { subject.must_deny(:edit)   }
@@ -24,7 +24,7 @@ describe CartPolicy do
     it { subject.must_deny(:send_via_email) }
   end
 
-  describe "for the owning user" do
+  describe 'for the owning user' do
     let(:user) { cart.user }
     it { subject.must_permit(:show)   }
     it { subject.must_permit(:edit)   }

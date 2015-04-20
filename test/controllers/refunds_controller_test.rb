@@ -24,13 +24,11 @@ require_relative '../test_helper'
 include FastBillStubber
 
 describe RefundsController do
-  let( :seller ){ FactoryGirl.create :user }
-  let( :line_item_group) { FactoryGirl.create :line_item_group, seller: seller}
-  let( :business_transaction ){ FactoryGirl.create :business_transaction, :old, line_item_group: line_item_group }
-
+  let(:seller) { FactoryGirl.create :user }
+  let(:line_item_group) { FactoryGirl.create :line_item_group, seller: seller }
+  let(:business_transaction) { FactoryGirl.create :business_transaction, :old, line_item_group: line_item_group }
 
   describe '#create' do
-
     describe 'for signed in users' do
       it 'should create refund request' do
         @refund_attrs = FactoryGirl.attributes_for :refund

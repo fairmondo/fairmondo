@@ -1,0 +1,14 @@
+ul
+  - ["pickup", "type1", "type2", "bike_courier"].each do |method|
+    - if available_transport(method)
+      li
+        = transport_string_for method
+        - if free_or_not_for?(method)
+          =< "(kostenfrei)"
+        - else
+          =< "zzgl. #{ humanized_money_with_symbol(resource.send("transport_#{ method }_price")) }"
+        =
+        - if method == 'pickup'
+          =< "(PLZ: #{ resource.seller.standard_address_zip })"
+        - if method == 'bike_courier'
+          =< "bar bei Lieferung (z.Z. nur im Berliner Innenstadtbereich verfügbar)"

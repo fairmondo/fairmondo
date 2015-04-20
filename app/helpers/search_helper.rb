@@ -20,7 +20,6 @@
 # along with Fairmondo.  If not, see <http://www.gnu.org/licenses/>.
 #
 module SearchHelper
-
   # needed for the tire objects to work
   def humanize_money_or_cents money_or_cents
     money_or_cents = Money.new(money_or_cents) unless money_or_cents.is_a?(Money)
@@ -36,7 +35,4 @@ module SearchHelper
     # build fresh search cache
     @search_cache || ::ArticleSearchForm.new(attributes)
   end
-
 end
-
-

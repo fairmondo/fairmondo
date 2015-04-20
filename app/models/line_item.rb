@@ -1,5 +1,4 @@
 class LineItem < ActiveRecord::Base
-
   attr_accessor :business_transaction # temporary saving the data
   attr_accessor :cart_cookie # temp storage to validate with pundit
 
@@ -17,10 +16,10 @@ class LineItem < ActiveRecord::Base
     less_than_or_equal_to: ->(line_item) { line_item.article_quantity_available }
   }
 
-#  after_rollback :set_max_requested_quantity
+  #  after_rollback :set_max_requested_quantity
 
   def self.find_or_new params, cart_id
-    joins(:cart).where("carts.id = ?", cart_id).find_by_article_id(params['article_id']) || new(params)
+    joins(:cart).where('carts.id = ?', cart_id).find_by_article_id(params['article_id']) || new(params)
   end
 
   def prepare_line_item_group_or_assign cart, quantity
@@ -52,7 +51,7 @@ class LineItem < ActiveRecord::Base
   #  end
 
   # Handle line_item_count on Cart
-  before_create  -> { Cart.increment_counter(:line_item_count, cart.id) }
+  before_create -> { Cart.increment_counter(:line_item_count, cart.id) }
   before_destroy -> { Cart.decrement_counter(:line_item_count, cart.id)  }
   after_destroy do |record|
     group = record.line_item_group
@@ -66,9 +65,4 @@ class LineItem < ActiveRecord::Base
   def orphaned?
     !self.article.present? || !self.article.valid? || !self.article.active?
   end
-
-  private
-
-
-
 end

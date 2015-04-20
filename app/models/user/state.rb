@@ -23,7 +23,6 @@ module User::State
   extend ActiveSupport::Concern
 
   included do
-
     ####################################################
     # State Machine
     #
@@ -58,13 +57,9 @@ module User::State
         transition all => :bad_buyer
       end
     end
-
   end
 
   def send_bad_seller_notification
     RatingMailer.delay.bad_seller_notification(self)
   end
-
-
-
 end

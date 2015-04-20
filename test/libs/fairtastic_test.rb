@@ -19,21 +19,21 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Fairmondo.  If not, see <http://www.gnu.org/licenses/>.
 #
-require "test_helper"
+require 'test_helper'
 
 describe 'Fairtastic' do
-  #include RSpec::Rails::HelperExampleGroup
+  # include RSpec::Rails::HelperExampleGroup
 
-  describe "InputSteps" do
+  describe 'InputSteps' do
     before :each do
       @buffer = SpecOutputBuffer.new
     end
 
-    describe "#input_step" do
-      it "should return input step code with additional class codex" do
+    describe '#input_step' do
+      it 'should return input step code with additional class codex' do
         DummyClass.any_instance.stubs(:protect_against_forgery?).returns(false)
         @buffer.concat(
-          helper.semantic_form_for(:template, :url => '', as: 'monster', :builder => Fairtastic::FormBuilder) do |f|
+          helper.semantic_form_for(:template, url: '', as: 'monster', builder: Fairtastic::FormBuilder) do |f|
             f.input_step 'foo', class: 'bar'
           end
         )

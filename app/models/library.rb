@@ -28,18 +28,19 @@ class Library < ActiveRecord::Base
   delegate :nickname, to: :user, prefix: true
 
   validates :name, :user, presence: true
-  validates :name, uniqueness: {scope: :user_id}, length: {maximum: 70}
+  validates :name, uniqueness: { scope: :user_id }, length: { maximum: 70 }
 
-  enumerize :exhibition_name, in: [ :donation_articles, :old,
-    :queue1, :queue2, :queue3, :queue4,
+  enumerize :exhibition_name, in: [
+    :donation_articles, :old, :queue1, :queue2, :queue3, :queue4,
     :book1,  :book2,  :book3,  :book4,  :book5,  :book6,  :book7,  :book8,
     :fair1,  :fair2,  :fair3,  :fair4,  :fair5,  :fair6,  :fair7,  :fair8,
     :eco1,   :eco2,   :eco3,   :eco4,   :eco5,   :eco6,   :eco7,   :eco8,
     :small1, :small2, :small3, :small4, :small5, :small6, :small7, :small8,
-    :used1,  :used2,  :used3,  :used4,  :used5,  :used6,  :used7,  :used8 ]
+    :used1,  :used2,  :used3,  :used4,  :used5,  :used6,  :used7,  :used8
+  ]
   before_update :uniquify_exhibition_name
 
-  #Relations
+  # Relations
   belongs_to :user
 
   has_many :library_elements, dependent: :destroy
@@ -47,17 +48,17 @@ class Library < ActiveRecord::Base
 
   has_many :hearts, as: :heartable
 
-  scope :not_empty, -> { where("libraries.library_elements_count > 0") }
-  scope :min_elem, -> (num) { where("libraries.library_elements_count >= ?", num) }
+  scope :not_empty, -> { where('libraries.library_elements_count > 0') }
+  scope :min_elem, -> (num) { where('libraries.library_elements_count >= ?', num) }
   scope :published, -> { where(public: true) }
-  scope :no_admins, -> { joins(:user).where("users.admin = ?", false) }
-  scope :most_popular, -> { reorder("libraries.popularity DESC, libraries.updated_at DESC") }
-  scope :most_recent, -> { reorder(created_at: :desc)}
+  scope :no_admins, -> { joins(:user).where('users.admin = ?', false) }
+  scope :most_popular, -> { reorder('libraries.popularity DESC, libraries.updated_at DESC') }
+  scope :most_recent, -> { reorder(created_at: :desc) }
   scope :trending, -> { most_popular.not_empty.published }
   scope :audited, -> { where(audited: true) }
   scope :trending_welcome_page, -> { trending.audited.limit(3) }
 
-  default_scope -> { order(updated_at: :desc) }
+  default_scope { order(updated_at: :desc) }
 
   # Returns true if the library contains article
   def includes_article? article
@@ -80,14 +81,15 @@ class Library < ActiveRecord::Base
   end
 
   private
-    # when an exhibition name is set to a library, remove the same exhibition
-    # name from all other libraries.
-    def uniquify_exhibition_name
-      if self.exhibition_name
-        Library.where(exhibition_name: self.exhibition_name).where("id != ?", self.id).each do |library|
-          library.update_attribute(:exhibition_name, nil)
-        end
+
+  # when an exhibition name is set to a library, remove the same exhibition
+  # name from all other libraries.
+  def uniquify_exhibition_name
+    if self.exhibition_name
+      Library.where(exhibition_name: self.exhibition_name).where('id != ?', self.id).each do |library|
+        library.update_attribute(:exhibition_name, nil)
       end
-      true
     end
+    true
+  end
 end

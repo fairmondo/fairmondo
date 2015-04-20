@@ -34,7 +34,7 @@ module Article::ExtendedAttributes
     attr_accessor :action, :save_as_template, :tos_accepted,
                   :changing_state
     attr_writer :article_search_form
-                # find a way to remove this! arcane won't like it
+    # find a way to remove this! arcane won't like it
 
     # Auto Sanitize
 
@@ -72,7 +72,6 @@ module Article::ExtendedAttributes
     }, allow_nil: true
   end
 
-
   def transport_details_for type
     case type
     when :type1
@@ -82,7 +81,7 @@ module Article::ExtendedAttributes
     when :bike_courier
       [self.transport_bike_courier_price, self.transport_bike_courier_number]
     else
-      [Money.new(0),0]
+      [Money.new(0), 0]
     end
   end
 
@@ -91,7 +90,7 @@ module Article::ExtendedAttributes
     when 'pickup'
       I18n.t('enumerize.business_transaction.selected_transport.pickup')
     when 'bike_courier'
-      $courier['name']
+      COURIER['name']
     when 'type1'
       self.transport_type1_provider
     when 'type2'
@@ -105,7 +104,7 @@ module Article::ExtendedAttributes
   # @api public
   # @return [Array] An array with selected transport types.
   def selectable_transports
-    selectable "transport"
+    selectable 'transport'
   end
 
   # Returns an array with all selected payment types.
@@ -114,7 +113,7 @@ module Article::ExtendedAttributes
   # @api public
   # @return [Array] An array with selected payment types.
   def selectable_payments
-    selectable "payment"
+    selectable 'payment'
   end
 
   # Returns price for transport_bike_courier
@@ -123,7 +122,7 @@ module Article::ExtendedAttributes
   # @return Money
   def transport_bike_courier_price
     if transport_bike_courier
-      Money.new($courier['price'])
+      Money.new(COURIER['price'])
     end
   end
 
@@ -144,16 +143,16 @@ module Article::ExtendedAttributes
 
   private
 
-    # DRY method for selectable_transports and selectable_payments
-    #
-    # @api private
-    # @return [Array] An array with selected attribute types
-    def selectable attribute
-      # Get all selected attributes
-      output = []
-      eval("#{attribute.upcase}_TYPES").each do |e|
-        output << e.to_s if self.send "#{attribute}_#{e}"
-      end
-      output
+  # DRY method for selectable_transports and selectable_payments
+  #
+  # @api private
+  # @return [Array] An array with selected attribute types
+  def selectable attribute
+    # Get all selected attributes
+    output = []
+    instance_eval("#{attribute.upcase}_TYPES").each do |e|
+      output << e.to_s if self.send "#{attribute}_#{e}"
     end
+    output
+  end
 end

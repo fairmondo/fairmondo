@@ -20,8 +20,7 @@
 # along with Fairmondo.  If not, see <http://www.gnu.org/licenses/>.
 #
 class LibraryElement < ActiveRecord::Base
-
-  delegate :name, :user_id , to: :library , prefix: true
+  delegate :name, :user_id, to: :library, prefix: true
   delegate :title, to: :article_reduced, prefix: true
 
   # Validations
@@ -30,11 +29,11 @@ class LibraryElement < ActiveRecord::Base
 
   # Relations
   belongs_to :article
-  belongs_to :article_reduced, ->(o) { reduced }, class_name: 'Article', foreign_key: 'article_id'
+  belongs_to :article_reduced, ->(_o) { reduced }, class_name: 'Article', foreign_key: 'article_id'
   belongs_to :library, counter_cache: true
   has_one :user, through: :library
 
   scope :active, -> { where.not(inactive: true) }
   # Scopes
-  default_scope -> { order(created_at: :desc) }
+  default_scope { order(created_at: :desc) }
 end

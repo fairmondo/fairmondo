@@ -1,6 +1,5 @@
 class MassUploadRefinery < ApplicationRefinery
-
   def default
-    [ :file ]
+    [:file]
   end
 end

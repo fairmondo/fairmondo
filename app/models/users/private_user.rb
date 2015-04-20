@@ -22,9 +22,9 @@
 class PrivateUser < User
   extend STI
 
-  state_machine :seller_state, :initial => :standard_seller do
+  state_machine :seller_state, initial: :standard_seller do
     event :rate_up do
-      transition :standard_seller => :good_seller
+      transition standard_seller: :good_seller
     end
 
     event :update_seller_state do
@@ -32,16 +32,15 @@ class PrivateUser < User
       transition bad_seller: :standard_seller, if: lambda { |user| (user.percentage_of_positive_ratings > 75) }
       transition standard_seller: :good_seller, if: lambda { |user| (user.percentage_of_positive_ratings > 90) }
     end
-
   end
 
   def private_seller_constants
     {
-      :standard_salesvolume => $private_seller_constants['standard_salesvolume'],
-      :verified_bonus => $private_seller_constants['verified_bonus'],
-      :trusted_bonus => $private_seller_constants['trusted_bonus'],
-      :good_factor => $private_seller_constants['good_factor'],
-      :bad_salesvolume => $private_seller_constants['bad_salesvolume']
+      standard_salesvolume: PRIVATE_SELLER_CONSTANTS['standard_salesvolume'],
+      verified_bonus: PRIVATE_SELLER_CONSTANTS['verified_bonus'],
+      trusted_bonus: PRIVATE_SELLER_CONSTANTS['trusted_bonus'],
+      good_factor: PRIVATE_SELLER_CONSTANTS['good_factor'],
+      bad_salesvolume: PRIVATE_SELLER_CONSTANTS['bad_salesvolume']
     }
   end
 
@@ -56,7 +55,6 @@ class PrivateUser < User
     salesvolume
   end
 
-
   def can_refund? business_transaction
     Time.now >= business_transaction.sold_at + 14.days && Time.now <= business_transaction.sold_at + 28.days
   end
@@ -65,5 +63,4 @@ class PrivateUser < User
   def self.model_name
     User.model_name
   end
-
 end

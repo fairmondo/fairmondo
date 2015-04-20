@@ -14,7 +14,7 @@ class Discount < ActiveRecord::Base
 
   auto_sanitize :title, :description
 
-  scope :current, lambda { where( "start_time < ? AND end_time > ?", Time.now, Time.now ) }
+  scope :current, lambda { where('start_time < ? AND end_time > ?', Time.now, Time.now) }
 
   def self.discount_chain business_transaction
     if business_transaction.discountable?

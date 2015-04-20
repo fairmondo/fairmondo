@@ -20,7 +20,6 @@
 # along with Fairmondo.  If not, see <http://www.gnu.org/licenses/>.
 #
 class LibraryPolicy < Struct.new(:user, :library)
-
   def create?
     own?
   end
@@ -50,13 +49,14 @@ class LibraryPolicy < Struct.new(:user, :library)
   end
 
   private
-    def own?
-      user && user.id == library.user_id
-    end
 
-    def admin?
-      User.is_admin? user
-    end
+  def own?
+    user && user.id == library.user_id
+  end
+
+  def admin?
+    User.is_admin? user
+  end
 
   class Scope < Struct.new(:current_user, :user, :scope)
     def resolve

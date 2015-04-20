@@ -1,5 +1,4 @@
 class Abacus
-
   attr_reader :line_item_group,
               :business_transaction_listing,
               :transport_listing,
@@ -18,6 +17,6 @@ class Abacus
   end
 
   def calculate_total
-    @payment_listing.payments.map{ |payment,hash| hash[:total] }.sum
+    @payment_listing.payments.map { |_payment, hash| hash[:total] }.sum
   end
 end

@@ -3,17 +3,19 @@ class MassUploadsController < ApplicationController
   respond_to :html
   respond_to :csv, only: :show
 
-  before_filter :ensure_complete_profile , :only => [:new, :create]
-  before_filter :set_mass_upload, only: [:show, :update]
-  before_filter :check_value_of_goods, :only => [:update]
+  before_action :ensure_complete_profile, only: [:new, :create]
+  before_action :set_mass_upload, only: [:show, :update]
+  before_action :check_value_of_goods, only: [:update]
 
   def show
     authorize @mass_upload
     @erroneous_articles = @mass_upload.erroneous_articles.page(params[:erroneous_articles_page])
 
     respond_with @mass_upload do |format|
-      format.csv { send_data ArticleExporter.export_erroneous_articles(@mass_upload.erroneous_articles),
-                   {filename: "Fairmondo_export_errors_#{Time.now.strftime("%Y-%d-%m %H:%M:%S")}.csv"} }
+      format.csv do
+        send_data ArticleExporter.export_erroneous_articles(@mass_upload.erroneous_articles),
+                  filename: "Fairmondo_export_errors_#{Time.now.strftime('%Y-%d-%m %H:%M:%S')}.csv"
+      end
     end
   end
 
@@ -39,7 +41,7 @@ class MassUploadsController < ApplicationController
 
   private
 
-    def set_mass_upload
-      @mass_upload = current_user.mass_uploads.find(params[:id])
-    end
+  def set_mass_upload
+    @mass_upload = current_user.mass_uploads.find(params[:id])
+  end
 end

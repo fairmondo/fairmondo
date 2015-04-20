@@ -24,7 +24,7 @@ require_relative '../test_helper'
 describe Library do
   subject { Library.new }
 
-  describe "associations" do
+  describe 'associations' do
     it { subject.must have_many(:library_elements).dependent(:destroy) }
     it { subject.must have_many(:articles) }
     it { subject.must belong_to :user }
@@ -32,7 +32,7 @@ describe Library do
     it { subject.must have_many(:comments).dependent(:destroy) }
   end
 
-  describe "model attributes" do
+  describe 'model attributes' do
     it { subject.must_respond_to :id }
     it { subject.must_respond_to :created_at }
     it { subject.must_respond_to :updated_at }
@@ -45,14 +45,14 @@ describe Library do
     it { subject.must_respond_to :comments_count }
   end
 
-  describe "validations" do
-    describe "for name" do
+  describe 'validations' do
+    describe 'for name' do
       it { subject.must validate_presence_of(:name) }
       it { subject.must validate_uniqueness_of(:name).scoped_to(:user_id) }
       it { subject.must ensure_length_of(:name).is_at_most(70) }
     end
 
-    describe "for user" do
+    describe 'for user' do
       it { subject.must validate_presence_of(:user) }
     end
   end

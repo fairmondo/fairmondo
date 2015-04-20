@@ -22,9 +22,9 @@
 require_relative '../test_helper'
 
 describe RatingsController do
-  let(:seller){ FactoryGirl.create :user }
-  let(:buyer){ FactoryGirl.create :user }
-  let(:line_item_group){ FactoryGirl.create :line_item_group, seller: seller, buyer: buyer }
+  let(:seller) { FactoryGirl.create :user }
+  let(:buyer) { FactoryGirl.create :user }
+  let(:line_item_group) { FactoryGirl.create :line_item_group, seller: seller, buyer: buyer }
 
   describe 'GET ::index' do
     it 'should render rating\'s index_template' do
@@ -68,5 +68,4 @@ describe RatingsController do
       end
     end
   end
-
 end

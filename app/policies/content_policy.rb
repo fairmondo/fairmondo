@@ -1,5 +1,4 @@
 class ContentPolicy < Struct.new(:user, :category)
-
   def index?
     admin?
   end
@@ -28,7 +27,7 @@ class ContentPolicy < Struct.new(:user, :category)
     admin?
   end
 
-  def not_found? #?
+  def not_found? # ?
     true
   end
 

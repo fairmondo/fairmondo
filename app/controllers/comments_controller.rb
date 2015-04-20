@@ -7,9 +7,9 @@ class CommentsController < ApplicationController
 
   respond_to :js
 
-  before_filter(only: [:index, :create, :update, :destroy]) { set_commentable(COMMENTABLES) }
-  before_filter :set_comment, only: [:update, :destroy]
-  skip_before_filter :authenticate_user!, only: [:index]
+  before_action(only: [:index, :create, :update, :destroy]) { set_commentable(COMMENTABLES) }
+  before_action :set_comment, only: [:update, :destroy]
+  skip_before_action :authenticate_user!, only: [:index]
 
   def index
     @comment = Comment.new
@@ -18,7 +18,7 @@ class CommentsController < ApplicationController
       format.js do
         if params[:comments_page]
           @comments = @comments.page(params[:comments_page])
-          render partial: "comments/index_paginated", locals: {
+          render partial: 'comments/index_paginated', locals: {
             comments: @comments,
             commentable: @commentable
           }
@@ -64,7 +64,7 @@ class CommentsController < ApplicationController
 
   private
 
-    def set_comment
-      @comment = Comment.find(params[:id])
-    end
+  def set_comment
+    @comment = Comment.find(params[:id])
+  end
 end

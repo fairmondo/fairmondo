@@ -23,12 +23,12 @@ class LineItemGroup < ActiveRecord::Base
   delegate :value, to: :rating, prefix: true
   delegate :pay_key, to: :voucher_payment, prefix: true
 
-  monetize :unified_transport_price_cents, :allow_nil => true
-  monetize :free_transport_at_price_cents, :allow_nil => true
+  monetize :unified_transport_price_cents, allow_nil: true
+  monetize :free_transport_at_price_cents, allow_nil: true
 
   auto_sanitize :message
 
-  scope :sold , -> { where(tos_accepted: true) }
+  scope :sold, -> { where(tos_accepted: true) }
 
   with_options if: :has_business_transactions? do |bt|
     bt.validates :unified_payment_method, inclusion: { in: proc { |record| record.unified_payments_selectable } }, common_sense: true, presence: true, if: :payment_can_be_unified?
@@ -36,7 +36,7 @@ class LineItemGroup < ActiveRecord::Base
     bt.validates :tos_accepted, acceptance: { allow_nil: false, accept: true }
 
     bt.validates_each :unified_transport, :unified_payment do |record, attr, value|
-      record.errors.add(attr, 'not allowed') if value && !can_be_unified_for?(record,attr)
+      record.errors.add(attr, 'not allowed') if value && !can_be_unified_for?(record, attr)
     end
     bt.validates :transport_address, :payment_address, :buyer_id, :seller_id, presence: true
     bt.validate :no_unified_transports_with_cash_on_delivery
@@ -45,7 +45,7 @@ class LineItemGroup < ActiveRecord::Base
 
   def transport_can_be_unified?
     return false unless self.seller.unified_transport_available?
-    articles_with_unified_transport_count = self.line_items.joins(:article).where("articles.unified_transport = ?", true ).count
+    articles_with_unified_transport_count = self.line_items.joins(:article).where('articles.unified_transport = ?', true).count
     @transport_can_be_unified ||= (articles_with_unified_transport_count >= 2)
   end
 
@@ -54,7 +54,7 @@ class LineItemGroup < ActiveRecord::Base
   end
 
   def unified_payments_selectable
-    @unified_payments_selectable ||= ( self.line_items.map{|l| l.article.selectable_payments}.inject(:&) || [] ) #intersection of selectable_payments
+    @unified_payments_selectable ||= (self.line_items.map { |l| l.article.selectable_payments }.inject(:&) || []) # intersection of selectable_payments
   end
 
   def unified_payment_method= value
@@ -66,7 +66,7 @@ class LineItemGroup < ActiveRecord::Base
 
   def unified_transport= value
     super
-    self.business_transactions.each{ |bt| bt.selected_transport = nil if bt.is_in_unified_transport? }
+    self.business_transactions.each { |bt| bt.selected_transport = nil if bt.is_in_unified_transport? }
   end
 
   def generate_purchase_id
@@ -80,36 +80,36 @@ class LineItemGroup < ActiveRecord::Base
   end
 
   private
-    def self.can_be_unified_for? record, type
-      if type == :unified_transport
-        record.transport_can_be_unified?
-      elsif type == :unified_payment
-        record.payment_can_be_unified?
-      end
-    end
 
-    def has_business_transactions?
-      self.business_transactions.any?
+  def self.can_be_unified_for? record, type
+    if type == :unified_transport
+      record.transport_can_be_unified?
+    elsif type == :unified_payment
+      record.payment_can_be_unified?
     end
+  end
 
-    def cash_on_delivery_with_unified_transport?
-      self.business_transactions.to_a.select { |bt| bt.article.unified_transport? && bt.selected_payment.cash_on_delivery? }.any?
+  def has_business_transactions?
+    self.business_transactions.any?
+  end
+
+  def cash_on_delivery_with_unified_transport?
+    self.business_transactions.to_a.select { |bt| bt.article.unified_transport? && bt.selected_payment.cash_on_delivery? }.any?
+  end
+
+  def bike_courier_with_unified_transport?
+    self.business_transactions.to_a.select { |bt| bt.article.unified_transport? && bt.selected_payment.cash_on_delivery? }.any?
+  end
+
+  def no_unified_transports_with_cash_on_delivery
+    if self.unified_transport? && cash_on_delivery_with_unified_transport?
+      errors.add(:unified_transport, I18n.t('transaction.errors.cash_on_delivery_with_unified_transport'))
     end
+  end
 
-    def bike_courier_with_unified_transport?
-      self.business_transactions.to_a.select { |bt| bt.article.unified_transport? && bt.selected_payment.cash_on_delivery? }.any?
+  def no_unified_transports_with_bike_courier
+    if self.unified_transport? && bike_courier_with_unified_transport?
+      errors.add(:unified_transport, I18n.t('transaction.errors.bike_courier_with_unified_transport'))
     end
-
-    def no_unified_transports_with_cash_on_delivery
-      if self.unified_transport? && cash_on_delivery_with_unified_transport?
-        errors.add(:unified_transport, I18n.t('transaction.errors.cash_on_delivery_with_unified_transport'))
-      end
-    end
-
-    def no_unified_transports_with_bike_courier
-      if self.unified_transport? && bike_courier_with_unified_transport?
-        errors.add(:unified_transport, I18n.t('transaction.errors.bike_courier_with_unified_transport'))
-      end
-    end
-
+  end
 end

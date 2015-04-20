@@ -13,7 +13,7 @@ class UserRefinery < ApplicationRefinery
 
   def update
     permitted = [
-      :current_password, #<- update specific
+      :current_password, # <- update specific
       :email, :password, :password_confirmation, :remember_me, :type,
       :nickname, :legal, :paypal_account,
       :invitor_id, :banned, :about_me, :bank_code, #:trustcommunity,
@@ -23,10 +23,9 @@ class UserRefinery < ApplicationRefinery
       :iban, :bic,
       :unified_transport_provider, :unified_transport_maximum_articles, :unified_transport_price,
       :free_transport_available, :free_transport_at_price,
-      { image_attributes: ImageRefinery.new(Image.new, user).default },
+      { image_attributes: ImageRefinery.new(Image.new, user).default }
     ]
-    permitted += [ :terms, :cancellation, :about, :cancellation_form ] if user.is_a? LegalEntity
+    permitted += [:terms, :cancellation, :about, :cancellation_form] if user.is_a? LegalEntity
     permitted
   end
-
 end

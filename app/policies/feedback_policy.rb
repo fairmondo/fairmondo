@@ -20,7 +20,6 @@
 # along with Fairmondo.  If not, see <http://www.gnu.org/licenses/>.
 #
 class FeedbackPolicy < Struct.new(:user, :feedback)
-
   def new?
     true
   end
@@ -28,5 +27,4 @@ class FeedbackPolicy < Struct.new(:user, :feedback)
   def create?
     true
   end
-
 end

@@ -24,7 +24,6 @@ module Article::Associations
   extend ActiveSupport::Concern
 
   included do
-
     has_and_belongs_to_many :categories
 
     has_many :business_transactions, inverse_of: :article
@@ -44,18 +43,17 @@ module Article::Associations
     has_many :mass_uploads, through: :mass_upload_articles
 
     belongs_to :friendly_percent_organisation,
-      class_name: 'User', foreign_key: 'friendly_percent_organisation_id'
+               class_name: 'User', foreign_key: 'friendly_percent_organisation_id'
     belongs_to :discount
 
     # images
 
-    has_many :images, class_name: "ArticleImage", foreign_key: "imageable_id", autosave: true
+    has_many :images, class_name: 'ArticleImage', foreign_key: 'imageable_id', autosave: true
     has_many :thumbnails, -> { reorder('is_title DESC, id ASC').offset(1) },
-      class_name: "ArticleImage", foreign_key: "imageable_id"
+             class_name: 'ArticleImage', foreign_key: 'imageable_id'
     has_one :title_image, -> { reorder('is_title DESC, id ASC') },
-      class_name: "ArticleImage", foreign_key: "imageable_id"
+            class_name: 'ArticleImage', foreign_key: 'imageable_id'
 
     accepts_nested_attributes_for :images, allow_destroy: true
-
   end
 end

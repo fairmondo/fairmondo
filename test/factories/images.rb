@@ -24,17 +24,17 @@ include ActionDispatch::TestProcess
 FactoryGirl.define do
   factory :image do
     image { fixture_file_upload(Rails.root.join('test', 'fixtures', 'test2.png'), 'image/png') }
-    image_content_type    "image/png"
+    image_content_type 'image/png'
     image_file_size       { Random.new.rand(1..5) }
     after(:create) { |image| image.image_processing = false }
 
-    factory :article_fixture_image, class: "ArticleImage" do
+    factory :article_fixture_image, class: 'ArticleImage' do
       image { fixture_file_upload(Rails.root.join('test', 'fixtures', 'test.png'), 'image/png') }
     end
 
-    factory :article_image, class: "ArticleImage"
+    factory :article_image, class: 'ArticleImage'
 
-    factory :user_image, class: "UserImage"
+    factory :user_image, class: 'UserImage'
 
     trait :processing do
       image_processing true # for build()
@@ -45,6 +45,5 @@ FactoryGirl.define do
       image_processing true
       after(:create) { |image| image.image.reprocess_without_delay! }
     end
-
   end
 end

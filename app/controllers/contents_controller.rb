@@ -21,8 +21,8 @@ class ContentsController < ApplicationController
   responders :flash
   respond_to :html
   respond_to :js, if: lambda { request.xhr? }
-  skip_before_filter :authenticate_user!, only: :show
-  before_filter :set_content, only: [:edit, :update, :destroy]
+  skip_before_action :authenticate_user!, only: :show
+  before_action :set_content, only: [:edit, :update, :destroy]
 
   def index
     @contents = Content.all
@@ -76,7 +76,7 @@ class ContentsController < ApplicationController
 
   private
 
-    def set_content
-      @content = Content.find(params[:id])
-    end
+  def set_content
+    @content = Content.find(params[:id])
+  end
 end

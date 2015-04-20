@@ -1,5 +1,5 @@
 
-#class LineItemGroupExporter
+# class LineItemGroupExporter
 #
 #  @@csv_options = { col_sep: ";",  encoding: 'utf-8'}
 #
@@ -81,4 +81,4 @@
 #    ]
 #  end
 #
-#end
+# end

@@ -27,7 +27,7 @@ class CartCheckoutForm
       get_seller_specifics_from session
       return valid?
     end
-    nil #for safety
+    nil # for safety
   end
 
   def process params
@@ -58,92 +58,90 @@ class CartCheckoutForm
 
   private
 
-    def build_form_objects_from params
+  def build_form_objects_from params
+    self.form_objects = []
 
-      self.form_objects = []
+    # build address if present
+    create_payment_address(params) if params[:address] && needs_new_payment_address?
 
-      # build address if present
-      create_payment_address(params) if params[:address] && needs_new_payment_address?
+    assign_transport_address(params[:transport_address_id])
 
-      assign_transport_address(params[:transport_address_id])
+    self.cart.line_item_groups.each do |group|
+      update_line_item_group group, params
+    end
+  end
 
-      self.cart.line_item_groups.each do |group|
-        update_line_item_group group, params
-      end
+  def valid?
+    invalid_objects = form_objects.select { |object| !object.valid? }
+    invalid_objects.empty?
+  end
 
+  def update_line_item_group group, params
+    # builds business_transactions
+    group.line_items.each do |item|
+      transaction_params = params[:line_items][item.id.to_s] rescue nil
+      create_business_transaction_for group, item, transaction_params
     end
 
-    def valid?
-      invalid_objects = form_objects.select{ |object| !object.valid? }
-      invalid_objects.empty?
-    end
+    # assigns attributes to line_item_groups
+    group_params = params[:line_item_groups][group.id.to_s] if params[:line_item_groups]
+    group.assign_attributes(group_params.for(group).on(:update).refine) if group_params
+    group.payment_address = self.payment_address
+    group.transport_address = self.transport_address
+    group.buyer_id = cart.user_id
+    self.form_objects << group
+  end
 
-    def update_line_item_group group, params
-      # builds business_transactions
-        group.line_items.each do |item|
-          transaction_params = params[:line_items][item.id.to_s] rescue nil
-          create_business_transaction_for group, item, transaction_params
-        end
-
-        # assigns attributes to line_item_groups
-        group_params = params[:line_item_groups][group.id.to_s] if params[:line_item_groups]
-        group.assign_attributes(group_params.for(group).on(:update).refine) if group_params
-        group.payment_address = self.payment_address
-        group.transport_address = self.transport_address
-        group.buyer_id = cart.user_id
-        self.form_objects << group
-    end
-
-    def create_business_transaction_for group, item, transaction_params
-      business_transaction = if transaction_params
-          group.business_transactions.build(transaction_params.for(BusinessTransaction).on(:create).refine)
-        else
-          group.business_transactions.build
-        end
-      item.business_transaction = business_transaction
-      business_transaction.quantity_bought = item.requested_quantity
-      business_transaction.article = item.article
-      self.form_objects << business_transaction
-    end
-
-    def create_payment_address address_params
-      self.payment_address.assign_attributes(address_params.for(Address).on(:create).refine)
-      # save this to the db if validations do not fail
-      saved = self.payment_address.save
-      self.form_objects << self.payment_address # for form logic purposes
-      # set this as the users new standard address (to discuss)
-      self.cart.user.update_attribute(:standard_address_id, self.payment_address.id) if saved
-    end
-
-    def assign_transport_address address_id
-      if address_id && address_id != "0"
-        self.transport_address = cart.user.addresses.find address_id
+  def create_business_transaction_for group, item, transaction_params
+    business_transaction =
+      if transaction_params
+        group.business_transactions.build(transaction_params.for(BusinessTransaction).on(:create).refine)
       else
-        self.transport_address = self.payment_address
+        group.business_transactions.build
       end
-    end
+    item.business_transaction = business_transaction
+    business_transaction.quantity_bought = item.requested_quantity
+    business_transaction.article = item.article
+    self.form_objects << business_transaction
+  end
 
-    def save_seller_specifics_in session
-      session[:cart_checkout][:sellers] ||= {}
-      @cart.line_item_groups.each do |group|
-        seller = group.seller
-        attributes = {}
-        [:unified_transport_maximum_articles,
-         :unified_transport_provider,
-         :unified_transport_price_cents].each do |attribute|
-            attributes[attribute] = seller.send(attribute)
-        end
-        attributes[:free_transport_at_price_cents] = seller.free_transport_at_price_cents  if seller.free_transport_available
-        session[:cart_checkout][:sellers][seller.id.to_s] = attributes
+  def create_payment_address address_params
+    self.payment_address.assign_attributes(address_params.for(Address).on(:create).refine)
+    # save this to the db if validations do not fail
+    saved = self.payment_address.save
+    self.form_objects << self.payment_address # for form logic purposes
+    # set this as the users new standard address (to discuss)
+    self.cart.user.update_attribute(:standard_address_id, self.payment_address.id) if saved
+  end
+
+  def assign_transport_address address_id
+    if address_id && address_id != '0'
+      self.transport_address = cart.user.addresses.find address_id
+    else
+      self.transport_address = self.payment_address
+    end
+  end
+
+  def save_seller_specifics_in session
+    session[:cart_checkout][:sellers] ||= {}
+    @cart.line_item_groups.each do |group|
+      seller = group.seller
+      attributes = {}
+      [:unified_transport_maximum_articles,
+       :unified_transport_provider,
+       :unified_transport_price_cents].each do |attribute|
+        attributes[attribute] = seller.send(attribute)
       end
+      attributes[:free_transport_at_price_cents] = seller.free_transport_at_price_cents  if seller.free_transport_available
+      session[:cart_checkout][:sellers][seller.id.to_s] = attributes
     end
+  end
 
-    def get_seller_specifics_from session
-      @cart.line_item_groups.each do |group|
-        seller = group.seller
-        checkout_session_params = ActionController::Parameters.new(session[:cart_checkout][:sellers][seller.id.to_s])
-        group.assign_attributes(checkout_session_params.for(group).on(:checkout_session).refine)
-      end
+  def get_seller_specifics_from session
+    @cart.line_item_groups.each do |group|
+      seller = group.seller
+      checkout_session_params = ActionController::Parameters.new(session[:cart_checkout][:sellers][seller.id.to_s])
+      group.assign_attributes(checkout_session_params.for(group).on(:checkout_session).refine)
     end
-
+  end
 end

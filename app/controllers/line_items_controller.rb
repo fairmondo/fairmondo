@@ -24,8 +24,8 @@ class LineItemsController < ApplicationController
   respond_to :json, only: [:create]
   responders :location
 
-  skip_before_filter :authenticate_user!, only: [:create, :update, :destroy]
-  before_filter :quantity_zero_means_destroy, only: [:update]
+  skip_before_action :authenticate_user!, only: [:create, :update, :destroy]
+  before_action :quantity_zero_means_destroy, only: [:update]
 
   def create
     @line_item = LineItem.find_or_new params.for(LineItem).refine, find_or_create_cart.id
@@ -66,31 +66,32 @@ class LineItemsController < ApplicationController
   end
 
   private
-    def find_or_create_cart
-      @cart = Cart.find(cookies.signed[:cart]) rescue Cart.current_or_new_for(current_user) # find cart from cookie or get one
-      refresh_cookie @cart # set cookie anew
-      @cart
-    end
 
-    def find_and_authorize_line_item
-      @line_item = LineItem.lock(true).find(params[:id])
-      @line_item.cart_cookie = cookies.signed[:cart]
-      authorize @line_item
-    end
+  def find_or_create_cart
+    @cart = Cart.find(cookies.signed[:cart]) rescue Cart.current_or_new_for(current_user) # find cart from cookie or get one
+    refresh_cookie @cart # set cookie anew
+    @cart
+  end
 
-    def set_cart
-      @cart = Cart.find(cookies.signed[:cart])
-      refresh_cookie @cart
-    end
+  def find_and_authorize_line_item
+    @line_item = LineItem.lock(true).find(params[:id])
+    @line_item.cart_cookie = cookies.signed[:cart]
+    authorize @line_item
+  end
 
-    def refresh_cookie cart
-      cookies.signed[:cart] = { value: cart.id, expires: 30.days.from_now }
-    end
+  def set_cart
+    @cart = Cart.find(cookies.signed[:cart])
+    refresh_cookie @cart
+  end
 
-    # called before update
-    def quantity_zero_means_destroy
-      if params[:line_item] && params[:line_item][:requested_quantity] == '0'
-        destroy
-      end
+  def refresh_cookie cart
+    cookies.signed[:cart] = { value: cart.id, expires: 30.days.from_now }
+  end
+
+  # called before update
+  def quantity_zero_means_destroy
+    if params[:line_item] && params[:line_item][:requested_quantity] == '0'
+      destroy
     end
+  end
 end

@@ -6,11 +6,11 @@ class TermsAndCancellationPdf < Prawn::Document
   end
 
   def body
-    text I18n.t("users.print.terms", name: @lig.seller.fullname), align: :center, size: 18
+    text I18n.t('users.print.terms', name: @lig.seller.fullname), align: :center, size: 18
     move_down 12
     text(HtmlToText.convert(@lig.seller.terms))
     start_new_page
-    text I18n.t("users.print.cancellation", name: @lig.seller.fullname), align: :center, size: 18
+    text I18n.t('users.print.cancellation', name: @lig.seller.fullname), align: :center, size: 18
     move_down 12
     text(HtmlToText.convert(@lig.seller.cancellation))
   end

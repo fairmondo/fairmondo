@@ -28,19 +28,19 @@ describe PaymentPolicy do
   let(:lig) { payment.line_item_group }
   let(:payment) { FactoryGirl.create(:payment) }
 
-  describe "for a visitor" do
+  describe 'for a visitor' do
     let(:user) { nil }
     it { subject.must_deny(:show)   }
     it { subject.must_deny(:create) }
   end
 
-  describe "for a random logged-in user" do
+  describe 'for a random logged-in user' do
     let(:user) { FactoryGirl.create :user }
     it { subject.must_deny(:show)         }
     it { subject.must_deny(:create)       }
   end
 
-  describe "for the buying user" do
+  describe 'for the buying user' do
     let(:user) { payment.line_item_group_buyer }
     it { subject.must_permit(:show)        }
     it { subject.must_permit(:create)      }

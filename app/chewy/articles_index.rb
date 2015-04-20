@@ -1,11 +1,11 @@
 class ArticlesIndex < Chewy::Index
-  settings({
+  settings(
     index: {
       store: { type: Rails.env.test? ? :memory : :niofs }
     },
     analysis: {
       filter: {
-        german_decompound:{
+        german_decompound: {
           type: 'decompound'
         },
         german_stemming: {
@@ -15,31 +15,25 @@ class ArticlesIndex < Chewy::Index
         german_stop: {
           type: 'stop',
           stopwords: '_german_'
-        },
+        }
       },
       analyzer: {
         german_analyzer: {
-          type: "custom",
-          tokenizer: "hyphen",
-          filter: [
-                  'lowercase',
-                  'german_stop',
-                  'german_normalization',
-                  'german_decompound',
-                  'german_stemming',
-                  ]
+          type: 'custom',
+          tokenizer: 'hyphen',
+          filter: %w(lowercase german_stop german_normalization german_decompound german_stemming)
         }
       }
     }
-  })
+  )
 
   define_type Article.active.includes(:seller, :title_image, :categories), delete_if: ->(article) { article.sold? || article.closed? } do
     root _source: { excludes: ['content'] } do
       field :id, index: :not_analyzed
-      field :title, type: 'string', analyzer: "german_analyzer"
-      field :title_completion, value: -> { title || "" }, type: 'completion'
+      field :title, type: 'string', analyzer: 'german_analyzer'
+      field :title_completion, value: -> { title || '' }, type: 'completion'
 
-      field :content,  analyzer: "german_analyzer"
+      field :content,  analyzer: 'german_analyzer'
       field :gtin,  index: :not_analyzed
 
       # filters
@@ -50,9 +44,9 @@ class ArticlesIndex < Chewy::Index
       field :swappable, type: 'boolean'
       field :borrowable, type: 'boolean'
       field :condition, index: :not_analyzed
-      field :categories, index: :not_analyzed, value: -> {
-        categories.map{ |c| c.self_and_ancestors.map(&:id) }.flatten
-      }
+      field :categories, index: :not_analyzed, value: -> do
+        categories.map { |c| c.self_and_ancestors.map(&:id) }.flatten
+      end
 
       # sorting
       field :created_at, type: 'date'
@@ -72,14 +66,14 @@ class ArticlesIndex < Chewy::Index
 
       field :transport_pickup, type: 'boolean'
       field :transport_bike_courier, type: 'boolean'
-      field :zip, value: -> {
+      field :zip, value: -> do
         if self.transport_pickup || self.seller.is_a?(LegalEntity)
           self.seller.standard_address_zip
         end
-      }
+      end
 
       # seller attributes
-      field :belongs_to_legal_entity? , type: 'boolean'
+      field :belongs_to_legal_entity?, type: 'boolean'
       field :seller_ngo, type: 'boolean'
       field :seller_nickname, index: :not_analyzed
       field :seller_id, index: :not_analyzed

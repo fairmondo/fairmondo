@@ -1,6 +1,6 @@
 class RemoteValidationsController < ApplicationController
   layout false
-  skip_before_filter :authenticate_user!
+  skip_before_action :authenticate_user!
 
   def create
     @validator = RemoteValidation.new params[:model], params[:field], params[:value], additional_params # don't get saved to database, don't need permit, handle request permissions themselves
@@ -8,7 +8,8 @@ class RemoteValidationsController < ApplicationController
   end
 
   private
-    def additional_params
-      params.except :model, :field, :value, :controller, :action, :format
-    end
+
+  def additional_params
+    params.except :model, :field, :value, :controller, :action, :format
+  end
 end

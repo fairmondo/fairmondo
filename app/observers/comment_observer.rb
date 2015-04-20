@@ -29,7 +29,7 @@ class CommentObserver < ActiveRecord::Observer
 
   private
 
-    def receives_notifications?(user)
-      user.receive_comments_notification
-    end
+  def receives_notifications?(user)
+    user.receive_comments_notification
+  end
 end

@@ -20,7 +20,6 @@
 # along with Fairmondo.  If not, see <http://www.gnu.org/licenses/>.
 #
 class LibraryElementPolicy < Struct.new(:user, :library_element)
-
   def show?
     active?
   end
@@ -34,11 +33,12 @@ class LibraryElementPolicy < Struct.new(:user, :library_element)
   end
 
   private
-    def own?
-      user && user.id == library_element.library_user_id
-    end
 
-    def active?
-      library_element.article_reduced && library_element.article_reduced.active?
-    end
+  def own?
+    user && user.id == library_element.library_user_id
+  end
+
+  def active?
+    library_element.article_reduced && library_element.article_reduced.active?
+  end
 end

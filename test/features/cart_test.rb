@@ -2,7 +2,7 @@ require_relative '../test_helper'
 
 include Warden::Test::Helpers
 
-def expect_cart_emails arg= :once
+def expect_cart_emails arg = :once
   Mail::Message.any_instance.stubs(:deliver)
   CartMailer.expects(:seller_email).returns(Mail::Message.new).send arg
   CartMailer.expects(:buyer_email).returns(Mail::Message.new)
@@ -18,7 +18,6 @@ feature 'Empty cart' do
 end
 
 feature 'Adding an Article to the cart' do
-
   scenario 'anonymous user adds article to his cart' do
     article = FactoryGirl.create(:article, title: 'foobar')
     visit article_path(article)
@@ -80,7 +79,6 @@ feature 'Adding an Article to the cart' do
     page.wont_have_content I18n.t('common.actions.to_cart')
     Cart.last.line_items.count.must_equal 1
     Cart.last.line_items.first.requested_quantity.must_equal 1
-
   end
 
   scenario 'logged-in user adds article that is available in quantity >= 2 twice to to his cart' do
@@ -107,7 +105,6 @@ feature 'Adding an Article to the cart' do
     Cart.last.line_items.count.must_equal 1
     Cart.last.line_items.first.requested_quantity.must_equal 1
   end
-
 end
 
 feature 'updating quantity of the cart' do
@@ -119,11 +116,11 @@ feature 'updating quantity of the cart' do
     page.html.must_include I18n.t('line_item.notices.success_create', href: '/carts/1').html_safe
     click_link(I18n.t('header.cart.title', count: 1), match: :first)
 
-    #within('.change_quantity') do
+    # within('.change_quantity') do
     #  fill_in 'line_item_requested_quantity', with: 10
     #  find('button.Button').click
-    #end
-    #Cart.last.line_items.first.requested_quantity.must_equal 10
+    # end
+    # Cart.last.line_items.first.requested_quantity.must_equal 10
   end
 end
 
@@ -154,7 +151,7 @@ feature 'Checkout' do
     # checkout
 
     expect_cart_emails
-    FastbillAPI.expects(:fastbill_chain)
+    FastbillAPI.any_instance.expects(:fastbill_chain)
 
     find('input.checkout_button').click
     # No donation display, because private seller:
@@ -163,13 +160,12 @@ feature 'Checkout' do
     visit line_item_group_path(LineItemGroup.last)
     page.find('.Payment-value--total').must_have_content(
       article.price + article.transport_type1_price)
-    visit line_item_group_path(LineItemGroup.last, tab: "transports")
+    visit line_item_group_path(LineItemGroup.last, tab: 'transports')
     page.must_have_selector('.transport_table')
-    visit line_item_group_path(LineItemGroup.last, tab: "rating")
+    visit line_item_group_path(LineItemGroup.last, tab: 'rating')
   end
 
   scenario 'User selects cash as unified_payment and does not select pickup and changes it to pickup in the end' do
-
     seller = FactoryGirl.create :legal_entity, :paypal_data
     articles = [FactoryGirl.create(:article, :with_all_payments, :with_all_transports, seller: seller, unified_transport: false)]
     articles << FactoryGirl.create(:article, :with_all_payments, :with_all_transports, seller: seller, unified_transport: false)
@@ -189,14 +185,12 @@ feature 'Checkout' do
     page.find('select#cart_checkout_form_line_item_groups_1_unified_payment_method').find("option[value='cash']").select_option
     page.find('select#cart_checkout_form_line_item_groups_1_unified_payment_method').find("option[value='cash']").select_option
 
-
-
     click_button I18n.t('common.actions.continue')
 
     # Step 1 correct errors
 
     page.must_have_content I18n.t 'transaction.errors.combination_invalid',
-            selected_payment: I18n.t("enumerize.business_transaction.selected_payment.cash")
+                                  selected_payment: I18n.t('enumerize.business_transaction.selected_payment.cash')
 
     page.find('select#cart_checkout_form_line_items_1_business_transaction_selected_transport').find("option[value='pickup']").select_option
     page.find('select#cart_checkout_form_line_items_2_business_transaction_selected_transport').find("option[value='pickup']").select_option
@@ -213,14 +207,10 @@ feature 'Checkout' do
     find('input.checkout_button').click
 
     Cart.last.sold?.must_equal true
-
   end
-
-
 
   scenario 'Buying a cart with one item and free transport and change the
             shipping address' do
-
     seller = FactoryGirl.create :legal_entity, :with_free_transport_at_5
 
     article = FactoryGirl.create(:article, title: 'foobar',
@@ -255,12 +245,9 @@ feature 'Checkout' do
       'Mit Deinen Einkäufen hast Du Fairmondo bisher eine Spende von 0,06 Euro')
     Cart.last.sold?.must_equal true
     Cart.last.line_item_groups.first.transport_address.must_equal transport_address
-
   end
 
-
   scenario 'Buying a cart with items from different users' do
-
     unified_seller = FactoryGirl.create :legal_entity, :with_unified_transport_information, :paypal_data
     articles = [FactoryGirl.create(:article, :with_all_payments, :with_all_transports, title: 'unified1', seller: unified_seller),
                 FactoryGirl.create(:article, :with_all_payments, :with_all_transports, title: 'unified2', seller: unified_seller),
@@ -294,7 +281,7 @@ feature 'Checkout' do
     page.check('cart_checkout_form_line_item_groups_2_tos_accepted')
 
     (4..5).each do |num|
-      page.find("select#cart_checkout_form_line_items_#{ num }_business_transaction_selected_transport").find("option[value=type1]").select_option
+      page.find("select#cart_checkout_form_line_items_#{ num }_business_transaction_selected_transport").find('option[value=type1]').select_option
     end
 
     # Step 2
@@ -304,26 +291,23 @@ feature 'Checkout' do
 
     totals_expected =
       [articles[0..2].map(&:price).sum + unified_seller.unified_transport_price + articles[2].transport_type1_price,
-      articles[3..4].map(&:price).sum + articles[3..4].map(&:transport_type1_price).sum].map{|t| t.format_with_settings(symbol_position: :after)}.sort
+       articles[3..4].map(&:price).sum + articles[3..4].map(&:transport_type1_price).sum].map { |t| t.format_with_settings(symbol_position: :after) }.sort
 
     totals.map(&:text).sort.each_with_index do |total, i|
       total.must_equal totals_expected[i]
     end
-
 
     # checkout
 
     expect_cart_emails :twice
     find('input.checkout_button').click
     buyer.carts.last.sold?.must_equal true
-
   end
 
   scenario 'Trying to buy a cart with unified transport and cash on delivery and dont check agb. Afterwards try to resume with single transports' do
-
     seller = FactoryGirl.create :legal_entity, :with_unified_transport_information, :paypal_data
-    articles = [FactoryGirl.create(:article, :with_all_payments, :with_all_transports, title: 'foobar', seller: seller )]
-    articles << FactoryGirl.create(:article, :with_all_payments, :with_all_transports, title: 'foobar2', seller: seller )
+    articles = [FactoryGirl.create(:article, :with_all_payments, :with_all_transports, title: 'foobar', seller: seller)]
+    articles << FactoryGirl.create(:article, :with_all_payments, :with_all_transports, title: 'foobar2', seller: seller)
 
     login_as FactoryGirl.create(:user)
     articles.each do |article|
@@ -356,11 +340,9 @@ feature 'Checkout' do
     expect_cart_emails
     find('input.checkout_button').click
     Cart.last.sold?.must_equal true
-
   end
 
   scenario 'Buying a cart with one item that is already deactivated by the time he buys it' do
-
     article = FactoryGirl.create(:article, title: 'foobar')
     login_as FactoryGirl.create(:user)
     visit article_path(article)
@@ -388,7 +370,6 @@ feature 'Checkout' do
   end
 
   scenario 'Buying a cart with one item that is already bought by the time he buys it' do
-
     article = FactoryGirl.create(:article, title: 'foobar')
     login_as FactoryGirl.create(:user)
     visit article_path(article)
@@ -407,7 +388,6 @@ feature 'Checkout' do
 
     click_button I18n.t('common.actions.continue')
 
-
     # checkout
     article.update_attribute(:quantity_available, 0)
 
@@ -417,7 +397,6 @@ feature 'Checkout' do
   end
 
   scenario 'Buying a cart with an invalid line item' do
-
     article = FactoryGirl.create(:article, title: 'foobar')
     login_as FactoryGirl.create(:user)
     visit article_path(article)
@@ -428,7 +407,6 @@ feature 'Checkout' do
   end
 
   scenario 'Buying a cart with an incomplete user and adding address during checkout' do
-
     article = FactoryGirl.create(:article, title: 'foobar')
     login_as FactoryGirl.create(:incomplete_user)
     visit article_path(article)

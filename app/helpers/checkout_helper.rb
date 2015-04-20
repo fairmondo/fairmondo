@@ -20,13 +20,12 @@
 # along with Fairmondo.  If not, see <http://www.gnu.org/licenses/>.
 #
 module CheckoutHelper
-
   def unified_transport_label_for group, price
     I18n.t('cart.texts.unified_transport', provider: group.seller.unified_transport_provider, price: money(price))
   end
 
   def checkout_options_for_payment selectables
-    selectables.map{ |payment| [ I18n.t("enumerize.business_transaction.selected_payment.#{payment.to_s}"),payment] }
+    selectables.map { |payment| [I18n.t("enumerize.business_transaction.selected_payment.#{payment}"), payment] }
   end
 
   def checkout_options_for_single_transport line_item, preview
@@ -39,7 +38,7 @@ module CheckoutHelper
     transports
   end
 
-  def unified_transport_first a,b
+  def unified_transport_first a, b
     a_value = a.article.unified_transport
     b_value = b.article.unified_transport
     if a_value == b_value
@@ -57,7 +56,6 @@ module CheckoutHelper
     I18n.t('cart.texts.terms_and_cancellation_label', terms: terms_link, cancellation: cancellation_link).html_safe
   end
 
-
   def line_item_group_title group
     t('cart.texts.line_item_group_by', seller: link_to(group.seller_nickname, user_path(group.seller))).html_safe
   end
@@ -66,10 +64,10 @@ module CheckoutHelper
     render 'carts/checkout/visual_steps', step: step, cart: cart
   end
 
-  def visual_checkout_step step, active, checked, link=nil
-    step_title = I18n.t("cart.steps.#{step.to_s}")
+  def visual_checkout_step step, active, checked, link = nil
+    step_title = I18n.t("cart.steps.#{step}")
     content_tag :span, class: "visual_checkout_step #{active ? 'active' : ''}" do
-      concat(content_tag(:i,'', class: (checked ? 'fa fa-check-square-o' : 'fa fa-square-o')))
+      concat(content_tag(:i, '', class: (checked ? 'fa fa-check-square-o' : 'fa fa-square-o')))
       concat(' ')
       concat(link ? link_to(step_title, link) : step_title)
     end
@@ -78,7 +76,6 @@ module CheckoutHelper
   # Show valid range of shipping times for courier_service
   #
   def courier_time_for line_item
-    seller = line_item.article_seller
+    line_item.article_seller
   end
-
 end

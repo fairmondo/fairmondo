@@ -20,11 +20,10 @@
 # along with Fairmondo.  If not, see <http://www.gnu.org/licenses/>.
 #
 class Image < ActiveRecord::Base
-
   include ::Assets::Normalizer
 
   def self.reprocess image_id, style = :thumb
-    image = Image.find(image_id).image.reprocess! style
+    Image.find(image_id).image.reprocess! style
   end
 
   def write_path_to_file_for(type)
@@ -41,5 +40,4 @@ class Image < ActiveRecord::Base
     end
     true
   end
-
 end

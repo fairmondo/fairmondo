@@ -23,8 +23,8 @@ class ArticleTemplatesController < ApplicationController
   respond_to :html
   responders :location, :flash
 
-  before_filter -> { render_css_from_controller('articles') }, except: [:destroy]
-  before_filter :set_article_template, only: [:edit, :update, :destroy]
+  before_action -> { render_css_from_controller('articles') }, except: [:destroy]
+  before_action :set_article_template, only: [:edit, :update, :destroy]
 
   def new
     @article_template = current_user.articles.build
@@ -59,18 +59,18 @@ class ArticleTemplatesController < ApplicationController
 
   private
 
-    def set_article_template
-      @article_template = Article.unscoped.find(params[:id])
-    end
+  def set_article_template
+    @article_template = Article.unscoped.find(params[:id])
+  end
 
-    def collection_url
-      user_path(current_user, :anchor => "my_article_templates")
-    end
+  def collection_url
+    user_path(current_user, anchor: 'my_article_templates')
+  end
 
-    def save_images
-      #At least try to save the images -> not persisted in browser
-      @article_template.images.each do |image|
-        image.save
-      end
+  def save_images
+    # At least try to save the images -> not persisted in browser
+    @article_template.images.each do |image|
+      image.save
     end
+  end
 end

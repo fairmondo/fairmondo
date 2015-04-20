@@ -40,7 +40,6 @@ class UserObserver < ActiveRecord::Observer
     CleverreachAPI.add(user) if user.newsletter?
   end
 
-
   private
 
   def update_fastbill_account_for user
@@ -71,7 +70,7 @@ class UserObserver < ActiveRecord::Observer
     define_method("check_#{bank_ref}_and_#{account_ref}") do |id, account_number, bank_number|
       begin
         user = User.find(id)
-        user.update_column( :bankaccount_warning, !KontoAPI::valid?( bank_ref => bank_number, account_ref => account_number ) )
+        user.update_column(:bankaccount_warning, !KontoAPI.valid?(bank_ref => bank_number, account_ref => account_number))
       rescue
       end
     end

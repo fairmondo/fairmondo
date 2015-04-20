@@ -31,11 +31,11 @@ module Article::Checks
   end
 
   def is_conventional?
-    condition == "new" && !fair && !small_and_precious && !ecologic
+    condition == 'new' && !fair && !small_and_precious && !ecologic
   end
 
   def save_as_template?
-    save_as_template == "1"
+    save_as_template == '1'
   end
 
   def should_get_a_slug?
@@ -66,8 +66,8 @@ module Article::Checks
 
   # should the fair alternative be shown for the seller
   def show_fair_alternative_for_seller?
-    if $exceptions_on_fairmondo['no_fair_alternative'] && $exceptions_on_fairmondo['no_fair_alternative']['user_ids']
-        $exceptions_on_fairmondo['no_fair_alternative']['user_ids'].each do |user_id|
+    if EXCEPTIONS_ON_FAIRMONDO['no_fair_alternative'] && EXCEPTIONS_ON_FAIRMONDO['no_fair_alternative']['user_ids']
+      EXCEPTIONS_ON_FAIRMONDO['no_fair_alternative']['user_ids'].each do |user_id|
         if self.seller.id == user_id
           return false
         end
@@ -75,5 +75,4 @@ module Article::Checks
     end
     true
   end
-
 end

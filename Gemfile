@@ -9,38 +9,38 @@ gem 'activerecord-session_store' # sessions in activerecord
 platforms :ruby do
   gem 'sqlite3', group: :test # sqlite3 for inmemory testing db
   gem 'therubyracer' # js runtime
-  gem 'pg', group: [:production,:staging,:development] # postgres
+  gem 'pg', group: [:production, :staging, :development] # postgres
 end
 
 # ----------  Model ----------
 
-gem "paperclip", "4.2.0" # image uploads ### LOCKED Paperclip at version 4.2.0 until #1706 (https://github.com/thoughtbot/paperclip/issues/1706) is fixed
+gem 'paperclip', '4.2.0' # image uploads ### LOCKED Paperclip at version 4.2.0 until #1706 (https://github.com/thoughtbot/paperclip/issues/1706) is fixed
 gem 'money-rails', '> 0.12.0' # dealing with money in activerecord
 gem 'monetize' # parsing money
 gem 'enumerize', '>= 0.5.1' # enums as symbols in ar
 gem 'state_machine' # State Machines in Rails
 gem 'amoeba'
 gem 'sanitize' # Parser based sanitization
-gem 'awesome_nested_set' , ">= 3.0.0.rc.4"# tree structure for categories
-gem "friendly_id", ">= 4.0.9" # Friendly_id for beautiful links
+gem 'awesome_nested_set', '>= 3.0.0.rc.4' # tree structure for categories
+gem 'friendly_id', '>= 4.0.9' # Friendly_id for beautiful links
 
 # pseudo models
 gem 'active_data'
 
 ## Indexing /Searching
-gem "chewy"
+gem 'chewy'
 # ---------- View ----------
 
 gem 'slim-rails', '>= 2.1.5'
 gem 'jbuilder'
 
 ## CSS
-gem 'susy' ,'~> 2.1.1' # Grid framework is susy
-gem 'sass-rails', "~> 5.0.0"
-gem 'bourbon' , "<= 4.0.2" # easy ccs3
-gem "font-awesome-rails", '>= 4.2.0.0'
+gem 'susy', '~> 2.1.1' # Grid framework is susy
+gem 'sass-rails', '~> 5.0.0'
+gem 'bourbon', '<= 4.0.2' # easy ccs3
+gem 'font-awesome-rails', '>= 4.2.0.0'
 gem 'sprite-factory'
-gem 'chunky_png' #needed for sprite-factory
+gem 'chunky_png' # needed for sprite-factory
 gem 'sprockets'
 
 ## JS
@@ -61,8 +61,8 @@ gem 'hogan_assets'
 
 ## Forms
 
-gem 'formtastic', "~> 2.3.0.rc3"
-gem "recaptcha", :require => "recaptcha/rails" #Captcha Gem
+gem 'formtastic', '~> 2.3.0.rc3'
+gem 'recaptcha', require: 'recaptcha/rails' # Captcha Gem
 
 # ---------- Controller ----------
 
@@ -80,9 +80,9 @@ gem 'premailer-rails' # creates emails with inline css from html files with exte
 # ---------- Background Processing ----------
 
 gem 'sidekiq', '>= 3.2.5'
-gem 'sinatra', '>= 1.3.0', :require => nil
+gem 'sinatra', '>= 1.3.0', require: nil
 gem 'delayed_paperclip' # handle image processing with sidekiq
-gem 'bluepill' #legacy, remove when eye stable
+gem 'bluepill' # legacy, remove when eye stable
 gem 'eye' # sidekiq process monitoring
 gem 'sidetiq' # process scheduling
 
@@ -101,7 +101,7 @@ gem 'nokogiri'
 gem 'prawn_rails' # pdf generation
 
 # ---------- Monitoring ----------
-gem 'newrelic_rpm',  group: [:production,:staging]
+gem 'newrelic_rpm',  group: [:production, :staging]
 gem 'rack-mini-profiler'
 gem 'lograge'
 
@@ -119,8 +119,6 @@ gem 'paypal_adaptive'
 # ---------- Development ----------
 
 group :development do
-  gem 'spring' # faster rails start
-
   # Better error messages
   gem 'better_errors'
   gem 'binding_of_caller'
@@ -130,16 +128,20 @@ group :development do
   # debugging in chrome with RailsPanel
   gem 'meta_request'
 
-  # HAML Conversion tools
-  #gem "erb2haml" see html2haml
-  #gem "html2haml" need to wait for new release 2.0.0 is still in beta if you need it
-
   # Quiet Assets to disable asset pipeline in log
   gem 'quiet_assets'
 
   # er diagramm generation
-  gem "rails-erd"
+  gem 'rails-erd'
   gem 'thin' # Replace Webrick
+
+  # Guard
+  gem 'guard'
+  gem 'guard-ctags-bundler'
+  gem 'rb-readline'
+  gem 'guard-minitest'
+  gem 'guard-rubocop'
+  gem 'guard-livereload', '~> 2.4', require: false
 end
 
 group :test do
@@ -147,13 +149,13 @@ group :test do
   gem 'rake'
   gem 'database_cleaner'
   gem 'colorize'
-  gem "fakeredis"
-  gem "fakeweb", "~> 1.3"
+  gem 'fakeredis'
+  gem 'fakeweb', '~> 1.3'
 end
 
 group :development, :test do
-  gem "parallel_tests"
-  gem "pry-rescue"
+  gem 'parallel_tests'
+  gem 'pry-rescue'
   gem 'pry-rails' # pry is awsome
   gem 'hirb' # hirb makes pry output even more awesome
   gem 'pry-byebug' # kickass debugging
@@ -174,26 +176,25 @@ group :development, :test do
   gem 'mocha'
 
   # Gem for testing emails
-  gem "email_spec"
+  gem 'email_spec'
 
   # Code Coverage
   gem 'simplecov'
-  gem 'simplecov-json', :require => false
+  gem 'simplecov-json', require: false
   gem 'coveralls', require: false
-  # Mutation Coverage
-  # gem 'mutant-rails' ... check back to see if they got it working: https://github.com/mockdeep/mutant-rails
 
   # test suite additions
-  gem "rails_best_practices"
-  gem 'brakeman', github: "presidentbeef/brakeman"  # security test: execute with 'brakeman' locked because of slim https://github.com/presidentbeef/brakeman/pull/602/files
+  gem 'rails_best_practices'
+  gem 'brakeman', github: 'presidentbeef/brakeman'  # security test: execute with 'brakeman' locked because of slim https://github.com/presidentbeef/brakeman/pull/602/files
   gem 'rubocop' # style enforcement
 
   gem 'bullet' # Notify about n+1 queries
 end
 
-group :development,:test,:staging do
+group :development, :test, :staging do
   gem 'factory_girl_rails'
   gem 'ffaker'
+
   # styleguides
   gem 'nkss-rails', github: 'nadarei/nkss-rails'
 end

@@ -2,15 +2,15 @@ require_relative '../test_helper'
 
 describe LineItemGroup do
   let(:line_item_group) { FactoryGirl.create(:line_item_group) }
-  let(:id) {1}
+  let(:id) { 1 }
 
   subject { LineItemGroup.new }
 
-  it "has a valid Factory" do
+  it 'has a valid Factory' do
     line_item_group.must_be :valid?
   end
 
-  describe "attributes" do
+  describe 'attributes' do
     it { subject.must_respond_to :id }
     it { subject.must_respond_to :seller_id }
     it { subject.must_respond_to :buyer_id }
@@ -36,5 +36,4 @@ describe LineItemGroup do
       end
     end
   end
-
 end

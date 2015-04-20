@@ -1,5 +1,4 @@
 class Payment < ActiveRecord::Base
-
   has_many :business_transactions, through: :line_item_group # +multiple bt can have one payment, if unified
   belongs_to :line_item_group, inverse_of: :payments
   # # all bts will have the same line_item_group, so it's actually has_one, but rails doesn't understand that
@@ -13,16 +12,15 @@ class Payment < ActiveRecord::Base
   validates :line_item_group_id, uniqueness: true, on: :create
 
   state_machine initial: :pending do
-
     state :pending, :initialized, :errored, :succeeded, :confirmed
 
     event :init do
-      transition :pending => :initialized, if: :initialize_payment
-      transition :pending => :errored
+      transition pending: :initialized, if: :initialize_payment
+      transition pending: :errored
     end
 
     event :success do
-      transition :initialized => :succeeded
+      transition initialized: :succeeded
     end
 
     event :confirm do
@@ -54,8 +52,9 @@ class Payment < ActiveRecord::Base
   end
 
   protected
-    # called within init
-    def initialize_payment
-      true
-    end
+
+  # called within init
+  def initialize_payment
+    true
+  end
 end

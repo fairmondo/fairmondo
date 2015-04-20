@@ -54,16 +54,14 @@ class BusinessTransaction < ActiveRecord::Base
            :zip, :city, :country, to: :payment_address, prefix: true
   delegate :email, :fullname, :nickname, :phone, :mobile, :address,
            :bank_account_owner, :bank_account_number, :bank_code, :bank_name,
-           :about, :terms, :cancellation, :paypal_account,:ngo, :iban, :bic,
+           :about, :terms, :cancellation, :paypal_account, :ngo, :iban, :bic,
            :vacationing?, :cancellation_form,
            to: :article_seller, prefix: true
   delegate :url, to: :article_seller_cancellation_form, prefix: true
   delegate :payment_address, :transport_address, :purchase_id, :cart_id, to: :line_item_group
-  #delegate :buyer, :seller, to: :line_item_group
+  # delegate :buyer, :seller, to: :line_item_group
 
-
-
-  validates :selected_transport, inclusion: { in: proc { |record| record.article.selectable_transports } }, presence: true , unless: :is_in_unified_transport?
+  validates :selected_transport, inclusion: { in: proc { |record| record.article.selectable_transports } }, presence: true, unless: :is_in_unified_transport?
   validates :selected_payment, inclusion: { in: proc { |record| record.article.selectable_payments } }, common_sense: true, presence: true
 
   validates :line_item_group, presence: true
@@ -78,16 +76,15 @@ class BusinessTransaction < ActiveRecord::Base
 
     # custom validations
     bt.validate :transport_address_in_area?
-    #bt.validate :right_time_frame_for_bike_courier?
+    # bt.validate :right_time_frame_for_bike_courier?
   end
 
   state_machine initial: :sold do
-
     state :sold, :paid, :ready, :sent, :completed do
     end
 
     event :pay do
-      transition :sold => :paid
+      transition sold: :paid
     end
 
     event :prepare do
@@ -99,24 +96,22 @@ class BusinessTransaction < ActiveRecord::Base
     end
 
     event :receive do
-      transition :sent => :completed
+      transition sent: :completed
     end
   end
 
-
-  # TODO Check if there is a better way -> only used in export model
   def selected_transport_provider
-    if self.selected_transport == "pickup"
-      "pickup"
-    elsif self.selected_transport == "bike_courier"
-      "bike_courier"
-    elsif self.selected_transport == "type1"
-      self.article.transport_type1_provider
-    elsif self.selected_transport == "type2"
-      self.article.transport_type2_provider
+    case selected_transport
+    when 'pickup'
+      'pickup'
+    when 'bike_courier'
+      'bike_courier'
+    when 'type1'
+      article.transport_type1_provider
+    when 'type2'
+      article.transport_type2_provider
     end
   end
-
 
   def is_in_unified_transport?
     article.unified_transport? && line_item_group.unified_transport?
@@ -124,6 +119,22 @@ class BusinessTransaction < ActiveRecord::Base
 
   def refunded?
     refunded_fee && refunded_fair
+  end
+
+  def billed_for_refund_fair=(value)
+    self.refunded_fair = value
+  end
+
+  def billed_for_refund_fee=(value)
+    self.refunded_fee = value
+  end
+
+  def billed_for_refund_fair
+    refunded_fair
+  end
+
+  def billed_for_refund_fee
+    refunded_fee
   end
 
   def bike_courier_selected?
@@ -145,22 +156,22 @@ class BusinessTransaction < ActiveRecord::Base
 
   private
 
-    # Custom conditions for validations
-    #
-    def transport_address_in_area?
-      unless $courier['zip'].split(' ').include?(self.transport_address_zip)
-        errors.add(
-          :selected_transport,
-          I18n.t('transaction.errors.transport_address_not_in_area')
-        )
-      end
+  # Custom conditions for validations
+  #
+  def transport_address_in_area?
+    unless COURIER['zip'].split(' ').include?(self.transport_address_zip)
+      errors.add(
+        :selected_transport,
+        I18n.t('transaction.errors.transport_address_not_in_area')
+      )
     end
+  end
 
-    def right_time_frame_for_bike_courier?
-      unless self.seller.pickup_time.include? self.bike_courier_time
-        errors.add(
-          :bike_courier_time, I18n.t('transaction.errors.wrong_time_frame')
-        )
-      end
+  def right_time_frame_for_bike_courier?
+    unless self.seller.pickup_time.include? self.bike_courier_time
+      errors.add(
+        :bike_courier_time, I18n.t('transaction.errors.wrong_time_frame')
+      )
     end
+  end
 end

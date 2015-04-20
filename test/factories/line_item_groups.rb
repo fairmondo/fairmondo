@@ -1,12 +1,11 @@
 # Read about factories at https://github.com/thoughtbot/factory_girl
 
-
 FactoryGirl.define do
   factory :line_item_group do
     cart
     seller
     buyer
-    message "MyText"
+    message 'MyText'
     tos_accepted false
     transport_address { buyer.standard_address }
     payment_address { FactoryGirl.create :address, user_id: buyer.id }
@@ -14,7 +13,7 @@ FactoryGirl.define do
 
     transient do
       sold { false }
-      articles { [ FactoryGirl.create(:article, seller: seller) ] }
+      articles { [FactoryGirl.create(:article, seller: seller)] }
     end
 
     after(:create) do |line_item_group, evaluator|
@@ -22,13 +21,12 @@ FactoryGirl.define do
         line_item_group.line_items << FactoryGirl.create(:line_item, article: article, line_item_group: line_item_group)
       end
     end
-
   end
 
   trait :with_business_transactions do
     transient do
       articles_attributes []
-      articles {[]} #dont override
+      articles { [] } # dont override
       create_line_items false
       traits [[:paypal, :transport_type1], [:invoice, :transport_type2]]
       build_or_create_bts { sold ? :create : :build }
@@ -37,13 +35,11 @@ FactoryGirl.define do
     seller { FactoryGirl.create(:seller, :paypal_data) } # that paypal can be selected
 
     after(:create) do |line_item_group, evaluator|
-      evaluator.traits.each_with_index do |traits,index|
-        bt = line_item_group.business_transactions.send(evaluator.build_or_create_bts, FactoryGirl.attributes_for(:business_transaction, *traits, line_item_group: line_item_group, seller: line_item_group.seller, article_attributes: evaluator.articles_attributes[index] || {} ))
+      evaluator.traits.each_with_index do |traits, index|
+        bt = line_item_group.business_transactions.send(evaluator.build_or_create_bts, FactoryGirl.attributes_for(:business_transaction, *traits, line_item_group: line_item_group, seller: line_item_group.seller, article_attributes: evaluator.articles_attributes[index] || {}))
         line_item_group.line_items << FactoryGirl.create(:line_item, article: bt.article) if evaluator.create_line_items
       end
-
     end
-
   end
 
   trait :sold do

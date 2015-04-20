@@ -19,24 +19,19 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Fairmondo.  If not, see <http://www.gnu.org/licenses/>.
 #
-require_relative "../test_helper"
+require_relative '../test_helper'
 
 describe WelcomeHelper do
-
-
-  describe "#rss_image_extractor" do
-    it "returns an image when there is one" do
+  describe '#rss_image_extractor' do
+    it 'returns an image when there is one' do
       content = "<p><img src=\"test.png\"/>"
       result = ' <img src="test.png"> '
-      additional = " test test"
+      additional = ' test test'
       helper.rss_image_extractor(content + additional).must_equal result
     end
-    it "returns empty string with no image present" do
-      content = "<p> testt test</p>"
+    it 'returns empty string with no image present' do
+      content = '<p> testt test</p>'
       helper.rss_image_extractor(content).must_equal ''
     end
-
   end
-
-
 end

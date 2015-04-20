@@ -22,25 +22,25 @@ class Feedback < ActiveRecord::Base
   extend ActiveModel::Naming
 
   # Optional image
-  has_one :image, :class_name => "FeedbackImage", foreign_key: "imageable_id"
+  has_one :image, class_name: 'FeedbackImage', foreign_key: 'imageable_id'
   accepts_nested_attributes_for :image
 
-  enumerize :variety, in: [ :report_article, :get_help, :send_feedback, :become_donation_partner ]
+  enumerize :variety, in: [:report_article, :get_help, :send_feedback, :become_donation_partner]
 
-  enumerize :feedback_subject, in: [ :dealer, :technics, :other]
-                                     #, :private, :buyer, :seller,:event, :cooperative, :hero, :ngo, :honor, :trust_community
+  enumerize :feedback_subject, in: [:dealer, :technics, :other]
+  # , :private, :buyer, :seller,:event, :cooperative, :hero, :ngo, :honor, :trust_community
 
-  enumerize :help_subject, in: [ :marketplace,  :technics, :cooperative,
-                                 :hero,  :other ]
-                                  #:comm_deal_fair, :comm_deal, :private_deal, :buy,:ngo, :honor, :trust_community
+  enumerize :help_subject, in: [:marketplace,  :technics, :cooperative,
+                                :hero,  :other]
+  #:comm_deal_fair, :comm_deal, :private_deal, :buy,:ngo, :honor, :trust_community
 
   # Validations
-  validates_presence_of :text
-  validates_presence_of :variety
-  validates_presence_of :from, if: :needs_from?
-  validates_presence_of :feedback_subject, if: proc { self.variety == 'send_feedback' }
-  validates_presence_of :help_subject, if: proc { self.variety == 'get_help' }
-  validates_presence_of :subject, if: :needs_subject?
+  validates :text, presence: true
+  validates :variety, presence: true
+  validates :from, presence: true, if: :needs_from?
+  validates :feedback_subject, presence: true, if: proc { self.variety == 'send_feedback' }
+  validates :help_subject, presence: true, if: proc { self.variety == 'get_help' }
+  validates :subject, presence: true, if: :needs_subject?
 
   validates :from, format: { with: /\A[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]+\z/ }, allow_blank: true
   validates :subject, length: { maximum: 254 }
@@ -48,12 +48,12 @@ class Feedback < ActiveRecord::Base
   validates :recaptcha, presence: true, acceptance: true, on: :create, unless: :donation_partner_application?
 
   # validations for donation_partner
-  validates_presence_of :forename, if: :donation_partner_application?
-  validates_presence_of :lastname, if: :donation_partner_application?
-  validates_presence_of :organisation , if: :donation_partner_application?
+  validates :forename, presence: true, if: :donation_partner_application?
+  validates :lastname, presence: true, if: :donation_partner_application?
+  validates :organisation, presence: true, if: :donation_partner_application?
   validates :text, length: { minimum: 100 }, if: :donation_partner_application?
 
-  #Relations
+  # Relations
   belongs_to :user
   belongs_to :article
 
@@ -61,14 +61,14 @@ class Feedback < ActiveRecord::Base
   # @api public
   # @param current_user [User, nil]
   # @return [undefined]
-  def set_user_id current_user
+  def put_user_id current_user
     self.user_id = current_user.id if current_user
   end
 
   def translate_subject
-    if self.variety == "send_feedback"
+    if self.variety == 'send_feedback'
       I18n.t("enumerize.feedback.feedback_subject.#{self.feedback_subject}")
-    elsif self.variety == "get_help"
+    elsif self.variety == 'get_help'
       I18n.t("enumerize.feedback.help_subject.#{self.help_subject}")
     end
   end
@@ -84,18 +84,21 @@ class Feedback < ActiveRecord::Base
   end
 
   private
-    # For validation
-    # @api private
 
-    def needs_subject?
-      self.variety == 'send_feedback' ||
-      self.variety == 'get_help'
-    end
-    def needs_from?
-      self.variety == 'become_donation_partner' ||
-      self.variety == 'get_help'
-    end
-    def donation_partner_application?
-      self.variety == 'become_donation_partner'
-    end
+  # For validation
+  # @api private
+
+  def needs_subject?
+    self.variety == 'send_feedback' ||
+    self.variety == 'get_help'
+  end
+
+  def needs_from?
+    self.variety == 'become_donation_partner' ||
+    self.variety == 'get_help'
+  end
+
+  def donation_partner_application?
+    self.variety == 'become_donation_partner'
+  end
 end

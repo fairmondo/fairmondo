@@ -32,18 +32,17 @@ describe Content do
     it { subject.must_respond_to :updated_at }
   end
 
-  describe "fields" do
-    describe "friendly_id" do
+  describe 'fields' do
+    describe 'friendly_id' do
       # see https://github.com/norman/friendly_id/issues/332
-      it "find by slug should work" do
+      it 'find by slug should work' do
         content = FactoryGirl.create :content
         Content.find(content.key).must_equal content
       end
     end
-
   end
 
-  describe "validations" do
+  describe 'validations' do
     it { subject.must validate_presence_of :key }
   end
 end

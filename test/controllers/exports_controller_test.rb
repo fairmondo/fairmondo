@@ -22,8 +22,7 @@
 require_relative '../test_helper'
 
 describe ExportsController do
-
-  describe "mass-upload creation" do
+  describe 'mass-upload creation' do
     before do
       @user = FactoryGirl.create :legal_entity, :paypal_data
       FactoryGirl.create :article, seller: @user
@@ -32,37 +31,36 @@ describe ExportsController do
     end
 
     describe "GET 'show'" do
-      it "should be successful" do
+      it 'should be successful' do
         time = Time.now
         Time.stubs(:now).returns(time)
-        get :show, :kind_of_article => "active", :format => "csv"
-        response.content_type.must_equal("text/csv; charset=utf-8")
-        response.headers["Content-Disposition"].must_equal("attachment; filename=\"Fairmondo_export_#{time.strftime("%Y-%d-%m %H:%M:%S")}.csv\"")
+        get :show, kind_of_article: 'active', format: 'csv'
+        response.content_type.must_equal('text/csv; charset=utf-8')
+        response.headers['Content-Disposition'].must_equal("attachment; filename=\"Fairmondo_export_#{time.strftime('%Y-%d-%m %H:%M:%S')}.csv\"")
         assert_response :success
       end
     end
 
-#    describe "GET 'show'" do
-#      it "should be successful" do
-#        time = Time.now
-#        Time.stubs(:now).returns(time)
-#        get :show, :kind_of_article => "seller_line_item_groups", :format => "csv"
-#        response.content_type.must_equal("text/csv; charset=utf-8")
-#        response.headers["Content-Disposition"].must_equal("attachment; filename=\"Fairmondo_purchase_export_#{time.strftime("%Y-%d-%m %H:%M:%S")}.csv\"")
-#        assert_response :success
-#      end
-#    end
-#
-#    describe "GET 'show' with time range" do
-#      it "should be successful" do
-#        time = Time.now
-#        Time.stubs(:now).returns(time)
-#        get :show, :kind_of_article => "seller_line_item_groups", :format => "csv", :time_range => 3
-#        response.content_type.must_equal("text/csv; charset=utf-8")
-#        response.headers["Content-Disposition"].must_equal("attachment; filename=\"Fairmondo_purchase_export_#{time.strftime("%Y-%d-%m %H:%M:%S")}.csv\"")
-#        assert_response :success
-#      end
-#    end
-
+    #    describe "GET 'show'" do
+    #      it "should be successful" do
+    #        time = Time.now
+    #        Time.stubs(:now).returns(time)
+    #        get :show, :kind_of_article => "seller_line_item_groups", :format => "csv"
+    #        response.content_type.must_equal("text/csv; charset=utf-8")
+    #        response.headers["Content-Disposition"].must_equal("attachment; filename=\"Fairmondo_purchase_export_#{time.strftime("%Y-%d-%m %H:%M:%S")}.csv\"")
+    #        assert_response :success
+    #      end
+    #    end
+    #
+    #    describe "GET 'show' with time range" do
+    #      it "should be successful" do
+    #        time = Time.now
+    #        Time.stubs(:now).returns(time)
+    #        get :show, :kind_of_article => "seller_line_item_groups", :format => "csv", :time_range => 3
+    #        response.content_type.must_equal("text/csv; charset=utf-8")
+    #        response.headers["Content-Disposition"].must_equal("attachment; filename=\"Fairmondo_purchase_export_#{time.strftime("%Y-%d-%m %H:%M:%S")}.csv\"")
+    #        assert_response :success
+    #      end
+    #    end
   end
 end

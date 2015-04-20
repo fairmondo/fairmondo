@@ -44,11 +44,11 @@ class Comment < ActiveRecord::Base
     # if now is not between 10am and 5pm
     #   show if created_at is <= the last 5pm
     # else show everything
-    if Time.now < Time.now.beginning_of_day + FIRST_PUBLISH_HOUR.hours or Time.now > Time.now.beginning_of_day + LAST_PUBLISH_HOUR.hours
+    if Time.now < Time.now.beginning_of_day + FIRST_PUBLISH_HOUR.hours || Time.now > Time.now.beginning_of_day + LAST_PUBLISH_HOUR.hours
       last_5pm = Time.now.hour >= LAST_PUBLISH_HOUR ? Time.now.beginning_of_day : Time.now.yesterday.beginning_of_day
       last_5pm += LAST_PUBLISH_HOUR.hours
 
-      where("comments.created_at <= ?", last_5pm)
+      where('comments.created_at <= ?', last_5pm)
     else
       where '1=1'
     end

@@ -27,25 +27,24 @@ describe PaymentsController do
   let(:bt) { lig.business_transactions.first }
   let(:buyer) { bt.buyer }
 
-
   before do
     sign_in buyer
   end
 
   describe "POST 'create'" do
-    describe "PaypalPayment" do
+    describe 'PaypalPayment' do
       let(:lig) { FactoryGirl.create :line_item_group, :sold, :with_business_transactions, traits: [:paypal, :transport_type1] }
 
-      it "should create a paypal payment and forward to show" do
+      it 'should create a paypal payment and forward to show' do
         assert_difference 'Payment.count', 1 do
           post :create, line_item_group_id: lig.id, payment: { type: 'PaypalPayment' }
         end
         lig.paypal_payment.pay_key.must_be_kind_of String
-        assert_redirected_to "https://www.sandbox.paypal.com/de/webscr?cmd=_ap-payment&paykey=foobar"
+        assert_redirected_to 'https://www.sandbox.paypal.com/de/webscr?cmd=_ap-payment&paykey=foobar'
       end
 
-      it "should show error on paypal api error" do
-        request.env["HTTP_REFERER"] = root_path
+      it 'should show error on paypal api error' do
+        request.env['HTTP_REFERER'] = root_path
         PaypalPayment.any_instance.stubs(:initialize_payment).returns(false)
         assert_difference 'Payment.count', 1 do
           post :create, line_item_group_id: lig.id, payment: { type: 'PaypalPayment' }
@@ -54,10 +53,10 @@ describe PaymentsController do
       end
     end
 
-    describe "VoucherPayment" do
+    describe 'VoucherPayment' do
       let(:lig) { FactoryGirl.create :line_item_group, :sold, :with_business_transactions, traits: [:voucher, :transport_type1], seller: FactoryGirl.create(:seller, :paypal_data, uses_vouchers: true) }
-      it "should create a voucher payment and redirect back" do
-        request.env["HTTP_REFERER"] = 'http://test.host'
+      it 'should create a voucher payment and redirect back' do
+        request.env['HTTP_REFERER'] = 'http://test.host'
         assert_difference 'Payment.count', 1 do
           post :create, line_item_group_id: lig.id, payment: { type: 'VoucherPayment', pay_key: '123abc' }
         end
@@ -70,9 +69,9 @@ describe PaymentsController do
     let(:lig) { FactoryGirl.create :line_item_group, :sold, :with_business_transactions, traits: [:paypal, :transport_bike_courier] }
     let(:payment) { FactoryGirl.create :payment, :with_pay_key, line_item_group: lig }
 
-    it "should redirect to paypal" do
+    it 'should redirect to paypal' do
       get :show, line_item_group_id: lig.id, id: payment.id
-      assert_redirected_to "https://www.sandbox.paypal.com/de/webscr?cmd=_ap-payment&paykey=foobar"
+      assert_redirected_to 'https://www.sandbox.paypal.com/de/webscr?cmd=_ap-payment&paykey=foobar'
     end
   end
 
@@ -92,7 +91,7 @@ describe PaymentsController do
     # TODO find out why this test passes and coverall thinks corresponding line is not touched
     it "should send email for each business transaction in payment's line item group if  bike_courier is selected" do
       payment
-      payment.line_item_group.business_transactions.select{|bt| bt.selected_payment == "paypal"}.first.update_attribute(:selected_transport, :bike_courier)
+      payment.line_item_group.business_transactions.select { |bt| bt.selected_payment == 'paypal' }.first.update_attribute(:selected_transport, :bike_courier)
       CartMailer.any_instance.expects(:courier_notification).with(payment.line_item_group.business_transactions.first)
       post :ipn_notification, pay_key: '1234', status: 'COMPLETED'
     end

@@ -22,8 +22,8 @@
 begin
   # Loading seller_constants.yml
   seller_constants = YAML.load(File.read(File.expand_path(File.join( Rails.root, 'config', 'seller_constants.yml'))))
-  $private_seller_constants  = seller_constants['private_seller_constants']
-  $commercial_seller_constants  = seller_constants['commercial_seller_constants']
+  PRIVATE_SELLER_CONSTANTS    = seller_constants['private_seller_constants']
+  COMMERCIAL_SELLER_CONSTANTS = seller_constants['commercial_seller_constants']
 
 
 rescue

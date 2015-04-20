@@ -16,7 +16,7 @@ require 'minitest/mock'
 require "minitest-matchers"
 require 'minitest/hell'
 require 'sidekiq/testing'
-require 'pry-rescue/minitest' if ENV['RESCUE']
+#require 'pry-rescue/minitest' if ENV['RESCUE']
 require 'fakeredis'
 require "savon/mock/spec_helper"
 
@@ -58,7 +58,7 @@ Minitest.after_run do
   if $suite_passing
     rails_best_practices
     brakeman
-    # rubocop # TODO: uncomment and fix rubocop violations
+    rubocop # TODO: uncomment and fix rubocop violations
   end
 end
 

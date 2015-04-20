@@ -1,5 +1,4 @@
 class StatisticPolicy < Struct.new(:user, :statistic)
-
   def general?
     admin?
   end
@@ -9,7 +8,8 @@ class StatisticPolicy < Struct.new(:user, :statistic)
   end
 
   private
-    def admin?
-      User.is_admin? user
-    end
+
+  def admin?
+    User.is_admin? user
+  end
 end

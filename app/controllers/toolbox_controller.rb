@@ -4,14 +4,15 @@ require 'timeout'
 class ToolboxController < ApplicationController
   respond_to :js, :json
 
-  skip_before_filter :authenticate_user!, only: [ :session_expired, :confirm, :rss, :reload, :healthcheck ]
+  skip_before_action :authenticate_user!, only: [:session_expired, :confirm, :rss, :reload, :healthcheck]
 
   def session_expired
     respond_to do |format|
-      #Devise.sign_out_all_scopes ? sign_out : sign_out(resource_name) #for testing purposes
+      # Devise.sign_out_all_scopes ? sign_out : sign_out(resource_name) #for testing purposes
       format.json { render status: 200, json: { expired: current_user.nil? } }
     end
   end
+
   def confirm
     respond_to do |format|
       format.js
@@ -19,9 +20,9 @@ class ToolboxController < ApplicationController
   end
 
   def rss
-    @items = get_feed_items
+    @items = acquire_feed_items
     respond_to do |format|
-      format.html { render :layout => false }
+      format.html { render layout: false }
     end
   end
 
@@ -60,19 +61,19 @@ class ToolboxController < ApplicationController
 
   private
 
-    def get_feed_items
-      begin
-        Timeout::timeout(10) do #10 second timeout
-          OpenSSL::SSL::SSLContext::DEFAULT_PARAMS[:ssl_version] = 'SSLv23' # See comment to http://stackoverflow.com/q/20169301/409087
-                                                                           # TODO Set /etc/ssl/certs as sll_ca_folder to remove this hack
-          feed = open 'https://info.fairmondo.de/?feed=rss', ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE
-          OpenSSL::SSL::SSLContext::DEFAULT_PARAMS[:ssl_version] = 'SSLv23'
+  def acquire_feed_items
+    begin
+      Timeout.timeout(10) do # 10 second timeout
+        OpenSSL::SSL::SSLContext::DEFAULT_PARAMS[:ssl_version] = 'SSLv23' # See comment to http://stackoverflow.com/q/20169301/409087
+        # TODO Set /etc/ssl/certs as sll_ca_folder to remove this hack
+        feed = open 'https://info.fairmondo.de/?feed=rss', ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE
+        OpenSSL::SSL::SSLContext::DEFAULT_PARAMS[:ssl_version] = 'SSLv23'
 
-          rss = RSS::Parser.parse(feed.read, false)
-          rss.items.first(3)
-        end
-      rescue Timeout::Error
-        nil
+        rss = RSS::Parser.parse(feed.read, false)
+        rss.items.first(3)
       end
+    rescue Timeout::Error
+      nil
     end
+  end
 end

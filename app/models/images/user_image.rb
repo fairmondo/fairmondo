@@ -1,19 +1,24 @@
 class UserImage < Image
   extend STI
-  has_attached_file :image,
+  has_attached_file(
+    :image,
     styles: {
-      original: {geometry: "300>x300>", animated: false},
-      profile: {geometry: "300x300>", animated: false}
+      original: { geometry: '300>x300>', animated: false },
+      profile: { geometry: '300x300>', animated: false }
     },
-    convert_options: { profile: "-quality 75 -strip -background white -gravity center -extent 300x300" },
-    default_url: "/assets/missing.png",
-    url: "/system/images/:id_partition/:style/:filename",
-    path: "public/system/images/:id_partition/:style/:filename",
+    convert_options: { profile: '-quality 75 -strip -background white -gravity center -extent 300x300' },
+    default_url: '/assets/missing.png',
+    url: '/system/images/:id_partition/:style/:filename',
+    path: 'public/system/images/:id_partition/:style/:filename',
     only_process: [:profile]
+  )
 
-  belongs_to :user, foreign_key: "imageable_id"
+  belongs_to :user, foreign_key: 'imageable_id'
 
-  validates_attachment_presence :image, :unless => :external_url
-  validates_attachment_content_type :image,:content_type => ['image/jpeg', 'image/png', 'image/gif']
-  validates_attachment_size :image, :in => 1..20.megabytes # the 1 means one byte, not one megabyte
+  validates_attachment_presence :image, unless: :external_url
+  validates_attachment_content_type :image,
+                                    content_type: %w(
+                                      image/jpeg image/png image/gif
+                                    )
+  validates_attachment_size :image, in: 1..20.megabytes # the 1 means one byte, not one megabyte
 end

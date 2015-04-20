@@ -33,7 +33,8 @@ class LineItemPolicy < Struct.new(:user, :line_item)
   end
 
   private
-    def article_active?
-      line_item.article && line_item.article.active?
-    end
+
+  def article_active?
+    line_item.article && line_item.article.active?
+  end
 end

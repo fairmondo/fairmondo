@@ -6,7 +6,7 @@
           .fa.fa-bicycle
       .middle
         = t.input :bike_courier_time, as: :select, collection: line_item.business_transaction.article.seller.pickup_time
-        = t.input :tos_bike_courier_accepted, required: false, label: "Die Lieferkosten in Höhe von #{ humanized_money_with_symbol(Money.new($courier['price'])) } zahle ich bar bei Lieferung, und ich akzeptiere die ".html_safe + link_to('AGB', "/assets/#{ $courier['tos'] }", target: 'blank') + " des Kurierdienstes.".html_safe
+        = t.input :tos_bike_courier_accepted, required: false, label: "Die Lieferkosten in Höhe von #{ humanized_money_with_symbol(Money.new(COURIER['price'])) } zahle ich bar bei Lieferung, und ich akzeptiere die ".html_safe + link_to('AGB', "/assets/#{ COURIER['tos'] }", target: 'blank') + " des Kurierdienstes.".html_safe
       .right
         = t.input :bike_courier_message, required: false, input_html: { rows: 4 }
 

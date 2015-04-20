@@ -23,7 +23,7 @@
 
 FactoryGirl.define do
   factory :library do
-    sequence(:name) {|n| "LibraryName#{n}" }
+    sequence(:name) { |n| "LibraryName#{n}" }
     public false
     user
 

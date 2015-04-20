@@ -27,7 +27,7 @@ FactoryGirl.define do
       seller { FactoryGirl.create(:seller, :paypal_data) }
       buyer { FactoryGirl.create :user }
       article_attributes { Hash.new }
-      article_all_attributes { article_attributes.merge({ seller: seller, quantity: (quantity_bought + 1) }) }
+      article_all_attributes { article_attributes.merge(seller: seller, quantity: (quantity_bought + 1)) }
     end
 
     article { FactoryGirl.create :article, :with_fixture_image, :with_all_payments, :with_all_transports, article_all_attributes }
@@ -44,7 +44,7 @@ FactoryGirl.define do
     end
 
     trait :bought_nothing do
-       quantity_bought 0
+      quantity_bought 0
     end
 
     trait :bought_ten do
@@ -56,20 +56,20 @@ FactoryGirl.define do
     end
 
     trait :clear_fastbill do
-      after :create do |business_transaction, evaluator|
+      after :create do |business_transaction, _evaluator|
         business_transaction.seller.update_column(:fastbill_id, nil)
         business_transaction.seller.update_column(:fastbill_subscription_id, nil)
       end
     end
 
     trait :old do
-      after :create do |business_transaction, evaluator|
+      after :create do |business_transaction, _evaluator|
         business_transaction.update_attribute(:sold_at, 27.days.ago)
       end
     end
 
     trait :older do
-      after :create do |business_transaction, evaluator|
+      after :create do |business_transaction, _evaluator|
         business_transaction.update_attribute(:sold_at, 44.days.ago)
       end
     end
@@ -125,9 +125,9 @@ FactoryGirl.define do
       selected_payment 'voucher'
     end
 
-#    trait :mangopay do
-#      selected_payment 'mangopay'
-#      payment
-#    end
+    #    trait :mangopay do
+    #      selected_payment 'mangopay'
+    #      payment
+    #    end
   end
 end

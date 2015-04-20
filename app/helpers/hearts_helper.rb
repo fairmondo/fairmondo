@@ -34,7 +34,7 @@ module HeartsHelper
     end
 
     if heart.to_a.empty?
-      render partial: "hearts/heart_button", locals: {
+      render partial: 'hearts/heart_button', locals: {
         heartable_resource: heartable_resource,
         filled: false,
         path: library_hearts_path(heartable_resource),
@@ -43,7 +43,7 @@ module HeartsHelper
       }
     else
       if user_signed_in?
-        render partial: "hearts/heart_button", locals: {
+        render partial: 'hearts/heart_button', locals: {
           heartable_resource: heartable_resource,
           filled: true,
           path: library_heart_path(heartable_resource, heart.first),
@@ -51,7 +51,7 @@ module HeartsHelper
           disabled: false
         }
       else
-        render partial: "hearts/heart_button", locals: {
+        render partial: 'hearts/heart_button', locals: {
           heartable_resource: heartable_resource,
           disabled: true
         }
@@ -60,6 +60,6 @@ module HeartsHelper
   end
 
   def generate_user_token
-    UserTokenGenerator.generate(request.env["HTTP_USER_AGENT"], request.env["REMOTE_ADDR"])
+    UserTokenGenerator.generate(request.env['HTTP_USER_AGENT'], request.env['REMOTE_ADDR'])
   end
 end

@@ -20,10 +20,9 @@
 # along with Fairmondo.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-$exceptions_on_fairmondo = {}
 begin
   # Loading Exceptions
-  $exceptions_on_fairmondo = YAML.load(File.read(File.expand_path(File.join( Rails.root, 'config', 'exceptions.yml'))))
+  EXCEPTIONS_ON_FAIRMONDO = YAML.load(File.read(File.expand_path(File.join( Rails.root, 'config', 'exceptions.yml'))))
 
 rescue
   puts 'exceptions.yml not found'

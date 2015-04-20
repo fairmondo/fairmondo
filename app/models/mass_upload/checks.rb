@@ -23,7 +23,7 @@ module MassUpload::Checks
   extend ActiveSupport::Concern
 
   def self.get_csv_encoding path_to_csv
-    match_euro_sign = File.new(path_to_csv, "r").getc
+    match_euro_sign = File.new(path_to_csv, 'r').getc
     case match_euro_sign
     when "\xDB"
       'MacRoman'
@@ -37,5 +37,4 @@ module MassUpload::Checks
       'utf-8'
     end
   end
-
 end

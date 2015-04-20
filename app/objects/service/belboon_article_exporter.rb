@@ -1,5 +1,5 @@
 class BelboonArticleExporter
-  @@csv_options = { col_sep: ";",  encoding: 'utf-8' }
+  @@csv_options = { col_sep: ';',  encoding: 'utf-8' }
 
   EXPORT_MAPPING = {
     'Merchant_ProductNumber' => 'slug',
@@ -34,34 +34,24 @@ class BelboonArticleExporter
     'Optional_5' => nil
   }
 
-  EXPORT_HEADER = [
-    'Merchant_ProductNumber', 'EAN_Code', 'Product_Title', 'Manufacturer',
-    'Brand', 'Price', 'Price_old', 'Currency', 'Valid_From', 'Valid_To',
-    'DeepLink_URL', 'Into_Basket_URL', 'Image_Small_URL', 'Image_Small_HEIGHT',
-    'Image_Small_WIDTH', 'Image_Large_URL', 'Image_Large_HEIGHT', 'Image_Large_WIDTH',
-    'Merchant_Product_Category', 'Keywords', 'Product_Description_Short',
-    'Product_Description_Long', 'Last_Update', 'Shipping', 'Availability',
-    'Optional_1', 'Optional_2', 'Optional_3', 'Optional_4', 'Optional_5'
-  ]
+  EXPORT_HEADER = %w(Merchant_ProductNumber EAN_Code Product_Title Manufacturer Brand Price Price_old Currency Valid_From Valid_To DeepLink_URL Into_Basket_URL Image_Small_URL Image_Small_HEIGHT Image_Small_WIDTH Image_Large_URL Image_Large_HEIGHT Image_Large_WIDTH Merchant_Product_Category Keywords Product_Description_Short Product_Description_Long Last_Update Shipping Availability Optional_1 Optional_2 Optional_3 Optional_4 Optional_5)
 
   FILE_NAME = Rails.env == 'development' ?
     "#{ Rails.root }/public/fairmondo_articles.csv" :
     '/var/www/fairnopoly/shared/public/system/fairmondo_articles.csv'
 
-  def self.export(user)
-    CSV.open(FILE_NAME, 'wb', @@csv_options) do |line|
-      line << EXPORT_HEADER
+  class << self
+    def export(user)
+      CSV.open(FILE_NAME, 'wb', @@csv_options) do |line|
+        line << EXPORT_HEADER
 
-      exportable_articles_for(user).find_each do |article|
-        line << line_for(article)
+        exportable_articles_for(user).find_each do |article|
+          line << line_for(article)
+        end
       end
     end
 
-  end
-
-  private
-
-    def self.line_for article
+    def line_for article
       attrs = []
       EXPORT_HEADER.each do |attr|
         begin
@@ -73,7 +63,8 @@ class BelboonArticleExporter
       attrs
     end
 
-    def self.exportable_articles_for user
+    def exportable_articles_for user
       user.articles.belboon_trackable.includes(:images)
     end
+  end
 end

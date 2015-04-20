@@ -21,9 +21,7 @@
 #
 
 class AddressObserver < ActiveRecord::Observer
-
   def after_save(address)
     address.user.update_column(:standard_address_id, address.id) if address.set_as_standard_address
   end
-
 end

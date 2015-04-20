@@ -4,7 +4,6 @@ class ContactForm
   attribute :email_transfer_accepted, type: Boolean, default: true
   attribute :text, type: String
 
-
   validates :email_transfer_accepted, acceptance: { accept: true }
   validates :text, length: { maximum: 2000 }, presence: true
 
@@ -14,7 +13,7 @@ class ContactForm
   end
 
   def get_mailer_for resource_type
-    return ArticleMailer if resource_type == "article"
-    return UserMailer if resource_type == "user"
+    return ArticleMailer if resource_type == 'article'
+    return UserMailer if resource_type == 'user'
   end
 end

@@ -2,15 +2,29 @@
 # @TODO prevent devise from clearing this after sign_out
 module BrowsingHistory
   protected
+
     # store up to MAX_STORED_STEPS requests in session
     def store_location
       ensure_session_key
-      unless last_url_hash[:path] == new_url_hash[:path] && last_url_hash[:method] == new_url_hash[:method] # store unique requests only
-        new_url_hash[:params] = recursive_stringify(request.params) if should_store_params?
+      unless last_path_and_method_equal_new_path_and_method?
+        store_new_url_hash_params
         session[:previous_urls].prepend new_url_hash
       end
-      session[:previous_urls].pop if session[:previous_urls].count > MAX_STORED_STEPS
+      clear_previous_urls
       true
+    end
+
+    def last_path_and_method_equal_new_path_and_method?
+      last_url_hash[:path] == new_url_hash[:path] &&
+        last_url_hash[:method] == new_url_hash[:method]
+    end
+
+    def store_new_url_hash_params
+      new_url_hash[:params] = recursive_stringify(request.params) if should_store_params?
+    end
+
+    def clear_previous_urls
+      session[:previous_urls].pop if session[:previous_urls].count > MAX_STORED_STEPS
     end
 
     # @return [String] most recently called redirectable path
@@ -22,7 +36,7 @@ module BrowsingHistory
       nil
     end
 
-  # pseudo private (functions should only be called from this module)
+    # pseudo private (functions should only be called from this module)
 
     MAX_STORED_STEPS = 10
 
@@ -34,17 +48,22 @@ module BrowsingHistory
       new_url_hash[:method] != 'GET' &&
       !DISABLED_PARAMS_STORE_URLS.include?(new_url_hash[:path])
     end
-    DISABLED_PARAMS_STORE_URLS = ["/feedbacks", "/user/sign_in", "/user/password"]
+
+    DISABLED_PARAMS_STORE_URLS = [
+      '/feedbacks', '/user/sign_in', '/user/password'
+    ]
 
     def redirectable_url? url_hash
-      url_hash[:method] == "GET" &&
+      url_hash[:method] == 'GET' &&
       !url_hash[:xhr] &&
       !DISABLED_REDIRECT_URLS.include?(url_hash[:path].split('?').first)
     end
 
-    DISABLED_REDIRECT_URLS = ["/user/sign_up", "/user/sign_in", "/user/sign_out", "/user/confirmation/new",
-      "/user/confirmation", "/user/password/new", "/user/password/edit",
-      "/toolbox/session_expired.json"]
+    DISABLED_REDIRECT_URLS = [
+      '/user/sign_up', '/user/sign_in', '/user/sign_out',
+      '/user/confirmation/new', '/user/confirmation', '/user/password/new',
+      '/user/password/edit', '/toolbox/session_expired.json'
+    ]
 
     def last_url_hash
       @last_url_hash ||= session[:previous_urls].first || {}

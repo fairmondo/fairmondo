@@ -23,8 +23,7 @@ require_relative '../test_helper'
 
 include Warden::Test::Helpers
 
-
-feature "Libraries on welcome page" do
+feature 'Libraries on welcome page' do
   setup do
     @user = FactoryGirl.create :user
 
@@ -36,8 +35,7 @@ feature "Libraries on welcome page" do
     @admin = FactoryGirl.create :admin_user
   end
 
-
-  scenario "Personalized library section" do
+  scenario 'Personalized library section' do
     # Create two hearts (including new libraries)
     heart1 = FactoryGirl.create :heart, user: @user
     heart2 = FactoryGirl.create :heart, user: @user
@@ -54,8 +52,7 @@ feature "Libraries on welcome page" do
     assert page.has_content?(heart2.heartable.name)
   end
 
-
-  scenario "Combined scenario for trending libraries" do
+  scenario 'Combined scenario for trending libraries' do
     login_as @admin
 
     # When no libraries are audited, the box on the welcome page should not be displayed
@@ -90,14 +87,13 @@ feature "Libraries on welcome page" do
   end
 end
 
-
 feature 'Library management' do
   setup do
     @user = FactoryGirl.create :user
     login_as @user.reload # reload to get default library
   end
 
-  scenario "user creates new library" do
+  scenario 'user creates new library' do
     visit user_libraries_path @user
     page.must_have_content I18n.t 'library.new'
     within '#new_library' do
@@ -107,13 +103,13 @@ feature 'Library management' do
     page.must_have_selector 'a', text: 'foobar'
   end
 
-  scenario "user creates a library with a blank name" do
+  scenario 'user creates a library with a blank name' do
     visit user_libraries_path @user
     click_button I18n.t('library.create')
     page.must_have_content I18n.t 'activerecord.errors.models.library.attributes.name.blank'
   end
 
-  scenario "user updates name of exsisting Library" do
+  scenario 'user updates name of exsisting Library' do
     library = FactoryGirl.create :library, name: 'foobar', user: @user
     visit user_libraries_path @user
     click_link 'foobar'
@@ -124,8 +120,7 @@ feature 'Library management' do
     page.must_have_selector 'a', text: 'bazfuz'
   end
 
-
-  scenario "user updates library with a blank name" do
+  scenario 'user updates library with a blank name' do
     library = FactoryGirl.create :library, name: 'foobar', user: @user
     visit user_libraries_path @user
     click_link 'foobar'
@@ -136,10 +131,9 @@ feature 'Library management' do
 
     page.must_have_selector 'a', text: 'foobar'
     page.must_have_content I18n.t('activerecord.errors.models.library.attributes.name.blank')
-
   end
 
-  scenario "user deletes Library" do
+  scenario 'user deletes Library' do
     library = FactoryGirl.create :library, name: 'foobar', user: @user
     visit user_libraries_path @user
     click_link 'foobar'
@@ -151,26 +145,26 @@ feature 'Library management' do
     page.wont_have_content 'foobar'
   end
 
-  scenario "user adds an Article to his default Library" do
+  scenario 'user adds an Article to his default Library' do
     @article = FactoryGirl.create :article
     visit article_path(@article)
-    page.has_css?("div.libraries_list a", :count == 1) # There should be exactly one library link (default library) before adding
+    page.has_css?('div.libraries_list a', :count == 1) # There should be exactly one library link (default library) before adding
 
     click_link I18n.t 'library.default'
     page.must_have_content I18n.t('library_element.notice.success')[0..10] # shorten string because library name doesn't get evaluated
-    page.has_css?("div.libraries_list a", :count == 0) # After adding the article, the library link should be removed
+    page.has_css?('div.libraries_list a', :count == 0) # After adding the article, the library link should be removed
 
     visit user_libraries_path @user
     click_link I18n.t 'library.default'
     page.must_have_content @article.title[0..10] # characters get cut off on page as well
   end
 
-  scenario "seller removes an article that buyer has in his library" do
+  scenario 'seller removes an article that buyer has in his library' do
     seller = @user
     article = FactoryGirl.create :article, seller: seller
     buyer = FactoryGirl.create :buyer
-    library = FactoryGirl.create :library, :user => buyer, :public => true
-    FactoryGirl.create :library_element, :article => article, :library => library
+    library = FactoryGirl.create :library, user: buyer, public: true
+    FactoryGirl.create :library_element, article: article, library: library
 
     login_as seller
     visit article_path article
@@ -183,14 +177,13 @@ feature 'Library management' do
       page.must_have_content I18n.t('library.no_products')
     end
   end
-
 end
 
 feature 'Library visibility' do
   before do
-    UserTokenGenerator.stubs( :generate ).returns("some long string that is very secret")
+    UserTokenGenerator.stubs(:generate).returns('some long string that is very secret')
   end
-  scenario "user browses through libraries" do
+  scenario 'user browses through libraries' do
     user = FactoryGirl.create :user
     pub_lib = FactoryGirl.create :library, user: user, public: true
     pub_lib.articles << FactoryGirl.create(:article, title: 'exhibit-article')
@@ -198,27 +191,25 @@ feature 'Library visibility' do
     visit user_libraries_path user
     page.must_have_content pub_lib.name
     page.wont_have_content priv_lib.name
-
   end
 end
 
-
-feature "Featured (exhibited) libraries" do
-  scenario "user visits root path with exhibition" do
+feature 'Featured (exhibited) libraries' do
+  scenario 'user visits root path with exhibition' do
     lib = FactoryGirl.create :library, :public, exhibition_name: 'donation_articles'
     lib.articles << FactoryGirl.create(:article, title: 'exhibit-article')
     visit root_path
     page.must_have_content 'exhibit-article'
   end
 
-  scenario "user visits book category front page" do
+  scenario 'user visits book category front page' do
     lib = FactoryGirl.create :library, :public, exhibition_name: 'book1'
     lib.articles << FactoryGirl.create(:article, title: 'exhibit-article')
     visit category_path FactoryGirl.create :category, name: 'bucher'
     page.must_have_content 'exhibit-article'
   end
 
-  scenario "user visits two filter landing pages" do
+  scenario 'user visits two filter landing pages' do
     article = FactoryGirl.create :article, title: 'exhibit-article'
     lib1 = FactoryGirl.create :library, :public, exhibition_name: 'fair1'
     lib2 = FactoryGirl.create :library, :public, exhibition_name: 'used1'
@@ -235,14 +226,14 @@ feature "Featured (exhibited) libraries" do
   end
 end
 
-feature "Admin management for featured (exhibited) Libraries" do
+feature 'Admin management for featured (exhibited) Libraries' do
   let(:featured_library) { FactoryGirl.create :library, :public, exhibition_name: 'donation_articles' }
   let(:article) { FactoryGirl.create :article, title: 'Foobar' }
   setup do
     login_as FactoryGirl.create :admin_user
   end
 
-  scenario "admin adds Article to a random Library" do
+  scenario 'admin adds Article to a random Library' do
     visit root_path
     page.wont_have_link 'Foobar'
 
@@ -255,7 +246,7 @@ feature "Admin management for featured (exhibited) Libraries" do
     page.must_have_link 'Foobar'
   end
 
-  scenario "admin add Article that is already in the library" do
+  scenario 'admin add Article that is already in the library' do
     featured_library.articles << article
     visit article_path article
     select(I18n.t('enumerize.library.exhibition_name.donation_articles'), from: 'library_exhibition_name')
@@ -265,7 +256,7 @@ feature "Admin management for featured (exhibited) Libraries" do
     end
   end
 
-  scenario "admin removes an article" do
+  scenario 'admin removes an article' do
     featured_library.articles << article
     visit article_path article
 
@@ -275,7 +266,7 @@ feature "Admin management for featured (exhibited) Libraries" do
     page.wont_have_link 'Foobar'
   end
 
-  scenario "admin sets a library as featured" do
+  scenario 'admin sets a library as featured' do
     featured_library
     other_library = FactoryGirl.create :library, :public
 

@@ -41,9 +41,8 @@ class ProcessMassUploadWorker
                                'class' => ProcessRowMassUploadWorker,
                                'args' => [mass_upload_id, row.to_hash, row_count])
         else
-          ProcessRowMassUploadWorker.perform_async( mass_upload_id, row.to_hash, row_count )
+          ProcessRowMassUploadWorker.perform_async(mass_upload_id, row.to_hash, row_count)
         end
-
       end
 
       mass_upload.update_attribute(:row_count, row_count)

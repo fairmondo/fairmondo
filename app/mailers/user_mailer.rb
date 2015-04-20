@@ -1,7 +1,7 @@
 class UserMailer < ActionMailer::Base
   include MailerHelper
 
-  default from: $email_addresses['default']
+  default from: EMAIL_ADDRESSES['default']
   before_filter :inline_logos
   layout 'email'
 
@@ -12,5 +12,4 @@ class UserMailer < ActionMailer::Base
     @subject  = I18n.t('email.user.contact.subject')
     mail to: @receiver.email, subject: @subject
   end
-
 end

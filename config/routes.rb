@@ -20,7 +20,6 @@
 # along with Fairmondo.  If not, see <http://www.gnu.org/licenses/>.
 #
 Fairmondo::Application.routes.draw do
-
   mount Nkss::Engine => '/styleguides' if Rails.env.development? || Rails.env.staging?
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
 
@@ -29,7 +28,7 @@ Fairmondo::Application.routes.draw do
   end
 
   concern :commentable do
-    resources :comments, only: [:create, :destroy, :index], constraints: {format: 'js'}
+    resources :comments, only: [:create, :destroy, :index], constraints: { format: 'js' }
   end
 
   namespace :admin do
@@ -51,14 +50,14 @@ Fairmondo::Application.routes.draw do
   devise_for :user, controllers: { registrations: 'registrations', sessions: 'sessions', confirmations: 'confirmations' }
 
   namespace :toolbox do
-    get 'session_expired', as: 'session_expired', constraints: {format: 'json'} # JSON info about session expiration. Might be moved to a custom controller at some point.
-    get 'confirm', constraints: {format: 'js'}
+    get 'session_expired', as: 'session_expired', constraints: { format: 'json' } # JSON info about session expiration. Might be moved to a custom controller at some point.
+    get 'confirm', constraints: { format: 'js' }
     get 'rss'
     get 'reload', as: 'reload'
     post 'contact/:resource_type/:resource_id', as: 'contact', action: 'contact'
     patch 'reindex/:article_id', action: 'reindex', as: 'reindex'
     get 'healthcheck'
-    get 'newsletter_status', as: 'newsletter_status', constraints: {format: 'json'}
+    get 'newsletter_status', as: 'newsletter_status', constraints: { format: 'json' }
   end
 
   namespace :statistics do
@@ -67,10 +66,10 @@ Fairmondo::Application.routes.draw do
   end
 
   namespace :bank_details do
-    get 'check', constraints: {format: 'json'}
-    get 'get_bank_name', constraints: {format: 'json'}
-    get 'check_iban', constraints: {format: 'json'}
-    get 'check_bic', constraints: {format: 'json'}
+    get 'check', constraints: { format: 'json' }
+    get 'acquire_bank_name', constraints: { format: 'json' }
+    get 'check_iban', constraints: { format: 'json' }
+    get 'check_bic', constraints: { format: 'json' }
   end
 
   resources :articles, concerns: [:commentable] do
@@ -82,7 +81,7 @@ Fairmondo::Application.routes.draw do
     end
   end
 
-  resources :carts, only: [:show,:edit,:update] do
+  resources :carts, only: [:show, :edit, :update] do
     member do
       get 'send_via_email', action: 'send_via_email'
       post 'send_via_email', action: 'send_via_email'
@@ -90,7 +89,7 @@ Fairmondo::Application.routes.draw do
   end
   match '/empty_cart', to: 'carts#empty_cart', as: 'empty_cart', via: :get
 
-  resources :line_items, only: [:create,:update,:destroy]
+  resources :line_items, only: [:create, :update, :destroy]
 
   resources :line_item_groups, only: [:show] do
     resources :payments, only: [:create, :show]
@@ -101,7 +100,7 @@ Fairmondo::Application.routes.draw do
   get '/transactions/:id', to: 'business_transactions#show', as: 'business_transaction'
 
   resources :business_transactions, only: [:show] do
-    resources :refunds, only: [ :new, :create ]
+    resources :refunds, only: [:new, :create]
   end
   match '/transactions/set_transport_ready/:id', to: 'business_transactions#set_transport_ready', as: 'set_transport_ready', via: [:get, :post]
 
@@ -111,17 +110,17 @@ Fairmondo::Application.routes.draw do
   get 'welcome/index'
   get 'mitunsgehen', to: 'welcome#index'
 
-  get 'feed', to: 'welcome#feed', constraints: {format: 'rss'}
+  get 'feed', to: 'welcome#feed', constraints: { format: 'rss' }
 
-  resources :feedbacks, only: [:create,:new]
+  resources :feedbacks, only: [:create, :new]
 
-  #the user routes
+  # the user routes
 
-  resources :users, :only => [:show] do
+  resources :users, only: [:show] do
     resources :addresses, except: [:index, :show]
-    resources :libraries, :except => [:new,:edit]
+    resources :libraries, except: [:new, :edit]
     resources :library_elements, only: [:create, :destroy]
-    resources :ratings, :only => [:create, :index] do
+    resources :ratings, only: [:create, :index] do
       get '/:line_item_group_id', to: 'ratings#new', as: 'line_item_group', on: :new
     end
     member do
@@ -138,7 +137,6 @@ Fairmondo::Application.routes.draw do
     collection do
       post 'admin_add', as: 'admin_add_to'
       delete 'admin_remove/:article_id/:exhibition_name', action: 'admin_remove', as: 'admin_remove_from'
-
     end
   end
 
@@ -147,9 +145,8 @@ Fairmondo::Application.routes.draw do
   get 'new_libraries', to: 'libraries#index', defaults: { mode: 'new' }
   get 'myfavorite_libraries', to: 'libraries#index', defaults: { mode: 'myfavorite' }
 
-
   # categories routes
-  resources :categories, only: [:index,:show] do
+  resources :categories, only: [:index, :show] do
     member do
       get 'select_category'
     end
@@ -158,18 +155,19 @@ Fairmondo::Application.routes.draw do
     end
   end
 
-  post '/remote_validations/:model/:field/:value', to: 'remote_validations#create', as: 'remote_validation', constraints: {format: 'json'}
+  post '/remote_validations/:model/:field/:value', to: 'remote_validations#create', as: 'remote_validation', constraints: { format: 'json' }
 
-  root :to => 'welcome#index' # Workaround for double root https://github.com/gregbell/active_admin/issues/2049
+  root to: 'welcome#index' # Workaround for double root https://github.com/gregbell/active_admin/issues/2049
 
   require 'sidekiq/web'
   require 'sidetiq/web'
 
   if Rails.env.development?
-    constraint = lambda { |request| true }
+    constraint = lambda { |_request| true }
   else
-    constraint = lambda { |request| request.env['warden'].authenticate? and
-      request.env['warden'].user.admin? }
+    constraint = lambda do |request|
+      request.env['warden'].authenticate? && request.env['warden'].user.admin?
+    end
   end
 
   constraints constraint do
@@ -180,9 +178,9 @@ Fairmondo::Application.routes.draw do
   get 'discourse/sso'
 
   # TinyCMS Routes Catchup
-  scope constraints: lambda {|request|
-    request.params[:id] && !['assets','system','admin','public','favicon.ico', 'favicon'].any?{|url| request.params[:id].match(/^#{url}/)}
-  } do
+  scope(constraints: ->(request) do
+    request.params[:id] && !['assets', 'system', 'admin', 'public', 'favicon.ico', 'favicon'].any? { |url| request.params[:id].match(/^#{url}/) }
+  end) do
     get '/*id' => 'contents#show'
   end
 end

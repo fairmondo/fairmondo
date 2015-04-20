@@ -1,7 +1,5 @@
 class CommentRefinery < ApplicationRefinery
-
   def create
-    [ :text ]
+    [:text]
   end
-
 end

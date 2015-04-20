@@ -8,7 +8,7 @@ set :rbenv_ruby, '2.1.0'
 # Default branch is :master
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }
 
-set :deploy_to, "/var/www/fairnopoly"
+set :deploy_to, '/var/www/fairnopoly'
 
 # Default value for :scm is :git
 set :scm, :git
@@ -27,13 +27,11 @@ set :linked_dirs, %w{log tmp/pids public/system public/assets tmp/cache}
 
 set :keep_releases, 10
 
-set :ssh_options, {
-  forward_agent: true
-}
+set :ssh_options, forward_agent: true
 
 # Sidekiq
-#set :sidekiq_role, :sidekiq
-#set :sidekiq_pid, ->{ "tmp/pids/sidekiq.pid" }
+# set :sidekiq_role, :sidekiq
+# set :sidekiq_pid, ->{ "tmp/pids/sidekiq.pid" }
 
 namespace :deploy do
   desc 'Restart application'
@@ -45,7 +43,6 @@ namespace :deploy do
   end
 
   after :publishing, :restart
-
 
   before :updated, 'eye:quiet'
   after :published, 'eye:quit'
@@ -62,33 +59,31 @@ namespace :deploy do
     end
   end
 
-  after :finishing, "deploy:cleanup"
+  after :finishing, 'deploy:cleanup'
 end
 
-
-
 namespace :rails do
-  desc "Open the rails console on each of the remote servers"
+  desc 'Open the rails console on each of the remote servers'
   task :console do
-    on roles(:console), :primary => true do |host|
+    on roles(:console), primary: true do |host|
       rails_env = fetch(:stage)
       within current_path do
-        execute_interactively "~/.rbenv/bin/rbenv exec bundle exec rails console #{rails_env}",host
+        execute_interactively "~/.rbenv/bin/rbenv exec bundle exec rails console #{rails_env}", host
       end
     end
   end
 
-  desc "Open the rails dbconsole on each of the remote servers"
+  desc 'Open the rails dbconsole on each of the remote servers'
   task :dbconsole do
-    on roles(:db), :primary => true do |host|
+    on roles(:db), primary: true do |host|
       rails_env = fetch(:stage)
       within current_path do
-        execute_interactively "~/.rbenv/bin/rbenv exec bundle exec rails dbconsole #{rails_env}",host
+        execute_interactively "~/.rbenv/bin/rbenv exec bundle exec rails dbconsole #{rails_env}", host
       end
     end
   end
 
-  def execute_interactively(command,host)
+  def execute_interactively(command, host)
     command_string = "ssh -l #{host.user} #{host} -p 22 -t 'cd #{deploy_to}/current && #{command}'"
     puts command_string
     exec command_string

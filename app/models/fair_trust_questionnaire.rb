@@ -32,7 +32,6 @@ class FairTrustQuestionnaire < ActiveRecord::Base
 
   belongs_to :article
 
-
   # Question 1: supports marginalized workers (req)
 
   serialize :support_checkboxes, Array
@@ -50,10 +49,10 @@ class FairTrustQuestionnaire < ActiveRecord::Base
 
   validates :support, presence: true
   validates :support_checkboxes, presence: true,
-                                 size: {in: 3..-1},
+                                 size: { in: 3..-1 },
                                  if: :support
   validates :support_explanation, presence: true,
-                                  length: {minimum: 150, maximum: 10000},
+                                  length: { minimum: 150, maximum: 10000 },
                                   if: :support
   validates :support_other, fair_trust_other: true
 
@@ -75,10 +74,10 @@ class FairTrustQuestionnaire < ActiveRecord::Base
 
   validates :labor_conditions, presence: true
   validates :labor_conditions_checkboxes, presence: true,
-                                          size: {in: 4..-1},
+                                          size: { in: 4..-1 },
                                           if: :labor_conditions
   validates :labor_conditions_explanation, presence: true,
-                                           length: {minimum: 150 , maximum: 10000},
+                                           length: { minimum: 150, maximum: 10000 },
                                            if: :labor_conditions
   validates :labor_conditions_other, fair_trust_other: true
 
@@ -96,10 +95,10 @@ class FairTrustQuestionnaire < ActiveRecord::Base
     :other
   ], multiple: true
 
-  #validates :environment_protection, presence: true
+  # validates :environment_protection, presence: true
   validates :environment_protection_checkboxes, presence: true,
                                                 if: :environment_protection
-  validates :environment_protection_explanation, length: {minimum: 150, maximum: 10000},
+  validates :environment_protection_explanation, length: { minimum: 150, maximum: 10000 },
                                                  if: :environment_protection
   validates :environment_protection_other, fair_trust_other: true
 
@@ -118,9 +117,9 @@ class FairTrustQuestionnaire < ActiveRecord::Base
   # remove? I18n.t('article.form.errors.FairTrustQuestionnaire.invalid')
   validates :controlling, presence: true
   validates :controlling_checkboxes, presence: true,
-                                     size: {in: 2..-1}, if: :controlling
+                                     size: { in: 2..-1 }, if: :controlling
   validates :controlling_explanation, presence: true,
-                                      length: {minimum: 150, maximum: 10000},
+                                      length: { minimum: 150, maximum: 10000 },
                                       if: :controlling
   validates :controlling_other, fair_trust_other: true
 
@@ -137,11 +136,10 @@ class FairTrustQuestionnaire < ActiveRecord::Base
     :other
   ], multiple: true
 
-  #validates :awareness_raising, presence: true
+  # validates :awareness_raising, presence: true
   validates :awareness_raising_checkboxes, presence: true,
                                            if: :awareness_raising
-  validates :awareness_raising_explanation, length: {minimum: 150, maximum: 10000},
+  validates :awareness_raising_explanation, length: { minimum: 150, maximum: 10000 },
                                             if: :awareness_raising
   validates :awareness_raising_other, fair_trust_other: true
-
 end

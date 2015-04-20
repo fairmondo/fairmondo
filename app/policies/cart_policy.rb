@@ -20,7 +20,6 @@
 # along with Fairmondo.  If not, see <http://www.gnu.org/licenses/>.
 #
 class CartPolicy < Struct.new(:user, :cart)
-
   def show? cookie_id = nil
     cart.cookie_content ||= cookie_id # to be able to call this method from view
     cart.user ? user == cart.user : cart.id == cart.cookie_content

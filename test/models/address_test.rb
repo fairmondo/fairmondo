@@ -39,18 +39,18 @@ describe Address do
   end
 
   describe '#duplicate_if_referenced!' do
-    it "returns the original model if it is not referenced and not changed" do
+    it 'returns the original model if it is not referenced and not changed' do
       address.must_equal address.duplicate_if_referenced!
       address.stashed.must_equal false
     end
-    it "returns the original model if it is not referenced and changed" do
-      address.assign_attributes(first_name: "not_the_original_value")
+    it 'returns the original model if it is not referenced and changed' do
+      address.assign_attributes(first_name: 'not_the_original_value')
       address.must_equal address.duplicate_if_referenced!
       address.stashed.must_equal false
     end
-    it "returns an unsaved new instance if it is referenced and changed" do
+    it 'returns an unsaved new instance if it is referenced and changed' do
       old_name = address.first_name
-      new_name = "not_the_original_value"
+      new_name = 'not_the_original_value'
       FactoryGirl.create(:line_item_group, payment_address: address)
       address.assign_attributes(first_name: new_name)
       new_address = address.duplicate_if_referenced!
@@ -62,21 +62,21 @@ describe Address do
   end
 
   describe '#is_referenced?' do
-    it "should return false if not referenced" do
+    it 'should return false if not referenced' do
       address.is_referenced?.must_equal false
     end
-    it "should return true if referenced as payment address" do
+    it 'should return true if referenced as payment address' do
       FactoryGirl.create(:line_item_group, payment_address: address)
       address.is_referenced?.must_equal true
     end
-    it "should return true if referenced as transport address" do
+    it 'should return true if referenced as transport address' do
       FactoryGirl.create(:line_item_group, transport_address: address)
       address.is_referenced?.must_equal true
     end
   end
 
   describe '#stash!' do
-    it "stashes the record" do
+    it 'stashes the record' do
       address.stash!
       address.reload.stashed?.must_equal true
     end

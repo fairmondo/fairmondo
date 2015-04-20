@@ -9,14 +9,13 @@ class Rating < ActiveRecord::Base
   delegate :update_rating_counter, to: :rated_user
 
   validates :rating, :rated_user_id, :line_item_group_id, presence: true
-  validates :text, :length => { :maximum => 2500 }
+  validates :text, length: { maximum: 2500 }
   # auto_sanitize :text
-  validates :line_item_group_id, :uniqueness => true, presence: true
+  validates :line_item_group_id, uniqueness: true, presence: true
 
   after_save :update_rating_counter
 
-  default_scope -> { order("created_at DESC") }
+  default_scope { order('created_at DESC') }
 
-  alias :value :rating # to avoid structure 'rating_rating' in shared/show_article_listitem
-
+  alias_method :value, :rating # to avoid structure 'rating_rating' in shared/show_article_listitem
 end

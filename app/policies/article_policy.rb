@@ -20,7 +20,6 @@
 # along with Fairmondo.  If not, see <http://www.gnu.org/licenses/>.
 #
 class ArticlePolicy < Struct.new(:user, :article)
-
   def index?
     true
   end
@@ -58,7 +57,7 @@ class ArticlePolicy < Struct.new(:user, :article)
 
   def destroy?
     own?
-    #owned_and_deactivated? || own? && article.template?
+    # owned_and_deactivated? || own? && article.template?
   end
 
   def activate?
@@ -82,25 +81,26 @@ class ArticlePolicy < Struct.new(:user, :article)
   end
 
   private
-    def own?
-      user && user.id == article.seller.id
-    end
 
-    def not_owned_and_active?
-      article.active? && !own?
-    end
+  def own?
+    user && user.id == article.seller.id
+  end
 
-    def owned_and_deactivated?
-      own? && ( article.preview? || article.locked? )
-    end
+  def not_owned_and_active?
+    article.active? && !own?
+  end
 
-    def bought_or_sold?
-      LineItemGroup.where(id: article.business_transactions.pluck(:line_item_group_id)).where("seller_id = ? OR buyer_id = ?",user,user).limit(1).any?
-    end
+  def owned_and_deactivated?
+    own? && (article.preview? || article.locked?)
+  end
+
+  def bought_or_sold?
+    LineItemGroup.where(id: article.business_transactions.pluck(:line_item_group_id)).where('seller_id = ? OR buyer_id = ?', user, user).limit(1).any?
+  end
 
   class Scope < Struct.new(:user, :scope)
     def resolve
-      scope.where(:state => "active").includes(:images,:seller)
+      scope.where(state: 'active').includes(:images, :seller)
     end
   end
 end

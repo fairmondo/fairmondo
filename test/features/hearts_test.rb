@@ -19,50 +19,48 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Fairmondo.  If not, see <http://www.gnu.org/licenses/>.
 #
-require_relative "../test_helper"
+require_relative '../test_helper'
 
 include Warden::Test::Helpers
 
-
-feature "Hearts for not-logged-in users" do
-
+feature 'Hearts for not-logged-in users' do
   before do
-    UserTokenGenerator.stubs( :generate ).returns("some long string that is very secret")
+    UserTokenGenerator.stubs(:generate).returns('some long string that is very secret')
   end
 
-  scenario "User visits library path, finds no hearts, " +
-           "then likes a library and finds his heart" do
+  scenario 'User visits library path, finds no hearts, ' +
+           'then likes a library and finds his heart' do
     library = FactoryGirl.create(:library_with_elements, public: true)
     visit libraries_path
-    page.must_have_selector(".Hearts-button")
-    page.must_have_selector(".Hearts-count")
-    within(".Hearts-count") { page.must_have_content "0" }
+    page.must_have_selector('.Hearts-button')
+    page.must_have_selector('.Hearts-count')
+    within('.Hearts-count') { page.must_have_content '0' }
 
     # can't check JS (otherwise this would be click_link, wait...)
-    library.hearts.create(user_token: "RandomUserToken")
+    library.hearts.create(user_token: 'RandomUserToken')
     visit libraries_path
-    within(".Hearts-count") { page.must_have_content "1" }
+    within('.Hearts-count') { page.must_have_content '1' }
   end
 end
 
-feature "Hearts for logged-in users" do
-  scenario "User visits library path, finds no hearts, " +
-           "then likes a library and finds his heart" do
-  user = FactoryGirl.create(:user)
-  library = FactoryGirl.create(:library_with_elements, public: true)
-  login_as user
+feature 'Hearts for logged-in users' do
+  scenario 'User visits library path, finds no hearts, ' +
+           'then likes a library and finds his heart' do
+    user = FactoryGirl.create(:user)
+    library = FactoryGirl.create(:library_with_elements, public: true)
+    login_as user
 
-  visit libraries_path
-  page.must_have_selector(".Hearts-button")
-  page.must_have_selector(".Hearts-count")
-  within(".Hearts-count") { page.must_have_content "0" }
+    visit libraries_path
+    page.must_have_selector('.Hearts-button')
+    page.must_have_selector('.Hearts-count')
+    within('.Hearts-count') { page.must_have_content '0' }
 
-  h = user.hearts.create(heartable: library) # can't check JS
-  visit libraries_path
-  within(".Hearts-count") { page.must_have_content "1" }
+    h = user.hearts.create(heartable: library) # can't check JS
+    visit libraries_path
+    within('.Hearts-count') { page.must_have_content '1' }
 
-  h.destroy # can't check JS
-  visit libraries_path
-  within(".Hearts-count") { page.must_have_content "0" }
+    h.destroy # can't check JS
+    visit libraries_path
+    within('.Hearts-count') { page.must_have_content '0' }
   end
 end

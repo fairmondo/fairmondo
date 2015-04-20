@@ -20,8 +20,6 @@
 # along with Fairmondo.  If not, see <http://www.gnu.org/licenses/>.
 #
 module ArticlesHelper
-
-
   # Conditions
   def condition_label article
     condition_text = t("enumerize.article.condition.#{article.condition}")
@@ -38,69 +36,24 @@ module ArticlesHelper
     attribute_list << t('article.show.title.small_and_precious') if search_cache.small_and_precious
 
     output = attribute_list.concatenate.capitalize + ' '
-    output += search_cache.searched_category.name + ' ' if search_cache.searched_category
+    output << search_cache.searched_category.name + ' ' if search_cache.searched_category
 
-    output += t('article.show.title.article')
+    output << t('article.show.title.article')
   end
 
   def breadcrumbs_for category
     output = ''
     category.self_and_ancestors.each do |c|
       last = c == category
-      output += '<span>'
-      output += "<a href='#{category_path(c)}' class='#{(last ? 'last' : nil )}'>"
-      output += c.name
-      output += '</a>'
-      output += '</span>'
-      output += ' > ' unless last
+      output << '<span>'
+      output << "<a href='#{category_path(c)}' class='#{(last ? 'last' : nil)}'>"
+      output << c.name
+      output << '</a>'
+      output << '</span>'
+      output << ' > ' unless last
     end
 
     output
-  end
-
-  def transport_format_for method
-    type = "transport"
-    options_format_for type, method, true
-  end
-
-  def payment_format_for method
-    type = "payment"
-    options_format_for type, method
-  end
-
-  def options_format_for type, method, check_free_transport = false
-    if resource.send("#{type}_#{method}")
-      html = '<li>'
-
-      if method == 'type1' || method == 'type2'
-        html << resource.send("#{type}_#{method}_provider")
-      else
-        html << t("formtastic.labels.article.#{type}_#{method}")
-      end
-
-      price_method = "#{type}_#{method}_price"
-
-      if (check_free_transport &&
-          resource.seller.free_transport_available &&
-          resource.seller_free_transport_at_price <= resource.price &&
-          !resource.transport_bike_courier) ||
-          !resource.respond_to?(price_method.to_sym)
-        html << ' (kostenfrei)'
-      else
-        html << " zzgl. #{humanized_money_with_symbol(resource.send(price_method))}"
-      end
-
-      if type == 'transport' && method == 'pickup'
-        html << ", <br/>PLZ: #{resource.seller.standard_address_zip}"
-      end
-
-      if type == 'transport' && method == 'bike_courier'
-        html << " bar bei Lieferung (z.Z. nur im Berliner Innenstadtbereich verfügbar)"
-      end
-
-      html << '</li>'
-      html.html_safe
-    end
   end
 
   def default_organisation_from organisation_list
@@ -135,8 +88,43 @@ module ArticlesHelper
     article.belongs_to_legal_entity? && !article.could_be_book_price_agreement? && article.friendly_percent != 100
   end
 
-  #def export_time_ranges
+  def available_transport method
+    resource.send("transport_#{ method }")
+  end
+
+  def transport_string_for method
+    if %w(type1 type2).include?(method)
+      resource.send("transport_#{method}_provider")
+    else
+      t("formtastic.labels.article.transport_#{method}")
+    end
+  end
+
+  def cost_info_for method
+    if free_or_not_for? method
+      '(kostenfrei)'
+    else
+      "zzgl. #{ humanized_money_with_symbol(resource.send("transport_#{ method }_price"))}"
+    end
+  end
+
+  def additional_info_for method
+    if method == 'pickup'
+      "(PLZ: #{ resource.seller.standard_address_zip })"
+    elsif method == 'bike_courier'
+      'bar bei Lieferung (z.Z. nur im Berliner Innenstadtbereich verfügbar)'
+    end
+  end
+
+  def free_or_not_for? method
+    resource.seller.free_transport_available &&
+      resource.seller_free_transport_at_price <= resource.price &&
+      !resource.transport_bike_courier ||
+      !resource.respond_to?("transport_#{ method }_price")
+  end
+
+  # def export_time_ranges
   #  # specify time range in months
   #  ['all', '1', '3', '6', '12']
-  #end
+  # end
 end

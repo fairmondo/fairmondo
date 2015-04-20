@@ -29,7 +29,7 @@ class User < ActiveRecord::Base
 
   friendly_id :nickname, use: [:slugged, :finders]
 
-  include Associations, ExtendedAttributes, Validations, State, Ratings
+  include Associations, ExtendedAttributes, Validations, State, Ratings, Scopes
   include Assets::Normalizer # for cancellation form
 
   # Include default devise modules. Others available are: :rememberable,
@@ -39,7 +39,6 @@ class User < ActiveRecord::Base
 
   after_create :create_default_library
 
-
   ####################################################
   # Scopes
   #
@@ -48,7 +47,6 @@ class User < ActiveRecord::Base
   scope :ngo_with_profile_image, -> { where(ngo: true).joins(:image).limit(8) }
   scope :banned, -> { where(banned: true) }
   scope :unbanned, -> { where('banned = ? OR banned IS NULL', false) }
-
 
   ####################################################
   # Methods
@@ -88,7 +86,7 @@ class User < ActiveRecord::Base
   # @api public
   # @param user [User] Usually current_user
   def is_pioneer?
-    self.created_at < Time.parse("2013-09-23 23:59:59.000000 CEST +02:00")
+    self.created_at < Time.parse('2013-09-23 23:59:59.000000 CEST +02:00')
   end
 
   # Static method to get admin status even if current_user is nil
@@ -102,7 +100,7 @@ class User < ActiveRecord::Base
   # @api public
   # @return [String] 8-digit number
   def customer_nr
-    id.to_s.rjust 8, "0"
+    id.to_s.rjust 8, '0'
   end
 
   # Get url for user image
@@ -117,7 +115,7 @@ class User < ActiveRecord::Base
   # @api public
   # @return [String]
   def address
-    string = ""
+    string = ''
     string += "#{standard_address_address_line_1}, "
     string += "#{standard_address_address_line_2}, " if standard_address_address_line_2.present?
     string += "#{standard_address_zip} #{standard_address_city}"
@@ -132,16 +130,15 @@ class User < ActiveRecord::Base
 
   # get all users with ngo status but not current
   def self.sorted_ngo_without_current(current_user)
-    self.order(:nickname).where("ngo = ? AND id != ?", true, current_user.id)
+    self.order(:nickname).where('ngo = ? AND id != ?', true, current_user.id)
   end
 
   # get hearted libraries of current user
   def self.hearted_libraries_current(current_user)
     if current_user
-      current_user.hearted_libraries.published.
-                   no_admins.min_elem(2).
-                   where('users.id != ?', current_user.id).
-                   reorder('hearts.created_at DESC')
+      current_user.hearted_libraries.published
+        .no_admins.min_elem(2).where('users.id != ?', current_user.id)
+        .reorder('hearts.created_at DESC')
     end
   end
 
@@ -179,12 +176,13 @@ class User < ActiveRecord::Base
   # only update Fastbill profile if user is a Legal Entity
   def update_fastbill_profile
     if self.is_a?(LegalEntity) && self.has_fastbill_profile?
-      FastbillAPI.update_profile self
+      api = FastbillAPI.new
+      api.update_profile self
     end
   end
 
   def count_value_of_goods
-    value_of_goods_cents = self.articles.active.sum("price_cents * quantity")
+    value_of_goods_cents = self.articles.active.sum('price_cents * quantity')
     self.update_attribute(:value_of_goods_cents, value_of_goods_cents)
   end
 
@@ -203,7 +201,7 @@ class User < ActiveRecord::Base
   end
 
   def build_standard_address_from address_params
-    self.standard_address ||= self.addresses.build if address_params.select{ |param,value| !value.empty? }.any?
+    self.standard_address ||= self.addresses.build if address_params.select { |_param, value| !value.empty? }.any?
     self.standard_address.assign_attributes(address_params) if self.standard_address
   end
 
@@ -220,10 +218,10 @@ class User < ActiveRecord::Base
     day_of_week = DateTime.now.cwday - 1 # array starts with 0
     weekend = day_of_week > 4 # is it Saturday or Sunday
     day_of_week = 0 if weekend
-    days = [ 'Mo', 'Di',  'Mi',  'Do', 'Fr' ]
+    days = %w(Mo Di Mi Do Fr)
     (0..4).each do |iterator| # iterate through the next days
-      day = ( iterator + day_of_week ) % 5 # returns the place in the array for the day
-      start_time = (iterator == 0 && !weekend) ? ( Time.now.hour + 3 ) : 8 # on the current day we start later
+      day = (iterator + day_of_week) % 5 # returns the place in the array for the day
+      start_time = (iterator == 0 && !weekend) ? (Time.now.hour + 3) : 8 # on the current day we start later
       for hour in start_time..19 do
         times.push "#{ days[day] } #{ hour }:00  bis #{ hour + 1 }:00"
       end
@@ -233,18 +231,18 @@ class User < ActiveRecord::Base
 
   private
 
-    # @api private
-    def create_default_library
-      if self.libraries.empty?
-        Library.create(name: I18n.t('library.default'), public: false, user_id: self.id)
-      end
+  # @api private
+  def create_default_library
+    if self.libraries.empty?
+      Library.create(name: I18n.t('library.default'), public: false, user_id: self.id)
     end
+  end
 
-    def wants_to_sell?
-      self.wants_to_sell
-    end
+  def wants_to_sell?
+    self.wants_to_sell
+  end
 
-    def is_german?
-      self.standard_address && self.standard_address.country == "Deutschland"
-    end
+  def is_german?
+    self.standard_address && self.standard_address.country == 'Deutschland'
+  end
 end

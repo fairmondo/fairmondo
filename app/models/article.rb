@@ -35,11 +35,11 @@ class Article < ActiveRecord::Base
     [
       :title,
       [:title, :seller_nickname],
-      [:title, :seller_nickname, :created_at ]
+      [:title, :seller_nickname, :created_at]
     ]
   end
 
-  friendly_id :slug_candidates, :use => [:slugged, :finders]
+  friendly_id :slug_candidates, use: [:slugged, :finders]
 
   def should_generate_new_friendly_id?
     super && slug == nil && should_get_a_slug?
@@ -57,10 +57,9 @@ class Article < ActiveRecord::Base
     self.save! # validation is performed on the attribute
   end
 
-
   def self.edit_as_new article
     new_article = article.amoeba_dup
-    new_article.state = "preview"
+    new_article.state = 'preview'
     new_article
   end
 
@@ -92,7 +91,4 @@ class Article < ActiveRecord::Base
       end
     }
   end
-
-
-
 end

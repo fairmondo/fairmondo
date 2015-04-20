@@ -24,68 +24,67 @@ require 'ffaker'
 FactoryGirl.define do
   factory :article, aliases: [:appended_object] do
     seller      # alias for User -> see spec/factories/users.rb
-    categories {|c| [c.association(:category)] }
+    categories { |c| [c.association(:category)] }
     title     { Faker::Lorem.words(rand(3..5)).join(' ').titleize }
-    content   { Faker::Lorem.paragraph(rand(7)+1) }
-    condition { ["new", "old"].sample }
-    condition_extra {[:as_good_as_new, :as_good_as_warranted, :used_very_good, :used_good, :used_satisfying, :broken].sample}
-    price_cents { Random.new.rand(40000)+1 }
-    vat {[0,7,19].sample}
+    content   { Faker::Lorem.paragraph(rand(7) + 1) }
+    condition { %w(new old).sample }
+    condition_extra { [:as_good_as_new, :as_good_as_warranted, :used_very_good, :used_good, :used_satisfying, :broken].sample }
+    price_cents { Random.new.rand(40000) + 1 }
+    vat { [0, 7, 19].sample }
     quantity 1
-    state "active"
+    state 'active'
     original_id { nil }
 
     trait :index_article do
-      after :create do |article, evaluator|
+      after :create do |article, _evaluator|
         Indexer.index_article article
       end
     end
 
-    basic_price_cents { Random.new.rand(500000)+1 }
-    basic_price_amount {[:kilogram, :gram, :liter, :milliliter, :cubicmeter, :meter, :squaremeter, :portion].sample}
+    basic_price_cents { Random.new.rand(500000) + 1 }
+    basic_price_amount { [:kilogram, :gram, :liter, :milliliter, :cubicmeter, :meter, :squaremeter, :portion].sample }
 
-    before :create do |article, evaluator|
+    before :create do |article, _evaluator|
       article.calculate_fees_and_donations
     end
 
-
     transport_type1 true
-    transport_type1_provider "DHL Päckchen"
-    transport_type1_price_cents { Random.new.rand(200)+1 }
-    transport_details "transport_details"
+    transport_type1_provider 'DHL Päckchen'
+    transport_type1_price_cents { Random.new.rand(200) + 1 }
+    transport_details 'transport_details'
     payment_bank_transfer true
 
-    payment_details "payment_details"
+    payment_details 'payment_details'
 
     factory :article_template do
-      article_template_name { Faker::Lorem.words( rand(3)+2 ) * " " }
+      article_template_name { Faker::Lorem.words(rand(3) + 2) * ' ' }
       state :template
     end
 
     factory :second_hand_article do
-      condition "old"
-      condition_extra "as_good_as_new"
+      condition 'old'
+      condition_extra 'as_good_as_new'
     end
 
     factory :no_second_hand_article do
-      condition "new"
+      condition 'new'
     end
 
     factory :preview_article do
       after(:build) do |article|
-        article.state = "preview"
+        article.state = 'preview'
       end
     end
 
     factory :closed_article do
       after(:build) do |article|
-        article.state = "closed"
+        article.state = 'closed'
       end
     end
 
     factory :locked_article do
       after(:build) do |article|
-        article.state = "locked"
+        article.state = 'locked'
       end
     end
 
@@ -102,7 +101,7 @@ FactoryGirl.define do
     end
 
     factory :article_with_business_transaction do
-      after :create do |article, evaluator|
+      after :create do |article, _evaluator|
         FactoryGirl.create :business_transaction, article: article
       end
     end
@@ -126,11 +125,11 @@ FactoryGirl.define do
     end
 
     trait :with_child_category do
-      categories {|c| [c.association(:category), c.association(:child_category)] }
+      categories { |c| [c.association(:category), c.association(:child_category)] }
     end
 
     trait :with_3_categories do # This should fail validation, so only use with FactoryGirl.build
-      categories {|c| [c.association(:category), c.association(:category), c.association(:category)] }
+      categories { |c| [c.association(:category), c.association(:category), c.association(:category)] }
     end
 
     trait :with_fixture_image do
@@ -179,17 +178,17 @@ FactoryGirl.define do
 
     trait :with_ngo do
       vat { [7, 19].sample }
-      seller { FactoryGirl.create :legal_entity, :paypal_data, :ngo => true }
+      seller { FactoryGirl.create :legal_entity, :paypal_data, ngo: true }
     end
 
     trait :with_friendly_percent do
       friendly_percent 75
-      friendly_percent_organisation { FactoryGirl.create :legal_entity, :ngo => true }
+      friendly_percent_organisation { FactoryGirl.create :legal_entity, ngo: true }
     end
 
     trait :with_friendly_percent_and_missing_bank_data do
       friendly_percent 75
-      friendly_percent_organisation { FactoryGirl.create :legal_entity, :missing_bank_data, :ngo => true }
+      friendly_percent_organisation { FactoryGirl.create :legal_entity, :missing_bank_data, ngo: true }
     end
 
     trait :simple_fair do
@@ -207,15 +206,15 @@ FactoryGirl.define do
     trait :simple_small_and_precious do
       small_and_precious true
       small_and_precious_eu_small_enterprise true
-      small_and_precious_reason "a"*151
+      small_and_precious_reason 'a' * 151
     end
 
     trait :with_larger_quantity do
-      quantity { (rand(100)+2) }
+      quantity { (rand(100) + 2) }
     end
 
     trait :with_custom_seller_identifier do
-      custom_seller_identifier {Faker::Lorem.characters(10)}
+      custom_seller_identifier { Faker::Lorem.characters(10) }
     end
 
     trait :with_discount do
@@ -223,7 +222,7 @@ FactoryGirl.define do
     end
 
     trait :invalid do
-      title ""
+      title ''
     end
   end
 end

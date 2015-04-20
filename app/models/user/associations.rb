@@ -29,19 +29,19 @@ module User::Associations
     delegate :title, :first_name, :last_name, :company_name, :address_line_1, :address_line_2, :zip, :city, :country, to: :standard_address, prefix: true, allow_nil: true
 
     # Profile image
-    has_one :image, class_name: "UserImage", foreign_key: "imageable_id"
+    has_one :image, class_name: 'UserImage', foreign_key: 'imageable_id'
     accepts_nested_attributes_for :image, reject_if: :all_blank
 
     # Articles and Mass uploads
     has_many :articles, dependent: :destroy # As seller
-    #has_many :bought_business_transactions, through: :buyer_line_item_groups#, source: :line_item_groups
-    #has_many :bought_articles, through: :bought_business_transactions, source: :article
+    # has_many :bought_business_transactions, through: :buyer_line_item_groups#, source: :line_item_groups
+    # has_many :bought_articles, through: :bought_business_transactions, source: :article
     has_many :mass_uploads
 
     # Cart related Models
     has_many :carts # as buyer
-    #has_many :line_item_groups, foreign_key: 'seller_id', inverse_of: :seller # as seller
-    #has_many :line_item_groups, foreign_key: 'buyer_id', inverse_of: :buyer  # as buyer
+    # has_many :line_item_groups, foreign_key: 'seller_id', inverse_of: :seller # as seller
+    # has_many :line_item_groups, foreign_key: 'buyer_id', inverse_of: :buyer  # as buyer
     has_many :seller_line_item_groups, class_name: 'LineItemGroup', foreign_key: 'seller_id', inverse_of: :seller
     has_many :buyer_line_item_groups, class_name: 'LineItemGroup', foreign_key: 'buyer_id', inverse_of: :buyer
 

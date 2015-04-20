@@ -1,5 +1,5 @@
 class BusinessTransactionsController < ApplicationController
-  before_filter :set_business_transaction
+  before_action :set_business_transaction
 
   def show
     # no authorize needed as it only redirects, policy will be called on LIG
@@ -22,7 +22,7 @@ class BusinessTransactionsController < ApplicationController
 
   private
 
-    def set_business_transaction
-      @business_transaction = BusinessTransaction.find(params[:id])
-    end
+  def set_business_transaction
+    @business_transaction = BusinessTransaction.find(params[:id])
+  end
 end

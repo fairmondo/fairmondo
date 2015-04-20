@@ -20,7 +20,6 @@
 # along with Fairmondo.  If not, see <http://www.gnu.org/licenses/>.
 #
 class MassUploadPolicy < Struct.new(:user, :mass_upload)
-
   def show?
     (mass_upload.finished? || mass_upload.activated?) && own?
   end
@@ -38,7 +37,8 @@ class MassUploadPolicy < Struct.new(:user, :mass_upload)
   end
 
   private
-    def own?
-      user.id == mass_upload.user.id
-    end
+
+  def own?
+    user.id == mass_upload.user.id
+  end
 end

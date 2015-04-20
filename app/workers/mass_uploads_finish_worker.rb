@@ -27,9 +27,9 @@ class MassUploadsFinishWorker
 
   include Sidetiq::Schedulable
 
-  recurrence {
-    hourly.minute_of_hour(*((0..5).to_a.map{|d|d*10}))
-  }
+  recurrence do
+    hourly.minute_of_hour(*((0..5).to_a.map { |d| d * 10 }))
+  end
 
   def perform
     MassUpload.processing.each do |mass_upload|

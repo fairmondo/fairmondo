@@ -19,8 +19,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Fairmondo.  If not, see <http://www.gnu.org/licenses/>.
 #
-class UserPolicy < Struct.new( :user, :resource )
-
+class UserPolicy < Struct.new(:user, :resource)
   def profile?
     true unless banned?
   end

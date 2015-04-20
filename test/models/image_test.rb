@@ -25,7 +25,7 @@ describe Image do
   subject { Image.new }
   let(:image) { FactoryGirl.create(:article_image) }
 
-  it "has a valid Factory" do
+  it 'has a valid Factory' do
     subject.valid?.must_equal true
   end
 
@@ -44,35 +44,33 @@ describe Image do
     it { subject.must_respond_to :image_processing }
   end
 
-  describe "associations" do
-    let (:article_image) { ArticleImage.new }
-    let (:feedback_image) { FeedbackImage.new }
-    let (:user_image) { UserImage.new }
+  describe 'associations' do
+    let(:article_image) { ArticleImage.new }
+    let(:feedback_image) { FeedbackImage.new }
+    let(:user_image) { UserImage.new }
     it { article_image.must belong_to :article }
     it { feedback_image.must belong_to :feedback }
     it { user_image.must belong_to :user }
   end
 
-  describe "methods" do
-    describe "::reprocess" do
-
-      it "should call reprocess on image Object" do
-        Image.stub_chain(:find,:image,:reprocess!) # for coverage / flush_errors with should_receive
+  describe 'methods' do
+    describe '::reprocess' do
+      it 'should call reprocess on image Object' do
+        Image.stub_chain(:find, :image, :reprocess!) # for coverage / flush_errors with should_receive
         Image.reprocess 1
       end
     end
 
-    describe "#url_or_original_while_processing" do
-      it "should return the original url when processing" do
+    describe '#url_or_original_while_processing' do
+      it 'should return the original url when processing' do
         image = FactoryGirl.create :article_image, :processing
         image.url_or_original_while_processing.must_equal image.original_image_url_while_processing
       end
 
-      it "should return the normal url when not processing" do
-        #image.image_processing = false
+      it 'should return the normal url when not processing' do
+        # image.image_processing = false
         image.url_or_original_while_processing.must_equal image.image.url(:thumb)
       end
     end
   end
-
 end

@@ -27,8 +27,8 @@ describe CartMailer do
 
     it 'must contain courier terms when at least one transaction has
         selected_transport bike_courier' do
-      bt = FactoryGirl.create :business_transaction,
-                              line_item_group_id: cart.line_item_groups.first.id
+      FactoryGirl.create :business_transaction,
+                         line_item_group_id: cart.line_item_groups.first.id
       BusinessTransaction.any_instance.stubs(:selected_transport)
         .returns('bike_courier')
       mail = CartMailer.buyer_email(cart)
@@ -56,7 +56,7 @@ describe CartMailer do
 
   it 'sends email to courier service' do
     business_transaction = FactoryGirl.create(:business_transaction, :transport_bike_courier, :paypal, :sold, state: 'ready')
-    payment         = FactoryGirl.create :payment, line_item_group: business_transaction.line_item_group, state: 'confirmed'
+    FactoryGirl.create :payment, line_item_group: business_transaction.line_item_group, state: 'confirmed'
     seller          = business_transaction.seller
     buyer           = business_transaction.buyer
     mail            = CartMailer.courier_notification(business_transaction)
@@ -91,7 +91,7 @@ describe CartMailer do
     mail.must have_body_text(business_transaction.bike_courier_message)
   end
 
-  describe "sending email on voucher payment" do |variable|
+  describe 'sending email on voucher payment' do |_variable|
     it 'displays donated money' do
       payment = FactoryGirl.create :voucher_payment, pay_key: '999999999a'
       seller = payment.line_item_group.seller
