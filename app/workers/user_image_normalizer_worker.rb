@@ -2,8 +2,8 @@ class UserImageNormalizerWorker
   include Sidekiq::Worker
 
   sidekiq_options queue: :file_normalizer,
-    retry: 5,
-    backtrace: true
+                         retry: 5,
+                         backtrace: true
 
   def perform id
     user = User.find id
@@ -27,11 +27,6 @@ class UserImageNormalizerWorker
       unless orig_filename == old_filename
         image.update_column :image_file_name, old_filename
       end
-      # files.each do |file|
-      #   File.rename(file, file[0..file.rindex('/')] + orig_filename)
-      # end
-      # # index changed articles
-      # Indexer.index_article(article)
     end
   end
 end
