@@ -93,7 +93,6 @@ describe Article do
     it { subject.must_respond_to :sold? }
     it { subject.must_respond_to :active? }
     it { subject.must_respond_to :closed? }
-
   end
 
   describe '::Base' do

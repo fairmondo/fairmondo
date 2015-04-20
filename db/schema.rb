@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20150226095925) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "addresses", force: true do |t|
     t.string  "title"
     t.string  "first_name"
@@ -27,7 +30,7 @@ ActiveRecord::Schema.define(version: 20150226095925) do
     t.boolean "stashed",        default: false
   end
 
-  add_index "addresses", ["user_id"], name: "addresses_user_id_index"
+  add_index "addresses", ["user_id"], name: "addresses_user_id_index", using: :btree
 
   create_table "articles", force: true do |t|
     t.string   "title"
@@ -94,20 +97,20 @@ ActiveRecord::Schema.define(version: 20150226095925) do
     t.boolean  "payment_voucher",                                  default: false
   end
 
-  add_index "articles", ["created_at"], name: "index_articles_on_created_at"
-  add_index "articles", ["custom_seller_identifier", "user_id"], name: "index_articles_on_custom_seller_identifier_and_user_id"
-  add_index "articles", ["slug"], name: "index_articles_on_slug", unique: true
-  add_index "articles", ["state"], name: "index_articles_on_state"
-  add_index "articles", ["user_id"], name: "index_articles_on_user_id"
+  add_index "articles", ["created_at"], name: "index_articles_on_created_at", using: :btree
+  add_index "articles", ["custom_seller_identifier", "user_id"], name: "index_articles_on_custom_seller_identifier_and_user_id", using: :btree
+  add_index "articles", ["slug"], name: "index_articles_on_slug", unique: true, using: :btree
+  add_index "articles", ["state"], name: "index_articles_on_state", using: :btree
+  add_index "articles", ["user_id"], name: "index_articles_on_user_id", using: :btree
 
   create_table "articles_categories", force: true do |t|
     t.integer "category_id"
     t.integer "article_id",  limit: 8
   end
 
-  add_index "articles_categories", ["article_id", "category_id"], name: "articles_category_index"
-  add_index "articles_categories", ["article_id"], name: "index_articles_categories_on_article_id"
-  add_index "articles_categories", ["category_id"], name: "index_articles_categories_on_category_id"
+  add_index "articles_categories", ["article_id", "category_id"], name: "articles_category_index", using: :btree
+  add_index "articles_categories", ["article_id"], name: "index_articles_categories_on_article_id", using: :btree
+  add_index "articles_categories", ["category_id"], name: "index_articles_categories_on_category_id", using: :btree
 
   create_table "business_transactions", force: true do |t|
     t.string   "type_fix"
@@ -149,12 +152,12 @@ ActiveRecord::Schema.define(version: 20150226095925) do
     t.datetime "courier_emails_sent_at"
   end
 
-  add_index "business_transactions", ["article_id"], name: "index_business_transactions_on_article_id"
-  add_index "business_transactions", ["buyer_id"], name: "index_business_transactions_on_buyer_id"
-  add_index "business_transactions", ["discount_id"], name: "index_business_transactions_on_discount_id"
-  add_index "business_transactions", ["line_item_group_id"], name: "index_business_transactions_on_line_item_group_id"
-  add_index "business_transactions", ["parent_id"], name: "index_business_transactions_on_parent_id"
-  add_index "business_transactions", ["seller_id"], name: "index_business_transactions_on_seller_id"
+  add_index "business_transactions", ["article_id"], name: "index_business_transactions_on_article_id", using: :btree
+  add_index "business_transactions", ["buyer_id"], name: "index_business_transactions_on_buyer_id", using: :btree
+  add_index "business_transactions", ["discount_id"], name: "index_business_transactions_on_discount_id", using: :btree
+  add_index "business_transactions", ["line_item_group_id"], name: "index_business_transactions_on_line_item_group_id", using: :btree
+  add_index "business_transactions", ["parent_id"], name: "index_business_transactions_on_parent_id", using: :btree
+  add_index "business_transactions", ["seller_id"], name: "index_business_transactions_on_seller_id", using: :btree
 
   create_table "carts", force: true do |t|
     t.datetime "created_at"
@@ -166,7 +169,7 @@ ActiveRecord::Schema.define(version: 20150226095925) do
     t.datetime "purchase_emails_sent_at"
   end
 
-  add_index "carts", ["user_id"], name: "index_carts_on_user_id"
+  add_index "carts", ["user_id"], name: "index_carts_on_user_id", using: :btree
 
   create_table "categories", force: true do |t|
     t.string   "name"
@@ -183,8 +186,8 @@ ActiveRecord::Schema.define(version: 20150226095925) do
     t.string   "slug"
   end
 
-  add_index "categories", ["parent_id"], name: "index_categories_on_parent_id"
-  add_index "categories", ["slug"], name: "index_categories_on_slug", unique: true
+  add_index "categories", ["parent_id"], name: "index_categories_on_parent_id", using: :btree
+  add_index "categories", ["slug"], name: "index_categories_on_slug", unique: true, using: :btree
 
   create_table "comments", force: true do |t|
     t.integer  "user_id"
@@ -195,9 +198,9 @@ ActiveRecord::Schema.define(version: 20150226095925) do
     t.datetime "updated_at"
   end
 
-  add_index "comments", ["commentable_id", "commentable_type", "updated_at"], name: "index_comments_for_popularity_worker"
-  add_index "comments", ["commentable_id", "commentable_type"], name: "index_comments_on_commentable_id_and_commentable_type"
-  add_index "comments", ["user_id"], name: "index_comments_on_user_id"
+  add_index "comments", ["commentable_id", "commentable_type", "updated_at"], name: "index_comments_for_popularity_worker", using: :btree
+  add_index "comments", ["commentable_id", "commentable_type"], name: "index_comments_on_commentable_id_and_commentable_type", using: :btree
+  add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
 
   create_table "contents", force: true do |t|
     t.string   "key"
@@ -206,7 +209,7 @@ ActiveRecord::Schema.define(version: 20150226095925) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "contents", ["key"], name: "index_tinycms_contents_on_key", unique: true
+  add_index "contents", ["key"], name: "index_tinycms_contents_on_key", unique: true, using: :btree
 
   create_table "discounts", force: true do |t|
     t.string   "title"
@@ -229,8 +232,8 @@ ActiveRecord::Schema.define(version: 20150226095925) do
     t.datetime "exhibition_date"
   end
 
-  add_index "exhibits", ["article_id"], name: "index_exhibits_on_article_id"
-  add_index "exhibits", ["related_article_id"], name: "index_exhibits_on_related_article_id"
+  add_index "exhibits", ["article_id"], name: "index_exhibits_on_article_id", using: :btree
+  add_index "exhibits", ["related_article_id"], name: "index_exhibits_on_related_article_id", using: :btree
 
   create_table "fair_trust_questionnaires", force: true do |t|
     t.integer "article_id",                         limit: 8
@@ -256,7 +259,7 @@ ActiveRecord::Schema.define(version: 20150226095925) do
     t.string  "awareness_raising_other"
   end
 
-  add_index "fair_trust_questionnaires", ["article_id"], name: "index_fair_trust_questionnaires_on_article_id"
+  add_index "fair_trust_questionnaires", ["article_id"], name: "index_fair_trust_questionnaires_on_article_id", using: :btree
 
   create_table "feedbacks", force: true do |t|
     t.text     "text"
@@ -278,8 +281,8 @@ ActiveRecord::Schema.define(version: 20150226095925) do
     t.string   "phone"
   end
 
-  add_index "feedbacks", ["article_id"], name: "index_feedbacks_on_article_id"
-  add_index "feedbacks", ["user_id"], name: "index_feedbacks_on_user_id"
+  add_index "feedbacks", ["article_id"], name: "index_feedbacks_on_article_id", using: :btree
+  add_index "feedbacks", ["user_id"], name: "index_feedbacks_on_user_id", using: :btree
 
   create_table "hearts", force: true do |t|
     t.integer  "user_id"
@@ -290,11 +293,11 @@ ActiveRecord::Schema.define(version: 20150226095925) do
     t.string   "user_token"
   end
 
-  add_index "hearts", ["heartable_id", "heartable_type", "updated_at"], name: "index_hearts_for_popularity_worker"
-  add_index "hearts", ["heartable_id", "heartable_type"], name: "index_hearts_on_heartable_id_and_heartable_type"
-  add_index "hearts", ["user_id", "heartable_id", "heartable_type"], name: "index_hearts_on_user_id_and_heartable_id_and_heartable_type", unique: true
-  add_index "hearts", ["user_id"], name: "index_hearts_on_user_id"
-  add_index "hearts", ["user_token", "heartable_id", "heartable_type"], name: "index_hearts_on_user_token_and_heartable_id_and_heartable_type", unique: true
+  add_index "hearts", ["heartable_id", "heartable_type", "updated_at"], name: "index_hearts_for_popularity_worker", using: :btree
+  add_index "hearts", ["heartable_id", "heartable_type"], name: "index_hearts_on_heartable_id_and_heartable_type", using: :btree
+  add_index "hearts", ["user_id", "heartable_id", "heartable_type"], name: "index_hearts_on_user_id_and_heartable_id_and_heartable_type", unique: true, using: :btree
+  add_index "hearts", ["user_id"], name: "index_hearts_on_user_id", using: :btree
+  add_index "hearts", ["user_token", "heartable_id", "heartable_type"], name: "index_hearts_on_user_token_and_heartable_id_and_heartable_type", unique: true, using: :btree
 
   create_table "images", force: true do |t|
     t.string   "image_file_name"
@@ -310,7 +313,7 @@ ActiveRecord::Schema.define(version: 20150226095925) do
     t.boolean  "image_processing"
   end
 
-  add_index "images", ["imageable_id", "type"], name: "index_images_on_imageable_id_and_type"
+  add_index "images", ["imageable_id", "type"], name: "index_images_on_imageable_id_and_type", using: :btree
 
   create_table "libraries", force: true do |t|
     t.string   "name"
@@ -326,7 +329,7 @@ ActiveRecord::Schema.define(version: 20150226095925) do
     t.boolean  "audited",                          default: false
   end
 
-  add_index "libraries", ["user_id"], name: "index_libraries_on_user_id"
+  add_index "libraries", ["user_id"], name: "index_libraries_on_user_id", using: :btree
 
   create_table "library_elements", force: true do |t|
     t.integer  "article_id",      limit: 8
@@ -337,8 +340,8 @@ ActiveRecord::Schema.define(version: 20150226095925) do
     t.boolean  "inactive",                  default: false
   end
 
-  add_index "library_elements", ["article_id"], name: "index_library_elements_on_article_id"
-  add_index "library_elements", ["library_id"], name: "index_library_elements_on_library_id"
+  add_index "library_elements", ["article_id"], name: "index_library_elements_on_article_id", using: :btree
+  add_index "library_elements", ["library_id"], name: "index_library_elements_on_library_id", using: :btree
 
   create_table "line_item_groups", force: true do |t|
     t.text     "message"
@@ -363,12 +366,12 @@ ActiveRecord::Schema.define(version: 20150226095925) do
     t.datetime "purchase_emails_sent_at"
   end
 
-  add_index "line_item_groups", ["buyer_id"], name: "index_line_item_groups_on_buyer_id"
-  add_index "line_item_groups", ["cart_id"], name: "index_line_item_groups_on_cart_id"
-  add_index "line_item_groups", ["payment_address_id"], name: "index_line_item_groups_on_payment_address_id"
-  add_index "line_item_groups", ["purchase_id"], name: "index_line_item_groups_on_purchase_id"
-  add_index "line_item_groups", ["seller_id"], name: "index_line_item_groups_on_seller_id"
-  add_index "line_item_groups", ["transport_address_id"], name: "index_line_item_groups_on_transport_address_id"
+  add_index "line_item_groups", ["buyer_id"], name: "index_line_item_groups_on_buyer_id", using: :btree
+  add_index "line_item_groups", ["cart_id"], name: "index_line_item_groups_on_cart_id", using: :btree
+  add_index "line_item_groups", ["payment_address_id"], name: "index_line_item_groups_on_payment_address_id", using: :btree
+  add_index "line_item_groups", ["purchase_id"], name: "index_line_item_groups_on_purchase_id", using: :btree
+  add_index "line_item_groups", ["seller_id"], name: "index_line_item_groups_on_seller_id", using: :btree
+  add_index "line_item_groups", ["transport_address_id"], name: "index_line_item_groups_on_transport_address_id", using: :btree
 
   create_table "line_items", force: true do |t|
     t.integer  "line_item_group_id", limit: 8
@@ -378,8 +381,8 @@ ActiveRecord::Schema.define(version: 20150226095925) do
     t.datetime "updated_at"
   end
 
-  add_index "line_items", ["article_id"], name: "index_line_items_on_article_id"
-  add_index "line_items", ["line_item_group_id"], name: "index_line_items_on_line_item_group_id"
+  add_index "line_items", ["article_id"], name: "index_line_items_on_article_id", using: :btree
+  add_index "line_items", ["line_item_group_id"], name: "index_line_items_on_line_item_group_id", using: :btree
 
   create_table "mass_upload_articles", force: true do |t|
     t.integer  "mass_upload_id"
@@ -393,10 +396,10 @@ ActiveRecord::Schema.define(version: 20150226095925) do
     t.string   "process_identifier"
   end
 
-  add_index "mass_upload_articles", ["article_id"], name: "index_mass_upload_articles_on_article_id"
-  add_index "mass_upload_articles", ["mass_upload_id"], name: "index_mass_upload_articles_on_mass_upload_id"
-  add_index "mass_upload_articles", ["row_index", "mass_upload_id"], name: "index_mass_upload_articles_on_row_index_and_mass_upload_id"
-  add_index "mass_upload_articles", ["row_index"], name: "index_mass_upload_articles_on_row_index"
+  add_index "mass_upload_articles", ["article_id"], name: "index_mass_upload_articles_on_article_id", using: :btree
+  add_index "mass_upload_articles", ["mass_upload_id"], name: "index_mass_upload_articles_on_mass_upload_id", using: :btree
+  add_index "mass_upload_articles", ["row_index", "mass_upload_id"], name: "index_mass_upload_articles_on_row_index_and_mass_upload_id", using: :btree
+  add_index "mass_upload_articles", ["row_index"], name: "index_mass_upload_articles_on_row_index", using: :btree
 
   create_table "mass_uploads", force: true do |t|
     t.integer  "row_count"
@@ -411,7 +414,7 @@ ActiveRecord::Schema.define(version: 20150226095925) do
     t.string   "state"
   end
 
-  add_index "mass_uploads", ["user_id"], name: "index_mass_uploads_on_user_id"
+  add_index "mass_uploads", ["user_id"], name: "index_mass_uploads_on_user_id", using: :btree
 
   create_table "notices", force: true do |t|
     t.text     "message"
@@ -423,7 +426,7 @@ ActiveRecord::Schema.define(version: 20150226095925) do
     t.datetime "updated_at"
   end
 
-  add_index "notices", ["user_id"], name: "index_notices_on_user_id"
+  add_index "notices", ["user_id"], name: "index_notices_on_user_id", using: :btree
 
   create_table "opening_times", force: true do |t|
     t.integer  "user_id",    limit: 8
@@ -449,7 +452,7 @@ ActiveRecord::Schema.define(version: 20150226095925) do
     t.datetime "updated_at"
   end
 
-  add_index "payments", ["line_item_group_id"], name: "index_payment_on_line_item_group_id"
+  add_index "payments", ["line_item_group_id"], name: "index_payment_on_line_item_group_id", using: :btree
 
   create_table "rails_admin_histories", force: true do |t|
     t.text     "message"
@@ -462,7 +465,7 @@ ActiveRecord::Schema.define(version: 20150226095925) do
     t.datetime "updated_at",           null: false
   end
 
-  add_index "rails_admin_histories", ["item", "table", "month", "year"], name: "index_rails_admin_histories"
+  add_index "rails_admin_histories", ["item", "table", "month", "year"], name: "index_rails_admin_histories", using: :btree
 
   create_table "ratings", force: true do |t|
     t.string   "rating"
@@ -474,9 +477,9 @@ ActiveRecord::Schema.define(version: 20150226095925) do
     t.integer  "line_item_group_id",      limit: 8
   end
 
-  add_index "ratings", ["business_transaction_id"], name: "index_ratings_on_business_transaction_id"
-  add_index "ratings", ["line_item_group_id"], name: "index_line_item_group_id_on_ratings"
-  add_index "ratings", ["rated_user_id"], name: "index_ratings_on_rated_user_id"
+  add_index "ratings", ["business_transaction_id"], name: "index_ratings_on_business_transaction_id", using: :btree
+  add_index "ratings", ["line_item_group_id"], name: "index_line_item_group_id_on_ratings", using: :btree
+  add_index "ratings", ["rated_user_id"], name: "index_ratings_on_rated_user_id", using: :btree
 
   create_table "refunds", force: true do |t|
     t.string   "reason"
@@ -486,7 +489,7 @@ ActiveRecord::Schema.define(version: 20150226095925) do
     t.datetime "updated_at"
   end
 
-  add_index "refunds", ["business_transaction_id"], name: "index_refunds_on_business_transaction_id"
+  add_index "refunds", ["business_transaction_id"], name: "index_refunds_on_business_transaction_id", using: :btree
 
   create_table "sessions", force: true do |t|
     t.string   "session_id", null: false
@@ -495,8 +498,8 @@ ActiveRecord::Schema.define(version: 20150226095925) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "sessions", ["session_id"], name: "index_sessions_on_session_id"
-  add_index "sessions", ["updated_at"], name: "index_sessions_on_updated_at"
+  add_index "sessions", ["session_id"], name: "index_sessions_on_session_id", using: :btree
+  add_index "sessions", ["updated_at"], name: "index_sessions_on_updated_at", using: :btree
 
   create_table "social_producer_questionnaires", force: true do |t|
     t.integer "article_id",                                  limit: 8
@@ -509,7 +512,7 @@ ActiveRecord::Schema.define(version: 20150226095925) do
     t.text    "social_entrepreneur_explanation"
   end
 
-  add_index "social_producer_questionnaires", ["article_id"], name: "index_social_producer_questionnaires_on_article_id"
+  add_index "social_producer_questionnaires", ["article_id"], name: "index_social_producer_questionnaires_on_article_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "email",                                        default: "",    null: false
@@ -590,10 +593,10 @@ ActiveRecord::Schema.define(version: 20150226095925) do
     t.datetime "belboon_tracking_token_set_at"
   end
 
-  add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
-  add_index "users", ["slug"], name: "index_users_on_slug", unique: true
-  add_index "users", ["standard_address_id"], name: "index_users_on_standard_address_id"
+  add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+  add_index "users", ["slug"], name: "index_users_on_slug", unique: true, using: :btree
+  add_index "users", ["standard_address_id"], name: "index_users_on_standard_address_id", using: :btree
 
 end
