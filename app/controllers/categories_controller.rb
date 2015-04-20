@@ -22,6 +22,18 @@ class CategoriesController < ApplicationController
 
   def show
     authorize @category
+
+    @example_libraries = Library.for_category(@category.self_and_descendants)
+
+    # exclude user's own libraries if he is logged in
+    if user_signed_in?
+      @example_libraries = @example_libraries.where('libraries.user_id != ?',
+                                                    current_user.id)
+    end
+
+    # random() should work with PostgreSQL and SQLite
+    @example_libraries = @example_libraries.reorder('random()').limit(2)
+
     respond_with @category do |format|
       format.html { articles }
       format.js   { articles }
@@ -30,7 +42,8 @@ class CategoriesController < ApplicationController
   end
 
   def collection
-    @categories = Category.other_category_last.sorted.roots.includes(children: { children: { children: :children } })
+    @categories = Category.other_category_last.sorted.roots
+      .includes(children: { children: { children: :children } })
   end
 
   private

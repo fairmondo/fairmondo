@@ -1,15 +1,12 @@
-div[class$="-hearts"] {
-  float: right;
-
-  > i.fa-heart, i-fa-heart-o {
-    font-size: 1.2rem;
-  }
-
+.Hearts-button {
+  margin-right: 1.5em;
+  float: left;
+  color: $light-gray;
 }
 
-.Hearts-button {
-  position: relative;
-  i.fa-heart, i.fa-heart-o {
-    font-size: 1.2rem;
-  }
+.Hearts-button em {
+  margin-left: 0.1em;
+  font-size: 1em;
+  line-height: 2em;
+  color: $secondary-color;
 }

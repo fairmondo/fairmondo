@@ -1,8 +1,26 @@
 @import "mixins/all";
 
+h1 {
+  font-size: 1.5em;
+  font-weight: 600;
+  margin: 0.5em 0;
+}
+
+h2 {
+  font-size: 1em;
+  font-weight: 600;
+}
+
+h3 {
+  font-size: 1em;
+}
+
+
+/******************************** Index view **********************************/
+
 #library-form {
   @include whitebox;
-  margin-bottom: 1em;
+  margin: 1em 0;
   clear: both;
 }
 
@@ -11,8 +29,115 @@
   text-align: right;
 }
 
+
 .libraries {
   clear: both;
   border-top: 0.1em solid $lighter-gray;
   padding-top: 1em;
+}
+
+.pagination {
+  clear: both;
+}
+
+
+/******************************** Show view ***********************************/
+
+.library-header {
+  overflow: hidden;
+}
+
+.library-header-owner {
+  float: left;
+  overflow: hidden;
+  margin: 0.5em 0;
+  color: $black;
+
+  a {
+    text-transform: uppercase;
+  }
+
+  img {
+    display: block;
+    float: left;
+    width: 20px;
+    height: 20px;
+    margin-right: 0.5em;
+    margin-bottom: -4px;
+  }
+}
+
+.library-header-owner > .wrapper {
+  float: left;
+}
+
+
+.library-header-owner-by,
+.library-header-owner-name {
+
+}
+
+.library-header-title {
+  clear: left;
+  float: left;
+
+  small {
+    font-size: 0.8em;
+  }
+}
+
+.library-header-title-visibility {
+  color: $secondary-color;
+}
+
+.library-actions {
+  float: right;
+  margin: 0.4em 0 0 1em;
+  overflow: hidden;
+}
+
+.library-body {
+  clear: both;
+  margin-top: 1em;
+}
+
+.library-edit,
+.library-admin {
+  margin: 0.5em 0;
+  padding: 1em;
+  background-color: $lighter-gray;
+}
+
+.library-admin {
+  clear: both;
+  margin-top: 1em;
+}
+
+// Set to display:none once testing JavaScript works
+.library-edit-settings {
+  display: block;
+}
+
+.morelibraries {
+  margin-top: 2em;
+}
+
+
+/******************************* Breakpoints *********************************/
+
+// tablet
+@include at-breakpoint($bp-tablet) {
+  .library-header-owner {
+    img {
+      margin-right: 1em;
+      margin-bottom: 5px;
+      width: 60px;
+      height: 60px;
+    }
+  }
+
+  .library-header-owner-by,
+  .library-header-owner-name {
+    display: block;
+  }
 }

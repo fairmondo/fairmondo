@@ -87,6 +87,65 @@ feature 'Libraries on welcome page' do
   end
 end
 
+feature 'Libraries on category pages' do
+  setup do
+    @user = FactoryGirl.create :user
+    @library = FactoryGirl.create(:library, :public, user: @user)
+
+    @category = FactoryGirl.create :category
+    @category_child = FactoryGirl.create(:category, parent: @category)
+    @category_grandchild = FactoryGirl.create(
+      :category, parent: @category_child)
+  end
+
+  scenario 'library is shown on category page unless owner is logged in' do
+    articles = []
+    3.times do
+      articles.push FactoryGirl.create(
+        :article, seller: @user, categories: [@category])
+    end
+
+    articles.each do |article|
+      FactoryGirl.create(:library_element, library: @library, article: article)
+    end
+
+    visit category_path(@category)
+    page.must_have_content(@library.name)
+
+    login_as @user
+    visit category_path(@category)
+    page.wont_have_content(@library.name)
+  end
+
+  scenario 'library is shown on parent category page' do
+    articles = []
+      .push(FactoryGirl.create(
+              :article, seller: @user, categories: [@category]))
+      .push(FactoryGirl.create(
+              :article, seller: @user, categories: [@category_child]))
+      .push(FactoryGirl.create(
+              :article, seller: @user, categories: [@category_grandchild]))
+
+    articles.each do |article|
+      FactoryGirl.create(:library_element, library: @library, article: article)
+    end
+
+    visit category_path(@category)
+    page.must_have_content(@library.name)
+  end
+end
+
+feature 'Libraries on library pages' do
+  scenario 'more libraries of the same user are shown on a library page' do
+    user = FactoryGirl.create :user
+    library1 = FactoryGirl.create(:library_with_elements, :public, user: user)
+    library2 = FactoryGirl.create(:library_with_elements, :public, user: user)
+
+    visit library_path(library1)
+    page.must_have_content(library2.name)
+  end
+end
+
 feature 'Library management' do
   setup do
     @user = FactoryGirl.create :user
@@ -109,7 +168,7 @@ feature 'Library management' do
     page.must_have_content I18n.t 'activerecord.errors.models.library.attributes.name.blank'
   end
 
-  scenario 'user updates name of exsisting Library' do
+  scenario 'user updates name of existing Library' do
     library = FactoryGirl.create :library, name: 'foobar', user: @user
     visit user_libraries_path @user
     click_link 'foobar'
@@ -117,7 +176,7 @@ feature 'Library management' do
       fill_in "library#{library.id}_library_name", with: 'bazfuz'
       click_button I18n.t 'formtastic.actions.update'
     end
-    page.must_have_selector 'a', text: 'bazfuz'
+    page.must_have_content 'bazfuz'
   end
 
   scenario 'user updates library with a blank name' do
@@ -129,17 +188,17 @@ feature 'Library management' do
       click_button I18n.t 'formtastic.actions.update'
     end
 
-    page.must_have_selector 'a', text: 'foobar'
+    page.must_have_content 'foobar'
     page.must_have_content I18n.t('activerecord.errors.models.library.attributes.name.blank')
   end
 
   scenario 'user deletes Library' do
-    library = FactoryGirl.create :library, name: 'foobar', user: @user
+    FactoryGirl.create :library, name: 'foobar', user: @user
     visit user_libraries_path @user
     click_link 'foobar'
     assert_difference 'Library.count', -1 do
-      within "#library#{library.id}" do
-        click_link I18n.t('common.actions.destroy')
+      within '.library-edit-settings' do
+        click_link I18n.t('library.delete')
       end
     end
     page.wont_have_content 'foobar'
@@ -172,10 +231,7 @@ feature 'Library management' do
     logout(:user)
     login_as buyer
     visit library_path library
-
-    within("#library#{library.id}") do
-      page.must_have_content I18n.t('library.no_products')
-    end
+    page.must_have_content I18n.t('common.text.no_articles')
   end
 end
 

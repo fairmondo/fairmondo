@@ -1,0 +1,19 @@
+/ Library admin section
+
+- if User.is_admin?(current_user) && library.public?
+  section.library-admin
+    h2= t('library.admin.section')
+
+    section.library-admin-feature
+      h3= t('library.admin.feature')
+
+      = semantic_form_for library,
+        url: user_library_path(library.user, library),
+        html: { id: "select_exhibition_for_library#{library.id}" } do |f|
+        = f.inputs do
+          = f.input :exhibition_name, as: :select,
+            collection: Library.exhibition_name.options
+        = f.actions do
+          = f.action :submit,
+            button_html: { class: 'Button', id: 'select_exhibition_submit_action' }
+            / this generates the same form id twice on that page which is annoying

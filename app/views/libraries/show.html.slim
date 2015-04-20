@@ -1,14 +1,78 @@
 / Render library
-= render resource, single_view: true
 
-/ Admin controls
-- if User.is_admin?(current_user) && resource.public?
-  .Admin-controls
-    h2= "Administration:"
-    h3= "Sammlung featuren"
-    = semantic_form_for resource, url: user_library_path(resource.user, resource), html: { id: "select_exhibition_for_library#{resource.id}" } do |f|
-      = f.inputs do
-        = f.input :exhibition_name, as: :select, collection: Library.exhibition_name.options
-      = f.actions do
-        = f.action :submit, button_html: { class: "Btn", id: "select_exhibition_submit_action" }
-        / this generates the same form id twice on that page which is annoying
+/ Convenience variable
+- is_own_library = resource.user == current_user
+
+section.library
+  .library-wrapper
+    / edit form
+    = render partial: 'libraries/show/library_edit', object: resource,
+      as: :library
+
+    header.library-header
+
+      / user information
+      - unless is_own_library
+        .library-header-owner
+          = link_to user_path(resource.user) do
+            = image_tag resource.user.image_url(:thumb),
+              alt: t('users.user_image')
+
+          .wrapper
+            span.library-header-owner-by=> t('library.library_by')
+            = link_to resource.user_nickname, user_path(resource.user),
+              class: 'library-header-owner-name'
+
+      / library name and other information
+      h1.library-header-title
+        = "#{resource.name}&emsp;".html_safe
+        small
+          - if is_own_library
+            span.library-header-title-visibility
+              = resource.public? ? t('library.visibility.public')\
+                : t('library.visibility.private')
+              | &emsp;
+          = article_range_str @library_elements
+
+      / actions section with hearts and comments
+      .library-actions
+        = heart_button(resource)
+        = comments_counter(resource)
+
+
+    / Library body section
+    .library-body.Library-elements
+      - if @library_elements.to_a.any?
+        .Grid--wider
+          = render partial: 'libraries/show/library_element',
+            collection: @library_elements
+
+        = paginate @library_elements, param_name: :library_page, remote: false,
+          params: { controller: 'libraries', action: 'show',
+            id: resource.id, _: nil }
+
+
+    / Show social media buttons if it is a public library
+    - if resource.public?
+      .socialshareprivacy data={ uri: library_url(resource), title: resource.name }
+
+
+    / Comments section
+    = render partial: 'comments/commentable_comments', object: resource,
+      as: :commentable
+
+
+  / More libraries of the same user
+  - unless is_own_library || @user_libraries.empty?
+    section.morelibraries
+      h2
+        = t('libraries.morelibraries_by')
+        =< link_to resource.user_nickname, user_path(resource.user)
+      = render partial: 'libraries/library', collection: @user_libraries,
+        locals: { show_owner: false, piwik_campaign: 'libraries',
+          piwik_keyword: 'library_page' }
+
+
+  / Admin section
+  = render partial: 'libraries/show/library_admin', object: resource,
+    as: :library

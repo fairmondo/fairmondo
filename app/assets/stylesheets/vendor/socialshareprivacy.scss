@@ -2,9 +2,11 @@
 
 
 .socialshareprivacy {
-    clear: both;
-    float: right;
-    margin: 10px 0 !important;
+    margin: 15px 0;
+}
+
+.socialshareprivacy i.fa {
+    color: $blue;
 }
 
 .social_share_privacy_area {

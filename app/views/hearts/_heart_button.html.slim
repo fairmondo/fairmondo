@@ -1,10 +1,8 @@
 .Hearts-button
   - if disabled
-    span
-      i.fa.fa-heart disabled='true'
+      = fa_icon('heart 2x')
   - else
     = link_to path, method: method, remote: true do
-      i.fa*{ class: filled ? 'fa-heart' : 'fa-heart-o', disabled: disabled }
-  | &nbsp;
-  span.Hearts-count
+      = fa_icon(filled ? 'heart 2x' : 'heart-o 2x')
+  em
     = heartable_resource.hearts_count

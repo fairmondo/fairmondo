@@ -1,0 +1,34 @@
+/ library edit and delete form for show view
+
+- if policy(library).update?
+  section.library-edit
+
+    / button to show or hide entire section
+    a.js-library-edit-trigger[href='#']
+      = t('common.actions.edit')
+
+    / part that is initially hidden
+    .library-edit-settings
+      h2= t('library.edit_or_delete')
+
+      / user warning if library is on welcome page
+      - if library.on_welcome_page?
+        p.Library-details-user-warning= t('library.auditing.user_warning')
+
+      / edit form
+      = semantic_form_for library,
+        url: user_library_path(library.user.id, library.id.to_s),
+        namespace: "library#{library.id.to_s}" do |f|
+        = f.inputs do
+          = f.input :name, required: false
+          = f.input :public, label: false
+        = f.actions do
+          = f.action :submit, label: :update, button_html: { class: 'Button'}
+
+      / delete button
+      - if policy(library).destroy?
+        = link_to t('library.delete'),
+          user_library_path(library.user.id, library.id.to_s),
+          class: 'Button Button--red',
+          confirm: t('library.delete_confirm', name: library.name),
+          method: :delete

@@ -52,6 +52,18 @@ class LibrariesController < ApplicationController
 
   def show
     authorize @library
+
+    @library_elements = @library.library_elements.active
+      .preload(article_reduced: [:title_image, :seller])
+      .page(params[:library_page])
+      .per(24)
+
+    # random() should work with PostgreSQL and SQLite
+    @user_libraries = @library.user.libraries.not_empty.published
+      .where('id != ?', @library.id)
+      .reorder('random()')
+      .limit(2)
+
     respond_with @library do |format|
       format.js
     end
@@ -69,9 +81,9 @@ class LibrariesController < ApplicationController
   def update
     authorize @library
     if @library.update(params.for(@library).refine)
-      redirect_to user_libraries_path(current_user, anchor: "library#{@library.id}")
+      redirect_to library_path(@library)
     else
-      redirect_to user_libraries_path(current_user), alert: @library.errors.values.first.first
+      redirect_to library_path(@library), alert: @library.errors.values.first.first
     end
   end
 

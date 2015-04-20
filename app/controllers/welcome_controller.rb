@@ -32,7 +32,8 @@ class WelcomeController < ApplicationController
     @donation_articles = query_object.set(:donation_articles).find(2)
 
     # Libraries
-    @trending_libraries = Library.trending_welcome_page.includes(user: [:image], comments: { user: [:image] })
+    @trending_libraries = Library.trending_welcome_page
+      .includes(user: [:image], comments: { user: [:image] })
 
     # Personalized section
     if user_signed_in?

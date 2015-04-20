@@ -1,23 +1,79 @@
-/ Partial for showing a library
-- single_view = false unless local_assigns.has_key? :single_view
-- header_comments = true unless local_assigns.has_key? :header_comments
-- if single_view
-  div id="library#{library.id.to_s}"
-    = render "library_header", library: library, comments: false
+/ Partial for showing the summary of a library
 
-    / Show social media buttons if it is a public library
-    - if library.public?
-      .socialshareprivacy data={ uri: library_url(library), title: library.name }
+/ Locals
+- piwik_campaign  = nil   unless local_assigns.has_key?(:piwik_campaign)
+- piwik_keyword   = nil   unless local_assigns.has_key?(:piwik_keyword)
+- show_owner      = true  unless local_assigns.has_key?(:show_owner)
+- show_visibility = false unless local_assigns.has_key?(:show_visibility)
 
-    = render "library_buttons", library: library
-    = render "library_body", library: library, remote_paginate: false, element_count: 24
-- else
-  - if library.has_elements? || (library.user == current_user)
-    .Library id="library#{library.id}"
-      = render "libraries/library_header", library: library, comments: header_comments
-      /.Library-details
-        / Show social media buttons if it is a public library
-        - if library.public?
-          .socialshareprivacy data={ uri: library_url(library), title: library.name }
+- is_own_library = library.user == current_user
 
-        = render "libraries/library_buttons", library: library
+- if library.has_elements? || is_own_library
+
+  section.Library id="library#{library.id.to_s}"
+
+    .Library-wrapper
+
+      - link_target = library_path(library,
+        pk_campaign: piwik_campaign, pk_kwd: piwik_keyword)
+
+      / Extra link to library so the whole area is clickable
+      = link_to '', link_target
+
+      / Header
+      h3= link_to library.name, link_target
+
+      / Main part
+      ul.Library-thumbnails
+        - library_elements = library.library_elements.active\
+          .preload(article_reduced: :title_image).first(4)
+
+        / Display items even if there are no images to maintain the same height
+        / for all displayed libraries
+        - library_elements.each do |library_element|
+          li
+            - if library_element.article_reduced
+              = image_tag library_element.article_reduced.title_image_url(:thumb),
+                title: library_element.article_reduced_title
+
+      / Footer
+      footer.Library-footer
+        - if !show_owner && is_own_library
+          p.Library-footer-visibility
+            = library.public? ? t('library.visibility.public')\
+              : t('library.visibility.private')
+
+        - if show_owner
+          p.Library-footer-from
+            / name of owner, special message if own library
+            - if is_own_library
+              => t('library.by_you')
+            - else
+              = t('common.text.glue.from')
+              => library.user_nickname
+
+        p.Library-footer-articles
+          - if library.library_elements_count != 0
+            => library.library_elements_count
+            = t('common.text.articles')
+          - else
+            = t('common.text.no_articles')
+
+        p.Library-footer-heartsandcomments
+          span
+            => fa_icon('heart')
+            = library.hearts_count
+          | &emsp;
+          span
+            => fa_icon('comments')
+            = library.comments_count
+
+    / Audit button for admins
+    - if policy(library).admin_audit?
+      .Library-auditing
+        = link_to (library.audited\
+          ? t('library.auditing.welcome_page_enabled')\
+          : t('library.auditing.welcome_page_disabled')),
+          admin_audit_library_path(library),
+          class: "Button #{library.audited ? 'Button--green' : 'Button--red'}",
+          method: :patch, remote: true

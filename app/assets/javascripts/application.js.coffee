@@ -79,7 +79,6 @@
 #= require visual/ajax_spinner
 #= require visual/button
 #= require visual/colorbox
-#= require visual/details
 #= require visual/iframe
 #= require visual/input_enforcement
 #= require visual/mobile_nav

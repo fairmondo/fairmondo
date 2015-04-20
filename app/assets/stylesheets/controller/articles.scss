@@ -284,7 +284,7 @@ ul.category-selected-list {
   }
 }
 
-// Fragezeichen-Button
+// Questionmark button
 #libraries_popup > span.sprite_helper {
   position: absolute;
   top: 0.5em;
@@ -314,7 +314,7 @@ ul.category-selected-list {
   margin-right: 0.6em;
 }
 
-// Formular
+// Form
 
 #libraries_popup > .formtastic.library {
   margin-top: 0.25em;
@@ -323,7 +323,7 @@ ul.category-selected-list {
     float: left;
   }
 
-  // Plus-Button
+  // Plus button
   .actions {
     float: left;
     margin: 0;
@@ -331,7 +331,7 @@ ul.category-selected-list {
 }
 
 
-// Auge
+// Eye
 #eye_checkbox {
   color: $blue;
   cursor: pointer;
@@ -340,7 +340,7 @@ ul.category-selected-list {
 }
 
 
-// Textfeld
+// Input field
 #library_name_input {
   float: left;
   margin: 0 0.2em;
@@ -358,7 +358,7 @@ ul.category-selected-list {
 
 // article borrow / swap links
 
-// Link zu Sammlungen
+// Link to libraries
 #libraries_popup > #libraries_links {
   padding: 0.75em 0 0 0;
   margin: 0;

@@ -1,2 +1,0 @@
-$("#library<%= resource.id %> .js-library-ajax").html('<%= escape_javascript render "library_body", library: resource, remote_paginate: true  %>');
-$('html,body').animate({scrollTop: $("<%= "#library#{resource.id.to_s}" %>").offset().top},'slow');
