@@ -35,7 +35,7 @@ end
 
 admin = User.find_by_email("admin@admin.com")
 unless admin
-  admin = FactoryGirl.create(:admin_user, :email => "admin@admin.com", :password => "password", :trustcommunity => true, direct_debit: true)
+  admin = FactoryGirl.create(:admin_user, :email => "admin@admin.com", :password => "password", direct_debit: true)
 end
 
 user = User.find_by_email("user@user.com")

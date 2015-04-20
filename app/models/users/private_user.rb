@@ -47,7 +47,6 @@ class PrivateUser < User
   def max_value_of_goods_cents
     salesvolume = private_seller_constants[:standard_salesvolume]
 
-    salesvolume += private_seller_constants[:trusted_bonus]   if self.trustcommunity
     salesvolume += private_seller_constants[:verified_bonus]  if self.verified
     salesvolume *= private_seller_constants[:good_factor]     if good_seller?
     salesvolume = private_seller_constants[:bad_salesvolume]  if bad_seller?

@@ -266,7 +266,6 @@ RailsAdmin.config do |config|
     field :iban
     field :bic
     field :paypal_account
-    field :company_name
     field(:bankaccount_warning) { read_only true }
     field(:fastbill_id) { read_only true }
     field(:fastbill_subscription_id) { read_only true }
@@ -274,7 +273,6 @@ RailsAdmin.config do |config|
     field(:buyer_state) { read_only true }
     field :verified
     field :direct_debit
-    field :address_suffix
 
     field :ngo
     field :max_value_of_goods_cents_bonus
