@@ -23,7 +23,6 @@
 
 module LibrariesHelper
   # Show range of paginated articles
-  # Also works for library elements
   def article_range_str(paginated_articles)
     case
     when paginated_articles.total_count == 0
@@ -36,7 +35,7 @@ module LibrariesHelper
       "#{article_range_end_number(paginated_articles)}"\
       " #{t('common.text.glue_without_spaces.of')}&nbsp;"\
       "#{paginated_articles.total_count}".html_safe
-    when article_range_start_number == article_range_end_number(paginated_article s)
+    when article_range_start_number == article_range_end_number(paginated_articles)
       "#{t('common.text.article')}&nbsp;#{article_range_start_number}"\
       " #{t('common.text.glue_without_spaces.of')}&nbsp;"\
       "#{paginated_articles.total_count}".html_safe
