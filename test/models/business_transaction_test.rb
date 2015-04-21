@@ -30,9 +30,9 @@ class BusinessTransactionTest < ActiveSupport::TestCase
     it { subject.must_respond_to :id }
     it { subject.must_respond_to :created_at }
     it { subject.must_respond_to :updated_at }
-    it { subject.must_respond_to :buyer_id }
     it { subject.must_respond_to :article_id }
     it { subject.must_respond_to :state }
+    it { subject.must_respond_to :seller_id }
 
     it { subject.must_respond_to :sold_at }
     it { subject.must_respond_to :purchase_emails_sent }

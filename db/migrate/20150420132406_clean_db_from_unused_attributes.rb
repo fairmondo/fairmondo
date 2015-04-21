@@ -10,11 +10,18 @@ class CleanDbFromUnusedAttributes < ActiveRecord::Migration
     remove_column :users, :address_suffix
     remove_column :users, :trustcommunity
     remove_column :users, :invitor_id
+
     remove_column :business_transactions, :forename
     remove_column :business_transactions, :surname
     remove_column :business_transactions, :street
     remove_column :business_transactions, :country
     remove_column :business_transactions, :zip
     remove_column :business_transactions, :address_suffix
+    remove_column :business_transactions, :type_fix
+    remove_column :business_transactions, :expire rescue
+    remove_column :business_transactions, :message
+    remove_column :business_transactions, :buyer_id
+
+    remove_column :ratings, :business_transaction_id
   end
 end

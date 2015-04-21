@@ -113,14 +113,11 @@ ActiveRecord::Schema.define(version: 20150420132406) do
   add_index "articles_categories", ["category_id"], name: "index_articles_categories_on_category_id", using: :btree
 
   create_table "business_transactions", force: true do |t|
-    t.string   "type_fix"
     t.datetime "created_at",                                          null: false
     t.datetime "updated_at",                                          null: false
-    t.datetime "expire"
     t.string   "selected_transport"
     t.string   "selected_payment"
     t.boolean  "tos_accepted",                        default: false
-    t.integer  "buyer_id",                  limit: 8
     t.string   "state"
     t.text     "message"
     t.integer  "quantity_available"
@@ -147,7 +144,6 @@ ActiveRecord::Schema.define(version: 20150420132406) do
   end
 
   add_index "business_transactions", ["article_id"], name: "index_business_transactions_on_article_id", using: :btree
-  add_index "business_transactions", ["buyer_id"], name: "index_business_transactions_on_buyer_id", using: :btree
   add_index "business_transactions", ["discount_id"], name: "index_business_transactions_on_discount_id", using: :btree
   add_index "business_transactions", ["line_item_group_id"], name: "index_business_transactions_on_line_item_group_id", using: :btree
   add_index "business_transactions", ["parent_id"], name: "index_business_transactions_on_parent_id", using: :btree
@@ -422,19 +418,6 @@ ActiveRecord::Schema.define(version: 20150420132406) do
 
   add_index "notices", ["user_id"], name: "index_notices_on_user_id", using: :btree
 
-  create_table "opening_times", force: true do |t|
-    t.integer  "user_id",    limit: 8
-    t.string   "monday"
-    t.string   "tuesday"
-    t.string   "wednesday"
-    t.string   "thursday"
-    t.string   "friday"
-    t.string   "saturday"
-    t.string   "sunday"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "payments", force: true do |t|
     t.string   "pay_key"
     t.string   "state"
@@ -464,14 +447,12 @@ ActiveRecord::Schema.define(version: 20150420132406) do
   create_table "ratings", force: true do |t|
     t.string   "rating"
     t.text     "text"
-    t.integer  "business_transaction_id", limit: 8
-    t.integer  "rated_user_id",           limit: 8
+    t.integer  "rated_user_id",      limit: 8
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "line_item_group_id",      limit: 8
+    t.integer  "line_item_group_id", limit: 8
   end
 
-  add_index "ratings", ["business_transaction_id"], name: "index_ratings_on_business_transaction_id", using: :btree
   add_index "ratings", ["line_item_group_id"], name: "index_line_item_group_id_on_ratings", using: :btree
   add_index "ratings", ["rated_user_id"], name: "index_ratings_on_rated_user_id", using: :btree
 
