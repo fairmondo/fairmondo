@@ -117,15 +117,11 @@ ActiveRecord::Schema.define(version: 20150420132406) do
     t.datetime "updated_at",                                          null: false
     t.string   "selected_transport"
     t.string   "selected_payment"
-    t.boolean  "tos_accepted",                        default: false
     t.string   "state"
     t.text     "message"
-    t.integer  "quantity_available"
     t.integer  "quantity_bought"
     t.integer  "parent_id",                 limit: 8
     t.integer  "article_id",                limit: 8
-    t.string   "city"
-    t.integer  "seller_id",                 limit: 8
     t.datetime "sold_at"
     t.boolean  "purchase_emails_sent",                default: false
     t.integer  "discount_id"
@@ -147,7 +143,6 @@ ActiveRecord::Schema.define(version: 20150420132406) do
   add_index "business_transactions", ["discount_id"], name: "index_business_transactions_on_discount_id", using: :btree
   add_index "business_transactions", ["line_item_group_id"], name: "index_business_transactions_on_line_item_group_id", using: :btree
   add_index "business_transactions", ["parent_id"], name: "index_business_transactions_on_parent_id", using: :btree
-  add_index "business_transactions", ["seller_id"], name: "index_business_transactions_on_seller_id", using: :btree
 
   create_table "carts", force: true do |t|
     t.datetime "created_at"
@@ -512,7 +507,6 @@ ActiveRecord::Schema.define(version: 20150420132406) do
     t.text     "terms"
     t.text     "cancellation"
     t.text     "about"
-    t.string   "city"
     t.string   "phone"
     t.string   "mobile"
     t.string   "fax"
