@@ -14,7 +14,7 @@ bottom of this file. PRs should not be merged until the issue is resolved.
 General Guidelines
 ------------------
 
-* A selection from the [Rails Style Guide](https://github.com/bbatsov/rails-style-guide#internationalization).*
+*A selection from the [Rails Style Guide](https://github.com/bbatsov/rails-style-guide#internationalization).*
 
 * No strings or other locale specific settings should be used in the views,
   models and controllers. These texts should be moved to the locale files in
@@ -65,8 +65,9 @@ General Guidelines
   ```
 
 Specific Guidelines
-------------------------
+-------------------
 
+**Where to put my translation?**
 * Folder structure after the `models` and `views` subfolders **MUST**
   follow the yaml structure. Not every yaml key needs a folder, but every subfolder must be reflected in the yaml.
 
@@ -77,8 +78,10 @@ Specific Guidelines
   * `config/locales/views/layouts`
   * `config/locales/views/layouts/partials`
   * `config/locales/views/layouts/partials/header`
+
   Nowhere else.
 
+**How much nesting?**
 * Subfolder nesting should be as low as feasible and should only be expanded
   once a translation file gets too long. Maximum length should be around **100 lines**.
 
@@ -86,12 +89,14 @@ Specific Guidelines
   it up into `config/locales/views/articles/index/en.yml`,
   `config/locales/views/articles/show/en.yml`, etc.
 
+**What if a gem forces translation structure?**
 * Special translations, for example required by gems, don't get nested in the
   `models` and `views` subfolders and follow the yaml structure immediately.
 
   For example, the formtastic gem requires transations in
-  '[locale].formtatic.*'. The file will thus be located in `config/locales/formtastic`
+  `[locale].formtatic.*`. The file will thus be located in `config/locales/formtastic`
 
+**What about shared strings?**
 * If exactly the same string is used in different files, put reference-anchors
   it in both yaml paths and place the reference-source in a `shared` path. Careful: Just because a string is the same in your language doesn't mean it will be in every language.
 
@@ -133,6 +138,4 @@ Specific Guidelines
         foo: 'bar'
         baz: 'fuz'
   ```
-
-
-
+  
