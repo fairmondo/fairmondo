@@ -84,6 +84,7 @@ Meaning: If you want to translate a `title` string from
 
 Nowhere else.
 
+
 **How much nesting?**
 
 Subfolder nesting should be as low as feasible and should only be expanded
@@ -94,14 +95,17 @@ So once `config/locales/views/articles/en.yml` gets too long, we would split
 it up into `config/locales/views/articles/index/en.yml`,
 `config/locales/views/articles/show/en.yml`, etc.
 
+
 **What if a gem forces translation structure?**
 
-Special translations, for example required by gems, don't get nested in the
-`models` and `views` subfolders and follow the yaml structure immediately.
+Special translations, for example required by gems, get nested in the
+`gems` subfolder (as opposed to `views` or `models`), even if they
+technically don't belong to a gem but to the ruby source (like date).
 
 For example, the formtastic gem requires transations in
 `[locale].formtatic.*`. The file will thus be located in
-`config/locales/formtastic`
+`config/locales/gems/formtastic`
+
 
 **What about shared strings?**
 
