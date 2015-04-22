@@ -2,7 +2,7 @@
 # old image paths sometimes having two images in there. It just took the first
 # one, but we actually need the youngest (by system change time) to become the
 # main image.
-class UserFileFixerWorker
+class FileFixerWorker
   include Sidekiq::Worker
 
   sidekiq_options queue: :file_normalizer,
@@ -28,6 +28,9 @@ class UserFileFixerWorker
 
       unless image.image_file_name == newest_filename
         image.update_column :image_file_name, newest_filename
+
+        # index changed articles
+        Indexer.index_article(image.article)
       end
     end
   end
