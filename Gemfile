@@ -142,6 +142,9 @@ group :development do
   gem 'guard-minitest'
   gem 'guard-rubocop'
   gem 'guard-livereload', '~> 2.4', require: false
+
+  # I18n Tools
+  gem 'i18n-tasks', '~> 0.8.3'
 end
 
 group :test do
