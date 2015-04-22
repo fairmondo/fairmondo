@@ -68,44 +68,52 @@ Specific Guidelines
 -------------------
 
 **Where to put my translation?**
-* Folder structure after the `models` and `views` subfolders **MUST**
-  follow the yaml structure. Not every yaml key needs a folder, but every subfolder must be reflected in the yaml.
 
-  Meaning: If you want to translate a `title` string from
-  `app/views/layouts/partials/header`, the yaml structure would be
-  `layouts.partials.header.title`. The yaml file can be located in either of:
-  * `config/locales/views/`
-  * `config/locales/views/layouts`
-  * `config/locales/views/layouts/partials`
-  * `config/locales/views/layouts/partials/header`
+Folder structure after the `models` and `views` subfolders **MUST** follow the
+yaml structure. Not every yaml key needs a folder, but every subfolder must be
+reflected in the yaml.
 
-  Nowhere else.
+Meaning: If you want to translate a `title` string from
+`app/views/layouts/partials/header`, the yaml structure would be
+`layouts.partials.header.title`. The yaml file can be located in either of:
+
+* `config/locales/views/`
+* `config/locales/views/layouts`
+* `config/locales/views/layouts/partials`
+* `config/locales/views/layouts/partials/header`
+
+Nowhere else.
 
 **How much nesting?**
-* Subfolder nesting should be as low as feasible and should only be expanded
-  once a translation file gets too long. Maximum length should be around **100 lines**.
 
-  So once `config/locales/views/articles/en.yml` gets too long, we would split
-  it up into `config/locales/views/articles/index/en.yml`,
-  `config/locales/views/articles/show/en.yml`, etc.
+Subfolder nesting should be as low as feasible and should only be expanded
+once a translation file gets too long. Maximum length should be around
+**100 lines**.
+
+So once `config/locales/views/articles/en.yml` gets too long, we would split
+it up into `config/locales/views/articles/index/en.yml`,
+`config/locales/views/articles/show/en.yml`, etc.
 
 **What if a gem forces translation structure?**
-* Special translations, for example required by gems, don't get nested in the
-  `models` and `views` subfolders and follow the yaml structure immediately.
 
-  For example, the formtastic gem requires transations in
-  `[locale].formtatic.*`. The file will thus be located in `config/locales/formtastic`
+Special translations, for example required by gems, don't get nested in the
+`models` and `views` subfolders and follow the yaml structure immediately.
+
+For example, the formtastic gem requires transations in
+`[locale].formtatic.*`. The file will thus be located in
+`config/locales/formtastic`
 
 **What about shared strings?**
-* If exactly the same string is used in different files, put reference-anchors
-  it in both yaml paths and place the reference-source in a `shared` path.
-  Careful: Just because a string is the same in your language doesn't mean it
-  will be in every language.
 
-  If, for example, the exact same element is used in
-  `app/views/users/show.html.slim` and in `app/views/users/new.html.slim`
-  then it should generally be located in a partial. If that's not feasible,
-  you would write the following translations:
+If exactly the same string is used in different files, put reference-anchors
+it in both yaml paths and place the reference-source in a `shared` path.
+Careful: Just because a string is the same in your language doesn't mean it
+will be in every language.
+
+If, for example, the exact same element is used in
+`app/views/users/show.html.slim` and in `app/views/users/new.html.slim`
+then it should generally be located in a partial. If that's not feasible,
+you would write the following translations:
 
   ```yaml
   en:
@@ -118,9 +126,9 @@ Specific Guidelines
         same_element_string: &user_element_string 'MyString'
   ```
 
-  If the element transcends a single controller it should *really* be in a
-  separate partial, otherwise move the shared key up the hierarchy as needed.
-  E.g.:
+If the element transcends a single controller it should *really* be in a
+separate partial, otherwise move the shared key up the hierarchy as needed.
+E.g.:
 
   ```yaml
   en:
