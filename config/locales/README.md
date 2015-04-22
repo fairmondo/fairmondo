@@ -106,7 +106,7 @@ For example, the formtastic gem requires transations in
 **What about shared strings?**
 
 If exactly the same string is used in different files, put reference-anchors
-it in both yaml paths and place the reference-source in a `shared` path.
+it in both yaml paths and place the reference-source in a `*.shared.*` path.
 Careful: Just because a string is the same in your language doesn't mean it
 will be in every language.
 
@@ -127,7 +127,7 @@ you would write the following translations:
   ```
 
 If the element transcends a single controller it should *really* be in a
-separate partial, otherwise move the shared key up the hierarchy as needed.
+separate partial, otherwise move the "shared" key up the hierarchy as needed.
 E.g.:
 
   ```yaml
