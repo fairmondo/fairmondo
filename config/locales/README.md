@@ -98,9 +98,14 @@ Specific Guidelines
 
 **What about shared strings?**
 * If exactly the same string is used in different files, put reference-anchors
-  it in both yaml paths and place the reference-source in a `shared` path. Careful: Just because a string is the same in your language doesn't mean it will be in every language.
+  it in both yaml paths and place the reference-source in a `shared` path.
+  Careful: Just because a string is the same in your language doesn't mean it
+  will be in every language.
 
-  If, for example, the exact same element is used in `app/views/users/show.html.slim` and in `app/views/users/new.html.slim` then it should generally be located in a partial. If that's not feasible, you would write the following translations:
+  If, for example, the exact same element is used in
+  `app/views/users/show.html.slim` and in `app/views/users/new.html.slim`
+  then it should generally be located in a partial. If that's not feasible,
+  you would write the following translations:
 
   ```yaml
   en:
@@ -138,4 +143,3 @@ Specific Guidelines
         foo: 'bar'
         baz: 'fuz'
   ```
-  
