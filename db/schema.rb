@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150226095925) do
+ActiveRecord::Schema.define(version: 20150420132406) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -113,30 +113,17 @@ ActiveRecord::Schema.define(version: 20150226095925) do
   add_index "articles_categories", ["category_id"], name: "index_articles_categories_on_category_id", using: :btree
 
   create_table "business_transactions", force: true do |t|
-    t.string   "type_fix"
     t.datetime "created_at",                                          null: false
     t.datetime "updated_at",                                          null: false
-    t.datetime "expire"
     t.string   "selected_transport"
     t.string   "selected_payment"
-    t.boolean  "tos_accepted",                        default: false
-    t.integer  "buyer_id",                  limit: 8
     t.string   "state"
     t.text     "message"
-    t.integer  "quantity_available"
     t.integer  "quantity_bought"
     t.integer  "parent_id",                 limit: 8
     t.integer  "article_id",                limit: 8
-    t.string   "forename"
-    t.string   "surname"
-    t.string   "street"
-    t.string   "city"
-    t.string   "zip"
-    t.string   "country"
-    t.integer  "seller_id",                 limit: 8
     t.datetime "sold_at"
     t.boolean  "purchase_emails_sent",                default: false
-    t.string   "address_suffix"
     t.integer  "discount_id"
     t.integer  "discount_value_cents"
     t.boolean  "billed_for_fair",                     default: false
@@ -153,11 +140,9 @@ ActiveRecord::Schema.define(version: 20150226095925) do
   end
 
   add_index "business_transactions", ["article_id"], name: "index_business_transactions_on_article_id", using: :btree
-  add_index "business_transactions", ["buyer_id"], name: "index_business_transactions_on_buyer_id", using: :btree
   add_index "business_transactions", ["discount_id"], name: "index_business_transactions_on_discount_id", using: :btree
   add_index "business_transactions", ["line_item_group_id"], name: "index_business_transactions_on_line_item_group_id", using: :btree
   add_index "business_transactions", ["parent_id"], name: "index_business_transactions_on_parent_id", using: :btree
-  add_index "business_transactions", ["seller_id"], name: "index_business_transactions_on_seller_id", using: :btree
 
   create_table "carts", force: true do |t|
     t.datetime "created_at"
@@ -428,19 +413,6 @@ ActiveRecord::Schema.define(version: 20150226095925) do
 
   add_index "notices", ["user_id"], name: "index_notices_on_user_id", using: :btree
 
-  create_table "opening_times", force: true do |t|
-    t.integer  "user_id",    limit: 8
-    t.string   "monday"
-    t.string   "tuesday"
-    t.string   "wednesday"
-    t.string   "thursday"
-    t.string   "friday"
-    t.string   "saturday"
-    t.string   "sunday"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "payments", force: true do |t|
     t.string   "pay_key"
     t.string   "state"
@@ -470,14 +442,12 @@ ActiveRecord::Schema.define(version: 20150226095925) do
   create_table "ratings", force: true do |t|
     t.string   "rating"
     t.text     "text"
-    t.integer  "business_transaction_id", limit: 8
-    t.integer  "rated_user_id",           limit: 8
+    t.integer  "rated_user_id",      limit: 8
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "line_item_group_id",      limit: 8
+    t.integer  "line_item_group_id", limit: 8
   end
 
-  add_index "ratings", ["business_transaction_id"], name: "index_ratings_on_business_transaction_id", using: :btree
   add_index "ratings", ["line_item_group_id"], name: "index_line_item_group_id_on_ratings", using: :btree
   add_index "ratings", ["rated_user_id"], name: "index_ratings_on_rated_user_id", using: :btree
 
@@ -526,11 +496,7 @@ ActiveRecord::Schema.define(version: 20150226095925) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "forename"
-    t.string   "surname"
     t.boolean  "admin",                                        default: false
-    t.integer  "invitor_id"
-    t.boolean  "trustcommunity"
     t.string   "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
@@ -541,11 +507,6 @@ ActiveRecord::Schema.define(version: 20150226095925) do
     t.text     "terms"
     t.text     "cancellation"
     t.text     "about"
-    t.string   "title"
-    t.string   "country"
-    t.string   "street"
-    t.string   "city"
-    t.string   "zip"
     t.string   "phone"
     t.string   "mobile"
     t.string   "fax"
@@ -556,7 +517,6 @@ ActiveRecord::Schema.define(version: 20150226095925) do
     t.string   "bank_account_owner"
     t.string   "bank_account_number"
     t.string   "paypal_account"
-    t.string   "company_name"
     t.string   "seller_state"
     t.string   "buyer_state"
     t.boolean  "verified"
@@ -564,7 +524,6 @@ ActiveRecord::Schema.define(version: 20150226095925) do
     t.float    "percentage_of_positive_ratings",               default: 0.0
     t.float    "percentage_of_negative_ratings",               default: 0.0
     t.boolean  "direct_debit",                                 default: false
-    t.string   "address_suffix"
     t.float    "percentage_of_neutral_ratings",                default: 0.0
     t.boolean  "ngo",                                          default: false
     t.integer  "value_of_goods_cents",               limit: 8, default: 0

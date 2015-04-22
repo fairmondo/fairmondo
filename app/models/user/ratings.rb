@@ -68,7 +68,6 @@ module User::Ratings
   def purchase_volume
     purchase_volume = buyer_constants[:standard_purchasevolume]
 
-    purchase_volume += buyer_constants[:trusted_bonus]      if self.trustcommunity
     purchase_volume *= buyer_constants[:good_factor]        if good_buyer?
     purchase_volume = buyer_constants[:bad_purchasevolume]  if bad_buyer?
     purchase_volume

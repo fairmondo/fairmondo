@@ -55,7 +55,7 @@ describe CartMailer do
   end
 
   it 'sends email to courier service' do
-    business_transaction = FactoryGirl.create(:business_transaction, :transport_bike_courier, :paypal, :sold, state: 'ready')
+    business_transaction = FactoryGirl.create(:business_transaction, :transport_bike_courier, :paypal, state: 'ready')
     FactoryGirl.create :payment, line_item_group: business_transaction.line_item_group, state: 'confirmed'
     seller          = business_transaction.seller
     buyer           = business_transaction.buyer

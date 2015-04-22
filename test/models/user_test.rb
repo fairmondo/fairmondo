@@ -42,8 +42,6 @@ describe User do
     it { subject.must_respond_to :created_at }
     it { subject.must_respond_to :updated_at }
     it { subject.must_respond_to :nickname }
-    it { subject.must_respond_to :invitor_id }
-    it { subject.must_respond_to :trustcommunity }
     it { subject.must_respond_to :confirmation_token }
     it { subject.must_respond_to :confirmed_at }
     it { subject.must_respond_to :confirmation_sent_at }
@@ -309,27 +307,18 @@ describe User do
           private_seller.standard_seller?.must_equal true
         end
 
-        it 'should have a salesvolume of bad_salesvolume if not trusted and not verified' do
+        it 'should have a salesvolume of bad_salesvolume if not verified' do
           private_seller.verified = false
-          private_seller.trustcommunity = false
-          private_seller.max_value_of_goods_cents.must_equal PRIVATE_SELLER_CONSTANTS['bad_salesvolume']
-        end
-
-        it 'should have a salesvolume of 17 if trusted' do
-          private_seller.verified = false
-          private_seller.trustcommunity = true
           private_seller.max_value_of_goods_cents.must_equal PRIVATE_SELLER_CONSTANTS['bad_salesvolume']
         end
 
         it 'should have a salesvolume of 17 if verified' do
           private_seller.verified = true
-          private_seller.trustcommunity = false
           private_seller.max_value_of_goods_cents.must_equal PRIVATE_SELLER_CONSTANTS['bad_salesvolume']
         end
 
-        it 'should have a salesvolume of 17 if trusted and verified' do
+        it 'should have a salesvolume of 17 if verified' do
           private_seller.verified = true
-          private_seller.trustcommunity = true
           private_seller.max_value_of_goods_cents.must_equal PRIVATE_SELLER_CONSTANTS['bad_salesvolume']
         end
       end # /bad seller
@@ -344,28 +333,19 @@ describe User do
           private_seller.good_seller?.must_equal true
         end
 
-        it 'should have a salesvolume of standard_salesvolume if not trusted and not verified' do
+        it 'should have a salesvolume of standard_salesvolume if not verified' do
           private_seller.verified = false
-          private_seller.trustcommunity = false
           private_seller.max_value_of_goods_cents.must_equal PRIVATE_SELLER_CONSTANTS['standard_salesvolume']
-        end
-
-        it 'should have a salesvolume of standard_salesvolume + trusted_bonus if trusted' do
-          private_seller.verified = false
-          private_seller.trustcommunity = true
-          private_seller.max_value_of_goods_cents.must_equal(PRIVATE_SELLER_CONSTANTS['standard_salesvolume'] + PRIVATE_SELLER_CONSTANTS['trusted_bonus'])
         end
 
         it 'should have a salesvolume of standard_salesvolume + verified_bonus if verified' do
           private_seller.verified = true
-          private_seller.trustcommunity = false
           private_seller.max_value_of_goods_cents.must_equal(PRIVATE_SELLER_CONSTANTS['standard_salesvolume'] + PRIVATE_SELLER_CONSTANTS['verified_bonus'])
         end
 
-        it 'should have a salesvolume of standard_salesvolume + trusted_bonus + verified_bonus if trusted and verified' do
+        it 'should have a salesvolume of standard_salesvolume + verified_bonus if verified' do
           private_seller.verified = true
-          private_seller.trustcommunity = true
-          private_seller.max_value_of_goods_cents.must_equal(PRIVATE_SELLER_CONSTANTS['standard_salesvolume'] + PRIVATE_SELLER_CONSTANTS['trusted_bonus'] + PRIVATE_SELLER_CONSTANTS['verified_bonus'])
+          private_seller.max_value_of_goods_cents.must_equal(PRIVATE_SELLER_CONSTANTS['standard_salesvolume'] + PRIVATE_SELLER_CONSTANTS['verified_bonus'])
         end
       end # /standard seller
 
@@ -374,35 +354,25 @@ describe User do
           private_seller.seller_state = 'good_seller'
         end
 
-        it 'should have a salesvolume of standard_salesvolume * good_factor if not trusted and not verified' do
+        it 'should have a salesvolume of standard_salesvolume * good_factor if not verified' do
           private_seller.verified = false
-          private_seller.trustcommunity = false
           private_seller.max_value_of_goods_cents.must_equal(PRIVATE_SELLER_CONSTANTS['standard_salesvolume'] * PRIVATE_SELLER_CONSTANTS['good_factor'])
-        end
-
-        it 'should have a salesvolume of (standard_salesvolume + trusted_bonus ) * good_factor if trusted' do
-          private_seller.verified = false
-          private_seller.trustcommunity = true
-          private_seller.max_value_of_goods_cents.must_equal((PRIVATE_SELLER_CONSTANTS['standard_salesvolume'] + PRIVATE_SELLER_CONSTANTS['trusted_bonus']) * PRIVATE_SELLER_CONSTANTS['good_factor'])
         end
 
         it 'should have a salesvolume of (standard_salesvolume + verified_bonus ) * good_factor if verified' do
           private_seller.verified = true
-          private_seller.trustcommunity = false
           private_seller.max_value_of_goods_cents.must_equal((PRIVATE_SELLER_CONSTANTS['standard_salesvolume'] + PRIVATE_SELLER_CONSTANTS['verified_bonus']) * PRIVATE_SELLER_CONSTANTS['good_factor'])
         end
 
-        it 'should have a salesvolume of (standard_salesvolume + trusted_bonus + verified_bonus ) * good_factor if trusted and verified' do
+        it 'should have a salesvolume of (standard_salesvolume + verified_bonus ) * good_factor if verified' do
           private_seller.verified = true
-          private_seller.trustcommunity = true
-          private_seller.max_value_of_goods_cents.must_equal((PRIVATE_SELLER_CONSTANTS['standard_salesvolume'] + PRIVATE_SELLER_CONSTANTS['trusted_bonus'] + PRIVATE_SELLER_CONSTANTS['verified_bonus']) * PRIVATE_SELLER_CONSTANTS['good_factor'])
+          private_seller.max_value_of_goods_cents.must_equal((PRIVATE_SELLER_CONSTANTS['standard_salesvolume'] + PRIVATE_SELLER_CONSTANTS['verified_bonus']) * PRIVATE_SELLER_CONSTANTS['good_factor'])
         end
       end # /good seller
 
       it 'should have valid private_seller_constants' do
         private_seller.private_seller_constants[:standard_salesvolume].must_equal PRIVATE_SELLER_CONSTANTS['standard_salesvolume']
         private_seller.private_seller_constants[:verified_bonus].must_equal PRIVATE_SELLER_CONSTANTS['verified_bonus']
-        private_seller.private_seller_constants[:trusted_bonus].must_equal PRIVATE_SELLER_CONSTANTS['trusted_bonus']
         private_seller.private_seller_constants[:good_factor].must_equal PRIVATE_SELLER_CONSTANTS['good_factor']
         private_seller.private_seller_constants[:bad_salesvolume].must_equal PRIVATE_SELLER_CONSTANTS['bad_salesvolume']
       end
@@ -552,16 +522,6 @@ describe User do
         user.rate_up_buyer
         user.standard_buyer?.must_equal true
       end
-
-      it 'should have a purchasevolume of 6 if not trusted' do
-        user.trustcommunity = false
-        user.purchase_volume.must_equal 6
-      end
-
-      it 'should have a purchasevolume of 6 if trusted' do
-        user.trustcommunity = true
-        user.purchase_volume.must_equal 6
-      end
     end
 
     describe 'standard buyer' do
@@ -578,16 +538,6 @@ describe User do
         user.rate_up_buyer
         user.good_buyer?.must_equal true
       end
-
-      it 'should have a purchasevolume of 12 if not trusted' do
-        user.trustcommunity = false
-        user.purchase_volume.must_equal 12
-      end
-
-      it 'should have a purchasevolume of 24 if trusted' do
-        user.trustcommunity = true
-        user.purchase_volume.must_equal 24
-      end
     end
 
     describe 'good buyer' do
@@ -599,23 +549,12 @@ describe User do
         user.rate_down_to_bad_buyer
         user.bad_buyer?.must_equal true
       end
-
-      it 'should have a purchasevolume of 24 if not trusted' do
-        user.trustcommunity = false
-        user.purchase_volume.must_equal 24
-      end
-
-      it 'should have a purchasevolume of 48 if trusted' do
-        user.trustcommunity = true
-        user.purchase_volume.must_equal 48
-      end
     end
 
     it 'should have valid buyer_constants' do
       user.buyer_constants[:not_registered_purchasevolume].must_equal 4
       user.buyer_constants[:standard_purchasevolume].must_equal 12
       user.buyer_constants[:bad_purchasevolume].must_equal 6
-      user.buyer_constants[:trusted_bonus].must_equal 12
       user.buyer_constants[:good_factor].must_equal 2
     end
   end # /buyer states
