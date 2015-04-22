@@ -20,7 +20,7 @@ module BusinessTransaction::Discountable
 
   # finds all transactions that where discounted by specific discount
   def discounted
-    BusinessTransaction.where('seller_id = ? AND discount_id = ?', self.seller, self.discount)
+    BusinessTransaction.where(discount: discount).joins(:line_item_group).where('line_item_groups.seller_id' => seller.id)
   end
 
   # returns the number of articles, that have been discounted for specific discount

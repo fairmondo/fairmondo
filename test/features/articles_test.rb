@@ -51,9 +51,7 @@ feature 'Article creation' do
     if @user.is_a? LegalEntity
       fill_in I18n.t('formtastic.labels.article.basic_price'), with: '99,99'
       select I18n.t('enumerize.article.basic_price_amount.kilogram'), from: I18n.t('formtastic.labels.article.basic_price_amount')
-      if @user.country == 'Deutschland'
-        select 7, from: I18n.t('formtastic.labels.article.vat')
-      end
+      select 7, from: I18n.t('formtastic.labels.article.vat')
     end
     fill_in I18n.t('formtastic.labels.article.content'), with: 'Article content'
     check 'article_transport_pickup'
