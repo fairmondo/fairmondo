@@ -9,16 +9,20 @@ You can use moustache syntax. E.g.
 
 *flash_message.slimstache*
 
-    .Flash
-      a href="{{ href }}"
-        | {{ anchor }}
+  ```slim
+  .Flash
+    a href="{{ href }}"
+      | {{ anchor }}
+  ```
 
 *create_flash.coffee*
 
-    html = Template['flash_message'].render
-      href: '/my/path'
-      anchor: 'Foobar'
+  ```coffee
+  html = Template['flash_message'].render
+    href: '/my/path'
+    anchor: 'Foobar'
 
-    $('.#selector').append html
+  $('.#selector').append html
+  ```
 
-**NOT** `$('.#selector').append "<div class=\"Flash\">...`
+~~**NOT** `$('.#selector').append "<div class=\"Flash\">...`~~
