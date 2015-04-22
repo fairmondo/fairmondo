@@ -2,8 +2,8 @@ class UserImageNormalizerWorker
   include Sidekiq::Worker
 
   sidekiq_options queue: :file_normalizer,
-                         retry: 5,
-                         backtrace: true
+                  retry: 5,
+                  backtrace: true
 
   def perform id
     user = User.find id
