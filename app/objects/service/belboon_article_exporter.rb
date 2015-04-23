@@ -83,7 +83,7 @@ class BelboonArticleExporter
     end
 
     def exportable_articles_for user
-      user.articles#.belboon_trackable.includes(:images)
+      user.articles.belboon_trackable.includes([:images, :categories])
     end
   end
 end
