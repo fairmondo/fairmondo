@@ -2,7 +2,7 @@ Internationalization Guidelines
 ===============================
 
 Prelude
--------
+--------------------------------------------------------------------------------
 
 In order to know where strings should be located, how to find them, how to
 name them, etc. we here list general guidelines.
@@ -12,7 +12,7 @@ rules do not make sense for your specific problem, please make a note at the
 bottom of this file. PRs should not be merged until the issue is resolved.
 
 General Guidelines
-------------------
+--------------------------------------------------------------------------------
 
 *A selection from the [Rails Style Guide](https://github.com/bbatsov/rails-style-guide#internationalization).*
 
@@ -65,16 +65,16 @@ General Guidelines
   ```
 
 Specific Guidelines
--------------------
+--------------------------------------------------------------------------------
 
 **Where to put my translation?**
 
-Folder structure after the `models` and `views` subfolders **MUST** follow the
-yaml structure. Not every yaml key needs a folder, but every subfolder must be
-reflected in the yaml.
+Folder structure after the `models/`, `views/`, and `gems/` subfolders **MUST**
+follow the yaml structure. Not every yaml key needs a folder, but every
+subfolder must be reflected in the yaml.
 
 Meaning: If you want to translate a `title` string from
-`app/views/layouts/partials/header`, the yaml structure would be
+`app/views/layouts/partials/_header.html.erb`, the yaml structure would be
 `layouts.partials.header.title`. The yaml file can be located in either of:
 
 * `config/locales/views/`
@@ -99,12 +99,12 @@ it up into `config/locales/views/articles/index/en.yml`,
 **What if a gem forces translation structure?**
 
 Special translations, for example required by gems, get nested in the
-`gems` subfolder (as opposed to `views` or `models`), even if they
+`gems/` subfolder (as opposed to `views/` or `models/`), even if they
 technically don't belong to a gem but to the ruby source (like date).
 
 For example, the formtastic gem requires transations in
 `[locale].formtatic.*`. The file will thus be located in
-`config/locales/gems/formtastic`
+`config/locales/gems/formtastic/`
 
 
 **What about shared strings?**
@@ -115,7 +115,7 @@ Careful: Just because a string is the same in your language doesn't mean it
 will be in every language.
 
 If, for example, the exact same element is used in
-`app/views/users/show.html.slim` and in `app/views/users/new.html.slim`
+`app/views/users/show.html.erb` and in `app/views/users/new.html.erb`
 then it should generally be located in a partial. If that's not feasible,
 you would write the following translations:
 
@@ -160,4 +160,4 @@ E.g.:
 **Translation-Key Naming Conventions**
 
 * Keys of strings containing HTML that will be rendered onto the page should have the suffix `_html`
-* *TBD*
+* *TBD...*
