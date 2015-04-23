@@ -58,6 +58,7 @@ module Fairmondo
 
     config.autoload_paths += %W(
       #{config.root}/config/initializers/sidekiq_pro.rb
+      #{config.root}/config/initializers/belboon_config.rb
     )
 
 

@@ -21,11 +21,11 @@ class BelboonArticleExporter
     'Image_Large_HEIGHT' => nil,
     'Image_Large_WIDTH' => nil,
     'Keywords' => nil,
-    'Merchant_Product_Category' => nil,
+    'Merchant_Product_Category' => "self.categories.first.self_and_ancestors.map(&:name).join(' > ')",
     'Product_Description_Short' => nil,
     'Product_Description_Long' => 'Sanitize.clean(content)',
-    'Last_Update' => 'updated_at',
-    'Shipping' => nil,
+    'Last_Update' => "self.updated_at.strftime('%d-%m-%Y')",
+    'Shipping' => "Money.new(self.transport_type1_price_cents).to_s.gsub(',', '.')",
     'Availability' => "'sofort lieferbar'",
     'Optional_1' => 'id',
     'Optional_2' => nil,
@@ -37,18 +37,37 @@ class BelboonArticleExporter
   EXPORT_HEADER = %w(Merchant_ProductNumber EAN_Code Product_Title Manufacturer Brand Price Price_old Currency Valid_From Valid_To DeepLink_URL Into_Basket_URL Image_Small_URL Image_Small_HEIGHT Image_Small_WIDTH Image_Large_URL Image_Large_HEIGHT Image_Large_WIDTH Merchant_Product_Category Keywords Product_Description_Short Product_Description_Long Last_Update Shipping Availability Optional_1 Optional_2 Optional_3 Optional_4 Optional_5)
 
   FILE_NAME = Rails.env == 'development' ?
-    "#{ Rails.root }/public/fairmondo_articles.csv" :
-    '/var/www/fairnopoly/shared/public/system/fairmondo_articles.csv'
+    "#{ Rails.root }/public/fairmondo_articles_" :
+    '/var/www/fairnopoly/shared/public/system/fairmondo_articles_'
 
   class << self
-    def export(user)
-      CSV.open(FILE_NAME, 'wb', @@csv_options) do |line|
-        line << EXPORT_HEADER
+    def export
+      line_count = 0
+      file_count = 0
 
+      csv = new_csv_file file_count
+
+      BELBOON_IDS.each do |id|
+        user = User.find id
         exportable_articles_for(user).find_each do |article|
-          line << line_for(article)
+          if line_count >= 500_000
+            file_count += 1
+            line_count = 0
+            csv.flush
+            csv = new_csv_file file_count
+          end
+
+          csv << line_for(article)
+          line_count += 1
         end
       end
+      csv.flush
+    end
+
+    def new_csv_file file_count
+      csv = CSV.open("#{ FILE_NAME }#{ file_count }.csv", 'wb', @@csv_options)
+      csv << EXPORT_HEADER
+      csv
     end
 
     def line_for article
@@ -64,7 +83,7 @@ class BelboonArticleExporter
     end
 
     def exportable_articles_for user
-      user.articles.belboon_trackable.includes(:images)
+      user.articles#.belboon_trackable.includes(:images)
     end
   end
 end

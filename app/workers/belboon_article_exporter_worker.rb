@@ -13,9 +13,6 @@ class BelboonArticleExporterWorker
                   backtrace: true
 
   def perform
-    BELBOON_IDS.each do |id|
-      user = User.find id
-      BelboonArticleExporter.export(user)
-    end
+    BelboonArticleExporter.export
   end
 end
