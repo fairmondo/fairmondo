@@ -155,3 +155,9 @@ E.g.:
         foo: 'bar'
         baz: 'fuz'
   ```
+
+
+**Translation-Key Naming Conventions**
+
+* Keys of strings containing HTML that will be rendered onto the page should have the suffix `_html`
+* *TBD*
