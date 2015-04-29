@@ -23,12 +23,16 @@
 / The next line is for providing the proper title image to facebook
 - provide( :title_image, image_path('fairmondo_social_media.png') )
 - cache 'category-dropdown-welcome' do
+
   .category-dropdown
     = render 'categories/shared/category_tree'
 
 
 / Billboard
 - cache 'billboard' do
+
+  / TODO: Use contents for billboards
+
   #billboard
     #billboard-inner
       #js-billboardslides
@@ -44,8 +48,8 @@
           article
             h2 Schöne und faire Dinge per Fahrrad zu Dir nach Hause
             = link_to 'Jetzt die ersten Runde Sache Abos sichern',
-              'http://abo.fairmondo.de/',
-              target: '_blank'
+                      'http://abo.fairmondo.de/',
+                      target: '_blank'
 
         / Ecobookstore
         .billboard#billboard-ecobookstore
@@ -134,21 +138,17 @@
 
 
 / USP Teaser with registration link
+/ TODO: use content, remove translations
 - cache 'uspteaser' do
- #usp
-   #usp-inner
-     h2 Das macht uns anders:
-     ul
-       li Die schönsten und fairsten Produkte im Netz ent&shy;decken
-       li Nur 6&nbsp;% Verkaufs&shy;provision (3&nbsp;% für faire Artikel)
-       li Kostenlos für private Verkäufer*innen
-       li
-         | Ein
-         =<>link_to 'faires Unternehmen', '/about_us'
-         | dahinter
-     p
-       = link_to '/user/sign_up', class: 'Button' do
-         | Jetzt registrieren
+
+  #usp
+    #usp-inner
+      h2 = t '.usp.heading'
+      = t '.usp.content_html'
+
+      p
+        = link_to '/user/sign_up', class: 'Button' do
+          = t '.usp.register_button'
 
 
 / Filter boxes
@@ -157,48 +157,48 @@
     = link_to '/articles?article_search_form[fair]=true'\
               '&pk_campaign=filterbox&pk_kwd=fair' do
       .filter-text
-        h2= t('welcome.filter_boxes.fair.teaser_html')
-        p= t('welcome.filter_boxes.fair.description')
+        h2= t('.filter_boxes.fair.teaser_html')
+        p= t('.filter_boxes.fair.description')
       .filter-image
         = image_tag 'welcome/filter-fair.jpg'
-        p.filter-show= t('welcome.filter_boxes.fair.link')
-        p.filter-label= t('welcome.filter_boxes.fair.label')
+        p.filter-show= t('.filter_boxes.fair.link')
+        p.filter-label= t('.filter_boxes.fair.label')
 
 .teaser.teaser--filters#filter-eco
   .teaser-inner
-      = link_to '/articles?article_search_form[ecologic]=true'\
-                '&pk_campaign=filterbox&pk_kwd=eco' do
-        .filter-text
-          h2= t('welcome.filter_boxes.ecologic.teaser_html')
-          p= t('welcome.filter_boxes.ecologic.description')
-        .filter-image
-          = image_tag 'welcome/filter-eco.jpg'
-          p.filter-show= t('welcome.filter_boxes.ecologic.link')
-          p.filter-label= t('welcome.filter_boxes.ecologic.label')
+    = link_to '/articles?article_search_form[ecologic]=true'\
+              '&pk_campaign=filterbox&pk_kwd=eco' do
+      .filter-text
+        h2= t('.filter_boxes.ecologic.teaser_html')
+        p= t('.filter_boxes.ecologic.description')
+      .filter-image
+        = image_tag 'welcome/filter-eco.jpg'
+        p.filter-show= t('.filter_boxes.ecologic.link')
+        p.filter-label= t('.filter_boxes.ecologic.label')
 
 .teaser.teaser--filters#filter-small
   .teaser-inner
     = link_to '/articles?article_search_form[small_and_precious]=true'\
               '&pk_campaign=filterbox&pk_kwd=small' do
       .filter-text
-        h2= t('welcome.filter_boxes.small.teaser_html')
-        p= t('welcome.filter_boxes.small.description')
+        h2= t('.filter_boxes.small.teaser_html')
+        p= t('.filter_boxes.small.description')
       .filter-image
         = image_tag 'welcome/filter-small.jpg'
-        p.filter-show= t('welcome.filter_boxes.small.link')
-        p.filter-label= t('welcome.filter_boxes.small.label')
+        p.filter-show= t('.filter_boxes.small.link')
+        p.filter-label= t('.filter_boxes.small.label')
 
 .teaser.teaser--filters#filter-used
   .teaser-inner
    = link_to '/articles?article_search_form[condition]=old'\
               '&pk_campaign=filterbox&pk_kwd=used' do
       .filter-text
-        h2= t('welcome.filter_boxes.used.teaser_html')
-        p= t('welcome.filter_boxes.used.description')
+        h2= t('.filter_boxes.used.teaser_html')
+        p= t('.filter_boxes.used.description')
       .filter-image
         = image_tag 'welcome/filter-used.jpg'
-        p.filter-show= t('welcome.filter_boxes.used.link')
-        p.filter-label= t('welcome.filter_boxes.used.label')
+        p.filter-show= t('.filter_boxes.used.link')
+        p.filter-label= t('.filter_boxes.used.label')
 
 
 / Personalized library section, only shown if @last_hearted_libraries is set
@@ -220,14 +220,14 @@
 .teaser.teaser--double.teaser--clear
   .teaser-inner
     h2
-      = link_to( t('welcome.fairmondo-shirts.heading'),
+      = link_to( t('.teasers.1.heading'),
         featured_library_path(@queue1[:library]))
     - @queue1[:exhibits].each do |article|
       .teaser-queue
         = render 'articles/shared/show_article', article: article
 
     p.more
-      = link_to( t('welcome.fairmondo-shirts.more'),
+      = link_to( t('.teasers.1.more'),
         featured_library_path(@queue1[:library]))
 
 
@@ -235,14 +235,14 @@
 .teaser.teaser--double.teaser--collapsible.teaser--reducible
   .teaser-inner
     h2
-      = link_to( t('welcome.vouchers.heading'),
+      = link_to( t('.teasers.2.heading'),
         featured_library_path(@queue2[:library]))
     - @queue2[:exhibits].each do |article|
       .teaser-queue
         = render 'articles/shared/show_article', article: article
 
     p.more
-      = link_to( t('welcome.vouchers.more'),
+      = link_to( t('.teasers.2.more'),
         featured_library_path(@queue2[:library]))
 
 
@@ -251,17 +251,17 @@
   .teaser.teaser--full.libraries
     .teaser-inner
       h2
-        => t( 'welcome.trending_libraries.heading' )
+        => t( '.trending_libraries.heading' )
         span.sprite_helper title="#{ t('libraries.tooltip') }"
 
       = render partial: 'libraries/library', collection: @trending_libraries,
         locals: { piwik_campaign: 'libraries', piwik_keyword: 'welcome_page' }
 
       p.more
-        = link_to( t( 'welcome.trending_libraries.more' ), libraries_path )
+        = link_to( t( '.trending_libraries.more' ), libraries_path )
 
 
-/ USPs
+/ USP slideshow
 .teaser.teaser--double.slides#cardslides
   .teaser-inner
     #js-cardslides
@@ -279,15 +279,14 @@
 .teaser.teaser--double.teaser--collapsible.teaser--reducible
   .teaser-inner
     h2
-      = link_to( t('welcome.donation_articles.heading'),
-        featured_library_path(@donation_articles[:library]))
+      = link_to t('.teasers.3.heading'),
+                featured_library_path(@donation_articles[:library])
     - @donation_articles[:exhibits].each do |article|
       .teaser-queue
         = render 'articles/shared/show_article', article: article
-
     p.more
-      = link_to( t('welcome.donation_articles.more'),
-        featured_library_path(@donation_articles[:library]))
+      = link_to t('.teasers.3.more'),
+                featured_library_path(@donation_articles[:library])
 
 
 / User comment slides
@@ -301,50 +300,16 @@
         span.slides-arrow.slides-arrow--right
           i.fa.fa-chevron-right
 
-      = render 'user_slide', number: 1,
-        quote: 'Für Veränderungen in der Gesellschaft benötigt es mehr Mut – '\
-          'bei Fairnopoly erleben wir viele junge mutige Menschen. Wir freuen '\
-          'uns auf die Zusammenarbeit mit Fairnopoly, wünschen der '\
-          'Genossenschaft einen erfolgreichen Start, viele Mitglieder und '\
-          'viel Erfolg auf dem Weg zu mehr Transparenz in Onlinehandel und '\
-          'Gesellschaft!',
-        source: 'Jorge Inostroza, Gepa'
-
-      = render 'user_slide', number: 2,
-        quote: 'Ich bin Genossenschafts-Mitglied bei Fairnopoly, weil es uns '\
-          'Spaß macht, Fairnopoly mitzuentwickeln. Für uns ist Fairnopoly '\
-          'eine super Plattform, um unsere ethisch produzierten Produkte zu '\
-          'vermarkten.',
-        source: 'Isabelle Dechamps, Be Able'
-
-      = render 'user_slide', number: 3,
-        quote: 'Bei Fairnopoly finde ich genial, dass die Struktur eine '\
-          'Genossenschaft ist. Das heißt, ich bin Genosse dort, ich kann '\
-          'mitentscheiden, was da passiert – und was mit der Firma passiert.',
-        source: 'Van Bo Le-Mentzel, Architekt'
-
-      = render 'user_slide', number: 4,
-        quote: 'Ich bin Genossin bei Fairnopoly, weil ich glaube, dass wir '\
-          'alle bewusster konsumieren sollten. Fairnopoly gibt uns online die '\
-          'Chance dazu – und deswegen bin ich gerne ein Teil davon.',
-        source: 'Maria Gross, Social Impact Lab'
-
-      = render 'user_slide', number: 5,
-        quote: 'Ich bin in die Genossenschaft Fairnopoly eingestiegen, weil '\
-          'ich die Idee sehr überzeugend finde. Ich hab’ das Team auch '\
-          'kennengelernt und ich sehe, dass die wirklich mit Enthusiasmus und '\
-          'viel Elan dabei sind. Wir handeln auf Fairnopoly, weil wir darin '\
-          'eine Chance sehen, faire und Bio-Produkte weiter zu verbreiten.',
-        source: 'Thomas Kappauf, Black Star'
-
+      - (1..5).each do |n|
+        = render 'user_slide', number: n,
+                               quote: t(".slides.#{n}.quote"),
+                               source: t(".slides.#{n}.source")
 
 / Cooperative teaser
 .teaser.teaser--double#coop
   .teaser-inner.teaser--center
     = link_to 'https://www.fairmondo.de/genossenschaft', target: '_self' do
-      = image_tag 'genobox-584.jpg', alt: 'Über 1900 Menschen haben sich '\
-      'bereits an der Fairmondo-Genossenschaft beteiligt.'
-
+      = image_tag 'genobox-584.jpg', alt: t('.coop_alt')
 
 / Blog
 .teaser.teaser--double#news
@@ -353,26 +318,22 @@
 
 / known from / press information
 - cache "known_from" do
-  - names = { hochschulanzeiger: 'Hochschulanzeiger',
-              taz: 'Taz',
-              sueddeutsche: 'Süddeutsche Zeitung',
-              arte: 'Arte',
-              deutschlandfunk: 'Deutschlandfunk' }
+
   .teaser.teaser--full#press
     .teaser-inner
-      h5 Bekannt aus
+      h5= t '.press.heading'
       ul.image-list
-        - names.each do |key, value|
+        - t('.press.icons').each do |key, display_name|
           li
-            = link_to 'http://info.fairmondo.de/fairmondo-in-der-presse/', title: value, target: '_blank' do
-              span class="sprite_#{key}"
+            span class="sprite_#{key}" title=display_name
 
 
 / NGOs
 - cache "ngo_logos" do
+
   .teaser.teaser--full#ngos
     .teaser-inner
-      h5= "Spendenpartner*innen"
+      h5= t '.ngos'
       ul.image-list
         - User.ngo_with_profile_image.each do |ngo|
           li= link_to image_tag(ngo.image_url(:profile)), user_path(ngo), title: ngo.name

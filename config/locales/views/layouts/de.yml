@@ -1,0 +1,42 @@
+de:
+  layouts:
+    application:
+      sub_title: Aus Fairnopoly wurde Fairmondo!
+      sub_title_anchor: Erfahre warum.
+    partials:
+      footer:
+        feedback_buttons:
+          shares: "Anteile zeichnen"
+          feedback: "Feedback"
+          help: "Hilfe"
+        service:
+          heading: "Service"
+          faq: 'FAQ'
+          status: 'Status'
+          contact: 'Kontakt'
+          affiliate: 'Partnerprogramm'
+        company:
+          heading: Fairmondo
+          about_us: 'Über Uns'
+          team: 'Team'
+          transparency: 'Transparenz'
+          jobs: 'Jobs'
+          press: 'Presse'
+        socialmedia:
+          heading: 'Soziale Medien'
+          facebook: 'Facebook'
+          twitter: 'Twitter'
+          blog: 'Blog'
+          newsletter: 'Newsletter'
+        legal:
+          heading: 'Rechtliches'
+          agb: 'AGB'
+          privacy: 'Datenschutz'
+          impressum: 'Impressum'
+        admin:
+          heading: 'Admins'
+          backend: 'Backend'
+          pages: 'CMS Seiten'
+          statistics: 'Statistiken'
+          sidekiq: 'Sidekiq'
+        copyright_html: "&copy; Copyright 2015 Fairmondo eG"

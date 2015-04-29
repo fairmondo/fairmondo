@@ -44,8 +44,10 @@ module Fairmondo
 
     # Custom directories with classes and modules you want to be autoloadable.
     config.autoload_paths += %W(
-      #{config.root}/lib/autoload/ #{config.root}/app/models/business_transactions/
-      #{config.root}/app/models/images/ #{config.root}/app/models/users/
+      #{config.root}/lib/autoload/
+      #{config.root}/app/models/business_transactions/
+      #{config.root}/app/models/images/
+      #{config.root}/app/models/users/
       #{config.root}/app/models/payments/
     )
     config.autoload_paths += %W(
@@ -88,7 +90,17 @@ module Fairmondo
 
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
-    config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}')]
+    config.i18n.load_path = []
+    # TODO: Refactor existing locales and REMOVE:
+    config.i18n.load_path +=
+      Dir[Rails.root.join('config', 'locales', 'old', '**', '*.{rb,yml}')]
+    # /REMOVE
+    config.i18n.load_path +=
+      Dir[Rails.root.join('config', 'locales', 'views', '**', '*.yml')]
+    config.i18n.load_path +=
+      Dir[Rails.root.join('config', 'locales', 'models', '**', '*.yml')]
+    config.i18n.load_path +=
+      Dir[Rails.root.join('config', 'locales', 'gems', '**', '*.yml')]
 
     config.i18n.default_locale = :de
 

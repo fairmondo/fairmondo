@@ -3,12 +3,12 @@ footer.l-footer
     #l-footer-nav-left
       / Logo
       a#l-footer-logo href='/'
-        = image_tag 'logo_small.png', alt: t('common.fairmondo_name')
+        = image_tag 'logo_small.png', alt: t('shared.fairmondo.name')
 
       / Social media buttons
       - if with_social_media_buttons
-        .socialshareprivacy[data={ uri: 'http://www.fairmondo.de/',
-          title: 'Gutes einfach entdecken' }]
+        .socialshareprivacy data={ uri: t('shared.fairmondo.url'),
+                                   title: t('shared.fairmondo.claim') }
 
         / Economy for the Common Good banner
         = link_to '/contents/gwoe-bilanz' do
@@ -19,17 +19,17 @@ footer.l-footer
       li
         a href=new_feedback_path(variety: :get_help)
           i.fa.fa-support &nbsp;
-          = t('common.text.help')
+          = t('.feedback_buttons.help')
       li
         a href=new_feedback_path(variety: :send_feedback)
           i.fa.fa-comment &nbsp;
-          = t('common.text.feedback')
+          = t('.feedback_buttons.feedback')
       li.l-feedback-button--green
-        a[class='l-feedback-button--green'
-          href='http://mitmachen.fairmondo.de/anteile-zeichnen/'
-          target='_blank']
+        = link_to 'http://mitmachen.fairmondo.de/anteile-zeichnen/',
+                  class: 'l-feedback-button--green', target: '_blank' do
+
           i.fa.fa-pie-chart &nbsp;
-          = t('common.text.shares')
+          = t('.feedback_buttons.shares')
 
     / Main navigation links
     nav#l-footer-nav-main
@@ -37,106 +37,99 @@ footer.l-footer
       / Service
       section#l-footer-nav-service
         h4
-          = t('footer.service')
+          = t('.service.heading')
         ul
           li
-            = link_to t('footer.faq'),
+            = link_to t('.service.faq'),
               '/faq'
           li
-            = link_to t('footer.forum'),
+            = link_to t('.service.forum'),
               'https://forum.fairmondo.de/',
               target: '_blank'
           li
-            = link_to t('footer.status'),
+            = link_to t('.service.status'),
               'https://twitter.com/FairmondoStatus'
           li
-            = link_to t('footer.contact'),
+            = link_to t('.service.contact'),
               '/contact'
           li
-            = link_to t('footer.affiliate'),
+            = link_to t('.service.affiliate'),
               'https://ui.belboon.com/partner20646.html'
 
       / Company
       section#l-footer-nav-fairmondo
         h4
-          = t('footer.company')
+          = t('.company.heading')
         ul
           li
-            = link_to t('footer.about_us'),
+            = link_to t('.company.about_us'),
               '/about_us'
           li
-            = link_to t('footer.team'),
+            = link_to t('.company.team'),
               'https://info.fairmondo.de/team/',
               target: '_blank'
           li
-            = link_to t('footer.transparency'),
+            = link_to t('.company.transparency'),
               'https://transparenz.fairmondo.de/',
               target: '_blank'
           li
-            = link_to t('footer.jobs'),
+            = link_to t('.company.jobs'),
               'https://info.fairmondo.de/stellenausschreibungen/',
               target: '_blank'
           li
-            = link_to t('footer.press'),
+            = link_to t('.company.press'),
               'https://info.fairmondo.de/pressekit/',
               target: '_blank'
 
       / Social media
       section#l-footer-nav-socialmedia
         h4
-          = t('footer.socialmedia')
+          = t('.socialmedia.heading')
         ul
           li
-            = link_to t('footer.facebook'),
+            = link_to t('.socialmedia.facebook'),
               'https://www.facebook.com/fairmondo',
               target: '_blank'
           li
-            = link_to t('footer.twitter'),
+            = link_to t('.socialmedia.twitter'),
               'https://twitter.com/fairmondo',
               target: '_blank'
           li
-            = link_to t('footer.blog'),
+            = link_to t('.socialmedia.blog'),
               'https://info.fairmondo.de',
               target: '_blank'
           li
-            = link_to t('footer.newsletter'),
+            = link_to t('.socialmedia.newsletter'),
               'http://50856.seu1.cleverreach.com/f/50856-129361/',
               target: '_blank'
 
       / Legal
       section#l-footer-nav-legal
         h4
-          = t('footer.legal')
+          = t('.legal.heading')
         ul
           li
-            = link_to t('footer.agb'),
-              '/agb'
+            = link_to t('.legal.agb'), '/agb'
           li
-            = link_to t('footer.privacy'),
-              '/privacy'
+            = link_to t('.legal.privacy'), '/privacy'
           li
-            = link_to t('footer.imprint'),
-              '/imprint'
+            = link_to t('.legal.impressum'), '/impressum'
 
       / Admin
       - if User.is_admin? current_user
         section#l-footer-nav-admin
           h4
-            = t('footer.admins')
+            = t('.admin.heading')
           ul
             li
-              = link_to t('users.menu.admin'),
-                '/admin'
+              = link_to t('.admin.backend'), '/admin'
             li
-              = link_to 'Manage Pages',
-                '/contents'
+              = link_to t('.admin.pages'), '/contents'
             li
-              = link_to 'Statistics',
-                '/statistics/general'
+              = link_to t('.admin.statistics'), '/statistics/general'
             li
-              = link_to 'Sidekiq',
-                '/sidekiq'
+              = link_to t('.admin.sidekiq'), '/sidekiq'
 
     / Copyright
     p#l-footer-copyright
-      | &copy; Copyright 2015 Fairmondo eG
+      = t('.copyright_html')
