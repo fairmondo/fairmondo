@@ -23,24 +23,30 @@ module ApplicationHelper
   def title(title = nil)
     if title.present?
       content_for :title, title
+    elsif content_for?(:title)
+      content_for(:title) + t('article.show.title_addition')
     else
-      content_for?(:title) ? content_for(:title) + t('article.show.title_addition') : t('common.fairmondo')
+      t('shared.fairmondo.name')
     end
   end
 
   def meta_keywords(tags = nil)
     if tags.present?
       content_for :meta_keywords, tags
+    elsif content_for?(:meta_keywords)
+      [content_for(:meta_keywords), t('shared.meta_tags.keywords')].join ', '
     else
-      content_for?(:meta_keywords) ? [content_for(:meta_keywords), t('meta_tags.keywords')].join(', ') : t('meta_tags.keywords')
+      t('shared.meta_tags.keywords')
     end
   end
 
   def meta_description(desc = nil)
     if desc.present?
       content_for :meta_description, desc
+    elsif content_for?(:meta_description)
+      content_for(:meta_description)
     else
-      content_for?(:meta_description) ? content_for(:meta_description) : t('meta_tags.description')
+      t('shared.meta_tags.description')
     end
   end
 

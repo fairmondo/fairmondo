@@ -14,7 +14,7 @@ de:
             <li> Kostenlos für private Verkäufer*innen </li>
             <li> Ein <a href="/about_us">faires Unternehmen</a> dahinter </li>
           </ul>
-        register_button: Jetzt registrieren
+        register_button: "Jetzt registrieren"
       teasers:
         :1:
           heading: "Fairmondo-Shirts und mehr"
@@ -94,11 +94,11 @@ de:
         Über 1900 Menschen haben sich bereits an der Fairmondo-Genossenschaft
         beteiligt.
       press:
-        heading: 'Bekannt aus'
+        heading: "Bekannt aus"
         icons:
-          hochschulanzeiger: 'Hochschulanzeiger'
-          taz: 'Taz'
-          sueddeutsche: 'Süddeutsche Zeitung'
-          arte: 'Arte'
-          deutschlandfunk: 'Deutschlandfunk'
+          hochschulanzeiger: "Hochschulanzeiger"
+          taz: "Taz"
+          sueddeutsche: "Süddeutsche Zeitung"
+          arte: "Arte"
+          deutschlandfunk: "Deutschlandfunk"
       ngos: "Spendenpartner*innen"

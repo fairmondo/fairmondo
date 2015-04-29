@@ -15,21 +15,7 @@ footer.l-footer
           span.sprite_gemeinwohloekonomie
 
     / Feedback links
-    ul#l-feedback
-      li
-        a href=new_feedback_path(variety: :get_help)
-          i.fa.fa-support &nbsp;
-          = t('.feedback_buttons.help')
-      li
-        a href=new_feedback_path(variety: :send_feedback)
-          i.fa.fa-comment &nbsp;
-          = t('.feedback_buttons.feedback')
-      li.l-feedback-button--green
-        = link_to 'http://mitmachen.fairmondo.de/anteile-zeichnen/',
-                  class: 'l-feedback-button--green', target: '_blank' do
-
-          i.fa.fa-pie-chart &nbsp;
-          = t('.feedback_buttons.shares')
+    = render '/layouts/partials/feedback_links'
 
     / Main navigation links
     nav#l-footer-nav-main

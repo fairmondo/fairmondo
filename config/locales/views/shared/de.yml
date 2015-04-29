@@ -4,3 +4,14 @@ de:
       name: "Fairmondo"
       claim: "Gutes einfach entdecken"
       url: "https://www.fairmondo.de/"
+    meta_tags:
+      description: |
+        Kaufe, verkaufe, tausche und verleihe faire und nachhaltige Mode,
+        Bücher, Lebensmittel, Spielzeug und Designartikel auf Fairmondo,
+        dem Online Marktplatz für Alle.
+      keywords: "Fairmondo, Marktplatz, Fair, Genossenschaft"
+    actions:
+      logout: "Logout"
+      login: "Anmelden"
+      sign_up: "Registrieren"
+
