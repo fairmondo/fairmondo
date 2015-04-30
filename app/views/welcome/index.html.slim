@@ -134,21 +134,54 @@
 
 
 / USP Teaser with registration link
-- cache 'uspteaser' do
- #usp
-   #usp-inner
-     h2 Das macht uns anders:
-     ul
-       li Die schönsten und fairsten Produkte im Netz ent&shy;decken
-       li Nur 6&nbsp;% Verkaufs&shy;provision (3&nbsp;% für faire Artikel)
-       li Kostenlos für private Verkäufer*innen
-       li
-         | Ein
-         =<>link_to 'faires Unternehmen', '/about_us'
-         | dahinter
-     p
-       = link_to '/user/sign_up', class: 'Button' do
-         | Jetzt registrieren
+/ - cache 'uspteaser' do
+/  #usp
+/    #usp-inner
+/      h2 Das macht uns anders:
+/      ul
+/        li Die schönsten und fairsten Produkte im Netz ent&shy;decken
+/        li Nur 6&nbsp;% Verkaufs&shy;provision (3&nbsp;% für faire Artikel)
+/        li Kostenlos für private Verkäufer*innen
+/        li
+/          | Ein
+/          =<>link_to 'faires Unternehmen', '/about_us'
+/          | dahinter
+/      p
+/        = link_to '/user/sign_up', class: 'Button' do
+/          | Jetzt registrieren
+
+
+/ Kampagne für Faire-Welt-Abos
+#campaign
+  #campaign-inner
+    h2.campaign-header
+      | Bis zum 15.5.2015
+      small brauchen wir Eure Unterstützung:
+
+    div.campaign-figure= tinycms_content_body('campaign_shares')
+    p.campaign-text
+      | von 10.000 Euro in
+      =<> link_to 'neuen Anteilen',
+        'http://mitmachen.fairmondo.de/anteile-zeichnen/',
+        target: '_blank'
+      | wurden bereits gezeichnet
+
+    div.campaign-figure= tinycms_content_body('campaign_subscriptions')
+    p.campaign-text
+      | von 5.000 Euro an
+      =<> link_to 'Faire Welt Abos',
+        'http://abo.fairmondo.de/gridpage/das-fairmondo-soli-abo',
+        target: '_blank'
+      | wurden abgeschlossen
+
+    div.campaign-date= tinycms_content_body('campaign_date')
+
+    p.campaign-more
+      = link_to 'Mehr erfahren',
+        'https://info.fairmondo.de/die-zukunft-von-fairmondo/',
+        target: '_blank',
+        class: 'Button'
+
 
 
 / Filter boxes
