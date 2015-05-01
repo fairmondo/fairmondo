@@ -155,90 +155,156 @@
   min-height: 410px;
 }
 
-// USP teaser
-#usp { margin-bottom: 1em; }
 
-#usp-inner {
+
+
+// Kampagnen-Box
+#campaign { margin-bottom: 1em; }
+
+#campaign-inner {
   @include whitebox;
-  background: $blue;
   padding: 0;
   height: 410px;
   position: relative;
-  color: $white;
+}
+
+.campaign-header,
+.campaign-figure,
+.campaign-text,
+.campaign-date {
+  width: 85%;
+  min-width: 185px;
+  max-width: 300px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 
-#usp-inner h2 {
-  width: 80%;
-  min-width: 185px;
-  max-width: 300px;
-  margin: 8% auto;
+#campaign h2 {
+  margin: 1.5em auto 8%;
+  font-size: 1.5em;
+  font-weight: 400;
+  text-align: center;
+
+  small {
+    font-size: 0.666em;
+    display: block;
+  }
+}
+
+.campaign-figure {
   font-size: 1.5em;
   font-weight: 600;
-}
 
-
-#usp-inner > ul {
-  width: 80%;
-  min-width: 185px;
-  max-width: 300px;
-  margin: 10% auto 0;
-  list-style: none;
-  padding: 0;
-  overflow: hidden;
-}
-
-#usp-inner > ul > li {
-  font-size: 1em;
-  float: left;
-  padding-left: 0;
-  margin-bottom: 5%;
-
-  &:before {
-    content: '\f111';
-    font: normal 2em FontAwesome;
-    margin: 0.2em 2.5% 0.5em 0;
-    display: block;
-    clear: left;
-    float: left;
+  p {
+    margin: 12% 0 3%;
+    text-align: center;
   }
 }
 
-#usp-inner > ul > li > a {
-  color: $white !important;
-  text-decoration: underline !important;
-
-  &:hover, &:focus, &:active {
-    color: darken($white, 20%) !important;
-  }
+.campaign-text {
+  margin-top: 3%;
 }
 
-#usp-inner > p {
+.campaign-more {
   position: absolute;
   bottom: 0;
   width: 100%;
-  margin: 0 0 8%;
-  font-size: 1.2em;
-  font-weight: 600;
+  margin: 0 0 5%;
   text-align: center;
-}
 
-#usp-inner > p > a {
-  display: block;
-  box-sizing: border-box;
-  -moz-box-sizing: border-box;  // For Fennec
-  width: 80%;
-  min-width: 185px;
-  max-width: 300px;
-  margin: 0 auto;
-
-  background-color: $white;
-  color: $blue !important;
-
-  &:hover, &:focus, &:active {
-    color: lighten($blue, 10%) !important;
+  p {
+    display: block;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;  // For Fennec
   }
 }
+
+
+// // USP teaser
+// #usp { margin-bottom: 1em; }
+
+// #usp-inner {
+//   @include whitebox;
+//   background: $blue;
+//   padding: 0;
+//   height: 410px;
+//   position: relative;
+//   color: $white;
+// }
+
+
+// #usp-inner h2 {
+//   width: 80%;
+//   min-width: 185px;
+//   max-width: 300px;
+//   margin: 8% auto;
+//   font-size: 1.5em;
+//   font-weight: 600;
+// }
+
+
+// #usp-inner > ul {
+//   width: 80%;
+//   min-width: 185px;
+//   max-width: 300px;
+//   margin: 10% auto 0;
+//   list-style: none;
+//   padding: 0;
+//   overflow: hidden;
+// }
+
+// #usp-inner > ul > li {
+//   font-size: 1em;
+//   float: left;
+//   padding-left: 0;
+//   margin-bottom: 5%;
+
+//   &:before {
+//     content: '\f111';
+//     font: normal 2em FontAwesome;
+//     margin: 0.2em 2.5% 0.5em 0;
+//     display: block;
+//     clear: left;
+//     float: left;
+//   }
+// }
+
+// #usp-inner > ul > li > a {
+//   color: $white !important;
+//   text-decoration: underline !important;
+
+//   &:hover, &:focus, &:active {
+//     color: darken($white, 20%) !important;
+//   }
+// }
+
+// #usp-inner > p {
+//   position: absolute;
+//   bottom: 0;
+//   width: 100%;
+//   margin: 0 0 8%;
+//   font-size: 1.2em;
+//   font-weight: 600;
+//   text-align: center;
+// }
+
+// #usp-inner > p > a {
+//   display: block;
+//   box-sizing: border-box;
+//   -moz-box-sizing: border-box;  // For Fennec
+//   width: 80%;
+//   min-width: 185px;
+//   max-width: 300px;
+//   margin: 0 auto;
+
+//   background-color: $white;
+//   color: $blue !important;
+
+//   &:hover, &:focus, &:active {
+//     color: lighten($blue, 10%) !important;
+//   }
+// }
 
 
 // Filters teaser
@@ -452,6 +518,12 @@
     @include omega;
   }
 
+  #campaign {
+    @include span(2 of 4);
+    @include omega;
+  }
+
+
   // Filters teaser
   .teaser--filters {
     @include span(2 of 4);
@@ -537,6 +609,12 @@
     @include omega;
   }
 
+  #campaign {
+    @include span(2 of 6);
+    @include omega;
+  }
+
+
 
   // Filters teaser
   .teaser--filters {
@@ -605,6 +683,14 @@
 
   .billboard > article > h2 {
     //font-size: 2.9em;
+  }
+
+
+
+  // Kampagnenbox
+  #campaign {
+    @include span(2 of 8);
+    @include omega;
   }
 
 
