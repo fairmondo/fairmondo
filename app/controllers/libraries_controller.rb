@@ -116,7 +116,7 @@ class LibrariesController < ApplicationController
     when index_mode == 'myfavorite'
       current_user.hearted_libraries.reorder('hearts.created_at DESC')
     when index_mode == 'new'
-      Library
+      Library.reorder(created_at: :desc)
     end
   end
 
