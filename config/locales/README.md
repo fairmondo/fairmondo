@@ -11,7 +11,8 @@ If you find yourself in a situation not covered by this guide, or where the
 rules do not make sense for your specific problem, please make a note at the
 bottom of this file. PRs should not be merged until the issue is resolved.
 
-General Guidelines
+
+By Rails Style Guide
 --------------------------------------------------------------------------------
 
 *A selection from the [Rails Style Guide](https://github.com/bbatsov/rails-style-guide#internationalization).*
@@ -64,7 +65,33 @@ General Guidelines
   = t '.title'
   ```
 
-Specific Guidelines
+
+More General Guidelines
+--------------------------------------------------------------------------------
+
+* Use double quotes around strings.
+
+* If a translation would span more than 80 characters, use the multi line
+  syntax instead. I.e.
+  ```yaml
+  en:
+    foobar: |
+      Cupcake ipsum dolor sit amet. I love jujubes carrot cake cotton candy
+      pastry fruitcake chupa chups candy canes tootsie roll.
+  ```
+
+* Keys of strings containing HTML that will be rendered onto the page should
+  have the suffix `_html`.
+
+* If multiple translations on the same hierarchical level belong together, nest
+  them inside a new parent key.
+
+* Use consistent naming. I.e. if the title of one box on a page has the
+  translation key `heading`, then siliar titles of similar boxes should also
+  have the translation key `heading`.
+
+
+Q&A Guidelines
 --------------------------------------------------------------------------------
 
 **Where to put my translation?**
@@ -122,12 +149,12 @@ you would write the following translations:
   ```yaml
   en:
     users:
+      shared:
+        same_element_string: &user_element_string 'MyString'
       new:
         same_element_string: *user_element_string
       show:
         same_element_string: *user_element_string
-      shared:
-        same_element_string: &user_element_string 'MyString'
   ```
 
 If the element transcends a single controller it should *really* be in a
@@ -155,9 +182,3 @@ E.g.:
         foo: 'bar'
         baz: 'fuz'
   ```
-
-
-**Translation-Key Naming Conventions**
-
-* Keys of strings containing HTML that will be rendered onto the page should have the suffix `_html`
-* *TBD...*

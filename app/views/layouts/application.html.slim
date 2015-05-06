@@ -44,14 +44,14 @@ html<> class='no-js' lang=I18n.locale
           / Fairmondo logo
           .l-header-logo
             a href='/'
-              = image_tag 'logo.png', alt: t('common.fairmondo')
+              = image_tag 'logo.png', alt: t('shared.fairmondo.name')
 
           / Temporary rename message
           p.l-header-rename
-            = 'Aus Fairnopoly wurde Fairmondo! '
-            = link_to 'Erfahre warum.',
-              'https://info.fairmondo.de/ein-neuer-name-warum',
-              target: '_blank'
+            => t '.sub_title'
+            = link_to t('.sub_title_anchor'),
+                      'https://info.fairmondo.de/ein-neuer-name-warum',
+                      target: '_blank'
 
           = render '/layouts/partials/header_nav'
         .l-header-bottom
@@ -62,8 +62,8 @@ html<> class='no-js' lang=I18n.locale
 
     - is_welcome = controller_name == 'welcome'
     - cache_if( !(User.is_admin? current_user),
-        is_welcome ? 'footer_welcome' : 'footer_normal' ) do
+                is_welcome ? 'footer_welcome' : 'footer_normal' ) do
       = render '/layouts/partials/footer',
-        with_social_media_buttons: is_welcome
+               with_social_media_buttons: is_welcome
 
     = render '/layouts/partials/additional_assets'

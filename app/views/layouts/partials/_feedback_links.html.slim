@@ -1,0 +1,16 @@
+/ Feedback links
+ul#l-feedback
+  li
+    a href=new_feedback_path(variety: :get_help)
+      i.fa.fa-support &nbsp;
+      = t('.help')
+  li
+    a href=new_feedback_path(variety: :send_feedback)
+      i.fa.fa-comment &nbsp;
+      = t('.feedback')
+  li.l-feedback-button--green
+    = link_to 'http://mitmachen.fairmondo.de/anteile-zeichnen/',
+              class: 'l-feedback-button--green', target: '_blank' do
+
+      i.fa.fa-pie-chart &nbsp;
+      = t('.shares')
