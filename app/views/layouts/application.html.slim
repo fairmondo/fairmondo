@@ -60,10 +60,7 @@ html<> class='no-js' lang=I18n.locale
       .l-main role='main'
         = yield
 
-    - is_welcome = controller_name == 'welcome'
-    - cache_if( !(User.is_admin? current_user),
-                is_welcome ? 'footer_welcome' : 'footer_normal' ) do
-      = render '/layouts/partials/footer',
-               with_social_media_buttons: is_welcome
+    - cache 'footer' do
+      = render '/layouts/partials/footer'
 
     = render '/layouts/partials/additional_assets'

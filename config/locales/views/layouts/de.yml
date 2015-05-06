@@ -35,12 +35,6 @@ de:
           agb: "AGB"
           privacy: "Datenschutz"
           impressum: "Impressum"
-        admin:
-          heading: "Admins"
-          backend: "Backend"
-          pages: "CMS Seiten"
-          statistics: "Statistiken"
-          sidekiq: "Sidekiq"
         copyright_html: *copyright
       footer_reduced:
         agb: "AGB"
@@ -68,3 +62,9 @@ de:
         profile: "Profil"
         cart:
           title: "Warenkorb (%{count})"
+        admin:
+          title: "Admins"
+          backend: "Backend"
+          pages: "CMS Seiten"
+          statistics: "Statistiken"
+          sidekiq: "Sidekiq"

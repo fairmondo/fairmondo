@@ -5,15 +5,6 @@ footer.l-footer
       a#l-footer-logo href='/'
         = image_tag 'logo_small.png', alt: t('shared.fairmondo.name')
 
-      / Social media buttons
-      - if with_social_media_buttons
-        .socialshareprivacy data={ uri: t('shared.fairmondo.url'),
-                                   title: t('shared.fairmondo.claim') }
-
-        / Economy for the Common Good banner
-        = link_to '/contents/gwoe-bilanz' do
-          span.sprite_gemeinwohloekonomie
-
     / Feedback links
     = render '/layouts/partials/feedback_links'
 
@@ -101,20 +92,6 @@ footer.l-footer
           li
             = link_to t('.legal.impressum'), '/impressum'
 
-      / Admin
-      - if User.is_admin? current_user
-        section#l-footer-nav-admin
-          h4
-            = t('.admin.heading')
-          ul
-            li
-              = link_to t('.admin.backend'), '/admin'
-            li
-              = link_to t('.admin.pages'), '/contents'
-            li
-              = link_to t('.admin.statistics'), '/statistics/general'
-            li
-              = link_to t('.admin.sidekiq'), '/sidekiq'
 
     / Copyright
     p#l-footer-copyright

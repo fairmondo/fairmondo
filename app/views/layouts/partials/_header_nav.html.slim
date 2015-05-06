@@ -46,6 +46,27 @@ nav id="l-header-mnav" class="l-header-mnav" role="navigation"
 / *** Desktop navigation ***
 nav.l-header-nav
   ul
+    / About us
+    li.TouchHover
+      = link_to t('.about_us.title'),
+                '/about_us'
+      ul.l-header-nav-dropdown.TouchHover--hidden
+        li
+          = link_to t('.about_us.fairmondo'),
+                    '/about_us'
+        li
+          = link_to t('.about_us.marketplace'),
+                    ''
+        li
+          = link_to t('.about_us.coop'),
+                    '/genossenschaft/'
+        li
+          = link_to t('.about_us.takepart'),
+                    'http://mitmachen.fairmondo.de/'
+        li
+          = link_to t('.about_us.makemoney'),
+                    ''
+
     / Sell
     li
       = link_to t('.sell'),
@@ -57,30 +78,6 @@ nav.l-header-nav
                 libraries_path,
                 title: t('.libraries.tooltip'), data: navigation_push
 
-    / Community
-    li.TouchHover
-      = link_to t('.community.title'),
-                'https://forum.fairmondo.de/',
-                target: '_blank'
-      ul.l-header-nav-dropdown.TouchHover--hidden
-        li
-          = link_to t('.community.active'),
-                    'http://mitmachen.fairmondo.de',
-                    target: '_blank'
-        li
-          = link_to t('.community.events'),
-                    'http://mitmachen.fairmondo.de/veranstaltungen',
-                    target: '_blank'
-        li
-          = link_to t('.community.partner'),
-            'http://mitmachen.fairmondo.de/materialecke/partnerprogramm/',
-            target: '_blank'
-        li
-          = link_to t('.community.coop'), '/genossenschaft/'
-        li
-          = link_to t('.community.forum'),
-                    'https://forum.fairmondo.de/',
-                    target: '_blank'
 
     / Profile & Logout
     - if user_signed_in?
@@ -112,3 +109,17 @@ nav.l-header-nav
         = link_to t('.cart.title', count: 0),
                   empty_cart_path,
                   data: navigation_push
+
+    / Admin
+    - if User.is_admin? current_user
+      li.TouchHover
+        = t('.admin.title')
+        ul.l-header-nav-dropdown.TouchHover--hidden
+          li
+            = link_to t('.admin.backend'), '/admin'
+          li
+            = link_to t('.admin.pages'), '/contents'
+          li
+            = link_to t('.admin.statistics'), '/statistics/general'
+          li
+            = link_to t('.admin.sidekiq'), '/sidekiq'
