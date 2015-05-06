@@ -1,7 +1,7 @@
 $header-highlight-color: $even-lighter-gray;
 $header-nav-link-color-hover: $blue;
 
- .l-header ul {
+.l-header ul {
   margin:0;
   list-style: none;
 }
@@ -69,6 +69,10 @@ $header-nav-link-color-hover: $blue;
 .l-header-mnav {
   clear: both;
   width: 100%;
+}
+
+.l-header-mnav ul {
+  padding: 0;
 }
 
 .l-header-mnav-toggle {
