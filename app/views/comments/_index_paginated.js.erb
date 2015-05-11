@@ -1,8 +1,6 @@
-commentable_selector = '<%= "##{commentable.class.to_s.underscore}#{commentable.id}" %> ';
+$('.Comments-section .Comment-single').last().after('<%= j render partial: 'comments/comment', collection: comments  %>');
 
-$(commentable_selector + '.Comments-section .Comment-single').last().after('<%= j render partial: 'comments/comment', collection: comments  %>');
-
-$(commentable_selector + '.Comments-section .next_link').replaceWith('<%= j(
+$('.Comments-section .next_link').replaceWith('<%= j(
     link_to_next_page comments,
     t("comments.more"),
     param_name: :comments_page,
@@ -10,6 +8,6 @@ $(commentable_selector + '.Comments-section .next_link').replaceWith('<%= j(
     class: "next_link",
     remote: true) %>');
 
-if ($(commentable_selector + " .next_link").length == 0) {
-  $(commentable_selector + " .all_link").remove();
+if ($('.next_link').length === 0) {
+  $('.all_link').remove();
 }
