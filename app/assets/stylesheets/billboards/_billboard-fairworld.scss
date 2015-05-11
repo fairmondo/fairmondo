@@ -1,0 +1,43 @@
+/**
+ * Fair World billboard
+ */
+
+
+// General stuff
+#billboard-fairworld > article > h2,
+#billboard-fairworld > article > p,
+#billboard-fairworld > article > a {
+  text-indent: -1000em;
+}
+
+#billboard-fairworld > article > a {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%
+}
+
+
+
+// Responsive code: small version
+@include till-breakpoint($bp-tablet) {
+  #billboard-fairworld {
+    background-image: image-url('welcome/billboard_fairworld_small.jpg');
+  }
+}
+
+
+// Responsive code: medium version
+@include between-breakpoints($bp-tablet, $bp-tablet-horizontal) {
+  #billboard-fairworld {
+    background-image: image-url('welcome/billboard_fairworld_medium.jpg');
+  }
+}
+
+
+// Responsive code: big version
+@include at-breakpoint($bp-tablet-horizontal) {
+  #billboard-fairworld {
+    background-image: image-url('welcome/billboard_fairworld_big.jpg');
+  }
+}
