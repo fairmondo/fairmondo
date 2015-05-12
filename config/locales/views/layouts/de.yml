@@ -44,27 +44,29 @@ de:
       header_categories:
         more: "Weitere"
       header_nav:
-        sell: "Verkaufen"
-        libraries:
-          title: "Sammlungen"
-          tooltip: |
-            Andere Nutzer*innen haben bereits Sammlungen zu bestimmten
-            Themen erstellt. Beim Durchstöbern dieser Sammlungen kannst auch
-            Du weitere spannende Artikel entdecken.
-        community:
-          title: "Community"
+        about_us:
+          title: 'Über uns'
+          fairmondo: 'Fairmondo'
+          marketplace: 'Marktplatz'
           coop: 'Genossenschaft'
-          active: 'Aktiv mithelfen'
-          participate: 'Mitmachen'
-          forum: 'Forum'
-          events: 'Veranstaltungen'
-          partner: 'Partnerprogramm'
-        profile: "Profil"
+          takepart: 'Mitmachen'
+          makemoney: 'Mitverdienen'
+        marketplace:
+          title: "Marktplatz"
+          buy: "Kaufen"
+          sell: "Verkaufen"
+          libraries: "Sammlungen"
+        subscriptions: "Runde Sache Abo"
+        myfairmondo:
+          title: 'Mein Fairmondo'
+          myprofile: 'Mein Profil'
+          myarticles: 'Meine Artikel'
+          mylibraries: 'Meine Sammlungen'
         cart:
           title: "Warenkorb (%{count})"
         admin:
-          title: "Admins"
+          title: "Admin"
           backend: "Backend"
-          pages: "CMS Seiten"
+          pages: "CMS-Seiten"
           statistics: "Statistiken"
           sidekiq: "Sidekiq"

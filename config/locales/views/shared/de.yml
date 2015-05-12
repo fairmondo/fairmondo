@@ -11,7 +11,7 @@ de:
         dem Online Marktplatz für Alle.
       keywords: "Fairmondo, Marktplatz, Fair, Genossenschaft"
     actions:
-      logout: "Logout"
+      logout: "Abmelden"
       login: "Anmelden"
       sign_up: "Registrieren"
 
