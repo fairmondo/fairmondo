@@ -1,0 +1,101 @@
+de:
+  devise:
+    failure:
+      already_authenticated: 'Du bist bereits angemeldet.'
+      unauthenticated: 'Du musst Dich anmelden oder registrieren, bevor Du fortfahren kannst.'
+      unconfirmed: 'Du musst Deinen Account bestätigen, bevor Du fortfahren kannst.'
+      locked: 'Dein Account ist gesperrt.'
+      invalid: 'Ungültige Anmeldedaten.'
+      not_found_in_database:  'Ungültige Anmeldedaten.'
+      invalid_token: 'Der Anmelde-Token ist ungültig.'
+      timeout: 'Deine Sitzung ist abgelaufen, bitte melde Dich erneut an.'
+      inactive: 'Dein Account ist nicht aktiv.'
+    sessions:
+      signed_in: 'Erfolgreich angemeldet.'
+      signed_out: 'Erfolgreich abgemeldet.'
+      user:
+        already_signed_out: 'Du bist bereits abgemeldet.'
+    passwords:
+      send_instructions: 'Du erhältst in wenigen Minuten eine E-Mail mit einer Anleitung, wie Du Dein Passwort zurücksetzen kannst.'
+      updated: 'Dein Passwort wurde geändert. Du bist jetzt angemeldet.'
+      updated_not_active: 'Dein Passwort wurde geändert.'
+      send_paranoid_instructions: "Falls Deine E-Mail-Adresse in unserer Datenbank existiert, erhältst Du in wenigen Minuten eine E-Mail mit einer Anleitung, wie Du Dein Passwort zurücksetzen kannst."
+      user:
+        no_token: Du versuchst Dein Passwort ohne Passwort Token zu ändern.
+    confirmations:
+      send_instructions: 'Du erhältst in wenigen Minuten eine E-Mail, mit der Du Deine Registrierung bestätigen kannst.'
+      send_paranoid_instructions: 'Falls Deine E-Mail-Adresse in unserer Datenbank existiert, erhältst Du in wenigen Minuten eine E-Mail mit einer Anleitung, wie Du Dein Profil bestätigen kannst.'
+      confirmed: >
+        Wir begrüßen Dich herzlich bei Fairmondo, dem fairen Online-Marktplatz in Hand der Nutzer*innen! Bevor Du auf dem Marktplatz handeln kannst, benötigen wir weitere persönliche Daten von Dir, wie z.B. Deine Adresse.
+        Diese kannst Du in Deinem Profil eintragen.
+    registrations:
+      changed_email: "Du erhältst in Kürze eine E-Mail um Deine E-Mail-Adressänderung zu bestätigen. Deine Änderung wird erst nach Deiner Bestätigung wirksam."
+      signed_up: 'Du hast Dich erfolgreich registriert.'
+      signed_up_but_unconfirmed: 'Du hast Dich erfolgreich registriert. Wir konnten Dich noch nicht anmelden, da Dein Account noch nicht bestätigt ist. Du erhältst in Kürze eine E-Mail mit einer Anleitung, wie Du Deinen Account freischalten kannst.'
+      signed_up_but_inactive: 'Du hast Dich erfolgreich registriert. Wir konnten Dich noch nicht anmelden, da Dein Account inaktiv ist.'
+      signed_up_but_locked: 'Du hast Dich erfolgreich registriert. Wir konnten Dich noch nicht anmelden, da Dein Account gesperrt ist.'
+      updated: 'Deine Daten wurden aktualisiert.'
+      update_needs_confirmation: "Deine Daten wurden aktualisiert, aber Du musst Deine neue E-Mail-Adresse bestätigen. Du erhältst in wenigen Minuten eine E-Mail, mit der Du die Änderung Deiner E-Mail-Adresse abschließen kannst."
+      destroyed: 'Dein Account wurde gelöscht.'
+    unlocks:
+      send_instructions: 'Du erhältst in wenigen Minuten eine E-Mail mit der Anleitung, wie Du Deinen Account entsperren kannst.'
+      unlocked: 'Dein Account wurde entsperrt. Du bist jetzt angemeldet.'
+      send_paranoid_instructions: "Falls Deine E-Mail-Adresse in unserer Datenbank existiert, erhältst Du in wenigen Minuten eine E-Mail mit der Anleitung, wie Du Deinen Account entsperren kannst."
+    omniauth_callbacks:
+      success: 'Du hast Dich erfolgreich mit Deinem %{kind}-Account angemeldet.'
+      failure: 'Du konntest nicht mit Deinem %{kind}-Account angemeldet werden, weil "%{reason}".'
+    mailer:
+      welcome_mail:
+        subject: '[Fairmondo] Anleitung zur Bestätigung Deines Accounts'
+      confirmation_instructions:
+        subject: '[Fairmondo] Bitte bestätige Deine E-Mail-Adresse'
+      reset_password_instructions:
+        subject: '[Fairmondo] Anleitung um Dein Passwort zurückzusetzen'
+      unlock_instructions:
+        subject: '[Fairmondo] Anleitung um Deinen Account freizuschalten'
+
+    # EMAIL:
+    confirmation:
+      resend: "Registrierungs-E-Mail erneut schicken"
+      text: >
+        Vielen Dank für Deine Registrierung bei Fairmondo, dem fairen Online-Marktplatz in Hand der Nutzer*innen!
+        Durch Deine Registrierung hast Du Dich bereit erklärt, die angehängten AGB und die Datenschutzerklärung von Fairmondo zu akzeptieren.
+        Bitte bestätige Deine E-Mail-Adresse sowie den Erhalt und die Lesbarkeit der beigefügten AGB und Datenschutzbestimmungen um den Registrierungsvorgang abzuschließen.
+        Für die Bestätigung der Registrierung gehe bitte auf den folgenden Link:
+      link: "Meine Registrierung sowie den Erhalt und die Lesbarkeit der AGB und Datenschutzbestimmungen bestätigen."
+      link_if_newsletter: 'Meine Registrierung sowie den Erhalt und die Lesbarkeit der AGB und Datenschutzbestimmungen und die Anmeldung zum Newsletter bestätigen.'
+      ignoremail: "Falls Du diese E-Mail nicht angefordert hast, wende Dich bitte an unseren Kundenservice: kundenservice@fairmondo.de oder ignoriere einfach diese E-Mail."
+      email_change_info: "(Falls Du deine E-Mail geändert hast, wird diese nach Bestätigung durch Klick auf den Link geändert.)"
+      email:
+        text: "Du hast Dich entweder neu auf dem Marktplatz registriert, oder Deine E-Mail-Adresse geändert. Wir bitten Dich deshalb, Deine E-Mail-Adresse zu bestätigen. Klicke dazu auf folgenden Link:"
+        link: "E-Mail-Adresse bestätigen"
+        info: "Deine E-Mail-Adresse ändert sich erst, wenn Du den oben angegebenen Link benutzt, um die neue E-Mail-Adresse zu bestätigen."
+    reset:
+      text: "Jemand hat einen Link zum Ändern Deines Passworts auf Fairmondo angefordert. Um Dein Passwort zu ändern, klicke auf den folgenden Link:"
+      link: "Passwort hier ändern"
+      ignoremail_begin: "Falls Du diese E-Mail nicht angefordert hast, wende Dich bitte an unseren Kundenservice: "
+      ignoremail_addr: "kundenservice@fairmondo.de"
+      ignoremail_end: ", oder ignoriere einfach diese E-Mail."
+      info: "Dein Passwort ändert sich erst, wenn Du den oben angegebenen Link benutzt, um ein neues Passwort anzulegen."
+      request: "Bitte sende mir Anweisungen zu, um mein Passwort zurückzusetzen"
+      title: "Passwort vergessen?"
+      new: "Neues Passwort"
+      new_confirm: "Passwort bestätigen"
+      new_submit: "Neues Passwort speichern"
+    unlock:
+      info: "Dein Benutzerkonto wurde aufgrund einer ungewöhnlich hohen Anzahl fehlgeschlagener Login-Versuche gesperrt."
+      linktext: "Klicke auf den unten stehenden Link, um Dein Benutzerkonto freizuschalten:"
+      link: "Benutzerkonto freischalten"
+      ignoremail: "Falls Du diese E-Mail nicht angefordert hast, wende Dich bitte an unseren Kundenservice: kundenservice@fairmondo.de, oder ignoriere einfach diese E-Mail."
+
+    # LINKS:
+    links:
+      sign_in: "Anmelden"
+      sign_up: "Noch kein Konto? Registrieren"
+      forgot_password: "Passwort vergessen?"
+      confirmation_instruction: "Registrierungs-E-Mail nicht erhalten?"
+      unlock_instruction: "Keine E-Mail zur Freischaltung erhalten?"
+      sign_in_with: "Mit anderem Account anmelden #{provider.to_s.titleize}"
+      back_to_my_profile: "Zurück zu meinem Profil"
+    actions:
+      unlock: "E-Mail zur Freischaltung erneut senden"

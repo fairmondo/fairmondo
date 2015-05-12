@@ -133,6 +133,11 @@ For example, the formtastic gem requires transations in
 `[locale].formtatic.*`. The file will thus be located in
 `config/locales/gems/formtastic/`
 
+The subfolder of the `gems/` directory should clearly mark, which gem requires
+these translations, even if the internal structure doesn't implement our
+naming conventions. For example, the `rails_admin` gem uses a structure like
+`en.admin.*`, but it will still be located in `gems/rails_admin` for clarity.
+
 
 **What about shared strings?**
 
