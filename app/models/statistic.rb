@@ -138,6 +138,36 @@ class Statistic
     growth_rate BusinessTransaction.last_week.joins(:article).sum('articles.calculated_fair_cents * business_transactions.quantity_bought'), BusinessTransaction.week_before_last_week.joins(:article).sum('articles.calculated_fair_cents * business_transactions.quantity_bought')
   end
 
+  # Get last month's revenue
+  # Returns a hash with three keys: 'revenue', 'fair' and 'fee'
+  def revenue_last_month
+    revenue = 0
+    fair = 0
+    fee = 0
+
+    BusinessTransaction.where(
+      'sold_at > ?
+      AND sold_at < ?
+      AND business_transactions.state = ?',
+      1.month.ago.at_beginning_of_month,
+      1.month.ago.at_end_of_month,
+      'sold'
+    ).select { |bt| bt.seller.is_a?(LegalEntity) }.each do |t|
+      if t.article
+        unless t.refund
+          fair += t.quantity_bought * t.article.calculated_fair_cents
+          fee  += t.quantity_bought * t.article.calculated_fee_cents
+          revenue += t.quantity_bought * t.article.price_cents
+          if t.discount_value_cents
+            fee -= t.discount_value_cents
+          end
+        end
+      end
+    end
+
+    { revenue: revenue, fair: fair, fee: fee }
+  end
+
   private
 
   def growth_rate last_week, week_before_last_week
