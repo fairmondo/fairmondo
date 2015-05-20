@@ -15,6 +15,5 @@ notifications:
 before_install:
   - curl -k -L -o elasticsearch-1.3.4.tar.gz https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-1.3.4.tar.gz
   - tar -zxvf elasticsearch-1.3.4.tar.gz
-  - ./elasticsearch-1.3.4/bin/plugin -install analysis-german -url http://www.smallbutton.com/system/elasticsearch-analysis-german-1.3.2.5-plugin.zip
-  - echo "Not using official repository of elasticsearch-german-analysis plugnin. Switch back to the old repo if its up again and delete this message in .travis.yml http://xbib.org/repository/org/xbib/elasticsearch/plugin/elasticsearch-analysis-german/1.3.2.5/elasticsearch-analysis-german-1.3.2.5-plugin.zip"
+  - ./elasticsearch-1.3.4/bin/plugin -install bundle -url http://xbib.org/repository/org/xbib/elasticsearch/plugin/elasticsearch-plugin-bundle/1.4.0.6/elasticsearch-plugin-bundle-1.4.0.6-plugin.zip
   - ./elasticsearch-1.3.4/bin/elasticsearch 1> /dev/null 2> /dev/null &
