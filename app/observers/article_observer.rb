@@ -28,6 +28,10 @@ class ArticleObserver < ActiveRecord::Observer
 
   def before_save(article)
     article.quantity_available = article.quantity if article.quantity_changed?
+
+    if article.state_changed? && article.sold?
+      Indexer.index_article article
+    end
   end
 
   def after_save(article)
@@ -38,10 +42,6 @@ class ArticleObserver < ActiveRecord::Observer
       article.update_column(:article_template_name, nil)
       cloned_article.templatify
       cloned_article.save # save the cloned article
-    end
-
-    if article.state_changed? && article.sold?
-      Indexer.index_article article
     end
   end
 

@@ -63,11 +63,6 @@ class Article < ActiveRecord::Base
     new_article
   end
 
-  # Elastic/Chewy - so it knows which to #import
-  def delete_from_index?
-    !active?
-  end
-
   amoeba do
     enable
     include_association :fair_trust_questionnaire

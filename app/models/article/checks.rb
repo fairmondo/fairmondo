@@ -55,11 +55,6 @@ module Article::Checks
     seller.is_a?(LegalEntity)
   end
 
-  # Elastic
-  def delete_from_index?
-    !active?
-  end
-
   def bought_or_in_cart?
     self.business_transactions.any? || self.line_items.any?
   end
