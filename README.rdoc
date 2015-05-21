@@ -155,16 +155,15 @@ To make the search available in your local environment you have to install Elast
 
     curl -k -L -o elasticsearch-1.3.4.tar.gz https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-1.3.4.tar.gz
     tar -zxvf elasticsearch-1.3.4.tar.gz
-    ./elasticsearch-1.3.4/bin/plugin -install analysis-german -url http://xbib.org/repository/org/xbib/elasticsearch/plugin/elasticsearch-analysis-german/1.3.2.5/elasticsearch-analysis-german-1.3.2.5-plugin.zip
+    ./elasticsearch-1.3.4/bin/plugin -install bundle -url http://xbib.org/repository/org/xbib/elasticsearch/plugin/elasticsearch-plugin-bundle/1.4.0.6/elasticsearch-plugin-bundle-1.4.0.6-plugin.zip
     ./elasticsearch-1.3.4/bin/elasticsearch
 
 Links for Elasticsearch:
 http://www.elasticsearch.org
 
 Plugin we use:
-https://github.com/jprante/elasticsearch-analysis-german
+https://github.com/jprante/elasticsearch-plugin-bundle
 
-NOTE: As long as the official repo for the analysis plugin is down you can use this url: http://www.smallbutton.com/system/elasticsearch-analysis-german-1.3.2.5-plugin.zip see https://github.com/jprante/elasticsearch-analysis-german/issues/2
 === Background Processing with sidekiq
 To use our Background processing you have to setup a redis instance locally:
 
