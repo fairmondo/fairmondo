@@ -18,7 +18,7 @@ nav.l-header-categories
                       data: navigation_push
       li.TouchHover
         span
-          = t('header.categories.more')
+          = t('.more')
         ul.l-header-categories-children.TouchHover--hidden
           - Category.other_categories.sorted.roots\
             .each_slice(3) do |categories|

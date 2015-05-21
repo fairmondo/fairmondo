@@ -3,9 +3,9 @@
 # The "main" locale.
 base_locale: de
 ## All available locales are inferred from the data by default. Alternatively, specify them explicitly:
-# locales: [es, fr]
+locales: [de]
 ## Reporting locale, default: en. Available: en, ru.
-# internal_locale: en
+internal_locale: en
 
 # Read and write translations.
 data:
@@ -16,9 +16,11 @@ data:
   # Locale files or `File.find` patterns where translations are read from:
   read:
     ## Default:
-    - "config/locales/%{locale}.yml"
+    # - "config/locales/%{locale}.yml"
     ## More files:
-    - "config/locales/**/%{locale}.yml"
+    - "config/locales/views/**/%{locale}.yml"
+    - "config/locales/models/**/%{locale}.yml"
+    - "config/locales/gems/**/%{locale}.yml"
     ## Another gem:
     # - "<%= %x[bundle show vagrant].chomp %>/templates/locales/%{locale}.yml"
 

@@ -1,0 +1,136 @@
+de:
+  activerecord:
+    models:
+      address:
+        one: Adresse
+        other: Adressen
+      article_template:
+        one: Vorlage
+        other: Vorlagen
+      user:
+        one: Benutzer
+        other: Benutzer
+      article:
+        one: Artikel
+        other: Artikel
+      articles_category:
+        one: Artikel zu Kategoriezuordnung
+        other: Artikel zu Kategoriezuordnungen
+      cart:
+        one: Warenkorb
+        other: Warenkörbe
+      category:
+        one: "Kategorie"
+        other: "Kategorien"
+      comment:
+        one: "Kommentar"
+        other: "Kommentare"
+      content:
+        one: "CMS-Seite"
+        other: "CMS-Seiten"
+      discount:
+        one: "Rabatt"
+        other: "Rabatte"
+      fair_trust_questionnaire:
+        one: "Fair Trust Fragebogen"
+        other: "Fair Trust Fragebögen"
+      feedback:
+        one: Feedback-Anfrage
+        other: Feedback-Anfragen
+      image:
+        one: "Bild"
+        other: "Bilder"
+      legal_entity:
+        one: "Firmenprofil"
+        other: "Firmenprofile"
+      library_element:
+        one: Sammlungselement
+        other: Sammlungselemente
+      library:
+        one: Sammlung
+        other: Sammlungen
+      line_item:
+        one: Line Item
+        other: Line Items
+      line_item_group:
+        one: Line Item Group
+        other: Line Item Groups
+      mass_upload:
+        one: CSV-Upload
+        other: CSV-Uploads
+      payment:
+        one: Zahlung
+        other: Zahlungen
+      preview_transaction:
+        one: Transaktionsobjekt (Vorschau)
+        other: Transaktionsobjekte (Vorschau)
+      private_user:
+        one: Privatprofil
+        other: Privatprofile
+      rating:
+        one: Bewertung
+        other: Bewertungen
+      refund:
+        one: Rückerstattung
+        other: Rückerstattungen
+      social_producer_questionnaire:
+        one: "Sozialer Produzent Fragebogen"
+        other: "Sozialer Produzent Fragebögen"
+      business_transaction:
+        one: Transaktionsobjekt
+        other: Transaktionsobjekte
+      exhibit:
+        one: Startseitenartikel
+        other: Startseitenartikel
+
+    attributes:
+      transaction:
+        tos_accepted: "Die AGB und die Widerrufserklärung"
+
+    errors:
+      models:
+        business_transaction:
+          attributes:
+            quantity_bought:
+              less_than_or_equal_to: "Die Zahl ist zu hoch. Es ist/sind noch maximal %{count} Artikel verfügbar."
+        image:
+          attributes:
+            image_file_size: &image
+              in_between: "Das Bild ist zu groß. Maximal 2 MB."
+            image: *image
+        user:
+          attributes:
+            cancellation_form_file_size: &cf
+              in_between: "Die Datei zu groß. Maximal 2 MB."
+            cancellation_form: *cf
+        article:
+          attributes:
+            small_and_precious_eu_small_enterprise:
+              blank: "Nicht zufriedenstellend beantwortet"
+        feedback:
+          attributes:
+            text:
+              blank: Die Nachricht kann nicht ohne Text gesendet werden.
+        library_element:
+          attributes:
+            library_id:
+              taken: Der Artikel ist schon in Deiner Sammlung.
+        library:
+          attributes:
+            name:
+              too_long: "Der Name der Sammlung darf nicht länger als %{count} Zeichen sein."
+              taken: "Eine Sammlung mit diesem Namen existiert bereits."
+              blank: "Eine Sammlung benötigt einen Namen."
+        line_item:
+          attributes:
+            requested_quantity:
+              less_than_or_equal_to: "Es sind nur noch %{count} Artikel verfügbar."
+        rating:
+          attributes:
+            transaction_id:
+              taken: "Diese Bewertung wurde bereits abgegeben."
+        mass_upload:
+          attributes:
+            file_file_size: &mu
+              in_between: "Das CSV-Datei ist zu groß. Maximal 20 MB."
+            file: *mu

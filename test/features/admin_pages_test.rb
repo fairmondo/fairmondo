@@ -31,8 +31,8 @@ feature 'AdminPages' do
   end
 
   scenario 'gets redirected to Admin Dashboard' do
-    page.must_have_content('Admin')
-    click_on 'Admin'
+    page.must_have_content('Admins')
+    click_on 'Backend'
     page.must_have_content('Administration')
   end
 end

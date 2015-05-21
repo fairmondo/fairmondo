@@ -1,51 +1,45 @@
 / *** Mobile navigation ***
-a[id="l-header-mnav-toggle" class="l-header-mnav-toggle" href="#"]
+a id="l-header-mnav-toggle" class="l-header-mnav-toggle" href="#"
 
-nav[id="l-header-mnav" class="l-header-mnav" role="navigation"]
+nav id="l-header-mnav" class="l-header-mnav" role="navigation"
   ul.l-header-mnav-menu
     li.l-header-mnav-menu-item
-      = link_to t('header.sell'),
-        new_article_path
+      = link_to t('.sell'), new_article_path
     li.l-header-mnav-menu-item
-      = link_to t('header.libraries.title'),
-        libraries_path,
-        data: navigation_push
+      = link_to t('.libraries.title'), libraries_path, data: navigation_push
     li.l-header-mnav-menu-item
-      = link_to t('header.community.participate'),
-        'http://mitmachen.fairmondo.de',
-        target: '_blank'
+      = link_to t('.community.participate'),
+                'http://mitmachen.fairmondo.de',
+                target: '_blank'
 
     / Profile & Logout
     - if user_signed_in?
       li.l-header-mnav-menu-item
-        = link_to t('header.profile'),
-          user_path(current_user),
-          data: navigation_push
+        = link_to t('.profile'),
+                  user_path(current_user),
+                  data: navigation_push
       li.l-header-mnav-menu-item
-        = link_to t('common.actions.logout'),
-          destroy_user_session_path
+        = link_to t('shared.actions.logout'), destroy_user_session_path
 
     / Login
     - else
       li.l-header-mnav-menu-item
-        = link_to t('common.actions.login'),
-          new_user_session_path
+        = link_to t('shared.actions.login'), new_user_session_path
       li.l-header-mnav-menu-item
-        = link_to t('common.actions.sign_up'),
-          new_user_registration_path
+        = link_to t('shared.actions.sign_up'), new_user_registration_path
 
     / Cart
     - if current_cart && policy(current_cart).show?(cookies.signed[:cart])\
         && !current_cart.line_items.empty?
       li.l-header-mnav-menu-item
-        = link_to t('header.cart.title', count: current_cart.line_item_count),
-          current_cart,
-          data: navigation_push
+        = link_to t('.cart.title', count: current_cart.line_item_count),
+                  current_cart,
+                  data: navigation_push
     - else
       li.l-header-mnav-menu-item
-        = link_to t('header.cart.title', count: 0),
-          empty_cart_path,
-          data: navigation_push
+        = link_to t('.cart.title', count: 0),
+                  empty_cart_path,
+                  data: navigation_push
 
 
 
@@ -54,57 +48,54 @@ nav.l-header-nav
   ul
     / Sell
     li
-      = link_to t('header.sell'),
-        new_article_path
+      = link_to t('.sell'),
+                new_article_path
 
     / Libraries
     li
-      = link_to t('header.libraries.title'),
-        libraries_path,
-        title: t('header.libraries.tooltip'), data: navigation_push
+      = link_to t('.libraries.title'),
+                libraries_path,
+                title: t('.libraries.tooltip'), data: navigation_push
 
     / Community
     li.TouchHover
-      = link_to t('header.community.title'),
-        'https://forum.fairmondo.de/',
-        target: '_blank'
+      = link_to t('.community.title'),
+                'https://forum.fairmondo.de/',
+                target: '_blank'
       ul.l-header-nav-dropdown.TouchHover--hidden
         li
-          = link_to t('header.community.active'),
-            'http://mitmachen.fairmondo.de',
-            target: '_blank'
+          = link_to t('.community.active'),
+                    'http://mitmachen.fairmondo.de',
+                    target: '_blank'
         li
-          = link_to t('header.community.events'),
-            'http://mitmachen.fairmondo.de/veranstaltungen',
-            target: '_blank'
+          = link_to t('.community.events'),
+                    'http://mitmachen.fairmondo.de/veranstaltungen',
+                    target: '_blank'
         li
-          = link_to t('header.community.partner'),
+          = link_to t('.community.partner'),
             'http://mitmachen.fairmondo.de/materialecke/partnerprogramm/',
             target: '_blank'
         li
-          = link_to t('header.community.coop'),
-            '/genossenschaft/'
+          = link_to t('.community.coop'), '/genossenschaft/'
         li
-          = link_to t('header.community.forum'),
-            'https://forum.fairmondo.de/',
-            target: '_blank'
+          = link_to t('.community.forum'),
+                    'https://forum.fairmondo.de/',
+                    target: '_blank'
 
     / Profile & Logout
     - if user_signed_in?
       li
-        = link_to t('header.profile'),
-          user_path(current_user),
-          data: navigation_push
+        = link_to t('.profile'),
+                  user_path(current_user),
+                  data: navigation_push
       li
-        = link_to t('common.actions.logout'),
-          destroy_user_session_path
+        = link_to t('shared.actions.logout'), destroy_user_session_path
 
     / Login
     - else
       li.TouchHover
-        = link_to t('common.actions.login'),
-          new_user_session_path,
-          id: 'login-link'
+        = link_to t('shared.actions.login'), new_user_session_path,
+                  id: 'login-link'
         .l-header-nav-dropdown.l-header-nav-dropdown--login.TouchHover--hidden
           = render 'devise/sessions/shared'
           = render 'devise/links'
@@ -113,11 +104,11 @@ nav.l-header-nav
     - if current_cart && policy(current_cart).show?(cookies.signed[:cart])\
         && !current_cart.line_items.empty?
       li
-        = link_to t('header.cart.title', count: current_cart.line_item_count),
-          current_cart,
-          data: navigation_push
+        = link_to t('.cart.title', count: current_cart.line_item_count),
+                  current_cart,
+                  data: navigation_push
     - else
       li
-        = link_to t('header.cart.title', count: 0),
-          empty_cart_path,
-          data: navigation_push
+        = link_to t('.cart.title', count: 0),
+                  empty_cart_path,
+                  data: navigation_push
