@@ -5,33 +5,8 @@ footer.l-footer
       a#l-footer-logo href='/'
         = image_tag 'logo_small.png', alt: t('shared.fairmondo.name')
 
-    / Feedback links
-    = render '/layouts/partials/feedback_links'
-
     / Main navigation links
     nav#l-footer-nav-main
-
-      / Service
-      section#l-footer-nav-service
-        h4
-          = t('.service.heading')
-        ul
-          li
-            = link_to t('.service.faq'),
-              '/faq'
-          li
-            = link_to t('.service.forum'),
-              'https://forum.fairmondo.de/',
-              target: '_blank'
-          li
-            = link_to t('.service.status'),
-              'https://twitter.com/FairmondoStatus'
-          li
-            = link_to t('.service.contact'),
-              '/contact'
-          li
-            = link_to t('.service.affiliate'),
-              'https://ui.belboon.com/partner20646.html'
 
       / Company
       section#l-footer-nav-fairmondo
@@ -57,6 +32,124 @@ footer.l-footer
             = link_to t('.company.press'),
               'https://info.fairmondo.de/pressekit/',
               target: '_blank'
+          li
+            = link_to t('.company.shares'),
+              'http://mitmachen.fairmondo.de/anteile-zeichnen/',
+              target: '_blank'
+          li
+            = link_to t('.company.blog'),
+              'https://info.fairmondo.de',
+              target: '_blank'
+          li
+            = link_to t('.company.newsletter'),
+              'http://50856.seu1.cleverreach.com/f/50856-129361/',
+              target: '_blank'
+
+      / Marketplace
+      section#l-footer-nav-marketplace
+        h4
+          = t('.marketplace.heading')
+        ul
+          li
+            = link_to t('.marketplace.sign_up'),
+              new_user_registration_path
+          li
+            = link_to t('.marketplace.sell_private'),
+              ''
+          li
+            = link_to t('.marketplace.sell_business'),
+              ''
+          li
+            = link_to t('.marketplace.affiliate'),
+              'https://ui.belboon.com/partner20646.html',
+              target: '_blank'
+          li
+            = link_to t('.marketplace.vouchers'),
+              ''
+          li
+            = link_to t('.marketplace.fairmondo_shop'),
+              ''
+          li
+            = link_to t('.marketplace.categories'),
+              categories_path
+
+      / Subscription
+      section#l-footer-nav-subscription
+        h4
+          = t('.subscription.heading')
+        ul
+          li
+            = link_to t('.subscription.order'),
+              'http://abo.fairmondo.de/'
+          li
+            = link_to t('.subscription.chocolate'),
+              ''
+          li
+            = link_to t('.subscription.coffee'),
+              ''
+          li
+            = link_to t('.subscription.fair_box'),
+              ''
+          li
+            = link_to t('.subscription.gourmet_box'),
+              ''
+          li
+            = link_to t('.subscription.surprise_box'),
+              ''
+          li
+            = link_to t('.subscription.fair_world'),
+              ''
+          li
+            = link_to t('.subscription.bonus_programme'),
+              ''
+
+      / Cooperative
+      section#l-footer-nav-cooperative
+        h4
+          = t('.cooperative.heading')
+        ul
+          li
+            = link_to t('.cooperative.twopointzero'),
+              ''
+          li
+            = link_to t('.cooperative.subscribe_shares'),
+              ''
+          li
+            = link_to t('.cooperative.participate'),
+              ''
+          li
+            = link_to t('.cooperative.ambassador_programme'),
+              ''
+          li
+            = link_to t('.cooperative.material_corner'),
+              ''
+          li
+            = link_to t('.cooperative.events'),
+              ''
+          li
+            = link_to t('.cooperative.open_source'),
+              'https://github.com/fairmondo/fairmondo',
+              target: '_blank'
+          li
+            = link_to t('.cooperative.forum'),
+              'https://forum.fairmondo.de/',
+              target: '_blank'
+
+      / Service
+      section#l-footer-nav-service
+        h4
+          = t('.service.heading')
+        ul
+          li
+            = link_to t('.service.faq'),
+              '/faq'
+          li
+            / TODO: or ':send_feedback'
+            = link_to t('.service.help_or_feedback'),
+              new_feedback_path(variety: :get_help)
+          li
+            = link_to t('.service.contact'),
+              '/contact'
 
       / Social media
       section#l-footer-nav-socialmedia
@@ -71,28 +164,11 @@ footer.l-footer
             = link_to t('.socialmedia.twitter'),
               'https://twitter.com/fairmondo',
               target: '_blank'
-          li
-            = link_to t('.socialmedia.blog'),
-              'https://info.fairmondo.de',
-              target: '_blank'
-          li
-            = link_to t('.socialmedia.newsletter'),
-              'http://50856.seu1.cleverreach.com/f/50856-129361/',
-              target: '_blank'
-
-      / Legal
-      section#l-footer-nav-legal
-        h4
-          = t('.legal.heading')
-        ul
-          li
-            = link_to t('.legal.agb'), '/agb'
-          li
-            = link_to t('.legal.privacy'), '/privacy'
-          li
-            = link_to t('.legal.impressum'), '/impressum'
-
 
     / Copyright
     p#l-footer-copyright
       = t('.copyright_html')
+      | &ndash;
+      = link_to t('.legal.agb'), '/agb'
+      = link_to t('.legal.privacy'), '/privacy'
+      = link_to t('.legal.impressum'), '/impressum'
