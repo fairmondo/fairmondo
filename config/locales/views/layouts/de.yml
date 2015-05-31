@@ -14,21 +14,44 @@ de:
           transparency: "Transparenz"
           jobs: "Jobs"
           press: "Presse"
-          shares: "Anteile zeichnen"
           blog: "Blog"
           newsletter: "Newsletter"
         marketplace:
           heading: "Marktplatz"
+          sign_up: "Registrieren"
+          sell_private: "Privat verkaufen"
+          sell_business: "Gewerblich verkaufen"
           affiliate: "Partnerprogramm"
+          vouchers: "Gutscheine"
+          fairmondo_shop: "Fairmondo-Shop"
+          categories: "Kategorien"
         subscription:
-          heading: "Runde-Sache-Abo"
+          heading: Runde-Sache-Abo
+          order: Bestellen
+          chocolate: Schoko-Abo
+          coffee: Kaffee-Abo
+          fair_box: Faire Kiste
+          gourmet_box: Feinschmeckerkiste
+          surprise_box: Überraschungsbox
+          fair_world: Faire-Welt-Abo
+          bonus_programme: Prämienprogramm
         cooperative:
           heading: "Genossenschaft"
+          twopointzero: "Genossenschaft 2.0"
+          subscribe_shares: "Anteile zeichnen"
+        community:
+          heading: Gemeinschaft
+          participate: Mitmachen
+          ambassador_programme: Botschafterprogramm
+          materials: Materialecke
+          events: Veranstaltungen
+          open_source: Open Source / GitHub
+          forum: Forum
         service:
           heading: "Service"
           faq: "FAQ"
           contact: "Kontakt"
-          help_or_feedback: "Hilfe/Feedback"
+          help_or_feedback: "Hilfe / Feedback"
         socialmedia:
           facebook: "Facebook"
           twitter: "Twitter"

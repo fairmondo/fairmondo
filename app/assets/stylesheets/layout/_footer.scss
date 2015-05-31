@@ -9,6 +9,9 @@
   min-height: $footer-height;
   margin-top: -$footer-height;
   clear: both;
+
+  // Set smaller font size for whole footer
+  font-size: 0.9em;
 }
 
 .l-footer-inner {
@@ -18,24 +21,26 @@
 }
 
 
-// Left of navigation section
-// Logo
-#l-footer-nav-left {
+// Banner with logo and social media buttons
+.l-footer-banner {
+  text-align: center;
   float: left;
-
-  .socialshareprivacy {
-    float: none;
-
-    .social_share_privacy_area li:first-child .dummy_btn{
-      margin-left: 0 !important;
-    }
-  }
 }
 
 // Hi-res logo
-#l-footer-logo img {
+.l-footer-banner-logo img {
   width  : 120px;
   height : 23px;
+}
+
+.l-footer-banner-socialmedia {
+  text-align: center;
+
+  li {
+    display: inline-block;
+
+    a { color: $mid-dark-gray; }
+  }
 }
 
 // Main navigation section
@@ -48,23 +53,28 @@
 }
 
 #l-footer-nav-main > section > h4 {
-  margin : 0;
-  height : 2.4em;
-  color  : $mid-dark-gray;
+  font-size : 1em;
+  font-weight: bold;
+  margin    : 0;
+  height    : 2.4em;
+  color     : $mid-dark-gray;
 }
 
-#l-footer-nav-main > section > ul {
+// Remove list styles
+#l-footer-nav-main > section > ul, .l-footer-banner-socialmedia {
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
 #l-footer-nav-main > section > ul > li {
+  line-height: 2em;
   margin-bottom: 0.15em;
 }
 
-p#l-footer-copyright {
-  font-size: 0.8em;
+.l-footer-copyright {
+  clear: both;
+  margin: 0.5em 0;
   color: $mid-dark-gray;
 }
 
@@ -148,22 +158,8 @@ p#l-footer-copyright {
   #l-footer-nav-main > section > ul > li {
     margin-bottom: 0.5em;
   }
-
-  .l-footer > .l-footer-inner > p#l-footer-copyright {
-    position: static;
-    margin: 0.5em 0;
-    clear: both;
-  }
 }
 
-@include at-breakpoint($bp-tablet) {
-  .l-footer p#l-footer-copyright {
-    position: absolute;
-    left: 1rem;
-    bottom: 2rem;
-    margin: 0;
-  }
-}
 
 @include between-breakpoints($bp-tablet, $bp-tablet-horizontal) {
   #l-footer-nav-left {
@@ -180,14 +176,14 @@ p#l-footer-copyright {
 }
 
 @include at-breakpoint($bp-tablet-horizontal) {
-  #l-footer-nav-left {
-    @include span(4 of 8);
+  .l-footer-banner {
+    @include span(2 of 8);
   }
 
   #l-footer-nav-main > section {
     @include span(1 of 8);
 
-    &#l-footer-nav-legal {
+    &:last-child {
       @include omega;
     }
   }

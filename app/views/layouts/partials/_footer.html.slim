@@ -1,15 +1,30 @@
 footer.l-footer
   .l-footer-inner
-    #l-footer-nav-left
+    .l-footer-banner
       / Logo
-      a#l-footer-logo href='/'
+      a.l-footer-banner-logo href='/'
         = image_tag 'logo_small.png', alt: t('shared.fairmondo.name')
+
+      / Social media
+      ul.l-footer-banner-socialmedia
+        li>
+          = link_to 'https://www.facebook.com/fairmondo',
+            title: t('.socialmedia.facebook'),
+            target: '_blank' do
+            = fa_icon 'facebook 2x'
+        li
+          = link_to 'https://twitter.com/fairmondo',
+            title: t('.socialmedia.twitter'),
+            target: '_blank' do
+            = fa_icon 'twitter 2x'
+
+
 
     / Main navigation links
     nav#l-footer-nav-main
 
       / Company
-      section#l-footer-nav-fairmondo
+      section
         h4
           = t('.company.heading')
         ul
@@ -33,10 +48,6 @@ footer.l-footer
               'https://info.fairmondo.de/pressekit/',
               target: '_blank'
           li
-            = link_to t('.company.shares'),
-              'http://mitmachen.fairmondo.de/anteile-zeichnen/',
-              target: '_blank'
-          li
             = link_to t('.company.blog'),
               'https://info.fairmondo.de',
               target: '_blank'
@@ -46,7 +57,7 @@ footer.l-footer
               target: '_blank'
 
       / Marketplace
-      section#l-footer-nav-marketplace
+      section
         h4
           = t('.marketplace.heading')
         ul
@@ -74,7 +85,7 @@ footer.l-footer
               categories_path
 
       / Subscription
-      section#l-footer-nav-subscription
+      section
         h4
           = t('.subscription.heading')
         ul
@@ -83,28 +94,28 @@ footer.l-footer
               'http://abo.fairmondo.de/'
           li
             = link_to t('.subscription.chocolate'),
-              ''
+              'http://abo.fairmondo.de/gridpage/das-schoko-abo'
           li
             = link_to t('.subscription.coffee'),
-              ''
+              'http://abo.fairmondo.de/gridpage/das-richtig-guter-kaffee-abo'
           li
             = link_to t('.subscription.fair_box'),
-              ''
+              'http://abo.fairmondo.de/gridpage/die-faire-kiste'
           li
             = link_to t('.subscription.gourmet_box'),
-              ''
+              'http://abo.fairmondo.de/gridpage/die-feinschmeckerkiste'
           li
             = link_to t('.subscription.surprise_box'),
-              ''
+              'http://abo.fairmondo.de/gridpage/die-fairmondo-ueberraschungsbox'
           li
             = link_to t('.subscription.fair_world'),
-              ''
+              'http://abo.fairmondo.de/gridpage/das-fairmondo-soli-abo'
           li
             = link_to t('.subscription.bonus_programme'),
               ''
 
       / Cooperative
-      section#l-footer-nav-cooperative
+      section
         h4
           = t('.cooperative.heading')
         ul
@@ -113,30 +124,37 @@ footer.l-footer
               ''
           li
             = link_to t('.cooperative.subscribe_shares'),
+              'http://mitmachen.fairmondo.de/anteile-zeichnen/',
+              target: '_blank'
+
+      / Community
+      section
+        h4
+          = t('.community.heading')
+        ul
+          li
+            = link_to t('.community.participate'),
               ''
           li
-            = link_to t('.cooperative.participate'),
+            = link_to t('.community.ambassador_programme'),
               ''
           li
-            = link_to t('.cooperative.ambassador_programme'),
+            = link_to t('.community.materials'),
               ''
           li
-            = link_to t('.cooperative.material_corner'),
+            = link_to t('.community.events'),
               ''
           li
-            = link_to t('.cooperative.events'),
-              ''
-          li
-            = link_to t('.cooperative.open_source'),
+            = link_to t('.community.open_source'),
               'https://github.com/fairmondo/fairmondo',
               target: '_blank'
           li
-            = link_to t('.cooperative.forum'),
+            = link_to t('.community.forum'),
               'https://forum.fairmondo.de/',
               target: '_blank'
 
       / Service
-      section#l-footer-nav-service
+      section
         h4
           = t('.service.heading')
         ul
@@ -151,24 +169,10 @@ footer.l-footer
             = link_to t('.service.contact'),
               '/contact'
 
-      / Social media
-      section#l-footer-nav-socialmedia
-        h4
-          = t('.socialmedia.heading')
-        ul
-          li
-            = link_to t('.socialmedia.facebook'),
-              'https://www.facebook.com/fairmondo',
-              target: '_blank'
-          li
-            = link_to t('.socialmedia.twitter'),
-              'https://twitter.com/fairmondo',
-              target: '_blank'
-
     / Copyright
-    p#l-footer-copyright
+    p.l-footer-copyright
       = t('.copyright_html')
-      | &ndash;
-      = link_to t('.legal.agb'), '/agb'
-      = link_to t('.legal.privacy'), '/privacy'
+      | &emsp; &ndash; &emsp;
+      => link_to t('.legal.agb'), '/agb'
+      => link_to t('.legal.privacy'), '/privacy'
       = link_to t('.legal.impressum'), '/impressum'
