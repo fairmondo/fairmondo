@@ -789,3 +789,6 @@ DEPENDENCIES
   tinymce-rails-langs
   uglifier
   wiselinks
+
+BUNDLED WITH
+   1.10.2
