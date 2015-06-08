@@ -168,6 +168,16 @@ class Statistic
     { revenue: revenue, fair: fair, fee: fee }
   end
 
+  # Get new users (not confirmed users) from last month
+  def new_users_last_month
+    User.where(
+      'created_at > ?
+      AND created_at < ?',
+      1.month.ago.at_beginning_of_month,
+      1.month.ago.at_end_of_month
+    ).count
+  end
+
   private
 
   def growth_rate last_week, week_before_last_week
