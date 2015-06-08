@@ -23,7 +23,7 @@
 
 - if resource.is? current_user
   / Show own articles, line item groups and templates for user
-  .Accordion.Accordion--activated.Accordion--scrollToActive
+  .Accordion.Accordion--scrollToActive
     = render '/users/show/article_accordion',
       item_name: 'active',
       item_link: new_article_path,
