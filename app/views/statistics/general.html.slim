@@ -60,8 +60,15 @@ section
         = @statistics.statistics_category_articles (c)
 
 section
-  - revenue_hash = @statistics.revenue_last_month
-  h2 Umsätze aus dem letzten Monat
-  p= "Umsatz: #{         revenue_hash[:revenue] / 100.0 }"
-  p= "Gebühr: #{         revenue_hash[:fee]     / 100.0 }"
-  p= "Faires Prozent: #{ revenue_hash[:fair]    / 100.0 }"
+  h2 Statistiken für den letzten Monat
+
+  section
+    - revenue_hash = @statistics.revenue_last_month
+    h3 Umsätze
+    p= "Umsatz: #{ revenue_hash[:revenue] / 100.0 }"
+    p= "Gebühr: #{ revenue_hash[:fee] / 100.0 }"
+    p= "Faires Prozent: #{ revenue_hash[:fair] / 100.0 }"
+
+  section
+    h3 Weiteres
+    p= "Neue Nutzer: #{ @statistics.new_users_last_month }"
