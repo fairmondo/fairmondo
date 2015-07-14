@@ -19,7 +19,7 @@ If you are not sure how to <em>install Ruby and the Ruby on Rails framework</em>
 Make sure you install <em>2.2.2</em>. and not <em>ruby 1.9.3-p392</em>.
 
 === Fairmondo Project Setup (automated)
-MAY BE OUT OF DATE!!!!
+MAY BE OUT OF DATE!!!! Consider using the manual setup below.
 
 Note: the automated process won't work under Windows.
 To run Fairmondo locally in development mode, install ruby and rails. Then open up a console and <em>copy & paste</em> in the following line:
@@ -50,12 +50,11 @@ If the automated script doesn't work for you, try going through these steps one 
 
 * set up local files and change the setup data if you want
     cp config/environments/development.example.rb config/environments/development.rb
-    cp config/initializers/secret_token.example config/initializers/secret_token.rb
 
 * {set up Postgres for development environment}[https://github.com/fairmondo/fairmondo/wiki/Postgres-Setup]
 
 * set up database, load schema and seed
-    rake db:create && rake db:schema:load && rake db:seed
+    rake db:create db:schema:load db:seed
 
 * if you would like to test the mailer, please open the copied file and update it according to your testing mail server
 
@@ -94,11 +93,7 @@ If the automated script doesn't work for you, try going through these steps one 
 
 === Testing
 
-To run the tests: if you haven't already, prepare the testing database
-
-  rake db:test:prepare
-
-Then run the tests
+To run the tests, type
 
   rake test
 
