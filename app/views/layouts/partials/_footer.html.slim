@@ -173,6 +173,8 @@ footer.l-footer
     p.l-footer-copyright
       = t('.copyright_html')
       | &emsp; &ndash; &emsp;
-      => link_to t('.legal.agb'), '/agb'
-      => link_to t('.legal.privacy'), '/privacy'
+      = link_to t('.legal.agb'), '/agb'
+      | &emsp;
+      = link_to t('.legal.privacy'), '/privacy'
+      | &emsp;
       = link_to t('.legal.impressum'), '/impressum'

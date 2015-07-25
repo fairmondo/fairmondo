@@ -5,18 +5,22 @@
 }
 
 .l-footer {
-  background-color: $even-lighter-gray;
+  background-color: #333;
   min-height: $footer-height;
   margin-top: -$footer-height;
   clear: both;
 
   // Set smaller font size for whole footer
   font-size: 0.9em;
+
+  a, a:visited {
+    color: $light-gray;
+  }
 }
 
 .l-footer-inner {
   @include container($screen-width);
-  padding: 1.5em 1em 1em 1em;
+  padding: 4em 1em 1em 1em;
   position: relative;
 }
 
@@ -39,13 +43,14 @@
   li {
     display: inline-block;
 
-    a { color: $mid-dark-gray; }
+    a { color: $gray; }
   }
 }
 
 // Main navigation section
 #l-footer-nav-main {
   width: 100%;
+  overflow: hidden;
 }
 
 #l-footer-nav-main > section {
@@ -53,11 +58,11 @@
 }
 
 #l-footer-nav-main > section > h4 {
-  font-size : 1em;
-  font-weight: bold;
-  margin    : 0;
-  height    : 2.4em;
-  color     : $mid-dark-gray;
+  font-size   : 1.2em;
+  font-weight : bold;
+  margin      : 0;
+  height      : 2.4em;
+  color       : $light-gray;
 }
 
 // Remove list styles
@@ -70,12 +75,14 @@
 #l-footer-nav-main > section > ul > li {
   line-height: 2em;
   margin-bottom: 0.15em;
+  border-bottom: 1px dotted $gray;
 }
 
 .l-footer-copyright {
   clear: both;
-  margin: 0.5em 0;
-  color: $mid-dark-gray;
+  margin: 2em 0 1em;
+  text-align: center;
+  color: $light-gray;
 }
 
 
@@ -177,11 +184,11 @@
 
 @include at-breakpoint($bp-tablet-horizontal) {
   .l-footer-banner {
-    @include span(2 of 8);
+    display: none;
   }
 
   #l-footer-nav-main > section {
-    @include span(1 of 8);
+    @include span(1 of 6);
 
     &:last-child {
       @include omega;
