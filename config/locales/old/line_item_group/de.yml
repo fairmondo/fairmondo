@@ -19,6 +19,8 @@ de:
       show_order_and_pay: "Ansehen und bezahlen"
       show_order: "Auftrag ansehen"
       rate: Bewerten
+      email_to_seller: 'Eine E-Mail an den Verkäufer senden'
+      email_to_buyer: 'Eine E-Mail an den Käufer senden'
     transport_labels:
       provider: "Versand über:"
       transport_price: "Versandpreis:"

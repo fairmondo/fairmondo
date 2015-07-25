@@ -49,6 +49,11 @@
   max-width:15em; margin: 1em 0;
 }
 
+// email link
+.fm-group-emaillink {
+  text-align: right;
+}
+
 
 @include at-breakpoint($bp-tablet-horizontal) {
   .payment_information, .payment_actions {

@@ -98,7 +98,7 @@ de:
       no_ratings: "Diese*r Nutzer*in hat noch keine Bewertungen von anderen Nutzer*innen erhalten."
     profile:
       contact:
-        heading: 'E-Mail an den*die Anbieter*in'
+        heading: 'E-Mail an den Nutzer schreiben'
         description: 'Du hast noch Fragen? Trage diese in das untenstehende Feld ein, um dem*der Anbieter*in eine Nachricht zu schicken.'
         email_transfer_accepted_label: "Ich bin damit einverstanden, dass meine E-Mail-Adresse an den*die Anbieter*in als Rücksendeadresse übermittelt wird."
         action: 'Frage stellen'
