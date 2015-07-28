@@ -8,6 +8,7 @@
   background-color: #333;
   min-height: $footer-height;
   margin-top: -$footer-height;
+  padding-bottom: 1.5em;
   clear: both;
 
   // Set smaller font size for whole footer
@@ -27,21 +28,25 @@
 
 // Banner with logo and social media buttons
 .l-footer-banner {
-  text-align: center;
+  clear: both;
+  text-align: left;
   float: left;
 }
 
 // Hi-res logo
-.l-footer-banner-logo img {
-  width  : 120px;
-  height : 23px;
+.l-footer-banner-logo {
+  > img {
+    width  : 120px;
+    height : 23px;
+  }
 }
 
 .l-footer-banner-socialmedia {
-  text-align: center;
+  display: inline-block;
 
   li {
     display: inline-block;
+    margin: 0 0.5em;
 
     a { color: $gray; }
   }
@@ -58,11 +63,13 @@
 }
 
 #l-footer-nav-main > section > h4 {
-  font-size   : 1.2em;
-  font-weight : bold;
-  margin      : 0;
-  height      : 2.4em;
-  color       : $light-gray;
+  margin: 0;
+  height: 2.4em;
+
+  font-size: 1em;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: $light-gray;
 }
 
 // Remove list styles
@@ -75,13 +82,11 @@
 #l-footer-nav-main > section > ul > li {
   line-height: 2em;
   margin-bottom: 0.15em;
-  border-bottom: 1px dotted $gray;
 }
 
 .l-footer-copyright {
-  clear: both;
-  margin: 2em 0 1em;
-  text-align: center;
+  float: right;
+  margin: 0.25em 0 0;
   color: $light-gray;
 }
 
@@ -183,9 +188,6 @@
 }
 
 @include at-breakpoint($bp-tablet-horizontal) {
-  .l-footer-banner {
-    display: none;
-  }
 
   #l-footer-nav-main > section {
     @include span(1 of 6);

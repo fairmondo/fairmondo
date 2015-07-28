@@ -1,24 +1,5 @@
 footer.l-footer
   .l-footer-inner
-    .l-footer-banner
-      / Logo
-      a.l-footer-banner-logo href='/'
-        = image_tag 'logo_small.png', alt: t('shared.fairmondo.name')
-
-      / Social media
-      ul.l-footer-banner-socialmedia
-        li>
-          = link_to 'https://www.facebook.com/fairmondo',
-            title: t('.socialmedia.facebook'),
-            target: '_blank' do
-            = fa_icon 'facebook 2x'
-        li
-          = link_to 'https://twitter.com/fairmondo',
-            title: t('.socialmedia.twitter'),
-            target: '_blank' do
-            = fa_icon 'twitter 2x'
-
-
 
     / Main navigation links
     nav#l-footer-nav-main
@@ -168,6 +149,26 @@ footer.l-footer
           li
             = link_to t('.service.contact'),
               '/contact'
+
+
+    .l-footer-banner
+      / Logo
+      a.l-footer-banner-logo href='/'
+        = image_tag 'logo_small.png', alt: t('shared.fairmondo.name')
+
+      / Social media
+      ul.l-footer-banner-socialmedia
+        li>
+          = link_to 'https://www.facebook.com/fairmondo',
+            title: t('.socialmedia.facebook'),
+            target: '_blank' do
+            = fa_icon 'facebook 2x'
+        li
+          = link_to 'https://twitter.com/fairmondo',
+            title: t('.socialmedia.twitter'),
+            target: '_blank' do
+            = fa_icon 'twitter 2x'
+
 
     / Copyright
     p.l-footer-copyright
