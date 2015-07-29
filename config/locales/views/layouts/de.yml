@@ -36,6 +36,7 @@ de:
           heading: "Genossenschaft"
           twopointzero: "Genossenschaft 2.0"
           subscribe_shares: "Anteile zeichnen"
+          statute: "Satzung"
         community:
           heading: Gemeinschaft
           participate: Mitmachen
@@ -48,7 +49,8 @@ de:
           heading: "Service"
           faq: "FAQ"
           contact: "Kontakt"
-          help_or_feedback: "Hilfe / Feedback"
+          help: "Hilfe"
+          feedback: "Feedback"
         socialmedia:
           facebook: "Facebook"
           twitter: "Twitter"
