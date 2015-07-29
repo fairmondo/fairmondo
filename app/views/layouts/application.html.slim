@@ -46,13 +46,6 @@ html<> class='no-js' lang=I18n.locale
             a href='/'
               = image_tag 'logo.png', alt: t('shared.fairmondo.name')
 
-          / Temporary rename message
-          p.l-header-rename
-            => t '.sub_title'
-            = link_to t('.sub_title_anchor'),
-                      'https://info.fairmondo.de/ein-neuer-name-warum',
-                      target: '_blank'
-
           = render '/layouts/partials/header_nav'
         .l-header-bottom
           = render '/layouts/partials/header_search'

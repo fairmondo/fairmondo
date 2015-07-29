@@ -1,8 +1,5 @@
 de:
   layouts:
-    application:
-      sub_title: "Aus Fairnopoly wurde Fairmondo!"
-      sub_title_anchor: "Erfahre warum."
     partials:
       shared:
         copyright_html: &copyright "&copy; Copyright 2015 Fairmondo eG"

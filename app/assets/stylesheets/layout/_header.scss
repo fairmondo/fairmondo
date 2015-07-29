@@ -21,19 +21,10 @@ $header-nav-link-color-hover: $blue;
   }
 }
 
-// Temporary rename message
-.l-header-rename {
-  float: left;
-  margin-top: 0.8em;
-  font-weight: normal;
-}
-
-
 .l-header-bottom {
   background: $header-highlight-color;
   padding: 0.5em 0;
 }
-
 
 .l-header-logo, .l-header-nav  {
   display: inline-block;
@@ -213,7 +204,6 @@ ul.l-header-nav-dropdown > li, ul#devise_links > li {
 /********************************* Breakpoints ********************************/
 
 @include till-breakpoint($bp-tablet) {
-  .l-header-rename,
   .l-header-nav {
     display: none;
   }
