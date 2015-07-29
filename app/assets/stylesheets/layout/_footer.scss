@@ -11,9 +11,6 @@
   padding-bottom: 1.5em;
   clear: both;
 
-  // Set smaller font size for whole footer
-  font-size: 0.9em;
-
   a, a:visited {
     color: $light-gray;
   }
@@ -52,6 +49,13 @@
   }
 }
 
+// Font size
+#l-footer-nav-main > section > ul,
+.l-footer-banner-socialmedia,
+.l-footer-copyright {
+  font-size: 0.9em;
+}
+
 // Main navigation section
 #l-footer-nav-main {
   width: 100%;
@@ -66,7 +70,7 @@
   margin: 0;
   height: 2.4em;
 
-  font-size: 1em;
+  font-size: 0.9em;
   font-weight: bold;
   text-transform: uppercase;
   color: $light-gray;
@@ -139,34 +143,22 @@
 }
 
 @include till-breakpoint($bp-mobile-horizontal) {
-  #l-footer-nav-main > section {
-    @include span(1 of 2);
 
-    &#l-footer-nav-fairmondo {
-      @include omega;
-    }
-
-    &#l-footer-nav-legal {
-      @include omega;
-    }
-  }
 }
 
 @include between-breakpoints($bp-mobile-horizontal, $bp-tablet) {
   #l-footer-nav-main > section {
-    @include span(1 of 4);
+    @include span(1 of 2);
 
-    &#l-footer-nav-legal {
+    &#l-footer-nav-marketplace,
+    &#l-footer-nav-cooperative,
+    &#l-footer-nav-service {
       @include omega;
     }
   }
 }
 
 @include till-breakpoint($bp-tablet) {
-  #l-footer-nav-left {
-    display: none;
-  }
-
   #l-footer-nav-main > section > ul > li {
     margin-bottom: 0.5em;
   }
@@ -174,25 +166,21 @@
 
 
 @include between-breakpoints($bp-tablet, $bp-tablet-horizontal) {
-  #l-footer-nav-left {
-    @include span(2 of 6);
-  }
-
   #l-footer-nav-main > section {
-    @include span(1 of 6);
+    @include span(1 of 3);
 
-    &#l-footer-nav-legal {
+    &#l-footer-nav-subscription,
+    &#l-footer-nav-service {
       @include omega;
     }
   }
 }
 
 @include at-breakpoint($bp-tablet-horizontal) {
-
   #l-footer-nav-main > section {
     @include span(1 of 6);
 
-    &:last-child {
+    &#l-footer-nav-service {
       @include omega;
     }
   }
