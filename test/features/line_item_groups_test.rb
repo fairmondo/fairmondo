@@ -1,6 +1,26 @@
+# Maybe merge this test file with refund_test.rb
+
 require_relative '../test_helper'
 include FastBillStubber
 include Warden::Test::Helpers
+
+feature 'Display line item group after transaction' do
+  scenario 'email links for buyer and seller are displayed' do
+    seller      = FactoryGirl.create :legal_entity, :paypal_data
+    buyer       = FactoryGirl.create :private_user
+    transaction = FactoryGirl.create :business_transaction, seller: seller,
+                                                            buyer: buyer
+
+    login_as buyer
+    visit line_item_group_path(transaction.line_item_group)
+    page.must_have_content I18n.t('line_item_group.texts.email_to_seller')
+
+    logout
+    login_as seller
+    visit line_item_group_path(transaction.line_item_group)
+    page.must_have_content I18n.t('line_item_group.texts.email_to_buyer')
+  end
+end
 
 feature 'Refunds' do
   def do_refund

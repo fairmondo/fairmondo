@@ -30,6 +30,18 @@
 
 .group
   = render "line_item_groups/show/#{@tab.to_s}", abacus: @abacus, line_item_group: @line_item_group
+
+  / email link to buyer/seller
+  p.fm-group-emaillink
+    - if current_user == @line_item_group.buyer
+      = link_to t('line_item_group.texts.email_to_seller'),
+        contact_user_path(@line_item_group.seller),
+        class: 'ungrouped_colorbox'
+    - else
+      = link_to t('line_item_group.texts.email_to_buyer'),
+        contact_user_path(@line_item_group.buyer),
+        class: 'ungrouped_colorbox'
+
 .sidebar
   .payment_address
     = gray_box t('cart.texts.addresses.payment') do
