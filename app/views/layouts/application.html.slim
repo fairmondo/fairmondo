@@ -31,34 +31,35 @@ html<> class='no-js' lang=I18n.locale
   = render '/layouts/partials/head_tag'
 
   body[class="pages-#{controller.controller_name} page-#{controller.action_name}"]
-    .l-wrapper
-      = render '/layouts/partials/noscript_notice'
-      - if !flash.empty?
-        - flash.each do |type, msg|
-          - if msg && type != 'timedout' && !msg.empty?
-            = render layout: 'notice_layout', locals: { type: type } do
-              = msg
-      = render '/layouts/partials/news_header'
-      .l-header
-        .l-header-top
-          / Fairmondo logo
-          .l-header-logo
-            a href='/'
-              = image_tag 'logo.png', alt: t('shared.fairmondo.name')
+    = render '/layouts/partials/noscript_notice'
+    - if !flash.empty?
+      - flash.each do |type, msg|
+        - if msg && type != 'timedout' && !msg.empty?
+          = render layout: 'notice_layout', locals: { type: type } do
+            = msg
+    = render '/layouts/partials/news_header'
 
-          / Temporary rename message
-          p.l-header-rename
-            => t '.sub_title'
-            = link_to t('.sub_title_anchor'),
-                      'https://info.fairmondo.de/ein-neuer-name-warum',
-                      target: '_blank'
+    header.l-header
+      .l-header-top
+        / Fairmondo logo
+        .l-header-logo
+          a href='/'
+            = image_tag 'logo.png', alt: t('shared.fairmondo.name')
 
-          = render '/layouts/partials/header_nav'
-        .l-header-bottom
-          = render '/layouts/partials/header_search'
-          = render '/layouts/partials/header_categories'
-      .l-main role='main'
-        = yield
+        / Temporary rename message
+        p.l-header-rename
+          => t '.sub_title'
+          = link_to t('.sub_title_anchor'),
+                    'https://info.fairmondo.de/ein-neuer-name-warum',
+                    target: '_blank'
+
+        = render '/layouts/partials/header_nav'
+      .l-header-bottom
+        = render '/layouts/partials/header_search'
+        = render '/layouts/partials/header_categories'
+
+    main.l-main
+      = yield
 
     - is_welcome = controller_name == 'welcome'
     - cache_if( !(User.is_admin? current_user),
