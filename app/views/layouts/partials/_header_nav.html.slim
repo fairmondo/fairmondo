@@ -14,9 +14,6 @@ nav id="l-header-mnav" class="l-header-mnav" role="navigation"
                       user_path(current_user),
                       data: navigation_push
           li.mnav-menu-item-submenu-item
-            = link_to t('.myfairmondo.myarticles'),
-                      ''
-          li.mnav-menu-item-submenu-item
             = link_to t('.myfairmondo.mylibraries'),
                       user_libraries_path(current_user),
                       data: navigation_push
@@ -64,7 +61,8 @@ nav id="l-header-mnav" class="l-header-mnav" role="navigation"
       ul.mnav-menu-item-submenu
         li.mnav-menu-item-submenu-item
           = link_to t('.marketplace.buy'),
-                    ''
+                    '/kaufen',
+                    data: navigation_push
         li.mnav-menu-item-submenu-item
           = link_to t('.marketplace.sell'),
                     new_article_path
@@ -76,8 +74,8 @@ nav id="l-header-mnav" class="l-header-mnav" role="navigation"
     / Subscriptions
     li.l-header-mnav-menu-item
       = link_to t('.subscriptions'),
-                '',
-                data: navigation_push
+                'http://abo.fairmondo.de/',
+                target: '_blank'
 
     / About us
     li.l-header-mnav-menu-item.l-header-mnav--parent
@@ -85,22 +83,24 @@ nav id="l-header-mnav" class="l-header-mnav" role="navigation"
       ul.mnav-menu-item-submenu
         li.mnav-menu-item-submenu-item
           = link_to t('.about_us.fairmondo'),
-                    '/about_us'
+                    '/ueber_uns',
+                    data: navigation_push
         li.mnav-menu-item-submenu-item
           = link_to t('.about_us.marketplace'),
-                    ''
+                    '/marktplatz',
+                    data: navigation_push
         li.mnav-menu-item-submenu-item
           = link_to t('.about_us.coop'),
-                    '/genossenschaft/'
+                    '/genossenschaft/',
+                    data: navigation_push
         li.mnav-menu-item-submenu-item
           = link_to t('.about_us.takepart'),
-                    'http://mitmachen.fairmondo.de/'
+                    'http://mitmachen.fairmondo.de/',
+                    target: '_blank'
         li.mnav-menu-item-submenu-item
           = link_to t('.about_us.makemoney'),
-                    ''
-
-
-
+                    '/mitverdienen',
+                    data: navigation_push
 
 
 / *** Desktop navigation ***
@@ -109,34 +109,42 @@ nav.l-header-nav
     / About us
     li.TouchHover
       = link_to t('.about_us.title'),
-                '/about_us',
-                class: 'TouchHover--indicator'
+                '/ueber_uns',
+                class: 'TouchHover--indicator',
+                data: navigation_push
       ul.l-header-nav-dropdown.TouchHover--hidden
         li
           = link_to t('.about_us.fairmondo'),
-                    '/about_us'
+                    '/ueber_uns',
+                    data: navigation_push
         li
           = link_to t('.about_us.marketplace'),
-                    ''
+                    '/marktplatz',
+                    data: navigation_push
         li
           = link_to t('.about_us.coop'),
-                    '/genossenschaft/'
+                    '/genossenschaft/',
+                    data: navigation_push
         li
           = link_to t('.about_us.takepart'),
-                    'http://mitmachen.fairmondo.de/'
+                    'http://mitmachen.fairmondo.de/',
+                    target: '_blank'
         li
           = link_to t('.about_us.makemoney'),
-                    ''
+                    '/mitverdienen',
+                    data: navigation_push
 
     / Marketplace
     li.TouchHover
       = link_to t('.marketplace.title'),
-                '',
-                class: 'TouchHover--indicator'
+                '/kaufen',
+                class: 'TouchHover--indicator',
+                data: navigation_push
       ul.l-header-nav-dropdown.TouchHover--hidden
         li
           = link_to t('.marketplace.buy'),
-                    ''
+                    '/kaufen',
+                    data: navigation_push
         li
           = link_to t('.marketplace.sell'),
                     new_article_path
@@ -149,8 +157,8 @@ nav.l-header-nav
     / Subscriptions
     li
       = link_to t('.subscriptions'),
-                '',
-                data: navigation_push
+                'http://abo.fairmondo.de/',
+                target: '_blank'
 
 
     / Profile & Logout
@@ -158,16 +166,14 @@ nav.l-header-nav
       / My Fairmondo
       li.TouchHover
         = link_to t('.myfairmondo.title'),
-                  '',
+                  user_path(current_user),
+                  data: navigation_push,
                   class: 'TouchHover--indicator'
         ul.l-header-nav-dropdown.TouchHover--hidden
           li
             = link_to t('.myfairmondo.myprofile'),
                       user_path(current_user),
                       data: navigation_push
-          li
-            = link_to t('.myfairmondo.myarticles'),
-                      ''
           li
             = link_to t('.myfairmondo.mylibraries'),
                       user_libraries_path(current_user),
@@ -207,10 +213,14 @@ nav.l-header-nav
           = t('.admin.title')
         ul.l-header-nav-dropdown.TouchHover--hidden
           li
-            = link_to t('.admin.backend'), '/admin'
+            = link_to t('.admin.backend'),
+                      '/admin'
           li
-            = link_to t('.admin.pages'), '/contents'
+            = link_to t('.admin.pages'),
+                      '/contents'
           li
-            = link_to t('.admin.statistics'), '/statistics/general'
+            = link_to t('.admin.statistics'),
+                      '/statistics/general'
           li
-            = link_to t('.admin.sidekiq'), '/sidekiq'
+            = link_to t('.admin.sidekiq'),
+                      '/sidekiq'

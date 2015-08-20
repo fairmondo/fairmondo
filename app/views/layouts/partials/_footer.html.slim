@@ -11,30 +11,31 @@ footer.l-footer
         ul
           li
             = link_to t('.company.about_us'),
-              '/about_us'
+              '/ueber_uns',
+              data: navigation_push
           li
             = link_to t('.company.team'),
-              'https://info.fairmondo.de/team/',
-              target: '_blank'
+              '/team',
+              data: navigation_push
           li
             = link_to t('.company.transparency'),
-              'https://transparenz.fairmondo.de/',
-              target: '_blank'
+              '/transparenz',
+              data: navigation_push
+          li
+            = link_to t('.company.common_good_balance_sheet'),
+              '/gwoe_bilanz',
+              data: navigation_push
           li
             = link_to t('.company.jobs'),
-              'https://info.fairmondo.de/stellenausschreibungen/',
-              target: '_blank'
+              '/jobs',
+              data: navigation_push
           li
             = link_to t('.company.press'),
-              'https://info.fairmondo.de/pressekit/',
-              target: '_blank'
+              '/presse',
+              data: navigation_push
           li
             = link_to t('.company.blog'),
               'https://info.fairmondo.de',
-              target: '_blank'
-          li
-            = link_to t('.company.newsletter'),
-              'http://50856.seu1.cleverreach.com/f/50856-129361/',
               target: '_blank'
 
       / Marketplace
@@ -57,13 +58,16 @@ footer.l-footer
               target: '_blank'
           li
             = link_to t('.marketplace.vouchers'),
-              ''
+              '/libraries/8216',
+              data: navigation_push
           li
             = link_to t('.marketplace.fairmondo_shop'),
-              ''
+              '/libraries/8561',
+              data: navigation_push
           li
             = link_to t('.marketplace.categories'),
-              categories_path
+              categories_path,
+              data: navigation_push
 
       / Subscription
       section#l-footer-nav-subscription
@@ -72,28 +76,32 @@ footer.l-footer
         ul
           li
             = link_to t('.subscription.order'),
-              'http://abo.fairmondo.de/'
+              'http://abo.fairmondo.de/',
+              target: '_blank'
           li
             = link_to t('.subscription.chocolate'),
-              'http://abo.fairmondo.de/gridpage/das-schoko-abo'
+              'http://abo.fairmondo.de/gridpage/das-schoko-abo',
+              target: '_blank'
           li
             = link_to t('.subscription.coffee'),
-              'http://abo.fairmondo.de/gridpage/das-richtig-guter-kaffee-abo'
+              'http://abo.fairmondo.de/gridpage/das-richtig-guter-kaffee-abo',
+              target: '_blank'
           li
             = link_to t('.subscription.fair_box'),
-              'http://abo.fairmondo.de/gridpage/die-faire-kiste'
+              'http://abo.fairmondo.de/gridpage/die-faire-kiste',
+              target: '_blank'
           li
             = link_to t('.subscription.gourmet_box'),
-              'http://abo.fairmondo.de/gridpage/die-feinschmeckerkiste'
+              'http://abo.fairmondo.de/gridpage/die-feinschmeckerkiste',
+              target: '_blank'
           li
             = link_to t('.subscription.surprise_box'),
-              'http://abo.fairmondo.de/gridpage/die-fairmondo-ueberraschungsbox'
+              'http://abo.fairmondo.de/gridpage/die-fairmondo-ueberraschungsbox',
+              target: '_blank'
           li
             = link_to t('.subscription.fair_world'),
-              'http://abo.fairmondo.de/gridpage/das-fairmondo-soli-abo'
-          li
-            = link_to t('.subscription.bonus_programme'),
-              ''
+              'http://abo.fairmondo.de/gridpage/das-fairmondo-soli-abo',
+              target: '_blank'
 
       / Cooperative
       section#l-footer-nav-cooperative
@@ -102,15 +110,16 @@ footer.l-footer
         ul
           li
             = link_to t('.cooperative.twopointzero'),
-              ''
+              '/genossenschaft',
+              data: navigation_push
           li
             = link_to t('.cooperative.subscribe_shares'),
-              'http://mitmachen.fairmondo.de/anteile-zeichnen/',
-              target: '_blank'
+              '/anteile_zeichnen',
+              data: navigation_push
           li
             = link_to t('.cooperative.statute'),
-              'http://info.fairmondo.de/satzung/',
-              target: '_blank'
+              '/satzung',
+              data: navigation_push
 
 
       / Community
@@ -120,16 +129,20 @@ footer.l-footer
         ul
           li
             = link_to t('.community.participate'),
-              ''
+              'http://mitmachen.fairmondo.de/',
+              target: '_blank'
           li
             = link_to t('.community.ambassador_programme'),
-              ''
+              'http://mitmachen.fairmondo.de/botschafterprogramm/was-ist-das-botschafterprogramm/',
+              target: '_blank'
           li
             = link_to t('.community.materials'),
-              ''
+              'http://mitmachen.fairmondo.de/materialecke/',
+              target: '_blank'
           li
             = link_to t('.community.events'),
-              ''
+              'http://mitmachen.fairmondo.de/veranstaltungen/',
+              target: '_blank'
           li
             = link_to t('.community.open_source'),
               'https://github.com/fairmondo/fairmondo',
@@ -146,7 +159,8 @@ footer.l-footer
         ul
           li
             = link_to t('.service.faq'),
-              '/faq'
+              '/faq',
+              data: navigation_push
           li
             = link_to t('.service.help'),
               new_feedback_path(variety: :get_help)
@@ -155,7 +169,8 @@ footer.l-footer
               new_feedback_path(variety: :send_feedback)
           li
             = link_to t('.service.contact'),
-              '/contact'
+              '/kontact',
+              data: navigation_push
 
 
     .l-footer-banner
@@ -181,8 +196,14 @@ footer.l-footer
     p.l-footer-copyright
       = t('.copyright_html')
       | &emsp; &ndash; &emsp;
-      = link_to t('.legal.agb'), '/agb'
+      = link_to t('.legal.agb'),
+        '/agb',
+        data: navigation_push
       | &emsp;
-      = link_to t('.legal.privacy'), '/privacy'
+      = link_to t('.legal.privacy'),
+        '/datenschutz',
+        data: navigation_push
       | &emsp;
-      = link_to t('.legal.impressum'), '/impressum'
+      = link_to t('.legal.impressum'),
+        '/impressum',
+        data: navigation_push
