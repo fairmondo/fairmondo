@@ -51,8 +51,9 @@ html<> class='no-js' lang=I18n.locale
         = render '/layouts/partials/header_search'
         = render '/layouts/partials/header_categories'
 
-    main.l-main
-      = yield
+    .wrapper
+      main.l-main
+        = yield
 
     - cache 'footer' do
       = render '/layouts/partials/footer'

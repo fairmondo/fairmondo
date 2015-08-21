@@ -20,4 +20,4 @@
 - cache content do
   = content.body && content.body.html_safe
   - if policy(Content).admin?
-    = link_to "Edit", edit_content_url(content)
+    = link_to t('tinycms.content.edit'), edit_content_url(content)

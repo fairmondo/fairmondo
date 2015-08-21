@@ -17,8 +17,8 @@ de:
         marketplace:
           heading: "Marktplatz"
           sign_up: "Registrieren"
-          sell_private: "Privat verkaufen"
-          sell_business: "Gewerblich verkaufen"
+          buy: "Kaufen"
+          sell: "Verkaufen"
           affiliate: "Partnerprogramm"
           vouchers: "Gutscheine"
           fairmondo_shop: "Fairmondo-Shop"
@@ -44,7 +44,7 @@ de:
           ambassador_programme: Botschafterprogramm
           materials: Materialecke
           events: Veranstaltungen
-          open_source: Open Source / GitHub
+          open_source: GitHub
           forum: Forum
         service:
           heading: "Service"
@@ -74,7 +74,7 @@ de:
           marketplace: 'Marktplatz'
           coop: 'Genossenschaft'
           takepart: 'Mitmachen'
-          makemoney: 'Mitverdienen'
+          affiliate: 'Partnerprogramm'
         marketplace:
           title: "Marktplatz"
           buy: "Kaufen"

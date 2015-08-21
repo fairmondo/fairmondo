@@ -31,8 +31,10 @@ feature 'AdminPages' do
   end
 
   scenario 'gets redirected to Admin Dashboard' do
-    page.must_have_content('Admins')
-    click_on 'Backend'
+    page.must_have_content I18n.t('layouts.partials.header_nav.admin.title')
+    within '.l-header-nav' do
+      click_on I18n.t('layouts.partials.header_nav.admin.backend')
+    end
     page.must_have_content('Administration')
   end
 end

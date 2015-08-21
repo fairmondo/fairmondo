@@ -1,26 +1,57 @@
 /*
-Content module for all CMS-Contents (@mixin whitebox used for this)
-
-Content--center  - Centered Content
+Content module for all CMS-Contents
 
 Styleguide Contents
 */
 
-
 .Content {
-    @include whitebox;
-}
-.Content--center {
-    text-align:center;
-}
+  h2 {
+    clear: both;
+    margin-top: 2em;
+    margin-bottom: 1.5em;
+    font-size: 1.2em;
+    font-weight: bold;
+  }
 
-.Content--warning {
-    background-color: $red;
-    color: $white;
+  h1 + h2 {
+    margin-top: 1.5em;
+  }
+
+  h3 {
+    font-size: 0.9em;
+    font-weight: bold;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  h4 {
+    font-size: 0.9em;
+    font-weight: bold;
+  }
+
+  // Provide responsiveness for large images
+  overflow-x: auto;
+
+  li {
+    margin-bottom: 0.5em;
+  }
+
+  // Images for team page
+  .Content-teamimage {
+    display: block;
     margin-bottom: 1em;
-    text-align: center;
-}
+  }
 
+  .Content-employee {
+    overflow: hidden;
+    clear: both;
+    margin-bottom: 2em;
+
+    h3 {
+      margin-top: 0;
+    }
+  }
+}
 
 // Style Devise links
 .Content ul#devise_links {
@@ -29,5 +60,14 @@ Styleguide Contents
 
   li {
     margin: 0.5em 0;
+  }
+}
+
+/************************ Breakpoints **********************/
+
+@include at-breakpoint($bp-mobile-horizontal) {
+  .Content-teamimage {
+    float: left;
+    margin-right: 1em;
   }
 }

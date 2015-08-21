@@ -18,7 +18,8 @@
 / along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 /
 
-h1 Listing contents
+h1= t('tinycms.content.index_pages')
+
 table
   tr
     th
@@ -28,12 +29,10 @@ table
   - @contents.each do |content|
     tr
       td= content.key
-      td= link_to 'Show', content
-      td= link_to 'Edit', edit_content_path(content)
-      td= link_to 'Destroy', content, method: :delete, data: { confirm: 'Are you sure?' }
-br/
-= link_to 'New Content', new_content_path
-br/
+      td= link_to t('tinycms.content.show'), content
+      td= link_to t('tinycms.content.edit'), edit_content_path(content)
+      td= link_to t('tinycms.content.destroy'), content,
+                  method: :delete, data: { confirm: t('tinycms.content.sure') }
 
-| Ruby-Version:
-= RUBY_VERSION
+br/
+= link_to t('tinycms.content.new_page'), new_content_path

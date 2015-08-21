@@ -32,7 +32,7 @@ h1= t('common.actions.sign_up')
     / render partial: "/devise/registrations/password_complexity"
     / onclick javascript because icheck causes click on link to fail
     - legal_link = checkbox_link_helper t('users.legal_abbr'), '/agb'
-    - privacy_link = checkbox_link_helper t('users.privacy'), '/privacy'
+    - privacy_link = checkbox_link_helper t('users.privacy'), '/datenschutz'
     = f.input :legal, as: :boolean, required: true, label: t("users.i_accept_both", legal: legal_link, privacy: privacy_link).html_safe
     = f.input :newsletter, as: :boolean, label: 'Ich möchte den monatlichen Newsletter mit besonderen Produktvorstellungen erhalten (jederzeit abbestellbar).', required: false, tooltip: false
 

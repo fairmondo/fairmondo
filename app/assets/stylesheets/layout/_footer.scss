@@ -5,20 +5,27 @@
   a, a:visited {
     color: $light-gray;
   }
+
+  a:hover, a:focus, a:active {
+    color: $blue;
+  }
 }
 
 .l-footer-inner {
   @include container($screen-width);
-  padding: 4em 1em 1em 1em;
-  position: relative;
+  padding: 3rem 1rem 1rem;
+
+  @include at-breakpoint($bp-tablet) {
+    padding-left: $screen-padding;
+    padding-right: $screen-padding;
+  }
+  //position: relative;
 }
 
 
 // Banner with logo and social media buttons
 .l-footer-banner {
   clear: both;
-  text-align: left;
-  float: left;
 }
 
 // Hi-res logo
@@ -29,21 +36,16 @@
   }
 }
 
-.l-footer-banner-socialmedia {
-  display: inline-block;
-
-  li {
-    display: inline-block;
-    margin: 0 0.5em;
-
-    a { color: $gray; }
-  }
+// Social media icons
+.l-footer-banner-icon {
+  margin-left: 1em;
 }
+
 
 // Font size
 #l-footer-nav-main > section > ul,
-.l-footer-banner-socialmedia,
-.l-footer-copyright {
+.l-footer-copyright,
+.l-footer-legal {
   font-size: 0.9em;
 }
 
@@ -54,7 +56,7 @@
 }
 
 #l-footer-nav-main > section {
-  margin: 0 0 1em;
+  margin: 0 0 2em;
 }
 
 #l-footer-nav-main > section > h4 {
@@ -80,8 +82,6 @@
 }
 
 .l-footer-copyright {
-  float: right;
-  margin: 0.25em 0 0;
   color: $light-gray;
 }
 
@@ -119,18 +119,7 @@
  * Responsiveness
  */
 
-@include till-breakpoint($bp-mobile) {
-  .l-footer, .l-footer-reduced {
-    margin-top: 0;
-    padding-bottom: 1em;
-  }
-}
-
 @include till-breakpoint($bp-mobile-horizontal) {
-
-}
-
-@include between-breakpoints($bp-mobile-horizontal, $bp-tablet) {
   #l-footer-nav-main > section {
     @include span(1 of 2);
 
@@ -142,14 +131,17 @@
   }
 }
 
-@include till-breakpoint($bp-tablet) {
-  #l-footer-nav-main > section > ul > li {
-    margin-bottom: 0.5em;
+@include between-breakpoints($bp-mobile-horizontal, $bp-tablet-horizontal) {
+  .l-footer-copyright {
+    float: left;
+  }
+
+  .l-footer-legal {
+    float: right;
   }
 }
 
-
-@include between-breakpoints($bp-tablet, $bp-tablet-horizontal) {
+@include between-breakpoints($bp-mobile-horizontal, $bp-tablet-horizontal) {
   #l-footer-nav-main > section {
     @include span(1 of 3);
 
@@ -167,5 +159,16 @@
     &#l-footer-nav-service {
       @include omega;
     }
+  }
+
+  .l-footer-banner {
+    float: left;
+  }
+
+  .l-footer-copyright,
+  .l-footer-legal {
+    float: right;
+    margin-top: 1.45em;
+    margin-left: 1.5em;
   }
 }

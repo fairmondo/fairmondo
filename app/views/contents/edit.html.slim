@@ -17,8 +17,9 @@
 / You should have received a copy of the GNU Affero General Public License
 / along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 /
-h1 Editing content
+
+h1= t('tinycms.content.edit_page')
 = render 'form'
-= link_to 'Show', resource
-= " | "
-= link_to 'Back', contents_path
+= link_to t('tinycms.content.show'), resource
+= ' | '
+= link_to t('tinycms.content.back'), contents_path

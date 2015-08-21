@@ -61,7 +61,7 @@ feature 'CMS System' do
     content
     visit contents_path
     assert_difference 'Content.count', -1 do
-      click_link 'Destroy'
+      click_link 'Löschen'
     end
   end
 end

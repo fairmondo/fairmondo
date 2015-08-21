@@ -18,9 +18,9 @@
 / along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 /
 - if resource.new_record? && resource.key
-  h2= I18n.t('tinycms.content.not_exists', :url => resource.key )
+  h2= t('tinycms.content.not_exists', url: resource.key )
   #tinycms_error
-    = I18n.t('tinycms.content.may_be_created')
+    = t('tinycms.content.may_be_created')
 = semantic_form_for resource do |f|
   = f.inputs do
     - if resource.errors.any?

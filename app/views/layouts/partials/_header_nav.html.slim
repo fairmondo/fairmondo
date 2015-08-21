@@ -10,16 +10,13 @@ nav id="l-header-mnav" class="l-header-mnav" role="navigation"
         em= t('.myfairmondo.title')
         ul.mnav-menu-item-submenu
           li.mnav-menu-item-submenu-item
-            = link_to t('.myfairmondo.myprofile'),
-                      user_path(current_user),
+            = link_to t('.myfairmondo.myprofile'), user_path(current_user),
                       data: navigation_push
           li.mnav-menu-item-submenu-item
             = link_to t('.myfairmondo.mylibraries'),
-                      user_libraries_path(current_user),
-                      data: navigation_push
+                      user_libraries_path(current_user), data: navigation_push
           li.mnav-menu-item-submenu-item
-            = link_to t('shared.actions.logout'),
-                      destroy_user_session_path
+            = link_to t('shared.actions.logout'), destroy_user_session_path
 
     - else
       / Login and Registration
@@ -33,13 +30,11 @@ nav id="l-header-mnav" class="l-header-mnav" role="navigation"
         && !current_cart.line_items.empty?
       li.l-header-mnav-menu-item
         = link_to t('.cart.title', count: current_cart.line_item_count),
-                  current_cart,
-                  data: navigation_push
+                  current_cart, data: navigation_push
     - else
       li.l-header-mnav-menu-item
         = link_to t('.cart.title', count: 0),
-                  empty_cart_path,
-                  data: navigation_push
+                  empty_cart_path, data: navigation_push
 
     / Admin
     - if User.is_admin? current_user
@@ -60,21 +55,16 @@ nav id="l-header-mnav" class="l-header-mnav" role="navigation"
       em= t('.marketplace.title')
       ul.mnav-menu-item-submenu
         li.mnav-menu-item-submenu-item
-          = link_to t('.marketplace.buy'),
-                    '/kaufen',
-                    data: navigation_push
+          = link_to t('.marketplace.buy'), articles_path
         li.mnav-menu-item-submenu-item
-          = link_to t('.marketplace.sell'),
-                    new_article_path
+          = link_to t('.marketplace.sell'), new_article_path
         li.mnav-menu-item-submenu-item
-          = link_to t('.marketplace.libraries'),
-                    libraries_path,
+          = link_to t('.marketplace.libraries'), libraries_path,
                     data: navigation_push
 
     / Subscriptions
     li.l-header-mnav-menu-item
-      = link_to t('.subscriptions'),
-                'http://abo.fairmondo.de/',
+      = link_to t('.subscriptions'), 'http://abo.fairmondo.de/',
                 target: '_blank'
 
     / About us
@@ -82,82 +72,54 @@ nav id="l-header-mnav" class="l-header-mnav" role="navigation"
       em= t('.about_us.title')
       ul.mnav-menu-item-submenu
         li.mnav-menu-item-submenu-item
-          = link_to t('.about_us.fairmondo'),
-                    '/ueber_uns',
-                    data: navigation_push
+          = link_to t('.about_us.fairmondo'), '/ueber_uns'
         li.mnav-menu-item-submenu-item
-          = link_to t('.about_us.marketplace'),
-                    '/marktplatz',
-                    data: navigation_push
+          = link_to t('.about_us.marketplace'), '/marktplatz'
         li.mnav-menu-item-submenu-item
-          = link_to t('.about_us.coop'),
-                    '/genossenschaft/',
-                    data: navigation_push
+          = link_to t('.about_us.coop'), '/genossenschaft/'
         li.mnav-menu-item-submenu-item
-          = link_to t('.about_us.takepart'),
-                    'http://mitmachen.fairmondo.de/',
+          = link_to t('.about_us.takepart'), 'http://mitmachen.fairmondo.de/',
                     target: '_blank'
         li.mnav-menu-item-submenu-item
-          = link_to t('.about_us.makemoney'),
-                    '/mitverdienen',
-                    data: navigation_push
-
+          = link_to t('.about_us.affiliate'), '/partnerprogramm'
 
 / *** Desktop navigation ***
 nav.l-header-nav
   ul
     / About us
     li.TouchHover
-      = link_to t('.about_us.title'),
-                '/ueber_uns',
-                class: 'TouchHover--indicator',
-                data: navigation_push
+      = link_to t('.about_us.title'), '/ueber_uns',
+                class: 'TouchHover--indicator'
       ul.l-header-nav-dropdown.TouchHover--hidden
         li
-          = link_to t('.about_us.fairmondo'),
-                    '/ueber_uns',
-                    data: navigation_push
+          = link_to t('.about_us.fairmondo'), '/ueber_uns'
         li
-          = link_to t('.about_us.marketplace'),
-                    '/marktplatz',
-                    data: navigation_push
+          = link_to t('.about_us.marketplace'), '/marktplatz'
         li
-          = link_to t('.about_us.coop'),
-                    '/genossenschaft/',
-                    data: navigation_push
+          = link_to t('.about_us.coop'), '/genossenschaft/'
         li
-          = link_to t('.about_us.takepart'),
-                    'http://mitmachen.fairmondo.de/',
+          = link_to t('.about_us.takepart'), 'http://mitmachen.fairmondo.de/',
                     target: '_blank'
         li
-          = link_to t('.about_us.makemoney'),
-                    '/mitverdienen',
-                    data: navigation_push
+          = link_to t('.about_us.affiliate'), '/partnerprogramm'
 
     / Marketplace
     li.TouchHover
-      = link_to t('.marketplace.title'),
-                '/kaufen',
-                class: 'TouchHover--indicator',
-                data: navigation_push
+      = link_to t('.marketplace.title'), '/kaufen',
+                class: 'TouchHover--indicator'
       ul.l-header-nav-dropdown.TouchHover--hidden
         li
-          = link_to t('.marketplace.buy'),
-                    '/kaufen',
-                    data: navigation_push
+          = link_to t('.marketplace.buy'), articles_path
         li
-          = link_to t('.marketplace.sell'),
-                    new_article_path
+          = link_to t('.marketplace.sell'), new_article_path
         li
-          = link_to t('.marketplace.libraries'),
-                    libraries_path,
+          = link_to t('.marketplace.libraries'), libraries_path,
                     data: navigation_push
 
 
     / Subscriptions
     li
-      = link_to t('.subscriptions'),
-                'http://abo.fairmondo.de/',
+      = link_to t('.subscriptions'), 'http://abo.fairmondo.de/',
                 target: '_blank'
 
 
@@ -165,30 +127,23 @@ nav.l-header-nav
     - if user_signed_in?
       / My Fairmondo
       li.TouchHover
-        = link_to t('.myfairmondo.title'),
-                  user_path(current_user),
-                  data: navigation_push,
-                  class: 'TouchHover--indicator'
+        = link_to t('.myfairmondo.title'), user_path(current_user),
+                  data: navigation_push, class: 'TouchHover--indicator'
         ul.l-header-nav-dropdown.TouchHover--hidden
           li
-            = link_to t('.myfairmondo.myprofile'),
-                      user_path(current_user),
+            = link_to t('.myfairmondo.myprofile'), user_path(current_user),
                       data: navigation_push
           li
             = link_to t('.myfairmondo.mylibraries'),
-                      user_libraries_path(current_user),
-                      data: navigation_push
+                      user_libraries_path(current_user), data: navigation_push
           li
-            = link_to t('shared.actions.logout'),
-                      destroy_user_session_path
+            = link_to t('shared.actions.logout'), destroy_user_session_path
 
     / Login
     - else
       li.TouchHover
-        = link_to t('shared.actions.login'),
-                  new_user_session_path,
-                  class: 'TouchHover--indicator',
-                  id: 'login-link'
+        = link_to t('shared.actions.login'), new_user_session_path,
+                  class: 'TouchHover--indicator', id: 'login-link'
         .l-header-nav-dropdown.l-header-nav-dropdown--login.TouchHover--hidden
           = render 'devise/sessions/shared'
           = render 'devise/links'
@@ -198,29 +153,23 @@ nav.l-header-nav
         && !current_cart.line_items.empty?
       li
         = link_to t('.cart.title', count: current_cart.line_item_count),
-                  current_cart,
-                  data: navigation_push
+                  current_cart, data: navigation_push
     - else
       li
-        = link_to t('.cart.title', count: 0),
-                  empty_cart_path,
+        = link_to t('.cart.title', count: 0), empty_cart_path,
                   data: navigation_push
 
     / Admin
     - if User.is_admin? current_user
       li.TouchHover
-        span.TouchHover--indicator
-          = t('.admin.title')
+        = link_to t('.admin.title'), rails_admin_path,
+                  class: 'TouchHover--indicator'
         ul.l-header-nav-dropdown.TouchHover--hidden
           li
-            = link_to t('.admin.backend'),
-                      '/admin'
+            = link_to t('.admin.backend'), rails_admin_path
           li
-            = link_to t('.admin.pages'),
-                      '/contents'
+            = link_to t('.admin.pages'), contents_path
           li
-            = link_to t('.admin.statistics'),
-                      '/statistics/general'
+            = link_to t('.admin.statistics'), statistics_general_path
           li
-            = link_to t('.admin.sidekiq'),
-                      '/sidekiq'
+            = link_to t('.admin.sidekiq'), sidekiq_web_path

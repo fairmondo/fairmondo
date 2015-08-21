@@ -46,7 +46,7 @@ de:
     claim: "dreh' das Spiel um"
     fn_footer_greeting: "Dein Fairmondo-Team"
     fn_legal_footer:
-      crowd_funding: "Fairmondo braucht Dich! Jetzt Anteile zeichnen:\nhttp://info.fairmondo.de/anteile-zeichnen/"
+      crowd_funding: "Fairmondo braucht Dich! Jetzt Anteile zeichnen:\nhttps://www.fairmondo.de/anteile_zeichnen"
       spacer: "----------"
       intro: "Diese Nachricht wurde von Fairmondo, www.fairmondo.de, gesendet."
       contact: "Kontakt: email@fairmondo.de, Fairmondo eG, Glogauer Str. 21, 10999 Berlin"
@@ -63,7 +63,7 @@ de:
       supervisory_board: "Aufsichtsratsvorsitzender: Kim Stattaus"
       facebook: "Facebook: https://www.facebook.com/fairmondo"
       facebook_html: "<a href='https://www.facebook.com/fairmondo'>Facebook</a>"
-      buy_shares: "Anteile zeichnen: https://info.fairmondo.de/anteile-zeichnen/"
+      buy_shares: "Anteile zeichnen: https://www.fairmondo.de/anteile_zeichnen"
     actions:
       continue: "Weiter"
       back: "Zurück"
@@ -74,7 +74,7 @@ de:
       confirm: "Bist Du sicher?"
       invite: "Einladen"
       trust: "Vertrauen"
-      logout: "Logout"
+      logout: "Abmelden"
       login: "Anmelden"
       sign_up: "Registrieren"
       edit_profile: "Profil bearbeiten"
@@ -158,9 +158,18 @@ de:
 
   tinycms:
     content:
-      new: "Inhalte verwalten"
+      new: 'Neue CMS-Seite'
       not_exists: "Die Seite '/%{url}' existiert noch nicht"
-      may_be_created: "Hier kannst Du sie erstellen"
+      may_be_created: 'Hier kannst Du sie erstellen'
+      back: 'Zurück'
+      edit: 'Bearbeiten'
+      show: 'Anzeigen'
+      destroy: 'Löschen'
+      new_page: 'Neue Seite'
+      overview: 'Übersicht'
+      index_pages: 'CMS-Seiten'
+      edit_page: 'CMS-Seite bearbeiten'
+      sure: 'Bist Du sicher?'
 
   meta_tags:
     description: "Kaufe, verkaufe, tausche und verleihe faire und nachhaltige Mode, Bücher, Lebensmittel, Spielzeug und Designartikel auf Fairmondo, dem Online Marktplatz für Alle."
