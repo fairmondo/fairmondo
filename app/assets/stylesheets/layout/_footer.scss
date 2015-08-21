@@ -1,14 +1,5 @@
-// Sticky Footer
-.l-wrapper {
-  min-height: 100%;
-  margin-bottom: -($footer-height);
-}
-
 .l-footer {
-  background-color: #333;
-  min-height: $footer-height;
-  margin-top: -$footer-height;
-  padding-bottom: 1.5em;
+  background-color: $dark-gray;
   clear: both;
 
   a, a:visited {
@@ -101,8 +92,6 @@
  */
 
 .l-footer-reduced {
-  min-height: $footer-height-reduced;
-  margin-top: $footer-height-reduced;
   background-color: $even-lighter-gray;
   clear: both;
 }
@@ -131,12 +120,7 @@
  */
 
 @include till-breakpoint($bp-mobile) {
-  .l-wrapper {
-    margin-bottom: 0;
-  }
-
   .l-footer, .l-footer-reduced {
-    height: auto;
     margin-top: 0;
     padding-bottom: 1em;
   }

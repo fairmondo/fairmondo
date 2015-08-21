@@ -13,7 +13,6 @@ Styleguide Links
 
 
 html,body {
-  height: 100%;
   min-width: 300px;
   font-family: $base-font-body;
   font-size: $base-font-size;
@@ -69,4 +68,16 @@ Styleguide Sprites
 
 span[class^="sprite_"] {
   display: inline-block;
+}
+
+
+/* basic layout and sticky footer */
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.l-main {
+  flex-grow: 1;
 }

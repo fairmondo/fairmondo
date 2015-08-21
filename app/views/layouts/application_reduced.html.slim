@@ -32,22 +32,21 @@ html<> class='no-js' lang=I18n.locale
 
   body class="pages-#{controller.controller_name} page-#{controller.action_name}"
 
-    .l-wrapper.l-reduced
-      - if !flash.empty?
-        - flash.each do |type, msg|
-          - if msg && type != "timedout" && !msg.empty?
-            = render layout: "notice_layout", locals: { type: type }  do
-              = msg
+    - if !flash.empty?
+      - flash.each do |type, msg|
+        - if msg && type != "timedout" && !msg.empty?
+          = render layout: "notice_layout", locals: { type: type }  do
+            = msg
 
-      .l-header
-        .l-header-top
-          / Fairmondo logo
-          .l-header-logo
-            a href='/'
-              = image_tag 'logo.png', alt: t('common.fairmondo')
+    header.l-header.l-reduced
+      .l-header-top
+        / Fairmondo logo
+        .l-header-logo
+          a href='/'
+            = image_tag 'logo.png', alt: t('common.fairmondo')
 
-      .l-main role="main"
-        = yield
+    main.l-main
+      = yield
 
     - cache "footer_reduced" do
       = render "/layouts/partials/footer_reduced"
