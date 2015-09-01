@@ -60,7 +60,9 @@ section
         = @statistics.statistics_category_articles (c)
 
 section
-  h2 Statistiken für den letzten Monat
+  h2
+    | Statistiken für den letzten Monat
+    =< "(#{t('date.month_names')[1.month.ago.month]})"
 
   section
     - revenue_hash = @statistics.revenue_last_month
