@@ -257,7 +257,7 @@ RailsAdmin.config do |config|
     field :phone
     field :mobile
     field :fax
-    field(:slug) { read_only true }
+    field :slug
     field(:type) { read_only true }
     field :bank_account_owner
     field :bank_account_number

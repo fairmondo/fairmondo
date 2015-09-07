@@ -35,4 +35,10 @@ feature 'AdminPages' do
     click_on 'Backend'
     page.must_have_content('Administration')
   end
+
+  scenario 'can change user slug' do
+    user = FactoryGirl.create(:user)
+    visit edit_admin_user_path(user.id)
+    page.must_have_field('user_slug')
+  end
 end

@@ -33,6 +33,7 @@ Fairmondo::Application.routes.draw do
 
   namespace :admin do
     resources :article
+    resources :user
   end
 
   resources :article_templates, except: [:show, :index]
