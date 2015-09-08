@@ -31,9 +31,10 @@ html<> class='no-js' lang=I18n.locale
   = render "/layouts/partials/head_tag"
 
   body class="pages-#{controller.controller_name} page-#{controller.action_name}"
-    .l-wrapper
+
+    .wrapper
       = render "/layouts/partials/noscript_notice"
-      .l-main role="main"
+      main.l-main
         = yield
 
     = render "/layouts/partials/additional_assets"

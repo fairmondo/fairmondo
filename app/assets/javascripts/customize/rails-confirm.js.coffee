@@ -37,7 +37,7 @@ $.rails.showConfirmDialog = (link) ->
       if $('.Notice').length
         $('.Notice').last().after htmlcontents
       else
-        $('.l-wrapper').prepend htmlcontents
+        $('body').prepend htmlcontents
 
     $('.Notice--confirmation .confirmation_message').html(html)
     $('.Notice--confirmation .Button.confirm').on 'click', ->
