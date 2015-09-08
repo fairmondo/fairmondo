@@ -1,11 +1,13 @@
 footer.l-footer-reduced
   .l-footer-inner
-    / Legal links
-    ul#l-footer-nav-legal
-      li= link_to t('.agb'), '/agb'
-      li= link_to t('.privacy'), '/datenschutz'
-      li= link_to t('.impressum'), '/impressum'
-
     / Copyright
-    p#l-footer-copyright
+    p.l-footer-copyright
       = t('.copyright_html')
+
+    / Legal links
+    p.l-footer-legal
+      = link_to t('.agb'), '/agb'
+      | &emsp;
+      = link_to t('.privacy'), '/datenschutz'
+      | &emsp;
+      = link_to t('.impressum'), '/impressum'
