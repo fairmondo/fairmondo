@@ -46,7 +46,7 @@ de:
     claim: "dreh' das Spiel um"
     fn_footer_greeting: "Dein Fairmondo-Team"
     fn_legal_footer:
-      crowd_funding: "Fairmondo braucht Dich! Jetzt Anteile zeichnen:\nhttps://www.fairmondo.de/anteile_zeichnen"
+      crowd_funding: "Fairmondo braucht Dich! Jetzt Anteile zeichnen:\nhttps://www.fairmondo.de/anteile"
       spacer: "----------"
       intro: "Diese Nachricht wurde von Fairmondo, www.fairmondo.de, gesendet."
       contact: "Kontakt: email@fairmondo.de, Fairmondo eG, Glogauer Str. 21, 10999 Berlin"
@@ -63,7 +63,7 @@ de:
       supervisory_board: "Aufsichtsratsvorsitzender: Kim Stattaus"
       facebook: "Facebook: https://www.facebook.com/fairmondo"
       facebook_html: "<a href='https://www.facebook.com/fairmondo'>Facebook</a>"
-      buy_shares: "Anteile zeichnen: https://www.fairmondo.de/anteile_zeichnen"
+      buy_shares: "Anteile zeichnen: https://www.fairmondo.de/anteile"
     actions:
       continue: "Weiter"
       back: "Zurück"
