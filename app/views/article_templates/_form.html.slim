@@ -19,12 +19,14 @@
 / You should have received a copy of the GNU Affero General Public License
 / along with Fairmondo.  If not, see <http://www.gnu.org/licenses/>.
 /
+- edit_form = false unless local_assigns.has_key?(:edit_form)
+
 .Article-form.Accordion.Accordion--activated.article-form
   = semantic_form_for resource, url: form_path, html: {multipart: true, class: 'js-visual-submit js-category-add', method: form_method}, :builder => ::Fairtastic::FormBuilder do |f|
     = f.input_step 'template' do
       .Accordion-step
         = f.inputs do
           = f.input :article_template_name
-    = render '/articles/form/common_inputs', f: f
+    = render '/articles/form/common_inputs', f: f, edit_form: edit_form
     = f.actions do
       = f.action :submit, label: t('article_templates.actions.save'), button_html: {:class => "Button" }

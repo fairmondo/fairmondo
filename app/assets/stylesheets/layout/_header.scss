@@ -92,7 +92,7 @@ $header-nav-link-color-hover: $blue;
 
 .l-header-mnav-menu-item {
   border-top: thin dotted $gray;
-  font-weight: bold;
+  font-weight: normal;
 }
 
 .l-header-mnav-menu-item:first-child {
@@ -104,12 +104,12 @@ $header-nav-link-color-hover: $blue;
   display: block;
   padding: 1em;
   text-decoration: none;
-  color: black;
+  color: $black;
 }
 
 .l-header-mnav-menu a:hover,
 .l-header-mnav-menu a:active {
-  color: black;
+  color: $black;
   text-decoration: none;
   background-color: $blue;;
 }
@@ -117,8 +117,9 @@ $header-nav-link-color-hover: $blue;
 .l-header-mnav--parent > em {
   display: block;
   padding: 1em 1em 0.5em;
-  font-style: italic;
-  color: $gray;
+  font-weight: bold;
+  font-style: normal;
+  color: $mid-dark-gray;
 }
 
 
