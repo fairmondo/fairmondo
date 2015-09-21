@@ -35,7 +35,7 @@
 = render '/articles/shared/search_results', articles: @articles,
     search_cache: @search_cache
 
-- if Rails.env.production? && @search_cache.search_by_term?
+- if Rails.env.staging? && @search_cache.search_by_term?
   javascript:
     var _paq = _paq || [];
     _paq.push(['trackSiteSearch', "#{@search_cache.q}", false, #{@articles.total_count}]);
