@@ -18,27 +18,7 @@ If you are not sure how to <em>install Ruby and the Ruby on Rails framework</em>
 
 Make sure you install <em>2.2.2</em>. and not <em>ruby 1.9.3-p392</em>.
 
-=== Fairmondo Project Setup (automated)
-MAY BE OUT OF DATE!!!! Consider using the manual setup below.
-
-Note: the automated process won't work under Windows.
-To run Fairmondo locally in development mode, install ruby and rails. Then open up a console and <em>copy & paste</em> in the following line:
-
-    git clone git@github.com:fairmondo/fairmondo.git && cd fairmondo/ && git checkout develop && ruby setup.rb
-
-What this does:
-* It sets up a local git repository,
-    git clone git@github.com:fairmondo/fairmondo.git
-* switches to the fairmondo root path,
-    cd fairmondo/
-* switches the git branch to "develop"
-    git checkout develop
-* runs the Fairmondo setup script
-    ruby setup.rb
-
-=== Fairmondo Project Setup (manually)
-
-If the automated script doesn't work for you, try going through these steps one by one:
+=== Fairmondo Project Setup
 
 * Set up a local git repository and switch to branch "develop"
     git clone git@github.com:fairmondo/fairmondo.git
