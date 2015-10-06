@@ -43,14 +43,21 @@
           span.slides-arrow.slides-arrow--right
             i.fa.fa-chevron-right
 
-        / Faire Welt Abo
-        / .billboard#billboard-fairworld
-        /   article
-        /     h2 Ein Bier, einen Kaffee oder eine faire Welt?
-        /     p Schon ab 3 € im Monat Fairmondo unterstützen.
-        /     = link_to 'Abo abschließen',
-        /       'http://abo.fairmondo.de/gridpage/das-fairmondo-soli-abo',
-        /       target: '_blank'
+        / TTIP
+        .billboard#billboard-ttip
+          article
+            h2 Stop TTIP CETA demo
+            = link_to 'Warum wir dabei sind',
+                      'http://info.fairmondo.de',
+                      target: '_blank'
+
+        / Fairphone 2
+        .billboard#billboard-fairphone2
+          article
+            h2 Fairphone 2 jetzt bei Fairmondo
+            = link_to 'Hier geht\'s zum Vorverkauf',
+                      article_path('fairphone-2', pk_campaign: 'billboards',
+                        pk_keyword: 'fairphone2')
 
         / Runde Sache subscriptions
         .billboard#billboard-subscriptions

@@ -1,0 +1,42 @@
+/**
+ * TTIP billboard
+ */
+
+
+// General stuff
+#billboard-ttip > article > h2,
+#billboard-ttip > article > a {
+  text-indent: -1000em;
+}
+
+#billboard-ttip > article > a {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%
+}
+
+
+
+// Responsive code: small version
+@include till-breakpoint($bp-tablet) {
+  #billboard-ttip {
+    background-image: image-url('welcome/billboard_ttip_small.jpg');
+  }
+}
+
+
+// Responsive code: medium version
+@include between-breakpoints($bp-tablet, $bp-tablet-horizontal) {
+  #billboard-ttip {
+    background-image: image-url('welcome/billboard_ttip_medium.jpg');
+  }
+}
+
+
+// Responsive code: big version
+@include at-breakpoint($bp-tablet-horizontal) {
+  #billboard-ttip {
+    background-image: image-url('welcome/billboard_ttip_big.jpg');
+  }
+}
