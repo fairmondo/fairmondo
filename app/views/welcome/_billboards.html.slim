@@ -1,0 +1,69 @@
+// Billboards
+
+#billboard
+  #billboard-inner
+    #js-billboardslides
+      a href='#' class='slidesjs-previous slidesjs-navigation'
+        span.slides-arrow.slides-arrow--left
+          i.fa.fa-chevron-left
+      a href='#' class='slidesjs-next slidesjs-navigation'
+        span.slides-arrow.slides-arrow--right
+          i.fa.fa-chevron-right
+
+      / TTIP
+      .billboard#billboard-ttip
+        article
+          h2 Stop TTIP CETA demo
+          = link_to 'Warum wir dabei sind',
+                    '/ttip?pk_campaign=billboards&pk_keyword=ttip'
+
+      / / Fairphone 2
+      / .billboard#billboard-fairphone2
+      /   article
+      /     h2 Fairphone 2 jetzt bei Fairmondo
+      /     = link_to 'Hier geht\'s zum Vorverkauf',
+      /               article_path('fairphone-2', pk_campaign: 'billboards',
+      /                 pk_keyword: 'fairphone2')
+
+
+      / Bücher
+      .billboard#billboard-books
+        article
+          hgroup
+            h2 Wir haben sie alle
+            h3 Auf Fairmondo über 1,5&nbsp;Mio. Bücher finden
+          = link_to 'Jetzt stöbern', '/categories/bucher?pk_campaign=bb4&pk_kwd=stoebern'
+          ul
+            li#billboard-books-link1
+              = link_to '/libraries/5531?pk_campaign=bb4&pk_kwd=romane' do
+                div
+                p Beliebteste Romane
+            li#billboard-books-link2
+              = link_to '/libraries/5622?pk_campaign=bb4&pk_kwd=neuerscheinungen' do
+                div
+                p Neuer&shy;scheinungen
+            li#billboard-books-link3
+              = link_to '/libraries/6937?pk_campaign=bb4&pk_kwd=ratgeber' do
+                div
+                p Beste Ratgeber
+            li#billboard-books-link4
+              = link_to '/libraries/5556?pk_campaign=bb4&pk_kwd=kinder' do
+                div
+                p Kinder- und Jugendbücher
+            li#billboard-books-link5
+              = link_to '/libraries/5560?pk_campaign=bb4&pk_kwd=krimi' do
+                div
+                p Krimis und Thriller
+            li#billboard-books-link6
+              = link_to '/libraries/5533?pk_campaign=bb4&pk_kwd=gebraucht' do
+                div
+                p Gebrauchte Bücher
+
+      / Runde Sache subscriptions
+      .billboard#billboard-subscriptions
+        article
+          h2 Schöne und faire Dinge per Fahrrad zu Dir nach Hause
+          = link_to 'Jetzt die ersten Runde Sache Abos sichern',
+                    'http://abo.fairmondo.de/',
+                    target: '_blank'
+

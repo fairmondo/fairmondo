@@ -1,6 +1,5 @@
 createSliders = ->
   $("#js-billboardslides").slidesjs
-    #start: 3
     width: 205
     height: 410
     play:

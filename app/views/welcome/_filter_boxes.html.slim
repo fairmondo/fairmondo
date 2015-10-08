@@ -1,0 +1,49 @@
+/ Filter boxes
+
+.teaser.teaser--clear.teaser--filters#filter-fair
+  .teaser-inner
+    = link_to '/articles?article_search_form[fair]=true'\
+              '&pk_campaign=filterbox&pk_kwd=fair' do
+      .filter-text
+        h2= t('.fair.teaser_html')
+        p= t('.fair.description')
+      .filter-image
+        = image_tag 'welcome/filter-fair.jpg'
+        p.filter-show= t('.fair.link')
+        p.filter-label= t('.fair.label')
+
+.teaser.teaser--filters#filter-eco
+  .teaser-inner
+    = link_to '/articles?article_search_form[ecologic]=true'\
+              '&pk_campaign=filterbox&pk_kwd=eco' do
+      .filter-text
+        h2= t('.ecologic.teaser_html')
+        p= t('.ecologic.description')
+      .filter-image
+        = image_tag 'welcome/filter-eco.jpg'
+        p.filter-show= t('.ecologic.link')
+        p.filter-label= t('.ecologic.label')
+
+.teaser.teaser--filters#filter-small
+  .teaser-inner
+    = link_to '/articles?article_search_form[small_and_precious]=true'\
+              '&pk_campaign=filterbox&pk_kwd=small' do
+      .filter-text
+        h2= t('.small.teaser_html')
+        p= t('.small.description')
+      .filter-image
+        = image_tag 'welcome/filter-small.jpg'
+        p.filter-show= t('.small.link')
+        p.filter-label= t('.small.label')
+
+.teaser.teaser--filters#filter-used
+  .teaser-inner
+   = link_to '/articles?article_search_form[condition]=old'\
+              '&pk_campaign=filterbox&pk_kwd=used' do
+      .filter-text
+        h2= t('.used.teaser_html')
+        p= t('.used.description')
+      .filter-image
+        = image_tag 'welcome/filter-used.jpg'
+        p.filter-show= t('.used.link')
+        p.filter-label= t('.used.label')

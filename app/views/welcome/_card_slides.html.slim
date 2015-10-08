@@ -1,0 +1,13 @@
+/ Card slides
+
+.teaser.teaser--double.slides#cardslides
+  .teaser-inner
+    #js-cardslides
+      a href='#' class='slidesjs-previous slidesjs-navigation'
+        span.slides-arrow.slides-arrow--left
+          i.fa.fa-chevron-left
+      a href='#' class='slidesjs-next slidesjs-navigation'
+        span.slides-arrow.slides-arrow--right
+          i.fa.fa-chevron-right
+      - 8.times do |i|
+        = image_tag "slides/cards/#{i}.png"

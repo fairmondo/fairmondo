@@ -1,0 +1,22 @@
+/ User comment slides
+
+.teaser.teaser--full.slides#userslides
+  .teaser-inner
+    #js-userslides
+      a href='#' class='slidesjs-previous slidesjs-navigation'
+        span.slides-arrow.slides-arrow--left
+          i.fa.fa-chevron-left
+      a href='#' class='slidesjs-next slidesjs-navigation'
+        span.slides-arrow.slides-arrow--right
+          i.fa.fa-chevron-right
+
+      - (1..5).each do |n|
+        div id="slide#{n}"
+          .user-slide
+            = image_tag "slides/users/#{ n - 1 }.jpg"
+            blockquote
+              p.teaser-quotation
+                = t(".#{n}.quote")
+              p.teaser-quotesource
+                cite
+                  = t(".#{n}.source")
