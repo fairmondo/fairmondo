@@ -1,0 +1,9 @@
+/ NGOs
+
+.teaser.teaser--full#ngos
+  .teaser-inner
+    h5= t '.heading'
+    ul.image-list
+      - User.ngo_with_profile_image.each do |ngo|
+        li= link_to image_tag(ngo.image_url(:profile)), user_path(ngo),
+                    title: ngo.name

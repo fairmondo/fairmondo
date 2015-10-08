@@ -1,0 +1,10 @@
+/ USP Teaser with registration link
+/ TODO: use content, remove translations
+
+#usp
+  #usp-inner
+    h2= t '.heading'
+    = t '.content_html'
+
+    p
+      = link_to t('.register_button'), '/user/sign_up', class: 'Button'

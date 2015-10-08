@@ -1,0 +1,9 @@
+/ known from / press information
+
+.teaser.teaser--full#press
+  .teaser-inner
+    h5= t '.heading'
+    ul.image-list
+      - t('.icons').each do |key, display_name|
+        li
+          span class="sprite_#{key}" title=display_name

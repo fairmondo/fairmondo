@@ -21,81 +21,21 @@
 /
 /
 / The next line is for providing the proper title image to facebook
-- provide( :title_image, image_path('fairmondo_social_media.png') )
-- cache 'category-dropdown-welcome' do
+- provide(:title_image, image_path('fairmondo_social_media.png'))
 
+- cache 'category-dropdown-welcome' do
   .category-dropdown
     = render 'categories/shared/category_tree'
 
-
-/ Billboards
 - cache 'billboards' do
   = render 'billboards'
 
+- cache 'usp_teaser' do
+  = render 'usp_teaser'
 
-/ USP Teaser with registration link
-/ TODO: use content, remove translations
-- cache 'uspteaser' do
+- cache 'filter_boxes' do
+  = render 'filter_boxes'
 
-  #usp
-    #usp-inner
-      h2 = t '.usp.heading'
-      = t '.usp.content_html'
-
-      p
-        = link_to '/user/sign_up', class: 'Button' do
-          = t '.usp.register_button'
-
-
-
-/ Filter boxes
-.teaser.teaser--clear.teaser--filters#filter-fair
-  .teaser-inner
-    = link_to '/articles?article_search_form[fair]=true'\
-              '&pk_campaign=filterbox&pk_kwd=fair' do
-      .filter-text
-        h2= t('.filter_boxes.fair.teaser_html')
-        p= t('.filter_boxes.fair.description')
-      .filter-image
-        = image_tag 'welcome/filter-fair.jpg'
-        p.filter-show= t('.filter_boxes.fair.link')
-        p.filter-label= t('.filter_boxes.fair.label')
-
-.teaser.teaser--filters#filter-eco
-  .teaser-inner
-    = link_to '/articles?article_search_form[ecologic]=true'\
-              '&pk_campaign=filterbox&pk_kwd=eco' do
-      .filter-text
-        h2= t('.filter_boxes.ecologic.teaser_html')
-        p= t('.filter_boxes.ecologic.description')
-      .filter-image
-        = image_tag 'welcome/filter-eco.jpg'
-        p.filter-show= t('.filter_boxes.ecologic.link')
-        p.filter-label= t('.filter_boxes.ecologic.label')
-
-.teaser.teaser--filters#filter-small
-  .teaser-inner
-    = link_to '/articles?article_search_form[small_and_precious]=true'\
-              '&pk_campaign=filterbox&pk_kwd=small' do
-      .filter-text
-        h2= t('.filter_boxes.small.teaser_html')
-        p= t('.filter_boxes.small.description')
-      .filter-image
-        = image_tag 'welcome/filter-small.jpg'
-        p.filter-show= t('.filter_boxes.small.link')
-        p.filter-label= t('.filter_boxes.small.label')
-
-.teaser.teaser--filters#filter-used
-  .teaser-inner
-   = link_to '/articles?article_search_form[condition]=old'\
-              '&pk_campaign=filterbox&pk_kwd=used' do
-      .filter-text
-        h2= t('.filter_boxes.used.teaser_html')
-        p= t('.filter_boxes.used.description')
-      .filter-image
-        = image_tag 'welcome/filter-used.jpg'
-        p.filter-show= t('.filter_boxes.used.link')
-        p.filter-label= t('.filter_boxes.used.label')
 
 
 / Personalized library section, only shown if @last_hearted_libraries is set
@@ -158,18 +98,8 @@
         = link_to( t( '.trending_libraries.more' ), libraries_path )
 
 
-/ USP slideshow
-.teaser.teaser--double.slides#cardslides
-  .teaser-inner
-    #js-cardslides
-      a href='#' class='slidesjs-previous slidesjs-navigation'
-        span.slides-arrow.slides-arrow--left
-          i.fa.fa-chevron-left
-      a href='#' class='slidesjs-next slidesjs-navigation'
-        span.slides-arrow.slides-arrow--right
-          i.fa.fa-chevron-right
-      - 8.times do |i|
-        = image_tag "slides/cards/#{i}.png"
+- cache 'card_slides' do
+  = render 'card_slides'
 
 
 / Article queue 'donation'
@@ -186,51 +116,17 @@
                 featured_library_path(@donation_articles[:library])
 
 
-/ User comment slides
-.teaser.teaser--full.slides#userslides
-  .teaser-inner
-    #js-userslides
-      a href='#' class='slidesjs-previous slidesjs-navigation'
-        span.slides-arrow.slides-arrow--left
-          i.fa.fa-chevron-left
-      a href='#' class='slidesjs-next slidesjs-navigation'
-        span.slides-arrow.slides-arrow--right
-          i.fa.fa-chevron-right
+- cache 'user_slides' do
+  = render 'user_slides'
 
-      - (1..5).each do |n|
-        = render 'user_slide', number: n,
-                               quote: t(".slides.#{n}.quote"),
-                               source: t(".slides.#{n}.source")
+- cache 'coop_teaser' do
+  = render 'coop_teaser'
 
-/ Cooperative teaser
-.teaser.teaser--double#coop
-  .teaser-inner.teaser--center
-    = link_to 'https://www.fairmondo.de/genossenschaft', target: '_self' do
-      = image_tag 'genobox-584.jpg', alt: t('.coop_alt')
+- cache 'blog_teaser' do
+  = render 'blog_teaser'
 
-/ Blog
-.teaser.teaser--double#news
-  .teaser-inner.teaser--hide#js-teaser-news-placeholder
+- cache 'known_from' do
+  = render 'known_from'
 
-
-/ known from / press information
-- cache "known_from" do
-
-  .teaser.teaser--full#press
-    .teaser-inner
-      h5= t '.press.heading'
-      ul.image-list
-        - t('.press.icons').each do |key, display_name|
-          li
-            span class="sprite_#{key}" title=display_name
-
-
-/ NGOs
-- cache "ngo_logos" do
-
-  .teaser.teaser--full#ngos
-    .teaser-inner
-      h5= t '.ngos'
-      ul.image-list
-        - User.ngo_with_profile_image.each do |ngo|
-          li= link_to image_tag(ngo.image_url(:profile)), user_path(ngo), title: ngo.name
+- cache 'ngo_logos' do
+  = render 'ngo_logos'

@@ -1,20 +1,100 @@
 de:
   welcome:
+    usp_teaser:
+      heading: 'Das macht uns anders:'
+      content_html: |
+        <ul>
+          <li>
+            Die schönsten und fairsten Produkte im Netz ent&shy;decken
+          </li>
+          <li>
+            Nur 6&nbsp;% Verkaufs&shy;provision (3&nbsp;% für faire Artikel)
+          </li>
+          <li> Kostenlos für private Verkäufer*innen </li>
+          <li> Ein <a href="/ueber_uns">faires Unternehmen</a> dahinter </li>
+        </ul>
+      register_button: "Jetzt registrieren"
+    filter_boxes:
+      fair:
+        teaser_html: "Darf&rsquo;s noch<br>etwas fair sein?"
+        description: "Faire Artikel auf einen Blick"
+        link:        "Jetzt ansehen"
+        label:       "fair"
+      ecologic:
+        teaser_html: "Öko? Logisch!<br>Auf Fairmondo."
+        description: "Öko-Produkte auf einen Blick"
+        link:        "Hier reinschauen"
+        label:       "öko"
+      small:
+        teaser_html: "Kleine Hersteller<br>–&nbsp;große Qualität."
+        description: "Alle Angebote auf einen Blick"
+        link:        "Jetzt entdecken"
+        label:       "klein&edel"
+      used:
+        teaser_html: "Von letzter Saison<br>bis echter Rarität."
+        description: "Gebrauchtes auf einen Blick"
+        link:        "Hier stöbern"
+        label:       "gebraucht"
+    user_slides:
+      :1:
+        quote: |
+          Für Veränderungen in der Gesellschaft benötigt es mehr Mut –
+          bei Fairmondo erleben wir viele junge mutige Menschen. Wir freuen
+          uns auf die Zusammenarbeit mit Fairmondo, wünschen der
+          Genossenschaft einen erfolgreichen Start, viele Mitglieder und
+          viel Erfolg auf dem Weg zu mehr Transparenz in Onlinehandel und
+          Gesellschaft!
+        source: "Jorge Inostroza, Gepa"
+
+      :2:
+        quote: |
+          Ich bin Genossenschafts-Mitglied bei Fairmondo, weil es uns
+          Spaß macht, Fairmondo mitzuentwickeln. Für uns ist Fairmondo
+          eine super Plattform, um unsere ethisch produzierten Produkte zu
+          vermarkten.
+        source: "Isabelle Dechamps, Be Able"
+
+      :3:
+        quote: |
+          Bei Fairmondo finde ich genial, dass die Struktur eine
+          Genossenschaft ist. Das heißt, ich bin Genosse dort, ich kann
+          mitentscheiden, was da passiert – und was mit der Firma passiert.
+        source: "Van Bo Le-Mentzel, Architekt"
+
+      :4:
+        quote: |
+          Ich bin Genossin bei Fairmondo, weil ich glaube, dass wir
+          alle bewusster konsumieren sollten. Fairmondo gibt uns online die
+          Chance dazu – und deswegen bin ich gerne ein Teil davon.
+        source: "Maria Gross, Social Impact Lab"
+
+      :5:
+        quote: |
+          Ich bin in die Genossenschaft Fairmondo eingestiegen, weil
+          ich die Idee sehr überzeugend finde. Ich hab’ das Team auch
+          kennengelernt und ich sehe, dass die wirklich mit Enthusiasmus und
+          viel Elan dabei sind. Wir handeln auf Fairmondo, weil wir darin
+          eine Chance sehen, faire und Bio-Produkte weiter zu verbreiten.
+        source: "Thomas Kappauf, Black Star"
+
+    known_from:
+      heading: "Bekannt aus"
+      icons:
+        hochschulanzeiger: "Hochschulanzeiger"
+        taz: "Taz"
+        sueddeutsche: "Süddeutsche Zeitung"
+        arte: "Arte"
+        deutschlandfunk: "Deutschlandfunk"
+
+    ngo_logos:
+      heading: "Spendenpartner*innen"
+
+    coop_teaser:
+      alt_text: |
+        Über 1900 Menschen haben sich bereits an der Fairmondo-Genossenschaft
+        beteiligt.
+
     index:
-      usp:
-        heading: "Das macht uns anders:"
-        content_html: |
-          <ul>
-            <li>
-              Die schönsten und fairsten Produkte im Netz ent&shy;decken
-            </li>
-            <li>
-              Nur 6&nbsp;% Verkaufs&shy;provision (3&nbsp;% für faire Artikel)
-            </li>
-            <li> Kostenlos für private Verkäufer*innen </li>
-            <li> Ein <a href="/ueber_uns">faires Unternehmen</a> dahinter </li>
-          </ul>
-        register_button: "Jetzt registrieren"
       teasers:
         :1:
           heading: "Fairmondo-Shirts und mehr"
@@ -28,77 +108,3 @@ de:
       trending_libraries:
         heading: "Empfehlungen von Nutzer*innen"
         more: "Mehr Empfehlungen"
-      filter_boxes:
-        fair:
-          teaser_html: "Darf&rsquo;s noch<br>etwas fair sein?"
-          description: "Faire Artikel auf einen Blick"
-          link:        "Jetzt ansehen"
-          label:       "fair"
-        ecologic:
-          teaser_html: "Öko? Logisch!<br>Auf Fairmondo."
-          description: "Öko-Produkte auf einen Blick"
-          link:        "Hier reinschauen"
-          label:       "öko"
-        small:
-          teaser_html: "Kleine Hersteller<br>–&nbsp;große Qualität."
-          description: "Alle Angebote auf einen Blick"
-          link:        "Jetzt entdecken"
-          label:       "klein&edel"
-        used:
-          teaser_html: "Von letzter Saison<br>bis echter Rarität."
-          description: "Gebrauchtes auf einen Blick"
-          link:        "Hier stöbern"
-          label:       "gebraucht"
-      slides:
-        :1:
-          quote: |
-            Für Veränderungen in der Gesellschaft benötigt es mehr Mut –
-            bei Fairnopoly erleben wir viele junge mutige Menschen. Wir freuen
-            uns auf die Zusammenarbeit mit Fairnopoly, wünschen der
-            Genossenschaft einen erfolgreichen Start, viele Mitglieder und
-            viel Erfolg auf dem Weg zu mehr Transparenz in Onlinehandel und
-            Gesellschaft!
-          source: "Jorge Inostroza, Gepa"
-
-        :2:
-          quote: |
-            Ich bin Genossenschafts-Mitglied bei Fairnopoly, weil es uns
-            Spaß macht, Fairnopoly mitzuentwickeln. Für uns ist Fairnopoly
-            eine super Plattform, um unsere ethisch produzierten Produkte zu
-            vermarkten.
-          source: "Isabelle Dechamps, Be Able"
-
-        :3:
-          quote: |
-            Bei Fairnopoly finde ich genial, dass die Struktur eine
-            Genossenschaft ist. Das heißt, ich bin Genosse dort, ich kann
-            mitentscheiden, was da passiert – und was mit der Firma passiert.
-          source: "Van Bo Le-Mentzel, Architekt"
-
-        :4:
-          quote: |
-            Ich bin Genossin bei Fairnopoly, weil ich glaube, dass wir
-            alle bewusster konsumieren sollten. Fairnopoly gibt uns online die
-            Chance dazu – und deswegen bin ich gerne ein Teil davon.
-          source: "Maria Gross, Social Impact Lab"
-
-        :5:
-          quote: |
-            Ich bin in die Genossenschaft Fairnopoly eingestiegen, weil
-            ich die Idee sehr überzeugend finde. Ich hab’ das Team auch
-            kennengelernt und ich sehe, dass die wirklich mit Enthusiasmus und
-            viel Elan dabei sind. Wir handeln auf Fairnopoly, weil wir darin
-            eine Chance sehen, faire und Bio-Produkte weiter zu verbreiten.
-          source: "Thomas Kappauf, Black Star"
-      coop_alt: |
-        Über 1900 Menschen haben sich bereits an der Fairmondo-Genossenschaft
-        beteiligt.
-      press:
-        heading: "Bekannt aus"
-        icons:
-          hochschulanzeiger: "Hochschulanzeiger"
-          taz: "Taz"
-          sueddeutsche: "Süddeutsche Zeitung"
-          arte: "Arte"
-          deutschlandfunk: "Deutschlandfunk"
-      ngos: "Spendenpartner*innen"
