@@ -36,85 +36,18 @@
 - cache 'filter_boxes' do
   = render 'filter_boxes'
 
+= render 'last_hearted_libraries'
 
+= render 'article_queue', number: 1, side: :left, queue: @queue1
 
-/ Personalized library section, only shown if @last_hearted_libraries is set
-- if @last_hearted_libraries && @last_hearted_libraries.length == 2
-  - @last_hearted_libraries.each_with_index do |library, index|
-    div.teaser.teaser--double.teaser--hearted_libraries class="#{ index == 0 ? 'teaser--clear' : 'teaser--collapsible teaser--reducible'}"
-      .teaser-inner
-        h2
-          = link_to(library.name, library_path(library))
-          = " #{t('common.text.glue.from')} "
-          = link_to(library.user_nickname, user_path(library.user))
+= render 'article_queue', number: 2, side: :right, queue: @queue2
 
-        - library.library_elements.includes(article: :title_image).limit(2).each do |library_element|
-          .teaser-queue
-            = render 'articles/shared/show_article', article: library_element.article
-
-
-/ Article queue Fairmondo shirts
-.teaser.teaser--double.teaser--clear
-  .teaser-inner
-    h2
-      = link_to( t('.teasers.1.heading'),
-        featured_library_path(@queue1[:library]))
-    - @queue1[:exhibits].each do |article|
-      .teaser-queue
-        = render 'articles/shared/show_article', article: article
-
-    p.more
-      = link_to( t('.teasers.1.more'),
-        featured_library_path(@queue1[:library]))
-
-
-/ Article queue Ecobookstore vouchers
-.teaser.teaser--double.teaser--collapsible.teaser--reducible
-  .teaser-inner
-    h2
-      = link_to( t('.teasers.2.heading'),
-        featured_library_path(@queue2[:library]))
-    - @queue2[:exhibits].each do |article|
-      .teaser-queue
-        = render 'articles/shared/show_article', article: article
-
-    p.more
-      = link_to( t('.teasers.2.more'),
-        featured_library_path(@queue2[:library]))
-
-
-/ Trending libraries
-- if @trending_libraries.to_a.any?
-  .teaser.teaser--full.libraries
-    .teaser-inner
-      h2
-        => t( '.trending_libraries.heading' )
-        span.sprite_helper title="#{ t('libraries.tooltip') }"
-
-      = render partial: 'libraries/library', collection: @trending_libraries,
-        locals: { piwik_campaign: 'libraries', piwik_keyword: 'welcome_page' }
-
-      p.more
-        = link_to( t( '.trending_libraries.more' ), libraries_path )
-
+= render 'trending_libraries'
 
 - cache 'card_slides' do
   = render 'card_slides'
 
-
-/ Article queue 'donation'
-.teaser.teaser--double.teaser--collapsible.teaser--reducible
-  .teaser-inner
-    h2
-      = link_to t('.teasers.3.heading'),
-                featured_library_path(@donation_articles[:library])
-    - @donation_articles[:exhibits].each do |article|
-      .teaser-queue
-        = render 'articles/shared/show_article', article: article
-    p.more
-      = link_to t('.teasers.3.more'),
-                featured_library_path(@donation_articles[:library])
-
+= render 'article_queue', number: 3, side: :right, queue: @donation_articles
 
 - cache 'user_slides' do
   = render 'user_slides'

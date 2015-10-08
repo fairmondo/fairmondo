@@ -14,6 +14,7 @@ de:
           <li> Ein <a href="/ueber_uns">faires Unternehmen</a> dahinter </li>
         </ul>
       register_button: "Jetzt registrieren"
+
     filter_boxes:
       fair:
         teaser_html: "Darf&rsquo;s noch<br>etwas fair sein?"
@@ -35,6 +36,22 @@ de:
         description: "Gebrauchtes auf einen Blick"
         link:        "Hier stöbern"
         label:       "gebraucht"
+
+    article_queue:
+      :1:
+        heading: "Fairmondo-Shirts und mehr"
+        more: "Mehr"
+      :2:
+        heading: "Gutscheine, die Gutes tun"
+        more: "Mehr"
+      :3:
+        heading: "Mit Spendenanteil"
+        more: "Mehr Artikel mit Spendenanteil"
+
+    trending_libraries:
+      heading: "Empfehlungen von Nutzer*innen"
+      more: "Mehr Empfehlungen"
+
     user_slides:
       :1:
         quote: |
@@ -93,18 +110,3 @@ de:
       alt_text: |
         Über 1900 Menschen haben sich bereits an der Fairmondo-Genossenschaft
         beteiligt.
-
-    index:
-      teasers:
-        :1:
-          heading: "Fairmondo-Shirts und mehr"
-          more: "Mehr"
-        :2:
-          heading: "Gutscheine, die Gutes tun"
-          more: "Mehr"
-        :3:
-          heading: "Mit Spendenanteil"
-          more: "Mehr Artikel mit Spendenanteil"
-      trending_libraries:
-        heading: "Empfehlungen von Nutzer*innen"
-        more: "Mehr Empfehlungen"
