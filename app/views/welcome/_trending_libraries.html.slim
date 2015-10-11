@@ -1,13 +1,13 @@
 / Trending libraries
 
-- if @trending_libraries.to_a.any?
+- if trending_libraries.to_a.any?
   .teaser.teaser--full.libraries
     .teaser-inner
       h2
         => t( '.heading' )
         span.sprite_helper title="#{ t('libraries.tooltip') }"
 
-      = render partial: 'libraries/library', collection: @trending_libraries,
+      = render partial: 'libraries/library', collection: trending_libraries,
         locals: { piwik_campaign: 'libraries', piwik_keyword: 'welcome_page' }
 
       p.more
