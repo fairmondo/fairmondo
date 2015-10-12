@@ -29,6 +29,33 @@ describe WelcomeController do
         assert_response :success
       end
 
+      it 'should set all instance variables except one' do
+        get :index
+        refute_nil assigns(:queue1)
+        refute_nil assigns(:queue2)
+        refute_nil assigns(:donation_articles)
+        refute_nil assigns(:trending_libraries)
+        assert_nil assigns(:last_hearted_libraries)
+      end
+    end
+
+    describe 'for signed-in users' do
+      let(:user) { FactoryGirl.create :user }
+
+      it 'should set all instance variables' do
+        sign_in user
+        get :index
+        refute_nil assigns(:queue1)
+        refute_nil assigns(:queue2)
+        refute_nil assigns(:donation_articles)
+        refute_nil assigns(:trending_libraries)
+        refute_nil assigns(:last_hearted_libraries)
+      end
+    end
+  end
+
+  describe "GET 'feed'" do
+    describe 'for non-signed-in users' do
       it 'should be successful' do
         get :feed, format: 'rss'
         assert_response :success
