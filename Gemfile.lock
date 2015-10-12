@@ -375,6 +375,8 @@ GEM
       money (~> 6.5.0)
       railties (>= 3.0)
     multi_json (1.10.1)
+    multi_logger (0.1.0)
+      railties
     multipart-post (2.0.0)
     nenv (0.2.0)
     nested_form (0.3.2)
@@ -734,6 +736,7 @@ DEPENDENCIES
   modernizr-rails
   monetize
   money-rails (> 0.12.0)
+  multi_logger
   newrelic_rpm
   nkss-rails!
   nokogiri

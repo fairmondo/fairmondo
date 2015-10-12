@@ -44,6 +44,15 @@ describe FastbillAPI do
             api.expects(:fastbill_create_subscription)
             api.fastbill_chain
           end
+
+          it 'should log error if creating the profile raises an exception' do
+            db_business_transaction # to trigger observers before
+            api = FastbillAPI.new db_business_transaction
+            Fastbill::Automatic::Customer.stub :create, -> (_arg) { raise StandardError.new } do
+              Rails.logger.fastbill.expects(:error)
+              api.fastbill_chain
+            end
+          end
         end
 
         it 'should set usage data for subscription' do
@@ -51,6 +60,15 @@ describe FastbillAPI do
           api = FastbillAPI.new db_business_transaction
           Fastbill::Automatic::Subscription.expects(:setusagedata).twice
           api.fastbill_chain
+        end
+
+        it 'should log error if set usage data raises exception' do
+          db_business_transaction # to trigger observers before
+          api = FastbillAPI.new db_business_transaction
+          Fastbill::Automatic::Subscription.stub :setusagedata, -> (_arg) { raise StandardError.new } do
+            Rails.logger.fastbill.expects(:error).twice
+            api.fastbill_chain
+          end
         end
       end
 
