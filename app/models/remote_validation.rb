@@ -1,3 +1,7 @@
+#   Copyright (c) 2012-2015, Fairmondo eG.  This file is
+#   licensed under the GNU Affero General Public License version 3 or later.
+#   See the COPYRIGHT file for details.
+
 # non ActiveRecord object, handles specific validations
 class RemoteValidation < Struct.new(:model, :field, :value, :additional_params)
   # custom dependent enumerization

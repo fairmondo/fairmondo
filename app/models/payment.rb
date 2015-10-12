@@ -1,3 +1,7 @@
+#   Copyright (c) 2012-2015, Fairmondo eG.  This file is
+#   licensed under the GNU Affero General Public License version 3 or later.
+#   See the COPYRIGHT file for details.
+
 class Payment < ActiveRecord::Base
   has_many :business_transactions, through: :line_item_group # +multiple bt can have one payment, if unified
   belongs_to :line_item_group, inverse_of: :payments

@@ -1,3 +1,7 @@
+#   Copyright (c) 2012-2015, Fairmondo eG.  This file is
+#   licensed under the GNU Affero General Public License version 3 or later.
+#   See the COPYRIGHT file for details.
+
 class LineItem < ActiveRecord::Base
   attr_accessor :business_transaction # temporary saving the data
   attr_accessor :cart_cookie # temp storage to validate with pundit
