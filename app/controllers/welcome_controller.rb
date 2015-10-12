@@ -37,7 +37,7 @@ class WelcomeController < ApplicationController
     end
   end
 
-private
+  private
 
   def set_article_queues
     query_object = FeaturedLibraryQuery.new

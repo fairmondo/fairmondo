@@ -216,7 +216,7 @@ GEM
     erubis (2.7.0)
     eventmachine (1.0.4)
     execjs (2.2.2)
-    eye (0.6.3)
+    eye (0.6.4)
       celluloid (~> 0.15.0)
       celluloid-io (~> 0.15.0)
       sigar (~> 0.7.2)
@@ -383,7 +383,7 @@ GEM
     net-ssh (2.9.1)
     netrc (0.10.2)
     newrelic_rpm (3.9.9.275)
-    nio4r (1.0.1)
+    nio4r (1.1.1)
     nokogiri (1.6.5)
       mini_portile (~> 0.6.0)
     nokogumbo (1.2.0)
@@ -789,3 +789,6 @@ DEPENDENCIES
   tinymce-rails-langs
   uglifier
   wiselinks
+
+BUNDLED WITH
+   1.10.6
