@@ -1,7 +1,7 @@
 / Personalized library section, only shown if @last_hearted_libraries is set
 
-- if @last_hearted_libraries && @last_hearted_libraries.length == 2
-  - @last_hearted_libraries.each_with_index do |library, index|
+- if last_hearted_libraries && last_hearted_libraries.length == 2
+  - last_hearted_libraries.each_with_index do |library, index|
     div.teaser.teaser--double.teaser--hearted_libraries class="#{ index == 0 ? 'teaser--clear' : 'teaser--collapsible teaser--reducible'}"
       .teaser-inner
         h2

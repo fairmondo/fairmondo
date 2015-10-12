@@ -23,7 +23,7 @@ require_relative '../test_helper'
 
 class BusinessTransactionTest < ActiveSupport::TestCase
   subject { BusinessTransaction.new }
-  let(:business_transaction) { FactoryGirl.create :business_transaction }
+
   describe 'attributes' do
     it { subject.must_respond_to :selected_transport }
     it { subject.must_respond_to :selected_payment }
