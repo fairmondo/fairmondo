@@ -1,3 +1,7 @@
+#   Copyright (c) 2012-2015, Fairmondo eG.  This file is
+#   licensed under the GNU Affero General Public License version 3 or later.
+#   See the COPYRIGHT file for details.
+
 class AddressesController < ApplicationController
   respond_to :html, only: [:edit, :new]
   respond_to :js, if: lambda { request.xhr? }

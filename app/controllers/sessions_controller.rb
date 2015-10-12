@@ -1,3 +1,7 @@
+#   Copyright (c) 2012-2015, Fairmondo eG.  This file is
+#   licensed under the GNU Affero General Public License version 3 or later.
+#   See the COPYRIGHT file for details.
+
 # https://github.com/plataformatec/devise/blob/master/app/controllers/devise/sessions_controller.rb
 class SessionsController < Devise::SessionsController
   skip_before_action :check_new_terms
