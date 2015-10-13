@@ -10,21 +10,13 @@
         span.slides-arrow.slides-arrow--right
           i.fa.fa-chevron-right
 
-      / TTIP
-      .billboard#billboard-ttip
+      / Fairphone 2
+      .billboard#billboard-fairphone2
         article
-          h2 Stop TTIP CETA demo
-          = link_to 'Warum wir dabei sind',
-                    '/ttip?pk_campaign=billboards&pk_keyword=ttip'
-
-      / / Fairphone 2
-      / .billboard#billboard-fairphone2
-      /   article
-      /     h2 Fairphone 2 jetzt bei Fairmondo
-      /     = link_to 'Hier geht\'s zum Vorverkauf',
-      /               article_path('fairphone-2', pk_campaign: 'billboards',
-      /                 pk_keyword: 'fairphone2')
-
+          h2 Fairphone 2 jetzt bei Fairmondo
+          = link_to 'Hier geht\'s zum Vorverkauf',
+                    article_path('fairphone-2', pk_campaign: 'billboards',
+                      pk_keyword: 'fairphone2')
 
       / Bücher
       .billboard#billboard-books
@@ -66,4 +58,3 @@
           = link_to 'Jetzt die ersten Runde Sache Abos sichern',
                     'http://abo.fairmondo.de/',
                     target: '_blank'
-
