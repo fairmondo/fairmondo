@@ -1,3 +1,7 @@
+#   Copyright (c) 2012-2015, Fairmondo eG.  This file is
+#   licensed under the GNU Affero General Public License version 3 or later.
+#   See the COPYRIGHT file for details.
+
 class FairTrustOtherValidator < ActiveModel::EachValidator
   # validates presence and length of value when 'Sonstiges' is selected in
   # fair trust questionnnaire

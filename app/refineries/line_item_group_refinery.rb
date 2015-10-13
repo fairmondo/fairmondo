@@ -1,3 +1,7 @@
+#   Copyright (c) 2012-2015, Fairmondo eG.  This file is
+#   licensed under the GNU Affero General Public License version 3 or later.
+#   See the COPYRIGHT file for details.
+
 class LineItemGroupRefinery < ApplicationRefinery
   def root
     false # LineItems don't have forms, they get controlled
