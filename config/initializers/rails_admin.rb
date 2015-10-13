@@ -1,3 +1,7 @@
+#   Copyright (c) 2012-2015, Fairmondo eG.  This file is
+#   licensed under the GNU Affero General Public License version 3 or later.
+#   See the COPYRIGHT file for details.
+
 # RailsAdmin config file. Generated on October 10, 2013 11:34
 # See github.com/sferik/rails_admin for more informations
 

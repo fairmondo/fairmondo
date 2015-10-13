@@ -1,3 +1,7 @@
+#   Copyright (c) 2012-2015, Fairmondo eG.  This file is
+#   licensed under the GNU Affero General Public License version 3 or later.
+#   See the COPYRIGHT file for details.
+
 begin
   if Rails.env.production?
     BELBOON_IDS = YAML.load(File.read('/var/www/fairnopoly/shared/config/belboon_trackable_users.yml'))['belboon']['users']

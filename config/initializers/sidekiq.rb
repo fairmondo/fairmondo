@@ -1,5 +1,8 @@
-# Config Redis
+#   Copyright (c) 2012-2015, Fairmondo eG.  This file is
+#   licensed under the GNU Affero General Public License version 3 or later.
+#   See the COPYRIGHT file for details.
 
+# Config Redis
 
 # This code is responsible for loading the sidekiq-pro gem, which is NOT installed
 # via bundler

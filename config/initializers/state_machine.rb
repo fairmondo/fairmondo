@@ -1,3 +1,7 @@
+#   Copyright (c) 2012-2015, Fairmondo eG.  This file is
+#   licensed under the GNU Affero General Public License version 3 or later.
+#   See the COPYRIGHT file for details.
+
 # Rails 4.1.0.rc1 and StateMachine don't play nice
 # https://github.com/pluginaweek/state_machine/issues/295
 
