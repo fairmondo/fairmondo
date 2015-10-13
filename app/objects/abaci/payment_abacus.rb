@@ -1,3 +1,7 @@
+#   Copyright (c) 2012-2015, Fairmondo eG.  This file is
+#   licensed under the GNU Affero General Public License version 3 or later.
+#   See the COPYRIGHT file for details.
+
 class PaymentAbacus
   UNIFIED_TRANSPORT_PAYMENT_ORDER = [:paypal, :invoice, :bank_transfer]
   UNIFIED_TRANSPORT_PAYMENT_ORDER_MERGED = (UNIFIED_TRANSPORT_PAYMENT_ORDER + Article::PAYMENT_TYPES).uniq

@@ -1,3 +1,7 @@
+#   Copyright (c) 2012-2015, Fairmondo eG.  This file is
+#   licensed under the GNU Affero General Public License version 3 or later.
+#   See the COPYRIGHT file for details.
+
 class ArticleExporter
   @@csv_options = { col_sep: ';',  encoding: 'utf-8' }
   @@export_attributes = MassUpload.article_attributes

@@ -1,3 +1,7 @@
+#   Copyright (c) 2012-2015, Fairmondo eG.  This file is
+#   licensed under the GNU Affero General Public License version 3 or later.
+#   See the COPYRIGHT file for details.
+
 class TermsAndCancellationPdf < Prawn::Document
   def initialize(lig)
     super(top_margin: 70, left_margin: 80, right_margin: 80, bottom_margin: 50)

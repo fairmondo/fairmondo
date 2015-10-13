@@ -1,3 +1,7 @@
+#   Copyright (c) 2012-2015, Fairmondo eG.  This file is
+#   licensed under the GNU Affero General Public License version 3 or later.
+#   See the COPYRIGHT file for details.
+
 class CartAbacus
   attr_reader :cart, :group_totals, :line_item_totals, :total,
               :belboon_tracking_relevant_value
