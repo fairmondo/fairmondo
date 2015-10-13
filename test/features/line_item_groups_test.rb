@@ -1,3 +1,7 @@
+#   Copyright (c) 2012-2015, Fairmondo eG.  This file is
+#   licensed under the GNU Affero General Public License version 3 or later.
+#   See the COPYRIGHT file for details.
+
 # Maybe merge this test file with refund_test.rb
 
 require_relative '../test_helper'

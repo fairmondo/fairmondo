@@ -1,3 +1,7 @@
+#   Copyright (c) 2012-2015, Fairmondo eG.  This file is
+#   licensed under the GNU Affero General Public License version 3 or later.
+#   See the COPYRIGHT file for details.
+
 # Source: http://blog.leshill.org/blog/2009/08/05/update-for-stub-chain-for-mocha.html
 
 module StubChainMocha

@@ -1,3 +1,7 @@
+#   Copyright (c) 2012-2015, Fairmondo eG.  This file is
+#   licensed under the GNU Affero General Public License version 3 or later.
+#   See the COPYRIGHT file for details.
+
 class DeferredGarbageCollection
 
   DEFERRED_GC_THRESHOLD = (ENV['DEFER_GC'] || 15.0).to_f

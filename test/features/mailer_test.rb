@@ -1,8 +1,14 @@
+#   Copyright (c) 2012-2015, Fairmondo eG.  This file is
+#   licensed under the GNU Affero General Public License version 3 or later.
+#   See the COPYRIGHT file for details.
+
 require_relative '../test_helper'
 
 include Warden::Test::Helpers
 
-# These tests don't actually test anything useful. Please someone rewrite the include statements to actually check the correct content of the email. I also don't think a lot of the Recaptcha statements actually do anything. After you're done, please remove this comment. -KK
+# These tests don't actually test anything useful. Please someone rewrite the include statements
+# to actually check the correct content of the email. I also don't think a lot of the Recaptcha
+# statements actually do anything. After you're done, please remove this comment. -KK
 #
 # feature 'User Mailer' do
 #   scenario 'new user registerson registration' do

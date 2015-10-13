@@ -1,6 +1,8 @@
-# https://github.com/rcode5/shoulda-matchers/blob/b5028c13b580fddc5ba2b79c8c4d0fbf86e78fcd/lib/shoulda/matchers/active_model/validate_presence_of_matcher.rb
-#
+#   Copyright (c) 2012-2015, Fairmondo eG.  This file is
+#   licensed under the GNU Affero General Public License version 3 or later.
+#   See the COPYRIGHT file for details.
 
+# https://github.com/rcode5/shoulda-matchers/blob/b5028c13b580fddc5ba2b79c8c4d0fbf86e78fcd/lib/shoulda/matchers/active_model/validate_presence_of_matcher.rb
 
 module Shoulda # :nodoc:
   module Matchers

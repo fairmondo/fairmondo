@@ -1,3 +1,7 @@
+#   Copyright (c) 2012-2015, Fairmondo eG.  This file is
+#   licensed under the GNU Affero General Public License version 3 or later.
+#   See the COPYRIGHT file for details.
+
 require_relative '../test_helper'
 
 def abacus_for bt_traits, attributes = {}, lig_traits = []
