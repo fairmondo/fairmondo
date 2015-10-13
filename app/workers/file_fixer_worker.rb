@@ -1,3 +1,7 @@
+#   Copyright (c) 2012-2015, Fairmondo eG.  This file is
+#   licensed under the GNU Affero General Public License version 3 or later.
+#   See the COPYRIGHT file for details.
+
 # Oct 31 (Spooky Bug) - The original file_normalizer_worker didn't account for
 # old image paths sometimes having two images in there. It just took the first
 # one, but we actually need the youngest (by system change time) to become the
