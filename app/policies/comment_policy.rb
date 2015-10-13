@@ -1,3 +1,7 @@
+#   Copyright (c) 2012-2015, Fairmondo eG.  This file is
+#   licensed under the GNU Affero General Public License version 3 or later.
+#   See the COPYRIGHT file for details.
+
 class CommentPolicy < Struct.new(:user, :comment)
   def create?
     if comment.commentable_type == 'Article' && comment.commentable_user.vacationing? # commentable_type may be nil if not set
