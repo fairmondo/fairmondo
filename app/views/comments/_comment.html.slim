@@ -1,7 +1,7 @@
 .Comment-single class="commentable_#{comment.commentable_id}_comment_#{comment.id}"
-  = image_tag comment.user_image_url(:profile), class: "author_image"
+  = image_tag comment.user_image_url(:thumb), class: "author_image"
   .meta
-    = link_to comment.user_nickname, profile_user_path(comment.user)
+    = link_to comment.user_nickname, user_path(comment.user)
     | &nbsp;
     = timeago_tag comment.created_at, lang: :de, class: "Timeago"
     = javascript_tag "$('.Timeago').timeago();" if request.xhr?
