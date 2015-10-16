@@ -1,3 +1,9 @@
+###
+   Copyright (c) 2012-2015, Fairmondo eG.  This file is
+   licensed under the GNU Affero General Public License version 3 or later.
+   See the COPYRIGHT file for details.
+###
+
 obstructedNavigation = (e) ->
   if confirm 'Achtung! Du hast Deinen Artikel noch nicht eingestellt.
                   \n\nMöchtest du die Seite wirklich verlassen?'

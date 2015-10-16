@@ -1,3 +1,9 @@
+###
+   Copyright (c) 2012-2015, Fairmondo eG.  This file is
+   licensed under the GNU Affero General Public License version 3 or later.
+   See the COPYRIGHT file for details.
+###
+
 #resizeIframe = (iframe) ->
 #  iframe.height = (iframe.contentWindow.document.documentElement.scrollHeight || iframe.contentWindow.document.body.scrollHeight) + "px"
 #  # wont resize iframe to be smaller in some browsers. but ... who needs that anyway

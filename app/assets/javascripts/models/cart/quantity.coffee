@@ -1,3 +1,9 @@
+###
+   Copyright (c) 2012-2015, Fairmondo eG.  This file is
+   licensed under the GNU Affero General Public License version 3 or later.
+   See the COPYRIGHT file for details.
+###
+
 change_quantity = ->
     $('.change_quantity.line_item input#line_item_requested_quantity').on 'input' , (event) ->
       $target = $(event.target)
@@ -7,4 +13,3 @@ change_quantity = ->
 
 $(document).ready change_quantity
 $(document).ajaxStop change_quantity
-

@@ -1,3 +1,9 @@
+###
+   Copyright (c) 2012-2015, Fairmondo eG.  This file is
+   licensed under the GNU Affero General Public License version 3 or later.
+   See the COPYRIGHT file for details.
+###
+
 selected_categories_input = "#selected_categories_input" # Input Box if multiselect
 native_select_categories  = ".category-nativeselect" # the original select
 select_button_html_id = "category-selectbutton" # the select button class

@@ -1,3 +1,9 @@
+###
+   Copyright (c) 2012-2015, Fairmondo eG.  This file is
+   licensed under the GNU Affero General Public License version 3 or later.
+   See the COPYRIGHT file for details.
+###
+
 # extend Wiselinks to add the scroll positions to the history state object
 originalCall = window._Wiselinks.Page.prototype._call
 window._Wiselinks.Page.prototype._call = (state) ->
