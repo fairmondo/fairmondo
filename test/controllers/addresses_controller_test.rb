@@ -59,6 +59,7 @@ describe AddressesController do
       end
       update_address.reload.first_name.must_equal 'test update'
     end
+
     it 'should render edit on empty names' do
       @address_attrs = FactoryGirl.attributes_for :address, first_name: 'test update'
       @address_attrs[:first_name] = nil
@@ -71,9 +72,11 @@ describe AddressesController do
       end
       assert_template :edit
     end
+
     it 'should clone a referenced address' do
       @address_attrs = FactoryGirl.attributes_for :address, first_name: 'test update'
-      referenced_address = FactoryGirl.create :address, :referenced, user: user
+      referenced_address = FactoryGirl.create :address, user: user
+      FactoryGirl.create(:line_item_group, payment_address: referenced_address)
       fist_name_referenced = referenced_address.first_name
       user.addresses << referenced_address
       sign_in user
@@ -98,7 +101,8 @@ describe AddressesController do
 
     it 'should stash a referenced address from the database' do
       user = FactoryGirl.create :incomplete_user
-      referenced_address = FactoryGirl.create :address, :referenced, user: user
+      referenced_address = FactoryGirl.create :address, user: user
+      FactoryGirl.create(:line_item_group, payment_address: referenced_address)
       sign_in user
       assert_difference('Address.count', 0) do
         xhr :delete, :destroy, user_id: referenced_address.user.id, id: referenced_address.id
