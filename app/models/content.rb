@@ -32,4 +32,6 @@ class Content < ActiveRecord::Base
 
   extend FriendlyId
   friendly_id :key, use: [:finders]
+
+  default_scope { order(key: :asc) }
 end
