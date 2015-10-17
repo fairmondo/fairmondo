@@ -27,7 +27,7 @@ describe Discount do
   describe 'methods' do
     describe '::discount_chain' do
       it 'should set discount value to remaining discount if calculated discount is bigger than remaining discount' do
-        discount = FactoryGirl.create :discount, :small
+        discount = FactoryGirl.create(:small_discount)
         business_transaction = FactoryGirl.create :business_transaction, article: FactoryGirl.create(:article, discount: discount)
         business_transaction.article.calculate_fees_and_donations
         Discount.discount_chain(business_transaction)
@@ -36,7 +36,7 @@ describe Discount do
       end
 
       it 'should set discount value to the calculated discount if calculated discount is smaller than remaining discount' do
-        discount = FactoryGirl.create :discount, :big
+        discount = FactoryGirl.create(:big_discount)
         business_transaction = FactoryGirl.create :business_transaction, article: FactoryGirl.create(:article, discount: discount, price: 1)
         business_transaction.article.calculate_fees_and_donations
         Discount.discount_chain(business_transaction)
