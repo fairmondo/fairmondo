@@ -4,8 +4,9 @@
 
 FactoryGirl.define do
   factory :comment do
-    user
-    commentable { FactoryGirl.create :library }
-    text 'This is an example comment'
+    text 'Heaven knows we need never be ashamed of our tears, for they are rain upon the blinding '\
+      'dust of earth, overlying our hard hearts.'
+    association :user
+    association :commentable, factory: :library
   end
 end

@@ -5,7 +5,7 @@
 FactoryGirl.define do
   factory :library do
     sequence(:name) { |n| "Library_#{n}" }
-    user
+    association :user
 
     factory :private_library,               traits: [:private]
     factory :public_library,                traits: [:public]

@@ -4,7 +4,7 @@
 
 FactoryGirl.define do
   factory :heart do
-    user
-    heartable { FactoryGirl.create :public_library_with_elements }
+    association :user
+    association :heartable, factory: :public_library_with_elements
   end
 end

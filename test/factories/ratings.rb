@@ -4,22 +4,29 @@
 
 FactoryGirl.define do
   factory :rating do
-    rating { %w(positive neutral negative).sample }
-    text 'Die ist eine Bewertung!'
-    line_item_group { FactoryGirl.create :line_item_group, :with_business_transactions, :sold }
+    rating 'positive'
+    association :line_item_group, :with_business_transactions, :sold
     rated_user { line_item_group.seller }
-    rating_user { line_item_group.buyer }
 
-    factory :positive_rating do
+    factory :positive_rating,  traits: [:positive]
+    factory :neutral_rating,   traits: [:neutral]
+    factory :negative_rating,  traits: [:negative]
+    factory :rating_with_text, traits: [:with_text]
+
+    trait :positive do
       rating 'positive'
     end
 
-    factory :neutral_rating do
+    trait :negative do
+      rating 'negative'
+    end
+
+    trait :neutral do
       rating 'neutral'
     end
 
-    factory :negative_rating do
-      rating 'negative'
+    trait :with_text do
+      text 'Ask no questions, and you\'ll be told no lies.'
     end
   end
 end

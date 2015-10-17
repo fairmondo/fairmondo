@@ -19,7 +19,8 @@ describe RatingsController do
 
   describe 'POST ::create' do
     before do
-      @rating_attrs = FactoryGirl.attributes_for(:rating, line_item_group_id: line_item_group.id)
+      # TODO: Use FactoryGirl.attributes_for if possible after ratings are refactored
+      @rating_attrs = { rating: 'positive', line_item_group_id: line_item_group.id }
       sign_in buyer
     end
 
