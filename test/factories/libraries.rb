@@ -4,11 +4,23 @@
 
 FactoryGirl.define do
   factory :library do
-    sequence(:name) { |n| "LibraryName#{n}" }
-    public false
+    sequence(:name) { |n| "Library_#{n}" }
     user
 
-    factory :library_with_elements do
+    factory :private_library,               traits: [:private]
+    factory :public_library,                traits: [:public]
+    factory :private_library_with_elements, traits: [:private, :with_elements]
+    factory :public_library_with_elements,  traits: [:public,  :with_elements]
+
+    trait :private do
+      public false
+    end
+
+    trait :public do
+      public true
+    end
+
+    trait :with_elements do
       transient do
         element_count 5
       end
@@ -16,10 +28,6 @@ FactoryGirl.define do
       after(:create) do |library, evaluator|
         FactoryGirl.create_list(:library_element, evaluator.element_count, library: library)
       end
-    end
-
-    trait :public do
-      public true
     end
   end
 end

@@ -10,9 +10,8 @@ feature 'Libraries on welcome page' do
   setup do
     @user = FactoryGirl.create :user
 
-    @library = FactoryGirl.create :library_with_elements, name: 'envogue', user: @user
+    @library = FactoryGirl.create :public_library_with_elements, name: 'envogue', user: @user
     @library.popularity = 1000
-    @library.public = true
     @library.save
 
     @admin = FactoryGirl.create :admin_user
@@ -121,8 +120,8 @@ end
 feature 'Libraries on library pages' do
   scenario 'more libraries of the same user are shown on a library page' do
     user = FactoryGirl.create :user
-    library1 = FactoryGirl.create(:library_with_elements, :public, user: user)
-    library2 = FactoryGirl.create(:library_with_elements, :public, user: user)
+    library1 = FactoryGirl.create(:public_library_with_elements, user: user)
+    library2 = FactoryGirl.create(:public_library_with_elements, user: user)
 
     visit library_path(library1)
     page.must_have_content(library2.name)

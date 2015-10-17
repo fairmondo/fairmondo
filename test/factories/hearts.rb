@@ -5,6 +5,6 @@
 FactoryGirl.define do
   factory :heart do
     user
-    heartable { FactoryGirl.create :library_with_elements, :public }
+    heartable { FactoryGirl.create :public_library_with_elements }
   end
 end
