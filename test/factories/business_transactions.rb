@@ -2,18 +2,22 @@
 #   licensed under the GNU Affero General Public License version 3 or later.
 #   See the COPYRIGHT file for details.
 
-require 'ffaker'
-
 FactoryGirl.define do
   factory :business_transaction do
+    association :seller, factory: [:user, :paypal_data]
+    association :buyer, factory: :user
+
     transient do
-      seller { FactoryGirl.create(:seller, :paypal_data) }
-      buyer { FactoryGirl.create :user }
       article_attributes { Hash.new }
-      article_all_attributes { article_attributes.merge(seller: seller, quantity: (quantity_bought + 1)) }
+      article_all_attributes do
+        article_attributes.merge(seller: seller, quantity: (quantity_bought + 1))
+      end
     end
 
-    article { FactoryGirl.create :article, :with_fixture_image, :with_all_payments, :with_all_transports, article_all_attributes }
+    article do
+      FactoryGirl.create :article, :with_fixture_image, :with_all_payments, :with_all_transports,
+                         article_all_attributes
+    end
     line_item_group { FactoryGirl.create :line_item_group, :sold, seller: seller, buyer: buyer }
 
     selected_transport 'type1'
@@ -58,10 +62,8 @@ FactoryGirl.define do
     end
 
     trait :discountable do
-      article { FactoryGirl.create :article, :with_discount }
+      association :article, factory: [:article, :with_discount]
     end
-
-    ################ Transports #############
 
     trait :pickup do
       selected_transport :pickup
@@ -79,10 +81,10 @@ FactoryGirl.define do
       selected_transport :bike_courier
       tos_bike_courier_accepted true
       bike_courier_time { self.seller.pickup_time.sample }
-      bike_courier_message 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
+      bike_courier_message 'Suffering has been stronger than all other teaching, and has taught '\
+        'me to understand what your heart used to be. I have been bent and broken, but - I hope '\
+        '- into a better shape.'
     end
-
-    ################ Payments #############
 
     trait :cash do
       selected_payment 'cash'
@@ -107,10 +109,5 @@ FactoryGirl.define do
     trait :voucher do
       selected_payment 'voucher'
     end
-
-    #    trait :mangopay do
-    #      selected_payment 'mangopay'
-    #      payment
-    #    end
   end
 end
