@@ -9,7 +9,7 @@ describe PaymentPolicy do
 
   subject { PaymentPolicy.new(user, payment)  }
   let(:lig) { payment.line_item_group }
-  let(:payment) { FactoryGirl.create(:payment) }
+  let(:payment) { FactoryGirl.create(:paypal_payment) }
 
   describe 'for a visitor' do
     let(:user) { nil }

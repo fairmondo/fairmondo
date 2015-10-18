@@ -44,6 +44,10 @@ FactoryGirl.define do
     end
   end
 
+  trait :with_voucher_seller do
+    association :seller, factory: [:user, :paypal_data], uses_vouchers: true
+  end
+
   trait :sold do
     transient do
       sold { true }

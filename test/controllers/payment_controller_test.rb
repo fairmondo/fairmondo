@@ -50,7 +50,7 @@ describe PaymentsController do
 
   describe "GET 'show'" do
     let(:lig) { FactoryGirl.create :line_item_group, :sold, :with_business_transactions, traits: [:paypal, :transport_bike_courier] }
-    let(:payment) { FactoryGirl.create :payment, :with_pay_key, line_item_group: lig }
+    let(:payment) { FactoryGirl.create :paypal_payment_with_pay_key, line_item_group: lig }
 
     it 'should redirect to paypal' do
       get :show, line_item_group_id: lig.id, id: payment.id
@@ -59,7 +59,7 @@ describe PaymentsController do
   end
 
   describe 'GET "ipn_notification"' do
-    let(:payment) { FactoryGirl.create :payment, pay_key: '1234' }
+    let(:payment) { FactoryGirl.create :paypal_payment, pay_key: '1234' }
 
     before do
       PaypalAdaptive::IpnNotification.any_instance.stubs(:verified?).returns(true)
