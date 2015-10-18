@@ -26,19 +26,20 @@ FactoryGirl.define do
   end
 
   trait :with_business_transactions do
+    association :seller, factory: [:legal_entity_that_can_sell, :with_paypal_account]
+
     transient do
-      articles_attributes []
       articles { [] } # dont override
       create_line_items false
       traits [[:paypal, :transport_type1], [:invoice, :transport_type2]]
       build_or_create_bts { sold ? :create : :build }
     end
 
-    association :seller, factory: :legal_entity_with_all_data
-
     after(:create) do |line_item_group, evaluator|
       evaluator.traits.each_with_index do |traits, index|
-        bt = line_item_group.business_transactions.send(evaluator.build_or_create_bts, FactoryGirl.attributes_for(:business_transaction, *traits, line_item_group: line_item_group, seller: line_item_group.seller, article_attributes: evaluator.articles_attributes[index] || {}))
+        bt = line_item_group.business_transactions.send(evaluator.build_or_create_bts,
+          FactoryGirl.attributes_for(:business_transaction, *traits,
+            line_item_group: line_item_group, seller: line_item_group.seller))
         line_item_group.line_items << FactoryGirl.create(:line_item, article: bt.article) if evaluator.create_line_items
       end
     end

@@ -6,7 +6,7 @@ require_relative '../test_helper'
 
 describe ArticleTemplatesController do
   before :each do
-    @user = FactoryGirl.create(:user)
+    @user = FactoryGirl.create(:regular_private_user)
     sign_in @user
   end
 

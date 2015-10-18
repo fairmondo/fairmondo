@@ -6,7 +6,7 @@ require 'ffaker'
 
 FactoryGirl.define do
   factory :article do
-    association :seller, factory: :legal_entity_with_bank_data
+    association :seller, factory: [:legal_entity_that_can_sell, :with_paypal_account]
     categories { |c| [c.association(:category)] }
     title     { Faker::Lorem.words(rand(3..5)).join(' ').titleize }
     content   { Faker::Lorem.paragraph(rand(7) + 1) }

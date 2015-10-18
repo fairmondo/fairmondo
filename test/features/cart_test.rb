@@ -170,7 +170,7 @@ feature 'Checkout' do
   end
 
   scenario 'User selects cash as unified_payment and does not select pickup and changes it to pickup in the end' do
-    seller = FactoryGirl.create :legal_entity, :paypal_data
+    seller = FactoryGirl.create :legal_entity, :with_paypal_account
     articles = [FactoryGirl.create(:article, :with_all_payments, :with_all_transports, seller: seller, unified_transport: false)]
     articles << FactoryGirl.create(:article, :with_all_payments, :with_all_transports, seller: seller, unified_transport: false)
     login_as FactoryGirl.create(:user)
@@ -252,12 +252,12 @@ feature 'Checkout' do
   end
 
   scenario 'Buying a cart with items from different users' do
-    unified_seller = FactoryGirl.create :legal_entity, :with_unified_transport_information, :paypal_data
+    unified_seller = FactoryGirl.create :legal_entity, :with_unified_transport_information, :with_paypal_account
     articles = [FactoryGirl.create(:article, :with_all_payments, :with_all_transports, title: 'unified1', seller: unified_seller),
                 FactoryGirl.create(:article, :with_all_payments, :with_all_transports, title: 'unified2', seller: unified_seller),
                 FactoryGirl.create(:article, :with_all_payments, title: 'single_transport1', seller: unified_seller, unified_transport: false)]
 
-    single_seller =  FactoryGirl.create :legal_entity, :paypal_data
+    single_seller =  FactoryGirl.create :legal_entity, :with_paypal_account
     articles << FactoryGirl.create(:article, :with_all_payments, :with_all_transports, title: 'single_transport2', seller: single_seller, unified_transport: false)
     articles << FactoryGirl.create(:article, :with_all_payments, :with_all_transports, title: 'single_transport3', seller: single_seller, unified_transport: false)
 
@@ -309,7 +309,7 @@ feature 'Checkout' do
   end
 
   scenario 'Trying to buy a cart with unified transport and cash on delivery and dont check agb. Afterwards try to resume with single transports' do
-    seller = FactoryGirl.create :legal_entity, :with_unified_transport_information, :paypal_data
+    seller = FactoryGirl.create :legal_entity, :with_unified_transport_information, :with_paypal_account
     articles = [FactoryGirl.create(:article, :with_all_payments, :with_all_transports, title: 'foobar', seller: seller)]
     articles << FactoryGirl.create(:article, :with_all_payments, :with_all_transports, title: 'foobar2', seller: seller)
 

@@ -3,19 +3,24 @@
 #   See the COPYRIGHT file for details.
 
 FactoryGirl.define do
-  factory :private_user, aliases: [:user] do
+  factory :private_user, aliases: [:user, :seller] do
     sequence(:nickname) { |n| "user_#{n}" }
     sequence(:slug) { |n| "user_#{n}" }
     sequence(:email) { |n| "user_#{n}@google.com" }
     password 'password'
 
-    factory :admin_user,                  traits: [:admin]
+    factory :admin_user,                  traits: [:admin, :confirmed]
     factory :private_user_with_address,   traits: [:with_address]
     factory :private_user_with_bank_data, traits: [:with_bank_data]
-    factory :regular_private_user,        traits: [:regular, :with_bank_data]
+    factory :confirmed_private_user,      traits: [:confirmed]
+    factory :regular_private_user,        traits: [:regular, :confirmed, :with_bank_data]
 
     trait :regular do
       created_at { 2.months.ago }
+    end
+
+    trait :confirmed do
+      confirmed_at { Time.now }
     end
 
     trait :with_address do
@@ -51,6 +56,9 @@ FactoryGirl.define do
     end
 
     factory :legal_entity, class: LegalEntity do
+      factory :legal_entity_that_can_sell,
+              traits: [:with_legal_information, :with_direct_debit_authorization, :with_address,
+                       :with_bank_data, :confirmed]
       factory :legal_entity_with_address,        traits: [:with_address]
       factory :legal_entity_with_bank_data,      traits: [:with_bank_data]
       factory :legal_entity_with_paypal_account, traits: [:with_paypal_account]
@@ -58,12 +66,25 @@ FactoryGirl.define do
               traits: [:with_paypal_account, :with_unified_transport_information]
       factory :legal_entity_with_all_data,
               traits: [:with_address, :with_bank_data, :with_paypal_account, :with_fastbill_profile,
-                       :with_unified_transport_information]
-      factory :ngo,                         traits: [:ngo]
-      factory :ngo_with_bank_data,          traits: [:ngo, :with_bank_data]
+                       :with_unified_transport_information, :confirmed]
+      factory :ngo,                              traits: [:ngo]
+      factory :ngo_with_bank_data,               traits: [:ngo, :with_bank_data]
 
       trait :ngo do
         ngo true
+      end
+
+      trait :with_legal_information do
+        about 'I am what you designed me to be. I am your blade. You cannot now complain if you '\
+          'also feel the hurt.'
+        terms 'We changed again, and yet again, and it was now too late and too far to go back, '\
+          'and I went on. And the mists had all solemnly risen now, and the world lay spread '\
+          'before me.'
+        cancellation 'I have been bent and broken, but - I hope - into a better shape.'
+      end
+
+      trait :with_direct_debit_authorization do
+        direct_debit true
       end
 
       trait :with_fastbill_profile do
@@ -72,21 +93,12 @@ FactoryGirl.define do
       end
     end
   end
-
-  # factory :user, aliases: [:seller, :buyer, :sender, :rated_user], class: %w(PrivateUser LegalEntity).sample do
   #   legal '1'
 
   #   about_me    { Faker::Lorem.paragraph(rand(7) + 1) }
-  #   terms    { Faker::Lorem.paragraph(rand(7) + 1) }
-  #   cancellation    { Faker::Lorem.paragraph(rand(7) + 1) }
-  #   about    { Faker::Lorem.paragraph(rand(7) + 1) }
 
-  #   confirmed_at Time.now
-
-  #   direct_debit true
   #   uses_vouchers false
 
   #   seller_state 'standard_seller'
   #   buyer_state 'standard_buyer'
-  # end
 end

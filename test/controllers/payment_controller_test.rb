@@ -16,7 +16,8 @@ describe PaymentsController do
 
   describe "POST 'create'" do
     describe 'PaypalPayment' do
-      let(:lig) { FactoryGirl.create :line_item_group, :sold, :with_business_transactions, traits: [:paypal, :transport_type1] }
+      let(:lig) { FactoryGirl.create :line_item_group, :sold, :with_business_transactions,
+                                     traits: [:paypal, :transport_type1] }
 
       it 'should create a paypal payment and forward to show' do
         assert_difference 'Payment.count', 1 do
@@ -37,7 +38,7 @@ describe PaymentsController do
     end
 
     describe 'VoucherPayment' do
-      let(:lig) { FactoryGirl.create :line_item_group, :sold, :with_business_transactions, traits: [:voucher, :transport_type1], seller: FactoryGirl.create(:seller, :paypal_data, uses_vouchers: true) }
+      let(:lig) { FactoryGirl.create :line_item_group, :sold, :with_business_transactions, traits: [:voucher, :transport_type1], seller: FactoryGirl.create(:seller, :with_paypal_account, uses_vouchers: true) }
       it 'should create a voucher payment and redirect back' do
         request.env['HTTP_REFERER'] = 'http://test.host'
         assert_difference 'Payment.count', 1 do
