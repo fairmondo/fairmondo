@@ -5,8 +5,8 @@
 require 'ffaker'
 
 FactoryGirl.define do
-  factory :article, aliases: [:appended_object] do
-    seller      # alias for User -> see spec/factories/users.rb
+  factory :article do
+    association :seller, factory: :user
     categories { |c| [c.association(:category)] }
     title     { Faker::Lorem.words(rand(3..5)).join(' ').titleize }
     content   { Faker::Lorem.paragraph(rand(7) + 1) }
@@ -147,31 +147,32 @@ FactoryGirl.define do
       payment_voucher true
       payment_details { Faker::Lorem.paragraph(rand(2..5)) }
 
-      seller { FactoryGirl.create :seller, :paypal_data }
+      association :seller, factory: [:user, :paypal_data]
     end
 
     trait :with_private_user do
-      seller { FactoryGirl.create :private_user, :paypal_data } # adding paypal data because it is needed for with_all_transports
+      association :seller, factory: [:private_user, :paypal_data]
     end
 
     trait :with_legal_entity do
       vat { [7, 19].sample }
-      seller { FactoryGirl.create :legal_entity, :paypal_data }
+      association :seller, factory: [:legal_entity, :paypal_data]
     end
 
     trait :with_ngo do
       vat { [7, 19].sample }
-      seller { FactoryGirl.create :legal_entity, :paypal_data, ngo: true }
+      association :seller, factory: [:legal_entity, :paypal_data], ngo: true
     end
 
     trait :with_friendly_percent do
       friendly_percent 75
-      friendly_percent_organisation { FactoryGirl.create :legal_entity, ngo: true }
+      association :friendly_percent_organisation, factory: :legal_entity, ngo: true
     end
 
     trait :with_friendly_percent_and_missing_bank_data do
       friendly_percent 75
-      friendly_percent_organisation { FactoryGirl.create :legal_entity, :missing_bank_data, ngo: true }
+      association :friendly_percent_organisation, factory: [:legal_entity, :missing_bank_data],
+                                                  ngo: true
     end
 
     trait :simple_fair do
@@ -201,7 +202,7 @@ FactoryGirl.define do
     end
 
     trait :with_discount do
-      discount { FactoryGirl.create :discount }
+      association :discount
     end
 
     trait :invalid do
