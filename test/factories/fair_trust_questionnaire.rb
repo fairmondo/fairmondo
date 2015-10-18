@@ -2,68 +2,26 @@
 #   licensed under the GNU Affero General Public License version 3 or later.
 #   See the COPYRIGHT file for details.
 
-require 'ffaker'
-
 FactoryGirl.define do
   factory :fair_trust_questionnaire do
     support true
-    support_checkboxes [:prefinance, :longterm, :development, :minimum_wage, :higher_prices, :direct_negotiations, :community, :premiums, :other]
-    support_explanation { Faker::Lorem.sentence(200) }
-    support_other 'Sonstiges'
+    support_checkboxes [:prefinance, :minimum_wage, :direct_negotiations]
+    support_explanation 'Pip, dear old chap. life is made of ever many partings welded together, '\
+      'as I may say, and one man\'s a blacksmith and one\'s a whitesmith, one\'s a goldsmith, and '\
+      'one\'s a coppersmith. Diwisions among such must come, and must be met as they come.'
 
     labor_conditions true
-    labor_conditions_checkboxes [
-      :secure_environment,
-      :hygiene,
-      :working_hours,
-      :free_assembly,
-      :advocacy_group,
-      :sexual_equality,
-      :no_discrimination,
-      :child_labor_ban,
-      :child_labor_restrictions,
-      :other
-    ]
-    labor_conditions_explanation { Faker::Lorem.sentence(200) }
-    labor_conditions_other 'Sonstiges'
-
-    environment_protection true
-    environment_protection_checkboxes [
-      :chemical_fertilizers,
-      :pesticides,
-      :waste_management,
-      :recycling,
-      :renewable_energies,
-      :ecological_farming,
-      :ecological_farming_transition,
-      :other
-    ]
-    environment_protection_explanation { Faker::Lorem.sentence(200) }
-    environment_protection_other 'Sonstiges'
+    labor_conditions_checkboxes [:secure_environment, :working_hours, :sexual_equality,
+                                 :child_labor_ban]
+    labor_conditions_explanation 'I loved her simply because I found her irresistible. Once for '\
+      'all: I knew to my sorrow, often and often, if not always, that I loved her against reason, '\
+      'against promise, against peace, against hope,against happiness, against all discouragement '\
+      'that could be.'
 
     controlling true
-    controlling_checkboxes [
-      :transparent_supply_chain,
-      :annual_reports,
-      :inspectors,
-      :producer_visits,
-      :own_system,
-      :other
-    ]
-    controlling_explanation { Faker::Lorem.sentence(200) }
-    controlling_other 'Sonstiges'
-
-    awareness_raising true
-    awareness_raising_checkboxes [
-      :producer_transparency,
-      :employee_transparency,
-      :price_transparency,
-      :responsible_consumption_education,
-      :global_market_education,
-      :fair_trade_concept,
-      :other
-    ]
-    awareness_raising_explanation { Faker::Lorem.sentence(200) }
-    awareness_raising_other 'Sonstiges'
+    controlling_checkboxes [:transparent_supply_chain, :inspectors]
+    controlling_explanation 'May I ask you if you have ever had an opportunity of remarking, '\
+      'down in your part of the country, that the children of not exactly suitable marriages are '\
+      'always most particularly anxious to be married?'
   end
 end
