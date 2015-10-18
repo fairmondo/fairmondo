@@ -412,7 +412,7 @@ feature 'Checkout' do
 
   scenario 'Buying a cart with an incomplete user and adding address during checkout' do
     article = FactoryGirl.create(:article, title: 'foobar')
-    login_as FactoryGirl.create(:incomplete_user)
+    login_as FactoryGirl.create(:user)
     visit article_path(article)
 
     # add things to cart

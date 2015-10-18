@@ -14,7 +14,7 @@ FactoryGirl.define do
       line_item_group do
         FactoryGirl.create :line_item_group, :sold, :with_business_transactions,
                            traits: [:voucher, :transport_type1],
-                           seller: FactoryGirl.create(:seller, :paypal_data, uses_vouchers: true)
+                           seller: FactoryGirl.create(:legal_entity, :with_address, :with_bank_data, :with_paypal_account, uses_vouchers: true)
       end
 
       sequence(:pay_key) { |n| "20abc#{n}" }

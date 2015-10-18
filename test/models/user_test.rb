@@ -5,12 +5,9 @@
 require_relative '../test_helper'
 
 describe User do
-  let(:user) { FactoryGirl.create(:user) }
+  let(:user) { FactoryGirl.create(:private_user_with_address) }
+  let(:regular_user) { FactoryGirl.create(:private_user_with_address, :with_bank_data, :regular) }
   subject { User.new }
-
-  it 'has a valid Factory' do
-    user.valid?.must_equal true
-  end
 
   describe 'attributes' do
     it { subject.must_respond_to :id }
@@ -123,12 +120,11 @@ describe User do
 
   describe 'banning a user' do
     it 'should deactivate all of users active articles' do
-      user = FactoryGirl.create :user
-      FactoryGirl.create :article, seller: user
-
-      assert_difference 'user.articles.active.count', -1, 'active articles of user shoud be deactivated' do
-        user.banned = true
-        user.save
+      FactoryGirl.create :article, seller: regular_user
+      assert_difference 'regular_user.articles.active.count', -1,
+                        'active articles of user shoud be deactivated' do
+        regular_user.banned = true
+        regular_user.save
       end
     end
   end
@@ -136,17 +132,17 @@ describe User do
   describe 'methods' do
     describe '#count_value_of_goods' do
       it 'should sum the value of active goods' do
-        article = FactoryGirl.create :article, seller: user
-        second_article = FactoryGirl.create :article, seller: user
-        user.articles.reload
-        user.count_value_of_goods
-        user.value_of_goods_cents.must_equal(article.price_cents + second_article.price_cents)
+        article = FactoryGirl.create :article, seller: regular_user
+        second_article = FactoryGirl.create :article, seller: regular_user
+        regular_user.articles.reload
+        regular_user.count_value_of_goods
+        regular_user.value_of_goods_cents.must_equal(article.price_cents + second_article.price_cents)
       end
 
       it 'should not sum the value of inactive goods' do
-        FactoryGirl.create :preview_article, seller: user
-        user.count_value_of_goods
-        user.value_of_goods_cents.must_equal 0
+        FactoryGirl.create :preview_article, seller: regular_user
+        regular_user.count_value_of_goods
+        regular_user.value_of_goods_cents.must_equal 0
       end
     end
 
@@ -184,7 +180,8 @@ describe User do
 
     describe 'paypal_account_exists?' do
       it 'should be true if user has paypal account' do
-        FactoryGirl.create(:user, :paypal_data).paypal_account_exists?.must_equal true
+        user_with_paypal_account = FactoryGirl.build_stubbed(:private_user, :with_paypal_account)
+        user_with_paypal_account.paypal_account_exists?.must_equal true
       end
       it 'should be false if user does not have paypal account' do
         user.paypal_account_exists?.must_equal false
@@ -193,15 +190,16 @@ describe User do
 
     describe 'bank_account_exists?' do
       it 'should be true if user has bank account' do
-        user.bank_account_exists?.must_equal true
+        user_with_bank_account = FactoryGirl.build_stubbed(:private_user, :with_bank_data)
+        user_with_bank_account.bank_account_exists?.must_equal true
       end
       it 'should be false if user does not have bank account' do
-        FactoryGirl.create(:user, :no_bank_data).bank_account_exists?.must_equal false
+        user.bank_account_exists?.must_equal false
       end
     end
 
     describe '#update_fastbill_profile' do
-      let(:user) { FactoryGirl.create :legal_entity, :fastbill }
+      let(:user) { FactoryGirl.create :legal_entity, :with_fastbill_profile }
       let(:api) { FastbillAPI.new }
 
       it 'should call FastBillAPI.update_profile if user has fastbill profile' do

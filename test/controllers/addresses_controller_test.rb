@@ -91,7 +91,7 @@ describe AddressesController do
 
   describe 'DELETE ::destroy' do
     it 'should delete an address from the database' do
-      user = FactoryGirl.create :incomplete_user
+      user = FactoryGirl.create :user
       address = FactoryGirl.create :address, user: user
       sign_in user
       assert_difference('Address.count', -1) do
@@ -100,7 +100,7 @@ describe AddressesController do
     end
 
     it 'should stash a referenced address from the database' do
-      user = FactoryGirl.create :incomplete_user
+      user = FactoryGirl.create :user
       referenced_address = FactoryGirl.create :address, user: user
       FactoryGirl.create(:line_item_group, payment_address: referenced_address)
       sign_in user

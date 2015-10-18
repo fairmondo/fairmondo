@@ -169,7 +169,7 @@ feature 'User account management' do
   end
 
   scenario 'user wants to change the email for account without a password' do
-    @user = FactoryGirl.create :user
+    @user = FactoryGirl.create :user, :with_address
     login_as @user
     visit edit_user_registration_path @user
     fill_in 'user_email', with: 'chunky@bacon.com'
@@ -179,7 +179,7 @@ feature 'User account management' do
   end
 
   scenario 'user wants to change the password for his account without having address' do
-    @user = FactoryGirl.create :incomplete_user
+    @user = FactoryGirl.create :user
     login_as @user
     visit edit_user_registration_path @user
     fill_in 'user_current_password', with: 'password'

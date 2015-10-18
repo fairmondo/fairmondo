@@ -20,7 +20,7 @@ describe CartMailer do
   describe 'CartMailer#buyer_email' do
     let(:cart) do
       FactoryGirl.create :cart, :with_line_item_groups_from_legal_entity,
-                         user: FactoryGirl.create(:user), sold: true
+                         user: FactoryGirl.create(:private_user_with_address), sold: true
     end
 
     it 'sends email to buyer' do

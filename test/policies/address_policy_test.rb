@@ -30,7 +30,7 @@ describe AddressPolicy do
   end
 
   context 'for logged in owner of address' do
-    let(:user) { FactoryGirl.create(:incomplete_user) }
+    let(:user) { FactoryGirl.create(:user) }
     let(:address) { FactoryGirl.create(:address, user: user) }
 
     it { subject.must_permit(:create) }

@@ -7,8 +7,8 @@ require 'ffaker'
 FactoryGirl.define do
   factory :business_transaction do
     transient do
-      seller { FactoryGirl.create(:seller, :paypal_data) }
-      buyer { FactoryGirl.create :user }
+      association :seller, factory: [:legal_entity, :with_address, :with_bank_data, :with_paypal_account]
+      association :buyer, factory: :private_user_with_address
       article_attributes { Hash.new }
       article_all_attributes { article_attributes.merge(seller: seller, quantity: (quantity_bought + 1)) }
     end

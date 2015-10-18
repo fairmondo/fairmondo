@@ -4,8 +4,9 @@
 
 FactoryGirl.define do
   factory :discount do
-    title 'Discount'
-    description 'This is a discount'
+    title 'A good bargain'
+    description 'Here\'s the rule for bargains. \'Do other men, for they would do you.\' That\'s '\
+      'the true business precept.'
     start_time { 15.days.ago }
     end_time { 10.days.from_now }
     percent 50

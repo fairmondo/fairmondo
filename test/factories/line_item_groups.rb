@@ -5,8 +5,8 @@
 FactoryGirl.define do
   factory :line_item_group do
     cart
-    seller
-    buyer
+    association :seller, factory: :legal_entity_with_all_data
+    association :buyer, factory: :private_user_with_address
     message 'MyText'
     tos_accepted false
     transport_address { buyer.standard_address }
@@ -34,7 +34,7 @@ FactoryGirl.define do
       build_or_create_bts { sold ? :create : :build }
     end
 
-    seller { FactoryGirl.create(:seller, :paypal_data) } # that paypal can be selected
+    association :seller, factory: :legal_entity_with_all_data
 
     after(:create) do |line_item_group, evaluator|
       evaluator.traits.each_with_index do |traits, index|
@@ -53,7 +53,7 @@ FactoryGirl.define do
   end
 
   trait :with_unified_transport do
-    seller { FactoryGirl.create(:legal_entity, :paypal_data, :with_unified_transport_information) }
+    association :seller, factory: :legal_entity_with_all_data
     unified_transport true
     unified_transport_provider 'DHL'
     unified_transport_price_cents 300

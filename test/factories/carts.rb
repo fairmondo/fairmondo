@@ -4,7 +4,7 @@
 
 FactoryGirl.define do
   factory :cart do
-    user
+    association :user, factory: :private_user_with_address
     sold { false }
   end
 
@@ -29,9 +29,15 @@ FactoryGirl.define do
 
     after(:create) do |cart, evaluator|
       if cart.sold?
-        create_list(:line_item_group, evaluator.line_item_group_count, :with_business_transactions, :sold, seller: FactoryGirl.create(:legal_entity, :paypal_data), cart: cart)
+        create_list(:line_item_group, evaluator.line_item_group_count, :with_business_transactions,
+                    :sold, seller: FactoryGirl.create(:legal_entity, :with_address,
+                                                      :with_paypal_account, :with_bank_data),
+                           cart: cart)
       else
-        create_list(:line_item_group, evaluator.line_item_group_count, seller: FactoryGirl.create(:legal_entity, :paypal_data), cart: cart)
+        create_list(:line_item_group, evaluator.line_item_group_count,
+                    seller: FactoryGirl.create(:legal_entity, :with_address, :with_paypal_account,
+                                               :with_bank_data),
+                    cart: cart)
       end
     end
   end
