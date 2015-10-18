@@ -4,22 +4,19 @@
 
 FactoryGirl.define do
   factory :line_item do
-    article
+    requested_quantity 1
+    association :article
     line_item_group { FactoryGirl.create :line_item_group, seller: article.seller }
 
-    requested_quantity 1
-  end
+    factory :line_item_with_conventional_article, traits: [:with_conventional_article]
+    factory :line_item_with_fair_article,         traits: [:with_fair_article]
 
-  trait :with_conventional_article do
-    article do
-      FactoryGirl.create(:article, :with_legal_entity, condition: 'new')
+    trait :with_conventional_article do
+      association :article, factory: [:article, :with_legal_entity], condition: 'new'
     end
-  end
 
-  trait :with_fair_article do
-    article do
-      FactoryGirl.create(:article, :with_legal_entity, :simple_fair,
-                         condition: 'new')
+    trait :with_fair_article do
+      association :article, factory: [:article, :with_legal_entity, :simple_fair], condition: 'new'
     end
   end
 end

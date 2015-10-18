@@ -16,7 +16,7 @@ describe CartsController do
                                      belboon_tracking_token_set_at: Time.now
     cart = FactoryGirl.create :cart, :with_line_item_groups_from_legal_entity,
                               user: user, sold: true
-    FactoryGirl.create :line_item, :with_conventional_article,
+    FactoryGirl.create :line_item_with_conventional_article,
                        line_item_group: cart.line_item_groups.first
     LineItem.any_instance.stubs(:qualifies_for_belboon?).returns true
 
