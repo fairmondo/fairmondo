@@ -164,7 +164,7 @@ describe 'Abacus' do
     traits = [[:bank_transfer, :bought_five], [:bank_transfer, :bought_five], [:cash_on_delivery, :bought_ten, :transport_type1], [:cash_on_delivery, :bought_ten, :transport_type2]]
     attributes = article_attributes_for prices, transport_prices, transport_numbers
     attributes.last(2).each { |attr| attr[:unified_transport] = false } # set the last 2 articles to single transport
-    ngo = FactoryGirl.create :ngo
+    ngo = FactoryGirl.create :legal_entity, ngo: true
     attributes.each { |attr| attr[:friendly_percent] = 75 }
     attributes.each { |attr| attr[:friendly_percent_organisation] = ngo }
     abacus_for(traits, attributes, [:with_unified_transport, :with_free_transport_at_40])

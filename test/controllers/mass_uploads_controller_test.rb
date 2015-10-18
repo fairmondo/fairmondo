@@ -15,10 +15,10 @@ describe MassUploadsController do
     end
 
     describe 'for signed-in users' do
-      let(:user) { FactoryGirl.create :legal_entity_that_can_sell }
+      let(:user) { FactoryGirl.create :legal_entity }
+      before { sign_in user }
 
       it 'should render the :new view' do
-        sign_in user
         get :new
         assert_template :new
       end
@@ -26,7 +26,7 @@ describe MassUploadsController do
   end
 
   describe 'mass-upload creation' do
-    let(:user) { FactoryGirl.create(:legal_entity_that_can_sell, :with_paypal_account) }
+    let(:user) { FactoryGirl.create(:legal_entity, :paypal_data) }
     let(:attributes) { FactoryGirl.attributes_for(:mass_upload, user: user) }
 
     before do

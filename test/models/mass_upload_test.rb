@@ -22,7 +22,7 @@ describe MassUpload do
   end
 
   describe 'methods' do
-    # let(:legal_entity_user) { FactoryGirl.create :legal_entity, :with_paypal_account }
+    # let(:legal_entity_user) { FactoryGirl.create :legal_entity, :paypal_data }
     # let(:db_mass_upload)    { FactoryGirl.create :mass_upload, :user => legal_entity_user }
     # let(:mass_upload)       { MassUpload.new }
 

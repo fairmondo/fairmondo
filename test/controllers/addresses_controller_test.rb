@@ -5,8 +5,9 @@
 require_relative '../test_helper'
 
 describe AddressesController do
-  let(:user) { FactoryGirl.create :regular_private_user }
+  let(:user) { FactoryGirl.create :user }
   let(:address) { FactoryGirl.create :address, user: user }
+  let(:referenced_address) { FactoryGirl.create :address, :referenced, user: user }
 
   describe 'GET ::new' do
     it 'should render addresse\'s new_template' do
@@ -74,22 +75,24 @@ describe AddressesController do
 
     it 'should clone a referenced address' do
       @address_attrs = FactoryGirl.attributes_for :address, first_name: 'test update'
-      FactoryGirl.create(:line_item_group, payment_address: address)
-      fist_name_referenced = address.first_name
-      user.addresses << address
+      referenced_address = FactoryGirl.create :address, user: user
+      FactoryGirl.create(:line_item_group, payment_address: referenced_address)
+      fist_name_referenced = referenced_address.first_name
+      user.addresses << referenced_address
       sign_in user
 
       assert_difference('Address.count', 1) do
-        xhr :patch, :update, user_id: user.id, id: address.id, address: @address_attrs
+        xhr :patch, :update, user_id: user.id, id: referenced_address.id, address: @address_attrs
       end
-      address.reload.first_name.must_equal fist_name_referenced
+      referenced_address.reload.first_name.must_equal fist_name_referenced
       user.addresses.last.first_name.must_equal 'test update'
     end
   end
 
   describe 'DELETE ::destroy' do
     it 'should delete an address from the database' do
-      address
+      user = FactoryGirl.create :incomplete_user
+      address = FactoryGirl.create :address, user: user
       sign_in user
       assert_difference('Address.count', -1) do
         xhr :delete, :destroy, user_id: user.id, id: address.id
@@ -97,12 +100,14 @@ describe AddressesController do
     end
 
     it 'should stash a referenced address from the database' do
-      FactoryGirl.create(:line_item_group, payment_address: address)
+      user = FactoryGirl.create :incomplete_user
+      referenced_address = FactoryGirl.create :address, user: user
+      FactoryGirl.create(:line_item_group, payment_address: referenced_address)
       sign_in user
       assert_difference('Address.count', 0) do
-        xhr :delete, :destroy, user_id: address.user.id, id: address.id
+        xhr :delete, :destroy, user_id: referenced_address.user.id, id: referenced_address.id
       end
-      address.reload.stashed?.must_equal true
+      referenced_address.reload.stashed?.must_equal true
     end
   end
 end

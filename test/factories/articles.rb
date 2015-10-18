@@ -5,8 +5,8 @@
 require 'ffaker'
 
 FactoryGirl.define do
-  factory :article do
-    association :seller, factory: [:legal_entity_that_can_sell, :with_paypal_account]
+  factory :article, aliases: [:appended_object] do
+    seller      # alias for User -> see spec/factories/users.rb
     categories { |c| [c.association(:category)] }
     title     { Faker::Lorem.words(rand(3..5)).join(' ').titleize }
     content   { Faker::Lorem.paragraph(rand(7) + 1) }
@@ -147,32 +147,31 @@ FactoryGirl.define do
       payment_voucher true
       payment_details { Faker::Lorem.paragraph(rand(2..5)) }
 
-      association :seller, factory: [:legal_entity, :with_paypal_account]
+      seller { FactoryGirl.create :seller, :paypal_data }
     end
 
     trait :with_private_user do
-      association :seller, factory: [:private_user, :with_paypal_account, :with_bank_data, :regular]
-      # adding paypal data because it is needed for with_all_transports
+      seller { FactoryGirl.create :private_user, :paypal_data } # adding paypal data because it is needed for with_all_transports
     end
 
     trait :with_legal_entity do
       vat { [7, 19].sample }
-      association :seller, factory: [:legal_entity, :with_paypal_account]
+      seller { FactoryGirl.create :legal_entity, :paypal_data }
     end
 
     trait :with_ngo do
       vat { [7, 19].sample }
-      association :seller, factory: [:ngo, :with_bank_data, :with_address, :with_paypal_account]
+      seller { FactoryGirl.create :legal_entity, :paypal_data, ngo: true }
     end
 
     trait :with_friendly_percent do
       friendly_percent 75
-      association :friendly_percent_organisation, factory: :ngo
+      friendly_percent_organisation { FactoryGirl.create :legal_entity, ngo: true }
     end
 
-    trait :with_friendly_percent_with_bank_data do
+    trait :with_friendly_percent_and_missing_bank_data do
       friendly_percent 75
-      association :friendly_percent_organisation, factory: :ngo_with_bank_data
+      friendly_percent_organisation { FactoryGirl.create :legal_entity, :missing_bank_data, ngo: true }
     end
 
     trait :simple_fair do
@@ -194,7 +193,7 @@ FactoryGirl.define do
     end
 
     trait :with_larger_quantity do
-      quantity 100
+      quantity { (rand(100) + 2) }
     end
 
     trait :with_custom_seller_identifier do
@@ -202,7 +201,7 @@ FactoryGirl.define do
     end
 
     trait :with_discount do
-      association :discount
+      discount { FactoryGirl.create :discount }
     end
 
     trait :invalid do

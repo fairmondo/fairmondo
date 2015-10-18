@@ -7,7 +7,7 @@ require_relative '../test_helper'
 # KontoAPI::valid? and bank_name are automatically stubbed to true / Bankname
 describe BankDetailsController do
   setup do
-    @user = FactoryGirl.create(:regular_private_user)
+    @user = FactoryGirl.create(:user)
     sign_in @user
   end
 

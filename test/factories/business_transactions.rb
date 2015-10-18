@@ -6,12 +6,15 @@ require 'ffaker'
 
 FactoryGirl.define do
   factory :business_transaction do
-    association :seller, factory: [:legal_entity_that_can_sell, :with_paypal_account]
-    association :buyer, factory: :regular_private_user
+    transient do
+      seller { FactoryGirl.create(:seller, :paypal_data) }
+      buyer { FactoryGirl.create :user }
+      article_attributes { Hash.new }
+      article_all_attributes { article_attributes.merge(seller: seller, quantity: (quantity_bought + 1)) }
+    end
 
-    association :article, factory: [:article, :with_fixture_image, :with_all_payments,
-                                    :with_all_transports], quantity: 2
-    association :line_item_group, factory: [:line_item_group, :sold]
+    article { FactoryGirl.create :article, :with_fixture_image, :with_all_payments, :with_all_transports, article_all_attributes }
+    line_item_group { FactoryGirl.create :line_item_group, :sold, seller: seller, buyer: buyer }
 
     selected_transport 'type1'
     selected_payment 'bank_transfer'
@@ -58,6 +61,8 @@ FactoryGirl.define do
       article { FactoryGirl.create :article, :with_discount }
     end
 
+    ################ Transports #############
+
     trait :pickup do
       selected_transport :pickup
     end
@@ -77,6 +82,8 @@ FactoryGirl.define do
       bike_courier_message 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
     end
 
+    ################ Payments #############
+
     trait :cash do
       selected_payment 'cash'
     end
@@ -90,7 +97,7 @@ FactoryGirl.define do
     end
 
     trait :cash_on_delivery do
-      selected_payment 'cash_on_delivery'
+      selected_payment :cash_on_delivery
     end
 
     trait :bank_transfer do
@@ -100,5 +107,10 @@ FactoryGirl.define do
     trait :voucher do
       selected_payment 'voucher'
     end
+
+    #    trait :mangopay do
+    #      selected_payment 'mangopay'
+    #      payment
+    #    end
   end
 end

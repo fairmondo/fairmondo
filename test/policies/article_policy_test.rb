@@ -36,7 +36,7 @@ describe ArticlePolicy do
   end
 
   describe 'for a random logged-in user' do
-    let(:user) { FactoryGirl.build_stubbed :regular_private_user }
+    let(:user) { FactoryGirl.create :user }
 
     it { subject.must_permit(:index)           }
     it { subject.must_permit(:new)             }
