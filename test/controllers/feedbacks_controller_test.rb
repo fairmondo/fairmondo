@@ -7,7 +7,8 @@ require_relative '../test_helper'
 describe FeedbacksController do
   describe "POST 'create'" do
     before :each do
-      @attributes = FactoryGirl.attributes_for :feedback, :report_article
+      article = FactoryGirl.create(:article)
+      @attributes = FactoryGirl.attributes_for(:feedback, article_id: article.id)
     end
 
     describe 'for non-signed-in users' do
@@ -17,9 +18,9 @@ describe FeedbacksController do
         end
       end
 
-      it 'should create a feedback with variety report_article' do
+      it 'should create no feedback if recaptcha is not verified' do
         @controller.stubs(:verify_recaptcha).returns(false)
-        assert_no_difference 'Feedback.count', 1 do
+        assert_no_difference 'Feedback.count' do
           post :create, feedback: @attributes
         end
       end
