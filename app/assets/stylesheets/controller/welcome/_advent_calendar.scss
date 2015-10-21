@@ -1,0 +1,97 @@
+.advent-calendar {
+  margin-bottom: 1em;
+}
+
+.advent-calendar-inner {
+  @include whitebox;
+  padding: 0;
+  width: auto;
+  height: 410px;
+  min-height: 410px;
+  position: relative;
+  color: $white;
+}
+
+.advent-calendar article {
+  background-repeat: no-repeat;
+  background-position: center top;
+  border-radius: 0.5em;  // Circumvent bug in Webkit browsers that would hide the rounded border
+  height: 410px;
+
+  h2, p {
+    margin: 0;
+    text-indent: -1000em;
+  }
+
+  a {
+    display: block;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+  }
+}
+
+.advent-calendar-bow-div {
+  position: absolute;
+  right: -37px;
+  top: -37px;
+  width: 167px;
+  height: 150px;
+  z-index: 11;
+  background-image: image-url('welcome/cap.png');
+  background-position: right top;
+  background-repeat: no-repeat;
+}
+
+/******************************** Breakpoints *********************************/
+
+@include between-breakpoints($bp-mobile-horizontal, $bp-tablet) {
+  .advent-calendar {
+    @include span(2 of 4);
+    @include omega;
+  }
+}
+
+@include between-breakpoints($bp-tablet, $bp-tablet-horizontal) {
+  .advent-calendar {
+    @include span(2 of 6);
+    @include omega;
+  }
+}
+
+@include at-breakpoint($bp-tablet-horizontal) {
+  .advent-calendar {
+    @include span(2 of 8);
+    @include omega;
+  }
+}
+
+/*** Different images ***/
+
+.advent-calendar-pre { background-image: image-url('welcome/advent_calendar_pre.jpg'); }
+.advent-calendar-01 { background-image: image-url('welcome/advent_calendar_01.jpg'); }
+.advent-calendar-02 { background-image: image-url('welcome/advent_calendar_02.jpg'); }
+.advent-calendar-03 { background-image: image-url('welcome/advent_calendar_03.jpg'); }
+.advent-calendar-04 { background-image: image-url('welcome/advent_calendar_04.jpg'); }
+.advent-calendar-05 { background-image: image-url('welcome/advent_calendar_05.jpg'); }
+.advent-calendar-06 { background-image: image-url('welcome/advent_calendar_06.jpg'); }
+.advent-calendar-07 { background-image: image-url('welcome/advent_calendar_07.jpg'); }
+.advent-calendar-08 { background-image: image-url('welcome/advent_calendar_08.jpg'); }
+.advent-calendar-09 { background-image: image-url('welcome/advent_calendar_09.jpg'); }
+.advent-calendar-10 { background-image: image-url('welcome/advent_calendar_10.jpg'); }
+.advent-calendar-11 { background-image: image-url('welcome/advent_calendar_11.jpg'); }
+.advent-calendar-12 { background-image: image-url('welcome/advent_calendar_12.jpg'); }
+.advent-calendar-13 { background-image: image-url('welcome/advent_calendar_13.jpg'); }
+.advent-calendar-14 { background-image: image-url('welcome/advent_calendar_14.jpg'); }
+.advent-calendar-15 { background-image: image-url('welcome/advent_calendar_15.jpg'); }
+.advent-calendar-16 { background-image: image-url('welcome/advent_calendar_16.jpg'); }
+.advent-calendar-17 { background-image: image-url('welcome/advent_calendar_17.jpg'); }
+.advent-calendar-18 { background-image: image-url('welcome/advent_calendar_18.jpg'); }
+.advent-calendar-19 { background-image: image-url('welcome/advent_calendar_19.jpg'); }
+.advent-calendar-20 { background-image: image-url('welcome/advent_calendar_20.jpg'); }
+.advent-calendar-21 { background-image: image-url('welcome/advent_calendar_21.jpg'); }
+.advent-calendar-22 { background-image: image-url('welcome/advent_calendar_22.jpg'); }
+.advent-calendar-23 { background-image: image-url('welcome/advent_calendar_23.jpg'); }
+.advent-calendar-24 { background-image: image-url('welcome/advent_calendar_24.jpg'); }

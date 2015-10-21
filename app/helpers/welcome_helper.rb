@@ -14,4 +14,25 @@ module WelcomeHelper
   def featured_library_path library
     library ? library_path(library) : '#'
   end
+
+  def calendar_time?
+    # true
+    current_date = Date.today
+    if (current_date >= Date.parse('2015-11-24')) && (current_date <= Date.parse('2015-12-24'))
+      true
+    else
+      false
+    end
+  end
+
+  def calendar_partial_name
+    # 'welcome/advent_calendar/window_01'
+    if Date.today < Date.parse('2015-12-01')
+      'welcome/advent_calendar/window_pre'
+    else
+      day = Date.today.day
+      day_str = day.to_s.rjust(2, '0')
+      "welcome/advent_calendar/window_#{day_str}"
+    end
+  end
 end
