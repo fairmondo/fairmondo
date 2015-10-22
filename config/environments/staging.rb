@@ -50,8 +50,8 @@ Fairmondo::Application.configure do
   # Enable serving of images, stylesheets, and JavaScripts from an asset server
   #config.action_controller.asset_host = "assets%d.fairmondo.de"
 
-  # Disable delivery errors, bad email addresses will be ignored
-  # config.action_mailer.raise_delivery_errors = false
+  # Enable delivery errors
+  config.action_mailer.raise_delivery_errors = true
   config.action_mailer.default_url_options = { :host => 'development.fairmondo.de'}
 
   config.dependency_loading = true if $rails_rake_task
