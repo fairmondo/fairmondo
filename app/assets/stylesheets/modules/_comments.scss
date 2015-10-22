@@ -1,26 +1,25 @@
 .Comment-single {
-  border: 1px solid $lighter-gray;
-  border-radius:1em;
   min-height: 48px;
-  margin-bottom: 0.7em;
+  margin-bottom: 1em;
   overflow: hidden;
-  background-color: $lighter-gray;
+  max-width: 55em;
 }
 
 .Comment-single > .author_image {
-  height: 48px;
-  width: 48px;
+  height: 40px;
+  width: 40px;
   float: left;
+  margin-top: 5px;
 }
 
 .Comment-single > .meta {
-  padding-left: 58px;
+  padding-left: 49px;
   background-color: #fff;
 }
 
 .Comment-single > .text {
   margin-left: 48px;
-  padding-left: 10px;
+  padding-left: 2px;
   padding-right: 10px;
   background-color: #FFF;
   min-height: 28px;
