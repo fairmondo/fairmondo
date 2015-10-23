@@ -28,8 +28,11 @@ Make sure you install <em>2.2.2</em>. and not <em>ruby 1.9.3-p392</em>.
 * Install required gems
     bundle install
 
-* set up local files and change the setup data if you want
+* Set up local files and change the setup data if you want
     cp config/environments/development.example.rb config/environments/development.rb
+
+* Set up local version of secrets.yml
+    cp config/secrets.yml.example config/secrets.yml
 
 * {set up Postgres for development environment}[https://github.com/fairmondo/fairmondo/wiki/Postgres-Setup]
 
