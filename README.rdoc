@@ -43,7 +43,7 @@ Make sure you install <em>2.2.2</em>. and not <em>ruby 1.9.3-p392</em>.
 
 * you may like to adopt the config/database.yml according to your wishes
 
-* to use the recaptcha you have to add your keys in the api.yml. You can get the keys at https://www.google.com/recaptcha/admin/list
+* to use the recaptcha you have to add your keys into your secrets.yml file. You can get the keys at https://www.google.com/recaptcha/admin/list
 
 * start rails and have fun
     rails server
