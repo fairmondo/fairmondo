@@ -151,6 +151,20 @@
 }
 
 
+// Startnext widget
+.startnext_widget { margin-bottom: 1em; }
+.startnext_widget-inner {
+  @include whitebox;
+  background-color: $blue;
+  padding: 0;
+  height: 410px;
+
+  iframe {
+    display: block;
+    margin: 50px auto 0;
+  }
+}
+
 
 // USP teaser
 #usp { margin-bottom: 1em; }
@@ -449,6 +463,11 @@
     @include omega;
   }
 
+  .startnext_widget {
+    @include span(2 of 4);
+    @include omega;
+  }
+
 
   // Filters teaser
   .teaser--filters {
@@ -535,6 +554,11 @@
     @include omega;
   }
 
+  .startnext_widget {
+    @include span(2 of 6);
+    @include omega;
+  }
+
 
   // Filters teaser
   .teaser--filters {
@@ -608,6 +632,11 @@
 
   // USP teaser
   #usp {
+    @include span(2 of 8);
+    @include omega;
+  }
+
+  .startnext_widget {
     @include span(2 of 8);
     @include omega;
   }
