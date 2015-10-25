@@ -53,7 +53,7 @@ describe FastbillAPI do
             db_business_transaction # to trigger observers before
             api = FastbillAPI.new db_business_transaction
             Fastbill::Automatic::Customer.stub :create, -> (_arg) { raise StandardError.new } do
-              Rails.logger.fastbill.expects(:error)
+              ExceptionNotifier.expects(:notify_exception)
               api.fastbill_chain
             end
           end
@@ -70,7 +70,7 @@ describe FastbillAPI do
           db_business_transaction # to trigger observers before
           api = FastbillAPI.new db_business_transaction
           Fastbill::Automatic::Subscription.stub :setusagedata, -> (_arg) { raise StandardError.new } do
-            Rails.logger.fastbill.expects(:error).twice
+            ExceptionNotifier.expects(:notify_exception).twice
             api.fastbill_chain
           end
         end

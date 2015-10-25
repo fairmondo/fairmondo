@@ -215,6 +215,9 @@ GEM
       activesupport (>= 3.2)
     erubis (2.7.0)
     eventmachine (1.0.4)
+    exception_notification (4.1.1)
+      actionmailer (>= 3.0.4)
+      activesupport (>= 3.0.4)
     execjs (2.2.2)
     eye (0.6.4)
       celluloid (~> 0.15.0)
@@ -375,8 +378,6 @@ GEM
       money (~> 6.5.0)
       railties (>= 3.0)
     multi_json (1.10.1)
-    multi_logger (0.1.0)
-      railties
     multipart-post (2.0.0)
     nenv (0.2.0)
     nested_form (0.3.2)
@@ -697,6 +698,7 @@ DEPENDENCIES
   devise
   email_spec
   enumerize (>= 0.5.1)
+  exception_notification
   eye
   factory_girl_rails
   fakeredis
@@ -736,7 +738,6 @@ DEPENDENCIES
   modernizr-rails
   monetize
   money-rails (> 0.12.0)
-  multi_logger
   newrelic_rpm
   nkss-rails!
   nokogiri

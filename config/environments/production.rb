@@ -96,4 +96,13 @@ Fairmondo::Application.configure do
 
   # Better logging
   config.lograge.enabled = true
+
+  # Notify exceptions by email
+  config.middleware.use ExceptionNotification::Rack,
+    ignore_crawlers: %w{Googlebot bingbot},
+    email: {
+      email_prefix: '[Production] ',
+      sender_address: %{"Exception notifier" <notifier@fairmondo.de>},
+      exception_recipients: %w{exceptions@fairmondo.de}
+    }
 end

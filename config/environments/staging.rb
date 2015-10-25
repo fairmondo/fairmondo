@@ -79,5 +79,4 @@ Fairmondo::Application.configure do
   Rails.application.routes.default_url_options[:host] = 'http://development.fairmondo.de'
   #Memcached
   config.cache_store = :dalli_store, 'localhost', { :namespace => "fairmondo", :expires_in => 1.day, :compress => true }
-
 end

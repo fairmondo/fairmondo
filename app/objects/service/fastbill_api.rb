@@ -53,9 +53,8 @@ class FastbillAPI
           attributes[:customer_number] = @seller.id
           customer = Fastbill::Automatic::Customer.create(attributes)
           @seller.update_attribute :fastbill_id, customer.customer_id
-          Rails.logger.fastbill.info { "Fastbill profile created for user #{@seller.id}" }
         rescue => e
-          Rails.logger.fastbill.error { "Fastbill profile creation failed for user #{@seller.id}\n#{e.inspect} #{e.backtrace}" }
+          ExceptionNotifier.notify_exception(e, data: { user: @seller })
         end
       end
     end
@@ -115,9 +114,8 @@ class FastbillAPI
           )
           @bt.send("billed_for_#{ type }=", true)
           @bt.save
-          Rails.logger.fastbill.info { "Fastbill usage data sent for business transaction #{@bt.id}" }
         rescue => e
-          Rails.logger.fastbill.error { "Fastbill usage data failed for business transaction #{@bt.id}\n#{e.inspect} #{e.backtrace}" }
+          ExceptionNotifier.notify_exception(e, data: { business_transaction: @bt, user: @seller })
         end
       end
     end
