@@ -15,9 +15,14 @@
 .Comment-single > .meta {
   padding-left: 49px;
   background-color: #fff;
+  font-size: 0.85em;
+  > time {
+    color: $gray;
+  }
 }
 
 .Comment-single > .text {
+  margin-top: 0.25em;
   margin-left: 48px;
   padding-left: 2px;
   padding-right: 10px;
