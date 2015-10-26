@@ -2,21 +2,25 @@
 #   licensed under the GNU Affero General Public License version 3 or later.
 #   See the COPYRIGHT file for details.
 
-require 'ffaker'
-
 FactoryGirl.define do
   factory :article do
     association :seller, factory: :user
     categories { |c| [c.association(:category)] }
-    title     { Faker::Lorem.words(rand(3..5)).join(' ').titleize }
-    content   { Faker::Lorem.paragraph(rand(7) + 1) }
-    condition { %w(new old).sample }
-    condition_extra { [:as_good_as_new, :as_good_as_warranted, :used_very_good, :used_good, :used_satisfying, :broken].sample }
-    price_cents { Random.new.rand(40000) + 1 }
-    vat { [0, 7, 19].sample }
+    sequence(:title) { |n| "Book #{n}" }
+    content 'Content of the book'
+    condition :new
+    price_cents 3995
+    vat 19
     quantity 1
     state 'active'
-    original_id { nil }
+
+    trait :no_vat do
+      vat 0
+    end
+
+    trait :reduced_vat do
+      vat 7
+    end
 
     trait :index_article do
       after :create do |article, _evaluator|
@@ -24,8 +28,8 @@ FactoryGirl.define do
       end
     end
 
-    basic_price_cents { Random.new.rand(500000) + 1 }
-    basic_price_amount { [:kilogram, :gram, :liter, :milliliter, :cubicmeter, :meter, :squaremeter, :portion].sample }
+    basic_price_cents 50000
+    basic_price_amount :kilogram
 
     before :create do |article, _evaluator|
       article.calculate_fees_and_donations
@@ -33,24 +37,24 @@ FactoryGirl.define do
 
     transport_type1 true
     transport_type1_provider 'DHL Päckchen'
-    transport_type1_price_cents { Random.new.rand(200) + 1 }
+    transport_type1_price_cents 400
     transport_details 'transport_details'
     payment_bank_transfer true
 
     payment_details 'payment_details'
 
     factory :article_template do
-      article_template_name { Faker::Lorem.words(rand(3) + 2) * ' ' }
-      state :template
+      article_template_name 'book template'
+      state 'template'
     end
 
     factory :second_hand_article do
-      condition 'old'
-      condition_extra 'as_good_as_new'
+      condition :old
+      condition_extra :as_good_as_new
     end
 
     factory :no_second_hand_article do
-      condition 'new'
+      condition :new
     end
 
     factory :preview_article do
@@ -130,11 +134,11 @@ FactoryGirl.define do
       transport_type2_price 10
       transport_type1_provider 'DHL'
       transport_type2_provider 'Hermes'
-      transport_type1_number { rand(1..10) }
-      transport_type2_number { rand(1..10) }
-      transport_bike_courier_number { rand(1..10) }
+      transport_type1_number 3
+      transport_type2_number 4
+      transport_bike_courier_number 5
       unified_transport true
-      transport_details { Faker::Lorem.paragraph(rand(2..5)) }
+      transport_details 'Some transport details'
     end
 
     trait :with_all_payments do
@@ -145,7 +149,7 @@ FactoryGirl.define do
       payment_cash_on_delivery_price 5
       payment_invoice true
       payment_voucher true
-      payment_details { Faker::Lorem.paragraph(rand(2..5)) }
+      payment_details 'Some payment details'
 
       association :seller, factory: [:user, :paypal_data]
     end
@@ -155,12 +159,10 @@ FactoryGirl.define do
     end
 
     trait :with_legal_entity do
-      vat { [7, 19].sample }
       association :seller, factory: [:legal_entity, :paypal_data]
     end
 
     trait :with_ngo do
-      vat { [7, 19].sample }
       association :seller, factory: [:legal_entity, :paypal_data], ngo: true
     end
 
@@ -190,15 +192,17 @@ FactoryGirl.define do
     trait :simple_small_and_precious do
       small_and_precious true
       small_and_precious_eu_small_enterprise true
-      small_and_precious_reason 'a' * 151
+      small_and_precious_reason 'This is a so-called small and precious article because it was '\
+        'manufactured in small quantities by people who work largely by hand in small factories '\
+        'using traditional methods.'
     end
 
     trait :with_larger_quantity do
-      quantity { (rand(100) + 2) }
+      quantity 100
     end
 
     trait :with_custom_seller_identifier do
-      custom_seller_identifier { Faker::Lorem.characters(10) }
+      custom_seller_identifier 'CUSTOM-004'
     end
 
     trait :with_discount do
