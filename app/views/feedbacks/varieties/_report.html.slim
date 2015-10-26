@@ -2,7 +2,7 @@
   = t('article.show.report')
   = f.inputs do
     / hidden
-    = f.input :article_id, as: :hidden, input_html: { value: resource.id }
+    = f.input :article_id, as: :hidden, input_html: { value: resource.is_a?(Feedback) ? resource.article.id : resource.id }
     = f.input :variety, as: :hidden, input_html: { value: 'report_article' }
     / user input
     = f.input :text, input_html: { rows: 4 }
