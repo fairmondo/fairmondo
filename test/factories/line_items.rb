@@ -10,6 +10,7 @@ FactoryGirl.define do
 
     factory :line_item_with_conventional_article, traits: [:with_conventional_article]
     factory :line_item_with_fair_article,         traits: [:with_fair_article]
+    factory :line_item_with_private_user,         traits: [:with_private_user]
 
     trait :with_conventional_article do
       association :article, factory: [:article, :with_legal_entity], condition: 'new'
@@ -17,6 +18,10 @@ FactoryGirl.define do
 
     trait :with_fair_article do
       association :article, factory: [:article, :with_legal_entity, :simple_fair], condition: 'new'
+    end
+
+    trait :with_private_user do
+      association :article, factory: [:article, :with_private_user], condition: 'new'
     end
   end
 end
