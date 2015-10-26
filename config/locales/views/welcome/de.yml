@@ -94,14 +94,15 @@ de:
           eine Chance sehen, faire und Bio-Produkte weiter zu verbreiten.
         source: "Thomas Kappauf, Black Star"
 
-    known_from:
-      heading: "Bekannt aus"
+    references:
+      heading: "Referenzen"
       icons:
         hochschulanzeiger: "Hochschulanzeiger"
         taz: "Taz"
         sueddeutsche: "Süddeutsche Zeitung"
         arte: "Arte"
         deutschlandfunk: "Deutschlandfunk"
+      netzsieger: "Netzsieger"
 
     ngo_logos:
       heading: "Spendenpartner*innen"

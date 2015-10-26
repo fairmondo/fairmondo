@@ -1,0 +1,13 @@
+/ references
+
+.teaser.teaser--full#press
+  .teaser-inner
+    h5= t '.heading'
+    ul.image-list
+      - t('.icons').each do |key, display_name|
+        li
+          span class="sprite_#{key}" title=display_name
+      li
+        = link_to image_tag('netzsieger.png', size: '100x70', alt: 'Netzsieger',
+                                              class: 'references-netzsieger'),
+                  'http://www.netzsieger.de/e/fairmondo', target: '_blank', title: t('.netzsieger')
