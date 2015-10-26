@@ -63,7 +63,7 @@ class LineItem < ActiveRecord::Base
   end
 
   def qualifies_for_belboon?
-    line_item_group.seller.is_a?(LegalEntity) && article.is_conventional?
+    line_item_group.seller.is_a?(LegalEntity)
   end
 
   def orphaned?
