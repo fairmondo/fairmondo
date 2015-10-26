@@ -2,7 +2,7 @@
   = image_tag comment.user_image_url(:thumb), class: "author_image"
   .meta
     = link_to comment.user_nickname, user_path(comment.user)
-    | &nbsp;
+    | &ensp;
     = timeago_tag comment.created_at, lang: :de, class: "Timeago"
     = javascript_tag "$('.Timeago').timeago();" if request.xhr?
     /refresh timeago evaluation
