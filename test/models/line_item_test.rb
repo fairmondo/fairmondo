@@ -13,15 +13,15 @@ describe LineItem do
   end
 
   describe '#qualifies_for_belboon?' do
-    let(:conventional_line_item) { FactoryGirl.create :line_item_with_conventional_article }
-    let(:fair_line_item) { FactoryGirl.create :line_item_with_fair_article }
+    let(:legal_entity_line_item) { FactoryGirl.create :line_item_with_legal_entity }
+    let(:private_user_line_item) { FactoryGirl.create :line_item_with_private_user }
 
-    it 'should return true if seller is a LegalEntity and article is conventional' do
-      assert_equal true, conventional_line_item.qualifies_for_belboon?
+    it 'should return true if seller is a LegalEntity' do
+      assert_equal true, legal_entity_line_item.qualifies_for_belboon?
     end
 
-    it 'should return false if article is fair' do
-      assert_equal false, fair_line_item.qualifies_for_belboon?
+    it 'should return false if seller is a PrivateUser' do
+      assert_equal false, private_user_line_item.qualifies_for_belboon?
     end
   end
 end
