@@ -55,6 +55,9 @@ class LibrariesController < ApplicationController
     @library = current_user.libraries.build(params.for(Library).refine)
     authorize @library
 
+    # Needed for the JS responses
+    @article_id ||= params[:article_id]
+
     respond_with @library do |format|
       create_response_for format
     end
