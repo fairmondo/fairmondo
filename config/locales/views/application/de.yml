@@ -1,4 +1,4 @@
 de:
-  address:
-    actions:
+  application:
+    gray_box_layout:
       new: Neue Adresse hinzufügen
