@@ -56,7 +56,7 @@ class LibrariesController < ApplicationController
     authorize @library
 
     # Needed for the JS responses
-    @article_id ||= params[:article_id]
+    @article_id = params[:article_id]
 
     respond_with @library do |format|
       create_response_for format
