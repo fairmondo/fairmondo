@@ -3,5 +3,5 @@
 /   See the COPYRIGHT file for details.
 
 .Address-form-container
-  h1 Adresse bearbeiten
+  h1= t('.heading')
   = render 'addresses/form', address: @address, radio: params[:radio]

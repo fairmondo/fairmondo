@@ -116,7 +116,7 @@ h1= t('common.actions.edit_profile')
         .Accordion-step
           .visibility
             = t('users.visibility.private')
-          h3= 'Deine Versandaddressen'
+          h3= t('.heading')
 
           = render 'addresses/addresses', radio: false
           = link_to 'neue Adresse hinzufügen', new_user_address_path(@user), { class: 'ungrouped_colorbox' }
