@@ -11,6 +11,7 @@ feature 'Give Feedback' do
     @user = FactoryGirl.create :user
     login_as @user
   end
+
   scenario 'user wants help' do
     visit new_feedback_path(variety: 'get_help')
 
@@ -39,18 +40,15 @@ feature 'Give Feedback' do
     page.must_have_content I18n.t 'article.actions.reported'
   end
 
-  # scenario "user wants to be donation_partner" do
-  #
-  #   visit new_feedback_path(:variety => "become_donation_partner")
+  scenario 'user sends on 1st try false feedback and on 2nd try true feedback' do
+    article = FactoryGirl.create :article
+    visit article_path(article)
 
-  #   fill_in 'feedback_forename', with: 'test'
-  #   fill_in 'feedback_lastname', with: 'test'
-  #   fill_in 'feedback_from', with: 'test@test.de'
-  #   fill_in 'feedback_organisation', with: 'test'
-  #   fill_in 'feedback_text', with: 'testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest'
-  #   FeedbackMailer.any_instance.expects(:mail)
-  #   click_button I18n.t 'feedback.actions.become_donation_partner'
-  #   page.must_have_content I18n.t 'article.actions.reported'
-  #
-  # end
+    click_button I18n.t 'feedback.actions.send_feedback'
+
+    fill_in 'feedback_text', with: 'testtesttest'
+
+    click_button I18n.t 'feedback.actions.send_feedback'
+    assert_equal(article_path(article), current_path)
+  end
 end
