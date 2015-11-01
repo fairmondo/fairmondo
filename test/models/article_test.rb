@@ -93,6 +93,12 @@ describe Article do
         end
         it { special_article.must validate_presence_of :basic_price_amount }
       end
+
+      it 'should not throw an exception when slug is already present' do
+        FactoryGirl.create(:article, title: 'Great Expectations')
+        another_article = Article.new(title: 'Great Expectations')
+        another_article.valid?
+      end
     end
 
     describe 'amoeba' do

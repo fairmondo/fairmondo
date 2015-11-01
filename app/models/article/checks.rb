@@ -24,7 +24,7 @@ module Article::Checks
   end
 
   def should_get_a_slug?
-    !closed? && !is_template?
+    !closed? && !is_template? && seller.present?
   end
 
   def is_template?
