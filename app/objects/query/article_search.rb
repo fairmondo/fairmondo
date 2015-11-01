@@ -71,7 +71,7 @@ class ArticleSearch
     index.query(simple_query_string: {
                   query: @query.q,
                   fields: query_fields,
-                  analyzer: 'german_analyzer',
+                  analyzer: 'german_search_analyzer',
                   default_operator: 'and',
                   lenient: true
                 })
