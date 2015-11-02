@@ -2,29 +2,22 @@
 /   licensed under the GNU Affero General Public License version 3 or later.
 /   See the COPYRIGHT file for details.
 
-h1 Verkäufe nach Kategorien
+h1
+  ' Verkäufe nach Kategorien
+  small
+    | (Eingestellte Artikel mit Stückzahl / Verkäufe mit Stückzahl im laufenden Jahr)
 
-h2 Artikel je Kategorie (Eingestellt / Verkäufe)
 p
-  Anzeige von Artikelanzahl/Transaktionsanzahl. Artikel/Transaktionen in Überkategorien werden nicht mit denen in Kindkategorien zusammengerechnet. Beachte: Ein Artikel kann in mehreren Kategorien eingestellt sein. Ein Artikel kann also mehrfach in der Liste aufgeführt sein, aber nur einmal je Kategorie.
+  ' Anzeige von Artikelanzahl mit Stückzahl/Transaktionsanzahl. Zahlen in Überkategorien
+  | werden mit denen in Kindkategorien zusammengerechnet.
+p
+  | Beachte: Ein Artikel kann in mehreren Kategorien eingestellt sein.
 ul
+  - time_range = Time.now.beginning_of_year..Time.now
   - Category.sorted.roots.includes(:children).each do |parent|
     li
-      h3
-        = parent.name
-        = '('
-        = parent.articles.count
-        = '/'
-        = @statistics.statistics_category_sales(parent)
-        = ')'
+      = "#{parent.name} (#{number_with_delimiter(parent.num_articles_with_quantity)} / #{number_with_delimiter(parent.num_sold_articles(time_range))})"
       ul
         - parent.children.each do |child|
           li
-            h4
-              = child.name
-              = '('
-              = child.articles.count
-              = '/'
-              = @statistics.statistics_category_sales(child)
-              = ')'
-
+            = "#{child.name} (#{number_with_delimiter(child.num_articles_with_quantity)} / #{number_with_delimiter(child.num_sold_articles(time_range))})"
