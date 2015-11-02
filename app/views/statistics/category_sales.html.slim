@@ -4,20 +4,31 @@
 
 h1
   ' Verkäufe nach Kategorien
-  small
-    | (Eingestellte Artikel mit Stückzahl / Verkäufe mit Stückzahl im laufenden Jahr)
 
 p
   ' Anzeige von Artikelanzahl mit Stückzahl/Transaktionsanzahl. Zahlen in Überkategorien
-  | werden mit denen in Kindkategorien zusammengerechnet.
+  ' werden mit denen in Kindkategorien zusammengerechnet. Die Verkaufszahlen gelten für das
+  | laufende Jahr.
 p
-  | Beachte: Ein Artikel kann in mehreren Kategorien eingestellt sein.
-ul
-  - time_range = Time.now.beginning_of_year..Time.now
-  - Category.sorted.roots.includes(:children).each do |parent|
-    li
-      = "#{parent.name} (#{number_with_delimiter(parent.num_articles_with_quantity)} / #{number_with_delimiter(parent.num_sold_articles(time_range))})"
-      ul
-        - parent.children.each do |child|
-          li
-            = "#{child.name} (#{number_with_delimiter(child.num_articles_with_quantity)} / #{number_with_delimiter(child.num_sold_articles(time_range))})"
+  | Ein Artikel kann in mehreren Kategorien eingestellt sein.
+
+table.categories
+  thead
+    tr
+      th Kategorie
+      th Eingest. Artikel<br>(mit Stückzahl)
+      th Verkäufe<br>(mit Stückzahl)
+  tbody
+    - time_range = Time.now.beginning_of_year..Time.now
+    - Category.sorted.roots.includes(:children).each do |parent|
+      tr.categories-parent
+        td= parent.name
+        td.categories-count= number_with_delimiter(parent.num_articles_with_quantity)
+        td.categories-count= number_with_delimiter(parent.num_sold_articles(time_range))
+      - parent.children.each do |child|
+        tr.categories-child
+          td
+            | &nbsp;&nbsp;&nbsp;
+            = child.name
+          td.categories-count= number_with_delimiter(child.num_articles_with_quantity)
+          td.categories-count= number_with_delimiter(child.num_sold_articles(time_range))

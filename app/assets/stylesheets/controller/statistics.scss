@@ -1,0 +1,16 @@
+@import "mixins/all";
+
+.categories {
+  border-collapse: collapse;
+
+  th, td { padding: 0.25em 0.5em; }
+  thead { background-color: $secondary-color; }
+}
+
+.categories-parent {
+  td { font-weight: bold; }
+}
+
+.categories-count {
+  text-align: right;
+}
