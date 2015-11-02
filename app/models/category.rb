@@ -67,19 +67,11 @@ class Category < ActiveRecord::Base
   end
 
   def num_articles_with_quantity
-    sum = Article.units_placed_for_category(id)
-    children.each do |child|
-      sum += child.num_articles_with_quantity
-    end
-    sum
+    Article.units_placed_for_categories(self_and_descendants)
   end
 
   def num_sold_articles time_range
-    sum = Article.units_sold_for_category(id, time_range)
-    children.each do |child|
-      sum += child.num_sold_articles(time_range)
-    end
-    sum
+    Article.units_sold_for_categories(self_and_descendants, time_range)
   end
 
   private
