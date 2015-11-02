@@ -35,5 +35,18 @@ module Article::Scopes
             small_and_precious = ?',
             'active', 'new', false, false, false)
     }
+
+    scope :units_placed_for_categories, -> (categories) {
+      joins(:articles_categories)
+        .where(articles: { state: 'active' }, articles_categories: { category_id: categories })
+        .sum(:quantity_available)
+    }
+
+    scope :units_sold_for_categories, -> (categories, time_range) {
+      joins(:articles_categories, :business_transactions)
+        .where(articles_categories: { category_id: categories },
+               business_transactions: { created_at: time_range })
+        .sum(:quantity_bought)
+    }
   end
 end
