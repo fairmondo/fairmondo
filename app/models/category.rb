@@ -66,6 +66,22 @@ class Category < ActiveRecord::Base
     delete_if_no_active_articles sorted_children.to_a
   end
 
+  def num_articles_with_quantity
+    sum = Article.units_placed_for_category(id)
+    children.each do |child|
+      sum += child.num_articles_with_quantity
+    end
+    sum
+  end
+
+  def num_sold_articles time_range
+    sum = Article.units_sold_for_category(id, time_range)
+    children.each do |child|
+      sum += child.num_sold_articles(time_range)
+    end
+    sum
+  end
+
   private
 
   def slug_candidates
