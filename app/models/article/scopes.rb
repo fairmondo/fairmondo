@@ -39,7 +39,7 @@ module Article::Scopes
     scope :units_placed_for_categories, -> (categories) {
       joins(:articles_categories)
         .where(articles: { state: 'active' }, articles_categories: { category_id: categories })
-        .sum(:quantity_available)
+        .sum(:quantity)
     }
 
     scope :units_sold_for_categories, -> (categories, time_range) {
