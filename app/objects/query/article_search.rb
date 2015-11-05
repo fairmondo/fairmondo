@@ -71,7 +71,7 @@ class ArticleSearch
     index.query(simple_query_string: {
                   query: @query.q,
                   fields: query_fields,
-                  analyzer: 'german_analyzer',
+                  analyzer: 'german_search_analyzer',
                   default_operator: 'and',
                   lenient: true
                 })
@@ -82,7 +82,7 @@ class ArticleSearch
   end
 
   def query_fields
-    fields = [:title, :friendly_percent_organization_nickname]
+    fields = [:title, :seller_nickname]
     fields += [:content] if @query.search_in_content?
     fields
   end
