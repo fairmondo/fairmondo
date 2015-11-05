@@ -28,7 +28,7 @@ Styleguide Article
 
 .Article-info {
   padding: em(7) em(19);
-  min-height: 6.5em;
+  min-height: 8.5em;
 
   h3 {
     margin:0;
@@ -48,9 +48,10 @@ Styleguide Article
     font-size: 1.3em;
   }
 }
-.Article-donation, .Article-basicprice, .Article-vat {
+.Article-donation, .Article-basicprice, .Article-vat, .Article-seller {
   font-size: 0.7rem;
 }
+
 
 
 .Article-tags, .Article-admin {

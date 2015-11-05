@@ -1,7 +1,9 @@
+- show_seller = true unless local_assigns.has_key?(:show_seller)
+
 .Grid
   - articles.each do |article|
     .Grid-item
-      = render '/articles/shared/show_article', article: article
+      = render '/articles/shared/show_article', article: article, show_seller: show_seller
 
 - if User.is_admin?(current_user)
   .Grid-admin

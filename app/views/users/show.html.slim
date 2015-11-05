@@ -37,5 +37,5 @@
 - else
   / Show user's articles for other visitors
   .articles
-    = render '/articles/shared/articles_grid', articles: @articles
+    = render '/articles/shared/articles_grid', articles: @articles, show_seller: false
   = paginate @articles, param_name: 'active_articles_page'
