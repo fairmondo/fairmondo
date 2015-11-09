@@ -84,7 +84,8 @@ class ArticlesIndex < Chewy::Index
       # seller attributes
       field :belongs_to_legal_entity?, type: 'boolean'
       field :seller_ngo, type: 'boolean'
-      field :seller_nickname, index: :not_analyzed
+      # Use analyzer without decompound
+      field :seller_nickname, analyzer: 'german_search_analyzer'
       field :seller_id, index: :not_analyzed
     end
   end
