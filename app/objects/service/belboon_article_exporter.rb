@@ -5,6 +5,8 @@
 class BelboonArticleExporter
   @@csv_options = { col_sep: ';',  encoding: 'utf-8' }
 
+  MAX_LINE_COUNT = 250_000
+
   EXPORT_MAPPING = {
     'Merchant_ProductNumber' => 'slug',
     'EAN_Code' => 'gtin',
@@ -54,7 +56,7 @@ class BelboonArticleExporter
       BELBOON_IDS.each do |id|
         user = User.find id
         exportable_articles_for(user).find_each do |article|
-          if line_count >= 500_000
+          if line_count >= MAX_LINE_COUNT
             file_count += 1
             line_count = 0
             csv.flush
