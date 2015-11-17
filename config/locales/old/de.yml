@@ -1,7 +1,7 @@
 de:
   welcome:
     greetings: "Willkommen bei Fairmondo"
-    search_fair: "Artikel suchen"
+    search_fair: "Artikel oder Händler suchen"
     # trending_libraries: "Trend-Sammlungen" Nach Weihnachten zurückstellen
     trending_libraries:
       heading: "Empfehlungen von Nutzer*innen"
