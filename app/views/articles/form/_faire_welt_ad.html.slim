@@ -1,0 +1,7 @@
+.banner
+  .banner-inner
+    h2
+      = t('.heading')
+    p
+      - link_html = link_to(t('.link.text'), t('.link.target'), target: '_blank')
+      = t('.text_html', link: link_html)
