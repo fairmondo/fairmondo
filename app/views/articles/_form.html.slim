@@ -13,6 +13,11 @@
           = f.input :article_template_name
     = f.actions do
       = f.action :submit , :label => t("article.labels.continue_to_preview"), :button_html => { :class => 'Button'}, :wrapper_html => {:class => 'Accordion-step'}
+
+
 - if current_user.is_a?(LegalEntity)
   = render 'articles/form/import_articles_banner'
+- else
+  = render 'articles/form/faire_welt_ad'
+
 = render 'articles/form/pr_material'
