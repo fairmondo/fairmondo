@@ -5,7 +5,7 @@
 class BelboonArticleExporter
   @@csv_options = { col_sep: ';',  encoding: 'utf-8' }
 
-  MAX_LINE_COUNT = 250_000
+  MAX_LINE_COUNT = 500_000
 
   EXPORT_MAPPING = {
     'Merchant_ProductNumber' => 'slug',
@@ -51,7 +51,7 @@ class BelboonArticleExporter
       line_count = 0
       file_count = 0
 
-      csv = new_csv_file file_count
+      csv = new_csv_file(file_count)
 
       BELBOON_IDS.each do |id|
         user = User.find id
@@ -59,19 +59,20 @@ class BelboonArticleExporter
           if line_count >= MAX_LINE_COUNT
             file_count += 1
             line_count = 0
-            csv.flush
-            csv = new_csv_file file_count
+            csv.close
+            csv = new_csv_file(file_count)
           end
 
           csv << line_for(article)
           line_count += 1
         end
       end
-      csv.flush
+      csv.close
     end
 
     def new_csv_file file_count
       csv = CSV.open("#{ FILE_NAME }#{ file_count }.csv", 'wb', @@csv_options)
+      csv.sync = true
       csv << EXPORT_HEADER
       csv
     end
