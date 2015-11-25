@@ -1,4 +1,6 @@
+- show_seller = true unless local_assigns.has_key?(:show_seller)
 - show_extra = (local_assigns.has_key? :extra) && extra
+
 .Article
   - cache_if (article.title_image_url_thumb != ArticleImage::PROCESSING_IMAGE_URL && !show_extra), ["articles", article.id, "tile"] do
     figure.Article-image
@@ -7,6 +9,11 @@
     .Article-info
       h3= link_to truncate(article.title, :length => 65), article_path(article.slug), :title => article.title, data: { push: true }
       .Article-price= humanize_money_or_cents article.price
+
+      .Article-seller
+        - if show_seller
+          = "von "
+          = link_to article.seller_nickname, user_path(article.seller_id)
 
       - if article.belongs_to_legal_entity? && article.vat != 0
         .Article-vat
