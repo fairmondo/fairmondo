@@ -64,6 +64,21 @@ Make sure you install <em>2.2.2</em>. and not <em>ruby 1.9.3-p392</em>.
   Run Bundler
    bundle install
 
+* Could not find SQLite3 headers
+  If you have an error like
+   ...
+   Gem::Ext::BuildError: ERROR: Failed to build gem native extension.
+
+   /usr/bin/ruby2.1 extconf.rb
+   checking for sqlite3.h... no
+   ...
+
+  Install the Sqlite3 Library:
+   sudo apt-get install libsqlite3-dev
+
+  Run Bundler
+   bundle install
+
 * (Mac) Invalid gemspec [...ZenTest-4.9.1.gemspec]
 
   If bundler constantly complains about an invalid ZenTest gemspec, run the following:
