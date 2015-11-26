@@ -23,6 +23,10 @@ html,body {
   @include clear-links-with-hover;
 }
 
+body {
+  overflow-x: hidden;
+}
+
 /*
 h-tags
 

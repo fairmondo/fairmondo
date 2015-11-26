@@ -12,8 +12,11 @@
 - cache 'billboards' do
   = render 'billboards'
 
-- cache 'usp_teaser' do
-  = render 'usp_teaser'
+- if calendar_time?
+  = render 'advent_calendar'
+- else
+  - cache 'usp_teaser' do
+    = render 'usp_teaser'
 
 - cache 'filter_boxes' do
   = render 'filter_boxes'
