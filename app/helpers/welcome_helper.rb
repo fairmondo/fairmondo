@@ -16,7 +16,6 @@ module WelcomeHelper
   end
 
   def calendar_time?
-    # true
     current_date = Date.today
     if (current_date >= Date.parse('2015-11-24')) && (current_date <= Date.parse('2015-12-24'))
       true
@@ -26,7 +25,6 @@ module WelcomeHelper
   end
 
   def calendar_partial_name
-    # 'welcome/advent_calendar/window_01'
     if Date.today < Date.parse('2015-12-01')
       'welcome/advent_calendar/window_pre'
     else
