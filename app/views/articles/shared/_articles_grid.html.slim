@@ -1,9 +1,11 @@
+- with_admin_section = true unless local_assigns.has_key?(:with_admin_section)
+
 .Grid
   - articles.each do |article|
     .Grid-item
       = render '/articles/shared/show_article', article: article
 
-- if User.is_admin?(current_user)
+- if with_admin_section && User.is_admin?(current_user)
   .Grid-admin
     h2 Administration:
     h3 Sammlung befüllen
