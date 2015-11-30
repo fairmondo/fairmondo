@@ -23,10 +23,10 @@ module ContentHelper
 
   def expand_content_body(body)
     body = body.dup
-    pattern = /<p>\[articles ids="(\d{1,10})\s(\d{1,10})\s(\d{1,10})\s(\d{1,10})"\]<\/p>/i
+    pattern = /<p>\[articles ids="(?:(\d{1,10})\s)?(?:(\d{1,10})\s)?(?:(\d{1,10})\s)?(\d{1,10})"\]<\/p>/i
     while body =~ pattern
       begin
-        article_ids = Regexp.last_match[1..4].map(&:to_i)
+        article_ids = Regexp.last_match[1..-1].compact.map(&:to_i)
         articles = Article.find(article_ids)
         rendered_articles = render 'articles/shared/articles_grid', articles: articles,
                                                                     with_admin_section: false

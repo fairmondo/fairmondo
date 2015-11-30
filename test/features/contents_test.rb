@@ -69,10 +69,20 @@ feature 'CMS System' do
     end
   end
 
-  scenario '[articles ids="a b c d"] is expanded to four article previews in a grid' do
+  scenario '[articles ids="a"] is expanded to one article preview in a grid' do
+    article_id = FactoryGirl.create(:article, title: 'Book 1').id
+    body = "<p>[articles ids=\"#{article_id}\"]</p>"
+    content = FactoryGirl.create(:content, body: body)
+
+    visit content_path content
+
+    page.must_have_content 'Book 1'
+  end
+
+  scenario '[articles ids="a b"], [articles ids="a b c"] and [articles ids="a b c d"] are expanded accordingly' do
     user = FactoryGirl.create(:user)
     article_ids = []
-    (1..8).each do |n|
+    (1..9).each do |n|
       article_ids << FactoryGirl.create(:article, title: "Book #{n}", seller: user).id
     end
     body = create_body_with_articles(article_ids)
@@ -80,16 +90,18 @@ feature 'CMS System' do
 
     visit content_path content
 
-    (1..8).each do |n|
+    (1..9).each do |n|
       page.must_have_content "Book #{n}"
     end
   end
 
   def create_body_with_articles(article_ids)
-    articles1 = article_ids[0..3].join(' ')
-    articles2 = article_ids[4..7].join(' ')
+    articles1 = article_ids[0..1].join(' ')
+    articles2 = article_ids[2..4].join(' ')
+    articles3 = article_ids[5..8].join(' ')
     "<p>[articles ids=\"#{articles1}\"]</p>
-     <p>[articles ids=\"#{articles2}\"]</p>"
+     <p>[articles ids=\"#{articles2}\"]</p>
+     <p>[articles ids=\"#{articles3}\"]</p>"
   end
 
   scenario '[articles ids="a b c d"] is not expanded if articles cannot be found' do
