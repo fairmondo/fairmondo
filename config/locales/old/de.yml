@@ -170,6 +170,7 @@ de:
       index_pages: 'CMS-Seiten'
       edit_page: 'CMS-Seite bearbeiten'
       sure: 'Bist Du sicher?'
+      article_not_found_html: '<p><b>Fehler:</b> Mindestens ein Artikel konnte nicht gefunden werden.</p>'
 
   meta_tags:
     description: "Kaufe, verkaufe, tausche und verleihe faire und nachhaltige Mode, Bücher, Lebensmittel, Spielzeug und Designartikel auf Fairmondo, dem Online Marktplatz für Alle."

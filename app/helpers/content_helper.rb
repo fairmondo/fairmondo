@@ -20,4 +20,21 @@ module ContentHelper
     content = tinycms_content_body(key)
     Sanitize.clean(content)
   end
+
+  def expand_content_body(body)
+    body = body.dup
+    pattern = /<p>\[articles ids="(\d{1,10})\s(\d{1,10})\s(\d{1,10})\s(\d{1,10})"\]<\/p>/i
+    while body =~ pattern
+      begin
+        article_ids = Regexp.last_match[1..4].map(&:to_i)
+        articles = Article.find(article_ids)
+        rendered_articles = render 'articles/shared/articles_grid', articles: articles,
+                                                                    with_admin_section: false
+        body.sub!(pattern, rendered_articles)
+      rescue ActiveRecord::RecordNotFound
+        body.sub!(pattern, t('tinycms.content.article_not_found_html'))
+      end
+    end
+    body.html_safe
+  end
 end

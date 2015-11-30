@@ -15,12 +15,12 @@ feature 'CMS System' do
     page.must_have_content content.body
   end
 
-  scenario 'admin visists a non exsisting page' do
+  scenario 'admin visits a non existing page' do
     login_as admin
     visit content_path 'not-there'
     current_path.must_equal new_content_path
   end
-  scenario 'guest visit non exsisting page' do
+  scenario 'guest visit non existing page' do
     -> { visit content_path 'not-there' }.must_raise ActiveRecord::RecordNotFound
   end
 
@@ -67,5 +67,37 @@ feature 'CMS System' do
     assert_difference 'Content.count', -1 do
       click_link 'Löschen'
     end
+  end
+
+  scenario '[articles ids="a b c d"] is expanded to four article previews in a grid' do
+    user = FactoryGirl.create(:user)
+    article_ids = []
+    (1..8).each do |n|
+      article_ids << FactoryGirl.create(:article, title: "Book #{n}", seller: user).id
+    end
+    body = create_body_with_articles(article_ids)
+    content = FactoryGirl.create(:content, body: body)
+
+    visit content_path content
+
+    (1..8).each do |n|
+      page.must_have_content "Book #{n}"
+    end
+  end
+
+  def create_body_with_articles(article_ids)
+    articles1 = article_ids[0..3].join(' ')
+    articles2 = article_ids[4..7].join(' ')
+    "<p>[articles ids=\"#{articles1}\"]</p>
+     <p>[articles ids=\"#{articles2}\"]</p>"
+  end
+
+  scenario '[articles ids="a b c d"] is not expanded if articles cannot be found' do
+    content = FactoryGirl.create(:content, body: "<p>[articles ids=\"1 2 3 4\"]</p>")
+
+    visit content_path content
+
+    page.must_have_content ActionController::Base.helpers
+      .strip_tags(I18n.t('tinycms.content.article_not_found_html'))
   end
 end

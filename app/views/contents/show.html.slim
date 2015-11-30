@@ -3,10 +3,6 @@
 /   See the COPYRIGHT file for details.
 
 .content
-  .Content
-    = resource.body && resource.body.html_safe
-    - if policy(resource).admin?
-      = link_to t('tinycms.content.edit'), edit_content_url(resource)
-      =< link_to t('tinycms.content.overview'), contents_path
+  = render resource
 .content-share
   = render '/shared/take_part'
