@@ -24,17 +24,16 @@
         p.filter-show= t('.ecologic.link')
         p.filter-label= t('.ecologic.label')
 
-.teaser.teaser--filters#filter-small
+.teaser.teaser--filters#filter-christmasgifts
   .teaser-inner
-    = link_to '/articles?article_search_form[small_and_precious]=true'\
-              '&pk_campaign=filterbox&pk_kwd=small' do
+    = link_to library_path(12732) do
       .filter-text
-        h2= t('.small.teaser_html')
-        p= t('.small.description')
+        h2= t('.christmasgifts.teaser_html')
+        p= t('.christmasgifts.description')
       .filter-image
-        = image_tag 'welcome/filter-small.jpg'
-        p.filter-show= t('.small.link')
-        p.filter-label= t('.small.label')
+        = image_tag 'welcome/filter-christmasgifts.jpg'
+        p.filter-show= t('.christmasgifts.link')
+        p.filter-label= t('.christmasgifts.label')
 
 .teaser.teaser--filters#filter-used
   .teaser-inner
