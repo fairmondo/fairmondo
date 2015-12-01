@@ -19,11 +19,11 @@ describe WelcomeHelper do
   end
 
   describe 'advent calendar' do
-    it 'is calendar time between Nov 24th and Dec 24th' do
+    it 'is calendar time between Nov 24th and Dec 25th, 9:00' do
       travel_to Time.new(2015, 11, 24) do
         assert(calendar_time?)
       end
-      travel_to Time.new(2015, 12, 24) do
+      travel_to Time.new(2015, 12, 25, 9) do
         assert(calendar_time?)
       end
     end
@@ -32,13 +32,19 @@ describe WelcomeHelper do
       travel_to Time.new(2015, 11, 23) do
         refute(calendar_time?)
       end
-      travel_to Time.new(2015, 12, 25) do
+      travel_to Time.new(2015, 12, 25, 9, 1) do
         refute(calendar_time?)
       end
     end
 
-    it 'finds the right calendar partial according to the date' do
-      travel_to Time.new(2015, 12, 05) do
+    it 'shows the calendar partial for the 4th on the 5th at 8:59' do
+      travel_to Time.new(2015, 12, 05, 8, 59) do
+        assert_equal('welcome/advent_calendar/window_04', calendar_partial_name)
+      end
+    end
+
+    it 'shows the calendar partial for the 5th on the 5th at 9 o\' clock' do
+      travel_to Time.new(2015, 12, 05, 9) do
         assert_equal('welcome/advent_calendar/window_05', calendar_partial_name)
       end
     end

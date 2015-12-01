@@ -16,8 +16,8 @@ module WelcomeHelper
   end
 
   def calendar_time?
-    current_date = Date.today
-    if (current_date >= Date.parse('2015-11-24')) && (current_date <= Date.parse('2015-12-24'))
+    current_time = Time.now
+    if (current_time >= Time.new(2015, 11, 24)) && (current_time <= Time.new(2015, 12, 25, 9))
       true
     else
       false
@@ -25,10 +25,12 @@ module WelcomeHelper
   end
 
   def calendar_partial_name
-    if Date.today < Date.parse('2015-12-01')
+    now = Time.now
+    if now < Time.new(2015, 12, 1)
       'welcome/advent_calendar/window_pre'
     else
-      day = Date.today.day
+      day = now.day
+      day -= 1 if now.hour < 9
       day_str = day.to_s.rjust(2, '0')
       "welcome/advent_calendar/window_#{day_str}"
     end

@@ -22,7 +22,7 @@ feature 'Advent calendar' do
   end
 
   scenario 'User visits on the 5th of December and finds the calendar' do
-    travel_to Time.new(2015, 12, 5) do
+    travel_to Time.new(2015, 12, 5, 9) do
       visit root_path
       within '.advent-calendar' do
         assert page.has_selector?('.advent-calendar-05')
@@ -31,7 +31,7 @@ feature 'Advent calendar' do
   end
 
   scenario 'User visits on the 6th of December and finds a different calendar' do
-    travel_to Time.new(2015, 12, 6) do
+    travel_to Time.new(2015, 12, 6, 9) do
       visit root_path
       within '.advent-calendar' do
         assert page.has_selector?('.advent-calendar-06')
