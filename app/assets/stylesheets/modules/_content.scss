@@ -8,7 +8,7 @@ Styleguide Contents
   h2 {
     clear: both;
     margin-top: 2em;
-    margin-bottom: 1em;
+    margin-bottom: 0.5em;
     font-size: 1.2em;
     font-weight: bold;
   }
@@ -27,6 +27,10 @@ Styleguide Contents
   h4 {
     font-size: 0.9em;
     font-weight: bold;
+  }
+
+  p {
+    margin: 0.5em 0;
   }
 
   // Provide responsiveness for large images
