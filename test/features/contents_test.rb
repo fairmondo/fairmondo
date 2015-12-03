@@ -96,12 +96,12 @@ feature 'CMS System' do
   end
 
   def create_body_with_articles(article_ids)
-    articles1 = article_ids[0..1].join(' ')
-    articles2 = article_ids[2..4].join(' ')
-    articles3 = article_ids[5..8].join(' ')
-    "<p>[articles ids=\"#{articles1}\"]</p>
-     <p>[articles ids=\"#{articles2}\"]</p>
-     <p>[articles ids=\"#{articles3}\"]</p>"
+    two_articles = article_ids[0..1].join(' ')
+    three_articles = article_ids[2..4].join(' ')
+    four_articles = article_ids[5..8].join(' ')
+    "<p>[articles ids=\"#{two_articles}\"]</p>
+     <p>[articles ids=\"#{three_articles}\"]</p>
+     <p>[articles ids=\"#{four_articles}\"]</p>"
   end
 
   scenario '[articles ids="a b c d"] is not expanded if articles cannot be found' do
