@@ -19,39 +19,72 @@ describe WelcomeHelper do
   end
 
   describe 'advent calendar' do
-    it 'is calendar time between Nov 24th and Dec 25th, 9:00' do
-      travel_to Time.new(2015, 11, 24) do
-        assert(calendar_time?)
+    describe '#calendar_time?' do
+      it 'is calendar time between Nov 24th and Dec 25th, 9:00' do
+        travel_to Time.new(2015, 11, 24) do
+          assert(calendar_time?)
+        end
+        travel_to Time.new(2015, 12, 25, 9) do
+          assert(calendar_time?)
+        end
       end
-      travel_to Time.new(2015, 12, 25, 9) do
-        assert(calendar_time?)
+
+      it 'is not calendar time outside of this time zone' do
+        travel_to Time.new(2015, 11, 23) do
+          refute(calendar_time?)
+        end
+        travel_to Time.new(2015, 12, 25, 9, 1) do
+          refute(calendar_time?)
+        end
       end
     end
 
-    it 'is not calendar time outside of this time zone' do
-      travel_to Time.new(2015, 11, 23) do
-        refute(calendar_time?)
+    describe '#calendar_window_num' do
+      it 'considers the calendar window number to be 4 on the 5th Dec at 8:59' do
+        travel_to Time.new(2015, 12, 05, 8, 59) do
+          assert_equal(4, calendar_window_num)
+        end
       end
-      travel_to Time.new(2015, 12, 25, 9, 1) do
-        refute(calendar_time?)
+
+      it 'considers the calendar window number to be 5 on the 5th Dec at 9 o\' clock' do
+        travel_to Time.new(2015, 12, 05, 9) do
+          assert_equal(5, calendar_window_num)
+        end
+      end
+
+      it 'considers the calendar window number to be 0 on the 1st Dec at 8:59' do
+        travel_to Time.new(2015, 12, 01, 8, 59) do
+          assert_equal(0, calendar_window_num)
+        end
+      end
+
+      it 'considers the calendar window number to be 0 before the 1st Dec' do
+        travel_to Time.new(2015, 11, 27) do
+          assert_equal(0, calendar_window_num)
+        end
+      end
+
+      it 'considers the calendar window number to be 24 on the 25th Dec at 9 o\' clock' do
+        travel_to Time.new(2015, 12, 25, 9) do
+          assert_equal(24, calendar_window_num)
+        end
+      end
+
+      it 'considers the calendar window number to be 24 after the 25th Dec' do
+        travel_to Time.new(2015, 12, 27) do
+          assert_equal(24, calendar_window_num)
+        end
       end
     end
 
-    it 'shows the calendar partial for the 4th on the 5th at 8:59' do
-      travel_to Time.new(2015, 12, 05, 8, 59) do
-        assert_equal('welcome/advent_calendar/window_04', calendar_partial_name)
+    describe '#calendar_window_link' do
+      it 'returns a different link for two distinct calendar window numbers' do
+        refute_equal calendar_window_link(5), calendar_window_link(6)
       end
-    end
 
-    it 'shows the calendar partial for the 5th on the 5th at 9 o\' clock' do
-      travel_to Time.new(2015, 12, 05, 9) do
-        assert_equal('welcome/advent_calendar/window_05', calendar_partial_name)
-      end
-    end
-
-    it 'before December finds the pre-calendar partial' do
-      travel_to Time.new(2015, 11, 27) do
-        assert_equal('welcome/advent_calendar/window_pre', calendar_partial_name)
+      it 'returns links for edge cases' do
+        refute_nil calendar_window_link(0)
+        refute_nil calendar_window_link(24)
       end
     end
   end

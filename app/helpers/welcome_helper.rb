@@ -3,6 +3,34 @@
 #   See the COPYRIGHT file for details.
 
 module WelcomeHelper
+  CALENDAR_WINDOW_LINKS = [
+    '/adventskalender',
+    '/advent01_naturkosmetik',
+    '/advent02_ratespiele',
+    '/advent03_tolino',
+    '/advent04_holzspielzeug',
+    '/advent05_',
+    '/advent06_',
+    '/advent07_',
+    '/advent08_',
+    '/advent09_',
+    '/advent10_',
+    '/advent11_',
+    '/advent12_',
+    '/advent13_',
+    '/advent14_',
+    '/advent15_',
+    '/advent16_',
+    '/advent17_',
+    '/advent18_',
+    '/advent19_',
+    '/advent20_',
+    '/advent21_',
+    '/advent22_',
+    '/advent23_',
+    '/advent24_'
+  ]
+
   def rss_image_extractor content
     if content.start_with? '<p><img'
       Sanitize.clean(content[0..(content.index('/>') + 1)], elements: ['img'], attributes: { 'img' => %w(src alt) }).html_safe
@@ -24,15 +52,21 @@ module WelcomeHelper
     end
   end
 
-  def calendar_partial_name
+  # returns a number between 0 and 24
+  def calendar_window_num
     now = Time.now
-    if now < Time.new(2015, 12, 1)
-      'welcome/advent_calendar/window_pre'
+    if now < Time.new(2015, 12, 1, 9)
+      0
+    elsif now >= Time.new(2015, 12, 25, 9)
+      24
     else
       day = now.day
       day -= 1 if now.hour < 9
-      day_str = day.to_s.rjust(2, '0')
-      "welcome/advent_calendar/window_#{day_str}"
+      day
     end
+  end
+
+  def calendar_window_link(window_num)
+    CALENDAR_WINDOW_LINKS[window_num]
   end
 end

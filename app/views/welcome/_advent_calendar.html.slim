@@ -1,3 +1,7 @@
+- window_num = calendar_window_num
 .advent-calendar
   .advent-calendar-inner
-    = render calendar_partial_name
+    article[class="advent-calendar-#{window_num}"]
+      div.advent-calendar-bow-div
+      h2= "#{calendar_window_num}. Advent"
+      p= link_to 'Jetzt gewinnen', calendar_window_link(window_num)

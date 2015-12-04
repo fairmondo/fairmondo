@@ -16,7 +16,7 @@ feature 'Advent calendar' do
     travel_to Time.new(2015, 11, 24) do
       visit root_path
       within '.advent-calendar' do
-        assert page.has_selector?('.advent-calendar-pre')
+        assert page.has_selector?('.advent-calendar-0')
       end
     end
   end
@@ -25,7 +25,8 @@ feature 'Advent calendar' do
     travel_to Time.new(2015, 12, 5, 9) do
       visit root_path
       within '.advent-calendar' do
-        assert page.has_selector?('.advent-calendar-05')
+        assert page.has_selector?('.advent-calendar-5')
+        assert page.has_content?('5. Advent')
       end
     end
   end
@@ -34,7 +35,8 @@ feature 'Advent calendar' do
     travel_to Time.new(2015, 12, 6, 9) do
       visit root_path
       within '.advent-calendar' do
-        assert page.has_selector?('.advent-calendar-06')
+        assert page.has_selector?('.advent-calendar-6')
+        assert page.has_content?('6. Advent')
       end
     end
   end
