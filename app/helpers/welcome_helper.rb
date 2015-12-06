@@ -11,7 +11,7 @@ module WelcomeHelper
     '/advent04_holzspielzeug',
     '/advent05_schokolade',
     '/advent06_variomondo',
-    '/advent07_',
+    '/advent07_socken',
     '/advent08_',
     '/advent09_',
     '/advent10_',
