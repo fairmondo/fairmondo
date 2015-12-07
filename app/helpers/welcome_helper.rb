@@ -12,7 +12,7 @@ module WelcomeHelper
     '/advent05_schokolade',
     '/advent06_variomondo',
     '/advent07_socken',
-    '/advent08_',
+    '/advent08_gepa',
     '/advent09_',
     '/advent10_',
     '/advent11_',
