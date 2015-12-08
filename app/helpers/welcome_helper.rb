@@ -13,7 +13,7 @@ module WelcomeHelper
     '/advent06_variomondo',
     '/advent07_socken',
     '/advent08_gepa',
-    '/advent09_',
+    '/advent09_sofakissen',
     '/advent10_',
     '/advent11_',
     '/advent12_',
