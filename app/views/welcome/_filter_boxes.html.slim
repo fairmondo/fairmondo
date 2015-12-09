@@ -11,6 +11,17 @@
         p.filter-show= t('.christmasgifts.link')
         p.filter-label= t('.christmasgifts.label')
 
+.teaser.teaser--filters#filter-christmasbooks
+  .teaser-inner
+    = link_to '/categories/bucher' do
+      .filter-text
+        h2= t('.christmasbooks.teaser_html')
+        p= t('.christmasbooks.description')
+      .filter-image
+        = image_tag 'welcome/filter-christmasbooks.jpg'
+        p.filter-show= t('.christmasbooks.link')
+        p.filter-label= t('.christmasbooks.label')
+
 .teaser.teaser--filters#filter-fair
   .teaser-inner
     = link_to '/articles?article_search_form[fair]=true'\
@@ -34,15 +45,3 @@
         = image_tag 'welcome/filter-eco.jpg'
         p.filter-show= t('.ecologic.link')
         p.filter-label= t('.ecologic.label')
-
-.teaser.teaser--filters#filter-used
-  .teaser-inner
-   = link_to '/articles?article_search_form[condition]=old'\
-              '&pk_campaign=filterbox&pk_kwd=used' do
-      .filter-text
-        h2= t('.used.teaser_html')
-        p= t('.used.description')
-      .filter-image
-        = image_tag 'welcome/filter-used.jpg'
-        p.filter-show= t('.used.link')
-        p.filter-label= t('.used.label')
