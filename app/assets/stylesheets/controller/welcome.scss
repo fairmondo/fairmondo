@@ -314,12 +314,12 @@
   background-color: #535233;
 }
 
-#filter-fair .filter-image p, #filter-fair .filter-text {
-  background-color: #457193;
+#filter-shares .filter-image p, #filter-shares .filter-text {
+  background-color: #cfaa42;
 }
 
-#filter-eco .filter-image p, #filter-eco .filter-text {
-  background-color: #768749;
+#filter-fair .filter-image p, #filter-fair .filter-text {
+  background-color: #457193;
 }
 
 
@@ -459,11 +459,11 @@
   .teaser--filters {
     @include span(2 of 4);
 
-    &#filter-christmasbooks, &#filter-eco {
+    &#filter-christmasbooks, &#filter-fair {
       @include omega;
     }
 
-    &#filter-fair {
+    &#filter-shares {
       clear: right;
     }
   }
@@ -545,11 +545,11 @@
   .teaser--filters {
     @include span(2 of 6);
 
-    &#filter-fair {
+    &#filter-shares {
       @include omega;
     }
 
-    &#filter-eco {
+    &#filter-fair {
       display: none;
     }
   }
@@ -621,7 +621,7 @@
   .teaser--filters {
     @include span(2 of 8);
 
-    &#filter-eco {
+    &#filter-fair {
       @include omega;
     }
   }
