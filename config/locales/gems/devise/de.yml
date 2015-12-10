@@ -33,7 +33,7 @@ de:
         heading: Deine Versandadressen
       changed_email: "Du erhältst in Kürze eine E-Mail um Deine E-Mail-Adressänderung zu bestätigen. Deine Änderung wird erst nach Deiner Bestätigung wirksam."
       signed_up: 'Du hast Dich erfolgreich registriert.'
-      signed_up_but_unconfirmed: 'Du hast Dich erfolgreich registriert. Wir konnten Dich noch nicht anmelden, da Dein Account noch nicht bestätigt ist. Du erhältst in Kürze eine E-Mail mit einer Anleitung, wie Du Deinen Account freischalten kannst.'
+      signed_up_but_unconfirmed: 'Willkommen! Du erhältst in Kürze eine E-Mail um Deine Registrierung abzuschließen.'
       signed_up_but_inactive: 'Du hast Dich erfolgreich registriert. Wir konnten Dich noch nicht anmelden, da Dein Account inaktiv ist.'
       signed_up_but_locked: 'Du hast Dich erfolgreich registriert. Wir konnten Dich noch nicht anmelden, da Dein Account gesperrt ist.'
       updated: 'Deine Daten wurden aktualisiert.'
