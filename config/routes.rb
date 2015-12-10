@@ -31,7 +31,8 @@ Fairmondo::Application.routes.draw do
 
   resources :contents
 
-  devise_for :user, controllers: { registrations: 'registrations', sessions: 'sessions', confirmations: 'confirmations' }
+  devise_for :user, controllers: { passwords: 'passwords', registrations: 'registrations',
+                                   sessions: 'sessions', confirmations: 'confirmations' }
 
   namespace :toolbox do
     get 'session_expired', as: 'session_expired', constraints: { format: 'json' } # JSON info about session expiration. Might be moved to a custom controller at some point.

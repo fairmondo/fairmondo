@@ -63,7 +63,8 @@ class ApplicationController < ActionController::Base
 
   def pundit_unverified_classes
     [
-      'RegistrationsController', 'SessionsController', 'ConfirmationsController', 'ToolboxController',
+      'RegistrationsController', 'SessionsController', 'ConfirmationsController',
+      'PasswordsController', 'ToolboxController',
       'BankDetailsController', 'ExportsController', 'WelcomeController',
       'CategoriesController', 'Peek::ResultsController', 'StyleguidesController',
       'RemoteValidationsController', 'DiscourseController'
