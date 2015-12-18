@@ -27,8 +27,8 @@ module WelcomeHelper
     '/advent20_koawach',
     '/advent21_picopoc',
     '/advent22_getlazy',
-    '/advent23_',
-    '/advent24_'
+    '/advent23_honig',
+    '/advent24_kochen'
   ]
 
   def rss_image_extractor content
