@@ -31,7 +31,7 @@ class CartMailer < ActionMailer::Base
     @seller = line_item_group.seller
     @subject = "[Fairmondo] #{ t('transaction.notifications.seller.seller_subject') } Verkauf Nr: #{ line_item_group.purchase_id }"
 
-    mail(to: @seller.email, subject: @subject)
+    mail(to: @seller.email_for_order_notifications, subject: @subject)
   end
 
   def courier_notification(business_transaction)

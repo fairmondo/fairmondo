@@ -14,7 +14,7 @@ describe CartMailer do
     seller_line_item_group = FactoryGirl.create(:line_item_group, :with_business_transactions, :sold, create_line_items: true)
     user = seller_line_item_group.seller
     mail = CartMailer.seller_email(seller_line_item_group)
-    mail.must deliver_to(user.email)
+    mail.must deliver_to(user.order_notifications_email)
   end
 
   describe 'CartMailer#buyer_email' do

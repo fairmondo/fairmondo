@@ -75,7 +75,7 @@ class FastbillAPI
       city: user.standard_address_city,
       country_code: 'DE',
       language_code: 'DE',
-      email: user.email,
+      email: user.email_for_invoicing,
       currency_code: 'EUR',
       payment_type: '1', # Ueberweisung
       # payment_type: '2', # Bankeinzug # Bitte aktivieren, wenn Genehmigung der Bank vorliegt

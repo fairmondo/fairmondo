@@ -69,6 +69,8 @@ FactoryGirl.define do
     end
 
     factory :legal_entity, class: 'LegalEntity' do
+      invoicing_email 'invoices@example.com'
+      order_notifications_email 'orders@example.com'
     end
 
     factory :incomplete_user, class: 'PrivateUser' do
