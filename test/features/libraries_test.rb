@@ -247,14 +247,19 @@ feature 'Featured (exhibited) libraries' do
     page.must_have_content 'exhibit-article'
   end
 
-  scenario 'user visits the Eco filter landing page' do
+  scenario 'user visits two filter landing pages' do
     article = FactoryGirl.create :article, title: 'exhibit-article'
-    library = FactoryGirl.create :library, :public, exhibition_name: 'fair1'
-    library.articles << article
+    lib1 = FactoryGirl.create :library, :public, exhibition_name: 'fair1'
+    lib2 = FactoryGirl.create :library, :public, exhibition_name: 'used1'
+    lib1.articles << article
+    lib2.articles << article
 
     visit root_path
     find('#filter-fair').find('a').click
+    page.must_have_content 'exhibit-article'
 
+    visit root_path
+    find('#filter-used').find('a').click
     page.must_have_content 'exhibit-article'
   end
 end
