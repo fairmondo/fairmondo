@@ -21,11 +21,11 @@ de:
         description: "Faire Artikel auf einen Blick"
         link:        "Jetzt ansehen"
         label:       "fair"
-      shares:
-        teaser_html: "Fairmondo<br>unterstützen"
-        description: "Veränderung schenken"
-        link:        "Hier bestellen"
-        label_html:  "Genossenschafts&shy;anteile"
+      ecologic:
+        teaser_html: "Öko? Logisch!<br>Auf Fairmondo."
+        description: "Öko-Produkte auf einen Blick"
+        link:        "Hier reinschauen"
+        label:       "öko"
       christmasgifts:
         teaser_html: "100 schöne<br>Weihnachts&shy;geschenke"
         description: "Perfekte Ideen"

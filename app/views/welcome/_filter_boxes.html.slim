@@ -22,17 +22,6 @@
         p.filter-show= t('.christmasbooks.link')
         p.filter-label= t('.christmasbooks.label')
 
-.teaser.teaser--filters#filter-shares
-  .teaser-inner
-    = link_to library_path(8561) do
-      .filter-text
-        h2= t('.shares.teaser_html')
-        p= t('.shares.description')
-      .filter-image
-        = image_tag 'welcome/filter-shares.jpg'
-        p.filter-show= t('.shares.link')
-        p.filter-label= t('.shares.label_html')
-
 .teaser.teaser--filters#filter-fair
   .teaser-inner
     = link_to '/articles?article_search_form[fair]=true'\
@@ -44,3 +33,15 @@
         = image_tag 'welcome/filter-fair.jpg'
         p.filter-show= t('.fair.link')
         p.filter-label= t('.fair.label')
+
+.teaser.teaser--filters#filter-eco
+  .teaser-inner
+    = link_to '/articles?article_search_form[ecologic]=true'\
+              '&pk_campaign=filterbox&pk_kwd=eco' do
+      .filter-text
+        h2= t('.ecologic.teaser_html')
+        p= t('.ecologic.description')
+      .filter-image
+        = image_tag 'welcome/filter-eco.jpg'
+        p.filter-show= t('.ecologic.link')
+        p.filter-label= t('.ecologic.label')
