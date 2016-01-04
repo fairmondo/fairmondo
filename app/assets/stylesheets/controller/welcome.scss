@@ -460,11 +460,11 @@
   .teaser--filters {
     @include span(2 of 4);
 
-    &#filter-fair, &#filter-used {
+    &#filter-eco, &#filter-used {
       @include omega;
     }
 
-    &#filter-eco {
+    &#filter-christmasgifts {
       clear: right;
     }
   }
@@ -546,7 +546,7 @@
   .teaser--filters {
     @include span(2 of 6);
 
-    &#filter-eco {
+    &#filter-christmasgifts {
       @include omega;
     }
 

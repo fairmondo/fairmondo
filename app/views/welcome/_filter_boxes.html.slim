@@ -1,17 +1,6 @@
 / Filter boxes
 
-.teaser.teaser--filters.teaser--clear#filter-christmasgifts
-  .teaser-inner
-    = link_to library_path(12732) do
-      .filter-text
-        h2= t('.christmasgifts.teaser_html')
-        p= t('.christmasgifts.description')
-      .filter-image
-        = image_tag 'welcome/filter-christmasgifts.jpg'
-        p.filter-show= t('.christmasgifts.link')
-        p.filter-label= t('.christmasgifts.label')
-
-.teaser.teaser--filters#filter-fair
+.teaser.teaser--clear.teaser--filters#filter-fair
   .teaser-inner
     = link_to '/articles?article_search_form[fair]=true'\
               '&pk_campaign=filterbox&pk_kwd=fair' do
@@ -34,6 +23,17 @@
         = image_tag 'welcome/filter-eco.jpg'
         p.filter-show= t('.ecologic.link')
         p.filter-label= t('.ecologic.label')
+
+.teaser.teaser--filters#filter-christmasgifts
+  .teaser-inner
+    = link_to library_path(12732) do
+      .filter-text
+        h2= t('.christmasgifts.teaser_html')
+        p= t('.christmasgifts.description')
+      .filter-image
+        = image_tag 'welcome/filter-christmasgifts.jpg'
+        p.filter-show= t('.christmasgifts.link')
+        p.filter-label= t('.christmasgifts.label')
 
 .teaser.teaser--filters#filter-used
   .teaser-inner
