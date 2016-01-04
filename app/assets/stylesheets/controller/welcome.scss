@@ -306,14 +306,6 @@
   text-decoration: underline;
 }
 
-#filter-christmasgifts .filter-image p, #filter-christmasgifts .filter-text {
-  background-color: #c9291b;
-}
-
-#filter-christmasbooks .filter-image p, #filter-christmasbooks .filter-text {
-  background-color: #535233;
-}
-
 #filter-fair .filter-image p, #filter-fair .filter-text {
   background-color: #457193;
 }
@@ -321,6 +313,15 @@
 #filter-eco .filter-image p, #filter-eco .filter-text {
   background-color: #768749;
 }
+
+#filter-christmasgifts .filter-image p, #filter-christmasgifts .filter-text {
+  background-color: #c9291b;
+}
+
+#filter-used .filter-image p, #filter-used .filter-text {
+  background-color: #574c44;
+}
+
 
 
 // User quotes slides
@@ -459,11 +460,11 @@
   .teaser--filters {
     @include span(2 of 4);
 
-    &#filter-christmasbooks, &#filter-eco {
+    &#filter-fair, &#filter-used {
       @include omega;
     }
 
-    &#filter-fair {
+    &#filter-eco {
       clear: right;
     }
   }
@@ -545,11 +546,11 @@
   .teaser--filters {
     @include span(2 of 6);
 
-    &#filter-fair {
+    &#filter-eco {
       @include omega;
     }
 
-    &#filter-eco {
+    &#filter-used {
       display: none;
     }
   }
@@ -621,7 +622,7 @@
   .teaser--filters {
     @include span(2 of 8);
 
-    &#filter-eco {
+    &#filter-used {
       @include omega;
     }
   }

@@ -31,11 +31,11 @@ de:
         description: "Perfekte Ideen"
         link:        "Jetzt entdecken"
         label:       "inspirierend"
-      christmasbooks:
-        teaser_html: "Wir haben<br>sie alle!"
-        description: "Bücher für jeden Anlass"
+      used:
+        teaser_html: "Von letzter Saison<br>bis echter Rarität."
+        description: "Gebrauchtes auf einen Blick"
         link:        "Hier stöbern"
-        label:       "Lesestoff"
+        label:       "gebraucht"
 
     article_queue:
       :1:
