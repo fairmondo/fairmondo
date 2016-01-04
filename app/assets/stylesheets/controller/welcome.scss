@@ -314,8 +314,8 @@
   background-color: #768749;
 }
 
-#filter-christmasgifts .filter-image p, #filter-christmasgifts .filter-text {
-  background-color: #c9291b;
+#filter-small .filter-image p, #filter-small .filter-text {
+  background-color: #e47240;
 }
 
 #filter-used .filter-image p, #filter-used .filter-text {
@@ -464,7 +464,7 @@
       @include omega;
     }
 
-    &#filter-christmasgifts {
+    &#filter-small {
       clear: right;
     }
   }
@@ -546,7 +546,7 @@
   .teaser--filters {
     @include span(2 of 6);
 
-    &#filter-christmasgifts {
+    &#filter-small {
       @include omega;
     }
 

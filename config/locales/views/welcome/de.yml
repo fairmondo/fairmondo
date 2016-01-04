@@ -26,11 +26,11 @@ de:
         description: "Öko-Produkte auf einen Blick"
         link:        "Hier reinschauen"
         label:       "öko"
-      christmasgifts:
-        teaser_html: "100 schöne<br>Weihnachts&shy;geschenke"
-        description: "Perfekte Ideen"
+      small:
+        teaser_html: "Kleine Hersteller<br>–&nbsp;große Qualität."
+        description: "Alle Angebote auf einen Blick"
         link:        "Jetzt entdecken"
-        label:       "inspirierend"
+        label:       "klein&edel"
       used:
         teaser_html: "Von letzter Saison<br>bis echter Rarität."
         description: "Gebrauchtes auf einen Blick"
