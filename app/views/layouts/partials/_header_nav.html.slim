@@ -78,13 +78,14 @@ nav id="l-header-mnav" class="l-header-mnav" role="navigation"
         li.mnav-menu-item-submenu-item
           = link_to t('.about_us.coop'), '/genossenschaft/'
         li.mnav-menu-item-submenu-item
-          = link_to t('.about_us.takepart'), 'http://mitmachen.fairmondo.de/',
-                    target: '_blank'
-        li.mnav-menu-item-submenu-item
           = link_to t('.about_us.affiliate'), '/partnerprogramm'
+        li.mnav-menu-item-submenu-item
+          = link_to t('.about_us.jobs'), '/jobs'
         li.mnav-menu-item-submenu-item
           = link_to t('.about_us.forum'), 'https://forum.fairmondo.de/',
                     target: '_blank'
+        li.mnav-menu-item-submenu-item
+          = link_to t('.about_us.help'), new_feedback_path(variety: :get_help)
 
 / *** Desktop navigation ***
 nav.l-header-nav
@@ -101,13 +102,14 @@ nav.l-header-nav
         li
           = link_to t('.about_us.coop'), '/genossenschaft/'
         li
-          = link_to t('.about_us.takepart'), 'http://mitmachen.fairmondo.de/',
-                    target: '_blank'
-        li
           = link_to t('.about_us.affiliate'), '/partnerprogramm'
+        li
+          = link_to t('.about_us.jobs'), '/jobs'
         li
           = link_to t('.about_us.forum'), 'https://forum.fairmondo.de/',
                     target: '_blank'
+        li
+          = link_to t('.about_us.help'), new_feedback_path(variety: :get_help)
 
     / Marketplace
     li.TouchHover

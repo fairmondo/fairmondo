@@ -73,9 +73,10 @@ de:
           fairmondo: 'Fairmondo'
           marketplace: 'Über den Marktplatz'
           coop: 'Genossenschaft'
-          takepart: 'Mitmachen'
+          jobs: 'Jobs'
           affiliate: 'Partnerprogramm'
           forum: 'Forum'
+          help: 'Hilfe'
         marketplace:
           title: "Marktplatz"
           buy: "Kaufen"
