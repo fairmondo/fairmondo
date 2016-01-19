@@ -21,11 +21,9 @@ class ActiveUserArticles
     result = ArticlesIndex.all.filter(term: { seller_id: @user.id }).page(page).per(per)
     result.to_a # this will make sure the request is send
     result
-  rescue Faraday::ConnectionFailed
-    user_articles_for_error_case page, per
-  rescue Faraday::TimeoutError
-    user_articles_for_error_case page, per
   rescue Faraday::ClientError
+    user_articles_for_error_case page, per
+  rescue StandardError
     user_articles_for_error_case page, per
   end
 

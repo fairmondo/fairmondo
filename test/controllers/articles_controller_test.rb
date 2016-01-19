@@ -203,6 +203,12 @@ describe ArticlesController do
       end
 
       it "doesn't throw an error when the search for other users articles breaks" do
+        Chewy::Query.any_instance.stubs(:to_a).raises(StandardError.new('test')) # simulate connection error so that we dont have to use elastic
+        get :show, id: article.id
+        assert_template :show
+      end
+
+      it "doesn't throw an error when the search for other users articles breaks" do
         Chewy::Query.any_instance.stubs(:to_a).raises(Faraday::ConnectionFailed.new('test')) # simulate connection error so that we dont have to use elastic
         get :show, id: article.id
         assert_template :show
@@ -496,6 +502,13 @@ describe ArticlesController do
         query: '@#%$#@',
         suggestions: []
       }.to_json)
+    end
+
+    it 'should rescue a StandardError error' do
+      ArticleAutocomplete.any_instance.stubs(:autocomplete).raises(StandardError.new('test'))
+      get :autocomplete, keywords: 'chunky'
+      assert_response :success
+      response.body.must_equal({ 'query' => nil, 'suggestions' => [] }.to_json)
     end
 
     it 'should rescue an Faraday::ConnectionFailed error' do

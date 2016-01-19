@@ -15,11 +15,9 @@ class ArticlesController < ApplicationController
   # Autocomplete
   def autocomplete
     render json: ArticleAutocomplete.new(params[:q]).autocomplete
-  rescue Faraday::ConnectionFailed
-    search_results_for_error_case
-  rescue Faraday::TimeoutError
-    search_results_for_error_case
   rescue Faraday::ClientError
+    search_results_for_error_case
+  rescue StandardError
     search_results_for_error_case
   end
 
