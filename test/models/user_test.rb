@@ -65,6 +65,7 @@ describe User do
     it { subject.must_respond_to :admin }
     it { subject.must_respond_to :heavy_uploader }
     it { subject.must_respond_to :belboon_tracking_token }
+    it { subject.must_respond_to :voluntary_contribution }
   end
 
   describe 'associations' do
@@ -88,6 +89,15 @@ describe User do
 
     describe 'on create' do
       it { subject.must validate_acceptance_of :legal }
+    end
+
+    describe 'voluntary_contribution' do
+      it { user.must allow_value(nil).for :voluntary_contribution }
+      it { user.must allow_value(3).for :voluntary_contribution }
+      it { user.must allow_value(5).for :voluntary_contribution }
+      it { user.must allow_value(10).for :voluntary_contribution }
+      it { user.wont allow_value(6).for :voluntary_contribution }
+      it { user.wont allow_value(-1).for :voluntary_contribution }
     end
 
     describe 'on update' do

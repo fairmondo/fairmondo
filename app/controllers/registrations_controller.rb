@@ -20,6 +20,14 @@ class RegistrationsController < Devise::RegistrationsController
     respond_with self.resource
   end
 
+  def create
+    super
+    if resource.valid? && resource.voluntary_contribution.present?
+      RegistrationsMailer.voluntary_contribution_email(params[:user][:email],
+                                                       params[:user][:voluntary_contribution].to_i).deliver
+    end
+  end
+
   def edit
     @user = User.find(current_user.id)
     check_incomplete_profile!(@user)

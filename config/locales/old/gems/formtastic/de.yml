@@ -16,6 +16,7 @@ de:
         nickname: Nutzername
         type: Ein gewerbliches Nutzerkonto anlegen
         email: E-Mail-Adresse
+        voluntary_contribution: "Ich möchte Fairmondo mit einem freiwilligen monatlichen Grundbeitrag unterstützen (inkl. 19% MwSt., jederzeit kündbar)."
         image: Profilbild
         password: "Passwort"
         password_confirmation: "Passwort wiederholen"
@@ -277,6 +278,7 @@ de:
           nickname: "Diesen Namen sehen auch andere Nutzer*innen."
           password: "Dein Passwort muss mindestens 6 Zeichen haben. Dein Account wird sicherer, wenn Du auch Zahlen und Großbuchstaben fürs Passwort verwendest."
           password_confirmation: "Wiederhole Dein gewünschtes Passwort."
+          voluntary_contribution: "Mit Fairmondo möchten wir eine faire Alternative zu den Riesen im Online-Handel aufbauen. Das ist ein sehr großes Projekt, gerade in der Startphase sind wir auf möglichst breite Unterstützung angewiesen. Mit Deinem Beitrag ermöglichst Du unsere Arbeit und die Weiterentwicklung unseres Marktplatzes."
           newsletter: "Mit unserem Newsletter erhältst Du Produktempfehlungen und Informationen zu Themen wie Nachhaltigkeit und bewusstem Konsum. Der Newsletter erscheint einmal im Monat."
 
         create: *new_user

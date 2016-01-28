@@ -16,6 +16,11 @@ h1= t('common.actions.sign_up')
     - legal_link = checkbox_link_helper t('users.legal_abbr'), '/agb'
     - privacy_link = checkbox_link_helper t('users.privacy'), '/datenschutz'
     = f.input :legal, as: :boolean, required: true, label: t("users.i_accept_both", legal: legal_link, privacy: privacy_link).html_safe
+
+    = f.input :voluntary_contribution, required: false,
+              as: :radio, tooltip: true,
+              collection: { 'Kein Beitrag' => '', '3 €' => 3, '5 €' => 5, '10 €' => 10 }
+
     = f.input :newsletter, as: :boolean, label: 'Ich möchte den monatlichen Newsletter mit besonderen Produktvorstellungen erhalten (jederzeit abbestellbar).', required: false, tooltip: false
 
   = f.actions do

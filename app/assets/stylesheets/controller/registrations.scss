@@ -16,6 +16,10 @@
     width: 17.5em;
   }
 
+  fieldset > ol > li.radio fieldset ol li {
+    margin: 0.1em 0.5em 0.5em 0;
+    display: inline-block;
+  }
 
   // Responsive stuff
   @include at-breakpoint($bp-tablet) {
@@ -145,5 +149,3 @@ ul.checklist {
 .Accordion .Accordion-item > .Accordion-content .Accordion-step.free_transport_step {
   overflow: visible;
 }
-
-
