@@ -11,7 +11,7 @@ class UserRefinery < ApplicationRefinery
     [
       :email, :password, :new_terms_confirmed,
       # and custom fields apart from devise internal stuff:
-      :nickname, :type, :newsletter, :legal, :privacy
+      :nickname, :type, :newsletter, :legal, :privacy, :voluntary_contribution
     ]
   end
 

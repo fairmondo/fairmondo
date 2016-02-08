@@ -36,11 +36,14 @@ feature 'User registration' do
       fill_in 'user_email',                 with: 'email@example.com'
       fill_in 'user_password',              with: 'password'
       check 'user_type'
+      choose 'user_voluntary_contribution_5'
       check 'user_legal'
     end
     assert_difference 'User.count', 1 do
       click_button 'sign_up'
     end
+
+    assert_equal 5, User.last.voluntary_contribution
   end
 end
 

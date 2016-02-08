@@ -30,5 +30,7 @@ module User::Validations
     validates :about_me, length: { maximum: 2500, tokenizer: tokenizer_without_html }
 
     validates :type, inclusion: { in: ['LegalEntity'] }, if: :is_ngo?
+
+    validates :voluntary_contribution, inclusion: { in: [nil, 3, 5, 10] }
   end
 end

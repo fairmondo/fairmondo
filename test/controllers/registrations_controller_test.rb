@@ -48,13 +48,42 @@ describe RegistrationsController do
     before(:each) do
       @valid_params = {
         user: {
-          nickname: 'johndoe',
-          email:    'jdoe@example.com',
-          password: 'password',
-          legal:    '1',
-          type:     'PrivateUser'
+          nickname:               'johndoe',
+          email:                  'jdoe@example.com',
+          password:               'password',
+          legal:                  '1',
+          type:                   'PrivateUser',
+          voluntary_contribution: ''
         }
       }
+
+      @valid_params2 = {
+        user: {
+          nickname:               'johndoe',
+          email:                  'jdoe@example.com',
+          password:               'password',
+          legal:                  '1',
+          type:                   'PrivateUser',
+          voluntary_contribution: '5'
+        }
+      }
+
+      ActionMailer::Base.deliveries.clear
+    end
+
+    it 'should send out an extra email if voluntary contribution was checked' do
+      post :create, @valid_params2
+      assert_equal 2, ActionMailer::Base.deliveries.size
+      email = ActionMailer::Base.deliveries.last
+      assert_equal 'Dein freiwilliger Grundbeitrag für Fairmondo', email.subject
+      assert_equal ['jdoe@example.com'], email.to
+      assert_match(/vielen Dank für Deine Bereitschaft, die Weiterentwicklung von Fairmondo zu unterstützen!/,
+                   email.body.to_s)
+    end
+
+    it 'should not send out an extra email if voluntary contribution was not checked' do
+      post :create, @valid_params
+      assert_equal 1, ActionMailer::Base.deliveries.size
     end
   end
 

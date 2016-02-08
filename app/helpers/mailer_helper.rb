@@ -11,4 +11,17 @@ module MailerHelper
       }
     end
   end
+
+  def voluntary_contribution_link(amount)
+    case amount
+    when 3
+      'https://automatic.fastbill.com/purchase/7f1d4c9a3c8e6ec21543fde6377132d6/25-1'
+    when 5
+      'https://automatic.fastbill.com/purchase/7f1d4c9a3c8e6ec21543fde6377132d6/25-2'
+    when 10
+      'https://automatic.fastbill.com/purchase/7f1d4c9a3c8e6ec21543fde6377132d6/25-3'
+    else
+      ''
+    end
+  end
 end
