@@ -35,7 +35,7 @@ FactoryGirl.define do
     end
 
     trait :with_business_transactions do
-      association :seller, factory: [:user, :paypal_data]
+      association :seller, factory: [:legal_entity, :paypal_data]
 
       transient do
         articles_attributes []

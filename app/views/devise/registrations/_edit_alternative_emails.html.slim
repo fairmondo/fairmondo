@@ -1,0 +1,11 @@
+= f.input_step :alternative_emails do
+  = f.inputs do
+    h4= t('formtastic.labels.user.alternative_emails', email: resource.email)
+
+    .Accordion-step
+      = f.input :invoicing_email, required: false, as: :email, tooltip: true,
+                placeholder: resource.email
+
+    .Accordion-step
+      = f.input :order_notifications_email, required: false, as: :email, tooltip: true,
+                placeholder: resource.email

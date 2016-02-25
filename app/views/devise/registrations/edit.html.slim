@@ -132,6 +132,7 @@ h1= t('common.actions.edit_profile')
 
     - if current_user.is_a?(LegalEntity)
       = render partial: '/devise/registrations/edit_legal', locals: {f: f}
+      = render partial: '/devise/registrations/edit_alternative_emails', locals: { f: f }
 
     = f.input_step :unified_transport do
       = f.inputs do

@@ -212,6 +212,22 @@ class User < ActiveRecord::Base
     times
   end
 
+  def email_for_invoicing
+    if self.is_a?(LegalEntity) && invoicing_email.present?
+      invoicing_email
+    else
+      email
+    end
+  end
+
+  def email_for_order_notifications
+    if self.is_a?(LegalEntity) && order_notifications_email.present?
+      order_notifications_email
+    else
+      email
+    end
+  end
+
   private
 
   # @api private

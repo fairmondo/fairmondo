@@ -6,6 +6,8 @@ require_relative '../test_helper'
 
 describe User do
   let(:user) { FactoryGirl.create(:user) }
+  let(:private_stubbed) { FactoryGirl.build_stubbed(:private_user) }
+  let(:le_stubbed) { FactoryGirl.build_stubbed(:legal_entity) }
   subject { User.new }
 
   it 'has a valid Factory' do
@@ -66,6 +68,8 @@ describe User do
     it { subject.must_respond_to :heavy_uploader }
     it { subject.must_respond_to :belboon_tracking_token }
     it { subject.must_respond_to :voluntary_contribution }
+    it { subject.must_respond_to :invoicing_email }
+    it { subject.must_respond_to :order_notifications_email }
   end
 
   describe 'associations' do
@@ -244,6 +248,46 @@ describe User do
       end
       it 'should be calculated correctly for negative ratings' do
         user.calculate_percentage_of_biased_ratings('negative', 10).must_equal 10.0
+      end
+    end
+
+    describe '#email_for_invoicing' do
+      it 'for legal entities, should use invoicing email if present' do
+        le_stubbed.email_for_invoicing.must_equal le_stubbed.invoicing_email
+      end
+
+      it 'for legal entities, should use standard email if no invoicing email is present' do
+        le_stubbed.invoicing_email = ''
+        le_stubbed.email_for_invoicing.must_equal le_stubbed.email
+      end
+
+      it 'for private users, should use standard email if no invoicing email is present' do
+        private_stubbed.email_for_invoicing.must_equal private_stubbed.email
+      end
+
+      it 'for private users, should use standard email even if invoicing email is present' do
+        private_stubbed.invoicing_email = 'invoices@example.com'
+        private_stubbed.email_for_invoicing.must_equal private_stubbed.email
+      end
+    end
+
+    describe '#email_for_order_notifications' do
+      it 'for legal entities, should use order notifications email if present' do
+        le_stubbed.email_for_order_notifications.must_equal le_stubbed.order_notifications_email
+      end
+
+      it 'for legal entities, should use standard email if no order notifications email is present' do
+        le_stubbed.order_notifications_email = ''
+        le_stubbed.email_for_order_notifications.must_equal le_stubbed.email
+      end
+
+      it 'for private users, should use standard email if no order notifications email is present' do
+        private_stubbed.email_for_order_notifications.must_equal private_stubbed.email
+      end
+
+      it 'for private users, should use standard email even if order notifications email is present' do
+        private_stubbed.order_notifications_email = 'orders@example.com'
+        private_stubbed.email_for_order_notifications.must_equal private_stubbed.email
       end
     end
   end
