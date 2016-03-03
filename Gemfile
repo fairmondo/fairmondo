@@ -109,7 +109,7 @@ gem 'exception_notification'
 # ---------- API ----------
 
 # Gem for connecting to FastBill Automatic
-gem 'fastbill-automatic', git: 'git://github.com/reputami/fastbill-automatic.git', tag: 'v0.0.3'
+gem 'fastbill-automatic', git: 'git://github.com/marcaltmann/fastbill-automatic.git'
 
 gem 'savon' # interacing with other SOAP apis:
 gem 'rubyntlm' # https://github.com/savonrb/savon/issues/593
@@ -155,6 +155,8 @@ group :test do
   gem 'colorize'
   gem 'fakeredis'
   gem 'fakeweb', '~> 1.3'
+  gem 'webmock'
+  gem 'rack-contrib'
 end
 
 group :development, :test do

@@ -26,6 +26,8 @@ FactoryGirl.define do
     discount_value_cents 0
     quantity_bought 1
 
+    factory :business_transaction_from_ngo, traits: [:from_ngo]
+
     trait :incomplete do
       shipping_address nil
     end
@@ -63,6 +65,10 @@ FactoryGirl.define do
 
     trait :discountable do
       association :article, factory: [:article, :with_discount]
+    end
+
+    trait :from_ngo do
+      association :seller, factory: [:ngo, :paypal_data]
     end
 
     trait :pickup do

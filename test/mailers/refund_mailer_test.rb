@@ -8,7 +8,6 @@ require 'email_spec'
 describe RefundMailer do
   include EmailSpec::Helpers
   include EmailSpec::Matchers
-  include FastBillStubber
 
   it '#refund_notification' do
     refund = FactoryGirl.create :refund, reason: 'not_in_stock'
