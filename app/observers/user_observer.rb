@@ -4,10 +4,7 @@
 
 class UserObserver < ActiveRecord::Observer
   def before_save user
-    case
-    when (user.bank_account_number_changed? ||  user.bank_code_changed?)
-      check_blz_and_ktn(user.id, user.bank_account_number, user.bank_code)
-    when (user.iban_changed? || user.bic_changed?)
+    if user.iban_changed? || user.bic_changed?
       check_bic_and_iban(user.id, user.iban, user.bic)
     end
   end
@@ -48,13 +45,11 @@ class UserObserver < ActiveRecord::Observer
     end
   end
 
-  { blz: :ktn, bic: :iban }.each do |bank_ref, account_ref|
-    define_method("check_#{bank_ref}_and_#{account_ref}") do |id, account_number, bank_number|
-      begin
-        user = User.find(id)
-        user.update_column(:bankaccount_warning, !KontoAPI.valid?(bank_ref => bank_number, account_ref => account_number))
-      rescue
-      end
+  def check_bic_and_iban(id, iban, bic)
+    begin
+      user = User.find(id)
+      user.update_column(:bankaccount_warning, !KontoAPI.valid?(iban: iban, bic: bic))
+    rescue
     end
   end
 end
