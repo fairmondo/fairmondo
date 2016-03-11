@@ -129,6 +129,10 @@ class User < ActiveRecord::Base
     self.bank_account_owner? && self.iban? && self.bic?
   end
 
+  def bank_details_valid?
+    KontoAPI.valid?(iban: iban, bic: bic)
+  end
+
   def paypal_account_exists?
     self.paypal_account?
   end

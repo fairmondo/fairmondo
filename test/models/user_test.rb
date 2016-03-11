@@ -214,6 +214,17 @@ describe User do
       end
     end
 
+    describe 'bank_details_valid?' do
+      it 'should return true if KontoAPI check succeeds' do
+        le_stubbed.bank_details_valid?.must_equal true
+      end
+
+      it 'should return false if KontoAPI check fails' do
+        KontoAPI.stubs(:valid?).returns(false)
+        le_stubbed.bank_details_valid?.must_equal false
+      end
+    end
+
     describe '#update_fastbill_profile' do
       let(:user) { FactoryGirl.create :legal_entity, :fastbill }
       let(:api) { FastbillAPI.new }
