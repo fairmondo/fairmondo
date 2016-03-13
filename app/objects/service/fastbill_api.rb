@@ -79,10 +79,10 @@ class FastbillAPI
       currency_code: 'EUR',
       payment_type: payment_type_for(user),
       show_payment_notice: '1',
-      bank_name: user.bank_name,
-      bank_code: user.bank_code,
-      bank_account_number: user.bank_account_number,
-      bank_account_owner: user.bank_account_owner
+      bank_account_owner: user.bank_account_owner,
+      bank_iban: user.iban,
+      bank_bic: user.bic,
+      bank_name: user.bank_name
     }
   end
 
