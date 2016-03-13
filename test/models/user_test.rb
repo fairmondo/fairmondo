@@ -225,6 +225,32 @@ describe User do
       end
     end
 
+    describe '#payment_method' do
+      it 'should return direct_debit if mandate is available and bank details are valid' do
+        le_stubbed.direct_debit = true
+        le_stubbed.bankaccount_warning = false
+        le_stubbed.payment_method.must_equal :payment_by_direct_debit
+      end
+
+      it 'should return invoice if mandate is not available' do
+        le_stubbed.direct_debit = false
+        le_stubbed.bankaccount_warning = false
+        le_stubbed.payment_method.must_equal :payment_by_invoice
+      end
+
+      it 'should return invoice if mandate is available, but bank details are not valid' do
+        le_stubbed.direct_debit = true
+        le_stubbed.bankaccount_warning = true
+        le_stubbed.payment_method.must_equal :payment_by_invoice
+      end
+
+      it 'should return invoice otherwise' do
+        le_stubbed.direct_debit = false
+        le_stubbed.bankaccount_warning = true
+        le_stubbed.payment_method.must_equal :payment_by_invoice
+      end
+    end
+
     describe '#update_fastbill_profile' do
       let(:user) { create :legal_entity, :fastbill }
       let(:api) { FastbillAPI.new }

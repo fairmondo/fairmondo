@@ -133,6 +133,14 @@ class User < ActiveRecord::Base
     KontoAPI.valid?(iban: iban, bic: bic)
   end
 
+  def payment_method
+    if direct_debit && !bankaccount_warning
+      :payment_by_direct_debit
+    else
+      :payment_by_invoice
+    end
+  end
+
   def paypal_account_exists?
     self.paypal_account?
   end
