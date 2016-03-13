@@ -6,20 +6,28 @@ require_relative '../test_helper'
 
 describe FastbillAPI do
   describe 'methods' do
-    let(:business_transaction) { BusinessTransaction.new }
-    let(:db_business_transaction) { create :business_transaction }
-    let(:db_bt_from_ngo) { create :business_transaction_from_ngo }
-    let(:seller) { db_business_transaction.seller }
+    let(:bt_from_legal_entity) { create :business_transaction_from_legal_entity }
+    let(:bt_from_private_user) { create :business_transaction_from_private_user }
+    let(:bt_from_ngo)          { create :business_transaction_from_ngo }
 
     describe '::fastbill_chain' do
       it 'should find seller of transaction' do
-        api = FastbillAPI.new db_business_transaction
-        api.instance_eval('@seller').must_equal seller
+        api = FastbillAPI.new bt_from_legal_entity
+        api.instance_eval('@seller').must_equal bt_from_legal_entity.seller
+      end
+
+      describe 'when seller is a private user' do
+        it 'should not contact Fastbill' do
+          api = FastbillAPI.new bt_from_private_user
+          api.fastbill_chain
+          assert_not_requested :post, 'https://my_email:my_fastbill_api_key@automatic.fastbill.com'\
+                                      '/api/1.0/api.php'
+        end
       end
 
       describe 'when seller is an NGO' do
         it 'should not contact Fastbill' do
-          api = FastbillAPI.new db_bt_from_ngo
+          api = FastbillAPI.new bt_from_ngo
           api.fastbill_chain
           assert_not_requested :post, 'https://my_email:my_fastbill_api_key@automatic.fastbill.com'\
                                       '/api/1.0/api.php'
@@ -29,10 +37,10 @@ describe FastbillAPI do
       describe 'when seller is not an NGO' do
         describe 'and has Fastbill profile' do
           it 'should not create new Fastbill profile' do
-            db_business_transaction # to trigger observers before
-            seller.update_attributes(fastbill_id: '1234',
-                                     fastbill_subscription_id: '4321')
-            api = FastbillAPI.new db_business_transaction
+            bt_from_legal_entity # to trigger observers before
+            bt_from_legal_entity.seller.update_attributes(fastbill_id: '1234',
+                                                          fastbill_subscription_id: '4321')
+            api = FastbillAPI.new bt_from_legal_entity
             api.expects(:fastbill_create_customer).never
             api.expects(:fastbill_create_subscription).never
             api.fastbill_chain
@@ -42,18 +50,19 @@ describe FastbillAPI do
         end
 
         describe 'and has no Fastbill profile' do
-          let(:db_business_transaction) { create :business_transaction, :clear_fastbill }
+          let(:bt_from_legal_entity) { create :business_transaction_from_legal_entity, :clear_fastbill }
+
           it 'should create new Fastbill profile' do
-            db_business_transaction # to trigger observers before
-            api = FastbillAPI.new db_business_transaction
+            bt_from_legal_entity # to trigger observers before
+            api = FastbillAPI.new bt_from_legal_entity
             api.expects(:fastbill_create_customer)
             api.expects(:fastbill_create_subscription)
             api.fastbill_chain
           end
 
           it 'should log error if creating the profile raises an exception' do
-            db_business_transaction # to trigger observers before
-            api = FastbillAPI.new db_business_transaction
+            bt_from_legal_entity # to trigger observers before
+            api = FastbillAPI.new bt_from_legal_entity
             Fastbill::Automatic::Customer.stub :create, -> (_arg) { raise StandardError.new } do
               ExceptionNotifier.expects(:notify_exception)
               api.fastbill_chain
@@ -62,15 +71,15 @@ describe FastbillAPI do
         end
 
         it 'should set usage data for subscription' do
-          db_business_transaction # to trigger observers before
-          api = FastbillAPI.new db_business_transaction
+          bt_from_legal_entity # to trigger observers before
+          api = FastbillAPI.new bt_from_legal_entity
           Fastbill::Automatic::Subscription.expects(:setusagedata).twice
           api.fastbill_chain
         end
 
         it 'should log error if set usage data raises exception' do
-          db_business_transaction # to trigger observers before
-          api = FastbillAPI.new db_business_transaction
+          bt_from_legal_entity # to trigger observers before
+          api = FastbillAPI.new bt_from_legal_entity
           Fastbill::Automatic::Subscription.stub :setusagedata, -> (_arg) { raise StandardError.new } do
             ExceptionNotifier.expects(:notify_exception).twice
             api.fastbill_chain
@@ -90,35 +99,28 @@ describe FastbillAPI do
 
     describe '::fastbill_discount' do
       it 'should call setusagedata' do
-        db_business_transaction # to trigger observers before
+        bt_from_legal_entity # to trigger observers before
         Fastbill::Automatic::Subscription.expects(:setusagedata)
-        db_business_transaction.discount = create :discount
-        api = FastbillAPI.new db_business_transaction
+        bt_from_legal_entity.discount = create :discount
+        api = FastbillAPI.new bt_from_legal_entity
         api.send :fastbill_discount
       end
     end
 
     describe '::fastbill_refund' do
       it 'should call setusagedata' do
-        db_business_transaction # to trigger observers before
+        bt_from_legal_entity # to trigger observers before
         Fastbill::Automatic::Subscription.expects(:setusagedata).twice
-        api = FastbillAPI.new db_business_transaction
+        api = FastbillAPI.new bt_from_legal_entity
         api.send :fastbill_refund_fair
         api.send :fastbill_refund_fee
       end
     end
 
-    # describe '::update_profile' do
-    #   it 'should call setusagedata' do
-    #     Fastbill::Automatic::Customer.expects( :get )
-    #     FastbillAPI.update_profile( seller )
-    #   end
-    # end
-
     describe '::discount_wo_vat' do
       it 'should receive call' do
-        db_business_transaction.discount = create :discount
-        api = FastbillAPI.new db_business_transaction
+        bt_from_legal_entity.discount = create :discount
+        api = FastbillAPI.new bt_from_legal_entity
         api.expects(:discount_wo_vat)
         api.fastbill_chain
       end
@@ -128,7 +130,7 @@ describe FastbillAPI do
       it 'should receive call' do
         FastbillAPI.any_instance.expects(:fastbill_refund_fair)
         FastbillAPI.any_instance.expects(:fastbill_refund_fee)
-        FastbillRefundWorker.perform_async(db_business_transaction.id)
+        FastbillRefundWorker.perform_async(bt_from_legal_entity.id)
       end
     end
   end

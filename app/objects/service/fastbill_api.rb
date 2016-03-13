@@ -19,7 +19,7 @@ class FastbillAPI
   # fastbill account
   def fastbill_chain
     @seller.with_lock do
-      unless @seller.ngo?
+      unless @seller.ngo? || @seller.is_a?(PrivateUser)
         unless @seller.has_fastbill_profile?
           fastbill_create_customer
           fastbill_create_subscription
