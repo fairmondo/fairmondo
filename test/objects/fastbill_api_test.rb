@@ -132,4 +132,19 @@ describe FastbillAPI do
       end
     end
   end
+
+  describe '#payment_type_for' do
+    let(:api) { FastbillAPI.new }
+    let(:user) { FactoryGirl.build_stubbed(:legal_entity) }
+
+    it 'should return "1" when payment method is invoice' do
+      user.stubs(:payment_method).returns(:payment_by_invoice)
+      api.send(:payment_type_for, user).must_equal '1'
+    end
+
+    it 'should return "2" when payment method is direct debit' do
+      user.stubs(:payment_method).returns(:payment_by_direct_debit)
+      api.send(:payment_type_for, user).must_equal '2'
+    end
+  end
 end
