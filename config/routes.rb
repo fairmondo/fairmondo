@@ -3,8 +3,6 @@
 #   See the COPYRIGHT file for details.
 
 Fairmondo::Application.routes.draw do
-  resources :direct_debit_mandates
-
   mount Nkss::Engine => '/styleguides' if Rails.env.development? || Rails.env.staging?
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
 
@@ -32,6 +30,8 @@ Fairmondo::Application.routes.draw do
   get 'exports/show'
 
   resources :contents
+
+  resources :direct_debit_mandates, only: []
 
   devise_for :user, controllers: { passwords: 'passwords', registrations: 'registrations',
                                    sessions: 'sessions', confirmations: 'confirmations' }
