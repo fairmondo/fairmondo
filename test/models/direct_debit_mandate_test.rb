@@ -10,6 +10,7 @@ describe DirectDebitMandate do
   describe 'attributes' do
     it { subject.must_respond_to :id }
     it { subject.must_respond_to :user_id }
+    it { subject.must_respond_to :reference }
   end
 
   describe 'associations' do

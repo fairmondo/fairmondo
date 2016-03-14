@@ -197,6 +197,7 @@ ActiveRecord::Schema.define(version: 20160314151452) do
   add_index "contents", ["key"], name: "index_tinycms_contents_on_key", unique: true, using: :btree
 
   create_table "direct_debit_mandates", force: true do |t|
+    t.string   "reference"
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
