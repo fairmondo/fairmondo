@@ -16,4 +16,12 @@ describe DirectDebitMandate do
   describe 'associations' do
     it { subject.must belong_to(:user) }
   end
+
+  describe 'class methods' do
+    describe 'creditor_identifier' do
+      it 'should return Fairmondo SEPA Creditor Identifier' do
+        DirectDebitMandate.creditor_identifier.must_equal 'DE15ZZZ00001452371'
+      end
+    end
+  end
 end
