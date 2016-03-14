@@ -82,6 +82,7 @@ describe User do
     it { subject.must have_one(:image) }
     it { subject.must have_many(:seller_line_item_groups) }
     it { subject.must have_many(:buyer_line_item_groups) }
+    it { subject.must have_one(:direct_debit_mandate) }
   end
 
   describe 'validations' do
