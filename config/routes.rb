@@ -3,6 +3,8 @@
 #   See the COPYRIGHT file for details.
 
 Fairmondo::Application.routes.draw do
+  resources :direct_debit_mandates
+
   mount Nkss::Engine => '/styleguides' if Rails.env.development? || Rails.env.staging?
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
 

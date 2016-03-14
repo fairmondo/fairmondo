@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160212233750) do
+ActiveRecord::Schema.define(version: 20160314151452) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -195,6 +195,14 @@ ActiveRecord::Schema.define(version: 20160212233750) do
   end
 
   add_index "contents", ["key"], name: "index_tinycms_contents_on_key", unique: true, using: :btree
+
+  create_table "direct_debit_mandates", force: true do |t|
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "direct_debit_mandates", ["user_id"], name: "index_direct_debit_mandates_on_user_id", using: :btree
 
   create_table "discounts", force: true do |t|
     t.string   "title"
