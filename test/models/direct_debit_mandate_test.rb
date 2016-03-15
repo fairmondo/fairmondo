@@ -26,12 +26,12 @@ describe DirectDebitMandate do
   end
 
   describe 'methods' do
-    describe '#generate_reference' do
-      it 'should return an md5 digest consisting of created_at and user_id' do
+    describe '#calculate_reference' do
+      it 'should return an md5 digest based on current time and user_id' do
         Time.use_zone('CET') do
-          direct_debit_mandate.created_at = Time.utc(2016, 1, 1, 0)
+          Time.stubs(:now).returns(Time.new(2016, 1, 1))
           direct_debit_mandate.user_id = 1001
-          direct_debit_mandate.generate_reference.must_equal '70VP07ETJD0LE8Q1YF9F9Y7D4'
+          direct_debit_mandate.calculate_reference.must_equal 'EFUUXKUPS45ELY81TBVMQV8TT'
         end
       end
     end
