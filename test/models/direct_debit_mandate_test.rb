@@ -19,6 +19,12 @@ describe DirectDebitMandate do
     it { subject.must belong_to(:user) }
   end
 
+  describe 'validations' do
+    it { subject.must validate_presence_of :user_id }
+    it { subject.must validate_uniqueness_of :user_id }
+    it { subject.must validate_presence_of :reference }
+  end
+
   describe 'methods' do
     describe '#generate_reference' do
       it 'should return an md5 digest consisting of created_at and user_id' do
@@ -32,6 +38,13 @@ describe DirectDebitMandate do
   end
 
   describe 'class methods' do
+    describe '#build' do
+      it 'should return a valid instance when provided with user' do
+        instance = DirectDebitMandate.build(user)
+        assert instance.valid?
+      end
+    end
+
     describe '#creditor_identifier' do
       it 'should return Fairmondo SEPA Creditor Identifier' do
         DirectDebitMandate.creditor_identifier.must_equal 'DE15ZZZ00001452371'
