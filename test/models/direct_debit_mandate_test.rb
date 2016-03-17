@@ -32,19 +32,18 @@ describe DirectDebitMandate do
 
     it 'should not generate a new reference if one is already present' do
       direct_debit_mandate.save
-      DirectDebitMandate.any_instance.stubs(:calculate_reference).returns('fake')
+      DirectDebitMandate.any_instance.stubs(:calculate_reference).returns('new_ref')
       mandate_new = DirectDebitMandate.find(direct_debit_mandate.id)
-      mandate_new.reference.wont_equal 'fake'
+      mandate_new.reference.wont_equal 'new_ref'
     end
   end
 
   describe 'reference calculation' do
-    it 'should create a hash reference based on current time and user_id' do
-      Time.use_zone('CET') do
-        Time.stubs(:now).returns(Time.new(2016, 1, 1))
-        direct_debit_mandate.user_id = 1001
-        direct_debit_mandate.reference.must_equal 'EFUUXKUPS45ELY81TBVMQV8TT'
-      end
+    it 'should create a hash reference based on user_id and current time' do
+      Time.stubs(:now).returns(Time.utc(2016, 1, 1))
+      user = FactoryGirl.build_stubbed(:user, id: 1001)
+      mandate = DirectDebitMandate.new(user: user)
+      mandate.reference.must_equal '7WDGNBWREJM7E9XIAN5YJ483W'
     end
   end
 

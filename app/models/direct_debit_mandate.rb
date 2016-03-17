@@ -26,7 +26,7 @@ class DirectDebitMandate < ActiveRecord::Base
   # creation date of the mandate. It is 25 characters long.
   # Example: 70VP07ETJD0LE8Q1YF9F9Y7D4
   def calculate_reference
-    base_str = user_id.to_s + Time.now.to_s
+    base_str = user_id.to_s + Time.now.utc.to_s
     s16 = Digest::MD5.hexdigest(base_str)
     i10 = s16.to_i(16)
     s36 = i10.to_s(36)
