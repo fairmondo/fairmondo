@@ -292,3 +292,25 @@ feature 'Newsletter' do
     @user.reload.newsletter.must_equal false
   end
 end
+
+feature 'Direct debit mandate for legal entities' do
+  setup do
+    @user = FactoryGirl.create :legal_entity
+    login_as @user
+  end
+
+  scenario 'Direct debit checkbox is shown if mandate is not present' do
+    visit edit_user_registration_path(@user)
+
+    assert page.has_field?('user_direct_debit', type: 'checkbox')
+  end
+
+  scenario 'Direct debit mandate reference is shown if present' do
+    mandate = FactoryGirl.create :direct_debit_mandate, user: @user
+
+    visit edit_user_registration_path(@user)
+
+    find_field('user_direct_debit_mandate_reference', disabled: true)
+      .value.must_equal(mandate.reference)
+  end
+end

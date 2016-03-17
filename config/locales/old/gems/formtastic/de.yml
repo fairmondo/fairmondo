@@ -47,6 +47,7 @@ de:
         customer_number: "Kundennummer"
         direct_debit_html: "Hiermit erteile ich ein "
         sepa: "SEPA Lastschriftmandat"
+        direct_debit_mandate_reference: "Referenz für SEPA-Lastschriftmandat"
         unified_transport_maximum_articles: "Die Versandkosten gelten bis maximal"
         unified_transport_provider: "Der Kombiversand erfolgt als:"
         unified_transport_price: Versandkosten (€)
