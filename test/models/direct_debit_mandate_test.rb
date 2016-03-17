@@ -25,26 +25,30 @@ describe DirectDebitMandate do
     it { subject.must validate_presence_of :reference }
   end
 
-  describe 'methods' do
-    describe '#calculate_reference' do
-      it 'should return an md5 digest based on current time and user_id' do
-        Time.use_zone('CET') do
-          Time.stubs(:now).returns(Time.new(2016, 1, 1))
-          direct_debit_mandate.user_id = 1001
-          direct_debit_mandate.calculate_reference.must_equal 'EFUUXKUPS45ELY81TBVMQV8TT'
-        end
+  describe 'initialization' do
+    it 'should initialize a valid object' do
+      assert direct_debit_mandate.valid?
+    end
+
+    it 'should not generate a new reference if one is already present' do
+      direct_debit_mandate.save
+      DirectDebitMandate.any_instance.stubs(:calculate_reference).returns('fake')
+      mandate_new = DirectDebitMandate.find(direct_debit_mandate.id)
+      mandate_new.reference.wont_equal 'fake'
+    end
+  end
+
+  describe 'reference calculation' do
+    it 'should create a hash reference based on current time and user_id' do
+      Time.use_zone('CET') do
+        Time.stubs(:now).returns(Time.new(2016, 1, 1))
+        direct_debit_mandate.user_id = 1001
+        direct_debit_mandate.reference.must_equal 'EFUUXKUPS45ELY81TBVMQV8TT'
       end
     end
   end
 
   describe 'class methods' do
-    describe '#build' do
-      it 'should return a valid instance when provided with user' do
-        instance = DirectDebitMandate.build(user)
-        assert instance.valid?
-      end
-    end
-
     describe '#creditor_identifier' do
       it 'should return Fairmondo SEPA Creditor Identifier' do
         DirectDebitMandate.creditor_identifier.must_equal 'DE15ZZZ00001452371'
