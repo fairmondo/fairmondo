@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160314151452) do
+ActiveRecord::Schema.define(version: 20160317153443) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -562,6 +562,7 @@ ActiveRecord::Schema.define(version: 20160314151452) do
     t.integer  "voluntary_contribution"
     t.string   "invoicing_email",                              default: "",    null: false
     t.string   "order_notifications_email",                    default: "",    null: false
+    t.boolean  "direct_debit_exemption",                       default: false
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree

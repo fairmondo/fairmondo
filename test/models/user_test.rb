@@ -56,6 +56,7 @@ describe User do
     it { subject.must_respond_to :percentage_of_negative_ratings }
     it { subject.must_respond_to :percentage_of_neutral_ratings }
     it { subject.must_respond_to :direct_debit }
+    it { subject.must_respond_to :direct_debit_exemption }
     it { subject.must_respond_to :value_of_goods_cents }
     it {    user.must_respond_to :max_value_of_goods_cents } # implemented on all subclasses
     it { subject.must_respond_to :max_value_of_goods_cents_bonus }
@@ -145,6 +146,12 @@ describe User do
         user.banned = true
         user.save
       end
+    end
+  end
+
+  describe 'direct debit exemption' do
+    it 'should be false for new User instances' do
+      le_stubbed.direct_debit_exemption.must_equal false
     end
   end
 
