@@ -14,9 +14,7 @@ module User::Validations
     validates :legal, acceptance: true, on: :create
     validates_associated :standard_address, unless: Proc.new { |u| u.encrypted_password_changed? }
 
-    with_options if: :wants_to_sell? do |seller|
-      seller.validates :standard_address, presence: true
-    end
+    validates :standard_address, presence: true, if: :wants_to_sell?
 
     # TODO: Language specific validators
     # german validator for iban
