@@ -135,6 +135,27 @@ describe User do
       it { user.standard_address.must validate_presence_of :city }
       it { user.standard_address.must validate_presence_of :country }
     end
+
+    describe 'if legal entity wants to sell' do
+      before :each do
+        le_stubbed.wants_to_sell = true
+      end
+      it { le_stubbed.must validate_presence_of :iban }
+      it { le_stubbed.must validate_presence_of :bic }
+      it { le_stubbed.must validate_presence_of :bank_account_owner }
+      it { le_stubbed.must validate_presence_of :direct_debit_mandate }
+    end
+
+    describe 'if legal entity that is exempted from direct debit wants to sell' do
+      before :each do
+        le_stubbed.wants_to_sell = true
+        le_stubbed.direct_debit_exemption = true
+      end
+      it { le_stubbed.wont validate_presence_of :iban }
+      it { le_stubbed.wont validate_presence_of :bic }
+      it { le_stubbed.wont validate_presence_of :bank_account_owner }
+      it { le_stubbed.wont validate_presence_of :direct_debit_mandate }
+    end
   end
 
   describe 'banning a user' do
@@ -351,7 +372,7 @@ describe User do
     end
 
     describe LegalEntity do
-      let(:db_user) { create(:legal_entity) }
+      let(:db_user) { build_stubbed(:legal_entity) }
 
       it 'should have a valid factory' do
         db_user.valid?.must_equal true
