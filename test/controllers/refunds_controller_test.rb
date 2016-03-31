@@ -4,8 +4,6 @@
 
 require_relative '../test_helper'
 
-include FastBillStubber
-
 describe RefundsController do
   let(:seller) { FactoryGirl.create :user }
   let(:line_item_group) { FactoryGirl.create :line_item_group, seller: seller }

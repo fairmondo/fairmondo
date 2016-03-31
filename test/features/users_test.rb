@@ -3,7 +3,6 @@
 #   See the COPYRIGHT file for details.
 
 require_relative '../test_helper'
-include FastBillStubber
 
 include Warden::Test::Helpers
 

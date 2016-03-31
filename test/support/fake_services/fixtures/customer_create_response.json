@@ -1,0 +1,34 @@
+{
+  "REQUEST":{
+    "SERVICE":"customer.create",
+    "DATA":{
+      "CUSTOMER_TYPE":"business",
+      "ORGANIZATION":"hettie4",
+      "SALUTATION":null,
+      "FIRST_NAME":"Erika",
+      "LAST_NAME":"Mustermann",
+      "ADDRESS":"Eldenaer Strau00dfe 17",
+      "ADDRESS_2":null,
+      "ZIPCODE":"10247",
+      "CITY":"Berlin",
+      "COUNTRY_CODE":"DE",
+      "LANGUAGE_CODE":"DE",
+      "EMAIL":"petra.leuschke@konopelskimarks.com",
+      "CURRENCY_CODE":"EUR",
+      "PAYMENT_TYPE":"1",
+      "SHOW_PAYMENT_NOTICE":"1",
+      "BANK_NAME":"Jacky Fay I",
+      "BANK_CODE":"31330910",
+      "BANK_ACCOUNT_NUMBER":"95517526",
+      "BANK_ACCOUNT_OWNER":"Eliane Roob",
+      "CUSTOMER_NUMBER":1
+    }
+  },
+  "RESPONSE":{
+    "STATUS":"success",
+    "CUSTOMER_ID":1185408,
+    "HASH":"aeaeebb07f47a1942e44d197cae78710",
+    "CHANGEDATA_URL":"https://automatic.fastbill.com/accountdata/527d3ca69ba41db0905687319f8eb6ef/aeaeebb07f47a1942e44d197cae78710",
+    "DASHBOARD_URL":"https://automatic.fastbill.com/dashboard/527d3ca69ba41db0905687319f8eb6ef/aeaeebb07f47a1942e44d197cae78710"
+  }
+}

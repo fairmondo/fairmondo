@@ -3,12 +3,12 @@
 #   See the COPYRIGHT file for details.
 
 require_relative '../test_helper'
-include FastBillStubber
 
 describe FastbillAPI do
   describe 'methods' do
     let(:business_transaction) { BusinessTransaction.new }
     let(:db_business_transaction) { FactoryGirl.create :business_transaction }
+    let(:db_bt_from_ngo) { FactoryGirl.create :business_transaction_from_ngo }
     let(:seller) { db_business_transaction.seller }
 
     describe '::fastbill_chain' do
@@ -19,10 +19,10 @@ describe FastbillAPI do
 
       describe 'when seller is an NGO' do
         it 'should not contact Fastbill' do
-          Fastbill::Automatic::Base.expects(:perform).never
-          User.any_instance.stubs(:ngo).returns(:true)
-          api = FastbillAPI.new db_business_transaction
+          api = FastbillAPI.new db_bt_from_ngo
           api.fastbill_chain
+          assert_not_requested :post, 'https://my_email:my_fastbill_api_key@automatic.fastbill.com'\
+                                      '/api/1.0/api.php'
         end
       end
 
@@ -36,6 +36,8 @@ describe FastbillAPI do
             api.expects(:fastbill_create_customer).never
             api.expects(:fastbill_create_subscription).never
             api.fastbill_chain
+            assert_requested :post, 'https://my_email:my_fastbill_api_key@automatic.fastbill.com'\
+                                    '/api/1.0/api.php', times: 2
           end
         end
 

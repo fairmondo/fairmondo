@@ -1,0 +1,17 @@
+{
+  "REQUEST":{
+    "SERVICE":"subscription.setusagedata",
+    "DATA":{
+      "SUBSCRIPTION_ID":639548,
+      "ARTICLE_NUMBER":11,
+      "QUANTITY":1,
+      "UNIT_PRICE":0.34,
+      "DESCRIPTION":"1 Book 23 (Faires Prozent)",
+      "USAGE_DATE":"2016-03-06 18:41:36"
+    }
+  },
+  "RESPONSE":{
+    "STATUS":"success",
+    "USAGEDATA_ID":2164690
+  }
+}

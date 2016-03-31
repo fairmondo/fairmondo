@@ -23,6 +23,13 @@ require 'sidekiq/testing'
 #require 'pry-rescue/minitest' if ENV['RESCUE']
 require 'fakeredis'
 require "savon/mock/spec_helper"
+require 'webmock/minitest'
+
+# Webmock
+WebMock.allow_net_connect!
+
+# Fake services
+Dir[Rails.root.join("test/support/fake_services/*.rb")].each {|f| require f}
 
 # First matchers, then modules, then helpers. Helpers need to come after modules due to interdependencies.
 Dir[Rails.root.join("test/support/matchers/*.rb")].each {|f| require f}
@@ -80,6 +87,9 @@ class ActiveSupport::TestCase
 
   before :each do
     DatabaseCleaner.start
+
+    # Use fake Fastbill service
+    stub_request(:any, /automatic.fastbill.com/).to_rack(FakeFastbill)
   end
 
   after :each do
@@ -94,6 +104,9 @@ end
 class MiniTest::Spec
   before :each do
     DatabaseCleaner.start
+
+    # Use fake Fastbill service
+    stub_request(:any, /automatic.fastbill.com/).to_rack(FakeFastbill)
   end
 
   after :each do

@@ -1,0 +1,11 @@
+{
+  "REQUEST":{
+    "SERVICE":"customer.create",
+    "DATA":{
+      "CUSTOMER_TYPE":"business"
+    }
+  },
+  "RESPONSE":{
+    "ERRORS":["Login Error: Wrong API KEY or user credentials."]
+  }
+}

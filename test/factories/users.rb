@@ -73,6 +73,8 @@ FactoryGirl.define do
       order_notifications_email 'orders@example.com'
     end
 
+    factory :ngo, class: 'LegalEntity', traits: [:ngo]
+
     factory :incomplete_user, class: 'PrivateUser' do
       transient do
         create_standard_address false

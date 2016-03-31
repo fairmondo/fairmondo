@@ -3,7 +3,6 @@
 #   See the COPYRIGHT file for details.
 
 require_relative '../test_helper'
-include FastBillStubber
 
 describe PaymentsController do
   let(:lig) { FactoryGirl.create :line_item_group, :sold, :with_business_transactions, traits: [:paypal, :transport_type1] }
