@@ -139,6 +139,7 @@ describe User do
     describe 'if legal entity wants to sell' do
       before :each do
         le_stubbed.wants_to_sell = true
+        le_stubbed.direct_debit_exemption = false
       end
       it { le_stubbed.must validate_presence_of :iban }
       it { le_stubbed.must validate_presence_of :bic }
@@ -172,7 +173,8 @@ describe User do
 
   describe 'direct debit exemption' do
     it 'should be false for new User instances' do
-      le_stubbed.direct_debit_exemption.must_equal false
+      le = User.new
+      le.direct_debit_exemption.must_equal false
     end
   end
 

@@ -27,6 +27,7 @@ FactoryGirl.define do
     bic { %w(ABCDEF ZJFBLO TNAPIT EMLOAB).sample + rand(99).to_s.center(2, rand(9).to_s) }
 
     direct_debit true
+    direct_debit_exemption true
     uses_vouchers false
     created_at { 2.month.ago }
 
