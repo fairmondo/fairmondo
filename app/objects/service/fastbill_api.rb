@@ -61,7 +61,7 @@ class FastbillAPI
   end
 
   def attributes_for(user)
-    {
+    attributes = {
       customer_type: user.is_a?(LegalEntity) ? 'business' : 'consumer',
       organization: (user.is_a?(LegalEntity) &&
                      user.standard_address_company_name.present?) ?
@@ -78,12 +78,20 @@ class FastbillAPI
       email: user.email_for_invoicing,
       currency_code: 'EUR',
       payment_type: payment_type_for(user),
-      show_payment_notice: '1',
-      bank_account_owner: user.bank_account_owner,
-      bank_iban: user.iban,
-      bank_bic: user.bic,
-      bank_name: user.bank_name
+      show_payment_notice: '1'
     }
+
+    if user.payment_method == :payment_by_direct_debit
+      attributes.merge!(
+        bank_iban: user.iban,
+        bank_bic: user.bic,
+        bank_account_owner: user.bank_account_owner,
+        bank_account_mandate_reference: user.direct_debit_mandate_reference,
+        bank_account_mandate_reference_date: user.direct_debit_mandate_created_at
+      )
+    end
+
+    attributes
   end
 
   def payment_type_for(user)

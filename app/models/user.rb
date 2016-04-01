@@ -134,7 +134,7 @@ class User < ActiveRecord::Base
   end
 
   def payment_method
-    if direct_debit && !bankaccount_warning
+    if direct_debit_mandate.present? && !bankaccount_warning
       :payment_by_direct_debit
     else
       :payment_by_invoice

@@ -46,6 +46,7 @@ module User::Associations
     # Direct debit mandate
     has_one :direct_debit_mandate, dependent: :destroy, inverse_of: :user
     delegate :reference, to: :direct_debit_mandate, prefix: true, allow_nil: true
+    delegate :created_at, to: :direct_debit_mandate, prefix: true, allow_nil: true
 
     has_attached_file :cancellation_form
   end
