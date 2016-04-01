@@ -54,4 +54,19 @@ describe DirectDebitMandate do
       end
     end
   end
+
+  describe 'methods' do
+    describe '#reference_date' do
+      it 'should return the date of created_at' do
+        travel_to Time.new(2016,4,1,12)
+        mandate = FactoryGirl.create(:direct_debit_mandate)
+        travel_back
+        mandate.reference_date.to_s.must_equal '2016-04-01'
+      end
+
+      it 'should return the date of today if not saved to the database' do
+        direct_debit_mandate.reference_date.must_equal Date.current
+      end
+    end
+  end
 end

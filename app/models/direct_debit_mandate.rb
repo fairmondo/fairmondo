@@ -12,6 +12,13 @@ class DirectDebitMandate < ActiveRecord::Base
   end
 
   # instance methods
+  def reference_date
+    if created_at.present?
+      created_at.to_date
+    else
+      Date.current
+    end
+  end
 
   private
 
