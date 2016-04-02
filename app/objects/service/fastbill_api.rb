@@ -87,7 +87,7 @@ class FastbillAPI
         bank_bic: user.bic,
         bank_account_owner: user.bank_account_owner,
         bank_account_mandate_reference: user.direct_debit_mandate_reference,
-        bank_account_mandate_reference_date: user.direct_debit_mandate_date
+        bank_account_mandate_reference_date: user.direct_debit_mandate_reference_date
       )
     end
 

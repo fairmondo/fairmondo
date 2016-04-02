@@ -5,6 +5,8 @@
 require_relative '../test_helper'
 
 describe FastbillAPI do
+  let(:api) { FastbillAPI.new }
+
   describe 'methods' do
     let(:bt_from_legal_entity) { create :business_transaction_from_legal_entity }
     let(:bt_from_private_user) { create :business_transaction_from_private_user }
@@ -136,7 +138,6 @@ describe FastbillAPI do
   end
 
   describe '#payment_type_for' do
-    let(:api) { FastbillAPI.new }
     let(:user) { FactoryGirl.build_stubbed(:legal_entity) }
 
     it 'should return "1" when payment method is invoice' do
@@ -147,6 +148,63 @@ describe FastbillAPI do
     it 'should return "2" when payment method is direct debit' do
       user.stubs(:payment_method).returns(:payment_by_direct_debit)
       api.send(:payment_type_for, user).must_equal '2'
+    end
+  end
+
+  describe '#attributes_for' do
+    it 'should return customer data if payment type is invoice' do
+      alice = FactoryGirl.build_stubbed(:user_alice)
+      alice.stubs(:payment_method).returns(:payment_by_invoice)
+
+      attributes = api.send(:attributes_for, alice)
+
+      attributes.must_equal(
+        customer_type: 'business',
+        organization: 'Fairix eG',
+        salutation: 'Frau',
+        first_name: 'Alice',
+        last_name: 'Henderson',
+        address: 'Fairix eG',
+        address_2: 'Heidestraße 17',
+        zipcode: '51147',
+        city: 'Köln',
+        country_code: 'DE',
+        language_code: 'DE',
+        email: 'alice@fairix.com',
+        currency_code: 'EUR',
+        payment_type: '1',
+        show_payment_notice: '1'
+      )
+    end
+
+    it 'should return customer and direct debit data if payment type is direct debit' do
+      alice = FactoryGirl.build_stubbed(:user_alice_with_direct_debit_mandate)
+      alice.stubs(:payment_method).returns(:payment_by_direct_debit)
+
+      attributes = api.send(:attributes_for, alice)
+
+      attributes.must_equal(
+        customer_type: 'business',
+        organization: 'Fairix eG',
+        salutation: 'Frau',
+        first_name: 'Alice',
+        last_name: 'Henderson',
+        address: 'Fairix eG',
+        address_2: 'Heidestraße 17',
+        zipcode: '51147',
+        city: 'Köln',
+        country_code: 'DE',
+        language_code: 'DE',
+        email: 'alice@fairix.com',
+        currency_code: 'EUR',
+        payment_type: '2',
+        show_payment_notice: '1',
+        bank_iban: 'DE12500105170648489890',
+        bank_bic: 'GENODEF1JEV',
+        bank_account_owner: 'Alice Henderson',
+        bank_account_mandate_reference: '1001-001',
+        bank_account_mandate_reference_date: Date.parse('2016-04-01')
+      )
     end
   end
 end

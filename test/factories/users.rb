@@ -113,4 +113,27 @@ FactoryGirl.define do
       free_transport_available true
     end
   end
+
+  # Users Bob and Alice could in the future be used for scenarios etc.
+  # Alice is a legal entity, Bob a private user. Maybe invent a third person for admin
+  # and a fourth for NGO.
+  # factory :user_bob, class: PrivateUser do
+  # end
+
+  # Alice is a legal entity and sells fair electronics
+  factory :user_alice, class: LegalEntity do
+    nickname 'fairix'
+    email 'alice@fairix.com'
+    password 'password'
+    association :standard_address, factory: :address_for_alice
+
+    factory :user_alice_with_direct_debit_mandate, traits: [:with_direct_debit_mandate]
+
+    trait :with_direct_debit_mandate do
+      iban 'DE12500105170648489890'
+      bic 'GENODEF1JEV'
+      bank_account_owner 'Alice Henderson'
+      association :direct_debit_mandate, factory: :direct_debit_mandate_wo_user
+    end
+  end
 end
