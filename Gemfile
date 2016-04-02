@@ -146,6 +146,9 @@ group :development do
 
   # I18n Tools
   gem 'i18n-tasks', '~> 0.8.3'
+
+  # Rails application preloader
+  gem 'spring'
 end
 
 group :test do

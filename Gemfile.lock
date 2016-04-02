@@ -605,6 +605,7 @@ GEM
       railties (>= 3.1, < 5.0)
       slim (~> 3.0)
     slop (3.6.0)
+    spring (1.6.4)
     sprite-factory (1.6.1)
     sprockets (2.12.3)
       hike (~> 1.2)
@@ -786,6 +787,7 @@ DEPENDENCIES
   simplecov-json
   sinatra (>= 1.3.0)
   slim-rails (>= 2.1.5)
+  spring
   sprite-factory
   sprockets
   sqlite3
@@ -801,4 +803,4 @@ DEPENDENCIES
   wiselinks
 
 BUNDLED WITH
-   1.10.6
+   1.11.2
