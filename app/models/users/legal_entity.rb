@@ -13,7 +13,7 @@ class LegalEntity < User
 
   validates :terms, :about, :cancellation, presence: true, on: :update, if: :wants_to_sell?
 
-  validates :bank_account_owner, :iban, :bic, :direct_debit_mandate,
+  validates :bank_account_owner, :iban, :bic, :has_direct_debit_mandate?,
             presence: true, on: :update, if: :wants_to_sell?, unless: :direct_debit_exemption
 
   state_machine :seller_state, initial: :standard_seller do

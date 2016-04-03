@@ -1,8 +1,8 @@
 class DirectDebitMandate < ActiveRecord::Base
   belongs_to :user
 
-  validates :user_id, presence: true, uniqueness: true
-  validates :reference, presence: true
+  validates :user_id, presence: true
+  validates :reference, presence: true, uniqueness: true
 
   after_initialize :create_reference_if_blank
 

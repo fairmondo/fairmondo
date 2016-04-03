@@ -21,8 +21,8 @@ describe DirectDebitMandate do
 
   describe 'validations' do
     it { subject.must validate_presence_of :user_id }
-    it { subject.must validate_uniqueness_of :user_id }
     it { subject.must validate_presence_of :reference }
+    it { subject.must validate_uniqueness_of :reference }
   end
 
   describe 'initialization' do

@@ -133,8 +133,21 @@ class User < ActiveRecord::Base
     KontoAPI.valid?(iban: iban, bic: bic)
   end
 
+  def has_direct_debit_mandate?
+    if direct_debit_mandates.count > 0
+      true
+    else
+      false
+    end
+  end
+
+  # Returns the first direct debit mandate available. We only care about one.
+  def direct_debit_mandate
+    direct_debit_mandates.first
+  end
+
   def payment_method
-    if direct_debit_mandate.present? && !bankaccount_warning
+    if has_direct_debit_mandate? && !bankaccount_warning
       :payment_by_direct_debit
     else
       :payment_by_invoice

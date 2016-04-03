@@ -83,7 +83,7 @@ describe User do
     it { subject.must have_one(:image) }
     it { subject.must have_many(:seller_line_item_groups) }
     it { subject.must have_many(:buyer_line_item_groups) }
-    it { subject.must have_one(:direct_debit_mandate) }
+    it { subject.must have_many(:direct_debit_mandates) }
   end
 
   describe 'validations' do
@@ -144,7 +144,7 @@ describe User do
       it { le_stubbed.must validate_presence_of :iban }
       it { le_stubbed.must validate_presence_of :bic }
       it { le_stubbed.must validate_presence_of :bank_account_owner }
-      it { le_stubbed.must validate_presence_of :direct_debit_mandate }
+      # it { le_stubbed.must validate_presence_of :has_direct_debit_mandate? }
     end
 
     describe 'if legal entity that is exempted from direct debit wants to sell' do
@@ -155,7 +155,7 @@ describe User do
       it { le_stubbed.wont validate_presence_of :iban }
       it { le_stubbed.wont validate_presence_of :bic }
       it { le_stubbed.wont validate_presence_of :bank_account_owner }
-      it { le_stubbed.wont validate_presence_of :direct_debit_mandate }
+      # it { le_stubbed.wont validate_presence_of :has_direct_debit_mandate? }
     end
   end
 
@@ -260,22 +260,64 @@ describe User do
       describe 'when no direct debit mandate is available' do
         it 'should return invoice' do
           le_stubbed.bankaccount_warning = false
+
           le_stubbed.payment_method.must_equal :payment_by_invoice
         end
       end
 
       describe 'when a direct debit mandate is available' do
+        before do
+          @alice = FactoryGirl.build_stubbed :user_alice
+          @mandate = FactoryGirl.build_stubbed :direct_debit_mandate_wo_user
+          @alice.stubs(:direct_debit_mandates).returns([@mandate])
+        end
+
         it 'should return direct debit if bank details are valid' do
-          le_stubbed.build_direct_debit_mandate
-          le_stubbed.bankaccount_warning = false
-          le_stubbed.payment_method.must_equal :payment_by_direct_debit
+          @alice.bankaccount_warning = false
+
+          @alice.payment_method.must_equal :payment_by_direct_debit
         end
 
         it 'should return invoice if bank details are not valid' do
-          le_stubbed.build_direct_debit_mandate
-          le_stubbed.bankaccount_warning = true
-          le_stubbed.payment_method.must_equal :payment_by_invoice
+          @alice.bankaccount_warning = true
+
+          @alice.payment_method.must_equal :payment_by_invoice
         end
+      end
+    end
+
+    describe '#has_direct_debit_mandate?' do
+      before do
+        @alice = FactoryGirl.build_stubbed :user_alice
+        @mandate = FactoryGirl.build_stubbed :direct_debit_mandate_wo_user
+      end
+
+      it 'should return true if >= 1 mandate is present' do
+        @alice.stubs(:direct_debit_mandates).returns([@mandate])
+
+        assert @alice.has_direct_debit_mandate?
+      end
+
+      it 'should return false if no mandate is present' do
+        refute @alice.has_direct_debit_mandate?
+      end
+    end
+
+    describe '#direct_debit_mandate' do
+      it 'should return the first direct debit mandate if more than zero are present' do
+        alice = FactoryGirl.build_stubbed :user_alice
+        mandate1 = DirectDebitMandate.new(user: alice)
+        mandate2 = DirectDebitMandate.new(user: alice)
+        alice.direct_debit_mandates << mandate1
+        alice.direct_debit_mandates << mandate2
+
+        alice.direct_debit_mandate.must_equal mandate1
+      end
+
+      it 'should return nil if no mandate is present' do
+        alice = FactoryGirl.build_stubbed :user_alice
+
+        alice.direct_debit_mandate.must_be_nil
       end
     end
 

@@ -43,8 +43,8 @@ module User::Associations
 
     has_many :hearted_libraries, through: :hearts, source: :heartable, source_type: 'Library'
 
-    # Direct debit mandate
-    has_one :direct_debit_mandate, dependent: :destroy, inverse_of: :user
+    # Direct debit mandates
+    has_many :direct_debit_mandates, dependent: :destroy, inverse_of: :user
     delegate :reference, to: :direct_debit_mandate, prefix: true, allow_nil: true
     delegate :reference_date, to: :direct_debit_mandate, prefix: true, allow_nil: true
 

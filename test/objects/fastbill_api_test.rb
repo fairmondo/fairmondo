@@ -178,7 +178,9 @@ describe FastbillAPI do
     end
 
     it 'should return customer and direct debit data if payment type is direct debit' do
-      alice = FactoryGirl.build_stubbed(:user_alice_with_direct_debit_mandate)
+      alice = FactoryGirl.build_stubbed(:user_alice_with_bank_details)
+      mandate = FactoryGirl.build_stubbed(:direct_debit_mandate_wo_user)
+      alice.stubs(:direct_debit_mandates).returns([mandate])
       alice.stubs(:payment_method).returns(:payment_by_direct_debit)
 
       attributes = api.send(:attributes_for, alice)

@@ -127,13 +127,12 @@ FactoryGirl.define do
     password 'password'
     association :standard_address, factory: :address_for_alice
 
-    factory :user_alice_with_direct_debit_mandate, traits: [:with_direct_debit_mandate]
+    factory :user_alice_with_bank_details, traits: [:with_bank_details]
 
-    trait :with_direct_debit_mandate do
+    trait :with_bank_details do
       iban 'DE12500105170648489890'
       bic 'GENODEF1JEV'
       bank_account_owner 'Alice Henderson'
-      association :direct_debit_mandate, factory: :direct_debit_mandate_wo_user
     end
   end
 end
