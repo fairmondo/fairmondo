@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160317153443) do
+ActiveRecord::Schema.define(version: 20160403173803) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -201,6 +201,10 @@ ActiveRecord::Schema.define(version: 20160317153443) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "state"
+    t.datetime "activated_at"
+    t.datetime "last_used_at"
+    t.datetime "revoked_at"
   end
 
   add_index "direct_debit_mandates", ["user_id"], name: "index_direct_debit_mandates_on_user_id", using: :btree

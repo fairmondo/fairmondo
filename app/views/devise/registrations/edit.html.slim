@@ -168,8 +168,8 @@ h1= t('common.actions.edit_profile')
         - if resource.is_a?(LegalEntity)
           .Accordion-step
             - direct_debit_link = link_to t('formtastic.labels.user.sepa'), '/sepa?layout=false', target: '_blank', class: 'ungrouped_colorbox'
-            - if resource.direct_debit_mandate.present?
-              = f.input :direct_debit_mandate_reference, input_html: { disabled: true }
+            - if resource.active_direct_debit_mandate.present?
+              = f.input :active_direct_debit_mandate_reference, input_html: { disabled: true }
             - else
               = f.input :direct_debit, required: true, label: t('formtastic.labels.user.direct_debit_html').html_safe + direct_debit_link
 

@@ -6,6 +6,31 @@ class DirectDebitMandate < ActiveRecord::Base
 
   after_initialize :create_reference_if_blank
 
+  # state machine
+  state_machine initial: :new do
+    state :new, :active, :inactive
+
+    event :activate do
+      transition new: :active
+    end
+
+    event :deactivate do
+      transition active: :inactive
+    end
+
+    event :revoke do
+      transition active: :revoked
+    end
+
+    after_transition new: :active do |mandate, _transition|
+      mandate.activated_at = Time.now
+    end
+
+    after_transition active: :revoked do |mandate, _transition|
+      mandate.revoked_at = Time.now
+    end
+  end
+
   # class methods
   def self.creditor_identifier
     'DE15ZZZ00001452371'

@@ -164,8 +164,8 @@ describe FastbillAPI do
         salutation: 'Frau',
         first_name: 'Alice',
         last_name: 'Henderson',
-        address: 'Fairix eG',
-        address_2: 'Heidestraße 17',
+        address: 'Heidestraße 17',
+        address_2: 'c/o Fairix eG',
         zipcode: '51147',
         city: 'Köln',
         country_code: 'DE',
@@ -180,7 +180,7 @@ describe FastbillAPI do
     it 'should return customer and direct debit data if payment type is direct debit' do
       alice = FactoryGirl.build_stubbed(:user_alice_with_bank_details)
       mandate = FactoryGirl.build_stubbed(:direct_debit_mandate_wo_user)
-      alice.stubs(:direct_debit_mandates).returns([mandate])
+      alice.stubs(:active_direct_debit_mandate).returns(mandate)
       alice.stubs(:payment_method).returns(:payment_by_direct_debit)
 
       attributes = api.send(:attributes_for, alice)
@@ -191,8 +191,8 @@ describe FastbillAPI do
         salutation: 'Frau',
         first_name: 'Alice',
         last_name: 'Henderson',
-        address: 'Fairix eG',
-        address_2: 'Heidestraße 17',
+        address: 'Heidestraße 17',
+        address_2: 'c/o Fairix eG',
         zipcode: '51147',
         city: 'Köln',
         country_code: 'DE',

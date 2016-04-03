@@ -13,6 +13,10 @@ describe DirectDebitMandate do
     it { subject.must_respond_to :id }
     it { subject.must_respond_to :user_id }
     it { subject.must_respond_to :reference }
+    it { subject.must_respond_to :state }
+    it { subject.must_respond_to :activated_at }
+    it { subject.must_respond_to :last_used_at }
+    it { subject.must_respond_to :revoked_at }
   end
 
   describe 'associations' do
@@ -67,6 +71,37 @@ describe DirectDebitMandate do
       it 'should return the date of today if not saved to the database' do
         direct_debit_mandate.reference_date.must_equal Date.current
       end
+    end
+  end
+
+  describe 'state' do
+    it 'should be new for a new instance' do
+      direct_debit_mandate.state.must_equal 'new'
+
+      direct_debit_mandate.activated_at.must_be_nil
+      direct_debit_mandate.revoked_at.must_be_nil
+    end
+
+    it 'should be able to get activated' do
+      direct_debit_mandate.activate!
+
+      direct_debit_mandate.state.must_equal 'active'
+      direct_debit_mandate.activated_at.wont_be_nil
+    end
+
+    it 'should be able to get inactive if active' do
+      direct_debit_mandate.activate!
+      direct_debit_mandate.deactivate!
+
+      direct_debit_mandate.state.must_equal 'inactive'
+    end
+
+    it 'should be able to get revoked if active' do
+      direct_debit_mandate.activate!
+      direct_debit_mandate.revoke!
+
+      direct_debit_mandate.state.must_equal 'revoked'
+      direct_debit_mandate.revoked_at.wont_be_nil
     end
   end
 end

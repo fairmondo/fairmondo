@@ -144,7 +144,7 @@ describe User do
       it { le_stubbed.must validate_presence_of :iban }
       it { le_stubbed.must validate_presence_of :bic }
       it { le_stubbed.must validate_presence_of :bank_account_owner }
-      # it { le_stubbed.must validate_presence_of :has_direct_debit_mandate? }
+      # it { le_stubbed.must validate_presence_of :active_direct_debit_mandate }
     end
 
     describe 'if legal entity that is exempted from direct debit wants to sell' do
@@ -155,7 +155,7 @@ describe User do
       it { le_stubbed.wont validate_presence_of :iban }
       it { le_stubbed.wont validate_presence_of :bic }
       it { le_stubbed.wont validate_presence_of :bank_account_owner }
-      # it { le_stubbed.wont validate_presence_of :has_direct_debit_mandate? }
+      # it { le_stubbed.wont validate_presence_of :active_direct_debit_mandate }
     end
   end
 
@@ -258,18 +258,22 @@ describe User do
 
     describe '#payment_method' do
       describe 'when no direct debit mandate is available' do
-        it 'should return invoice' do
-          le_stubbed.bankaccount_warning = false
+        before do
+          @alice = FactoryGirl.build_stubbed :user_alice
+          @alice.stubs(:has_active_direct_debit_mandate?).returns(false)
+        end
 
-          le_stubbed.payment_method.must_equal :payment_by_invoice
+        it 'should return invoice' do
+          @alice.bankaccount_warning = false
+
+          @alice.payment_method.must_equal :payment_by_invoice
         end
       end
 
       describe 'when a direct debit mandate is available' do
         before do
           @alice = FactoryGirl.build_stubbed :user_alice
-          @mandate = FactoryGirl.build_stubbed :direct_debit_mandate_wo_user
-          @alice.stubs(:direct_debit_mandates).returns([@mandate])
+          @alice.stubs(:has_active_direct_debit_mandate?).returns(true)
         end
 
         it 'should return direct debit if bank details are valid' do
@@ -286,38 +290,43 @@ describe User do
       end
     end
 
-    describe '#has_direct_debit_mandate?' do
-      before do
-        @alice = FactoryGirl.build_stubbed :user_alice
-        @mandate = FactoryGirl.build_stubbed :direct_debit_mandate_wo_user
+    describe '#has_active_direct_debit_mandate?' do
+      let(:alice) { FactoryGirl.build_stubbed :user_alice }
+
+      it 'should return true if an active mandate is present' do
+        mandate = FactoryGirl.build_stubbed :direct_debit_mandate_wo_user, user: alice
+        alice.stubs(:active_direct_debit_mandate).returns(mandate)
+
+        assert alice.has_active_direct_debit_mandate?
       end
 
-      it 'should return true if >= 1 mandate is present' do
-        @alice.stubs(:direct_debit_mandates).returns([@mandate])
+      it 'should return false if no active mandate is present' do
+        alice.stubs(:active_direct_debit_mandate).returns(nil)
 
-        assert @alice.has_direct_debit_mandate?
-      end
-
-      it 'should return false if no mandate is present' do
-        refute @alice.has_direct_debit_mandate?
+        refute alice.has_active_direct_debit_mandate?
       end
     end
 
-    describe '#direct_debit_mandate' do
-      it 'should return the first direct debit mandate if more than zero are present' do
-        alice = FactoryGirl.build_stubbed :user_alice
-        mandate1 = DirectDebitMandate.new(user: alice)
-        mandate2 = DirectDebitMandate.new(user: alice)
-        alice.direct_debit_mandates << mandate1
-        alice.direct_debit_mandates << mandate2
+    describe '#active_direct_debit_mandate' do
+      it 'should return an active mandate if one is present' do
+        alice = FactoryGirl.create :user_alice
+        mandate = FactoryGirl.create :direct_debit_mandate_wo_user, user: alice
+        mandate.activate!
 
-        alice.direct_debit_mandate.must_equal mandate1
+        alice.active_direct_debit_mandate.must_equal mandate
+      end
+
+      it 'should return nil if no active mandate is present' do
+        alice = FactoryGirl.create :user_alice
+        FactoryGirl.create :direct_debit_mandate_wo_user, user: alice
+
+        alice.active_direct_debit_mandate.must_be_nil
       end
 
       it 'should return nil if no mandate is present' do
         alice = FactoryGirl.build_stubbed :user_alice
 
-        alice.direct_debit_mandate.must_be_nil
+        alice.active_direct_debit_mandate.must_be_nil
       end
     end
 

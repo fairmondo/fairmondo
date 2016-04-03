@@ -307,10 +307,11 @@ feature 'Direct debit mandate for legal entities' do
 
   scenario 'Direct debit mandate reference is shown if present' do
     mandate = FactoryGirl.create :direct_debit_mandate, user: @user
+    mandate.activate!
 
     visit edit_user_registration_path(@user)
 
-    find_field('user_direct_debit_mandate_reference', disabled: true)
+    find_field('user_active_direct_debit_mandate_reference', disabled: true)
       .value.must_equal(mandate.reference)
   end
 end
