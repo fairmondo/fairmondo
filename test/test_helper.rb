@@ -66,7 +66,9 @@ include Savon::SpecHelper
 savon.mock!
 
 Minitest.after_run do
-  if $suite_passing
+  if $suite_passing &&
+    # Don't run these if individual tests are run (TEST=tests/models/xxx_test.rb)
+    ENV['TEST'].blank?
     rails_best_practices
     brakeman
     rubocop # TODO: uncomment and fix rubocop violations

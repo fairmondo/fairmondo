@@ -3,6 +3,7 @@ inherit_from: .rubocop_todo.yml # TODO: remove this once worked through list
 AllCops:
   RunRailsCops: true
   Exclude:
+    - 'bin/**/*'
     - 'db/**/*'
     - 'lib/cert-quiz/**/*'
     - 'vendor/**/*'
