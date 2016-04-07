@@ -31,8 +31,6 @@ Fairmondo::Application.routes.draw do
 
   resources :contents
 
-  resources :direct_debit_mandates, only: []
-
   devise_for :user, controllers: { passwords: 'passwords', registrations: 'registrations',
                                    sessions: 'sessions', confirmations: 'confirmations' }
 

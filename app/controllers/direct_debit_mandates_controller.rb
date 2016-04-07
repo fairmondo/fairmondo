@@ -1,2 +1,0 @@
-class DirectDebitMandatesController < ApplicationController
-end
