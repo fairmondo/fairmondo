@@ -302,6 +302,51 @@ describe User do
       end
     end
 
+    describe '#requires_direct_debit_mandate?' do
+      let(:alice) { FactoryGirl.build_stubbed :user_alice }
+      let(:bob) { FactoryGirl.build_stubbed :user_bob }
+
+      it 'should return false if direct debit exemption is true' do
+        alice.stubs(:direct_debit_exemption).returns(true)
+
+        refute alice.requires_direct_debit_mandate?
+      end
+
+      it 'should return false if user is a private user' do
+        refute bob.requires_direct_debit_mandate?
+      end
+
+      it 'should return false if user already has an active mandate' do
+        alice.stubs(:has_active_direct_debit_mandate?).returns(true)
+
+        refute alice.requires_direct_debit_mandate?
+      end
+
+      it 'should return false if user has no articles' do
+        refute alice.requires_direct_debit_mandate?
+      end
+
+      it 'should be true for legal entities without mandates who do have articles' do
+        alice.stubs(:has_articles?).returns(:true)
+
+        assert alice.requires_direct_debit_mandate?
+      end
+    end
+
+    describe '#has_articles?' do
+      let(:alice) { FactoryGirl.create :user_alice_with_bank_details }
+
+      it 'should return false if user has no articles' do
+        refute alice.has_articles?
+      end
+
+      it 'should return 1 if user has one article' do
+        FactoryGirl.create(:article, seller: alice)
+
+        assert alice.has_articles?
+      end
+    end
+
     describe '#has_active_direct_debit_mandate?' do
       let(:alice) { FactoryGirl.build_stubbed :user_alice }
 

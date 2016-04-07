@@ -117,8 +117,11 @@ FactoryGirl.define do
   # Users Bob and Alice could in the future be used for scenarios etc.
   # Alice is a legal entity, Bob a private user. Maybe invent a third person for admin
   # and a fourth for NGO.
-  # factory :user_bob, class: PrivateUser do
-  # end
+  factory :user_bob, class: PrivateUser do
+    nickname 'bob'
+    email 'bob@example.com'
+    password 'password'
+  end
 
   # Alice is a legal entity and sells fair electronics
   factory :user_alice, class: LegalEntity do

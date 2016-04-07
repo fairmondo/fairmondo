@@ -125,6 +125,10 @@ class User < ActiveRecord::Base
     end
   end
 
+  def has_articles?
+    Article.unscoped.where(seller: self).limit(1).present?
+  end
+
   def bank_account_exists?
     self.bank_account_owner? && self.iban? && self.bic?
   end
@@ -138,7 +142,7 @@ class User < ActiveRecord::Base
     is_a?(LegalEntity) &&
     !has_active_direct_debit_mandate? &&
     !direct_debit_exemption &&
-    Article.unscoped.where(seller: self).limit(1).present?
+    has_articles?
   end
 
   def has_active_direct_debit_mandate?
