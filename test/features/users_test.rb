@@ -61,7 +61,7 @@ feature 'User sign in' do
   end
 
   scenario 'Legal entity who needs to reaccept direct debit signs in' do
-    user = create :legal_entity, direct_debit: false
+    user = create :legal_entity, direct_debit_exemption: false
     create :article, seller: user
     visit new_user_session_path
 
@@ -302,7 +302,7 @@ feature 'Direct debit mandate for legal entities' do
   scenario 'Direct debit checkbox is shown if mandate is not present' do
     visit edit_user_registration_path(@user)
 
-    assert page.has_field?('user_direct_debit', type: 'checkbox')
+    assert page.has_field?('user_direct_debit_confirmation', type: 'checkbox')
   end
 
   scenario 'Direct debit mandate reference is shown if present' do

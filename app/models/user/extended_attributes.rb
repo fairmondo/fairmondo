@@ -15,6 +15,7 @@ module User::ExtendedAttributes
     attr_accessor :wants_to_sell
     attr_accessor :bank_account_validation, :paypal_validation
     attr_accessor :fastbill_profile_update
+    attr_accessor :direct_debit_confirmation
 
     monetize :unified_transport_price_cents,
              numericality: {

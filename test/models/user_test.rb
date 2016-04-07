@@ -140,22 +140,34 @@ describe User do
       before :each do
         le_stubbed.wants_to_sell = true
         le_stubbed.direct_debit_exemption = false
+        le_stubbed.standard_address = FactoryGirl.build_stubbed(:address_for_alice)
       end
+
       it { le_stubbed.must validate_presence_of :iban }
       it { le_stubbed.must validate_presence_of :bic }
       it { le_stubbed.must validate_presence_of :bank_account_owner }
-      # it { le_stubbed.must validate_presence_of :active_direct_debit_mandate }
+
+      it 'should validate presence of active direct debit mandate' do
+        le_stubbed.stubs(:has_active_direct_debit_mandate?).returns(true)
+        assert le_stubbed.valid?
+      end
     end
 
     describe 'if legal entity that is exempted from direct debit wants to sell' do
       before :each do
         le_stubbed.wants_to_sell = true
         le_stubbed.direct_debit_exemption = true
+        le_stubbed.standard_address = FactoryGirl.build_stubbed(:address_for_alice)
       end
+
       it { le_stubbed.wont validate_presence_of :iban }
       it { le_stubbed.wont validate_presence_of :bic }
       it { le_stubbed.wont validate_presence_of :bank_account_owner }
-      # it { le_stubbed.wont validate_presence_of :active_direct_debit_mandate }
+
+      it 'must not validate presence of active direct debit mandate' do
+        le_stubbed.stubs(:has_active_direct_debit_mandate?).returns(false)
+        assert le_stubbed.valid?
+      end
     end
   end
 

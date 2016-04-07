@@ -103,6 +103,7 @@ de:
             cancellation_form_file_size: &cf
               in_between: "Die Datei zu groß. Maximal 2 MB."
             cancellation_form: *cf
+          direct_debit_must_be_confirmed: "muss akzeptiert werden"
         article:
           attributes:
             small_and_precious_eu_small_enterprise:

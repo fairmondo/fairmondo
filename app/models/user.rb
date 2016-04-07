@@ -133,6 +133,14 @@ class User < ActiveRecord::Base
     KontoAPI.valid?(iban: iban, bic: bic)
   end
 
+  # If a legal Entity hasn't accepted direct debit but has any articles
+  def requires_direct_debit_mandate?
+    is_a?(LegalEntity) &&
+    !has_active_direct_debit_mandate? &&
+    !direct_debit_exemption &&
+    Article.unscoped.where(seller: self).limit(1).present?
+  end
+
   def has_active_direct_debit_mandate?
     active_direct_debit_mandate.present?
   end

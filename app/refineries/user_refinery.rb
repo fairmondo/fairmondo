@@ -20,11 +20,11 @@ class UserRefinery < ApplicationRefinery
       :current_password, # <- update specific
       :email, :password, :password_confirmation, :remember_me, :type,
       :nickname, :legal, :paypal_account,
-      :banned, :about_me, :bank_code,
-      :phone, :mobile, :fax, :direct_debit,
-      :bank_account_number, :bank_name, :bank_account_owner, :company_name, :max_value_of_goods_cents_bonus,
+      :banned, :about_me,
+      :phone, :mobile, :fax,
+      :company_name, :max_value_of_goods_cents_bonus,
       :fastbill_profile_update, :vacationing, :newsletter, :receive_comments_notification,
-      :iban, :bic,
+      :iban, :bic, :bank_name, :bank_account_owner, :direct_debit_confirmation,
       :unified_transport_provider, :unified_transport_maximum_articles, :unified_transport_price,
       :free_transport_available, :free_transport_at_price,
       { image_attributes: ImageRefinery.new(Image.new, user).default }
