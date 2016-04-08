@@ -11,12 +11,23 @@ class CreatesDirectDebitMandate
     unless @user.has_active_direct_debit_mandate?
       create_and_activate_mandate
     end
+    @mandate
   end
 
   private
 
   def create_and_activate_mandate
-    mandate = @user.direct_debit_mandates.create
-    mandate.activate!
+    create_mandate
+    activate_mandate
+  end
+
+  def create_mandate
+    @mandate = @user.direct_debit_mandates.build
+    @mandate.reference = '001'
+    @mandate.save
+  end
+
+  def activate_mandate
+    @mandate.activate!
   end
 end

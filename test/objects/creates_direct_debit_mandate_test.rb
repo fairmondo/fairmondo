@@ -17,9 +17,10 @@ describe CreatesDirectDebitMandate do
   describe '#create' do
     it 'creates an active direct debit mandate' do
       creator = CreatesDirectDebitMandate.new alice
-      creator.create
+      mandate = creator.create
 
-      assert alice.has_active_direct_debit_mandate?
+      assert_equal mandate, alice.active_direct_debit_mandate
+      assert mandate.reference.present?
     end
 
     it 'does not create a mandate if an active one is present' do
