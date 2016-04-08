@@ -45,7 +45,7 @@ de:
         paypal_and_bank_account: "PayPal- und Bankkonto"
         paypal_account: "Deine Paypal E-Mail-Adresse"
         customer_number: "Kundennummer"
-        direct_debit_html: "Hiermit erteile ich ein "
+        direct_debit_confirmation_html: "Hiermit erteile ich ein "
         sepa: "SEPA Lastschriftmandat"
         active_direct_debit_mandate_reference: "Referenz für SEPA-Lastschriftmandat"
         unified_transport_maximum_articles: "Die Versandkosten gelten bis maximal"

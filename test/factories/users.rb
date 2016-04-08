@@ -26,7 +26,6 @@ FactoryGirl.define do
     iban { %w(DE AT CH).sample + rand(99999999999999999999).to_s.center(20, rand(9).to_s) }
     bic { %w(ABCDEF ZJFBLO TNAPIT EMLOAB).sample + rand(99).to_s.center(2, rand(9).to_s) }
 
-    direct_debit true
     direct_debit_exemption true
     uses_vouchers false
     created_at { 2.month.ago }

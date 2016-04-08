@@ -55,7 +55,6 @@ describe User do
     it { subject.must_respond_to :percentage_of_positive_ratings }
     it { subject.must_respond_to :percentage_of_negative_ratings }
     it { subject.must_respond_to :percentage_of_neutral_ratings }
-    it { subject.must_respond_to :direct_debit }
     it { subject.must_respond_to :direct_debit_exemption }
     it { subject.must_respond_to :value_of_goods_cents }
     it {    user.must_respond_to :max_value_of_goods_cents } # implemented on all subclasses
