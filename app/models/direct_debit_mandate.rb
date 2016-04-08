@@ -22,11 +22,11 @@ class DirectDebitMandate < ActiveRecord::Base
       transition active: :revoked
     end
 
-    after_transition new: :active do |mandate, _transition|
+    before_transition new: :active do |mandate, _transition|
       mandate.activated_at = Time.now
     end
 
-    after_transition active: :revoked do |mandate, _transition|
+    before_transition active: :revoked do |mandate, _transition|
       mandate.revoked_at = Time.now
     end
   end

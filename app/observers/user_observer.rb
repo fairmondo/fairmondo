@@ -7,6 +7,11 @@ class UserObserver < ActiveRecord::Observer
     if user.iban_changed? || user.bic_changed?
       check_bic_and_iban(user.id, user.iban, user.bic)
     end
+
+    if user.direct_debit_confirmation != '1' &&
+       (user.iban_changed? || user.bic_changed? || user.bank_account_owner_changed?)
+      user.active_direct_debit_mandate.revoke! if user.has_active_direct_debit_mandate?
+    end
   end
 
   def after_update user
