@@ -20,8 +20,6 @@ feature 'Access Mass-upload form' do
 
   scenario 'legal_entity user wants to access a new mass_upload over new Articles page' do
     user = create :legal_entity
-    # TODO: activate mandate or check why test passed
-    create(:direct_debit_mandate, user: user)
     login_as user
 
     visit new_article_path
@@ -31,9 +29,7 @@ end
 
 feature 'Uploading a CSV' do
   setup do
-    # TODO: Check why test passes
     @user = create :legal_entity, :paypal_data
-    create(:direct_debit_mandate, user: @user)
     login_as @user
     visit new_mass_upload_path
   end

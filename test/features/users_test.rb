@@ -299,10 +299,12 @@ feature 'Direct debit mandate for legal entities' do
     login_as @user
   end
 
-  scenario 'Direct debit checkbox is shown if mandate is not present' do
+  scenario 'User accepts direct debit after which a mandate is created' do
     visit edit_user_registration_path(@user)
+    check 'user_direct_debit_confirmation'
+    click_button I18n.t('formtastic.actions.update')
 
-    assert page.has_field?('user_direct_debit_confirmation', type: 'checkbox')
+    assert @user.reload.has_active_direct_debit_mandate?
   end
 
   scenario 'Direct debit mandate reference is shown if present' do
