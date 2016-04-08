@@ -90,18 +90,12 @@ class RegistrationsController < Devise::RegistrationsController
     end
 
     if resource.direct_debit_confirmation == '1'
-      create_direct_debit_mandate_for resource
+      creator = CreatesDirectDebitMandate.new(resource)
+      creator.create
     end
 
     sign_in resource_name, resource, bypass: true
     respond_with resource, location: after_update_path_for(resource)
-  end
-
-  def create_direct_debit_mandate_for resource
-    unless resource.has_active_direct_debit_mandate?
-      mandate = resource.direct_debit_mandates.create
-      mandate.activate!
-    end
   end
 
   def actions_for_unsuccessful_update_for resource
