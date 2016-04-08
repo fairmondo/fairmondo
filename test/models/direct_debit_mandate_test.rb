@@ -6,7 +6,7 @@ require_relative '../test_helper'
 
 describe DirectDebitMandate do
   subject { DirectDebitMandate.new }
-  let(:user) { FactoryGirl.build_stubbed(:user) }
+  let(:user) { build_stubbed(:user) }
   let(:direct_debit_mandate) { DirectDebitMandate.new(user: user) }
 
   describe 'attributes' do
@@ -45,7 +45,7 @@ describe DirectDebitMandate do
   describe 'reference calculation' do
     it 'should create a hash reference based on user_id and current time' do
       Time.stubs(:now).returns(Time.utc(2016, 1, 1))
-      user = FactoryGirl.build_stubbed(:user, id: 1001)
+      user = build_stubbed(:user, id: 1001)
       mandate = DirectDebitMandate.new(user: user)
       mandate.reference.must_equal '7WDGNBWREJM7E9XIAN5YJ483W'
     end
@@ -63,7 +63,7 @@ describe DirectDebitMandate do
     describe '#reference_date' do
       it 'should return the date of created_at' do
         travel_to Time.new(2016, 4, 1, 12)
-        mandate = FactoryGirl.create(:direct_debit_mandate)
+        mandate = create(:direct_debit_mandate)
         travel_back
         mandate.reference_date.to_s.must_equal '2016-04-01'
       end

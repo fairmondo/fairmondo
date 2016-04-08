@@ -138,7 +138,7 @@ describe FastbillAPI do
   end
 
   describe '#payment_type_for' do
-    let(:user) { FactoryGirl.build_stubbed(:legal_entity) }
+    let(:user) { build_stubbed(:legal_entity) }
 
     it 'should return "1" when payment method is invoice' do
       user.stubs(:payment_method).returns(:payment_by_invoice)
@@ -153,7 +153,7 @@ describe FastbillAPI do
 
   describe '#attributes_for' do
     it 'should return customer data if payment type is invoice' do
-      alice = FactoryGirl.build_stubbed(:user_alice)
+      alice = build_stubbed(:user_alice)
       alice.stubs(:payment_method).returns(:payment_by_invoice)
 
       attributes = api.send(:attributes_for, alice)
@@ -178,8 +178,8 @@ describe FastbillAPI do
     end
 
     it 'should return customer and direct debit data if payment type is direct debit' do
-      alice = FactoryGirl.build_stubbed(:user_alice_with_bank_details)
-      mandate = FactoryGirl.build_stubbed(:direct_debit_mandate_wo_user)
+      alice = build_stubbed(:user_alice_with_bank_details)
+      mandate = build_stubbed(:direct_debit_mandate_wo_user)
       alice.stubs(:active_direct_debit_mandate).returns(mandate)
       alice.stubs(:payment_method).returns(:payment_by_direct_debit)
 

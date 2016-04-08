@@ -295,7 +295,7 @@ end
 
 feature 'Direct debit mandate for legal entities' do
   setup do
-    @user = FactoryGirl.create :legal_entity
+    @user = create :legal_entity
     login_as @user
   end
 
@@ -306,7 +306,7 @@ feature 'Direct debit mandate for legal entities' do
   end
 
   scenario 'Direct debit mandate reference is shown if present' do
-    mandate = FactoryGirl.create :direct_debit_mandate, user: @user
+    mandate = create :direct_debit_mandate, user: @user
     mandate.activate!
 
     visit edit_user_registration_path(@user)
