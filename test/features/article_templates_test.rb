@@ -8,7 +8,7 @@ include Warden::Test::Helpers
 
 feature 'Article Template management' do
   before do
-    @user = FactoryGirl.create :user
+    @user = create :user
     login_as @user, scope: :user
   end
 

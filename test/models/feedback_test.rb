@@ -58,7 +58,7 @@ describe Feedback do
   describe 'methods' do
     describe '#put_user_id(current_user)' do
       it 'should set the user_id when signed a user is given' do
-        user = FactoryGirl.create :user
+        user = create :user
         f = Feedback.new
         f.put_user_id user
         f.user_id.must_equal user.id

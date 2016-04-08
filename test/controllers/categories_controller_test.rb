@@ -5,7 +5,7 @@
 require_relative '../test_helper'
 
 describe CategoriesController do
-  let(:category) { FactoryGirl.create(:category) }
+  let(:category) { create(:category) }
 
   describe 'GET ::index' do
     describe 'for non-signed-in users' do
@@ -66,10 +66,10 @@ describe CategoriesController do
         @hardware_category = Category.find_by_name!('Hardware')
         @software_category = Category.find_by_name!('Software')
 
-        @ngo_article = FactoryGirl.create(:article, :index_article, price_cents: 1, title: 'ngo article thing', content: 'super thing', created_at: 4.days.ago)
-        @second_hand_article = FactoryGirl.create(:second_hand_article, :index_article, price_cents: 2, title: 'muscheln', categories: [@software_category], content: 'muscheln am meer', created_at: 3.days.ago)
-        @hardware_article = FactoryGirl.create(:second_hand_article, :index_article, :simple_fair, :simple_ecologic, :simple_small_and_precious, :with_ngo, price_cents: 3, title: 'muscheln 2', categories: [@hardware_category], content: 'abc', created_at: 2.days.ago)
-        @no_second_hand_article = FactoryGirl.create :no_second_hand_article, :index_article, price_cents: 4, title: 'muscheln 3', categories: [@hardware_category], content: 'cde'
+        @ngo_article = create(:article, :index_article, price_cents: 1, title: 'ngo article thing', content: 'super thing', created_at: 4.days.ago)
+        @second_hand_article = create(:second_hand_article, :index_article, price_cents: 2, title: 'muscheln', categories: [@software_category], content: 'muscheln am meer', created_at: 3.days.ago)
+        @hardware_article = create(:second_hand_article, :index_article, :simple_fair, :simple_ecologic, :simple_small_and_precious, :with_ngo, price_cents: 3, title: 'muscheln 2', categories: [@hardware_category], content: 'abc', created_at: 2.days.ago)
+        @no_second_hand_article = create :no_second_hand_article, :index_article, price_cents: 4, title: 'muscheln 3', categories: [@hardware_category], content: 'cde'
       end
 
       it "should find the article in category 'Hardware' when filtering for 'Hardware'" do

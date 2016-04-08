@@ -8,7 +8,7 @@ include Warden::Test::Helpers
 
 feature 'Give Feedback' do
   setup do
-    @user = FactoryGirl.create :user
+    @user = create :user
     login_as @user
   end
 
@@ -41,7 +41,7 @@ feature 'Give Feedback' do
   end
 
   scenario 'user sends on 1st try false feedback and on 2nd try true feedback' do
-    article = FactoryGirl.create :article
+    article = create :article
     visit article_path(article)
 
     click_button I18n.t 'feedback.actions.send_feedback'

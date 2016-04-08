@@ -8,7 +8,7 @@ include Warden::Test::Helpers
 
 feature 'AdminPages' do
   before do
-    @admin = FactoryGirl.create(:admin_user)
+    @admin = create(:admin_user)
     login_as @admin
     visit root_path
   end
@@ -22,7 +22,7 @@ feature 'AdminPages' do
   end
 
   scenario 'can change user slug' do
-    user = FactoryGirl.create(:user)
+    user = create(:user)
     visit edit_admin_user_path(user.id)
     page.must_have_field('user_slug')
   end

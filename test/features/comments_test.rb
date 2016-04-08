@@ -11,7 +11,7 @@ feature 'comments for all users' do
     UserTokenGenerator.stubs(:generate).returns('some long string that is very secret')
   end
   scenario 'Guest visits library with no comments' do
-    library = FactoryGirl.create(:library, public: true)
+    library = create(:library, public: true)
     visit library_path(library)
 
     within('.Comments-section') do
@@ -21,7 +21,7 @@ feature 'comments for all users' do
   end
 
   scenario 'Guest visits library with no comments' do
-    library = FactoryGirl.create(:library, public: true)
+    library = create(:library, public: true)
 
     visit library_path(library)
 
@@ -31,12 +31,9 @@ feature 'comments for all users' do
   end
 
   scenario 'Guest visits library with a comment' do
-    library = FactoryGirl.create(:library, public: true)
-    user = FactoryGirl.create(:user)
-    FactoryGirl.create(:comment,
-                       text: 'Test comment',
-                       commentable: library,
-                       user: user)
+    library = create(:library, public: true)
+    user = create(:user)
+    create(:comment, text: 'Test comment', commentable: library, user: user)
 
     visit library_path(library)
 
@@ -48,13 +45,9 @@ feature 'comments for all users' do
   end
 
   scenario 'Guest visits library with more than 5 comments' do
-    library = FactoryGirl.create(:library, public: true)
-    user = FactoryGirl.create(:user)
-    FactoryGirl.create_list(:comment,
-                            10,
-                            text: 'Test comment',
-                            commentable: library,
-                            user: user)
+    library = create(:library, public: true)
+    user = create(:user)
+    create_list(:comment, 10, text: 'Test comment', commentable: library, user: user)
 
     visit library_path(library)
 
@@ -64,8 +57,8 @@ feature 'comments for all users' do
   end
 
   scenario 'User visits library to create a comment' do
-    library = FactoryGirl.create(:library, public: true)
-    user = FactoryGirl.create(:user)
+    library = create(:library, public: true)
+    user = create(:user)
     login_as user
 
     visit library_path(library)
@@ -76,13 +69,10 @@ feature 'comments for all users' do
   end
 
   scenario 'User is able to delete their own comment' do
-    library = FactoryGirl.create(:library, public: true)
-    user = FactoryGirl.create(:user)
+    library = create(:library, public: true)
+    user = create(:user)
     login_as user
-    FactoryGirl.create(:comment,
-                       text: 'Test comment',
-                       commentable: library,
-                       user: user)
+    create(:comment, text: 'Test comment', commentable: library, user: user)
 
     visit library_path(library)
 
@@ -92,13 +82,10 @@ feature 'comments for all users' do
   end
 
   scenario "Admin is able to delete another's comment" do
-    library = FactoryGirl.create(:library, public: true)
-    user = FactoryGirl.create(:admin_user)
+    library = create(:library, public: true)
+    user = create(:admin_user)
     login_as user
-    FactoryGirl.create(:comment,
-                       text: 'Test comment',
-                       commentable: library,
-                       user: library.user)
+    create(:comment, text: 'Test comment', commentable: library, user: library.user)
 
     visit library_path(library)
 
@@ -108,12 +95,9 @@ feature 'comments for all users' do
   end
 
   scenario 'Guest is unable to delete a comment' do
-    library = FactoryGirl.create(:library, public: true)
-    user = FactoryGirl.create(:user)
-    FactoryGirl.create(:comment,
-                       text: 'Test comment',
-                       commentable: library,
-                       user: user)
+    library = create(:library, public: true)
+    user = create(:user)
+    create(:comment, text: 'Test comment', commentable: library, user: user)
 
     visit library_path(library)
 
@@ -123,15 +107,12 @@ feature 'comments for all users' do
   end
 
   scenario 'User is unable to delete other users comments' do
-    library = FactoryGirl.create(:library, public: true)
-    user = FactoryGirl.create(:user)
-    user2 = FactoryGirl.create(:user)
+    library = create(:library, public: true)
+    user = create(:user)
+    user2 = create(:user)
     login_as user2
 
-    FactoryGirl.create(:comment,
-                       text: 'Test comment',
-                       commentable: library,
-                       user: user)
+    create(:comment, text: 'Test comment', commentable: library, user: user)
 
     visit library_path(library)
 
@@ -143,8 +124,8 @@ end
 
 feature 'comments on articles' do
   scenario 'User visits article to create a comment' do
-    article = FactoryGirl.create :article
-    user = FactoryGirl.create(:user)
+    article = create :article
+    user = create(:user)
     login_as user
 
     visit article_path(article)
@@ -155,8 +136,8 @@ feature 'comments on articles' do
   end
 
   scenario "User can't create a comment on a vacationing seller's article" do
-    article = FactoryGirl.create(:article, seller: FactoryGirl.create(:seller, vacationing: true))
-    user = FactoryGirl.create(:user)
+    article = create(:article, seller: create(:seller, vacationing: true))
+    user = create(:user)
     login_as user
 
     visit article_path(article)
@@ -164,20 +145,14 @@ feature 'comments on articles' do
   end
 
   scenario "A comment on a legal entity's article wont be shown after 5pm" do
-    article = FactoryGirl.create(:article, seller: FactoryGirl.create(:legal_entity))
-    user = FactoryGirl.create(:user)
+    article = create(:article, seller: create(:legal_entity))
+    user = create(:user)
     login_as user
     time5pm = (Time.now.utc.beginning_of_day + 17.hours)
-    FactoryGirl.create(:comment,
-                       text: 'Earlier Comment',
-                       commentable: article,
-                       user: user,
-                       created_at: time5pm - 1.minute)
-    FactoryGirl.create(:comment,
-                       text: 'Later Comment',
-                       commentable: article,
-                       user: user,
-                       created_at: time5pm + 1.minute)
+    create(:comment, text: 'Earlier Comment', commentable: article, user: user,
+                     created_at: time5pm - 1.minute)
+    create(:comment, text: 'Later Comment', commentable: article, user: user,
+                     created_at: time5pm + 1.minute)
 
     Time.stubs(:now).returns(time5pm + 2.minutes)
     visit article_path(article)
@@ -190,15 +165,12 @@ feature 'comments on articles' do
   end
 
   scenario "A comment on a legal entity's article wont be shown before 10am" do
-    article = FactoryGirl.create(:article, seller: FactoryGirl.create(:legal_entity))
-    user = FactoryGirl.create(:user)
+    article = create(:article, seller: create(:legal_entity))
+    user = create(:user)
     login_as user
     time10am = (Time.now.utc.beginning_of_day + 10.hours)
-    FactoryGirl.create(:comment,
-                       text: 'Some Comment',
-                       commentable: article,
-                       user: user,
-                       created_at: time10am - 2.minutes)
+    create(:comment, text: 'Some Comment', commentable: article, user: user,
+                     created_at: time10am - 2.minutes)
 
     Time.stubs(:now).returns(time10am - 1.minute)
     visit article_path(article)

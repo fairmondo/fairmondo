@@ -17,13 +17,13 @@ describe StatisticPolicy do
   end
 
   describe 'for a random logged-in user' do
-    let(:user) { FactoryGirl.create :user }
+    let(:user) { create :user }
     it { subject.must_deny(:general)            }
     it { subject.must_deny(:category_sales)     }
   end
 
   describe 'for an admin user' do
-    let(:user) { FactoryGirl.create :admin_user }
+    let(:user) { create :admin_user }
     it { subject.must_permit(:general)                }
     it { subject.must_permit(:category_sales)         }
   end

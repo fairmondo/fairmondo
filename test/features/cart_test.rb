@@ -23,7 +23,7 @@ end
 
 feature 'Adding an Article to the cart' do
   scenario 'anonymous user adds article to his cart' do
-    article = FactoryGirl.create(:article, title: 'foobar')
+    article = create(:article, title: 'foobar')
     visit article_path(article)
     click_button I18n.t('common.actions.to_cart')
     page.html.must_include I18n.t('line_item.notices.success_create', href: '/carts/1').html_safe
@@ -32,8 +32,8 @@ feature 'Adding an Article to the cart' do
   end
 
   scenario 'logged-in user adds article to his cart' do
-    article = FactoryGirl.create(:article, title: 'foobar')
-    login_as FactoryGirl.create(:user)
+    article = create(:article, title: 'foobar')
+    login_as create(:user)
     visit article_path(article)
     click_button I18n.t('common.actions.to_cart')
     page.html.must_include I18n.t('line_item.notices.success_create', href: '/carts/1').html_safe
@@ -42,8 +42,8 @@ feature 'Adding an Article to the cart' do
   end
 
   scenario 'logged-in user adds article to his cart and is logged out by the system' do
-    article = FactoryGirl.create(:article, title: 'foobar')
-    user = FactoryGirl.create(:user)
+    article = create(:article, title: 'foobar')
+    user = create(:user)
     login_as user
     visit article_path(article)
     click_button I18n.t('common.actions.to_cart')
@@ -51,14 +51,14 @@ feature 'Adding an Article to the cart' do
     logout(:user) # simulate logout
     visit root_path
     page.wont_have_content I18n.t('header.cart.title', count: 1)
-    login_as FactoryGirl.create(:user)
+    login_as create(:user)
     page.wont_have_content I18n.t('header.cart.title', count: 1)
     Cart.last.user.must_equal user
   end
 
   scenario 'logged-in user adds article to his cart and logs out' do
-    article = FactoryGirl.create(:article, title: 'foobar')
-    user = FactoryGirl.create(:user)
+    article = create(:article, title: 'foobar')
+    user = create(:user)
     login_as user
     visit article_path(article)
     click_button I18n.t('common.actions.to_cart')
@@ -69,14 +69,14 @@ feature 'Adding an Article to the cart' do
     end
 
     page.wont_have_content I18n.t('header.cart.title', count: 1)
-    login_as FactoryGirl.create(:user)
+    login_as create(:user)
     page.wont_have_content I18n.t('header.cart.title', count: 1)
     Cart.last.user.must_equal user
   end
 
   scenario 'logged-in user adds article twice to his cart' do
-    article = FactoryGirl.create(:article)
-    login_as FactoryGirl.create(:user)
+    article = create(:article)
+    login_as create(:user)
     visit article_path(article)
     click_button I18n.t('common.actions.to_cart')
     page.html.must_include I18n.t('line_item.notices.success_create', href: '/carts/1').html_safe
@@ -86,8 +86,8 @@ feature 'Adding an Article to the cart' do
   end
 
   scenario 'logged-in user adds article that is available in quantity >= 2 twice to to his cart' do
-    article = FactoryGirl.create(:article, :with_larger_quantity)
-    login_as FactoryGirl.create(:user)
+    article = create(:article, :with_larger_quantity)
+    login_as create(:user)
     visit article_path(article)
     click_button I18n.t('common.actions.to_cart')
     page.html.must_include I18n.t('line_item.notices.success_create', href: '/carts/1').html_safe
@@ -98,8 +98,8 @@ feature 'Adding an Article to the cart' do
   end
 
   scenario 'logged-in user adds article that is available in quantity >= 2 twice to to his cart and requests more than available' do
-    article = FactoryGirl.create(:article, :with_larger_quantity)
-    login_as FactoryGirl.create(:user)
+    article = create(:article, :with_larger_quantity)
+    login_as create(:user)
     visit article_path(article)
     click_button I18n.t('common.actions.to_cart')
     page.html.must_include I18n.t('line_item.notices.success_create', href: '/carts/1').html_safe
@@ -113,8 +113,8 @@ end
 
 feature 'updating quantity of the cart' do
   scenario 'change quantity to 10 from 1' do
-    article = FactoryGirl.create(:article, quantity: 10)
-    login_as FactoryGirl.create(:user)
+    article = create(:article, quantity: 10)
+    login_as create(:user)
     visit article_path(article)
     click_button I18n.t('common.actions.to_cart')
     page.html.must_include I18n.t('line_item.notices.success_create', href: '/carts/1').html_safe
@@ -130,9 +130,9 @@ end
 
 feature 'Checkout' do
   scenario 'Buying a cart with one item (default) from private user' do
-    seller = FactoryGirl.create :private_user
-    article = FactoryGirl.create(:article, title: 'foobar', seller: seller)
-    login_as FactoryGirl.create(:user)
+    seller = create :private_user
+    article = create(:article, title: 'foobar', seller: seller)
+    login_as create(:user)
     visit article_path(article)
 
     # add things to cart ( hard to generate this via factory because it is
@@ -170,10 +170,10 @@ feature 'Checkout' do
   end
 
   scenario 'User selects cash as unified_payment and does not select pickup and changes it to pickup in the end' do
-    seller = FactoryGirl.create :legal_entity, :paypal_data
-    articles = [FactoryGirl.create(:article, :with_all_payments, :with_all_transports, seller: seller, unified_transport: false)]
-    articles << FactoryGirl.create(:article, :with_all_payments, :with_all_transports, seller: seller, unified_transport: false)
-    login_as FactoryGirl.create(:user)
+    seller = create :legal_entity, :paypal_data
+    articles = [create(:article, :with_all_payments, :with_all_transports, seller: seller, unified_transport: false)]
+    articles << create(:article, :with_all_payments, :with_all_transports, seller: seller, unified_transport: false)
+    login_as create(:user)
 
     articles.each do |article|
       visit article_path(article)
@@ -215,13 +215,11 @@ feature 'Checkout' do
 
   scenario 'Buying a cart with one item and free transport and change the
             shipping address' do
-    seller = FactoryGirl.create :legal_entity, :with_free_transport_at_5
+    seller = create :legal_entity, :with_free_transport_at_5
 
-    article = FactoryGirl.create(:article, title: 'foobar',
-                                           price_cents: 600,
-                                           seller: seller)
-    buyer = FactoryGirl.create(:user)
-    transport_address = FactoryGirl.create(:address, user: buyer)
+    article = create(:article, title: 'foobar', price_cents: 600, seller: seller)
+    buyer = create(:user)
+    transport_address = create(:address, user: buyer)
     buyer.addresses << transport_address
     login_as buyer
     visit article_path(article)
@@ -252,16 +250,16 @@ feature 'Checkout' do
   end
 
   scenario 'Buying a cart with items from different users' do
-    unified_seller = FactoryGirl.create :legal_entity, :with_unified_transport_information, :paypal_data
-    articles = [FactoryGirl.create(:article, :with_all_payments, :with_all_transports, title: 'unified1', seller: unified_seller),
-                FactoryGirl.create(:article, :with_all_payments, :with_all_transports, title: 'unified2', seller: unified_seller),
-                FactoryGirl.create(:article, :with_all_payments, title: 'single_transport1', seller: unified_seller, unified_transport: false)]
+    unified_seller = create :legal_entity, :with_unified_transport_information, :paypal_data
+    articles = [create(:article, :with_all_payments, :with_all_transports, title: 'unified1', seller: unified_seller),
+                create(:article, :with_all_payments, :with_all_transports, title: 'unified2', seller: unified_seller),
+                create(:article, :with_all_payments, title: 'single_transport1', seller: unified_seller, unified_transport: false)]
 
-    single_seller =  FactoryGirl.create :legal_entity, :paypal_data
-    articles << FactoryGirl.create(:article, :with_all_payments, :with_all_transports, title: 'single_transport2', seller: single_seller, unified_transport: false)
-    articles << FactoryGirl.create(:article, :with_all_payments, :with_all_transports, title: 'single_transport3', seller: single_seller, unified_transport: false)
+    single_seller = create :legal_entity, :paypal_data
+    articles << create(:article, :with_all_payments, :with_all_transports, title: 'single_transport2', seller: single_seller, unified_transport: false)
+    articles << create(:article, :with_all_payments, :with_all_transports, title: 'single_transport3', seller: single_seller, unified_transport: false)
 
-    buyer = FactoryGirl.create(:user)
+    buyer = create(:user)
     login_as buyer
 
     articles.each do |article|
@@ -309,11 +307,11 @@ feature 'Checkout' do
   end
 
   scenario 'Trying to buy a cart with unified transport and cash on delivery and dont check agb. Afterwards try to resume with single transports' do
-    seller = FactoryGirl.create :legal_entity, :with_unified_transport_information, :paypal_data
-    articles = [FactoryGirl.create(:article, :with_all_payments, :with_all_transports, title: 'foobar', seller: seller)]
-    articles << FactoryGirl.create(:article, :with_all_payments, :with_all_transports, title: 'foobar2', seller: seller)
+    seller = create :legal_entity, :with_unified_transport_information, :paypal_data
+    articles = [create(:article, :with_all_payments, :with_all_transports, title: 'foobar', seller: seller)]
+    articles << create(:article, :with_all_payments, :with_all_transports, title: 'foobar2', seller: seller)
 
-    login_as FactoryGirl.create(:user)
+    login_as create(:user)
     articles.each do |article|
       visit article_path(article)
       click_button I18n.t('common.actions.to_cart')
@@ -347,8 +345,8 @@ feature 'Checkout' do
   end
 
   scenario 'Buying a cart with one item that is already deactivated by the time he buys it' do
-    article = FactoryGirl.create(:article, title: 'foobar')
-    login_as FactoryGirl.create(:user)
+    article = create(:article, title: 'foobar')
+    login_as create(:user)
     visit article_path(article)
 
     # add things to cart ( hard to generate this via factory because it is kinda hard to set a signed cookie in capybara )
@@ -374,8 +372,8 @@ feature 'Checkout' do
   end
 
   scenario 'Buying a cart with one item that is already bought by the time he buys it' do
-    article = FactoryGirl.create(:article, title: 'foobar')
-    login_as FactoryGirl.create(:user)
+    article = create(:article, title: 'foobar')
+    login_as create(:user)
     visit article_path(article)
 
     # add things to cart ( hard to generate this via factory because it is kinda hard to set a signed cookie in capybara )
@@ -401,8 +399,8 @@ feature 'Checkout' do
   end
 
   scenario 'Buying a cart with an invalid line item' do
-    article = FactoryGirl.create(:article, title: 'foobar')
-    login_as FactoryGirl.create(:user)
+    article = create(:article, title: 'foobar')
+    login_as create(:user)
     visit article_path(article)
     click_button I18n.t('common.actions.to_cart')
     article.update_attribute(:quantity_available, 0)
@@ -411,8 +409,8 @@ feature 'Checkout' do
   end
 
   scenario 'Buying a cart with an incomplete user and adding address during checkout' do
-    article = FactoryGirl.create(:article, title: 'foobar')
-    login_as FactoryGirl.create(:incomplete_user)
+    article = create(:article, title: 'foobar')
+    login_as create(:incomplete_user)
     visit article_path(article)
 
     # add things to cart
@@ -449,7 +447,7 @@ feature 'Checkout' do
 
   feature 'send open cart via email' do
     it 'cart page should have all the right contents' do
-      article = FactoryGirl.create(:article, title: 'foobar')
+      article = create(:article, title: 'foobar')
       visit article_path(article)
       click_button I18n.t('common.actions.to_cart')
       page.html.must_include I18n.t('line_item.notices.success_create', href: '/carts/1').html_safe

@@ -6,7 +6,7 @@ require_relative '../test_helper'
 
 describe Image do
   subject { Image.new }
-  let(:image) { FactoryGirl.create(:article_image) }
+  let(:image) { create(:article_image) }
 
   it 'has a valid Factory' do
     subject.valid?.must_equal true
@@ -46,7 +46,7 @@ describe Image do
 
     describe '#url_or_original_while_processing' do
       it 'should return the original url when processing' do
-        image = FactoryGirl.create :article_image, :processing
+        image = create :article_image, :processing
         image.url_or_original_while_processing.must_equal image.original_image_url_while_processing
       end
 

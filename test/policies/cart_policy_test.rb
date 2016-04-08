@@ -8,7 +8,7 @@ describe CartPolicy do
   include PunditMatcher
 
   subject { CartPolicy.new(user, cart) }
-  let(:cart) { FactoryGirl.create :cart }
+  let(:cart) { create :cart }
   let(:user) { nil }
 
   describe 'for a visitor' do
@@ -20,7 +20,7 @@ describe CartPolicy do
   end
 
   describe 'for a random logged-in user' do
-    let(:user) { FactoryGirl.create :user }
+    let(:user) { create :user }
     it { subject.must_deny(:show)   }
     it { subject.must_deny(:edit)   }
     it { subject.must_deny(:update) }

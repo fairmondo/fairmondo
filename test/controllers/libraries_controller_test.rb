@@ -8,7 +8,7 @@ describe LibrariesController do
   describe "GET 'index" do
     describe 'for non-signed-in users' do
       before :each do
-        @user = FactoryGirl.create(:user)
+        @user = create :user
       end
 
       it 'should allow access' do
@@ -19,7 +19,7 @@ describe LibrariesController do
 
     describe 'for signed-in users' do
       before :each do
-        @library = FactoryGirl.create(:library)
+        @library = create :library
 
         sign_in @library.user
       end
@@ -37,7 +37,7 @@ describe LibrariesController do
 
     describe "with parameter 'mode=myfavorite'" do
       it 'should be successful if user is logged in' do
-        user = FactoryGirl.create(:user)
+        user = create :user
         @controller.stubs(:current_user).returns(user)
         get :index, mode: 'myfavorite'
         assert_response :success
@@ -86,10 +86,10 @@ describe LibrariesController do
   end
 
   describe '#admin_audit' do
-    let(:library) { FactoryGirl.create(:library) }
+    let(:library) { create :library }
 
     it 'should toggle library audit status via ajax' do
-      user = FactoryGirl.create(:admin_user)
+      user = create :admin_user
       sign_in user
 
       # audited should be false when library is created...

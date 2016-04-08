@@ -10,7 +10,7 @@ describe RefundMailer do
   include EmailSpec::Matchers
 
   it '#refund_notification' do
-    refund = FactoryGirl.create :refund, reason: 'not_in_stock'
+    refund = create :refund, reason: 'not_in_stock'
     mail =  RefundMailer.refund_notification(refund)
     mail.must deliver_to('storno@fairmondo.de')
     mail.must have_subject('[Fairmondo] Rueckerstattung: Transationsnummer: ' + "#{refund.business_transaction.id}")

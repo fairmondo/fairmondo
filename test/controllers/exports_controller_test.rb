@@ -7,9 +7,9 @@ require_relative '../test_helper'
 describe ExportsController do
   describe 'mass-upload creation' do
     before do
-      @user = FactoryGirl.create :legal_entity, :paypal_data
-      FactoryGirl.create :article, seller: @user
-      FactoryGirl.create :line_item_group, :with_business_transactions, :sold, seller: @user
+      @user = create :legal_entity, :paypal_data
+      create :article, seller: @user
+      create :line_item_group, :with_business_transactions, :sold, seller: @user
       sign_in @user
     end
 

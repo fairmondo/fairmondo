@@ -26,7 +26,7 @@ FactoryGirl.define do
       end
 
       after(:create) do |library, evaluator|
-        FactoryGirl.create_list(:library_element, evaluator.element_count, library: library)
+        create_list(:library_element, evaluator.element_count, library: library)
       end
     end
   end

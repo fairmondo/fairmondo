@@ -5,9 +5,9 @@
 require_relative '../test_helper'
 
 describe AddressesController do
-  let(:user) { FactoryGirl.create :user }
-  let(:address) { FactoryGirl.create :address, user: user }
-  let(:referenced_address) { FactoryGirl.create :address, :referenced, user: user }
+  let(:user) { create :user }
+  let(:address) { create :address, user: user }
+  let(:referenced_address) { create :address, :referenced, user: user }
 
   describe 'GET ::new' do
     it 'should render addresse\'s new_template' do
@@ -20,7 +20,7 @@ describe AddressesController do
 
   describe 'POST ::create' do
     it 'should create new address' do
-      @address_attrs = FactoryGirl.attributes_for :address
+      @address_attrs = attributes_for :address
       sign_in user
       assert_difference('Address.count', 1) do
         xhr :post, :create, user_id: user.id, address: @address_attrs
@@ -28,7 +28,7 @@ describe AddressesController do
     end
 
     it 'should render new on error' do
-      @address_attrs = FactoryGirl.attributes_for :address
+      @address_attrs = attributes_for :address
       @address_attrs[:first_name] = nil
       sign_in user
       assert_no_difference('Address.count') do
@@ -49,8 +49,8 @@ describe AddressesController do
 
   describe 'PATCH ::update' do
     it 'should update address' do
-      @address_attrs = FactoryGirl.attributes_for :address, first_name: 'test update'
-      update_address = FactoryGirl.create :address, user: user
+      @address_attrs = attributes_for :address, first_name: 'test update'
+      update_address = create :address, user: user
       user.addresses << update_address
       sign_in user
 
@@ -61,9 +61,9 @@ describe AddressesController do
     end
 
     it 'should render edit on empty names' do
-      @address_attrs = FactoryGirl.attributes_for :address, first_name: 'test update'
+      @address_attrs = attributes_for :address, first_name: 'test update'
       @address_attrs[:first_name] = nil
-      update_address = FactoryGirl.create :address, user: user
+      update_address = create :address, user: user
       user.addresses << update_address
       sign_in user
 
@@ -74,9 +74,9 @@ describe AddressesController do
     end
 
     it 'should clone a referenced address' do
-      @address_attrs = FactoryGirl.attributes_for :address, first_name: 'test update'
-      referenced_address = FactoryGirl.create :address, user: user
-      FactoryGirl.create(:line_item_group, payment_address: referenced_address)
+      @address_attrs = attributes_for :address, first_name: 'test update'
+      referenced_address = create :address, user: user
+      create(:line_item_group, payment_address: referenced_address)
       fist_name_referenced = referenced_address.first_name
       user.addresses << referenced_address
       sign_in user
@@ -91,8 +91,8 @@ describe AddressesController do
 
   describe 'DELETE ::destroy' do
     it 'should delete an address from the database' do
-      user = FactoryGirl.create :incomplete_user
-      address = FactoryGirl.create :address, user: user
+      user = create :incomplete_user
+      address = create :address, user: user
       sign_in user
       assert_difference('Address.count', -1) do
         xhr :delete, :destroy, user_id: user.id, id: address.id
@@ -100,9 +100,9 @@ describe AddressesController do
     end
 
     it 'should stash a referenced address from the database' do
-      user = FactoryGirl.create :incomplete_user
-      referenced_address = FactoryGirl.create :address, user: user
-      FactoryGirl.create(:line_item_group, payment_address: referenced_address)
+      user = create :incomplete_user
+      referenced_address = create :address, user: user
+      create(:line_item_group, payment_address: referenced_address)
       sign_in user
       assert_difference('Address.count', 0) do
         xhr :delete, :destroy, user_id: referenced_address.user.id, id: referenced_address.id

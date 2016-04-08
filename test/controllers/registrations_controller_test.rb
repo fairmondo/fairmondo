@@ -12,7 +12,7 @@ describe RegistrationsController do
   describe 'user-management' do
     describe 'for non-signed-in users' do
       before :each do
-        @user = FactoryGirl.create(:user)
+        @user = create :user
       end
 
       it 'should deny access' do
@@ -23,7 +23,7 @@ describe RegistrationsController do
 
     describe 'for signed-in users' do
       before :each do
-        @user = FactoryGirl.create(:user)
+        @user = create :user
 
         sign_in @user
       end
@@ -89,10 +89,10 @@ describe RegistrationsController do
 
   describe '#update' do
     it 'should still try to save the image on failed update' do
-      user = FactoryGirl.create(:user)
+      user = create :user
       sign_in user
       Image.any_instance.expects(:save)
-      put :update, user: { nickname: user.nickname, image_attributes: FactoryGirl.attributes_for(:user_image) }, address: { first_name: '' } # invalid params
+      put :update, user: { nickname: user.nickname, image_attributes: attributes_for(:user_image) }, address: { first_name: '' } # invalid params
     end
   end
 end

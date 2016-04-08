@@ -8,7 +8,7 @@ describe ContentPolicy do
   include PunditMatcher
 
   subject { ContentPolicy.new(user, content)   }
-  let(:content) { FactoryGirl.create :content }
+  let(:content) { create :content }
   let(:user) { nil }
 
   describe 'for a visitor' do
@@ -23,7 +23,7 @@ describe ContentPolicy do
   end
 
   describe 'for a random logged-in user' do
-    let(:user) { FactoryGirl.create :user }
+    let(:user) { create :user }
     it { subject.must_permit(:show)      }
     it { subject.must_permit(:not_found) }
     it { subject.must_deny(:index)              }
@@ -35,7 +35,7 @@ describe ContentPolicy do
   end
 
   describe 'for an admin user' do
-    let(:user) { FactoryGirl.create :admin_user }
+    let(:user) { create :admin_user }
     it { subject.must_permit(:show)      }
     it { subject.must_permit(:not_found) }
     it { subject.must_permit(:index) }

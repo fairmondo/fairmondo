@@ -7,7 +7,7 @@ require_relative '../test_helper'
 describe AddressPolicy do
   include PunditMatcher
   subject { AddressPolicy.new(user, address) }
-  let(:address) { FactoryGirl.create(:address) }
+  let(:address) { create(:address) }
   let(:user) { nil }
 
   context 'for a visitor' do
@@ -20,7 +20,7 @@ describe AddressPolicy do
   end
 
   context 'for a random logged in user' do
-    let(:user) { FactoryGirl.create(:user) }
+    let(:user) { create(:user) }
     it { subject.must_ultimately_deny(:create) }
     it { subject.must_ultimately_deny(:new) }
     it { subject.must_ultimately_deny(:edit) }
@@ -30,8 +30,8 @@ describe AddressPolicy do
   end
 
   context 'for logged in owner of address' do
-    let(:user) { FactoryGirl.create(:incomplete_user) }
-    let(:address) { FactoryGirl.create(:address, user: user) }
+    let(:user) { create(:incomplete_user) }
+    let(:address) { create(:address, user: user) }
 
     it { subject.must_permit(:create) }
     it { subject.must_permit(:new) }

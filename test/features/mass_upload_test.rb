@@ -13,13 +13,13 @@ feature 'Access Mass-upload form' do
   end
 
   scenario 'private user wants to access a new mass_upload over new Articles page' do
-    login_as FactoryGirl.create :private_user
+    login_as create :private_user
     visit new_article_path
     page.wont_have_link(I18n.t('users.boxes.import'), href: new_mass_upload_path)
   end
 
   scenario 'legal_entity user wants to access a new mass_upload over new Articles page' do
-    user = FactoryGirl.create :legal_entity
+    user = create :legal_entity
     login_as user
 
     visit new_article_path
@@ -29,7 +29,7 @@ end
 
 feature 'Uploading a CSV' do
   setup do
-    @user = FactoryGirl.create :legal_entity, :paypal_data, direct_debit: true
+    @user = create :legal_entity, :paypal_data, direct_debit: true
     login_as @user
     visit new_mass_upload_path
   end
@@ -86,7 +86,7 @@ feature 'Uploading a CSV' do
 
     # sell all articles
     Article.all.each do |article|
-      FactoryGirl.create :business_transaction, :pickup, article: article, line_item_group: (FactoryGirl.create :line_item_group, :sold, articles: [article])
+      create :business_transaction, :pickup, article: article, line_item_group: (create :line_item_group, :sold, articles: [article])
     end
 
     # change them
@@ -111,8 +111,8 @@ feature 'Uploading a CSV' do
   end
 
   scenario 'legal entity deletes an Articles via CSV' do
-    FactoryGirl.create :article, seller: @user
-    FactoryGirl.create :article, custom_seller_identifier: 'abc123', seller: @user
+    create :article, seller: @user
+    create :article, custom_seller_identifier: 'abc123', seller: @user
     attach_file('mass_upload_file', 'test/fixtures/mass_delete.csv')
     click_button I18n.t('mass_uploads.labels.upload_article')
     Article.find(1).closed?.must_equal true
@@ -120,7 +120,7 @@ feature 'Uploading a CSV' do
   end
 
   scenario 'legal entity tries to delete an already closed Article via CSV' do
-    FactoryGirl.create :closed_article, seller: @user
+    create :closed_article, seller: @user
     attach_file('mass_upload_file', 'test/fixtures/mass_upload_single_delete.csv')
     click_button I18n.t('mass_uploads.labels.upload_article')
     click_link I18n.t('mass_uploads.labels.show_report')
@@ -128,8 +128,8 @@ feature 'Uploading a CSV' do
   end
 
   scenario 'legal entity activates preview articles via CSV' do
-    FactoryGirl.create :preview_article, seller: @user
-    FactoryGirl.create :preview_article, custom_seller_identifier: 'abc123', seller: @user
+    create :preview_article, seller: @user
+    create :preview_article, custom_seller_identifier: 'abc123', seller: @user
     attach_file('mass_upload_file', 'test/fixtures/mass_activate.csv')
     click_button I18n.t('mass_uploads.labels.upload_article')
     click_link I18n.t('mass_uploads.labels.show_report')
@@ -139,8 +139,8 @@ feature 'Uploading a CSV' do
   end
 
   scenario 'legal entity deactivates Articles via CSV' do
-    FactoryGirl.create :article, seller: @user
-    FactoryGirl.create :article, custom_seller_identifier: 'abc123', seller: @user
+    create :article, seller: @user
+    create :article, custom_seller_identifier: 'abc123', seller: @user
     attach_file('mass_upload_file', 'test/fixtures/mass_deactivate.csv')
     click_button I18n.t('mass_uploads.labels.upload_article')
     Article.find(1).locked?.must_equal true
@@ -148,7 +148,7 @@ feature 'Uploading a CSV' do
   end
 
   scenario 'legal entity tries to delete an article that belongs to another user' do
-    FactoryGirl.create :article
+    create :article
 
     attach_file('mass_upload_file', 'test/fixtures/mass_upload_single_delete.csv')
     click_button I18n.t('mass_uploads.labels.upload_article')
@@ -173,18 +173,18 @@ feature 'Uploading a CSV' do
   end
 
   scenario 'legal entity uploads a file with an Article without an action but an id' do
-    FactoryGirl.create :article, seller: @user
+    create :article, seller: @user
     attach_file('mass_upload_file', 'test/fixtures/mass_upload_without_action.csv')
     click_button I18n.t('mass_uploads.labels.upload_article')
     Article.unscoped.size.must_equal 1
   end
 
   scenario 'legal entity uploads a file that contains Articles with various actions' do
-    a1 = FactoryGirl.create :article, seller: @user
-    a2 = FactoryGirl.create :preview_article, seller: @user
-    a3 = FactoryGirl.create :article, seller: @user
-    a4 = FactoryGirl.create :article, seller: @user # problems with dup and images while testing
-    a5 = FactoryGirl.create :preview_article, seller: @user
+    a1 = create :article, seller: @user
+    a2 = create :preview_article, seller: @user
+    a3 = create :article, seller: @user
+    a4 = create :article, seller: @user # problems with dup and images while testing
+    a5 = create :preview_article, seller: @user
 
     attach_file('mass_upload_file', 'test/fixtures/mass_upload_correct_multiple_action.csv')
     click_button I18n.t('mass_uploads.labels.upload_article')
@@ -201,7 +201,7 @@ feature 'Uploading a CSV' do
   end
 
   scenario 'legal entity uploads a file with an unknown action' do
-    FactoryGirl.create :article, seller: @user
+    create :article, seller: @user
 
     attach_file('mass_upload_file', 'test/fixtures/mass_upload_wrong_action.csv')
     click_button I18n.t('mass_uploads.labels.upload_article')

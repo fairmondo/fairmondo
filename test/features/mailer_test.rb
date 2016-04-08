@@ -72,12 +72,12 @@ include Warden::Test::Helpers
 #   end
 #
 #   scenario "signed-in user gives feedback" do
-#     let(:user) { FactoryGirl.create :user }
+#     let(:user) { create :user }
 #     login_as user
 #     visit root_path
 #     click_link I18n.t('common.text.feedback')
 #
-#     article = FactoryGirl.create :article, :user_id => user.id
+#     article = create :article, :user_id => user.id
 #     fill_in 'feedback_from',              with: 'email@example.com'
 #     fill_in 'feedback_subject',           with: 'Das ist die Betreffzeile'
 #     fill_in 'feedback_text',              with: 'Das ist der Inhalt'

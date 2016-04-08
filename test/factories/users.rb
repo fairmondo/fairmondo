@@ -43,7 +43,7 @@ FactoryGirl.define do
 
     after(:create) do |user, evaluator|
       if evaluator.create_standard_address
-        address = FactoryGirl.create(:address_with_bike_courier_zip, user: user)
+        address = create(:address_with_bike_courier_zip, user: user)
         user.update_attribute(:standard_address_id, address.id)
       end
     end

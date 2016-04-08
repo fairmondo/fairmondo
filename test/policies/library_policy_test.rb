@@ -8,7 +8,7 @@ describe LibraryPolicy do
   include PunditMatcher
 
   subject { LibraryPolicy.new(user, library)  }
-  let(:library) { FactoryGirl.create :library }
+  let(:library) { create :library }
   let(:user)    { nil                         }
 
   describe 'for a visitor' do
@@ -21,7 +21,7 @@ describe LibraryPolicy do
   end
 
   describe 'for a random logged-in user' do
-    let(:user) { FactoryGirl.create :user }
+    let(:user) { create :user }
     it { subject.must_deny(:show)               }
     it { subject.must_deny(:create)             }
     it { subject.must_deny(:update)             }
@@ -41,7 +41,7 @@ describe LibraryPolicy do
   end
 
   describe 'for an admin' do
-    let(:user) { FactoryGirl.create :admin_user }
+    let(:user) { create :admin_user }
     it { subject.must_permit(:admin_add)              }
     it { subject.must_permit(:admin_remove)           }
   end

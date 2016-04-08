@@ -8,7 +8,7 @@ include Warden::Test::Helpers
 
 feature 'User registration' do
   scenario 'user visits root path and signs in' do
-    user = FactoryGirl.create :user
+    user = create :user
     visit root_path
 
     # Check movile nav as well as desktop nav
@@ -48,8 +48,8 @@ end
 
 feature 'User sign in' do
   scenario 'banned user wants to sing in' do
-    user = FactoryGirl.create :user, banned: true
-    FactoryGirl.create :content, key: 'banned', body: '<p>You are banned.</p>'
+    user = create :user, banned: true
+    create :content, key: 'banned', body: '<p>You are banned.</p>'
     visit new_user_session_path
 
     fill_in 'user_email', with: user.email
@@ -61,8 +61,8 @@ feature 'User sign in' do
   end
 
   scenario 'Legal entity who needs to reaccept direct debit signs in' do
-    user = FactoryGirl.create :legal_entity, direct_debit: false
-    FactoryGirl.create :article, seller: user
+    user = create :legal_entity, direct_debit: false
+    create :article, seller: user
     visit new_user_session_path
 
     fill_in 'user_email', with: user.email
@@ -77,7 +77,7 @@ end
 
 feature 'User account management' do
   scenario 'user updates his profile' do
-    user = FactoryGirl.create :user
+    user = create :user
     login_as user
 
     visit edit_user_registration_path user
@@ -157,7 +157,7 @@ feature 'User account management' do
   end
 
   scenario 'user wants to change the email for his account' do
-    @user = FactoryGirl.create :user
+    @user = create :user
     login_as @user
     visit edit_user_registration_path @user
     select 'Herr', from: 'address_title'
@@ -171,7 +171,7 @@ feature 'User account management' do
   end
 
   scenario 'user wants to change the email for account without a password' do
-    @user = FactoryGirl.create :user
+    @user = create :user
     login_as @user
     visit edit_user_registration_path @user
     fill_in 'user_email', with: 'chunky@bacon.com'
@@ -181,7 +181,7 @@ feature 'User account management' do
   end
 
   scenario 'user wants to change the password for his account without having address' do
-    @user = FactoryGirl.create :incomplete_user
+    @user = create :incomplete_user
     login_as @user
     visit edit_user_registration_path @user
     fill_in 'user_current_password', with: 'password'
@@ -193,7 +193,7 @@ feature 'User account management' do
   end
 
   scenario 'user wants to change the password for account without current password' do
-    @user = FactoryGirl.create :user
+    @user = create :user
     login_as @user
     visit edit_user_registration_path @user
     fill_in 'user_password', with: 'changedpassword'
@@ -206,7 +206,7 @@ feature 'User account management' do
   end
 
   scenario 'legal entity wants to update terms/cancelation/about' do
-    user = FactoryGirl.create :legal_entity
+    user = create :legal_entity
     login_as user
     visit edit_user_registration_path @user
     page.must_have_css 'h3', text: I18n.t('users.form_titles.contact_person')
@@ -230,7 +230,7 @@ feature 'User account management' do
   end
 
   scenario 'legal entity fills in alternative email addresses' do
-    user = FactoryGirl.create :legal_entity, invoicing_email: '', order_notifications_email: ''
+    user = create :legal_entity, invoicing_email: '', order_notifications_email: ''
 
     user.email_for_invoicing.must_equal user.email
     user.email_for_order_notifications.must_equal user.email
@@ -249,7 +249,7 @@ feature 'User account management' do
   end
 
   scenario 'private user wants to edit his account' do
-    @user =  FactoryGirl.create :private_user
+    @user =  create :private_user
     login_as @user
     visit edit_user_registration_path @user
     page.wont_have_css 'h3', text: I18n.t('users.form_titles.contact_person')
@@ -267,7 +267,7 @@ end
 
 feature 'Newsletter' do
   setup do
-    @user = FactoryGirl.create :user
+    @user = create :user
     login_as @user
   end
   scenario 'user wants to receive newsletter' do

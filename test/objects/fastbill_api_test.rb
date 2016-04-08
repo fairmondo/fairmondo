@@ -7,8 +7,8 @@ require_relative '../test_helper'
 describe FastbillAPI do
   describe 'methods' do
     let(:business_transaction) { BusinessTransaction.new }
-    let(:db_business_transaction) { FactoryGirl.create :business_transaction }
-    let(:db_bt_from_ngo) { FactoryGirl.create :business_transaction_from_ngo }
+    let(:db_business_transaction) { create :business_transaction }
+    let(:db_bt_from_ngo) { create :business_transaction_from_ngo }
     let(:seller) { db_business_transaction.seller }
 
     describe '::fastbill_chain' do
@@ -42,7 +42,7 @@ describe FastbillAPI do
         end
 
         describe 'and has no Fastbill profile' do
-          let(:db_business_transaction) { FactoryGirl.create :business_transaction, :clear_fastbill }
+          let(:db_business_transaction) { create :business_transaction, :clear_fastbill }
           it 'should create new Fastbill profile' do
             db_business_transaction # to trigger observers before
             api = FastbillAPI.new db_business_transaction
@@ -79,11 +79,11 @@ describe FastbillAPI do
       end
 
       describe 'article price is 0 Euro' do
-        let(:article) { FactoryGirl.create :article, price: Money.new(0) }
+        let(:article) { create :article, price: Money.new(0) }
         it 'should not call FastbillAPI' do
           api = FastbillAPI.new
           api.expects(:fastbill_chain).never
-          FactoryGirl.create :business_transaction, article: article
+          create :business_transaction, article: article
         end
       end
     end
@@ -92,7 +92,7 @@ describe FastbillAPI do
       it 'should call setusagedata' do
         db_business_transaction # to trigger observers before
         Fastbill::Automatic::Subscription.expects(:setusagedata)
-        db_business_transaction.discount = FactoryGirl.create :discount
+        db_business_transaction.discount = create :discount
         api = FastbillAPI.new db_business_transaction
         api.send :fastbill_discount
       end
@@ -117,7 +117,7 @@ describe FastbillAPI do
 
     describe '::discount_wo_vat' do
       it 'should receive call' do
-        db_business_transaction.discount = FactoryGirl.create :discount
+        db_business_transaction.discount = create :discount
         api = FastbillAPI.new db_business_transaction
         api.expects(:discount_wo_vat)
         api.fastbill_chain

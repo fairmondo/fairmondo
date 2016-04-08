@@ -8,7 +8,7 @@ describe ArticleTemplatePolicy do
   include PunditMatcher
 
   subject { ArticleTemplatePolicy.new(user, article_template)   }
-  let(:article_template) { FactoryGirl.create :article_template, :with_private_user }
+  let(:article_template) { create :article_template, :with_private_user }
   let(:user) { nil }
 
   describe 'for a visitor' do
@@ -20,7 +20,7 @@ describe ArticleTemplatePolicy do
   end
 
   describe 'for a random logged-in user' do
-    let(:user) { FactoryGirl.create :user }
+    let(:user) { create :user }
     it { subject.must_deny(:new)                }
     it { subject.must_deny(:create)             }
     it { subject.must_deny(:edit)               }

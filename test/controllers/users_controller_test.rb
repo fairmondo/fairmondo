@@ -8,7 +8,7 @@ describe UsersController do
   describe "GET 'show'" do
     describe 'for non-signed-in users' do
       before :each do
-        @user = FactoryGirl.create(:user)
+        @user = create :user
       end
 
       it 'should be successful' do
@@ -26,7 +26,7 @@ describe UsersController do
 
     describe 'for signed-in users' do
       before :each do
-        @user = FactoryGirl.create(:user)
+        @user = create :user
         sign_in @user
       end
 
@@ -39,7 +39,7 @@ describe UsersController do
 
   describe "GET 'profile'" do
     before :each do
-      @user = FactoryGirl.create(:legal_entity)
+      @user = create :legal_entity
     end
 
     it 'should be successful' do
@@ -49,7 +49,7 @@ describe UsersController do
   end
 
   describe 'GET contact' do
-    let(:user) { FactoryGirl.create :user }
+    let(:user) { create :user }
 
     it 'should be successful' do
       xhr :get, :contact, id: user.id

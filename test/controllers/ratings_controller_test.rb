@@ -5,9 +5,9 @@
 require_relative '../test_helper'
 
 describe RatingsController do
-  let(:seller) { FactoryGirl.create :user }
-  let(:buyer) { FactoryGirl.create :user }
-  let(:line_item_group) { FactoryGirl.create :line_item_group, seller: seller, buyer: buyer }
+  let(:seller) { create :user }
+  let(:buyer) { create :user }
+  let(:line_item_group) { create :line_item_group, seller: seller, buyer: buyer }
 
   describe 'GET ::index' do
     it 'should render rating\'s index_template' do
@@ -19,7 +19,7 @@ describe RatingsController do
 
   describe 'POST ::create' do
     before do
-      # TODO: Use FactoryGirl.attributes_for if possible after ratings are refactored
+      # TODO: Use attributes_for if possible after ratings are refactored
       @rating_attrs = { rating: 'positive', line_item_group_id: line_item_group.id }
       sign_in buyer
     end

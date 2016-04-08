@@ -6,11 +6,11 @@ require_relative '../test_helper'
 
 describe ContentsController do
   def login_admin
-    sign_in FactoryGirl.create :admin_user
+    sign_in(create :admin_user)
   end
 
-  let(:content) { FactoryGirl.create :content }
-  let(:content_attrs) { FactoryGirl.attributes_for :content }
+  let(:content) { create :content }
+  let(:content_attrs) { attributes_for :content }
 
   describe 'GET index' do
     it 'should assign all contents as @contents' do

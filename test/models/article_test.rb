@@ -6,8 +6,8 @@ require_relative '../test_helper'
 
 describe Article do
   let(:article) { Article.new }
-  let(:db_article) { FactoryGirl.create(:article, :with_fixture_image) }
-  let(:ngo_article) { FactoryGirl.create :article, :with_ngo }
+  let(:db_article) { create(:article, :with_fixture_image) }
+  let(:ngo_article) { create :article, :with_ngo }
 
   subject { article }
 
@@ -95,7 +95,7 @@ describe Article do
       end
 
       it 'should not throw an exception when slug is already present' do
-        FactoryGirl.create(:article, title: 'Great Expectations')
+        create(:article, title: 'Great Expectations')
         another_article = Article.new(title: 'Great Expectations')
         another_article.valid?
       end
@@ -103,7 +103,7 @@ describe Article do
 
     describe 'amoeba' do
       it 'should copy an article with images' do
-        article = FactoryGirl.create :article, :with_fixture_image
+        article = create :article, :with_fixture_image
         testpath = article.images.first.image.path # The image needs to be in place !!!
         FileUtils.mkpath File.dirname(testpath) # make the dir
         FileUtils.cp(Rails.root.join('test', 'fixtures', 'test.png'), testpath) # copy the image
@@ -121,7 +121,7 @@ describe Article do
         end
 
         it "should return false when article doesn't belong to user" do
-          db_article.owned_by?(FactoryGirl.create(:user)).must_equal false
+          db_article.owned_by?(create(:user)).must_equal false
         end
 
         it 'should return true when article belongs to user' do
@@ -245,7 +245,7 @@ describe Article do
 
       describe '#selectable (private)' do
         it 'should return an array with selected transport options, the default being first' do
-          output = FactoryGirl.create(:article, :with_all_payments, :with_all_transports).send(:selectable, 'transport')
+          output = create(:article, :with_all_payments, :with_all_transports).send(:selectable, 'transport')
           output.must_include 'pickup'
           output.must_include 'type1'
           output.must_include 'type2'
@@ -263,12 +263,12 @@ describe Article do
         end
 
         it 'should return the missing-image-url when no image is set' do
-          article = FactoryGirl.create :article
+          article = create :article
           article.title_image_url.must_equal 'missing.png'
         end
 
         it "should return the first image's URL when one exists" do
-          article.images = [FactoryGirl.build(:article_fixture_image), FactoryGirl.build(:article_fixture_image)]
+          article.images = [build(:article_fixture_image), build(:article_fixture_image)]
           article.images.each do |image|
             image.is_title = true
             image.save
@@ -278,20 +278,20 @@ describe Article do
         end
 
         it 'should return the processing image while processing when requested a thumb' do
-          title_image = FactoryGirl.create(:article_image, :processing)
+          title_image = create(:article_image, :processing)
           db_article.images = [title_image]
           db_article.title_image_url(:thumb).must_equal title_image.image.url(:thumb)
         end
 
         it 'should return the original image while processing when requested a medium image' do
-          title_image = FactoryGirl.create(:article_image, :processing)
+          title_image = create(:article_image, :processing)
           db_article.images = [title_image]
           db_article.title_image_url(:medium).must_equal title_image.original_image_url_while_processing
         end
       end
 
       # describe "#replace_image" do
-      #   let(:article) { FactoryGirl.create :article }
+      #   let(:article) { create :article }
       #   before {
       #     @url =
       #     article.external_image_url = "http://www.test.com/test.png" # We need to call it nowbecause else URI.stub :parse will Conflict with Fakeweb/Tire
@@ -333,11 +333,11 @@ describe Article do
   describe '::Categories' do
     describe '#size_validator' do
       it 'should validate size of categories' do
-        article_0cat = FactoryGirl.build :article
+        article_0cat = build :article
         article_0cat.categories = []
-        article_1cat = FactoryGirl.build :article
-        article_2cat = FactoryGirl.build :article, :with_child_category
-        article_3cat = FactoryGirl.build :article, :with_3_categories
+        article_1cat = build :article
+        article_2cat = build :article, :with_child_category
+        article_3cat = build :article, :with_3_categories
 
         article_0cat.valid?.must_equal false
         article_1cat.valid?.must_equal true
@@ -351,7 +351,7 @@ describe Article do
     describe 'state machine hooks:' do
       describe 'on activate' do
         it 'should calculate the fees and donations' do
-          article = FactoryGirl.create :preview_article
+          article = create :preview_article
           article.calculated_fair_cents = 0
           article.calculated_fee_cents = 0
           article.save
@@ -366,7 +366,7 @@ describe Article do
 
   describe '::Template' do
     before do
-      @article = FactoryGirl.build :article, :with_private_user, article_template_name: 'Vorlage', state: :template
+      @article = build :article, :with_private_user, article_template_name: 'Vorlage', state: :template
     end
 
     describe '#save_as_template?' do

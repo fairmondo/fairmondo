@@ -7,7 +7,7 @@ require_relative '../test_helper'
 describe UserPolicy do
   include PunditMatcher
   subject { UserPolicy.new(user, resource)  }
-  let(:resource) { FactoryGirl.create :user }
+  let(:resource) { create :user }
   let(:user) { nil }
 
   describe 'for a visitor' do
@@ -16,7 +16,7 @@ describe UserPolicy do
   end
 
   describe 'for a random logged-in user' do
-    let(:user) { FactoryGirl.create :user }
+    let(:user) { create :user }
 
     it { subject.must_permit(:show)             }
     it { subject.must_permit(:profile)          }

@@ -7,8 +7,8 @@ require_relative '../test_helper'
 include Warden::Test::Helpers
 
 feature 'User ratings' do
-  let(:buyer) { FactoryGirl.create :user }
-  let(:line_item_group) { FactoryGirl.create :line_item_group, :with_business_transactions, :sold, buyer: buyer }
+  let(:buyer) { create :user }
+  let(:line_item_group) { create :line_item_group, :with_business_transactions, :sold, buyer: buyer }
 
   scenario 'guest rates a line_item_group' do
     visit line_item_group_new_user_rating_path(line_item_group.seller, line_item_group)
@@ -16,7 +16,7 @@ feature 'User ratings' do
   end
 
   scenario "user rates a line_item_group he didn't make" do
-    login_as FactoryGirl.create :user
+    login_as create :user
     -> { visit line_item_group_new_user_rating_path(line_item_group.seller, line_item_group) }.must_raise Pundit::NotAuthorizedError
   end
 
@@ -44,15 +44,14 @@ feature 'User ratings' do
 
   scenario 'user tries to rate a line_item_group a second time' do
     login_as buyer
-    rating = FactoryGirl.create(:positive_rating)
+    rating = create(:positive_rating)
     -> { visit line_item_group_new_user_rating_path(rating.rated_user, rating.line_item_group) }.must_raise Pundit::NotAuthorizedError
   end
 
   scenario 'user visits profile of another user and checks his ratings' do
-    @rating = FactoryGirl.create :rating_with_text,
-                                 line_item_group: line_item_group,
-                                 rated_user: line_item_group.seller,
-                                 rating_user: line_item_group.buyer
+    @rating = create :rating_with_text, line_item_group: line_item_group,
+                                        rated_user: line_item_group.seller,
+                                        rating_user: line_item_group.buyer
     login_as line_item_group.buyer
     visit user_ratings_path(user_id: line_item_group.seller.id)
 

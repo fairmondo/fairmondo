@@ -10,19 +10,18 @@ FactoryGirl.define do
     message 'MyText'
     tos_accepted false
     transport_address { buyer.standard_address }
-    payment_address { FactoryGirl.create :address, user_id: buyer.id }
+    payment_address { create :address, user_id: buyer.id }
     purchase_id 'F00000012'
 
     transient do
       sold false
-      articles { [FactoryGirl.create(:article, seller: seller)] }
+      articles { [create(:article, seller: seller)] }
     end
 
     after(:create) do |line_item_group, evaluator|
       evaluator.articles.each do |article|
         line_item_group
-          .line_items << FactoryGirl.create(:line_item, article: article,
-                                                        line_item_group: line_item_group)
+          .line_items << create(:line_item, article: article, line_item_group: line_item_group)
       end
     end
 
@@ -53,7 +52,7 @@ FactoryGirl.define do
                             article_attributes: evaluator.articles_attributes[index] || {})
           bt = line_item_group.business_transactions.send(evaluator.build_or_create_bts, attributes)
           if evaluator.create_line_items
-            line_item_group.line_items << FactoryGirl.create(:line_item, article: bt.article)
+            line_item_group.line_items << create(:line_item, article: bt.article)
           end
         end
       end

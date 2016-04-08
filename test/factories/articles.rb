@@ -89,7 +89,7 @@ FactoryGirl.define do
 
     factory :article_with_business_transaction do
       after :create do |article, _evaluator|
-        FactoryGirl.create :business_transaction, article: article
+        create :business_transaction, article: article
       end
     end
 
@@ -115,13 +115,13 @@ FactoryGirl.define do
       categories { |c| [c.association(:category), c.association(:child_category)] }
     end
 
-    trait :with_3_categories do # This should fail validation, so only use with FactoryGirl.build
+    trait :with_3_categories do # This should fail validation, so only use with build
       categories { |c| [c.association(:category), c.association(:category), c.association(:category)] }
     end
 
     trait :with_fixture_image do
       after(:build) do |article|
-        article.images = [FactoryGirl.build(:article_fixture_image)]
+        article.images = [build(:article_fixture_image)]
       end
     end
 

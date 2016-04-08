@@ -6,12 +6,12 @@ require_relative '../test_helper'
 
 describe ArticleTemplatesController do
   before :each do
-    @user = FactoryGirl.create(:user)
+    @user = create(:user)
     sign_in @user
   end
 
   def valid_attributes
-    FactoryGirl.attributes_for(:article_template, category_ids: [FactoryGirl.create(:category).id])
+    attributes_for(:article_template, category_ids: [create(:category).id])
   end
 
   def invalid_attributes
@@ -31,7 +31,7 @@ describe ArticleTemplatesController do
 
   describe 'GET edit' do
     before do
-      @article_template = FactoryGirl.create(:article_template, seller: @user)
+      @article_template = create(:article_template, seller: @user)
     end
 
     it 'assigns the requested article_template as @article_template' do
@@ -80,7 +80,7 @@ describe ArticleTemplatesController do
 
   describe 'PUT update' do
     before :each do
-      @article_template = FactoryGirl.create(:article_template, seller: @user)
+      @article_template = create(:article_template, seller: @user)
     end
 
     context 'with valid params' do
@@ -116,7 +116,7 @@ describe ArticleTemplatesController do
 
   describe 'DELETE destroy' do
     before :each do
-      @article_template = FactoryGirl.create(:article_template, seller: @user)
+      @article_template = create(:article_template, seller: @user)
     end
 
     it 'destroys the requested article_template' do

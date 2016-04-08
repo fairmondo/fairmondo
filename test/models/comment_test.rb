@@ -31,7 +31,7 @@ describe Comment do
   end
 
   describe '#commentable_user' do
-    let(:comment) { FactoryGirl.create(:comment) }
+    let(:comment) { create(:comment) }
 
     it 'should return the owner of the commentable' do
       comment.commentable_user.must_equal(comment.commentable.user)

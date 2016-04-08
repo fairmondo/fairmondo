@@ -32,7 +32,7 @@ describe Cart do
   describe 'methods' do
     describe '#empty?' do
       it 'should not be empty' do
-        @cart = FactoryGirl.create :cart, :with_line_item_groups
+        @cart = create :cart, :with_line_item_groups
         @cart.empty?.must_equal false
       end
     end

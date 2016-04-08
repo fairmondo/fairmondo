@@ -5,7 +5,7 @@
 require_relative '../test_helper'
 
 describe PaymentsController do
-  let(:lig) { FactoryGirl.create :line_item_group, :sold, :with_business_transactions, traits: [:paypal, :transport_type1] }
+  let(:lig) { create :line_item_group, :sold, :with_business_transactions, traits: [:paypal, :transport_type1] }
   let(:bt) { lig.business_transactions.first }
   let(:buyer) { bt.buyer }
 
@@ -15,7 +15,7 @@ describe PaymentsController do
 
   describe "POST 'create'" do
     describe 'PaypalPayment' do
-      let(:lig) { FactoryGirl.create :line_item_group, :sold, :with_business_transactions, traits: [:paypal, :transport_type1] }
+      let(:lig) { create :line_item_group, :sold, :with_business_transactions, traits: [:paypal, :transport_type1] }
 
       it 'should create a paypal payment and forward to show' do
         assert_difference 'Payment.count', 1 do
@@ -36,7 +36,7 @@ describe PaymentsController do
     end
 
     describe 'VoucherPayment' do
-      let(:lig) { FactoryGirl.create :line_item_group, :sold, :with_business_transactions, traits: [:voucher, :transport_type1], seller: FactoryGirl.create(:seller, :paypal_data, uses_vouchers: true) }
+      let(:lig) { create :line_item_group, :sold, :with_business_transactions, traits: [:voucher, :transport_type1], seller: create(:seller, :paypal_data, uses_vouchers: true) }
       it 'should create a voucher payment and redirect back' do
         request.env['HTTP_REFERER'] = 'http://test.host'
         assert_difference 'Payment.count', 1 do
@@ -48,8 +48,8 @@ describe PaymentsController do
   end
 
   describe "GET 'show'" do
-    let(:lig) { FactoryGirl.create :line_item_group, :sold, :with_business_transactions, traits: [:paypal, :transport_bike_courier] }
-    let(:payment) { FactoryGirl.create :paypal_payment_with_pay_key, line_item_group: lig }
+    let(:lig) { create :line_item_group, :sold, :with_business_transactions, traits: [:paypal, :transport_bike_courier] }
+    let(:payment) { create :paypal_payment_with_pay_key, line_item_group: lig }
 
     it 'should redirect to paypal' do
       get :show, line_item_group_id: lig.id, id: payment.id
@@ -58,7 +58,7 @@ describe PaymentsController do
   end
 
   describe 'GET "ipn_notification"' do
-    let(:payment) { FactoryGirl.create :paypal_payment, pay_key: '1234' }
+    let(:payment) { create :paypal_payment, pay_key: '1234' }
 
     before do
       PaypalAdaptive::IpnNotification.any_instance.stubs(:verified?).returns(true)

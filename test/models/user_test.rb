@@ -5,9 +5,9 @@
 require_relative '../test_helper'
 
 describe User do
-  let(:user) { FactoryGirl.create(:user) }
-  let(:private_stubbed) { FactoryGirl.build_stubbed(:private_user) }
-  let(:le_stubbed) { FactoryGirl.build_stubbed(:legal_entity) }
+  let(:user) { create(:user) }
+  let(:private_stubbed) { build_stubbed(:private_user) }
+  let(:le_stubbed) { build_stubbed(:legal_entity) }
   subject { User.new }
 
   it 'has a valid Factory' do
@@ -137,8 +137,8 @@ describe User do
 
   describe 'banning a user' do
     it 'should deactivate all of users active articles' do
-      user = FactoryGirl.create :user
-      FactoryGirl.create :article, seller: user
+      user = create :user
+      create :article, seller: user
 
       assert_difference 'user.articles.active.count', -1, 'active articles of user shoud be deactivated' do
         user.banned = true
@@ -150,15 +150,15 @@ describe User do
   describe 'methods' do
     describe '#count_value_of_goods' do
       it 'should sum the value of active goods' do
-        article = FactoryGirl.create :article, seller: user
-        second_article = FactoryGirl.create :article, seller: user
+        article = create :article, seller: user
+        second_article = create :article, seller: user
         user.articles.reload
         user.count_value_of_goods
         user.value_of_goods_cents.must_equal(article.price_cents + second_article.price_cents)
       end
 
       it 'should not sum the value of inactive goods' do
-        FactoryGirl.create :preview_article, seller: user
+        create :preview_article, seller: user
         user.count_value_of_goods
         user.value_of_goods_cents.must_equal 0
       end
@@ -182,7 +182,7 @@ describe User do
       end
 
       it "should return false when users don't have the same ID" do
-        user.is?(FactoryGirl.create(:user)).must_equal false
+        user.is?(create(:user)).must_equal false
       end
     end
 
@@ -198,7 +198,7 @@ describe User do
 
     describe 'paypal_account_exists?' do
       it 'should be true if user has paypal account' do
-        FactoryGirl.create(:user, :paypal_data).paypal_account_exists?.must_equal true
+        create(:user, :paypal_data).paypal_account_exists?.must_equal true
       end
       it 'should be false if user does not have paypal account' do
         user.paypal_account_exists?.must_equal false
@@ -210,7 +210,7 @@ describe User do
         user.bank_account_exists?.must_equal true
       end
       it 'should be false if user does not have bank account' do
-        FactoryGirl.create(:user, :no_bank_data).bank_account_exists?.must_equal false
+        create(:user, :no_bank_data).bank_account_exists?.must_equal false
       end
     end
 
@@ -226,7 +226,7 @@ describe User do
     end
 
     describe '#update_fastbill_profile' do
-      let(:user) { FactoryGirl.create :legal_entity, :fastbill }
+      let(:user) { create :legal_entity, :fastbill }
       let(:api) { FastbillAPI.new }
 
       it 'should call FastBillAPI.update_profile if user has fastbill profile' do
@@ -305,7 +305,7 @@ describe User do
 
   describe 'subclasses' do
     describe PrivateUser do
-      let(:user) { FactoryGirl.create(:private_user) }
+      let(:user) { create(:private_user) }
 
       it 'should have a valid factory' do
         user.valid?.must_equal true
@@ -317,7 +317,7 @@ describe User do
     end
 
     describe LegalEntity do
-      let(:db_user) { FactoryGirl.create(:legal_entity) }
+      let(:db_user) { create(:legal_entity) }
 
       it 'should have a valid factory' do
         db_user.valid?.must_equal true
@@ -343,7 +343,7 @@ describe User do
 
   describe 'seller states' do
     describe PrivateUser do
-      let(:private_seller) { FactoryGirl.create(:private_user) }
+      let(:private_seller) { create(:private_user) }
 
       describe 'bad seller' do
         before :each do
@@ -427,7 +427,7 @@ describe User do
     end
 
     describe LegalEntity do
-      let(:commercial_seller) { FactoryGirl.create(:legal_entity) }
+      let(:commercial_seller) { create(:legal_entity) }
       subject { commercial_seller }
 
       describe 'bad seller' do
@@ -609,7 +609,7 @@ describe User do
 
   describe 'seller rating' do
     describe PrivateUser do
-      let(:private_seller) { FactoryGirl.create(:private_user) }
+      let(:private_seller) { create(:private_user) }
 
       describe 'with negative ratings over 25%' do
         before :each do
@@ -710,7 +710,7 @@ describe User do
     end
 
     describe LegalEntity do
-      let(:commercial_seller) { FactoryGirl.create(:legal_entity) }
+      let(:commercial_seller) { create(:legal_entity) }
 
       describe 'with negative ratings over 25%' do
         before :each do

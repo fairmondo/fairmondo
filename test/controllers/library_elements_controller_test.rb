@@ -8,8 +8,8 @@ describe LibraryElementsController do
   describe 'Library Elements' do
     describe 'for non-signed-in users' do
       before :each do
-        @user = FactoryGirl.create(:user)
-        @library_element = FactoryGirl.create(:library_element)
+        @user = create :user
+        @library_element = create :library_element
       end
 
       it 'should deny access to create' do
@@ -25,10 +25,10 @@ describe LibraryElementsController do
 
     describe 'for signed-in users' do
       before :each do
-        @library_element = FactoryGirl.create(:library_element)
-        @library = FactoryGirl.create(:library)
+        @library_element = create :library_element
+        @library = create :library
         @user = @library_element.library.user
-        @different_library_element = FactoryGirl.create(:library_element)
+        @different_library_element = create :library_element
         @different_user = @different_library_element.library.user
         sign_in @user
       end

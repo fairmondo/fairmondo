@@ -5,14 +5,14 @@
 require_relative '../test_helper'
 
 describe RefundsController do
-  let(:seller) { FactoryGirl.create :user }
-  let(:line_item_group) { FactoryGirl.create :line_item_group, seller: seller }
-  let(:business_transaction) { FactoryGirl.create :business_transaction, :old, line_item_group: line_item_group }
+  let(:seller) { create :user }
+  let(:line_item_group) { create :line_item_group, seller: seller }
+  let(:business_transaction) { create :business_transaction, :old, line_item_group: line_item_group }
 
   describe '#create' do
     describe 'for signed in users' do
       it 'should create refund request' do
-        @refund_attrs = FactoryGirl.attributes_for :refund
+        @refund_attrs = attributes_for :refund
         sign_in seller
         assert_difference 'Refund.count', 1 do
           post :create, refund: @refund_attrs, business_transaction_id: business_transaction.id

@@ -6,7 +6,7 @@ require_relative '../test_helper'
 
 describe Payment do
   subject { payment }
-  let(:payment) { FactoryGirl.create(:paypal_payment) }
+  let(:payment) { create(:paypal_payment) }
 
   describe 'attributes' do
     it { subject.must_respond_to 'pay_key' }
