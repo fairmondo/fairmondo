@@ -154,6 +154,12 @@ class User < ActiveRecord::Base
     direct_debit_mandates.where(state: 'active').first
   end
 
+  def increase_direct_debit_mandate_number
+    number = self.next_direct_debit_mandate_number
+    self.next_direct_debit_mandate_number += 1
+    number
+  end
+
   def payment_method
     if has_active_direct_debit_mandate? && !bankaccount_warning
       :payment_by_direct_debit

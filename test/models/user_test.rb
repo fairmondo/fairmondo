@@ -309,6 +309,16 @@ describe User do
       end
     end
 
+    describe '#increase_direct_debit_mandate_number' do
+      it 'should return the next direct debit mandate number and increase it afterwards' do
+        alice = build_stubbed :user_alice, next_direct_debit_mandate_number: 1
+        num1 = alice.increase_direct_debit_mandate_number
+
+        assert_equal(1, num1)
+        assert_equal(2, alice.next_direct_debit_mandate_number)
+      end
+    end
+
     describe '#requires_direct_debit_mandate?' do
       let(:alice) { build_stubbed :user_alice }
       let(:bob) { build_stubbed :user_bob }

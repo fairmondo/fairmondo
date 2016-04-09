@@ -5,17 +5,9 @@
 require_relative '../test_helper'
 
 describe CreatesDirectDebitMandate do
-  let(:alice) { build_stubbed :user_alice_with_bank_details }
-
-  describe 'initialisation' do
-    it 'succeeds with a user object' do
-      creator = CreatesDirectDebitMandate.new alice
-      creator.wont_be_nil
-    end
-  end
-
   describe '#create' do
     it 'creates an active direct debit mandate' do
+      alice = create :user_alice
       creator = CreatesDirectDebitMandate.new alice
       mandate = creator.create
 
@@ -24,6 +16,7 @@ describe CreatesDirectDebitMandate do
     end
 
     it 'does not create a mandate if an active one is present' do
+      alice = build_stubbed :user_alice
       alice.stubs(:has_active_direct_debit_mandate?).returns(true)
 
       creator = CreatesDirectDebitMandate.new(alice)
@@ -33,8 +26,9 @@ describe CreatesDirectDebitMandate do
     end
 
     it 'creates consecutive reference numbers consisting of user id and three digits' do
+      alice = create :user_alice
       alice.stubs(:has_active_direct_debit_mandate?).returns(false)
-      refs = Array.new
+      refs = []
 
       creator1 = CreatesDirectDebitMandate.new(alice)
       refs << creator1.create.reference
@@ -45,6 +39,16 @@ describe CreatesDirectDebitMandate do
         "#{alice.id}-001",
         "#{alice.id}-002"
       ], refs)
+    end
+
+    it 'saves the user instance after creating a mandate' do
+      alice = create :user_alice, next_direct_debit_mandate_number: 1
+
+      creator = CreatesDirectDebitMandate.new(alice)
+      creator.create
+      alice.reload
+
+      assert_equal(2, alice.next_direct_debit_mandate_number)
     end
   end
 end

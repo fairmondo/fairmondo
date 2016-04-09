@@ -35,10 +35,6 @@ class DirectDebitMandate < ActiveRecord::Base
   end
 
   # instance methods
-  def build_reference
-    "#{user_id}-001"
-  end
-
   def reference_date
     created_at.to_date
   end

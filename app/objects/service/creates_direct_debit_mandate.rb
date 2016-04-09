@@ -10,6 +10,7 @@ class CreatesDirectDebitMandate
   def create
     unless @user.has_active_direct_debit_mandate?
       create_and_activate_mandate
+      save_user
     end
     @mandate
   end
@@ -23,16 +24,21 @@ class CreatesDirectDebitMandate
 
   def create_mandate
     @mandate = @user.direct_debit_mandates.build
-
-    num = @user.next_direct_debit_mandate_number
-    @user.next_direct_debit_mandate_number += 1
-    num_str = num.to_s.rjust(3, '0')
-    @mandate.reference = "#{@user.id}-#{num_str}"
-
+    mandate_number = @user.increase_direct_debit_mandate_number
+    build_mandate_reference(mandate_number)
     @mandate.save
+  end
+
+  def build_mandate_reference(mandate_number)
+    num_str = mandate_number.to_s.rjust(3, '0')
+    @mandate.reference = "#{@user.id}-#{num_str}"
   end
 
   def activate_mandate
     @mandate.activate!
+  end
+
+  def save_user
+    @user.save
   end
 end
