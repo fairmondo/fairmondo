@@ -40,6 +40,8 @@ class RegistrationsController < Devise::RegistrationsController
     resource.build_standard_address_from address_params
     prev_unconfirmed_email = resource.unconfirmed_email if resource.respond_to?(:unconfirmed_email)
 
+    revoke_direct_debit_mandate_if_bank_details_changed(resource, params)
+
     if update_account(account_update_params)
       actions_for_successful_update_for resource, prev_unconfirmed_email
     else
@@ -66,6 +68,18 @@ class RegistrationsController < Devise::RegistrationsController
     if params[:incomplete_profile]
       user.wants_to_sell = true
       user.valid?
+    end
+  end
+
+  def revoke_direct_debit_mandate_if_bank_details_changed(resource, params)
+    mandate = resource.active_direct_debit_mandate
+    if mandate.present? &&
+       params[:user][:direct_debit_confirmation] != '1'
+      if params[:user][:iban]               != resource.iban ||
+         params[:user][:bic]                != resource.bic ||
+         params[:user][:bank_account_owner] != resource.bank_account_owner
+        mandate.revoke!
+      end
     end
   end
 
