@@ -264,9 +264,6 @@ RailsAdmin.config do |config|
     field :slug
     field(:type) { read_only true }
     field :bank_account_owner
-    field :bank_account_number
-    field :bank_code
-    field :bank_name
     field :iban
     field :bic
     field :paypal_account
