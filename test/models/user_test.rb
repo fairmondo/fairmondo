@@ -56,6 +56,7 @@ describe User do
     it { subject.must_respond_to :percentage_of_negative_ratings }
     it { subject.must_respond_to :percentage_of_neutral_ratings }
     it { subject.must_respond_to :direct_debit_exemption }
+    it { subject.must_respond_to :next_direct_debit_mandate_number }
     it { subject.must_respond_to :value_of_goods_cents }
     it {    user.must_respond_to :max_value_of_goods_cents } # implemented on all subclasses
     it { subject.must_respond_to :max_value_of_goods_cents_bonus }
@@ -186,6 +187,13 @@ describe User do
     it 'should be false for new User instances' do
       le = User.new
       le.direct_debit_exemption.must_equal false
+    end
+  end
+
+  describe 'next direct debit mandate number' do
+    it 'should be 1 for new User instances' do
+      user = User.new
+      user.next_direct_debit_mandate_number.must_equal 1
     end
   end
 

@@ -31,5 +31,20 @@ describe CreatesDirectDebitMandate do
 
       assert alice.direct_debit_mandates.blank?
     end
+
+    it 'creates consecutive reference numbers consisting of user id and three digits' do
+      alice.stubs(:has_active_direct_debit_mandate?).returns(false)
+      refs = Array.new
+
+      creator1 = CreatesDirectDebitMandate.new(alice)
+      refs << creator1.create.reference
+      creator2 = CreatesDirectDebitMandate.new(alice)
+      refs << creator2.create.reference
+
+      assert_equal([
+        "#{alice.id}-001",
+        "#{alice.id}-002"
+      ], refs)
+    end
   end
 end

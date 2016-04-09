@@ -308,8 +308,7 @@ feature 'Direct debit mandate for legal entities' do
   end
 
   scenario 'Direct debit mandate reference is shown if present' do
-    mandate = create :direct_debit_mandate, user: @user
-    mandate.activate!
+    mandate = CreatesDirectDebitMandate.new(@user).create
 
     visit edit_user_registration_path(@user)
 
@@ -318,8 +317,7 @@ feature 'Direct debit mandate for legal entities' do
   end
 
   scenario 'Direct debit mandate is revoked if user changes bank details' do
-    mandate = create :direct_debit_mandate, user: @user
-    mandate.activate!
+    mandate = CreatesDirectDebitMandate.new(@user).create
 
     visit edit_user_registration_path(@user)
 

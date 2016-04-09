@@ -29,23 +29,6 @@ describe DirectDebitMandate do
     it { subject.must validate_uniqueness_of :reference }
   end
 
-  describe '#build_reference' do
-    it 'should create a reference consisting of user id and number' do
-      ref = mandate.build_reference
-      ref.must_equal "#{user.id}-001"
-    end
-
-    it 'should count up if mandates are already present' do
-      mandate1 = DirectDebitMandate.new(user: user)
-      mandate1.reference = mandate1.build_reference
-      mandate1.save
-
-      mandate2 = DirectDebitMandate.new(user: user)
-      ref = mandate2.build_reference
-      ref.must_equal "#{user.id}-002"
-    end
-  end
-
   describe 'class methods' do
     describe '#creditor_identifier' do
       it 'should return Fairmondo SEPA Creditor Identifier' do

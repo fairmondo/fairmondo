@@ -23,7 +23,12 @@ class CreatesDirectDebitMandate
 
   def create_mandate
     @mandate = @user.direct_debit_mandates.build
-    @mandate.reference = '001'
+
+    num = @user.next_direct_debit_mandate_number
+    @user.next_direct_debit_mandate_number += 1
+    num_str = num.to_s.rjust(3, '0')
+    @mandate.reference = "#{@user.id}-#{num_str}"
+
     @mandate.save
   end
 
