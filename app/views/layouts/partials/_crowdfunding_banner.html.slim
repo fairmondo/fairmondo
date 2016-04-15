@@ -1,0 +1,31 @@
+- cache('crowdfunding-summary', expires_in: 5.minutes) do
+
+  - match = /\d{1,6}/.match(tinycms_content_body('campaign_amount'))
+  - amount = match.to_s.to_i
+
+  aside.l-crowdfunding
+    article.l-crowdfunding-summary
+      div.l-crowdfunding-summary-wrapper
+        div.l-crowdfunding-summary-text
+          h2 Fairmondo wird international!
+          p Jetzt im Crowdfunding! Ziel: 100.000 €
+        div.l-crowdfunding-progressbar
+          div.l-crowdfunding-progressbar-fill style="width: #{crowdfunding_progress_percentage(amount)}%; background-color: hsl(#{crowdfunding_progress_hue(amount)}, 25%, 75%);"
+          div.l-crowdfunding-progressbar-amount= number_to_currency(amount, precision: 0)
+        div.l-crowdfunding-summary-button
+          a.Button href="/wird-international" Mehr erfahren
+
+    - unless cookies['crowdfunding-do-not-show']
+      - cache('crowdfunding-full') do
+        div.l-crowdfunding-full
+          div.l-crowdfunding-full-closebutton
+            a href="#"
+              i.fa.fa-times-circle.fa-2x
+          div.l-crowdfunding-full-photo
+            = image_tag('crowdfunding_teamphoto.jpg', alt: 'Das Fairmondo-Team')
+          article.l-crowdfunding-full-text
+            div.l-crowdfunding-full-text-inner
+              p
+                ' Mit Fairmondo schaffen wir eine demokratische und transparente Alternative zu den
+                ' Marktriesen im Online-Handel. Das kommt auch in anderen Ländern so gut an, dass dort
+                ' Teams begonnen haben, Fairmondo vor Ort aufzubauen…

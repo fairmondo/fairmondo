@@ -4,20 +4,21 @@
    See the COPYRIGHT file for details.
 ###
 
-setNewsClickHandler = ->
-  $('.l-news-header').on 'click', '.l-news-header-close', onClickCloseButton
+setCrowdfundingClickHandler = ->
+  $('.l-crowdfunding-full-closebutton > a').click onClickCloseButton
 
 onClickCloseButton = (event) ->
-  removeNewsHeader()
+  event.preventDefault()
+  removeCrowdfunding()
   setCookie()
 
-removeNewsHeader = ->
-  $('.l-news-header')
+removeCrowdfunding = ->
+  $('.l-crowdfunding-full')
     .remove()
 
 setCookie = ->
   days_to_expire = 1
   expiration_date = new Date(Date.now() + (days_to_expire * 24 * 60 * 60 * 1000))
-  document.cookie = "news-header-disabled=true; path=/; expires=#{expiration_date.toUTCString()}"
+  document.cookie = "crowdfunding-do-not-show=true; path=/; expires=#{expiration_date.toUTCString()}"
 
-$(document).ready setNewsClickHandler
+$(document).ready setCrowdfundingClickHandler
