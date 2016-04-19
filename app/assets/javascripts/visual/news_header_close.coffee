@@ -8,8 +8,21 @@
 #= require jquery_ujs
 #= require vendor/jquery.colorbox
 
-$(document).ready ->
-  $(".l-news-header-close").click ->
-    $(".l-news-header").slideUp(0)
-    date = new Date(Date.now() + (24 * 60 * 60 * 1000)) # set date to one day from now
-    document.cookie = "news-header-disabled=true; path=/; expires=" + date.toGMTString()
+$(document).ready setNewsClickHandler
+
+setNewsClickHandler = ->
+  $('.l-news-header').on 'click', '.l-news-header-close', onClickCloseButton
+
+onClickCloseButton = (event) ->
+  removeNewsHeader()
+  setCookie()
+
+removeNewsHeader = ->
+  $('.l-news-header')
+    .slideUp(0)
+    .remove()
+
+setCookie = ->
+  days_to_expire = 1
+  expiration_date = new Date(Date.now() + (days_to_expire * 24 * 60 * 60 * 1000))
+  document.cookie = "news-header-disabled=true; path=/; expires=#{expiration_date.toUTCString()}"
