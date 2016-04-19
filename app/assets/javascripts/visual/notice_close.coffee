@@ -4,14 +4,13 @@
    See the COPYRIGHT file for details.
 ###
 
-$(document).ready setNoticeClickHandler
-$(document).ajaxStop setNoticeClickHandler
-
 setNoticeClickHandler = ->
   $('.Notice').on 'click', '.Notice-close', onClickCloseButton
 
 onClickCloseButton = (event) ->
   $(@)
-    .parent()
-    .slideUp(0)
+    .closest('.Notice')
     .remove()
+
+$(document).ready setNoticeClickHandler
+$(document).ajaxStop setNoticeClickHandler
