@@ -7,9 +7,9 @@ require_relative '../test_helper'
 describe ArticlePolicy do
   include ::PunditMatcher
   subject { ArticlePolicy.new(user, article)  }
-  let(:article) { FactoryGirl.create :preview_article }
-  let(:cloned) { FactoryGirl.build :preview_article, original: original_article }
-  let(:original_article) { FactoryGirl.create :locked_article, seller: user }
+  let(:article) { create :preview_article }
+  let(:cloned) { build :preview_article, original: original_article }
+  let(:original_article) { create :locked_article, seller: user }
   let(:user) { nil }
 
   describe 'for a visitor' do
@@ -36,7 +36,7 @@ describe ArticlePolicy do
   end
 
   describe 'for a random logged-in user' do
-    let(:user) { FactoryGirl.create :user }
+    let(:user) { create :user }
 
     it { subject.must_permit(:index)           }
     it { subject.must_permit(:new)             }
@@ -98,12 +98,12 @@ describe ArticlePolicy do
     end
 
     describe 'on a clone of a locked article' do
-      let(:cloned) { FactoryGirl.build :preview_article, original: original_article, seller: original_article.seller }
+      let(:cloned) { build :preview_article, original: original_article, seller: original_article.seller }
       it { ArticlePolicy.new(cloned.seller, cloned).must_permit(:create) }
     end
 
     describe 'on a clone of an active article' do
-      let(:original_article) { FactoryGirl.create :article, seller: user }
+      let(:original_article) { create :article, seller: user }
       it { ArticlePolicy.new(cloned.seller, cloned).must_deny(:create) }
     end
   end

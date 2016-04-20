@@ -7,8 +7,8 @@ require_relative '../test_helper'
 include Warden::Test::Helpers
 
 feature 'CMS System' do
-  let(:content) { FactoryGirl.create :content }
-  let(:admin) { FactoryGirl.create :admin_user }
+  let(:content) { create :content }
+  let(:admin) { create :admin_user }
 
   scenario 'user visits an existing page' do
     visit content_path content
@@ -70,9 +70,9 @@ feature 'CMS System' do
   end
 
   scenario '[articles ids="a"] is expanded to one article preview in a grid' do
-    article_id = FactoryGirl.create(:article, title: 'Book 1').id
+    article_id = create(:article, title: 'Book 1').id
     body = "<p>[articles ids=\"#{article_id}\"]</p>"
-    content = FactoryGirl.create(:content, body: body)
+    content = create(:content, body: body)
 
     visit content_path content
 
@@ -80,13 +80,13 @@ feature 'CMS System' do
   end
 
   scenario '[articles ids="a b"], [articles ids="a b c"] and [articles ids="a b c d"] are expanded accordingly' do
-    user = FactoryGirl.create(:user)
+    user = create(:user)
     article_ids = []
     (1..9).each do |n|
-      article_ids << FactoryGirl.create(:article, title: "Book #{n}", seller: user).id
+      article_ids << create(:article, title: "Book #{n}", seller: user).id
     end
     body = create_body_with_articles(article_ids)
-    content = FactoryGirl.create(:content, body: body)
+    content = create(:content, body: body)
 
     visit content_path content
 
@@ -105,7 +105,7 @@ feature 'CMS System' do
   end
 
   scenario '[articles ids="a b c d"] is not expanded if articles cannot be found' do
-    content = FactoryGirl.create(:content, body: "<p>[articles ids=\"1 2 3 4\"]</p>")
+    content = create(:content, body: "<p>[articles ids=\"1 2 3 4\"]</p>")
 
     visit content_path content
 

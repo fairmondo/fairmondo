@@ -101,6 +101,7 @@ class ActiveSupport::TestCase
   end
 
   # Add more helper methods to be used by all tests here...
+  include FactoryGirl::Syntax::Methods
 end
 
 class MiniTest::Spec
@@ -118,6 +119,7 @@ class MiniTest::Spec
   end
 
   # Add more helper methods to be used by all tests here...
+  include FactoryGirl::Syntax::Methods
 end
 
 $suite_passing = true

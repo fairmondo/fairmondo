@@ -4,9 +4,13 @@
    See the COPYRIGHT file for details.
 ###
 
-noticeClose = ->
-  $('.Notice').on 'click', '.Notice-close', ->
-    $(@).parent().slideUp(0)
-    $(@).parent().remove()
-$(document).ready noticeClose
-$(document).ajaxStop noticeClose
+setNoticeClickHandler = ->
+  $('.Notice').on 'click', '.Notice-close', onClickCloseButton
+
+onClickCloseButton = (event) ->
+  $(@)
+    .closest('.Notice')
+    .remove()
+
+$(document).ready setNoticeClickHandler
+$(document).ajaxStop setNoticeClickHandler

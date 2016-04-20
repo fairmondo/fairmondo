@@ -59,10 +59,10 @@ describe MassUploadArticle do
     it 'should be updated' do
       Sidekiq.logger.stubs(:warn)
 
-      mass_upload_article = FactoryGirl.create :update_mass_upload_article
+      mass_upload_article = create :update_mass_upload_article
       mass_upload = mass_upload_article.mass_upload
       user = mass_upload.user
-      article = FactoryGirl.create :article, seller: user, custom_seller_identifier: 'LIB-9783808521366', quantity: old_quantity
+      article = create :article, seller: user, custom_seller_identifier: 'LIB-9783808521366', quantity: old_quantity
 
       mass_upload_article.process unsanitized_row_hash
       article.reload
@@ -73,10 +73,10 @@ describe MassUploadArticle do
     it 'should update available quantity even if database column is not empty' do
       Sidekiq.logger.stubs(:warn)
 
-      mass_upload_article = FactoryGirl.create :update_mass_upload_article
+      mass_upload_article = create :update_mass_upload_article
       mass_upload = mass_upload_article.mass_upload
       user = mass_upload.user
-      article = FactoryGirl.create :article, seller: user, custom_seller_identifier: 'LIB-9783808521366', quantity: old_quantity, quantity_available: old_quantity
+      article = create :article, seller: user, custom_seller_identifier: 'LIB-9783808521366', quantity: old_quantity, quantity_available: old_quantity
 
       mass_upload_article.process unsanitized_row_hash
       article.reload

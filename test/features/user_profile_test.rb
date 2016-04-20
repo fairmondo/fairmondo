@@ -8,7 +8,7 @@ include Warden::Test::Helpers
 
 feature 'User profile page' do
   scenario 'user visits his profile' do
-    @user = FactoryGirl.create :user
+    @user = create :user
     login_as @user
     visit user_path(@user)
     page.must_have_content('Profil bearbeiten')
@@ -17,21 +17,21 @@ feature 'User profile page' do
   end
 
   scenario 'user looks at his profile' do
-    @user = FactoryGirl.create :user
+    @user = create :user
     login_as @user
     visit profile_user_path(@user)
     page.must_have_content @user.nickname
   end
 
   scenario 'guest visits another users profile through an article' do
-    article = FactoryGirl.create :article
+    article = create :article
     visit article_path article
     find('.User-image a').click
     current_path.must_equal user_path article.seller
   end
 
   scenario "guests visits a legal entity's profile page" do
-    user = FactoryGirl.create :legal_entity
+    user = create :legal_entity
     visit user_path user
     click_link I18n.t 'common.text.about_terms_short'
     current_path.must_equal profile_user_path user
@@ -40,8 +40,8 @@ end
 
 feature 'contacting users' do
   before do
-    receiver = FactoryGirl.create :legal_entity
-    sender   = FactoryGirl.create :user
+    receiver = create :legal_entity
+    sender   = create :user
     login_as sender
     visit profile_user_path receiver
 

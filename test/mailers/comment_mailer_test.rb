@@ -10,8 +10,8 @@ describe CommentMailer do
   include EmailSpec::Helpers
   include EmailSpec::Matchers
 
-  let(:comment) { FactoryGirl.create(:comment) }
-  let(:commentable_owner) { FactoryGirl.create(:user) }
+  let(:comment) { create(:comment) }
+  let(:commentable_owner) { create(:user) }
 
   it '#report_comment' do
     mail = CommentMailer.report_comment(comment, commentable_owner).deliver

@@ -69,7 +69,7 @@ describe LibraryPopularityWorker do
 
   describe '#perform' do
     it 'perform should call popularity_for to update the popularity database column' do
-      library_db = FactoryGirl.create(:library)
+      library_db = create(:library)
       worker.stubs(:popularity).returns(50)
       worker.perform library_db.id
       assert_equal library_db.reload.popularity, 50, 'library_db has popularity of 50'

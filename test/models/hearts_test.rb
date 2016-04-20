@@ -23,8 +23,8 @@ class HeartTest < ActiveSupport::TestCase
   end
 
   let(:heart) { Heart.new }
-  let(:user) { FactoryGirl.create(:user) }
-  let(:heartable) { FactoryGirl.create(:library) }
+  let(:user) { create(:user) }
+  let(:heartable) { create(:library) }
 
   describe 'validations' do
     it { subject.must validate_presence_of(:user) }

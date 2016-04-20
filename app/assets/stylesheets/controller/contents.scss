@@ -36,3 +36,22 @@
     padding:0;
   }
 }
+
+// Use with <div> tag and one of the following modifiers
+.content-embed {
+  height: 0;
+  position: relative;
+
+  iframe {
+    height: 100%;
+    width: 100%
+  }
+}
+
+.content-embed--16x9 {
+  padding-bottom: 56.25%;
+}
+
+.content-embed--4x3 {
+  padding-bottom: 75%;
+}

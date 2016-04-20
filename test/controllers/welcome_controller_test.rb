@@ -23,7 +23,7 @@ describe WelcomeController do
     end
 
     describe 'for signed-in users' do
-      let(:user) { FactoryGirl.create :user }
+      let(:user) { create :user }
 
       it 'should set all instance variables' do
         sign_in user

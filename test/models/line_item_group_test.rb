@@ -5,7 +5,7 @@
 require_relative '../test_helper'
 
 describe LineItemGroup do
-  let(:line_item_group) { FactoryGirl.create(:line_item_group) }
+  let(:line_item_group) { create(:line_item_group) }
   let(:id) { 1 }
 
   subject { LineItemGroup.new }

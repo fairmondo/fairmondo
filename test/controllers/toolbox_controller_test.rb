@@ -5,7 +5,7 @@
 require_relative '../test_helper'
 
 describe ToolboxController do
-  let(:user) { FactoryGirl.create :user }
+  let(:user) { create :user }
 
   # render_views
 
@@ -126,9 +126,9 @@ describe ToolboxController do
     end
 
     describe 'for admin users' do
-      let(:user) { FactoryGirl.create :admin_user }
+      let(:user) { create :admin_user }
       it 'should do something' do
-        article = FactoryGirl.create :article
+        article = create :article
         Indexer.expects(:index_article).with(article)
 
         request.env['HTTP_REFERER'] = '/'

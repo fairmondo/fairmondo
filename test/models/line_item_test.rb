@@ -6,15 +6,15 @@ require_relative '../test_helper'
 
 describe LineItem do
   let(:line_item) { LineItem.new }
-  let(:db_line_item) { FactoryGirl.create :line_item }
+  let(:db_line_item) { create :line_item }
 
   it 'has a valid factory' do
     db_line_item.must_be :valid?
   end
 
   describe '#qualifies_for_belboon?' do
-    let(:legal_entity_line_item) { FactoryGirl.create :line_item_with_legal_entity }
-    let(:private_user_line_item) { FactoryGirl.create :line_item_with_private_user }
+    let(:legal_entity_line_item) { create :line_item_with_legal_entity }
+    let(:private_user_line_item) { create :line_item_with_private_user }
 
     it 'should return true if seller is a LegalEntity' do
       assert_equal true, legal_entity_line_item.qualifies_for_belboon?

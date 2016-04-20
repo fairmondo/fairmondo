@@ -5,10 +5,10 @@
 require_relative '../test_helper'
 
 describe LineItemsController do
-  let(:cart) { FactoryGirl.create(:cart, user: nil) }
-  let(:buyer) { FactoryGirl.create(:buyer) }
-  let(:article) { FactoryGirl.create(:article, :with_larger_quantity) }
-  let(:line_item) { FactoryGirl.create(:line_item, cart: cart, article: article) }
+  let(:cart) { create :cart, user: nil }
+  let(:buyer) { create :buyer }
+  let(:article) { create :article, :with_larger_quantity }
+  let(:line_item) { create :line_item, cart: cart, article: article }
 
   describe "POST 'create'" do
     describe 'when the user is logged out' do
@@ -23,14 +23,14 @@ describe LineItemsController do
 
       describe 'and there is a cookie' do
         it "should add the current item to the cart if that cart doesn't have a user_id" do
-          FactoryGirl.create(:cart) # distraction cart
+          create :cart # distraction cart
           cookies.signed[:cart] = cart.id
           post :create, line_item: { article_id: article.id }
           cart.reload.line_items.map(&:article).must_include article
         end
 
         it 'should not add the current item to the cart if that cart has a user_id' do
-          FactoryGirl.create(:cart) # distraction cart
+          create :cart # distraction cart
           cookies.signed[:cart] = cart.id
           post :create, line_item: { article_id: article.id }
 

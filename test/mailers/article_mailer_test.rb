@@ -10,9 +10,9 @@ describe ArticleMailer do
   include EmailSpec::Helpers
   include EmailSpec::Matchers
 
-  let(:article) { FactoryGirl.create(:article) }
-  let(:mass_upload) { FactoryGirl.create(:mass_upload) }
-  let(:user) { FactoryGirl.create(:user) }
+  let(:article) { create(:article) }
+  let(:mass_upload) { create(:mass_upload) }
+  let(:user) { create(:user) }
 
   it '#report_article' do
     mail =  ArticleMailer.report_article(article, user, 'text')

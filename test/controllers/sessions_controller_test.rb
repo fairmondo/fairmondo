@@ -26,7 +26,7 @@ describe SessionsController do
       end
 
       context 'and the user is logged in' do
-        let(:user) { FactoryGirl.create :user }
+        let(:user) { create :user }
         before { sign_in user, false }
 
         it 'should render the reload site' do
@@ -39,8 +39,8 @@ describe SessionsController do
 
   describe "POST 'create'" do
     before do
-      @user = FactoryGirl.create :user, email: 'cookie@test.de'
-      @cart = FactoryGirl.create(:cart, user: nil)
+      @user = create :user, email: 'cookie@test.de'
+      @cart = create :cart, user: nil
       cookies.signed[:cart] = @cart.id
     end
 
@@ -59,9 +59,8 @@ describe SessionsController do
 
   describe "DELETE 'destroy'" do
     before do
-      @user = FactoryGirl.create :user,
-                                 belboon_tracking_token: 'abcd,1234',
-                                 belboon_tracking_token_set_at: 9.days.ago
+      @user = create :user, belboon_tracking_token: 'abcd,1234',
+                            belboon_tracking_token_set_at: 9.days.ago
       sign_in @user
       cookies.signed[:cart] = 1
     end

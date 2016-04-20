@@ -5,7 +5,7 @@
 require_relative '../test_helper'
 
 describe LineItemGroupsController do
-  let(:lig) { FactoryGirl.create :line_item_group, :sold, :with_business_transactions, traits: [:paypal, :transport_type1] }
+  let(:lig) { create :line_item_group, :sold, :with_business_transactions, traits: [:paypal, :transport_type1] }
   let(:buyer) { lig.buyer }
 
   before do

@@ -9,7 +9,7 @@ describe PaymentPolicy do
 
   subject { PaymentPolicy.new(user, payment)  }
   let(:lig) { payment.line_item_group }
-  let(:payment) { FactoryGirl.create(:paypal_payment) }
+  let(:payment) { create(:paypal_payment) }
 
   describe 'for a visitor' do
     let(:user) { nil }
@@ -18,7 +18,7 @@ describe PaymentPolicy do
   end
 
   describe 'for a random logged-in user' do
-    let(:user) { FactoryGirl.create :user }
+    let(:user) { create :user }
     it { subject.must_deny(:show)         }
     it { subject.must_deny(:create)       }
   end

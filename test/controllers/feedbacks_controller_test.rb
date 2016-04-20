@@ -7,8 +7,8 @@ require_relative '../test_helper'
 describe FeedbacksController do
   describe "POST 'create'" do
     before :each do
-      article = FactoryGirl.create(:article)
-      @attributes = FactoryGirl.attributes_for(:feedback, article_id: article.id)
+      article = create :article
+      @attributes = attributes_for(:feedback, article_id: article.id)
     end
 
     describe 'for non-signed-in users' do

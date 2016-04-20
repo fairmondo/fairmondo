@@ -5,7 +5,7 @@
 require_relative '../test_helper'
 
 describe Address do
-  let(:address) { FactoryGirl.create(:address) }
+  let(:address) { create(:address) }
   subject { Address.new }
 
   it 'has a valid factory' do
@@ -55,7 +55,7 @@ describe Address do
     it 'returns an unsaved new instance if it is referenced and changed' do
       old_name = address.first_name
       new_name = 'not_the_original_value'
-      FactoryGirl.create(:line_item_group, payment_address: address)
+      create(:line_item_group, payment_address: address)
       address.assign_attributes(first_name: new_name)
       new_address = address.duplicate_if_referenced!
       new_address.new_record?.must_equal true
@@ -70,11 +70,11 @@ describe Address do
       address.is_referenced?.must_equal false
     end
     it 'should return true if referenced as payment address' do
-      FactoryGirl.create(:line_item_group, payment_address: address)
+      create(:line_item_group, payment_address: address)
       address.is_referenced?.must_equal true
     end
     it 'should return true if referenced as transport address' do
-      FactoryGirl.create(:line_item_group, transport_address: address)
+      create(:line_item_group, transport_address: address)
       address.is_referenced?.must_equal true
     end
   end

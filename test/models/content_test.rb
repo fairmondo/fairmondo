@@ -19,7 +19,7 @@ describe Content do
     describe 'friendly_id' do
       # see https://github.com/norman/friendly_id/issues/332
       it 'find by slug should work' do
-        content = FactoryGirl.create :content
+        content = create :content
         Content.find(content.key).must_equal content
       end
     end

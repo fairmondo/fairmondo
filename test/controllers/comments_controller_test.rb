@@ -7,12 +7,9 @@ require_relative '../test_helper'
 describe CommentsController do
   describe 'GET comments on library' do
     before :each do
-      @library = FactoryGirl.create(:library, public: true)
-      @user = FactoryGirl.create(:user)
-      @comment = FactoryGirl.create(:comment,
-                                    text: 'Test comment',
-                                    commentable: @library,
-                                    user: @user)
+      @library = create :library, public: true
+      @user = create :user
+      @comment = create :comment, text: 'Test comment', commentable: @library, user: @user
     end
 
     it 'should return the comments of the library for guests' do
@@ -40,8 +37,8 @@ describe CommentsController do
 
   describe 'POST comment on library' do
     before :each do
-      @library = FactoryGirl.create(:library)
-      @user = FactoryGirl.create(:user)
+      @library = create :library
+      @user = create :user
       sign_in @user
     end
 
@@ -84,13 +81,10 @@ describe CommentsController do
 
   describe 'DELETE comment on library' do
     before :each do
-      @library = FactoryGirl.create(:library)
-      @user = FactoryGirl.create(:user)
+      @library = create :library
+      @user = create :user
       sign_in @user
-      @comment = FactoryGirl.create(:comment,
-                                    text: 'Test comment',
-                                    commentable: @library,
-                                    user: @user)
+      @comment = create :comment, text: 'Test comment', commentable: @library, user: @user
     end
 
     it 'it should remove the comment' do

@@ -6,7 +6,7 @@ require_relative '../test_helper'
 include PunditMatcher
 
 describe RefundPolicy do
-  let(:refund) { FactoryGirl.create :refund }
+  let(:refund) { create :refund }
   subject { RefundPolicy.new(user, refund) }
 
   describe 'for a visitor' do
@@ -25,7 +25,7 @@ describe RefundPolicy do
         describe 'and is not refunded' do
           let(:refund) do
             Refund.new business_transaction:
-                         FactoryGirl.create(:business_transaction, :old)
+                         create(:business_transaction, :old)
           end
 
           it { subject.must_permit(:create) }
@@ -40,7 +40,7 @@ describe RefundPolicy do
     end
 
     describe 'who does not own business_transaction' do
-      let(:user) { FactoryGirl.create :user }
+      let(:user) { create :user }
       it { subject.must_deny(:create) }
       it { subject.must_deny(:new) }
     end

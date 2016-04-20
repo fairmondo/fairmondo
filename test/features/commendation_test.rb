@@ -8,8 +8,8 @@ include Warden::Test::Helpers
 
 feature 'Article commendations' do
   setup do
-    @seller = FactoryGirl.create :user
-    @article = FactoryGirl.create :article, :simple_ecologic, seller: @seller
+    @seller = create :user
+    @article = create :article, :simple_ecologic, seller: @seller
   end
 
   scenario 'user visits ecologic article' do
@@ -28,7 +28,7 @@ end
 
 feature 'article creation with incorrect social producer questionnaire' do
   setup do
-    @user = FactoryGirl.create :user
+    @user = create :user
     login_as @user
     visit new_article_path
     check 'article_fair'
@@ -53,7 +53,7 @@ end
 
 feature 'article creation with incorrect fair trust questionnaire' do
   setup do
-    @user = FactoryGirl.create :user
+    @user = create :user
     login_as @user
     visit new_article_path
     check 'article_fair'

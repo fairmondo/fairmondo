@@ -11,7 +11,7 @@ describe CartMailer do
   include EmailSpec::Matchers
 
   it 'sends email to seller' do
-    seller_line_item_group = FactoryGirl.create(:line_item_group, :with_business_transactions, :sold, create_line_items: true)
+    seller_line_item_group = create(:line_item_group, :with_business_transactions, :sold, create_line_items: true)
     user = seller_line_item_group.seller
     mail = CartMailer.seller_email(seller_line_item_group)
     mail.must deliver_to(user.order_notifications_email)
@@ -19,8 +19,7 @@ describe CartMailer do
 
   describe 'CartMailer#buyer_email' do
     let(:cart) do
-      FactoryGirl.create :cart, :with_line_item_groups_from_legal_entity,
-                         user: FactoryGirl.create(:user), sold: true
+      create :cart, :with_line_item_groups_from_legal_entity, user: create(:user), sold: true
     end
 
     it 'sends email to buyer' do
@@ -31,8 +30,7 @@ describe CartMailer do
 
     it 'must contain courier terms when at least one transaction has
         selected_transport bike_courier' do
-      FactoryGirl.create :business_transaction,
-                         line_item_group_id: cart.line_item_groups.first.id
+      create :business_transaction, line_item_group_id: cart.line_item_groups.first.id
       BusinessTransaction.any_instance.stubs(:selected_transport)
         .returns('bike_courier')
       mail = CartMailer.buyer_email(cart)
@@ -59,10 +57,8 @@ describe CartMailer do
   end
 
   it 'sends email to courier service' do
-    business_transaction = FactoryGirl.create :business_transaction, :transport_bike_courier,
-                                              :paypal, state: 'ready'
-    FactoryGirl.create :paypal_payment, line_item_group: business_transaction.line_item_group,
-                                        state: 'confirmed'
+    business_transaction = create :business_transaction, :transport_bike_courier, :paypal, state: 'ready'
+    create :paypal_payment, line_item_group: business_transaction.line_item_group, state: 'confirmed'
     seller          = business_transaction.seller
     buyer           = business_transaction.buyer
     mail            = CartMailer.courier_notification(business_transaction)
@@ -99,7 +95,7 @@ describe CartMailer do
 
   describe 'sending email on voucher payment' do |_variable|
     it 'displays donated money' do
-      payment = FactoryGirl.create :voucher_payment, pay_key: '999999999a'
+      payment = create :voucher_payment, pay_key: '999999999a'
       seller = payment.line_item_group.seller
       mail = CartMailer.voucher_paid_email(payment.id)
       mail.must deliver_to(seller.email)
@@ -107,7 +103,7 @@ describe CartMailer do
     end
 
     it 'displays missing money' do
-      payment = FactoryGirl.create :voucher_payment, pay_key: '1a'
+      payment = create :voucher_payment, pay_key: '1a'
       seller = payment.line_item_group.seller
       mail = CartMailer.voucher_paid_email(payment.id)
       mail.must deliver_to(seller.email)
@@ -117,7 +113,7 @@ describe CartMailer do
 
   describe '#send_cart' do
     it 'sends open cart to specified email address' do
-      cart = FactoryGirl.create :cart
+      cart = create :cart
       addr = 'test@test.com'
       mail = CartMailer.send_cart(cart.id, addr)
 

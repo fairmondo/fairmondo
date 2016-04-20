@@ -15,10 +15,10 @@ FactoryGirl.define do
     end
 
     article do
-      FactoryGirl.create :article, :with_fixture_image, :with_all_payments, :with_all_transports,
-                         article_all_attributes
+      create :article, :with_fixture_image, :with_all_payments, :with_all_transports,
+             article_all_attributes
     end
-    line_item_group { FactoryGirl.create :line_item_group, :sold, seller: seller, buyer: buyer }
+    line_item_group { create :line_item_group, :sold, seller: seller, buyer: buyer }
 
     selected_transport 'type1'
     selected_payment 'bank_transfer'

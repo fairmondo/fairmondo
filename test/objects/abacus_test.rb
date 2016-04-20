@@ -5,7 +5,7 @@
 require_relative '../test_helper'
 
 def abacus_for bt_traits, attributes = {}, lig_traits = []
-  @line_item_group = FactoryGirl.create :line_item_group, :with_business_transactions, *lig_traits, traits: bt_traits, articles_attributes: attributes
+  @line_item_group = create :line_item_group, :with_business_transactions, *lig_traits, traits: bt_traits, articles_attributes: attributes
   @abacus = Abacus.new @line_item_group
 end
 
@@ -164,7 +164,7 @@ describe 'Abacus' do
     traits = [[:bank_transfer, :bought_five], [:bank_transfer, :bought_five], [:cash_on_delivery, :bought_ten, :transport_type1], [:cash_on_delivery, :bought_ten, :transport_type2]]
     attributes = article_attributes_for prices, transport_prices, transport_numbers
     attributes.last(2).each { |attr| attr[:unified_transport] = false } # set the last 2 articles to single transport
-    ngo = FactoryGirl.create :legal_entity, ngo: true
+    ngo = create :legal_entity, ngo: true
     attributes.each { |attr| attr[:friendly_percent] = 75 }
     attributes.each { |attr| attr[:friendly_percent_organisation] = ngo }
     abacus_for(traits, attributes, [:with_unified_transport, :with_free_transport_at_40])

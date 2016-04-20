@@ -8,19 +8,19 @@ include Warden::Test::Helpers
 
 feature 'Libraries on welcome page' do
   setup do
-    @user = FactoryGirl.create :user
+    @user = create :user
 
-    @library = FactoryGirl.create :public_library_with_elements, name: 'envogue', user: @user
+    @library = create :public_library_with_elements, name: 'envogue', user: @user
     @library.popularity = 1000
     @library.save
 
-    @admin = FactoryGirl.create :admin_user
+    @admin = create :admin_user
   end
 
   scenario 'Personalized library section' do
     # Create two hearts (including new libraries)
-    heart1 = FactoryGirl.create :heart, user: @user
-    heart2 = FactoryGirl.create :heart, user: @user
+    heart1 = create :heart, user: @user
+    heart2 = create :heart, user: @user
 
     # When the user is not logged in, there should be no personalized library section at all.
     visit root_path
@@ -71,24 +71,24 @@ end
 
 feature 'Libraries on category pages' do
   setup do
-    @user = FactoryGirl.create :user
-    @library = FactoryGirl.create(:library, :public, user: @user)
+    @user = create :user
+    @library = create(:library, :public, user: @user)
 
-    @category = FactoryGirl.create :category
-    @category_child = FactoryGirl.create(:category, parent: @category)
-    @category_grandchild = FactoryGirl.create(
+    @category = create :category
+    @category_child = create(:category, parent: @category)
+    @category_grandchild = create(
       :category, parent: @category_child)
   end
 
   scenario 'library is shown on category page unless owner is logged in' do
     articles = []
     3.times do
-      articles.push FactoryGirl.create(
+      articles.push create(
         :article, seller: @user, categories: [@category])
     end
 
     articles.each do |article|
-      FactoryGirl.create(:library_element, library: @library, article: article)
+      create(:library_element, library: @library, article: article)
     end
 
     visit category_path(@category)
@@ -101,15 +101,15 @@ feature 'Libraries on category pages' do
 
   scenario 'library is shown on parent category page' do
     articles = []
-      .push(FactoryGirl.create(
+      .push(create(
               :article, seller: @user, categories: [@category]))
-      .push(FactoryGirl.create(
+      .push(create(
               :article, seller: @user, categories: [@category_child]))
-      .push(FactoryGirl.create(
+      .push(create(
               :article, seller: @user, categories: [@category_grandchild]))
 
     articles.each do |article|
-      FactoryGirl.create(:library_element, library: @library, article: article)
+      create(:library_element, library: @library, article: article)
     end
 
     visit category_path(@category)
@@ -119,9 +119,9 @@ end
 
 feature 'Libraries on library pages' do
   scenario 'more libraries of the same user are shown on a library page' do
-    user = FactoryGirl.create :user
-    library1 = FactoryGirl.create(:public_library_with_elements, user: user)
-    library2 = FactoryGirl.create(:public_library_with_elements, user: user)
+    user = create :user
+    library1 = create(:public_library_with_elements, user: user)
+    library2 = create(:public_library_with_elements, user: user)
 
     visit library_path(library1)
     page.must_have_content(library2.name)
@@ -130,7 +130,7 @@ end
 
 feature 'Library management' do
   setup do
-    @user = FactoryGirl.create :user
+    @user = create :user
     login_as @user.reload # reload to get default library
   end
 
@@ -151,7 +151,7 @@ feature 'Library management' do
   end
 
   scenario 'user updates name of existing Library' do
-    library = FactoryGirl.create :library, name: 'foobar', user: @user
+    library = create :library, name: 'foobar', user: @user
     visit user_libraries_path @user
     click_link 'foobar'
     within "#edit_library_#{library.id}" do
@@ -162,7 +162,7 @@ feature 'Library management' do
   end
 
   scenario 'user updates library with a blank name' do
-    library = FactoryGirl.create :library, name: 'foobar', user: @user
+    library = create :library, name: 'foobar', user: @user
     visit user_libraries_path @user
     click_link 'foobar'
     within "#edit_library_#{library.id}" do
@@ -175,7 +175,7 @@ feature 'Library management' do
   end
 
   scenario 'user deletes Library' do
-    FactoryGirl.create :library, name: 'foobar', user: @user
+    create :library, name: 'foobar', user: @user
     visit user_libraries_path @user
     click_link 'foobar'
     assert_difference 'Library.count', -1 do
@@ -187,7 +187,7 @@ feature 'Library management' do
   end
 
   scenario 'user adds an Article to his default Library' do
-    @article = FactoryGirl.create :article
+    @article = create :article
     visit article_path(@article)
     page.has_css?('div.libraries_list a', :count == 1) # There should be exactly one library link (default library) before adding
 
@@ -202,10 +202,10 @@ feature 'Library management' do
 
   scenario 'seller removes an article that buyer has in his library' do
     seller = @user
-    article = FactoryGirl.create :article, seller: seller
-    buyer = FactoryGirl.create :buyer
-    library = FactoryGirl.create :library, user: buyer, public: true
-    FactoryGirl.create :library_element, article: article, library: library
+    article = create :article, seller: seller
+    buyer = create :buyer
+    library = create :library, user: buyer, public: true
+    create :library_element, article: article, library: library
 
     login_as seller
     visit article_path article
@@ -222,10 +222,10 @@ feature 'Library visibility' do
     UserTokenGenerator.stubs(:generate).returns('some long string that is very secret')
   end
   scenario 'user browses through libraries' do
-    user = FactoryGirl.create :user
-    pub_lib = FactoryGirl.create :library, user: user, public: true
-    pub_lib.articles << FactoryGirl.create(:article, title: 'exhibit-article')
-    priv_lib = FactoryGirl.create :library, user: user, public: false
+    user = create :user
+    pub_lib = create :library, user: user, public: true
+    pub_lib.articles << create(:article, title: 'exhibit-article')
+    priv_lib = create :library, user: user, public: false
     visit user_libraries_path user
     page.must_have_content pub_lib.name
     page.wont_have_content priv_lib.name
@@ -234,23 +234,23 @@ end
 
 feature 'Featured (exhibited) libraries' do
   scenario 'user visits root path with exhibition' do
-    lib = FactoryGirl.create :library, :public, exhibition_name: 'donation_articles'
-    lib.articles << FactoryGirl.create(:article, title: 'exhibit-article')
+    lib = create :library, :public, exhibition_name: 'donation_articles'
+    lib.articles << create(:article, title: 'exhibit-article')
     visit root_path
     page.must_have_content 'exhibit-article'
   end
 
   scenario 'user visits book category front page' do
-    lib = FactoryGirl.create :library, :public, exhibition_name: 'book1'
-    lib.articles << FactoryGirl.create(:article, title: 'exhibit-article')
-    visit category_path FactoryGirl.create :category, name: 'bucher'
+    lib = create :library, :public, exhibition_name: 'book1'
+    lib.articles << create(:article, title: 'exhibit-article')
+    visit category_path create :category, name: 'bucher'
     page.must_have_content 'exhibit-article'
   end
 
   scenario 'user visits two filter landing pages' do
-    article = FactoryGirl.create :article, title: 'exhibit-article'
-    lib1 = FactoryGirl.create :library, :public, exhibition_name: 'fair1'
-    lib2 = FactoryGirl.create :library, :public, exhibition_name: 'used1'
+    article = create :article, title: 'exhibit-article'
+    lib1 = create :library, :public, exhibition_name: 'fair1'
+    lib2 = create :library, :public, exhibition_name: 'used1'
     lib1.articles << article
     lib2.articles << article
 
@@ -265,10 +265,10 @@ feature 'Featured (exhibited) libraries' do
 end
 
 feature 'Admin management for featured (exhibited) Libraries' do
-  let(:featured_library) { FactoryGirl.create :library, :public, exhibition_name: 'donation_articles' }
-  let(:article) { FactoryGirl.create :article, title: 'Foobar' }
+  let(:featured_library) { create :library, :public, exhibition_name: 'donation_articles' }
+  let(:article) { create :article, title: 'Foobar' }
   setup do
-    login_as FactoryGirl.create :admin_user
+    login_as create :admin_user
   end
 
   scenario 'admin adds Article to a random Library' do
@@ -306,7 +306,7 @@ feature 'Admin management for featured (exhibited) Libraries' do
 
   scenario 'admin sets a library as featured' do
     featured_library
-    other_library = FactoryGirl.create :library, :public
+    other_library = create :library, :public
 
     visit library_path other_library
     select(I18n.t('enumerize.library.exhibition_name.donation_articles'), from: 'library_exhibition_name')

@@ -6,7 +6,7 @@ require_relative '../test_helper'
 
 describe StatisticsController do
   context 'as an admin' do
-    before { sign_in FactoryGirl.create :admin_user }
+    before { sign_in(create :admin_user) }
 
     describe "GET 'general'" do
       it 'should be successful' do

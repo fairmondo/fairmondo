@@ -5,7 +5,7 @@
 require_relative '../test_helper'
 
 describe ArticlesController do
-  let(:user) { FactoryGirl.create(:user) }
+  let(:user) { create(:user) }
 
   describe '#index' do
     describe 'searching' do
@@ -16,30 +16,22 @@ describe ArticlesController do
         @electronic_category = Category.find_by_name!('Elektronik')
         @software_category = Category.find_by_name!('Software')
 
-        @normal_article = FactoryGirl.create(
-          :article, :index_article,
-          price_cents: 1, title: 'noraml article thing',
-          content: 'super thing', created_at: 4.days.ago, id: 1234
-        )
-        @second_hand_article = FactoryGirl.create(
-          :second_hand_article, :index_article,
-          price_cents: 2, title: 'muscheln',
-          categories: [@vehicle_category], content: 'muscheln am meer',
-          created_at: 3.days.ago, id: 1235
-        )
-        @hardware_article = FactoryGirl.create(
-          :second_hand_article, :index_article, :simple_fair,
-          :simple_ecologic, :simple_small_and_precious, :with_ngo,
-          price_cents: 3, title: 'muscheln 2',
-          categories: [@hardware_category], content: 'abc',
-          created_at: 2.days.ago, id: 1236
-        )
-        @no_second_hand_article = FactoryGirl.create(
-          :no_second_hand_article, :index_article,
-          price_cents: 4, title: 'muscheln 3',
-          categories: [@hardware_category], content: 'cde', id: 1237,
-          created_at: 1.day.ago
-        )
+        @normal_article = create :article, :index_article,
+                                 price_cents: 1, title: 'noraml article thing',
+                                 content: 'super thing', created_at: 4.days.ago, id: 1234
+        @second_hand_article = create :second_hand_article, :index_article,
+                                      price_cents: 2, title: 'muscheln',
+                                      categories: [@vehicle_category], content: 'muscheln am meer',
+                                      created_at: 3.days.ago, id: 1235
+        @hardware_article = create :second_hand_article, :index_article, :simple_fair,
+                                   :simple_ecologic, :simple_small_and_precious, :with_ngo,
+                                   price_cents: 3, title: 'muscheln 2',
+                                   categories: [@hardware_category], content: 'abc',
+                                   created_at: 2.days.ago, id: 1236
+        @no_second_hand_article = create :no_second_hand_article, :index_article,
+                                         price_cents: 4, title: 'muscheln 3',
+                                         categories: [@hardware_category], content: 'cde', id: 1237,
+                                         created_at: 1.day.ago
       end
 
       it 'should work with all filters' do
@@ -159,7 +151,7 @@ describe ArticlesController do
 
     describe 'for signed-in users' do
       before :each do
-        @article = FactoryGirl.create :article
+        @article = create :article
         sign_in user
       end
 
@@ -171,16 +163,16 @@ describe ArticlesController do
   end
 
   describe '#show' do
-    let(:article) { FactoryGirl.create(:article, seller: user) }
+    let(:article) { create(:article, seller: user) }
     describe 'for all users' do
       it 'should be successful' do
-        article_fair_trust = FactoryGirl.create :fair_trust
+        article_fair_trust = create :fair_trust
         get :show, id: article_fair_trust
         assert_response :success
       end
 
       it 'should be successful' do
-        article_social_production = FactoryGirl.create :social_production
+        article_social_production = create :social_production
         get :show, id: article_social_production
         assert_response :success
       end
@@ -277,7 +269,7 @@ describe ArticlesController do
       end
 
       it 'should be possible to get a new article from an existing one' do
-        article = FactoryGirl.create :article, seller: user
+        article = create :article, seller: user
         get :new, edit_as_new: article.id
         assert_template :new
         draftarticle = @controller.instance_variable_get(:@article)
@@ -291,7 +283,7 @@ describe ArticlesController do
   describe '#edit' do
     describe 'for non-signed-in users' do
       it 'should deny access' do
-        @article = FactoryGirl.create :article
+        @article = create :article
         get :edit, id: @article.id
         assert_redirected_to(new_user_session_path)
       end
@@ -303,13 +295,13 @@ describe ArticlesController do
       end
 
       it 'should be successful for the seller' do
-        @article = FactoryGirl.create :preview_article, seller: user
+        @article = create :preview_article, seller: user
         get :edit, id: @article.id
         assert_template :edit
       end
 
       it 'should not be able to edit other users articles' do
-        @article = FactoryGirl.create :preview_article, seller: (FactoryGirl.create(:user))
+        @article = create :preview_article, seller: (create(:user))
 
         -> { get :edit, id: @article.id }.must_raise Pundit::NotAuthorizedError
       end
@@ -318,7 +310,7 @@ describe ArticlesController do
 
   describe '#create' do
     before :each do
-      @article_attrs = FactoryGirl.attributes_for :article, category_ids: [FactoryGirl.create(:category).id]
+      @article_attrs = attributes_for :article, category_ids: [create(:category).id]
     end
 
     describe 'for non-signed-in users' do
@@ -341,8 +333,7 @@ describe ArticlesController do
       end
 
       it 'should save images even if article is invalid' do
-        @article_attrs = FactoryGirl.attributes_for :article, :invalid,
-                                                    categories: [FactoryGirl.create(:category).id]
+        @article_attrs = attributes_for :article, :invalid, categories: [create(:category).id]
         @article_attrs[:images_attributes] = { '0' => { image: fixture_file_upload('/test.png', 'image/png') } }
         assert_difference 'Image.count', 1 do
           post :create, article: @article_attrs
@@ -356,14 +347,13 @@ describe ArticlesController do
       end
 
       it 'should successfully save an edit_as_new clone and transfer its slug and comments' do
-        original_article = FactoryGirl.create :article, seller: user
-        FactoryGirl.create :article, original: original_article
-        comment = FactoryGirl.create :comment, commentable: original_article
+        original_article = create :article, seller: user
+        create :article, original: original_article
+        comment = create :comment, commentable: original_article
         original_slug = original_article.slug
 
         assert_difference 'Article.count', 1 do
-          post :create,
-               article: @article_attrs.merge(original_id: original_article.id)
+          post :create, article: @article_attrs.merge(original_id: original_article.id)
         end
         new_article = @controller.instance_variable_get(:@article)
 
@@ -382,9 +372,8 @@ describe ArticlesController do
   describe '#destroy' do
     describe 'for signed-in users' do
       before :each do
-        @article = FactoryGirl.create :preview_article, seller: user
-        @article_attrs = FactoryGirl.attributes_for :article,
-                                                    categories: [FactoryGirl.create(:category)]
+        @article = create :preview_article, seller: user
+        @article_attrs = attributes_for :article, categories: [create(:category)]
         @article_attrs.delete :seller
         sign_in user
       end
@@ -410,9 +399,8 @@ describe ArticlesController do
   describe '#update' do
     describe 'for signed-in users' do
       before :each do
-        @article = FactoryGirl.create :preview_article, seller: user
-        @article_attrs = FactoryGirl.attributes_for :article,
-                                                    categories: [FactoryGirl.create(:category)]
+        @article = create :preview_article, seller: user
+        @article_attrs = attributes_for :article, categories: [create(:category)]
         @article_attrs.delete :seller
         sign_in user
       end
@@ -434,7 +422,7 @@ describe ArticlesController do
     describe 'activate article' do
       before do
         sign_in user
-        @article = FactoryGirl.create :preview_article, seller: user
+        @article = create :preview_article, seller: user
       end
 
       it 'should work' do
@@ -457,7 +445,7 @@ describe ArticlesController do
     describe 'deactivate article' do
       before do
         sign_in user
-        @article = FactoryGirl.create :article, seller: user
+        @article = create :article, seller: user
       end
 
       it 'should work' do
@@ -480,8 +468,7 @@ describe ArticlesController do
   describe '#autocomplete' do # , search: true
     it 'should be successful' do
       ArticlesIndex.reset!
-      @article = FactoryGirl.create :article, :index_article,
-                                    title: 'chunky bacon'
+      @article = create :article, :index_article, title: 'chunky bacon'
       get :autocomplete, q: 'chunky'
       assert_response :success
       response.body.must_equal({

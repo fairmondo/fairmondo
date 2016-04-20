@@ -13,7 +13,7 @@ feature 'Hearts for not-logged-in users' do
 
   scenario 'User visits library path, finds no hearts, ' +
            'then likes a library and finds his heart' do
-    library = FactoryGirl.create(:public_library_with_elements)
+    library = create(:public_library_with_elements)
 
     visit library_path(library.id)
     page.must_have_selector('.Hearts-button')
@@ -29,8 +29,8 @@ end
 feature 'Hearts for logged-in users' do
   scenario 'User visits library path, finds no hearts, ' +
            'then likes a library and finds his heart' do
-    user = FactoryGirl.create(:user)
-    library = FactoryGirl.create(:public_library_with_elements)
+    user = create(:user)
+    library = create(:public_library_with_elements)
     login_as user
 
     visit library_path(library.id)

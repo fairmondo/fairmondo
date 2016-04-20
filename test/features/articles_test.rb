@@ -8,7 +8,7 @@ include Warden::Test::Helpers
 
 feature 'Article creation' do
   before do
-    @user = FactoryGirl.create :user
+    @user = create :user
     login_as @user
   end
 
@@ -98,13 +98,13 @@ feature 'Article creation' do
   end
 
   scenario 'get article from template' do
-    template = FactoryGirl.create :article_template, seller: @user
+    template = create :article_template, seller: @user
     visit new_article_path template: { article_id: template.id }
     page.must_have_content I18n.t('template.notices.applied', name: template.article_template_name)
   end
 
   scenario 'new private user wants to use bank_transfer for article that costs more than 100Euro' do
-    @user = FactoryGirl.create :private_user, created_at: Time.now
+    @user = create :private_user, created_at: Time.now
     login_as @user
     visit new_article_path
     fill_form_with_valid_article
@@ -117,9 +117,9 @@ end
 
 feature 'Article activation for private users' do
   scenario 'private user adds goods for more than 500000' do
-    user = FactoryGirl.create :private_user
-    FactoryGirl.create :article, seller: user, price_cents: 600000
-    article = FactoryGirl.create :preview_article, user_id: user.id
+    user = create :private_user
+    create :article, seller: user, price_cents: 600000
+    article = create :preview_article, user_id: user.id
     login_as user
     visit article_path(article)
     click_button I18n.t('article.labels.submit_free')
@@ -128,9 +128,9 @@ feature 'Article activation for private users' do
   end
 
   scenario 'private user with a bonus if 200000 adds goods for more than 500000' do
-    user = FactoryGirl.create :private_user, max_value_of_goods_cents_bonus: 200000
-    FactoryGirl.create :article, seller: user, price_cents: 600000
-    article = FactoryGirl.create :preview_article, seller: user
+    user = create :private_user, max_value_of_goods_cents_bonus: 200000
+    create :article, seller: user, price_cents: 600000
+    article = create :preview_article, seller: user
     login_as user
     visit article_path(article)
     click_button I18n.t('article.labels.submit_free')
@@ -141,11 +141,11 @@ feature 'Article activation for private users' do
 end
 
 feature 'Article activation for legal entities' do
-  let(:user) { FactoryGirl.create :legal_entity }
-  let(:article) { FactoryGirl.create :preview_article, seller: user }
+  let(:user) { create :legal_entity }
+  let(:article) { create :preview_article, seller: user }
 
   scenario 'legal entity adds goods for more than 5000000' do
-    6.times { FactoryGirl.create :article, seller: user, price_cents: 1000000 }
+    6.times { create :article, seller: user, price_cents: 1000000 }
     login_as user
     visit article_path(article)
     click_button I18n.t('article.labels.submit')
@@ -168,7 +168,7 @@ feature 'Article search' do
     ArticlesIndex.reset!
     visit root_path
     fill_in 'search_input', with: 'chunky bacon'
-    FactoryGirl.create :article, :index_article, title: 'chunky bacon'
+    create :article, :index_article, title: 'chunky bacon'
 
     click_button 'Suche'
     page.must_have_link 'chunky bacon'
@@ -183,8 +183,8 @@ end
 
 feature 'Update Articles' do
   before do
-    user = FactoryGirl.create :user
-    @article = FactoryGirl.create :preview_article, seller: user
+    user = create :user
+    @article = create :preview_article, seller: user
     login_as user
     visit edit_article_path @article
   end
@@ -210,9 +210,9 @@ end
 
 feature 'report Articles' do
   before do
-    user = FactoryGirl.create :user
+    user = create :user
     login_as user
-    visit article_path FactoryGirl.create :article
+    visit article_path create :article
   end
 
   scenario 'user reports feedback' do
@@ -231,9 +231,9 @@ end
 
 feature 'contacting sellers' do
   before do
-    user = FactoryGirl.create :user
+    user = create :user
     login_as user
-    visit article_path FactoryGirl.create :article, :with_private_user
+    visit article_path create :article, :with_private_user
   end
 
   scenario 'user contacts seller' do
@@ -246,10 +246,10 @@ end
 
 feature 'Article buyer actions' do
   setup do
-    @article = FactoryGirl.create :article
+    @article = create :article
   end
   scenario 'user clicks buy button' do
-    user = FactoryGirl.create :user
+    user = create :user
     login_as user
 
     visit article_path @article
@@ -267,8 +267,8 @@ end
 
 feature 'Article view for guest users' do
   before do
-    @seller = FactoryGirl.create :user, type: 'LegalEntity'
-    @article_conventional = FactoryGirl.create :no_second_hand_article, seller: @seller
+    @seller = create :user, type: 'LegalEntity'
+    @article_conventional = create :no_second_hand_article, seller: @seller
   end
 
   scenario 'user visits an article' do
@@ -289,11 +289,11 @@ end
 
 feature 'other Articles of the same user' do
   setup do
-    seller = FactoryGirl.create :user
+    seller = create :user
     ArticlesIndex.reset!
-    @article = FactoryGirl.create :article, :index_article, seller: seller
-    @article_active = FactoryGirl.create :article, :index_article, seller: seller
-    @article_locked = FactoryGirl.create :preview_article, :index_article, seller: seller
+    @article = create :article, :index_article, seller: seller
+    @article_active = create :article, :index_article, seller: seller
+    @article_locked = create :preview_article, :index_article, seller: seller
   end
 
   scenario 'user wants to see other articles of the same seller' do

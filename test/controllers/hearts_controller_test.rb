@@ -8,8 +8,8 @@ describe HeartsController do
   describe 'POST Heart on libraries' do
     describe 'for non-signed-in users' do
       before :each do
-        @library = FactoryGirl.create(:library)
-        @library_2 = FactoryGirl.create(:library)
+        @library = create :library
+        @library_2 = create :library
       end
 
       it 'should allow posting using ajax' do
@@ -39,9 +39,9 @@ describe HeartsController do
 
     describe 'for signed-in users' do
       before :each do
-        @library = FactoryGirl.create(:library)
-        @library_2 = FactoryGirl.create(:library)
-        @user = FactoryGirl.create(:user)
+        @library = create :library
+        @library_2 = create :library
+        @user = create :user
         sign_in @user
       end
 
@@ -73,8 +73,8 @@ describe HeartsController do
   describe 'DELETE Heart on libraries' do
     describe 'for non-signed-in users' do
       before :each do
-        @library = FactoryGirl.create(:library)
-        @user = FactoryGirl.create(:user)
+        @library = create :library
+        @user = create :user
         @owned_heart = @library.hearts.create(heartable: @library, user: @user)
         @anonymous_heart = @library.hearts.create(heartable: @library,
                                                   user_token: 'RandomUserTokenThiswouldActuallyBeRandomData')
@@ -95,8 +95,8 @@ describe HeartsController do
 
     describe 'for signed-in users' do
       before :each do
-        @library = FactoryGirl.create(:library)
-        @user = FactoryGirl.create(:user)
+        @library = create :library
+        @user = create :user
         sign_in @user
       end
 
@@ -118,7 +118,7 @@ describe HeartsController do
       end
 
       it "will not delete someone else's heart" do
-        @another_user = FactoryGirl.create(:user)
+        @another_user = create :user
         @another_users_heart = @library.hearts.create(heartable: @library,
                                                       user: @another_user)
         assert_raises Pundit::NotAuthorizedError do
