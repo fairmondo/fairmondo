@@ -38,4 +38,8 @@ class DirectDebitMandate < ActiveRecord::Base
   def reference_date
     created_at.to_date
   end
+
+  def to_s
+    "#{self.reference} (#{I18n.l(self.reference_date)})"
+  end
 end

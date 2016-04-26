@@ -317,17 +317,14 @@ feature 'Direct debit mandate for legal entities' do
 
     visit edit_user_registration_path(@user)
 
-    find_field('user_active_direct_debit_mandate_reference', disabled: true)
-      .value.must_equal(mandate.reference)
+    page.must_have_content mandate.reference
+    page.must_have_content I18n.l(mandate.reference_date)
   end
 
   scenario 'Direct debit mandate is revoked if user changes bank details' do
-    mandate = CreatesDirectDebitMandate.new(@user).create
+    CreatesDirectDebitMandate.new(@user).create
 
     visit edit_user_registration_path(@user)
-
-    find_field('user_active_direct_debit_mandate_reference', disabled: true)
-      .value.must_equal(mandate.reference)
 
     fill_in 'iban', with: 'DE12500105170648489890'
     click_button I18n.t('formtastic.actions.update')

@@ -47,6 +47,17 @@ describe DirectDebitMandate do
         mandate.reference_date.to_s.must_equal '2016-04-01'
       end
     end
+
+    describe '#to_s' do
+      it 'should return reference and reference date' do
+        mandate = DirectDebitMandate.new
+        mandate.stubs(:reference).returns('REFERENCE')
+        date = Date.new(2016, 4, 1)
+        mandate.stubs(:reference_date).returns(date)
+
+        mandate.to_s.must_equal "REFERENCE (#{I18n.l(date)})"
+      end
+    end
   end
 
   describe 'state' do
