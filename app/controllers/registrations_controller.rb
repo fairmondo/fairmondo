@@ -79,6 +79,7 @@ class RegistrationsController < Devise::RegistrationsController
          params[:user][:bic]                != resource.bic ||
          params[:user][:bank_account_owner] != resource.bank_account_owner
         mandate.revoke!
+        set_flash_message :alert, :direct_debit_mandate_revoked
       end
     end
   end

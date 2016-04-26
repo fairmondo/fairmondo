@@ -39,6 +39,7 @@ de:
       updated: 'Deine Daten wurden aktualisiert.'
       update_needs_confirmation: "Deine Daten wurden aktualisiert, aber Du musst Deine neue E-Mail-Adresse bestätigen. Du erhältst in wenigen Minuten eine E-Mail, mit der Du die Änderung Deiner E-Mail-Adresse abschließen kannst."
       destroyed: 'Dein Account wurde gelöscht.'
+      direct_debit_mandate_revoked: "Dein SEPA-Lastschriftmandat wurde widerrufen, weil Du Deine Bankdaten geändert hast."
     unlocks:
       send_instructions: 'Du erhältst in wenigen Minuten eine E-Mail mit der Anleitung, wie Du Deinen Account entsperren kannst.'
       unlocked: 'Dein Account wurde entsperrt. Du bist jetzt angemeldet.'
