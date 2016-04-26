@@ -295,7 +295,7 @@ end
 
 feature 'Direct debit mandate for legal entities' do
   setup do
-    @user = create :legal_entity
+    @user = create :legal_entity, :fastbill
     login_as @user
   end
 
@@ -305,6 +305,11 @@ feature 'Direct debit mandate for legal entities' do
     click_button I18n.t('formtastic.actions.update')
 
     assert @user.reload.has_active_direct_debit_mandate?
+
+    # Assert 2 requests to Fastbill, one customer.get, one customer.update (both are POST requests)
+    # User is saved two times, therefore 4 requests
+    assert_requested :post, 'https://my_email:my_fastbill_api_key@automatic.fastbill.com'\
+                            '/api/1.0/api.php', times: 4
   end
 
   scenario 'Direct debit mandate reference is shown if present' do
@@ -328,5 +333,8 @@ feature 'Direct debit mandate for legal entities' do
     click_button I18n.t('formtastic.actions.update')
 
     refute @user.reload.has_active_direct_debit_mandate?
+    # Assert 2 requests to Fastbill, one customer.get, one customer.update (both are POST requests)
+    assert_requested :post, 'https://my_email:my_fastbill_api_key@automatic.fastbill.com'\
+                            '/api/1.0/api.php', times: 2
   end
 end
