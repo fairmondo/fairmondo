@@ -19,4 +19,16 @@ FactoryGirl.define do
       city 'Berlin'
     end
   end
+
+  factory :address_for_alice, class: Address do
+    title 'Frau'
+    company_name 'Fairix eG'
+    first_name 'Alice'
+    last_name 'Henderson'
+    address_line_1 'Heidestraße 17'
+    address_line_2 'c/o Fairix eG'
+    zip '51147'
+    city 'Köln'
+    country 'Deutschland'
+  end
 end

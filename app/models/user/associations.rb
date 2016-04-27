@@ -43,6 +43,11 @@ module User::Associations
 
     has_many :hearted_libraries, through: :hearts, source: :heartable, source_type: 'Library'
 
+    # Direct debit mandates
+    has_many :direct_debit_mandates, dependent: :destroy, inverse_of: :user
+    delegate :reference, to: :active_direct_debit_mandate, prefix: true, allow_nil: true
+    delegate :reference_date, to: :active_direct_debit_mandate, prefix: true, allow_nil: true
+
     has_attached_file :cancellation_form
   end
 end

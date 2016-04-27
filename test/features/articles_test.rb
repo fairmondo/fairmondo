@@ -76,6 +76,7 @@ feature 'Article creation' do
 
   scenario 'article creation with a quantity higher than 1' do
     visit new_article_path
+
     fill_form_with_valid_article
 
     # Increase Quantity

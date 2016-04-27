@@ -40,6 +40,8 @@ class RegistrationsController < Devise::RegistrationsController
     resource.build_standard_address_from address_params
     prev_unconfirmed_email = resource.unconfirmed_email if resource.respond_to?(:unconfirmed_email)
 
+    revoke_direct_debit_mandate_if_bank_details_changed(resource, params)
+
     if update_account(account_update_params)
       actions_for_successful_update_for resource, prev_unconfirmed_email
     else
@@ -69,6 +71,19 @@ class RegistrationsController < Devise::RegistrationsController
     end
   end
 
+  def revoke_direct_debit_mandate_if_bank_details_changed(resource, params)
+    mandate = resource.active_direct_debit_mandate
+    if mandate.present? &&
+       params[:user][:direct_debit_confirmation] != '1'
+      if params[:user][:iban]               != resource.iban ||
+         params[:user][:bic]                != resource.bic ||
+         params[:user][:bank_account_owner] != resource.bank_account_owner
+        mandate.revoke!
+        set_flash_message :alert, :direct_debit_mandate_revoked
+      end
+    end
+  end
+
   def update_account(account_update_params)
     if needs_password?(resource, params)
       resource.update_with_password(account_update_params)
@@ -87,6 +102,11 @@ class RegistrationsController < Devise::RegistrationsController
       flash_key = update_needs_confirmation?(resource, prev_unconfirmed_email) ?
         :changed_email : :updated
       set_flash_message :notice, flash_key
+    end
+
+    if resource.direct_debit_confirmation == '1'
+      creator = CreatesDirectDebitMandate.new(resource)
+      creator.create
     end
 
     sign_in resource_name, resource, bypass: true

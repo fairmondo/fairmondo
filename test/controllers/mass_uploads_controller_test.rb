@@ -15,7 +15,7 @@ describe MassUploadsController do
     end
 
     describe 'for signed-in users' do
-      let(:user) { create :legal_entity }
+      let(:user) { create :legal_entity, direct_debit_exemption: true }
       before { sign_in user }
 
       it 'should render the :new view' do
@@ -26,7 +26,7 @@ describe MassUploadsController do
   end
 
   describe 'mass-upload creation' do
-    let(:user) { create :legal_entity, :paypal_data }
+    let(:user) { create(:legal_entity, :paypal_data, direct_debit_exemption: true) }
     let(:attributes) { attributes_for(:mass_upload, user: user) }
 
     before do

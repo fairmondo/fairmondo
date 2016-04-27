@@ -143,10 +143,7 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_if_sepa_required user
-    # If a legal Entity hasn't accepted direct debit but has any articles
-    if user.is_a?(LegalEntity) && !user.direct_debit &&
-       Article.unscoped.where(seller: user).limit(1).count > 0
-
+    if user.requires_direct_debit_mandate?
       flash[:error] = t('users.notices.sepa_missing')
       '/user/edit?incomplete_profile=true'
     end

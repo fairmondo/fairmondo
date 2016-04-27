@@ -125,12 +125,47 @@ class User < ActiveRecord::Base
     end
   end
 
+  def has_articles?
+    Article.unscoped.where(seller: self).limit(1).present?
+  end
+
   def bank_account_exists?
     self.bank_account_owner? && self.iban? && self.bic?
   end
 
   def bank_details_valid?
     KontoAPI.valid?(iban: iban, bic: bic)
+  end
+
+  # If a legal Entity hasn't accepted direct debit but has any articles
+  def requires_direct_debit_mandate?
+    is_a?(LegalEntity) &&
+    !has_active_direct_debit_mandate? &&
+    !direct_debit_exemption &&
+    has_articles?
+  end
+
+  def has_active_direct_debit_mandate?
+    active_direct_debit_mandate.present?
+  end
+
+  # Returns the first active direct debit mandate available
+  def active_direct_debit_mandate
+    direct_debit_mandates.where(state: 'active').first
+  end
+
+  def increase_direct_debit_mandate_number
+    number = self.next_direct_debit_mandate_number
+    self.next_direct_debit_mandate_number += 1
+    number
+  end
+
+  def payment_method
+    if has_active_direct_debit_mandate? && !bankaccount_warning
+      :payment_by_direct_debit
+    else
+      :payment_by_invoice
+    end
   end
 
   def paypal_account_exists?
@@ -163,8 +198,7 @@ class User < ActiveRecord::Base
   # only update Fastbill profile if user is a Legal Entity
   def update_fastbill_profile
     if self.is_a?(LegalEntity) && self.has_fastbill_profile?
-      api = FastbillAPI.new
-      api.update_profile self
+      FastbillUpdateUserWorker.perform_async self.id
     end
   end
 

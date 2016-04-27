@@ -16,6 +16,10 @@ class FakeFastbill < Sinatra::Base
     case params['service']
     when 'customer.create'
       json_response 'customer_create_response.json'
+    when 'customer.get'
+      json_response 'customer_get_response.json'
+    when 'customer.update'
+      json_response 'customer_update_response.json'
     when 'subscription.create'
       json_response 'subscription_create_response.json'
     when 'subscription.setusagedata'

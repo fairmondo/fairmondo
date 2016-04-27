@@ -2,9 +2,9 @@
 #   licensed under the GNU Affero General Public License version 3 or later.
 #   See the COPYRIGHT file for details.
 
-class FastbillAPI
-  require 'fastbill-automatic'
+require 'fastbill-automatic'
 
+class FastbillAPI
   def initialize bt = nil
     if @bt = bt
       @seller  = bt.seller
@@ -19,7 +19,7 @@ class FastbillAPI
   # fastbill account
   def fastbill_chain
     @seller.with_lock do
-      unless @seller.ngo?
+      unless @seller.ngo? || @seller.is_a?(PrivateUser)
         unless @seller.has_fastbill_profile?
           fastbill_create_customer
           fastbill_create_subscription
@@ -61,7 +61,7 @@ class FastbillAPI
   end
 
   def attributes_for(user)
-    {
+    attributes = {
       customer_type: user.is_a?(LegalEntity) ? 'business' : 'consumer',
       organization: (user.is_a?(LegalEntity) &&
                      user.standard_address_company_name.present?) ?
@@ -77,14 +77,30 @@ class FastbillAPI
       language_code: 'DE',
       email: user.email_for_invoicing,
       currency_code: 'EUR',
-      payment_type: '1', # Ueberweisung
-      # payment_type: '2', # Bankeinzug # Bitte aktivieren, wenn Genehmigung der Bank vorliegt
-      show_payment_notice: '1',
-      bank_name: user.bank_name,
-      bank_code: user.bank_code,
-      bank_account_number: user.bank_account_number,
-      bank_account_owner: user.bank_account_owner
+      payment_type: payment_type_for(user),
+      show_payment_notice: '1'
     }
+
+    if user.payment_method == :payment_by_direct_debit
+      attributes.merge!(
+        bank_iban: user.iban,
+        bank_bic: user.bic,
+        bank_account_owner: user.bank_account_owner,
+        bank_account_mandate_reference: user.active_direct_debit_mandate_reference,
+        bank_account_mandate_reference_date: user.active_direct_debit_mandate_reference_date
+      )
+    end
+
+    attributes
+  end
+
+  def payment_type_for(user)
+    case user.payment_method
+    when :payment_by_invoice
+      '1'
+    when :payment_by_direct_debit
+      '2'
+    end
   end
 
   def fastbill_create_subscription

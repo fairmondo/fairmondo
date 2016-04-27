@@ -159,8 +159,6 @@ h1= t('common.actions.edit_profile')
           h3= t('users.form_titles.payment_bank_account')
 
           = f.input :bank_account_owner, required: true, label: t('formtastic.labels.user.bank_account_owner')
-          = f.input :bank_name, input_html: {id: "bank_name"}, label: t('formtastic.labels.user.bank_name')
-
           = f.input :iban, required: true, input_html: {id: "iban"}, label: t('formtastic.labels.user.iban'), tooltip: true
           = f.input :bic, required: true, input_html: {id: "bic"}, label: t('formtastic.labels.user.bic'), tooltip: true
 
@@ -168,7 +166,11 @@ h1= t('common.actions.edit_profile')
         - if resource.is_a?(LegalEntity)
           .Accordion-step
             - direct_debit_link = link_to t('formtastic.labels.user.sepa'), '/sepa?layout=false', target: '_blank', class: 'ungrouped_colorbox'
-            = f.input :direct_debit, required: true, label: t('formtastic.labels.user.direct_debit_html').html_safe + direct_debit_link
+            - if resource.active_direct_debit_mandate.present?
+              p= "#{t('formtastic.labels.user.active_direct_debit_mandate_reference')}: "\
+                 "#{resource.active_direct_debit_mandate.to_s}"
+            - else
+              = f.input :direct_debit_confirmation, as: :boolean, required: true, label: t('formtastic.labels.user.direct_debit_confirmation_html').html_safe + direct_debit_link
 
         .Accordion-step
           h3= t('users.form_titles.payment_paypal')
