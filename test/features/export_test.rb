@@ -8,7 +8,7 @@ include Warden::Test::Helpers
 
 feature 'Exports' do
   let(:private_user)       { create :private_user }
-  let(:legal_entity)       { create :legal_entity, :paypal_data }
+  let(:legal_entity)       { create :legal_entity, :paypal_data, direct_debit_exemption: true }
   let(:legal_entity_buyer) { create :legal_entity, email: 'hans@dampf.de' }
 
   scenario 'private user is on his profile and should not see export link' do

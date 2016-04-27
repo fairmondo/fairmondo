@@ -11,14 +11,12 @@ class LegalEntity < User
   validates :cancellation, length: { maximum: 10000, tokenizer: tokenizer_without_html }
   validates_attachment :cancellation_form, size: { in: 1..2.megabytes }, file_name: { matches: [/pdf\Z/] }
 
-  with_options if: :wants_to_sell? do |seller|
-    # validates legal entity
-    seller.validates :direct_debit, acceptance: { accept: true }, on: :update
-    seller.validates :bank_account_owner, :iban, :bic,  presence: true
-    seller.validates :terms, presence: true, on: :update
-    seller.validates :about, presence: true, on: :update
-    seller.validates :cancellation, presence: true, on: :update
-  end
+  validates :terms, :about, :cancellation, presence: true, on: :update, if: :wants_to_sell?
+
+  validates :bank_account_owner, :iban, :bic,
+            presence: true, on: :update, if: :wants_to_sell?, unless: :direct_debit_exemption
+  validate :must_have_active_direct_debit_mandate,
+           if: :wants_to_sell?, unless: :direct_debit_exemption
 
   state_machine :seller_state, initial: :standard_seller do
     event :rate_up do
@@ -77,5 +75,11 @@ class LegalEntity < User
   # see http://stackoverflow.com/questions/6146317/is-subclassing-a-user-model-really-bad-to-do-in-rails
   def self.model_name
     User.model_name
+  end
+
+  def must_have_active_direct_debit_mandate
+    unless has_active_direct_debit_mandate?
+      errors.add(:direct_debit_confirmation, :direct_debit_must_be_confirmed)
+    end
   end
 end

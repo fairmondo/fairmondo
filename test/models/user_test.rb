@@ -55,7 +55,8 @@ describe User do
     it { subject.must_respond_to :percentage_of_positive_ratings }
     it { subject.must_respond_to :percentage_of_negative_ratings }
     it { subject.must_respond_to :percentage_of_neutral_ratings }
-    it { subject.must_respond_to :direct_debit }
+    it { subject.must_respond_to :direct_debit_exemption }
+    it { subject.must_respond_to :next_direct_debit_mandate_number }
     it { subject.must_respond_to :value_of_goods_cents }
     it {    user.must_respond_to :max_value_of_goods_cents } # implemented on all subclasses
     it { subject.must_respond_to :max_value_of_goods_cents_bonus }
@@ -82,6 +83,7 @@ describe User do
     it { subject.must have_one(:image) }
     it { subject.must have_many(:seller_line_item_groups) }
     it { subject.must have_many(:buyer_line_item_groups) }
+    it { subject.must have_many(:direct_debit_mandates) }
   end
 
   describe 'validations' do
@@ -133,6 +135,40 @@ describe User do
       it { user.standard_address.must validate_presence_of :city }
       it { user.standard_address.must validate_presence_of :country }
     end
+
+    describe 'if legal entity wants to sell' do
+      before :each do
+        le_stubbed.wants_to_sell = true
+        le_stubbed.direct_debit_exemption = false
+        le_stubbed.standard_address = build_stubbed(:address_for_alice)
+      end
+
+      it { le_stubbed.must validate_presence_of :iban }
+      it { le_stubbed.must validate_presence_of :bic }
+      it { le_stubbed.must validate_presence_of :bank_account_owner }
+
+      it 'should validate presence of active direct debit mandate' do
+        le_stubbed.stubs(:has_active_direct_debit_mandate?).returns(true)
+        assert le_stubbed.valid?
+      end
+    end
+
+    describe 'if legal entity that is exempted from direct debit wants to sell' do
+      before :each do
+        le_stubbed.wants_to_sell = true
+        le_stubbed.direct_debit_exemption = true
+        le_stubbed.standard_address = build_stubbed(:address_for_alice)
+      end
+
+      it { le_stubbed.wont validate_presence_of :iban }
+      it { le_stubbed.wont validate_presence_of :bic }
+      it { le_stubbed.wont validate_presence_of :bank_account_owner }
+
+      it 'must not validate presence of active direct debit mandate' do
+        le_stubbed.stubs(:has_active_direct_debit_mandate?).returns(false)
+        assert le_stubbed.valid?
+      end
+    end
   end
 
   describe 'banning a user' do
@@ -144,6 +180,20 @@ describe User do
         user.banned = true
         user.save
       end
+    end
+  end
+
+  describe 'direct debit exemption' do
+    it 'should be false for new User instances' do
+      le = User.new
+      le.direct_debit_exemption.must_equal false
+    end
+  end
+
+  describe 'next direct debit mandate number' do
+    it 'should be 1 for new User instances' do
+      user = User.new
+      user.next_direct_debit_mandate_number.must_equal 1
     end
   end
 
@@ -222,6 +272,135 @@ describe User do
       it 'should return false if KontoAPI check fails' do
         KontoAPI.stubs(:valid?).returns(false)
         le_stubbed.bank_details_valid?.must_equal false
+      end
+    end
+
+    describe '#payment_method' do
+      describe 'when no direct debit mandate is available' do
+        before do
+          @alice = build_stubbed :user_alice
+          @alice.stubs(:has_active_direct_debit_mandate?).returns(false)
+        end
+
+        it 'should return invoice' do
+          @alice.bankaccount_warning = false
+
+          @alice.payment_method.must_equal :payment_by_invoice
+        end
+      end
+
+      describe 'when a direct debit mandate is available' do
+        before do
+          @alice = build_stubbed :user_alice
+          @alice.stubs(:has_active_direct_debit_mandate?).returns(true)
+        end
+
+        it 'should return direct debit if bank details are valid' do
+          @alice.bankaccount_warning = false
+
+          @alice.payment_method.must_equal :payment_by_direct_debit
+        end
+
+        it 'should return invoice if bank details are not valid' do
+          @alice.bankaccount_warning = true
+
+          @alice.payment_method.must_equal :payment_by_invoice
+        end
+      end
+    end
+
+    describe '#increase_direct_debit_mandate_number' do
+      it 'should return the next direct debit mandate number and increase it afterwards' do
+        alice = build_stubbed :user_alice, next_direct_debit_mandate_number: 1
+        num1 = alice.increase_direct_debit_mandate_number
+
+        assert_equal(1, num1)
+        assert_equal(2, alice.next_direct_debit_mandate_number)
+      end
+    end
+
+    describe '#requires_direct_debit_mandate?' do
+      let(:alice) { build_stubbed :user_alice }
+      let(:bob) { build_stubbed :user_bob }
+
+      it 'should return false if direct debit exemption is true' do
+        alice.stubs(:direct_debit_exemption).returns(true)
+
+        refute alice.requires_direct_debit_mandate?
+      end
+
+      it 'should return false if user is a private user' do
+        refute bob.requires_direct_debit_mandate?
+      end
+
+      it 'should return false if user already has an active mandate' do
+        alice.stubs(:has_active_direct_debit_mandate?).returns(true)
+
+        refute alice.requires_direct_debit_mandate?
+      end
+
+      it 'should return false if user has no articles' do
+        refute alice.requires_direct_debit_mandate?
+      end
+
+      it 'should be true for legal entities without mandates who do have articles' do
+        alice.stubs(:has_articles?).returns(:true)
+
+        assert alice.requires_direct_debit_mandate?
+      end
+    end
+
+    describe '#has_articles?' do
+      let(:alice) { create :user_alice_with_bank_details }
+
+      it 'should return false if user has no articles' do
+        refute alice.has_articles?
+      end
+
+      it 'should return 1 if user has one article' do
+        create :article, seller: alice
+
+        assert alice.has_articles?
+      end
+    end
+
+    describe '#has_active_direct_debit_mandate?' do
+      let(:alice) { build_stubbed :user_alice }
+
+      it 'should return true if an active mandate is present' do
+        mandate = build_stubbed :direct_debit_mandate_wo_user, user: alice
+        alice.stubs(:active_direct_debit_mandate).returns(mandate)
+
+        assert alice.has_active_direct_debit_mandate?
+      end
+
+      it 'should return false if no active mandate is present' do
+        alice.stubs(:active_direct_debit_mandate).returns(nil)
+
+        refute alice.has_active_direct_debit_mandate?
+      end
+    end
+
+    describe '#active_direct_debit_mandate' do
+      it 'should return an active mandate if one is present' do
+        alice = create :user_alice
+        mandate = create :direct_debit_mandate_wo_user, user: alice
+        mandate.activate!
+
+        alice.active_direct_debit_mandate.must_equal mandate
+      end
+
+      it 'should return nil if no active mandate is present' do
+        alice = create :user_alice
+        create :direct_debit_mandate_wo_user, user: alice
+
+        alice.active_direct_debit_mandate.must_be_nil
+      end
+
+      it 'should return nil if no mandate is present' do
+        alice = build_stubbed :user_alice
+
+        alice.active_direct_debit_mandate.must_be_nil
       end
     end
 
@@ -317,7 +496,7 @@ describe User do
     end
 
     describe LegalEntity do
-      let(:db_user) { create(:legal_entity) }
+      let(:db_user) { build_stubbed(:legal_entity) }
 
       it 'should have a valid factory' do
         db_user.valid?.must_equal true

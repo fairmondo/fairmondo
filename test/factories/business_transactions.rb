@@ -26,6 +26,8 @@ FactoryGirl.define do
     discount_value_cents 0
     quantity_bought 1
 
+    factory :business_transaction_from_private_user, traits: [:from_private_user]
+    factory :business_transaction_from_legal_entity, traits: [:from_legal_entity]
     factory :business_transaction_from_ngo, traits: [:from_ngo]
 
     trait :incomplete do
@@ -65,6 +67,14 @@ FactoryGirl.define do
 
     trait :discountable do
       association :article, factory: [:article, :with_discount]
+    end
+
+    trait :from_private_user do
+      association :seller, factory: [:private_user, :paypal_data]
+    end
+
+    trait :from_legal_entity do
+      association :seller, factory: [:legal_entity, :paypal_data]
     end
 
     trait :from_ngo do

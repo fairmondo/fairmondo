@@ -26,7 +26,7 @@ FactoryGirl.define do
     iban { %w(DE AT CH).sample + rand(99999999999999999999).to_s.center(20, rand(9).to_s) }
     bic { %w(ABCDEF ZJFBLO TNAPIT EMLOAB).sample + rand(99).to_s.center(2, rand(9).to_s) }
 
-    direct_debit true
+    direct_debit_exemption true
     uses_vouchers false
     created_at { 2.month.ago }
 
@@ -110,6 +110,31 @@ FactoryGirl.define do
     trait :with_free_transport_at_5 do
       free_transport_at_price_cents 500
       free_transport_available true
+    end
+  end
+
+  # Users Bob and Alice could in the future be used for scenarios etc.
+  # Alice is a legal entity, Bob a private user. Maybe invent a third person for admin
+  # and a fourth for NGO.
+  factory :user_bob, class: PrivateUser do
+    nickname 'bob'
+    email 'bob@example.com'
+    password 'password'
+  end
+
+  # Alice is a legal entity and sells fair electronics
+  factory :user_alice, class: LegalEntity do
+    nickname 'fairix'
+    email 'alice@fairix.com'
+    password 'password'
+    association :standard_address, factory: :address_for_alice
+
+    factory :user_alice_with_bank_details, traits: [:with_bank_details]
+
+    trait :with_bank_details do
+      iban 'DE12500105170648489890'
+      bic 'GENODEF1JEV'
+      bank_account_owner 'Alice Henderson'
     end
   end
 end

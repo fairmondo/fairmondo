@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160212233750) do
+ActiveRecord::Schema.define(version: 20160408225826) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -195,6 +195,19 @@ ActiveRecord::Schema.define(version: 20160212233750) do
   end
 
   add_index "contents", ["key"], name: "index_tinycms_contents_on_key", unique: true, using: :btree
+
+  create_table "direct_debit_mandates", force: true do |t|
+    t.string   "reference"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "state"
+    t.datetime "activated_at"
+    t.datetime "last_used_at"
+    t.datetime "revoked_at"
+  end
+
+  add_index "direct_debit_mandates", ["user_id"], name: "index_direct_debit_mandates_on_user_id", using: :btree
 
   create_table "discounts", force: true do |t|
     t.string   "title"
@@ -553,6 +566,8 @@ ActiveRecord::Schema.define(version: 20160212233750) do
     t.integer  "voluntary_contribution"
     t.string   "invoicing_email",                              default: "",    null: false
     t.string   "order_notifications_email",                    default: "",    null: false
+    t.boolean  "direct_debit_exemption",                       default: false
+    t.integer  "next_direct_debit_mandate_number",             default: 1
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree

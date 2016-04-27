@@ -1,0 +1,27 @@
+{
+  "REQUEST":{
+    "SERVICE":"customer.update",
+    "DATA":{
+      "CUSTOMER_TYPE":"business",
+      "ORGANIZATION":"myrtice.greenfelder16",
+      "SALUTATION":null,
+      "FIRST_NAME":"Erika",
+      "LAST_NAME":"Mustermann",
+      "ADDRESS":"Eldenaer Strau00dfe 17",
+      "ADDRESS_2":null,
+      "ZIPCODE":"10247",
+      "CITY":"Berlin",
+      "COUNTRY_CODE":"DE",
+      "LANGUAGE_CODE":"DE",
+      "EMAIL":"invoices@example.com",
+      "CURRENCY_CODE":"EUR",
+      "PAYMENT_TYPE":"1",
+      "SHOW_PAYMENT_NOTICE":"1",
+      "CUSTOMER_ID":"1223"
+    }
+  },
+  "RESPONSE":{
+    "STATUS":"success",
+    "CUSTOMER_ID":"1223"
+  }
+}

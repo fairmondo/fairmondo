@@ -29,7 +29,7 @@ end
 
 feature 'Uploading a CSV' do
   setup do
-    @user = create :legal_entity, :paypal_data, direct_debit: true
+    @user = create :legal_entity, :paypal_data
     login_as @user
     visit new_mass_upload_path
   end
