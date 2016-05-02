@@ -20,6 +20,9 @@
    @include span(1 of 3 0.1) ;
    @include omega;
   }
+  @include till-breakpoint($bp-mobile-horizontal) {
+    display: none;
+  }
 
   margin-bottom: 1em;
 }
@@ -57,4 +60,64 @@
 
 .content-embed--4x3 {
   padding-bottom: 75%;
+}
+
+
+/*
+  Use new BEM-inspired CSS naming conventions by csswizardry.com
+  http://csswizardry.com/2013/01/mindbemding-getting-your-head-round-bem-syntax/
+ */
+
+/*
+  3 images in a row, use as unordered list with images, e.g.
+  <ol class="triptychon">
+    <li class="triptychon__first">
+      <img class="triptychon__image" ... />
+    </li>
+    ...
+  </ol>
+*/
+
+.triptychon {
+  list-style-type: none;
+  padding: 0;
+
+  .triptychon__first {
+    @include between-breakpoints($bp-tablet, $bp-tablet-horizontal) {
+      @include span(2 of 4);
+    }
+
+    @include at-breakpoint($bp-tablet-horizontal) {
+      @include span(2 of 6);
+    }
+  }
+
+  .triptychon__second {
+    display: none;
+
+    @include between-breakpoints($bp-tablet, $bp-tablet-horizontal) {
+      display: block;
+      @include span(2 of 4);
+      @include omega;
+    }
+
+    @include at-breakpoint($bp-tablet-horizontal) {
+      display: block;
+      @include span(2 of 6);
+    }
+  }
+
+  .triptychon__third {
+    display: none;
+
+    @include at-breakpoint($bp-tablet-horizontal) {
+      display: block;
+      @include span(2 of 6);
+      @include omega;
+    }
+  }
+
+  .triptychon__image {
+    max-width: 100%;
+  }
 }
