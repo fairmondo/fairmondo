@@ -18,7 +18,7 @@ feature 'crowdfunding campaign banner' do
   end
 
   scenario 'current amount is extracted from CMS' do
-    create :content, key: 'crowdfunding_amount', body: '<p>50000</p>'
+    create :content, key: 'campaign_amount', body: '<p>50000</p>'
     visit root_path
     assert page.has_content?('50.000 €')
   end
