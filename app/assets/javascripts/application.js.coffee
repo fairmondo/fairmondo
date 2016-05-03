@@ -69,6 +69,7 @@
 #= require visual/mobile_nav
 #= require visual/news_header_close
 #= require visual/notice_close
+#= require visual/crowdfunding_close
 #= require visual/notice_scroll
 #= require visual/remote_validation
 #= require visual/selectbox
