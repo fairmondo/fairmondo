@@ -1,8 +1,11 @@
 aside.l-crowdfunding
 
   - cache('crowdfunding-summary', expires_in: 5.minutes) do
-    - match = /\d{1,6}/.match(tinycms_content_body('campaign_amount'))
-    - amount = match.to_s.to_i
+
+    / Bad hack
+    - amount_cents = BusinessTransaction.joins(:article, :line_item_group).where('line_item_groups.seller_id = 13817').sum('articles.price_cents * business_transactions.quantity_bought')
+
+    - amount = (amount_cents / 100).round
 
     article.l-crowdfunding-summary
       div.l-crowdfunding-summary-wrapper

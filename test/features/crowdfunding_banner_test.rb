@@ -16,10 +16,4 @@ feature 'crowdfunding campaign banner' do
     assert page.has_selector?('.l-crowdfunding-summary')
     assert page.has_selector?('.l-crowdfunding-full')
   end
-
-  scenario 'current amount is extracted from CMS' do
-    create :content, key: 'campaign_amount', body: '<p>50000</p>'
-    visit root_path
-    assert page.has_content?('50.000 €')
-  end
 end
