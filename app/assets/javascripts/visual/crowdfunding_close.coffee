@@ -17,7 +17,7 @@ removeCrowdfunding = ->
     .remove()
 
 setCookie = ->
-  days_to_expire = 1
+  days_to_expire = 3
   expiration_date = new Date(Date.now() + (days_to_expire * 24 * 60 * 60 * 1000))
   document.cookie = "crowdfunding-do-not-show=true; path=/; expires=#{expiration_date.toUTCString()}"
 
