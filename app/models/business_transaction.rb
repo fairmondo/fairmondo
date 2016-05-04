@@ -134,11 +134,6 @@ class BusinessTransaction < ActiveRecord::Base
     quantity_bought * article_calculated_fair_cents
   end
 
-  # only LegalEntities will be billed, sales for PrivateUsers are free
-  def billable?
-    self.seller.is_a?(LegalEntity)
-  end
-
   private
 
   # Custom conditions for validations

@@ -101,6 +101,10 @@ FactoryGirl.define do
       ngo true
     end
 
+    trait :marketplace_owner_account do
+      marketplace_owner_account true
+    end
+
     trait :with_unified_transport_information do
       unified_transport_provider 'DHL'
       unified_transport_price_cents 300
@@ -136,5 +140,31 @@ FactoryGirl.define do
       bic 'GENODEF1JEV'
       bank_account_owner 'Alice Henderson'
     end
+  end
+
+  # Carol is an admin user
+  factory :user_carol, class: PrivateUser do
+    nickname 'carol'
+    email 'carol@example.com'
+    password 'password'
+    admin true
+  end
+
+  # Dave is an ngo user
+  factory :user_dave, class: LegalEntity do
+    nickname 'greenpeace'
+    email 'dave@greenpeace.com'
+    password 'password'
+    ngo true
+    association :standard_address, factory: :address_for_alice
+  end
+
+  # Eve is a marketplace owner user
+  factory :user_eve, class: LegalEntity do
+    nickname 'fairmondo-shop'
+    email 'eve@fairmondo.de'
+    password 'password'
+    marketplace_owner_account true
+    association :standard_address, factory: :address_for_alice
   end
 end

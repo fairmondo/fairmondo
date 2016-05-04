@@ -29,6 +29,7 @@ FactoryGirl.define do
     factory :business_transaction_from_private_user, traits: [:from_private_user]
     factory :business_transaction_from_legal_entity, traits: [:from_legal_entity]
     factory :business_transaction_from_ngo, traits: [:from_ngo]
+    factory :business_transaction_from_marketplace_owner_account, traits: [:from_marketplace_owner_account]
 
     trait :incomplete do
       shipping_address nil
@@ -79,6 +80,10 @@ FactoryGirl.define do
 
     trait :from_ngo do
       association :seller, factory: [:ngo, :paypal_data]
+    end
+
+    trait :from_marketplace_owner_account do
+      association :seller, factory: [:legal_entity, :paypal_data, :marketplace_owner_account]
     end
 
     trait :pickup do

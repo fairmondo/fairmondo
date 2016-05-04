@@ -71,6 +71,7 @@ describe User do
     it { subject.must_respond_to :voluntary_contribution }
     it { subject.must_respond_to :invoicing_email }
     it { subject.must_respond_to :order_notifications_email }
+    it { subject.must_respond_to :marketplace_owner_account }
   end
 
   describe 'associations' do
@@ -180,6 +181,35 @@ describe User do
         user.banned = true
         user.save
       end
+    end
+  end
+
+  describe 'marketplace_owner_account' do
+    it 'should be false for new User instances' do
+      user = User.new
+      user.marketplace_owner_account.must_equal false
+    end
+  end
+
+  describe '#needs_to_be_billed?' do
+    it 'should be true for legal entities' do
+      alice = build_stubbed :user_alice
+      assert alice.needs_to_be_billed?
+    end
+
+    it 'should be false for private users' do
+      bob = build_stubbed :user_bob
+      refute bob.needs_to_be_billed?
+    end
+
+    it 'should be false for legal entities that are ngos' do
+      dave = build_stubbed :user_dave
+      refute dave.needs_to_be_billed?
+    end
+
+    it 'should be false for legal entities that are accounts of the marketplace owner' do
+      eve = build_stubbed :user_eve
+      refute eve.needs_to_be_billed?
     end
   end
 

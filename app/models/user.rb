@@ -160,6 +160,14 @@ class User < ActiveRecord::Base
     number
   end
 
+  def needs_to_be_billed?
+    if self.is_a?(LegalEntity) && !self.is_ngo? && !self.marketplace_owner_account
+      true
+    else
+      false
+    end
+  end
+
   def payment_method
     if has_active_direct_debit_mandate? && !bankaccount_warning
       :payment_by_direct_debit

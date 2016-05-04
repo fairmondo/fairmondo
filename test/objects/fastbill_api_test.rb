@@ -11,6 +11,7 @@ describe FastbillAPI do
     let(:bt_from_legal_entity) { create :business_transaction_from_legal_entity }
     let(:bt_from_private_user) { create :business_transaction_from_private_user }
     let(:bt_from_ngo)          { create :business_transaction_from_ngo }
+    let(:bt_from_marketplace_owner_account) { create :business_transaction_from_marketplace_owner_account }
 
     describe '::fastbill_chain' do
       it 'should find seller of transaction' do
@@ -30,6 +31,15 @@ describe FastbillAPI do
       describe 'when seller is an NGO' do
         it 'should not contact Fastbill' do
           api = FastbillAPI.new bt_from_ngo
+          api.fastbill_chain
+          assert_not_requested :post, 'https://my_email:my_fastbill_api_key@automatic.fastbill.com'\
+                                      '/api/1.0/api.php'
+        end
+      end
+
+      describe 'when seller is an account of the marketplace owner' do
+        it 'should not contact Fastbill' do
+          api = FastbillAPI.new bt_from_marketplace_owner_account
           api.fastbill_chain
           assert_not_requested :post, 'https://my_email:my_fastbill_api_key@automatic.fastbill.com'\
                                       '/api/1.0/api.php'
