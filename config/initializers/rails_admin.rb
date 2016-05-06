@@ -274,7 +274,7 @@ RailsAdmin.config do |config|
     field(:buyer_state) { read_only true }
     field :verified
     field :direct_debit_exemption
-
+    field :marketplace_owner_account
     field :ngo
     field :max_value_of_goods_cents_bonus
     field :heavy_uploader
