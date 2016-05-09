@@ -14,7 +14,27 @@
   color: #454857;
 }
 
+.l-crowdfunding {
+  position: relative;
+}
+
+.l-crowdfunding-link {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: 0;
+}
+
 .l-crowdfunding-summary {
+  /* position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: 500;
+  // height: 51px; for desktop
+  */
+
   h2 {
     font-size: 1em;
     font-weight: bold;
@@ -81,9 +101,12 @@
   position: relative;
 
   a {
+    display: block;
+    padding: 1em;
     position: absolute;
-    right: 1em;
-    top: 1em;
+    right: 0;
+    top: 0;
+    z-index: 500;
 
     i {
       color: $black;
