@@ -138,6 +138,7 @@ FactoryGirl.define do
     trait :with_bank_details do
       iban 'DE12500105170648489890'
       bic 'GENODEF1JEV'
+      bank_name 'GLS Gemeinschaftsbank'
       bank_account_owner 'Alice Henderson'
     end
   end

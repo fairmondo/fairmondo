@@ -81,13 +81,28 @@ class FastbillAPI
       show_payment_notice: '1'
     }
 
-    if user.payment_method == :payment_by_direct_debit
+    case user.payment_method
+    when :payment_by_invoice
+      attributes.merge!(
+        bank_iban: '',
+        bank_bic: '',
+        bank_account_owner: '',
+        bank_name: '',
+        bank_account_mandate_reference: '',
+        bank_account_mandate_reference_date: nil,
+        bank_account_number: '',
+        bank_code: ''
+      )
+    when :payment_by_direct_debit
       attributes.merge!(
         bank_iban: user.iban,
         bank_bic: user.bic,
         bank_account_owner: user.bank_account_owner,
+        bank_name: user.bank_name,
         bank_account_mandate_reference: user.active_direct_debit_mandate_reference,
-        bank_account_mandate_reference_date: user.active_direct_debit_mandate_reference_date
+        bank_account_mandate_reference_date: user.active_direct_debit_mandate_reference_date,
+        bank_account_number: '',
+        bank_code: ''
       )
     end
 

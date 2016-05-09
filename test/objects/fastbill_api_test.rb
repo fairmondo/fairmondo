@@ -183,7 +183,15 @@ describe FastbillAPI do
         email: 'alice@fairix.com',
         currency_code: 'EUR',
         payment_type: '1',
-        show_payment_notice: '1'
+        show_payment_notice: '1',
+        bank_iban: '',
+        bank_bic: '',
+        bank_account_owner: '',
+        bank_name: '',
+        bank_account_mandate_reference: '',
+        bank_account_mandate_reference_date: nil,
+        bank_account_number: '',
+        bank_code: ''
       )
     end
 
@@ -214,8 +222,11 @@ describe FastbillAPI do
         bank_iban: 'DE12500105170648489890',
         bank_bic: 'GENODEF1JEV',
         bank_account_owner: 'Alice Henderson',
+        bank_name: 'GLS Gemeinschaftsbank',
         bank_account_mandate_reference: '1001-001',
-        bank_account_mandate_reference_date: Date.parse('2016-04-01')
+        bank_account_mandate_reference_date: Date.parse('2016-04-01'),
+        bank_account_number: '',
+        bank_code: ''
       )
     end
   end
