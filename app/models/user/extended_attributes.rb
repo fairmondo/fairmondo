@@ -8,7 +8,7 @@ module User::ExtendedAttributes
   included do
     extend Sanitization
 
-    auto_sanitize :nickname
+    auto_sanitize :nickname, :bank_name
     auto_sanitize :iban, :bic, remove_all_spaces: true
     auto_sanitize :about_me, :terms, :cancellation, :about, method: 'tiny_mce'
 

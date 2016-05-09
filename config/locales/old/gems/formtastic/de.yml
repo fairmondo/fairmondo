@@ -35,6 +35,7 @@ de:
         about: "Impressum und Kontakt"
         alternative_emails: "Normalerweise werden alle Deine E-Mails an %{email} geschickt. Hier kannst du spezielle E-Mail-Adressen eingeben, an die Rechnungen von Fairmondo oder Bestellbestätigungen geschickt werden."
         bank_account_notification: "(Beachte, dass sich eine Änderung auf all Deine Artikel auswirkt, bei der Du die Bezahloption  \"Überweisung\" gewählt hast.)"
+        bank_name: "Name der Bank"
         bank_account_owner: "Kontoinhaber*in"
         iban: "IBAN"
         bic: "BIC"

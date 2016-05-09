@@ -110,6 +110,7 @@ de:
         fees: "Deine Gebühren: "
         donations: "Das faire Prozent: "
         bank_account_owner: "Kontoinhaber*in: "
+        bank_name: "Name der Bank: "
         iban: "IBAN: "
         bic: "BIC: "
         custom_seller_identifier: "Artikelnummer: "

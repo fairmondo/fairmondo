@@ -23,7 +23,7 @@ class UserRefinery < ApplicationRefinery
       :about_me, :phone, :mobile, :fax,
       :company_name, :max_value_of_goods_cents_bonus,
       :fastbill_profile_update, :vacationing, :newsletter, :receive_comments_notification,
-      :iban, :bic, :bank_account_owner, :direct_debit_confirmation,
+      :iban, :bic, :bank_name, :bank_account_owner, :direct_debit_confirmation,
       :unified_transport_provider, :unified_transport_maximum_articles, :unified_transport_price,
       :free_transport_available, :free_transport_at_price,
       { image_attributes: ImageRefinery.new(Image.new, user).default }

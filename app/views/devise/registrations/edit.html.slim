@@ -159,6 +159,7 @@ h1= t('common.actions.edit_profile')
           h3= t('users.form_titles.payment_bank_account')
 
           = f.input :bank_account_owner, required: true, label: t('formtastic.labels.user.bank_account_owner')
+          = f.input :bank_name, input_html: {id: "bank_name"}, label: t('formtastic.labels.user.bank_name')
           = f.input :iban, required: true, input_html: {id: "iban"}, label: t('formtastic.labels.user.iban'), tooltip: true
           = f.input :bic, required: true, input_html: {id: "bic"}, label: t('formtastic.labels.user.bic'), tooltip: true
 
