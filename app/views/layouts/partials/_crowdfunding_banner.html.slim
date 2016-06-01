@@ -5,7 +5,10 @@ aside.l-crowdfunding
     / Bad hack
     - amount_cents = BusinessTransaction.joins(:article, :line_item_group).where('line_item_groups.seller_id = 13817').sum('articles.price_cents * business_transactions.quantity_bought')
 
-    - amount = (amount_cents / 100).round
+    - cms_content = /\d{1,6}/.match(tinycms_content_body('campaign_amount'))
+    - amount_from_cms = cms_content.to_s.to_i
+
+    - amount = ((amount_cents + amount_from_cms) / 100).round
 
     article.l-crowdfunding-summary
       div.l-crowdfunding-summary-wrapper
