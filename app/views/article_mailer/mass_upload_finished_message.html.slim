@@ -4,7 +4,7 @@
 
 h3
   = t('email.greeting', name: @mass_upload.user_nickname)
-= t('email.article.mass_upload_finished.success')
+= t('email.article.mass_upload_finished.success', file_name: @mass_upload.file_file_name)
 - if @mass_upload.articles_for_mass_activation.any?
   p
     = t('email.article.mass_upload_finished.to_activate', count: @mass_upload.articles_for_mass_activation.count)

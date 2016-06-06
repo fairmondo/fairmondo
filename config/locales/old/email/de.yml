@@ -86,7 +86,7 @@ de:
 
           Datum'
       mass_upload_finished:
-        success: Dein CSV-Upload wurde erfolgreich verarbeitet.
+        success: 'Dein CSV-Upload %{file_name} wurde erfolgreich verarbeitet.'
         failure: 'Bei der Verarbeitung Deiner CSV Datei durch das System ist ein Fehler aufgetreten. Klicke hier um den Fehler anzuzeigen:'
         to_activate: 'Dabei musst Du noch %{count} Artikel aktivieren.'
         created_articles: 'Neu erstellte Artikel: %{count}'
