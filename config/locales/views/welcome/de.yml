@@ -4,13 +4,13 @@ de:
       heading: 'Das macht uns anders:'
       content_html: |
         <ul>
+          <li> Kostenlos für private Verkäufer*innen </li>
+          <li>
+            Nur 7&nbsp;% Verkaufs&shy;provision (4&nbsp;% für faire Artikel)
+          </li>
           <li>
             Die schönsten und fairsten Produkte im Netz ent&shy;decken
           </li>
-          <li>
-            Nur 6&nbsp;% Verkaufs&shy;provision (3&nbsp;% für faire Artikel)
-          </li>
-          <li> Kostenlos für private Verkäufer*innen </li>
           <li> Ein <a href="/ueber_uns">faires Unternehmen</a> dahinter </li>
         </ul>
       register_button: "Jetzt registrieren"
