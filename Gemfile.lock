@@ -91,7 +91,7 @@ GEM
     awesome_nested_set (3.0.2)
       activerecord (>= 4.0.0, < 5)
     awesome_print (1.6.1)
-    bcrypt (3.1.9)
+    bcrypt (3.1.11)
     better_errors (2.1.0)
       coderay (>= 1.0.0)
       erubis (>= 2.6.6)
@@ -186,7 +186,7 @@ GEM
     debugger-linecache (1.2.0)
     delayed_paperclip (2.9.0)
       paperclip (>= 3.3)
-    devise (3.4.1)
+    devise (3.5.10)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
       railties (>= 3.2.6, < 5)
@@ -658,7 +658,7 @@ GEM
     uniform_notifier (1.6.2)
     uuid (2.3.7)
       macaddr (~> 1.0)
-    warden (1.2.3)
+    warden (1.2.6)
       rack (>= 1.0)
     wasabi (3.3.0)
       httpi (~> 2.0)
@@ -700,7 +700,7 @@ DEPENDENCIES
   dalli
   database_cleaner
   delayed_paperclip
-  devise
+  devise (~> 3.5.10)
   email_spec
   enumerize (>= 0.5.1)
   exception_notification
@@ -803,4 +803,4 @@ DEPENDENCIES
   wiselinks
 
 BUNDLED WITH
-   1.11.2
+   1.12.3
