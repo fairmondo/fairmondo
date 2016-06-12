@@ -652,7 +652,7 @@ GEM
     ttfunk (1.4.0)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
-    uglifier (2.6.1)
+    uglifier (2.7.2)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
     uniform_notifier (1.6.2)
@@ -798,9 +798,9 @@ DEPENDENCIES
   thin
   tinymce-rails
   tinymce-rails-langs
-  uglifier
+  uglifier (~> 2.7.2)
   webmock
   wiselinks
 
 BUNDLED WITH
-   1.12.3
+   1.12.5
