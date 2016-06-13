@@ -194,6 +194,8 @@ GEM
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
     docile (1.1.5)
+    domain_name (0.5.20160310)
+      unf (>= 0.0.5, < 1.0.0)
     easy_translate (0.5.0)
       json
       thread
@@ -281,6 +283,8 @@ GEM
       sprockets (>= 2.0.3)
       tilt (>= 1.3.3)
     htmlentities (4.3.3)
+    http-cookie (1.0.2)
+      domain_name (~> 0.5)
     http_parser.rb (0.6.0)
     httpi (2.3.0)
       rack
@@ -385,7 +389,7 @@ GEM
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (2.9.1)
-    netrc (0.10.2)
+    netrc (0.11.0)
     newrelic_rpm (3.9.9.275)
     nio4r (1.1.1)
     nokogiri (1.6.7.2)
@@ -525,7 +529,8 @@ GEM
     require_all (1.3.2)
     responders (1.1.2)
       railties (>= 3.2, < 4.2)
-    rest-client (1.7.2)
+    rest-client (1.8.0)
+      http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 3.0)
       netrc (~> 0.7)
     rubocop (0.29.0)
@@ -655,6 +660,9 @@ GEM
     uglifier (2.7.2)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
+    unf (0.1.4)
+      unf_ext
+    unf_ext (0.0.7.2)
     uniform_notifier (1.6.2)
     uuid (2.3.7)
       macaddr (~> 1.0)
