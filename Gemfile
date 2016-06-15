@@ -50,11 +50,11 @@ gem 'i18n-js', '~> 3.0.0.rc8'
 gem 'coffee-rails'
 gem 'therubyrhino'
 gem 'selectivizr-rails'
-gem 'uglifier'
+gem 'uglifier', '~> 2.7.2'
 gem 'modernizr-rails'
 gem 'tinymce-rails'
 gem 'tinymce-rails-langs'
-gem 'jquery-rails'
+gem 'jquery-rails', '~> 3.1.3'
 gem 'rails-timeago'
 gem 'wiselinks'
 gem 'hogan_assets'
@@ -68,7 +68,7 @@ gem 'recaptcha', require: 'recaptcha/rails' # Captcha Gem
 
 gem 'arcane' # Parameter management for strong_parameters
 gem 'canonical-rails' # canonical view links
-gem 'devise' # authentication
+gem 'devise', '~> 3.5.10' # authentication
 gem 'pundit' # authorization
 gem 'kaminari' # pagination
 gem 'responders'
@@ -97,7 +97,7 @@ gem 'rails_admin_statistics', github: 'KonstantinKo/rails_admin_statistics'
 gem 'rails_admin_nested_set'
 gem 'rack-rewrite' # Redirects
 gem 'json'
-gem 'nokogiri'
+gem 'nokogiri', '~> 1.6.7.2'
 gem 'prawn_rails' # pdf generation
 
 # ---------- Monitoring ----------

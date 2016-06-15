@@ -11,6 +11,7 @@ de:
       sold_to: "Dein Verkauf an %{buyer}"
       bank_transfer_purpose: "Verwendungszweck"
       purchase_id: "Transaktionsnummer"
+      purchase_id_abbr: "Transaktionsnr."
       pickups: "Hole den/die Artikel bei folgender Adresse ab:"
       quantity_bought: "Menge:"
       selected_payment: "Bezahlung über:"

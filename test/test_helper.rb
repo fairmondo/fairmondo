@@ -24,6 +24,7 @@ require 'sidekiq/testing'
 require 'fakeredis'
 require "savon/mock/spec_helper"
 require 'webmock/minitest'
+require 'bcrypt'
 
 # Webmock
 WebMock.allow_net_connect!
