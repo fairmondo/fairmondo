@@ -7,8 +7,6 @@ require File.expand_path('../boot', __FILE__)
 require 'csv'
 require 'rails/all'
 require 'net/http'
-
-
 require 'susy'
 
 if defined?(Bundler)
@@ -123,7 +121,5 @@ module Fairmondo
     config.generators.test_framework :minitest, spec: true
 
     config.action_view.field_error_proc = Proc.new { |html_tag, instance| "#{html_tag}".html_safe }
-
-
   end
 end

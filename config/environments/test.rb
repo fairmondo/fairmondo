@@ -43,6 +43,12 @@ Fairmondo::Application.configure do
   I18n.locale = config.i18n.locale = config.i18n.default_locale
   config.active_support.test_order = :random
 
+  # Assets
+  config.assets.compile = true
+  config.assets.compress = false
+  config.assets.debug = false
+  config.assets.digest = false
+
   # commented out till next bullet release
   # bullet - n+1 detection
   #config.after_initialize do
