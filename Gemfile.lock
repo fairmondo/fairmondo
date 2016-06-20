@@ -127,7 +127,7 @@ GEM
     capistrano-bundler (1.1.3)
       capistrano (~> 3.1)
       sshkit (~> 1.2)
-    capistrano-rails (1.1.2)
+    capistrano-rails (1.1.7)
       capistrano (~> 3.1)
       capistrano-bundler (~> 1.1)
     capistrano-rbenv (2.0.2)
@@ -696,7 +696,7 @@ DEPENDENCIES
   canonical-rails
   capistrano
   capistrano-bundler (~> 1.1.2)
-  capistrano-rails (~> 1.1)
+  capistrano-rails (~> 1.1.3)
   capistrano-rbenv
   chewy
   chunky_png

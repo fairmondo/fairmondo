@@ -171,7 +171,7 @@ group :development, :test do
   gem 'pry-stack_explorer'
 
   # Capistrano
-  gem 'capistrano-rails', '~> 1.1'
+  gem 'capistrano-rails', '~> 1.1.3'
   gem 'capistrano'
   gem 'capistrano-bundler', '~> 1.1.2'
   gem 'capistrano-rbenv'
