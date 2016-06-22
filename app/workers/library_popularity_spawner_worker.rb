@@ -4,9 +4,6 @@
 
 class LibraryPopularitySpawnerWorker
   include Sidekiq::Worker
-  include Sidetiq::Schedulable
-
-  recurrence { daily }
 
   sidekiq_options queue: :statistics,
                   retry: 20,

@@ -1,0 +1,35 @@
+check_for_finished_mass_uploads:
+  cron: "*/10 * * * *"
+  class: MassUploadsFinishWorker
+  queue: mass_uploads_finish
+  description: "Checks if mass uploads have finished every 10 minutes"
+
+calculate_library_popularities:
+  cron: "1 0 * * *"
+  class: LibraryPopularitySpawnerWorker
+  queue: statistics
+  description: "Calculates popularity count for libraries once a day"
+
+# export_csv_for_affiliate_marketing:
+#   cron: "0 2 * * 1"
+#   class: BelboonArticleExporterWorker
+#   queue: belboon_csv_export
+#   description: "Exports articles as CSV file for Belboon affiliate marketing once a week"
+
+delete_old_articles:
+  cron: "0 12 * * 2"
+  class: OldArticleDeletionWorker
+  queue: cleanup
+  description: "Deletes old articles once a week"
+
+disable_queue_at_daytime:
+  cron: "0 8 * * *"
+  class: QueueDisablerMetaWorker
+  queue: sidekiq_pro
+  description: "Disables file normalizer worker at daytime"
+
+enable_queue_at_nighttime:
+  cron: "0 0 * * *"
+  class: QueueEnablerMetaWorker
+  queue: sidekiq_pro
+  description: "Enables file normalizer worker at nighttime"

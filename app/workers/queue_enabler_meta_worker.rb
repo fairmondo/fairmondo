@@ -4,9 +4,6 @@
 
 class QueueEnablerMetaWorker
   include Sidekiq::Worker
-  include Sidetiq::Schedulable
-
-  recurrence { daily.hour_of_day(0) }
 
   sidekiq_options queue: :sidekiq_pro,
                   retry: 5,

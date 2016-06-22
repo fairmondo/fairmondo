@@ -143,7 +143,7 @@ Fairmondo::Application.routes.draw do
   root to: 'welcome#index' # Workaround for double root https://github.com/gregbell/active_admin/issues/2049
 
   require 'sidekiq/web'
-  require 'sidetiq/web'
+  require 'sidekiq-scheduler/web'
 
   if Rails.env.development?
     constraint = lambda { |_request| true }

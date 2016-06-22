@@ -4,9 +4,6 @@
 
 class OldArticleDeletionWorker
   include Sidekiq::Worker
-  include Sidetiq::Schedulable
-
-  recurrence { weekly.day(:tuesday).hour_of_day(12) }
 
   sidekiq_options queue: :cleanup,
                   retry: 10,

@@ -4,15 +4,10 @@
 
 class MassUploadsFinishWorker
   include Sidekiq::Worker
+
   sidekiq_options queue: :mass_uploads_finish,
                   retry: 20,
                   backtrace: true
-
-  include Sidetiq::Schedulable
-
-  recurrence do
-    hourly.minute_of_hour(*((0..5).to_a.map { |d| d * 10 }))
-  end
 
   def perform
     MassUpload.processing.each do |mass_upload|
