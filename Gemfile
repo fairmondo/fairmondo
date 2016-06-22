@@ -75,7 +75,7 @@ gem 'responders'
 
 # ---------- Mail ----------
 
-gem 'premailer-rails', '~> 1.8.2' # creates emails with inline css from html files with external css-file
+gem 'premailer-rails', '~> 1.9.3' # creates emails with inline css from html files with external css-file
 
 # ---------- Background Processing ----------
 
