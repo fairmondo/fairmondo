@@ -302,7 +302,6 @@ GEM
     ibanomat (0.0.5)
       json
       rest-client
-    ice_cube (0.11.1)
     interception (0.5)
     jbuilder (2.2.6)
       activesupport (>= 3.0.0, < 5)
@@ -547,6 +546,7 @@ GEM
     ruby_parser (3.5.0)
       sexp_processor (~> 4.1)
     rubyntlm (0.4.0)
+    rufus-scheduler (3.1.10)
     safe_yaml (1.0.4)
     sanitize (3.1.0)
       crass (~> 1.0.1)
@@ -583,10 +583,12 @@ GEM
       json
       redis (>= 3.0.6)
       redis-namespace (>= 1.3.1)
-    sidetiq (0.6.3)
-      celluloid (>= 0.14.1)
-      ice_cube (= 0.11.1)
-      sidekiq (>= 3.0.0)
+    sidekiq-scheduler (2.0.7)
+      multi_json (~> 1)
+      redis (~> 3)
+      rufus-scheduler (~> 3.1.8)
+      sidekiq (>= 3)
+      tilt (>= 1.4.0)
     sigar (0.7.3)
     simplecov (0.9.1)
       docile (~> 1.1.0)
@@ -788,7 +790,7 @@ DEPENDENCIES
   selectivizr-rails
   shoulda
   sidekiq (>= 3.2.5)
-  sidetiq
+  sidekiq-scheduler (~> 2.0)
   simplecov
   simplecov-json
   sinatra (>= 1.3.0)
