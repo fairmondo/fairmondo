@@ -85,6 +85,7 @@ gem 'sinatra', '>= 1.3.0', require: nil
 gem 'delayed_paperclip' # handle image processing with sidekiq
 gem 'bluepill' # legacy, remove when eye stable
 gem 'eye', '~> 0.8.1' # sidekiq process monitoring
+gem 'redis-namespace', '~> 1.5.2'
 
 # ---------- Tools ----------
 
