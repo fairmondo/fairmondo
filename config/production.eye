@@ -10,7 +10,7 @@ Eye.application 'fairmondo' do
   working_dir dir
 
   group 'sidekiq' do
-    2.times do |i|
+    1.times do |i|
       process "sidekiq#{i}" do
 
         _pidfile = "#{dir}/tmp/pids/sidekiq#{i}.pid"
