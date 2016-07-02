@@ -5,10 +5,10 @@ check_for_finished_mass_uploads:
   description: "Checks if mass uploads have finished every 10 minutes"
 
 calculate_library_popularities:
-  cron: "1 0 * * *"
+  cron: "30 0 * * 1,4"
   class: LibraryPopularitySpawnerWorker
   queue: statistics
-  description: "Calculates popularity count for libraries once a day"
+  description: "Calculates popularity count for libraries twice a week"
 
 # export_csv_for_affiliate_marketing:
 #   cron: "0 2 * * 1"
