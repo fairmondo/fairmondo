@@ -82,7 +82,7 @@ de:
       fair_percent: "Das faire Prozent"
       friendly_percent: "Spendenanteil"
       will_be: " werden an "
-      donate_html: "1% werden von Fairmondo an <a href='http://www.transparency.de/' target='_blank'>Transparency International</a> gespendet"
+      donate_html: "1% werden von Fairmondo an <a href='http://www.transparency.de/' target='_blank'>Transparency International Deutschland e.V.</a> nach Jahresende gespendet."
       donate_ngo_html: "100% des Erlöses gehen an %{ngo}. Es fallen keine Fairmondo-Gebühren an."
       donate_ngo_short_html: "%{percent}% gehen an %{ngo}"
       friendly_percent_html: "Diese*r Anbieter*in spendet %{percent}% an %{ngo}"
