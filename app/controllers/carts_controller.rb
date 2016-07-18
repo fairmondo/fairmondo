@@ -60,7 +60,7 @@ class CartsController < ApplicationController
       # put it into the transaction of Cart#buy.        #
       ###################################################
       clear_session
-      set_donation_flash if @cart.save
+      flash[:notice] = I18n.t('cart.notices.checkout_success') if @cart.save
       cookies.delete :cart
       respond_with @cart
     when :checkout_failed
@@ -137,17 +137,6 @@ class CartsController < ApplicationController
 
   def all_line_items_valid?
     @cart.line_item_groups.map(&:line_items).flatten.all?(&:valid?)
-  end
-
-  def set_donation_flash
-    total_donations = @cart.user.reload.total_purchase_donations
-    if total_donations == 0
-      flash[:notice] = I18n.t('cart.notices.checkout_success_no_donation')
-    else
-      flash[:notice] = I18n.t(
-        'cart.notices.checkout_success', euro: total_donations
-      ).html_safe
-    end
   end
 
   def clear_tracking_token?

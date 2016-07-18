@@ -244,7 +244,7 @@ feature 'Checkout' do
     expect_cart_emails
     find('input.checkout_button').click
     page.must_have_content(
-      'Mit Deinen Einkäufen hast Du Fairmondo bisher eine Spende von 0,06 Euro')
+      'Vielen Dank für Deinen Einkauf')
     Cart.last.sold?.must_equal true
     Cart.last.line_item_groups.first.transport_address.must_equal transport_address
   end

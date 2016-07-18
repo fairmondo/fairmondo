@@ -107,10 +107,6 @@ de:
         text: |
           Vielen Dank für Deinen Einkauf! Alle Bestelldaten sind unten für Dich
           zusammengefasst.
-        total_donations: |
-          Mit Deinen Einkäufen hast Du Fairmondo bisher eine Spende von %{euro}
-          an Transparency International Deutschland e.V. zur Bekämpfung von Korruption
-          ermöglicht.
         visit_your_profile: 'Um die gekauften Artikel zu bezahlen, besuche bitte Dein'
         signoff: 'Dein Fairmondo-Team.'
         user_profile: 'Nutzer*innen-Profil'

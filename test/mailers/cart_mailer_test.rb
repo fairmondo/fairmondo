@@ -39,21 +39,6 @@ describe CartMailer do
       attachment = mail.attachments['fahrwerk_kurierkollektiv_agb.pdf']
       attachment.filename.must_equal 'fahrwerk_kurierkollektiv_agb.pdf'
     end
-
-    it 'must contain generated fair percent donation info' do
-      cart.user.update_column :total_purchase_donations_cents, 111
-
-      mail = CartMailer.buyer_email(cart)
-      mail.must have_body_text I18n.t 'email.cart.buyer.total_donations',
-                                      euro: '1,11 €'
-    end
-
-    it 'wont contain generated fair percent donation info if it is 0' do
-      mail = CartMailer.buyer_email(cart)
-      mail.wont have_body_text(
-        'Mit Deinen Einkäufen hast Du Fairmondo bisher eine Spende'
-      )
-    end
   end
 
   it 'sends email to courier service' do
