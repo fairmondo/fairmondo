@@ -12,11 +12,11 @@ class BusinessTransactionExporter
   end
 
   def csv_string
-    csv_string = CSV.generate(encoding: 'UTF-8') do |csv|
+    csv_string = CSV.generate({ encoding: 'utf-8' }) do |csv|
       csv << ['Datum', 'Bestellnr.', 'Anzahl']
       query.each do |bt|
         csv << [
-          bt.sold_at,
+          bt.sold_at.strftime('%d.%m.%Y'),
           bt.line_item_group_id,
           bt.quantity_bought
         ]

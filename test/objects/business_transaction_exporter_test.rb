@@ -13,10 +13,11 @@ describe BusinessTransactionExporter do
 
       exporter = BusinessTransactionExporter.new(user)
 
+      date = Time.now.strftime('%d.%m.%Y')
       lig_id = bt.line_item_group_id
 
       expected_csv = "Datum,Bestellnr.,Anzahl\n"\
-        "#{bt.sold_at},#{lig_id},#{bt.id}\n"
+        "#{date},#{lig_id},#{bt.id}\n"
 
       assert_equal(expected_csv, exporter.csv_string)
     end
