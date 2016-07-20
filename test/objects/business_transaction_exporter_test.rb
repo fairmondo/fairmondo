@@ -5,20 +5,20 @@
 require_relative '../test_helper'
 
 describe BusinessTransactionExporter do
-  let(:bt_from_legal_entity) { create :business_transaction_from_legal_entity }
-
-  describe 'basic tests' do
-    it 'should return the count' do
-      bt_from_legal_entity
-      BusinessTransaction.count.must_equal 1
-    end
-  end
+  let(:bt) { create :business_transaction_from_legal_entity }
 
   describe 'integration tests' do
-    it 'should export articles' do
-      exporter = BusinessTransactionExporter.new
+    it 'should return a csv string with the business transactions' do
+      user = bt.seller
 
-      exporter.export.must_equal([])
+      exporter = BusinessTransactionExporter.new(user)
+
+      lig_id = bt.line_item_group_id
+
+      expected_csv = "Datum,Bestellnr.,Anzahl\n"\
+        "#{bt.sold_at},#{lig_id},#{bt.id}\n"
+
+      assert_equal(expected_csv, exporter.csv_string)
     end
   end
 end
