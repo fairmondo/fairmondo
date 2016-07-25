@@ -14,8 +14,8 @@ class BusinessTransactionExporter
   def csv_string
     csv_string = CSV.generate({ encoding: 'utf-8', col_sep: ';' }) do |csv|
       csv << ['Datum', 'Bestellnr.', 'Artikelname', 'Anzahl', 'Einzelkosten', 'Endbetrag',
-              'Mehrwertsteuersatz', 'Versandart', 'Zahlungsart', 'Nachricht', 'Rechnungsadresse',
-              'Lieferadresse']
+              'Mehrwertsteuersatz', 'Versandart', 'Zahlungsart', 'Nachricht', 'Käufer',
+              'E-Mail-Adresse', 'Rechnungsadresse', 'Lieferadresse']
       query.each do |bt|
         csv << [
           bt.sold_at.strftime('%d.%m.%Y'),
@@ -28,6 +28,8 @@ class BusinessTransactionExporter
           bt.selected_transport,
           bt.selected_payment,
           bt.line_item_group.message,
+          bt.line_item_group.buyer.nickname,
+          bt.line_item_group.buyer.email,
           bt.line_item_group.payment_address.to_s,
           bt.line_item_group.transport_address.to_s
         ]
@@ -36,6 +38,8 @@ class BusinessTransactionExporter
   end
 
   def query
-    BusinessTransaction.joins(:article, line_item_group: [:payment_address, :transport_address]).where(line_item_groups: { seller_id: @user.id })
+    BusinessTransaction
+      .joins(:article, line_item_group: [:payment_address, :transport_address, :buyer])
+      .where(line_item_groups: { seller_id: @user.id })
   end
 end
