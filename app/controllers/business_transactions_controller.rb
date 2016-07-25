@@ -3,11 +3,18 @@
 #   See the COPYRIGHT file for details.
 
 class BusinessTransactionsController < ApplicationController
-  before_action :set_business_transaction
+  before_action :set_business_transaction, only: [:show, :set_transport_ready]
 
   def show
     # no authorize needed as it only redirects, policy will be called on LIG
     redirect_to line_item_group_path @business_transaction.line_item_group
+  end
+
+  def export
+    authorize :business_transaction, :export?
+
+    send_data('hello', filename: 'text.csv', type: 'text/csv; charset=utf-8',
+                       disposition: 'attachment')
   end
 
   def set_transport_ready

@@ -84,6 +84,7 @@ Fairmondo::Application.routes.draw do
 
   resources :business_transactions, only: [:show] do
     resources :refunds, only: [:new, :create]
+    get 'export', on: :collection
   end
   match '/transactions/set_transport_ready/:id', to: 'business_transactions#set_transport_ready', as: 'set_transport_ready', via: [:get, :post]
 

@@ -7,6 +7,10 @@ class BusinessTransactionPolicy < Struct.new(:user, :business_transaction)
     own?
   end
 
+  def export?
+    user.present? && user.is_a?(LegalEntity)
+  end
+
   private
 
   def own?

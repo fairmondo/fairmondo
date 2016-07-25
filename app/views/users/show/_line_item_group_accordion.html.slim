@@ -11,12 +11,10 @@
       params: { active_accordion: item_name },
       param_name: "#{item_name}_page"
 
-/ - if current_user.type == 'LegalEntity' && item_name == 'seller_line_item_groups'
-/   .export.JS-active-toggle--container
-/     .Button.JS-active-toggle--trigger{data: {clickable: true}}
-/       Verkäufe exportieren
-/     .export-entries.JS-active-toggle--target
-/       %ul
-/         - export_time_ranges.each do |time_range|
-/           %li
-/             = link_to t("articles.export.#{time_range}"), exports_show_path(kind_of_article: item_name, time_range: time_range, format: "csv"), class: 'JS-active-toggle--trigger', data: { clickable: true }
+- if current_user.type == 'LegalEntity' && item_name == 'seller_line_item_groups'
+  h3 CSV-Export Bestellungen
+
+  = form_tag(export_business_transactions_path, method: 'get') do
+    = select_year(2016, start_year: 2013, end_year: 2016)
+    = select_month(4, use_month_numbers: true)
+    = submit_tag('Exportieren', id: 'export_business_transactions_submit', class: 'Button')

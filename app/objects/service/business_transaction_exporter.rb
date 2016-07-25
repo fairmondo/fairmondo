@@ -12,7 +12,7 @@ class BusinessTransactionExporter
       csv << ['Datum', 'Bestellnr.', 'Artikelname', 'Anzahl', 'Einzelkosten', 'Endbetrag',
               'Mehrwertsteuersatz', 'Versandart', 'Zahlungsart', 'Nachricht', 'Käufer',
               'E-Mail-Adresse', 'Rechnungsadresse', 'Lieferadresse']
-      query.each do |bt|
+      query.find_each do |bt|
         csv << [
           bt.sold_at.strftime('%d.%m.%Y'),
           bt.line_item_group_id,

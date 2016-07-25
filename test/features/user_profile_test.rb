@@ -38,6 +38,29 @@ feature 'User profile page' do
   end
 end
 
+feature 'CSV export' do
+  scenario 'private user looks at his profile' do
+    user = create :private_user
+    login_as user
+    visit user_path(user)
+
+    page.wont_have_content 'CSV-Export Bestellungen'
+  end
+
+  scenario 'legal entity looks at her profile' do
+    user = create :legal_entity
+    login_as user
+    visit user_path(user)
+
+    page.must_have_content 'CSV-Export Bestellungen'
+
+    select('2016', from: 'date_year')
+    select('5', from: 'date_month')
+    click_button 'export_business_transactions_submit'
+    # TODO: Test for file download, apparently Selenium is needed
+  end
+end
+
 feature 'contacting users' do
   before do
     receiver = create :legal_entity
