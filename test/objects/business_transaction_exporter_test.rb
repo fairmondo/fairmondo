@@ -9,17 +9,19 @@ describe BusinessTransactionExporter do
 
   describe 'integration tests' do
     it 'should return a csv string with the business transactions' do
-      user = bt.seller
+      travel_to Time.new(2016, 04, 01, 12) do
 
-      exporter = BusinessTransactionExporter.new(user)
+        user = bt.seller
 
-      date = Time.now.strftime('%d.%m.%Y')
-      lig_id = bt.line_item_group_id
+        exporter = BusinessTransactionExporter.new(user)
 
-      expected_csv = "Datum,Bestellnr.,Anzahl\n"\
-        "#{date},#{lig_id},#{bt.id}\n"
+        date = Time.now.strftime('%d.%m.%Y')
+        lig_id = bt.line_item_group_id
+
+        expected_csv = File.read('test/fixtures/business_transaction_export1.csv')
 
       assert_equal(expected_csv, exporter.csv_string)
+      end
     end
   end
 end

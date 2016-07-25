@@ -121,6 +121,7 @@ class MiniTest::Spec
 
   # Add more helper methods to be used by all tests here...
   include FactoryGirl::Syntax::Methods
+  include ActiveSupport::Testing::TimeHelpers
 end
 
 $suite_passing = true

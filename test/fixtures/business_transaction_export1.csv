@@ -1,0 +1,2 @@
+Datum;Bestellnr.;Artikelname;Anzahl;Einzelkosten;Endbetrag;Mehrwertsteuersatz;Versandart;Zahlungsart,Nachricht,Rechnungsadresse,Lieferadresse
+01.04.2016;2;Book 1;1;39,95;39,95;19;type1;bank_transfer,MyText
