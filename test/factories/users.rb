@@ -6,9 +6,9 @@ require 'ffaker'
 
 FactoryGirl.define do
   factory :user, aliases: [:seller, :buyer, :sender, :rated_user], class: %w(PrivateUser LegalEntity).sample do
-    email       { Faker::Internet.email }
+    sequence(:email) { |n| "user#{n}@example.com" }
     password 'password'
-    sequence(:nickname) { |n| "#{Faker::Internet.user_name}#{n}" }
+    sequence(:nickname) { |n| "User #{n}" }
     legal '1'
 
     about_me    { Faker::Lorem.paragraph(rand(7) + 1) }

@@ -7,12 +7,8 @@ class BusinessTransactionExporter
     @user = user
   end
 
-  def export
-    []
-  end
-
   def csv_string
-    csv_string = CSV.generate({ encoding: 'utf-8', col_sep: ';' }) do |csv|
+    CSV.generate(encoding: 'utf-8', col_sep: ';') do |csv|
       csv << ['Datum', 'Bestellnr.', 'Artikelname', 'Anzahl', 'Einzelkosten', 'Endbetrag',
               'Mehrwertsteuersatz', 'Versandart', 'Zahlungsart', 'Nachricht', 'Käufer',
               'E-Mail-Adresse', 'Rechnungsadresse', 'Lieferadresse']
