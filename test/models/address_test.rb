@@ -85,4 +85,24 @@ describe Address do
       address.reload.stashed?.must_equal true
     end
   end
+
+  describe 'string representation' do
+    it 'should output all business address fields in a single line' do
+      address = build_stubbed(:address_for_alice)
+
+      assert_equal(
+        'Fairix eG, Frau Alice Henderson, Heidestraße 17, c/o Fairix eG, 51147 Köln, Deutschland',
+        address.to_s
+      )
+    end
+
+    it 'should output all private address fields in a single line' do
+      address = build_stubbed(:address)
+
+      assert_equal(
+        'Erika Mustermann, Heidestraße 17, 51147 Köln, Deutschland',
+        address.to_s
+      )
+    end
+  end
 end

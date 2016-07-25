@@ -53,4 +53,13 @@ class Address < ActiveRecord::Base
   def is_standard_address?
     connected_user.present?
   end
+
+  def to_s
+    company_part = company_name.present? ? "#{company_name}, " : ''
+    title_part = title.present? ? "#{title} " : ''
+    address_line_2_part = address_line_2.present? ? "#{address_line_2}, " : ''
+
+    "#{company_part}#{title_part}#{first_name} #{last_name}, #{address_line_1}, "\
+    "#{address_line_2_part}#{zip} #{city}, #{country}"
+  end
 end
