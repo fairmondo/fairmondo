@@ -17,6 +17,7 @@ class BusinessTransaction < ActiveRecord::Base
 
   has_one :seller, through: :line_item_group
   has_one :buyer, through: :line_item_group
+  has_one :refund
 
   enumerize :selected_transport, in: Article::TRANSPORT_TYPES
   enumerize :selected_payment, in: Article::PAYMENT_TYPES

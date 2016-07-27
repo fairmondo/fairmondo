@@ -1,2 +1,2 @@
-Datum;Bestellnr.;Artikelname;Anzahl;Einzelkosten;Endbetrag;Mehrwertsteuersatz;Versandart;Zahlungsart;Nachricht;Käufer;E-Mail-Adresse;Rechnungsadresse;Lieferadresse
-01.04.2016;2;Book 1;1;39,95;39,95;19;type1;bank_transfer;MyText;User 2;user2@example.com;Erika Mustermann, Heidestraße 17, 51147 Köln, Deutschland;Erika Mustermann, Eldenaer Straße 17, 10247 Berlin, Deutschland
+Datum;Bestellnr.;Artikelname;Anzahl;Einzelkosten;Endbetrag;Mehrwertsteuersatz;Versandart;Zahlungsart;Nachricht;Käufer;Name;Firma;E-Mail-Adresse;Rechnungsadresse;Lieferadresse
+01.04.2016;F00000012;Book 1;1;39,95;39,95;19;type1;bank_transfer;MyText;User 2;Erika Mustermann;;user2@example.com;Erika Mustermann, Heidestraße 17, 51147 Köln, Deutschland;Erika Mustermann, Eldenaer Straße 17, 10247 Berlin, Deutschland

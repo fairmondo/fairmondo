@@ -18,7 +18,7 @@ class BusinessTransactionsController < ApplicationController
 
     exporter = BusinessTransactionExporter.new(@user, @time_range)
 
-    send_data(exporter.csv_string, filename: 'text.csv', type: 'text/csv; charset=utf-8',
+    send_data(exporter.csv_string, filename: exporter.filename, type: 'text/csv; charset=utf-8',
                                    disposition: 'attachment')
   end
 

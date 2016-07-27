@@ -7,7 +7,7 @@ require_relative '../test_helper'
 describe BusinessTransactionExporter do
   let(:bt) { create :business_transaction_from_legal_entity }
 
-  describe 'integration tests' do
+  describe 'csv export' do
     it 'should return a csv string with the business transactions' do
       FactoryGirl.reload
 
@@ -19,6 +19,20 @@ describe BusinessTransactionExporter do
         expected_csv = File.read('test/fixtures/business_transaction_export1.csv')
 
         assert_equal(expected_csv, exporter.csv_string)
+      end
+    end
+
+    it 'should return an expressive filename' do
+      travel_to Time.new(2016, 04, 01, 12) do
+        time_range = Time.new(2016, 03, 01, 12)..Time.new(2016, 04, 30, 12)
+        user = build_stubbed :legal_entity
+
+        exporter = BusinessTransactionExporter.new(user, time_range)
+
+        assert_equal(
+          'fairmondo-bestellungen_20160301-20160430.csv',
+          exporter.filename
+        )
       end
     end
   end
