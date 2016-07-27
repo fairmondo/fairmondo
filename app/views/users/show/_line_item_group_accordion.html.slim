@@ -11,10 +11,10 @@
       params: { active_accordion: item_name },
       param_name: "#{item_name}_page"
 
-- if current_user.type == 'LegalEntity' && item_name == 'seller_line_item_groups'
-  h3 CSV-Export Bestellungen
+  - if current_user.type == 'LegalEntity' && item_name == 'seller_line_item_groups'
+    h3 CSV-Export Bestellungen
 
-  = form_tag(export_business_transactions_path, method: 'get') do
-    = select_year(2016, start_year: 2013, end_year: 2016)
-    = select_month(4, use_month_numbers: true)
-    = submit_tag('Exportieren', id: 'export_business_transactions_submit', class: 'Button')
+    = form_tag(export_business_transactions_path, method: 'get') do
+      = select_year(Time.now, start_year: 2013, end_year: 2016)
+      = select_month(Time.now, use_month_numbers: true)
+      = submit_tag('Exportieren', id: 'export_business_transactions_submit', class: 'Button')

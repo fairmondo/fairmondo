@@ -13,7 +13,12 @@ class BusinessTransactionsController < ApplicationController
   def export
     authorize :business_transaction, :export?
 
-    send_data('hello', filename: 'text.csv', type: 'text/csv; charset=utf-8',
+    @user = current_user
+    set_time_range
+
+    exporter = BusinessTransactionExporter.new(@user, @time_range)
+
+    send_data(exporter.csv_string, filename: 'text.csv', type: 'text/csv; charset=utf-8',
                        disposition: 'attachment')
   end
 
@@ -35,5 +40,14 @@ class BusinessTransactionsController < ApplicationController
 
   def set_business_transaction
     @business_transaction = BusinessTransaction.find(params[:id])
+  end
+
+  def set_time_range
+    year = (params[:date][:year]).to_i
+    month = (params[:date][:month]).to_i
+
+    start_time = DateTime.new(year, month).beginning_of_month
+    end_time = DateTime.new(year, month).end_of_month
+    @time_range = start_time..end_time
   end
 end
