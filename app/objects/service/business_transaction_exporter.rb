@@ -5,7 +5,7 @@
 class BusinessTransactionExporter
   def initialize(user, time_range = nil)
     @user = user
-    @time_range = time_range ? time_range : DateTime.new(2013,6,1)..DateTime.now
+    @time_range = time_range ? time_range : DateTime.new(2013, 6, 1)..DateTime.now
   end
 
   def csv_string

@@ -19,7 +19,7 @@ class BusinessTransactionsController < ApplicationController
     exporter = BusinessTransactionExporter.new(@user, @time_range)
 
     send_data(exporter.csv_string, filename: 'text.csv', type: 'text/csv; charset=utf-8',
-                       disposition: 'attachment')
+                                   disposition: 'attachment')
   end
 
   def set_transport_ready

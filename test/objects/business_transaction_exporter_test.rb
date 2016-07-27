@@ -31,7 +31,7 @@ describe BusinessTransactionExporter do
         user = bt1.seller
 
         travel_to Time.new(2016, 04, 01) do
-          bt2 = create :business_transaction_from_legal_entity, seller: user
+          create :business_transaction_from_legal_entity, seller: user
 
           time_range = Time.new(2016, 03, 01)..Time.new(2016, 05, 01)
           exporter = BusinessTransactionExporter.new(user, time_range)

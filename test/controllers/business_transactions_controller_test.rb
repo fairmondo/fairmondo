@@ -37,5 +37,4 @@ describe BusinessTransactionsController do
       )
     end
   end
-
 end
