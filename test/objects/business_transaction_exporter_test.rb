@@ -22,4 +22,30 @@ describe BusinessTransactionExporter do
       end
     end
   end
+
+  describe 'date' do
+    it 'should only return transaction within the given time range' do
+      travel_to Time.new(2016, 01, 01) do
+        bt1 = create :business_transaction_from_legal_entity
+
+        user = bt1.seller
+
+        travel_to Time.new(2016, 04, 01) do
+          bt2 = create :business_transaction_from_legal_entity, seller: user
+
+          time_range = Time.new(2016, 03, 01)..Time.new(2016, 05, 01)
+          exporter = BusinessTransactionExporter.new(user, time_range)
+          assert_equal(1, exporter.query.count)
+
+          time_range = Time.new(2015, 12, 01)..Time.new(2016, 05, 01)
+          exporter = BusinessTransactionExporter.new(user, time_range)
+          assert_equal(2, exporter.query.count)
+
+          time_range = Time.new(2015, 01, 01)..Time.new(2015, 12, 01)
+          exporter = BusinessTransactionExporter.new(user, time_range)
+          assert_equal(0, exporter.query.count)
+        end
+      end
+    end
+  end
 end

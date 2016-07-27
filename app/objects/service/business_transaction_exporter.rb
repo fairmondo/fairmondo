@@ -3,8 +3,9 @@
 #   See the COPYRIGHT file for details.
 
 class BusinessTransactionExporter
-  def initialize(user)
+  def initialize(user, time_range = nil)
     @user = user
+    @time_range = time_range ? time_range : Time.new(2013,6,1)..Time.now
   end
 
   def csv_string
@@ -36,6 +37,6 @@ class BusinessTransactionExporter
   def query
     BusinessTransaction
       .joins(:article, line_item_group: [:payment_address, :transport_address, :buyer])
-      .where(line_item_groups: { seller_id: @user.id })
+      .where(line_item_groups: { seller_id: @user.id }, sold_at: @time_range)
   end
 end
