@@ -78,17 +78,4 @@ module ApplicationHelper
   def navigation_push
     on_login_page? ? {} : { push: true }
   end
-
-  # Crowdfunding banner helpers
-
-  # Return hue between 0 and 120
-  def crowdfunding_progress_hue amount
-    hue = crowdfunding_progress_percentage(amount) * 1.2
-    hue.round
-  end
-
-  def crowdfunding_progress_percentage amount
-    progress = 100.0 / 100_000 * amount
-    progress.round
-  end
 end
