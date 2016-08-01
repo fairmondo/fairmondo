@@ -26,8 +26,8 @@ class BusinessTransactionExporter
 
   def csv_headers
     %w(
-      Datum Bestellnummer Warenwert\ Bestellung\ \(ohne\ UmSt.\)
-      Warenwert\ Bestellung\ \(mit\ UmSt.\) Versandkosten\ Bestellung Gesamtwert\ Bestellung
+      Datum Bestellnummer Bestellwert\ netto\ ohne\ Versand
+      Bestellwert\ brutto\ ohne\ Versand Versandkosten\ Bestellung Gesamtwert\ Bestellung
       Nachricht Käufer Name Firma E-Mail-Adresse Rechnungsadresse Lieferadresse
       Transaktionsnummer Artikelname Anzahl Einzelkosten Endbetrag Mehrwertsteuersatz Versandart
       Zahlungsart Storniert? Stornierungsgrund
@@ -43,6 +43,7 @@ class BusinessTransactionExporter
 
   def line_item_group_fields(lig)
     abacus = Abacus.new(lig)
+
     [
       lig.sold_at.strftime('%d.%m.%Y'),
       lig.purchase_id,
@@ -61,6 +62,13 @@ class BusinessTransactionExporter
   end
 
   def business_transaction_fields(bt)
+    transport = bt.selected_transport
+    if (transport == 'type1')
+      transport = bt.article.transport_type1_provider
+    elsif (transport == 'type2')
+      transport = bt.article.transport_type2_provider
+    end
+
     [
       bt.id,
       bt.article.title,
@@ -68,7 +76,7 @@ class BusinessTransactionExporter
       bt.article.price,
       bt.quantity_bought * bt.article.price,
       bt.article.vat,
-      bt.selected_transport,
+      transport,
       bt.selected_payment,
       bt.refund.present?,
       bt.refund.present? ? bt.refund.reason : ''
