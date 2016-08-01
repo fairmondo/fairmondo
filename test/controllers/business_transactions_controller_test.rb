@@ -11,16 +11,34 @@ describe BusinessTransactionsController do
     user
   end
 
+  describe 'GET show' do
+    it 'should redirect to line item group' do
+      bt = create :business_transaction
+      sign_in bt.seller
+      get :show, id: bt.id
+      assert_redirected_to line_item_group_path(bt.line_item_group)
+    end
+  end
+
+  describe 'GET set_transport_ready' do
+    it 'should redirect to line item group ' do
+      bt = create :business_transaction
+      sign_in bt.seller
+      get :set_transport_ready, id: bt.id
+      assert_redirected_to line_item_group_path(bt.line_item_group)
+    end
+  end
+
   describe 'GET export' do
     it 'should redirect if not logged in' do
       get :export, date: { year: 2016, month: 3 }
-      assert_response(302)
+      assert_response(:redirect)
     end
 
     it 'should be successful if logged in' do
       login
       get :export, date: { year: 2016, month: 3 }
-      assert_response(200)
+      assert_response(:success)
     end
 
     it 'should the current user' do

@@ -6,7 +6,7 @@ class BusinessTransactionsController < ApplicationController
   before_action :set_business_transaction, only: [:show, :set_transport_ready]
 
   def show
-    # no authorize needed as it only redirects, policy will be called on LIG
+    authorize @business_transaction
     redirect_to line_item_group_path @business_transaction.line_item_group
   end
 

@@ -3,6 +3,10 @@
 #   See the COPYRIGHT file for details.
 
 class BusinessTransactionPolicy < Struct.new(:user, :business_transaction)
+  def show?
+    own?
+  end
+
   def set_transport_ready?
     own?
   end
