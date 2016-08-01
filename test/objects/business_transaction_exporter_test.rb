@@ -13,7 +13,7 @@ describe BusinessTransactionExporter do
 
       travel_to Time.new(2016, 04, 01, 12) do
         user = bt.seller
-        refund = create :refund, business_transaction: bt
+        create :refund, business_transaction: bt
 
         exporter = BusinessTransactionExporter.new(user)
 
