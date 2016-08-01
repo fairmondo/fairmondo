@@ -10,13 +10,23 @@ class BusinessTransactionExporter
 
   def csv_string
     CSV.generate(encoding: 'utf-8', col_sep: ';') do |csv|
-      csv << ['Datum', 'Bestellnr.', 'Artikelname', 'Anzahl', 'Einzelkosten', 'Endbetrag',
+      csv << ['Datum', 'Bestellnummer', 'Warenwert Bestellung (ohne UmSt.)',
+              'Warenwert Bestellung (mit UmSt.)', 'Versandkosten Bestellung', 'Gesamtwert Bestellung',
+              'Transaktionsnummer', 'Artikelname', 'Anzahl', 'Einzelkosten', 'Endbetrag',
               'Mehrwertsteuersatz', 'Versandart', 'Zahlungsart', 'Nachricht', 'Käufer',
-              'Name', 'Firma', 'E-Mail-Adresse', 'Rechnungsadresse', 'Lieferadresse']
+              'Name', 'Firma', 'E-Mail-Adresse', 'Rechnungsadresse', 'Lieferadresse',
+              'Storniert?', 'Stornierungsgrund']
       query.find_each do |bt|
+        abacus = Abacus.new(bt.line_item_group)
+
         csv << [
-          bt.sold_at.strftime('%d.%m.%Y'),
+          bt.line_item_group.sold_at.strftime('%d.%m.%Y'),
           bt.line_item_group.purchase_id,
+          abacus.business_transaction_listing.total_net_price,
+          abacus.business_transaction_listing.total_retail_price,
+          abacus.transport_listing.total_transport,
+          abacus.total,
+          bt.id,
           bt.article.title,
           bt.quantity_bought,
           bt.article.price,
@@ -30,13 +40,9 @@ class BusinessTransactionExporter
           bt.buyer.standard_address_company_name,
           bt.line_item_group.buyer.email,
           bt.line_item_group.payment_address.to_s,
-          bt.line_item_group.transport_address.to_s
-          #bt.refund.present?,
-          #bt.refund.reason
-          # Kombiversand ja/nein
-          # Kaufpreis Bestellung
-          # Versandkosten Bestellung
-          # Gesamtbetrag Bestellung
+          bt.line_item_group.transport_address.to_s,
+          bt.refund.present?,
+          bt.refund.present? ? bt.refund.reason : ''
         ]
       end
     end
@@ -44,6 +50,7 @@ class BusinessTransactionExporter
 
   def query
     BusinessTransaction
+      .joins('LEFT OUTER JOIN refunds ON refunds.business_transaction_id = business_transactions.id')
       .joins(:article, line_item_group: [:payment_address, :transport_address, :buyer])
       .where(line_item_groups: { seller_id: @user.id }, sold_at: @time_range)
   end

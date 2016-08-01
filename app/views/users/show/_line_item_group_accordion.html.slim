@@ -14,7 +14,8 @@
   - if current_user.type == 'LegalEntity' && item_name == 'seller_line_item_groups'
     h3 CSV-Export Bestellungen
 
-    = form_tag(export_business_transactions_path, method: 'get') do
-      = select_year(Time.now, start_year: 2013, end_year: 2016)
+    = form_tag(export_business_transactions_path, method: 'get', class: 'c-bt-export') do
       = select_month(Time.now)
-      = submit_tag('Exportieren', id: 'export_business_transactions_submit', class: 'Button')
+      = select_year(Time.now, start_year: 2013, end_year: 2016)
+      = submit_tag('Exportieren', id: 'export_business_transactions_submit',
+        class: 'Button c-bt-export__submit')

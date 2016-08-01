@@ -54,8 +54,8 @@ feature 'CSV export' do
 
     page.must_have_content 'CSV-Export Bestellungen'
 
+    select('Mai', from: 'date_month')
     select('2016', from: 'date_year')
-    select('5', from: 'date_month')
     click_button 'export_business_transactions_submit'
     # TODO: Test for file download, apparently Selenium is needed
   end
