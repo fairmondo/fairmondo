@@ -80,7 +80,7 @@ class BusinessTransactionExporter
       bt.article.vat,
       transport,
       bt.selected_payment,
-      bt.refund.present?,
+      bt.refund.present? ? 'ja' : 'nein',
       bt.refund.present? ? bt.refund.reason : nil
     ]
   end
