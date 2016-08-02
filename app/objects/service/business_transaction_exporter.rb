@@ -19,7 +19,9 @@ class BusinessTransactionExporter
       csv << csv_headers
 
       query.find_each do |bt|
-        csv << (line_item_group_fields(bt.line_item_group) + business_transaction_fields(bt))
+        row = (line_item_group_fields(bt.line_item_group) + business_transaction_fields(bt))
+        update_row_if_unified_transport(row, bt.line_item_group)
+        csv << row
       end
     end
   end
@@ -79,7 +81,17 @@ class BusinessTransactionExporter
       transport,
       bt.selected_payment,
       bt.refund.present?,
-      bt.refund.present? ? bt.refund.reason : ''
+      bt.refund.present? ? bt.refund.reason : nil
     ]
+  end
+
+  def update_row_if_unified_transport(row, lig)
+    if lig.unified_transport
+      row[19] = lig.unified_transport_provider
+    end
+
+    if lig.unified_payment
+      row[20] = lig.unified_payment_method
+    end
   end
 end

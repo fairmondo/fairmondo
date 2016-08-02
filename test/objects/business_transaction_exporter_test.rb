@@ -23,6 +23,22 @@ describe BusinessTransactionExporter do
       end
     end
 
+    it 'should return unified payment method and unified transport provider correctly' do
+      FactoryGirl.reload
+
+      travel_to Time.new(2016, 04, 01, 12) do
+        lig = create :line_item_group, :with_business_transactions, :with_unified_transport,
+          :with_unified_payment_paypal, :sold
+        user = lig.seller
+
+        exporter = BusinessTransactionExporter.new(user)
+
+        expected_csv = File.read('test/fixtures/business_transaction_export2.csv')
+
+        assert_equal(expected_csv, exporter.csv_string)
+      end
+    end
+
     it 'should return an expressive filename' do
       travel_to Time.new(2016, 04, 01, 12) do
         time_range = Time.new(2016, 03, 01, 12)..Time.new(2016, 04, 30, 12)
