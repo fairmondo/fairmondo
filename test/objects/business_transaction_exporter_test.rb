@@ -28,7 +28,7 @@ describe BusinessTransactionExporter do
 
       travel_to Time.new(2016, 04, 01, 12) do
         lig = create :line_item_group, :with_business_transactions, :with_unified_transport,
-          :with_unified_payment_paypal, :sold
+                     :with_unified_payment_paypal, :sold
         user = lig.seller
 
         exporter = BusinessTransactionExporter.new(user)

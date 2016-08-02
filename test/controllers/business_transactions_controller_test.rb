@@ -21,11 +21,21 @@ describe BusinessTransactionsController do
   end
 
   describe 'GET set_transport_ready' do
-    it 'should redirect to line item group ' do
+    it 'should redirect to line item group with success notice' do
       bt = create :business_transaction
       sign_in bt.seller
       get :set_transport_ready, id: bt.id
       assert_redirected_to line_item_group_path(bt.line_item_group)
+      assert_equal I18n.t('transaction.notice.ready_success'), assigns[:notice]
+    end
+
+    it 'should redirect with failure notice if bt is already shipped' do
+      bt = create :business_transaction
+      bt.ship
+      sign_in bt.seller
+      get :set_transport_ready, id: bt.id
+      assert_redirected_to line_item_group_path(bt.line_item_group)
+      assert_equal I18n.t('transaction.notice.ready_failure'), assigns[:notice]
     end
   end
 
