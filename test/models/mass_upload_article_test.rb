@@ -85,4 +85,32 @@ describe MassUploadArticle do
       article.quantity_available.must_equal quantity
     end
   end
+
+  describe 'empty CSV rows' do
+    before do
+      Article.any_instance.stubs(:valid?).returns(true)
+      MassUploadArticle.any_instance.stubs(:update_index)
+      Indexer.stubs(:index_article)
+    end
+
+    let(:unsanitized_row_hash) do
+      {
+        "﻿€"=>"NULL", "title"=>nil, "categories"=>nil, "condition"=>nil, "content"=>nil, "quantity"=>nil,
+        "price_cents"=>nil, "vat"=>nil, "external_title_image_url"=>nil, "transport_type1"=>nil,
+        "transport_type1_provider"=>nil, "transport_type1_price_cents"=>nil, "transport_type1_number"=>nil,
+        "transport_details"=>nil, "transport_time"=>nil, "unified_transport"=>nil,
+        "payment_bank_transfer"=>nil, "payment_paypal"=>nil, "payment_invoice"=>nil,
+        "payment_voucher"=>nil, "payment_details"=>nil, "gtin"=>nil, "custom_seller_identifier"=>nil,
+        "action"=>nil
+      }
+    end
+
+    it 'should be updated' do
+      # Sidekiq.logger.stubs(:warn)
+      mass_upload_article = create :mass_upload_article
+      mass_upload = mass_upload_article.mass_upload
+
+      mass_upload_article.process unsanitized_row_hash
+    end
+  end
 end
