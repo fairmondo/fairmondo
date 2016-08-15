@@ -262,7 +262,7 @@ RailsAdmin.config do |config|
     field :mobile
     field :fax
     field :slug
-    field(:type) { read_only true }
+    field :type
     field :bank_account_owner
     field :bank_name
     field :iban
