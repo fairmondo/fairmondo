@@ -38,15 +38,7 @@ de:
         label:       "gebraucht"
 
     article_queue:
-      :1:
-        heading: "Fairmondo Shop"
-        more: "Mehr"
-      :2:
-        heading: "Es ist T-Shirt-Zeit…"
-        more: "Mehr"
-      :3:
-        heading: "Mit Spendenanteil"
-        more: "Mehr Artikel mit Spendenanteil"
+      more: "Mehr"
 
     trending_libraries:
       heading: "Empfehlungen von Nutzer*innen"

@@ -3,12 +3,12 @@
 div.teaser.teaser--double. class="#{ side == :left ? 'teaser--clear' : 'teaser--collapsible teaser--reducible'}"
   .teaser-inner
     h2
-      = link_to( t(".#{ number }.heading"),
-        featured_library_path(queue[:library]))
+      = link_to tinycms_content_body("heading_queue#{number}"),
+                featured_library_path(queue[:library])
     - queue[:exhibits].each do |article|
       .teaser-queue
         = render 'articles/shared/show_article', article: article
 
     p.more
-      = link_to( t(".#{ number }.more"),
+      = link_to( t(".more"),
         featured_library_path(queue[:library]))
