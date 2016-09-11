@@ -3,7 +3,7 @@
 div.teaser.teaser--double. class="#{ side == :left ? 'teaser--clear' : 'teaser--collapsible teaser--reducible'}"
   .teaser-inner
     h2
-      = link_to tinycms_content_body("heading_queue#{number}"),
+      = link_to strip_tags(tinycms_content_body("heading_queue#{number}")),
                 featured_library_path(queue[:library])
     - queue[:exhibits].each do |article|
       .teaser-queue
