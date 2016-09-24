@@ -308,7 +308,7 @@ feature 'Direct debit mandate for legal entities' do
 
     # Assert 2 requests to Fastbill, one customer.get, one customer.update (both are POST requests)
     # User is saved two times, therefore 4 requests
-    assert_requested :post, 'https://my_email:my_fastbill_api_key@automatic.fastbill.com'\
+    assert_requested :post, 'https://my_email:my_fastbill_api_key@monsum.com'\
                             '/api/1.0/api.php', times: 4
   end
 
@@ -331,7 +331,7 @@ feature 'Direct debit mandate for legal entities' do
 
     refute @user.reload.has_active_direct_debit_mandate?
     # Assert 2 requests to Fastbill, one customer.get, one customer.update (both are POST requests)
-    assert_requested :post, 'https://my_email:my_fastbill_api_key@automatic.fastbill.com'\
+    assert_requested :post, 'https://my_email:my_fastbill_api_key@monsum.com'\
                             '/api/1.0/api.php', times: 2
     page.must_have_content I18n.t('devise.registrations.direct_debit_mandate_revoked')
   end
