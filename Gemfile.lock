@@ -8,9 +8,9 @@ GIT
 
 GIT
   remote: git://github.com/marcaltmann/fastbill-automatic.git
-  revision: 26ce93677d694b4fff7d71a0d2fb664ebc0827f9
+  revision: 9b9ce0c19464ea00aeabeb0738b9abe2381b96ad
   specs:
-    fastbill-automatic (0.0.3)
+    fastbill-automatic (0.1.0)
       json
 
 GIT

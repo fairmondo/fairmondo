@@ -92,7 +92,7 @@ class ActiveSupport::TestCase
     DatabaseCleaner.start
 
     # Use fake Fastbill service
-    stub_request(:any, /automatic.fastbill.com/).to_rack(FakeFastbill)
+    stub_request(:any, /monsum.com/).to_rack(FakeFastbill)
   end
 
   after :each do
@@ -110,7 +110,7 @@ class MiniTest::Spec
     DatabaseCleaner.start
 
     # Use fake Fastbill service
-    stub_request(:any, /automatic.fastbill.com/).to_rack(FakeFastbill)
+    stub_request(:any, /monsum.com/).to_rack(FakeFastbill)
   end
 
   after :each do
