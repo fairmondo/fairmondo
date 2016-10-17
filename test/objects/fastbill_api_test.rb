@@ -23,7 +23,7 @@ describe FastbillAPI do
         it 'should not contact Fastbill' do
           api = FastbillAPI.new bt_from_private_user
           api.fastbill_chain
-          assert_not_requested :post, 'https://my_email:my_fastbill_api_key@monsum.com'\
+          assert_not_requested :post, 'https://my_email:my_fastbill_api_key@app.monsum.com'\
                                       '/api/1.0/api.php'
         end
       end
@@ -32,7 +32,7 @@ describe FastbillAPI do
         it 'should not contact Fastbill' do
           api = FastbillAPI.new bt_from_ngo
           api.fastbill_chain
-          assert_not_requested :post, 'https://my_email:my_fastbill_api_key@monsum.com'\
+          assert_not_requested :post, 'https://my_email:my_fastbill_api_key@app.monsum.com'\
                                       '/api/1.0/api.php'
         end
       end
@@ -41,7 +41,7 @@ describe FastbillAPI do
         it 'should not contact Fastbill' do
           api = FastbillAPI.new bt_from_marketplace_owner_account
           api.fastbill_chain
-          assert_not_requested :post, 'https://my_email:my_fastbill_api_key@monsum.com'\
+          assert_not_requested :post, 'https://my_email:my_fastbill_api_key@app.monsum.com'\
                                       '/api/1.0/api.php'
         end
       end
@@ -56,7 +56,7 @@ describe FastbillAPI do
             api.expects(:fastbill_create_customer).never
             api.expects(:fastbill_create_subscription).never
             api.fastbill_chain
-            assert_requested :post, 'https://my_email:my_fastbill_api_key@monsum.com'\
+            assert_requested :post, 'https://my_email:my_fastbill_api_key@app.monsum.com'\
                                     '/api/1.0/api.php', times: 2
           end
         end
