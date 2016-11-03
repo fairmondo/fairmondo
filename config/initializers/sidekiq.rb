@@ -20,17 +20,31 @@ begin
 rescue LoadError, NoMethodError
 end
 
+# Try out database storage in Redis for staging
+# http://www.mikeperham.com/2015/09/24/storing-data-with-redis/
+redis_staging = { url: 'redis://10.0.2.181:6380/4' }
+redis_production = { url: 'redis://10.0.2.181:6379', namespace: 'fairnopoly' }
+
 Sidekiq.configure_server do |config|
-  config.redis = { url: 'redis://10.0.2.181:6379', namespace: 'fairnopoly' } if Rails.env.production?
+  if Rails.env.staging?
+    config.redis = redis_staging
+  elsif Rails.env.production?
+    config.redis = redis_production
+  end
+
   begin
     config.reliable_fetch!
   rescue NoMethodError
   end
 end
 
-if Rails.env.production?
+if Rails.env.staging?
   Sidekiq.configure_client do |config|
-    config.redis = { url: 'redis://10.0.2.181:6379', namespace: 'fairnopoly' }
+    config.redis = redis_staging
+  end
+elsif Rails.env.production?
+  Sidekiq.configure_client do |config|
+    config.redis = redis_production
   end
 end
 

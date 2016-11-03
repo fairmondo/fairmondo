@@ -8,4 +8,4 @@ development:
 production:
   host: '10.0.2.180:9201'
 staging:
-  host: 'localhost:9200'
+  host: '10.0.2.181:9200'

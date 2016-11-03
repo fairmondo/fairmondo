@@ -17,8 +17,6 @@ set :rbenv_roles, :all # default value
 # Default branch is :master
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }
 
-set :deploy_to, '/var/www/fairnopoly'
-
 # Default value for :scm is :git
 set :scm, :git
 
