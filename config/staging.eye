@@ -11,9 +11,9 @@ Eye.application 'fairmondo' do
 
   group 'sidekiq' do
     1.times do |i|
-      process "sidekiq#{i}" do
+      process "sidekiq-staging#{i}" do
 
-        _pidfile = "#{dir}/tmp/pids/sidekiq#{i}.pid"
+        _pidfile = "#{dir}/tmp/pids/sidekiq-staging#{i}.pid"
         pid_file _pidfile
         stdall 'log/trash.log'
         daemonize true
