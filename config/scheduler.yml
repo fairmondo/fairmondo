@@ -10,11 +10,11 @@ calculate_library_popularities:
   queue: statistics
   description: "Calculates popularity count for libraries twice a week"
 
-# export_csv_for_affiliate_marketing:
-#   cron: "0 2 * * 1"
-#   class: BelboonArticleExporterWorker
-#   queue: belboon_csv_export
-#   description: "Exports articles as CSV file for Belboon affiliate marketing once a week"
+export_csv_for_affiliate_marketing:
+  cron: "0 2 1 * *"
+  class: BelboonArticleExporterWorker
+  queue: belboon_csv_export
+  description: "Exports articles as CSV file for Belboon affiliate marketing once a month"
 
 delete_old_articles:
   cron: "0 12 * * 2"
