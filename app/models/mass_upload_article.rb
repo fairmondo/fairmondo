@@ -85,11 +85,20 @@ class MassUploadArticle < ActiveRecord::Base
     prepare_categories
     prepare_questionaires
     prepare_action
+    strip_nil_fields
   end
 
   # Throw away additional fields that are not needed
   def sanitize_fields
     @article_attributes.slice!(*MassUpload.article_attributes)
+  end
+
+  # Strip price_cents and categories fields if they are nil because they would cause problems
+  def strip_nil_fields
+    @article_attributes.delete_if do |key, value|
+      (key == 'price_cents' && value.nil?) ||
+        (key == 'categories' && value.nil?)
+    end
   end
 
   def prepare_categories
