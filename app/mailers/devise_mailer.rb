@@ -5,8 +5,7 @@
 class DeviseMailer < Devise::Mailer
   # helper :application # gives access to all helpers defined within `application_helper`.
   include MailerHelper
-  before_filter :inline_logos
-  layout 'email'
+  layout 'text-email'
 
   def welcome_mail(record, token, _opts = {})
     attachments['AGB_Fairmondo.pdf'] = File.read(Rails.root.join('app/assets/docs/AGB.pdf'))
