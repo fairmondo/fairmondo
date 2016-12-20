@@ -58,7 +58,7 @@ Fairmondo::Application.configure do
 
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
-  config.action_mailer.default_url_options = { :host => 'www.fairmondo.de' ,:protocol => 'https' }
+  config.action_mailer.default_url_options = { host: 'www.fairmondo.de', protocol: 'https' }
 
   config.dependency_loading = true if $rails_rake_task
   #http://stackoverflow.com/questions/4300240/rails-3-rake-task-cant-find-model-in-production
