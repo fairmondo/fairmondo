@@ -14,8 +14,10 @@ class FastbillRefundWorker
       bt = BusinessTransaction.lock.find(id)
       fastbill = FastbillAPI.new bt
 
-      [:fair, :fee].each do |type|
-        fastbill.send("fastbill_refund_#{ type }")
+      if bt.seller.needs_to_be_billed?
+        [:fair, :fee].each do |type|
+          fastbill.send("fastbill_refund_#{ type }")
+        end
       end
     end
   end
