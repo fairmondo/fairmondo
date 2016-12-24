@@ -11,7 +11,7 @@ describe FastbillRefundWorker do
     fba.expects(:fastbill_refund_fee)
     fba.expects(:fastbill_refund_fair)
 
-    bt = create(:business_transaction)
+    bt = create(:business_transaction_from_legal_entity)
     FastbillRefundWorker.new.perform(bt.id)
   end
 
