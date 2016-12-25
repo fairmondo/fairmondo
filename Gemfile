@@ -150,6 +150,8 @@ group :development do
 
   # Rails application preloader
   gem 'spring'
+
+  gem 'web-console', '~> 2.0'
 end
 
 group :test do

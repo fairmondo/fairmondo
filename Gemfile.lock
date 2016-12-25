@@ -688,6 +688,11 @@ GEM
       httpi (~> 2.0)
       mime-types (< 2.0.0)
       nokogiri (>= 1.4.0)
+    web-console (2.3.0)
+      activemodel (>= 4.0)
+      binding_of_caller (>= 0.7.2)
+      railties (>= 4.0)
+      sprockets-rails (>= 2.0, < 4.0)
     webmock (1.21.0)
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
@@ -824,6 +829,7 @@ DEPENDENCIES
   tinymce-rails (~> 4.1.10)
   tinymce-rails-langs
   uglifier (~> 2.7.2)
+  web-console (~> 2.0)
   webmock
   wiselinks
 
