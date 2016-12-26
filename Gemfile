@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 
 # Rails
-gem 'rails', '~> 4.1.16'
+gem 'rails', '~> 4.2.0'
 gem 'rails-observers' # observers got extracted since rails 4
 gem 'activerecord-session_store' # sessions in activerecord
 
@@ -71,7 +71,7 @@ gem 'canonical-rails' # canonical view links
 gem 'devise', '~> 3.5.10' # authentication
 gem 'pundit' # authorization
 gem 'kaminari' # pagination
-gem 'responders'
+gem 'responders', '~> 2.0'
 
 # ---------- Mail ----------
 

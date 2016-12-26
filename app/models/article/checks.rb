@@ -29,7 +29,7 @@ module Article::Checks
 
   def is_template?
     # works even when the db state did not change yet
-    self.state.to_sym == :template
+    self.state.to_s.to_sym == :template
   end
 
   def qualifies_for_discount?
