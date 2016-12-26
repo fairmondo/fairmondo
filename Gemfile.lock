@@ -643,7 +643,7 @@ GEM
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
     state_machine (1.2.0)
-    susy (2.1.3)
+    susy (2.2.12)
       sass (>= 3.3.0, < 3.5)
     systemu (2.6.4)
     temple (0.7.7)
@@ -823,7 +823,7 @@ DEPENDENCIES
   sprockets
   sqlite3
   state_machine
-  susy (~> 2.1.1)
+  susy (~> 2.2.1)
   therubyracer
   therubyrhino
   thin

@@ -35,7 +35,7 @@ gem 'slim-rails', '>= 2.1.5'
 gem 'jbuilder'
 
 ## CSS
-gem 'susy', '~> 2.1.1' # Grid framework is susy
+gem 'susy', '~> 2.2.1' # Grid framework is susy
 gem 'sass-rails', '~> 5.0.4'
 gem 'bourbon', '<= 4.0.2' # easy ccs3
 gem 'font-awesome-rails', '>= 4.2.0.0'
