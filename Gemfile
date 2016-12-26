@@ -36,7 +36,7 @@ gem 'jbuilder'
 
 ## CSS
 gem 'susy', '~> 2.2.1' # Grid framework is susy
-gem 'sass-rails', '~> 5.0.4'
+gem 'sass-rails', '~> 5.0.6'
 gem 'bourbon', '<= 4.0.2' # easy ccs3
 gem 'font-awesome-rails', '>= 4.2.0.0'
 gem 'sprite-factory'
@@ -94,7 +94,7 @@ gem 'kontoapi-ruby' # KontoAPI checks bank data
 gem 'ibanomat' # accound number to IBAN
 gem 'memoist' # Support for memoization
 gem 'rails_admin', '>= 0.6.6' # Administrative backend
-gem 'rails_admin_statistics', github: 'KonstantinKo/rails_admin_statistics'
+gem 'rails_admin_statistics', git: 'https://github.com/KonstantinKo/rails_admin_statistics.git'
 gem 'rails_admin_nested_set'
 gem 'rack-rewrite' # Redirects
 gem 'json'
@@ -110,7 +110,7 @@ gem 'exception_notification'
 # ---------- API ----------
 
 # Gem for connecting to FastBill Automatic
-gem 'fastbill-automatic', git: 'git://github.com/marcaltmann/fastbill-automatic.git'
+gem 'fastbill-automatic', git: 'https://github.com/marcaltmann/fastbill-automatic.git'
 
 gem 'savon' # interacing with other SOAP apis:
 gem 'rubyntlm' # https://github.com/savonrb/savon/issues/593
@@ -197,7 +197,7 @@ group :development, :test do
 
   # test suite additions
   gem 'rails_best_practices'
-  gem 'brakeman', github: 'presidentbeef/brakeman'  # security test: execute with 'brakeman' locked because of slim https://github.com/presidentbeef/brakeman/pull/602/files
+  gem 'brakeman', git: 'https://github.com/presidentbeef/brakeman.git'  # security test: execute with 'brakeman' locked because of slim https://github.com/presidentbeef/brakeman/pull/602/files
   gem 'rubocop' # style enforcement
 
   gem 'bullet' # Notify about n+1 queries
@@ -208,5 +208,5 @@ group :development, :test, :staging do
   gem 'ffaker'
 
   # styleguides
-  gem 'nkss-rails', github: 'nadarei/nkss-rails'
+  gem 'nkss-rails', git: 'https://github.com/nadarei/nkss-rails.git'
 end
