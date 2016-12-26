@@ -58,8 +58,7 @@ gem 'tinymce-rails-langs'
 gem 'jquery-rails', '~> 3.1.3'
 gem 'rails-timeago'
 gem 'wiselinks'
-# No longer maintained. Triggers deprecation warnings, should be removed completely.
-gem 'hogan_assets'
+gem 'handlebars_assets'
 
 ## Forms
 

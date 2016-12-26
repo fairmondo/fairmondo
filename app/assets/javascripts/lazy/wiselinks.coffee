@@ -15,7 +15,7 @@ $(document).ready ->
             text = "Entschuldigung, da ist wohl etwas schiefgelaufen. Die Seite die du aufrufen wolltest funktioniert nicht richtig."
           if $('#page_error').length == 0
             $('body').prepend(
-              Template['lazy_wiselinks'].render
+              HandlebarsTemplates['wiselinks/notice']
                 text: text
             )
     )
