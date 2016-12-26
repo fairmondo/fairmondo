@@ -36,8 +36,7 @@ validateRemotely = (event) ->
           if response.errors.length > 0 # add an error message if one exists
             #$.each response.errors, (index, error) -> console.log "#{target.name}: #{error}"
             $target.parent().addClass 'error'
-            new_error = $ Template['visual_remote_validation'].render
+            new_error = $ HandlebarsTemplates['articles/remote_validation_error']
               error: response.errors[0]
             $target.after new_error
             document.Fairmondo.setQTipError new_error
-

@@ -16,14 +16,14 @@ autocomplete_hook = ->
       formatResult: (suggestion, currentValue) ->
         title = $.Autocomplete.formatResult suggestion, currentValue
         if suggestion['data']['type'] == 'suggest'
-          Template['models_article_search_input/suggest'].render
+          HandlebarsTemplates['autocomplete/suggest']
             title: title
         else if suggestion['data']['type'] == 'result'
-          Template['models_article_search_input/result'].render
+          HandlebarsTemplates['autocomplete/result']
             data: suggestion['data']
             title: title
         else if suggestion['data']['type'] == 'more'
-          Template['models_article_search_input/more'].render
+          HandlebarsTemplates['autocomplete/more']
             suggestion: suggestion
 
 $(document).ready autocomplete_hook

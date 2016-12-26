@@ -8,11 +8,11 @@ $(document).ready ->
 
   $('.js-friendly-percent-organisation-label').hide()
 
-  $(".js-friendly-percent-organisation-select").on "change", (event) ->
+  $('.js-friendly-percent-organisation-select').on 'change', (event) ->
     valueSelected = @value
     textSelected = $('option:selected', @).html()
-    $(".js-friendly-percent-organisation-link").html(
-      Template['models_article_friendly_percent'].render
+    $('.js-friendly-percent-organisation-link').html(
+      HandlebarsTemplates['articles/friendly_percent']
         text: textSelected
         value: valueSelected
     )

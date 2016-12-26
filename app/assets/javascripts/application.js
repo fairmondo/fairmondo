@@ -12,7 +12,7 @@
 //= require jquery-ui/accordion
 //= require qtip2-jquery-rails
 
-//= require hogan.js
+//= require handlebars.runtime
 //= require_tree ./templates
 
 //= require modernizr
