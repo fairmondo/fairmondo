@@ -61,7 +61,7 @@ gem 'handlebars_assets'
 
 ## Forms
 
-gem 'formtastic', '~> 2.3.0.rc3'
+gem 'formtastic', '~> 2.3.1'
 gem 'recaptcha', require: 'recaptcha/rails' # Captcha Gem
 
 # ---------- Controller ----------

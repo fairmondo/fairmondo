@@ -762,7 +762,7 @@ DEPENDENCIES
   fastbill-automatic!
   ffaker
   font-awesome-rails (>= 4.2.0.0)
-  formtastic (~> 2.3.0.rc3)
+  formtastic (~> 2.3.1)
   friendly_id (>= 4.0.9)
   guard
   guard-ctags-bundler
