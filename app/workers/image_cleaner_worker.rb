@@ -9,8 +9,8 @@ class ImageCleanerWorker
                   retry: 20,
                   backtrace: true
 
-  def perform(range)
+  def perform(first, last)
     cleaner = ImageCleaner.new
-    cleaner.show(range)
+    cleaner.show(first..last)
   end
 end

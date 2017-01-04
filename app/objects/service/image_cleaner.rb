@@ -15,11 +15,11 @@ class ImageCleaner
 
         begin
           img = Image.find(id)
-          file.puts("#{path}: #{img.image_file_name}")
+          file.puts("#{id}: #{img.image_file_name}")
         rescue ActiveRecord::RecordNotFound
           if File.exist?(path)
             files_found += 1
-            file.puts("#{path}: no image")
+            file.puts("#{id}: no image")
           end
         end
       end
