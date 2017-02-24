@@ -16,6 +16,6 @@
 
     = form_tag(export_business_transactions_path, method: 'get', class: 'c-bt-export') do
       = select_month(Time.now)
-      = select_year(Time.now, start_year: 2013, end_year: 2016)
+      = select_year(Time.now, start_year: 2013, end_year: Time.now.year)
       = submit_tag('Exportieren', id: 'export_business_transactions_submit',
         class: 'Button c-bt-export__submit')
