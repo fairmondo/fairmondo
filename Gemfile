@@ -36,7 +36,7 @@ gem 'jbuilder'
 
 ## CSS
 gem 'susy', '~> 2.1.1' # Grid framework is susy
-gem 'sass-rails', '~> 5.0.6'
+gem 'sass-rails', '~> 5.0.4'
 gem 'bourbon', '<= 4.0.2' # easy ccs3
 gem 'font-awesome-rails', '>= 4.2.0.0'
 gem 'sprite-factory'
@@ -110,7 +110,7 @@ gem 'exception_notification'
 # ---------- API ----------
 
 # Gem for connecting to FastBill Automatic
-gem 'fastbill-automatic', github: 'marcaltmann/fastbill-automatic'
+gem 'fastbill-automatic', git: 'git://github.com/marcaltmann/fastbill-automatic.git'
 
 gem 'savon' # interacing with other SOAP apis:
 gem 'rubyntlm' # https://github.com/savonrb/savon/issues/593
