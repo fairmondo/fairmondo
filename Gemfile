@@ -31,13 +31,14 @@ gem 'active_data'
 gem 'chewy'
 # ---------- View ----------
 
-gem 'slim-rails', '>= 2.1.5'
+gem 'slim-rails', '~> 3.1.2'
 gem 'jbuilder'
 
 ## CSS
-gem 'susy', '~> 2.1.1' # Grid framework is susy
+gem 'susy', '~> 2.1.1'
+# Updating sass-rails to 5.0.6 is not possible at the moment because minitest 5.10.2 breaks tests
 gem 'sass-rails', '~> 5.0.4'
-gem 'bourbon', '<= 4.0.2' # easy ccs3
+gem 'bourbon', '<= 4.0.2'
 gem 'font-awesome-rails', '>= 4.2.0.0'
 gem 'sprite-factory'
 gem 'chunky_png' # needed for sprite-factory
@@ -57,6 +58,7 @@ gem 'tinymce-rails-langs'
 gem 'jquery-rails', '~> 3.1.3'
 gem 'rails-timeago'
 gem 'wiselinks'
+# No longer maintained. Triggers deprecation warnings, should be removed completely.
 gem 'hogan_assets'
 
 ## Forms
@@ -110,7 +112,7 @@ gem 'exception_notification'
 # ---------- API ----------
 
 # Gem for connecting to FastBill Automatic
-gem 'fastbill-automatic', git: 'git://github.com/marcaltmann/fastbill-automatic.git'
+gem 'fastbill-automatic', github: 'marcaltmann/fastbill-automatic'
 
 gem 'savon' # interacing with other SOAP apis:
 gem 'rubyntlm' # https://github.com/savonrb/savon/issues/593
