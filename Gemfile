@@ -14,7 +14,7 @@ end
 
 # ----------  Model ----------
 
-gem 'paperclip', '4.2.0' # image uploads ### LOCKED Paperclip at version 4.2.0 until #1706 (https://github.com/thoughtbot/paperclip/issues/1706) is fixed
+gem 'paperclip', '~> 4.2.2'
 gem 'money-rails', '> 0.12.0' # dealing with money in activerecord
 gem 'monetize' # parsing money
 gem 'enumerize', '>= 0.5.1' # enums as symbols in ar
@@ -84,7 +84,7 @@ gem 'premailer-rails', '~> 1.9.3' # creates emails with inline css from html fil
 gem 'sidekiq', '~> 4.1.2'
 gem 'sidekiq-scheduler', '~> 2.0'
 gem 'sinatra', '>= 1.3.0', require: nil
-gem 'delayed_paperclip' # handle image processing with sidekiq
+gem 'delayed_paperclip', '~> 2.9.2'
 gem 'bluepill' # legacy, remove when eye stable
 gem 'eye', '~> 0.8.1' # sidekiq process monitoring
 gem 'redis-namespace', '~> 1.5.2'
