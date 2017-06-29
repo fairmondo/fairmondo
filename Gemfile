@@ -100,12 +100,12 @@ gem 'rails_admin_statistics', github: 'KonstantinKo/rails_admin_statistics'
 gem 'rails_admin_nested_set'
 gem 'rack-rewrite' # Redirects
 gem 'json'
-gem 'nokogiri', '~> 1.6.8'
+gem 'nokogiri', '~> 1.7.2'
 gem 'prawn_rails' # pdf generation
 
 # ---------- Monitoring ----------
 gem 'newrelic_rpm',  group: [:production, :staging]
-gem 'rack-mini-profiler'
+gem 'rack-mini-profiler', '~> 0.10.1'
 gem 'lograge'
 gem 'exception_notification'
 
