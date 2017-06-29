@@ -20,7 +20,7 @@ describe CartsController do
     sign_in user
     get :show, id: cart.id
     assert_template :show
-    user.reload.belboon_tracking_token.must_equal nil
-    user.reload.belboon_tracking_token_set_at.must_equal nil
+    assert_nil user.reload.belboon_tracking_token
+    assert_nil user.reload.belboon_tracking_token_set_at
   end
 end

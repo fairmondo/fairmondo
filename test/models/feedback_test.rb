@@ -67,7 +67,7 @@ describe Feedback do
       it 'should not set the user_id when signed out' do
         f = Feedback.new
         f.put_user_id nil
-        f.user_id.must_equal nil
+        assert_nil f.user_id
       end
     end
   end
