@@ -140,7 +140,7 @@ group :development do
   # Guard
   gem 'guard'
   gem 'guard-ctags-bundler'
-  gem 'rb-readline'
+  gem 'rb-readline', '~> 0.5.4'
   gem 'guard-minitest'
   gem 'guard-rubocop'
   gem 'guard-livereload', '~> 2.4', require: false

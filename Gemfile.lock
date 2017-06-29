@@ -537,7 +537,7 @@ GEM
     rb-fsevent (0.9.4)
     rb-inotify (0.9.5)
       ffi (>= 0.5.0)
-    rb-readline (0.5.2)
+    rb-readline (0.5.4)
     recaptcha (0.3.6)
     redis (3.3.0)
     redis-namespace (1.5.2)
@@ -797,7 +797,7 @@ DEPENDENCIES
   rails_admin_statistics!
   rails_best_practices
   rake
-  rb-readline
+  rb-readline (~> 0.5.4)
   recaptcha
   redis-namespace (~> 1.5.2)
   responders
