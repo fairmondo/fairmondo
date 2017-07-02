@@ -6,7 +6,7 @@ require_relative '../test_helper'
 
 describe Image do
   subject { Image.new }
-  let(:image) { create(:article_image) }
+  let(:image) { build_stubbed(:article_image) }
 
   it 'has a valid Factory' do
     subject.valid?.must_equal true
@@ -28,11 +28,9 @@ describe Image do
   end
 
   describe 'associations' do
-    let(:article_image) { ArticleImage.new }
-    let(:feedback_image) { FeedbackImage.new }
-    let(:user_image) { UserImage.new }
+    article_image = ArticleImage.new
+    user_image = UserImage.new
     it { article_image.must belong_to :article }
-    it { feedback_image.must belong_to :feedback }
     it { user_image.must belong_to :user }
   end
 
