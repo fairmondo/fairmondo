@@ -38,6 +38,7 @@ class UserImage < Image
   def copy_to_gcs
     setup_connection
     styles = [:original, :profile, :thumb]
+
     styles.each do |style|
       path = image.path(style)
       # filename cannot be used directly because extension can be different
@@ -57,7 +58,7 @@ class UserImage < Image
         path = image.path(style)
         # filename cannot be used directly because extension can be different
         filename = path.split("/").last
-        object_name = "user_images/images/#{self.id}"
+        object_name = "user_images/images/#{self.id}/#{style}/#{filename}"
         @connection.delete_object(@bucket_name, object_name)
       rescue
       end
