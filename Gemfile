@@ -15,6 +15,7 @@ end
 # ----------  Model ----------
 
 gem 'paperclip', '~> 4.2.2'
+gem 'fog-google'
 gem 'money-rails', '> 0.12.0' # dealing with money in activerecord
 gem 'monetize' # parsing money
 gem 'enumerize', '>= 0.5.1' # enums as symbols in ar

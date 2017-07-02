@@ -1,0 +1,10 @@
+storage: :fog
+fog_credentials:
+  provider: 'Google'
+  google_storage_access_key_id: <%= Rails.application.secrets.google_storage_access_key_id %>
+  google_storage_secret_access_key: <%= Rails.application.secrets.google_storage_secret_access_key %>
+fog_directory: <%= Rails.application.secrets.google_bucket_name %>
+path: ':class/:attachment/:id/:style/:filename'
+url: ':gcs_domain_url'
+
+activated_user_images: false
