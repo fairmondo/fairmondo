@@ -116,7 +116,7 @@
           = link_to resource.seller.cancellation_form.url(:original, false) do
             = t('formtastic.labels.user.cancellation_form')
       = accordion_item "about", {content_class: "Accordion-content-maxsize"} do
-        = resource.seller_about.html_safe
+        = raw clickable_legal_links(resource.seller_about)
 
 
   - # Feedback Box
