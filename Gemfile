@@ -14,7 +14,7 @@ end
 
 # ----------  Model ----------
 
-gem 'paperclip', '~> 4.2.2'
+gem 'paperclip', '~> 4.3.6'
 gem 'money-rails', '> 0.12.0' # dealing with money in activerecord
 gem 'monetize' # parsing money
 gem 'enumerize', '>= 0.5.1' # enums as symbols in ar
@@ -179,7 +179,7 @@ group :development, :test do
   gem 'capistrano-bundler', '~> 1.1.2'
   gem 'capistrano-rbenv'
 
-  gem 'minitest' # Testing using Minitest
+  gem 'minitest', '5.10.1' # Minitest 5.10.2 breaks tests with the current Rails version
   gem 'minitest-matchers'
   gem 'minitest-line'
   gem 'launchy' # save_and_open_page
