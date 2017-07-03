@@ -53,7 +53,7 @@ describe SessionsController do
       session[:belboon] = 'abcd,1234'
       post :create, user: { email: @user.email, password: 'password' }
       @user.reload.belboon_tracking_token.must_equal 'abcd,1234'
-      session[:belboon].must_equal nil
+      assert_nil session[:belboon]
     end
   end
 
@@ -67,13 +67,13 @@ describe SessionsController do
 
     it 'should delete the cart cookie' do
       get :destroy
-      cookies.signed[:cart].must_equal nil
+      assert_nil cookies.signed[:cart]
     end
 
     it 'should delete belboon tracking token, when void' do
       get :destroy
-      @user.reload.belboon_tracking_token.must_equal nil
-      @user.reload.belboon_tracking_token_set_at.must_equal nil
+      assert_nil @user.reload.belboon_tracking_token
+      assert_nil @user.reload.belboon_tracking_token_set_at
     end
   end
 end

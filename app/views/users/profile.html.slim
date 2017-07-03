@@ -8,7 +8,7 @@
     - if resource.about.present?
       h3
         = "#{t('formtastic.labels.user.about')}"
-      = raw resource.about
+      = raw clickable_legal_links(resource.about)
 
     - if resource.terms.present?
       hr

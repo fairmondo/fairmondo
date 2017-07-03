@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 
 # Rails
-gem 'rails', '~> 4.1.15'
+gem 'rails', '~> 4.1.16'
 gem 'rails-observers' # observers got extracted since rails 4
 gem 'activerecord-session_store' # sessions in activerecord
 
@@ -14,7 +14,7 @@ end
 
 # ----------  Model ----------
 
-gem 'paperclip', '4.2.0' # image uploads ### LOCKED Paperclip at version 4.2.0 until #1706 (https://github.com/thoughtbot/paperclip/issues/1706) is fixed
+gem 'paperclip', '~> 4.2.2'
 gem 'money-rails', '> 0.12.0' # dealing with money in activerecord
 gem 'monetize' # parsing money
 gem 'enumerize', '>= 0.5.1' # enums as symbols in ar
@@ -31,13 +31,14 @@ gem 'active_data'
 gem 'chewy'
 # ---------- View ----------
 
-gem 'slim-rails', '>= 2.1.5'
+gem 'slim-rails', '~> 3.1.2'
 gem 'jbuilder'
 
 ## CSS
-gem 'susy', '~> 2.1.1' # Grid framework is susy
+gem 'susy', '~> 2.1.1'
+# Updating sass-rails to 5.0.6 is not possible at the moment because minitest 5.10.2 breaks tests
 gem 'sass-rails', '~> 5.0.4'
-gem 'bourbon', '<= 4.0.2' # easy ccs3
+gem 'bourbon', '<= 4.0.2'
 gem 'font-awesome-rails', '>= 4.2.0.0'
 gem 'sprite-factory'
 gem 'chunky_png' # needed for sprite-factory
@@ -46,7 +47,7 @@ gem 'sprockets'
 ## JS
 gem 'jquery-ui-rails'
 gem 'qtip2-jquery-rails', '~> 2.1.107'
-gem 'i18n-js', '~> 3.0.0.rc8'
+gem 'i18n-js', '~> 3.0.0'
 gem 'coffee-rails'
 gem 'therubyrhino'
 gem 'selectivizr-rails'
@@ -57,6 +58,7 @@ gem 'tinymce-rails-langs'
 gem 'jquery-rails', '~> 3.1.3'
 gem 'rails-timeago'
 gem 'wiselinks'
+# No longer maintained. Triggers deprecation warnings, should be removed completely.
 gem 'hogan_assets'
 
 ## Forms
@@ -82,7 +84,7 @@ gem 'premailer-rails', '~> 1.9.3' # creates emails with inline css from html fil
 gem 'sidekiq', '~> 4.1.2'
 gem 'sidekiq-scheduler', '~> 2.0'
 gem 'sinatra', '>= 1.3.0', require: nil
-gem 'delayed_paperclip' # handle image processing with sidekiq
+gem 'delayed_paperclip', '~> 2.9.2'
 gem 'bluepill' # legacy, remove when eye stable
 gem 'eye', '~> 0.8.1' # sidekiq process monitoring
 gem 'redis-namespace', '~> 1.5.2'
@@ -98,19 +100,19 @@ gem 'rails_admin_statistics', github: 'KonstantinKo/rails_admin_statistics'
 gem 'rails_admin_nested_set'
 gem 'rack-rewrite' # Redirects
 gem 'json'
-gem 'nokogiri', '~> 1.6.8'
+gem 'nokogiri', '~> 1.7.2'
 gem 'prawn_rails' # pdf generation
 
 # ---------- Monitoring ----------
 gem 'newrelic_rpm',  group: [:production, :staging]
-gem 'rack-mini-profiler'
+gem 'rack-mini-profiler', '~> 0.10.1'
 gem 'lograge'
 gem 'exception_notification'
 
 # ---------- API ----------
 
 # Gem for connecting to FastBill Automatic
-gem 'fastbill-automatic', git: 'git://github.com/marcaltmann/fastbill-automatic.git'
+gem 'fastbill-automatic', github: 'marcaltmann/fastbill-automatic'
 
 gem 'savon' # interacing with other SOAP apis:
 gem 'rubyntlm' # https://github.com/savonrb/savon/issues/593
@@ -140,7 +142,7 @@ group :development do
   # Guard
   gem 'guard'
   gem 'guard-ctags-bundler'
-  gem 'rb-readline'
+  gem 'rb-readline', '~> 0.5.4'
   gem 'guard-minitest'
   gem 'guard-rubocop'
   gem 'guard-livereload', '~> 2.4', require: false

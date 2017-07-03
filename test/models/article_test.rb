@@ -117,7 +117,7 @@ describe Article do
     describe 'methods' do
       describe '#owned_by?(user)' do
         it 'should return false when user is nil' do
-          article.owned_by?(nil).must_equal nil
+          assert_nil article.owned_by?(nil)
         end
 
         it "should return false when article doesn't belong to user" do
