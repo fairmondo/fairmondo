@@ -36,8 +36,7 @@ gem 'jbuilder'
 
 ## CSS
 gem 'susy', '~> 2.1.1'
-# Updating sass-rails to 5.0.6 is not possible at the moment because minitest 5.10.2 breaks tests
-gem 'sass-rails', '~> 5.0.4'
+gem 'sass-rails', '~> 5.0.6'
 gem 'bourbon', '<= 4.0.2'
 gem 'font-awesome-rails', '>= 4.2.0.0'
 gem 'sprite-factory'
@@ -179,7 +178,7 @@ group :development, :test do
   gem 'capistrano-bundler', '~> 1.1.2'
   gem 'capistrano-rbenv'
 
-  gem 'minitest' # Testing using Minitest
+  gem 'minitest', '5.10.1'  # 5.10.2 is buggy with this Rails version
   gem 'minitest-matchers'
   gem 'minitest-line'
   gem 'launchy' # save_and_open_page
