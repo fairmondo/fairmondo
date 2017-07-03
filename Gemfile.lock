@@ -291,13 +291,14 @@ GEM
       builder (>= 2.1.2)
     haml (4.0.6)
       tilt
+    handlebars_assets (0.23.1)
+      execjs (~> 2.0)
+      multi_json (~> 1.0)
+      sprockets (>= 2.0.0)
+      tilt (>= 1.2)
     highline (1.6.21)
     hirb (0.7.2)
     hitimes (1.2.4)
-    hogan_assets (1.6.0)
-      execjs (>= 1.2.9)
-      sprockets (>= 2.0.3)
-      tilt (>= 1.3.3)
     htmlentities (4.3.4)
     http-cookie (1.0.2)
       domain_name (~> 0.5)
@@ -739,8 +740,8 @@ DEPENDENCIES
   guard-livereload (~> 2.4)
   guard-minitest
   guard-rubocop
+  handlebars_assets
   hirb
-  hogan_assets
   i18n-js (~> 3.0.0)
   i18n-tasks (~> 0.8.3)
   ibanomat

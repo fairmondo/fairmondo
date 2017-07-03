@@ -1,2 +1,0 @@
-p.inline-errors.hidden
-  | {{ error }}
