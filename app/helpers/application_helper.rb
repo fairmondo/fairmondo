@@ -38,7 +38,7 @@ module ApplicationHelper
   end
 
   def clickable_legal_links(html)
-    odr_url = /https?:\/\/ec.europa.eu\/odr\/?/
+    odr_url = /https?:\/\/ec.europa.eu\/(consumers\/)?odr\/?/
     html.to_s.gsub(odr_url) do |url|
       "<a href=\"#{url}\" target=\"_blank\">#{url}</a>"
     end
