@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 
 # Rails
-gem 'rails', '~> 4.1.16'
+gem 'rails', '~> 4.2.0'
 gem 'rails-observers' # observers got extracted since rails 4
 gem 'activerecord-session_store' # sessions in activerecord
 
@@ -136,14 +136,6 @@ group :development do
   # er diagramm generation
   gem 'rails-erd'
   gem 'thin' # Replace Webrick
-
-  # Guard
-  gem 'guard'
-  gem 'guard-ctags-bundler'
-  gem 'rb-readline', '~> 0.5.4'
-  gem 'guard-minitest'
-  gem 'guard-rubocop'
-  gem 'guard-livereload', '~> 2.4', require: false
 
   # I18n Tools
   gem 'i18n-tasks', '~> 0.8.3'
