@@ -62,7 +62,7 @@ gem 'handlebars_assets'
 ## Forms
 
 gem 'formtastic', '~> 2.3.0.rc3'
-gem 'recaptcha', require: 'recaptcha/rails' # Captcha Gem
+gem 'recaptcha', '~> 0.6.0', require: 'recaptcha/rails' # Captcha Gem
 
 # ---------- Controller ----------
 
@@ -195,7 +195,7 @@ end
 
 group :development, :test, :staging do
   gem 'factory_girl_rails'
-  gem 'ffaker'
+  gem 'ffaker', '~> 1.32.1'
 
   # styleguides
   gem 'nkss-rails', github: 'nadarei/nkss-rails'
