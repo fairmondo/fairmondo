@@ -1,5 +1,0 @@
-a href="{{ data.url }}" data-push='true'
-  span.autocomplete-thumbnail
-    | {{{ data.thumb }}}
-  span.autocomplete-title
-    | {{{ title }}}
