@@ -165,7 +165,7 @@ group :development, :test do
 
   # Capistrano
   gem 'capistrano-rails', '~> 1.1.3'
-  gem 'capistrano'
+  gem 'capistrano', '~> 3.3.5'
   gem 'capistrano-bundler', '~> 1.1.2'
   gem 'capistrano-rbenv'
 
