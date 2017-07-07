@@ -3,7 +3,6 @@
 #   See the COPYRIGHT file for details.
 
 class MassUploadsController < ApplicationController
-  responders :location
   respond_to :html
   respond_to :csv, only: :show
 

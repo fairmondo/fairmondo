@@ -3,7 +3,7 @@
 #   See the COPYRIGHT file for details.
 
 class RefundsController < ApplicationController
-  responders :location, :flash
+  responders :flash
   respond_to :html
 
   def new

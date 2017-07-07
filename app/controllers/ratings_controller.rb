@@ -3,7 +3,7 @@
 #   See the COPYRIGHT file for details.
 
 class RatingsController < ApplicationController
-  responders :location, :flash
+  responders :flash
   respond_to :html
 
   before_action :set_user

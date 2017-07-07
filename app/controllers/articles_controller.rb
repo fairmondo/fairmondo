@@ -5,7 +5,6 @@
 class ArticlesController < ApplicationController
   include ArticleControllerFilters
 
-  responders :location
   respond_to :html
   respond_to :json, only: [:show, :index]
 

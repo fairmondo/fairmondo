@@ -18,7 +18,7 @@ gem 'paperclip', '~> 4.2.2'
 gem 'money-rails', '> 0.12.0' # dealing with money in activerecord
 gem 'monetize' # parsing money
 gem 'enumerize', '>= 0.5.1' # enums as symbols in ar
-gem 'state_machine' # State Machines in Rails
+gem 'state_machines-activerecord', '~> 0.5.0'
 gem 'amoeba'
 gem 'sanitize' # Parser based sanitization
 gem 'awesome_nested_set', '>= 3.0.0.rc.4' # tree structure for categories
@@ -61,17 +61,17 @@ gem 'handlebars_assets'
 
 ## Forms
 
-gem 'formtastic', '~> 2.3.0.rc3'
+gem 'formtastic', '~> 3.0.0'
 gem 'recaptcha', '~> 0.6.0', require: 'recaptcha/rails' # Captcha Gem
 
 # ---------- Controller ----------
 
 gem 'arcane' # Parameter management for strong_parameters
 gem 'canonical-rails' # canonical view links
-gem 'devise', '~> 3.5.10' # authentication
+gem 'devise', '~> 4.0.3' # authentication
 gem 'pundit' # authorization
 gem 'kaminari' # pagination
-gem 'responders'
+gem 'responders', '~> 2.0'
 
 # ---------- Mail ----------
 

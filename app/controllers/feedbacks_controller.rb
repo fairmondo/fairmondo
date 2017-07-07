@@ -3,7 +3,6 @@
 #   See the COPYRIGHT file for details.
 
 class FeedbacksController < ApplicationController
-  responders :location
   respond_to :html
   skip_before_action :authenticate_user!
 
