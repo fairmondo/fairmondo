@@ -137,14 +137,6 @@ group :development do
   gem 'rails-erd'
   gem 'thin' # Replace Webrick
 
-  # Guard
-  gem 'guard'
-  gem 'guard-ctags-bundler'
-  gem 'rb-readline', '~> 0.5.4'
-  gem 'guard-minitest'
-  gem 'guard-rubocop'
-  gem 'guard-livereload', '~> 2.4', require: false
-
   # I18n Tools
   gem 'i18n-tasks', '~> 0.8.3'
 
