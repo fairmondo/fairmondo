@@ -54,5 +54,11 @@ describe Payment do
         payment.state.must_equal 'errored'
       end
     end
+
+    describe '#total_tax' do
+      it 'should return the correct tax amount' do
+        payment.total_tax.to_s.must_equal('12,76')
+      end
+    end
   end
 end
