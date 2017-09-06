@@ -1,0 +1,42 @@
+/**
+ * LaCoppa billboard
+ */
+
+
+// General stuff
+#billboard-lacoppa > article > h2,
+#billboard-lacoppa > article > a {
+  text-indent: -1000em;
+}
+
+#billboard-lacoppa > article > a {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%
+}
+
+
+
+// Responsive code: small version
+@include till-breakpoint($bp-tablet) {
+  #billboard-lacoppa {
+    background-image: image-url('welcome/billboard_lacoppa_small.jpg');
+  }
+}
+
+
+// Responsive code: medium version
+@include between-breakpoints($bp-tablet, $bp-tablet-horizontal) {
+  #billboard-lacoppa {
+    background-image: image-url('welcome/billboard_lacoppa_medium.jpg');
+  }
+}
+
+
+// Responsive code: big version
+@include at-breakpoint($bp-tablet-horizontal) {
+  #billboard-lacoppa {
+    background-image: image-url('welcome/billboard_lacoppa_big.jpg');
+  }
+}
