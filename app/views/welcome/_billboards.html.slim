@@ -10,6 +10,14 @@
         span.slides-arrow.slides-arrow--right
           i.fa.fa-chevron-right
 
+      / Lacoppa
+      .billboard#billboard-lacoppa
+        article
+          h2 LaCoppa bei Fairmondo
+          = link_to 'Nachhaltige Kaffeekapseln jetzt im Abo erhältlich',
+                    content_path('lacoppa', pk_campaign: 'billboards',
+                    pk_keyword: 'lacoppa')
+
       / Fairphone 2
       .billboard#billboard-fairphone2
         article
@@ -50,11 +58,3 @@
               = link_to '/libraries/15360?pk_campaign=billboards&pk_kwd=books' do
                 div
                 p Klassiker
-
-      / Runde Sache subscriptions
-      .billboard#billboard-subscriptions
-        article
-          h2 Schöne und faire Dinge per Fahrrad zu Dir nach Hause
-          = link_to 'Jetzt die ersten Runde Sache Abos sichern',
-                    'http://abo.fairmondo.de/',
-                    target: '_blank'
