@@ -9,6 +9,11 @@ class WelcomeController < ApplicationController
     set_article_queues
     set_last_hearted_libraries_if_signed_in
     set_trending_libraries
+
+    respond_to do |format|
+      format.html
+      format.ics { render nothing: true, status: 200 }
+    end
   end
 
   # Rss Feed
