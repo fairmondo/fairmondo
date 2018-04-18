@@ -122,6 +122,7 @@ de:
 
         swappable: "Dieser Artikel kann auch getauscht werden."
         borrowable: "Dieser Artikel kann auch ausgeliehen werden."
+        subscription: "Dieser Artikel ist ein Abonnement."
 
         transport_pickup: Selbstabholung
         transport_pickup_extended: Selbstabholung (Deine PLZ wird als Abholort übernommen)
@@ -147,6 +148,7 @@ de:
         payment_cash_on_delivery_price: Nachnahmezuschlag pro Sendung (€)
         payment_invoice: Rechnung
         payment_voucher: Gutschein
+        payment_debit: Lastschrift
 
         payment_methods: Bezahloptionen
 

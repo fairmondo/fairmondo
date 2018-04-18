@@ -175,6 +175,7 @@ de:
         cash_on_delivery: Nachnahme (zzgl. Gebühr)
         invoice: Rechnung
         voucher: Gutschein
+        debit: Lastschrift
 
     library:
       exhibition_name:

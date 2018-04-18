@@ -10,7 +10,7 @@ module Article::ExtendedAttributes
       :type1, :type2, :pickup, :bike_courier
     ]
     PAYMENT_TYPES = [
-      :bank_transfer, :cash, :paypal, :cash_on_delivery, :invoice, :voucher
+      :bank_transfer, :cash, :paypal, :cash_on_delivery, :invoice, :voucher, :debit
     ]
 
     # Action attribute: c/create/u/update/d/delete - for export and csv upload
