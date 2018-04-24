@@ -11,6 +11,12 @@ class UserPolicy < Struct.new(:user, :resource)
     true unless banned?
   end
 
+  # policy for creating a direct debit mandate
+  # todo: better naming
+  def create?
+    true unless banned?
+  end
+
   private
 
   def banned?

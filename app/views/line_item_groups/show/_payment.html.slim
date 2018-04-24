@@ -25,6 +25,8 @@
         = render 'payments/shared/show', payment: line_item_group.voucher_payment, total: total
       - else
         = render 'payments/shared/new', line_item_group: line_item_group, payment: payment
+    - when :debit
+      = render 'payments/debit', line_item_group: line_item_group, total: total
 
 - elsif line_item_group.seller == current_user
   - if payment == :voucher

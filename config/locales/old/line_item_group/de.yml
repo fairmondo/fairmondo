@@ -41,6 +41,7 @@ de:
       paypal: "Bezahlen über Paypal"
       bank_transfer: "Als bezahlt markieren"
       voucher: "Gutschein einlösen"
+      debit: "Lastschriftmandat erteilen"
     notices:
       paypal_success: "Die PayPal-Zahlung wurde erfolgreich in Auftrag gegeben."
       paypal_cancel: "Die PayPal-Zahlung wurde abgebrochen. Bitte versuche es erneut."

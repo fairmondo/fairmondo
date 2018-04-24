@@ -11,3 +11,12 @@ de:
   VoucherPayment:
     controller_error: "Dieser Gutscheincode wurde bereits benutzt."
     warning: "Achtung, wenn der Gutschein den Betrag überschreitet, wird der Restbetrag gespendet."
+  DebitPayment:
+    controller_error: "Fehler."
+    direct_debit_mandate_request_html: "<h1>Sepa-Lastschriftmandat</h1>
+    <p><b>Zwischen:</b> Fairmondo&nbsp;eG, Glogauer Str. 21, 10999 Berlin<br> Gläubiger-Identifikationsnummer: DE15ZZZ00001452371</p>
+    <p><b>und:</b> %{bank_account_owner}, %{iban}, %{bic}, %{bank_name}</p>
+    <p><h2>Mandatsreferenz:</h2> <p>Ich ermächtige die Fairmondo eG alle anfallenden Verkaufsgebühren von meinem Konto mittels Lastschrift einzuziehen.<br> Zugleich weise ich mein Kreditinstitut an, die von der Fairmondo eG auf mein Konto gezogene Lastschriften einzulösen.</p> <p>Hinweis: Ich kann innerhalb von acht Wochen, beginnend mit dem Belastungsdatum, die Erstattung des belasteten Betrags verlangen. Es gelten dabei die mit meinem Kreditinstitut vereinbarten Bedingungen.</p> <p>Im Fall einer Rücklastschrift mangels Deckung oder wegen Angabe einer falschen Kontoverbindung darf die Fairmondo eG mir die tatsächlichen Kosten für die Lastschriftrückbuchung in Rechnung stellen.</p>"
+    confirm_mandate: "Mandat bestätigen"
+    direct_debit_mandate_exists_html: "Der Händer hat ein Lastschriftmandat für das folgende Konto: <p>%{bank_account_owner}, %{iban}, %{bic}, %{bank_name}</p>"
+    direct_debit_mandate_created: "Dem Händler wurde ein Lastschriftmandat erteilt."

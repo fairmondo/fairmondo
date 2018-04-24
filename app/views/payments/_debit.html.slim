@@ -1,0 +1,17 @@
+/ show success if direct debit mandate exists between buyer and seller
+- if line_item_group.buyer.has_active_direct_debit_mandate?
+  p = t("DebitPayment.direct_debit_mandate_exists_html",
+          bank_account_owner: line_item_group.buyer.bank_account_owner,
+          iban: line_item_group.buyer.iban,
+          bic: line_item_group.buyer.bic,
+          bank_name: line_item_group.buyer.bank_name)
+
+- else
+  / else ask for direct debit mandate
+  p = t("DebitPayment.direct_debit_mandate_request_html",
+          bank_account_owner: line_item_group.buyer.bank_account_owner,
+          iban: line_item_group.buyer.iban,
+          bic: line_item_group.buyer.bic,
+          bank_name: line_item_group.buyer.bank_name)
+
+  = button_to t("line_item_group.payment_button.debit"), '/direct_debit_mandate/create', params: {'after_create_path' => line_item_group_path(line_item_group_id: line_item_group.id)}, class: 'Button', method: :post
