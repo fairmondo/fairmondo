@@ -36,6 +36,7 @@ de:
       cash: "Bringe den Gesamtbetrag von %{total} mit wenn Du den/die Artikel bei dem*der Anbieter*in abholst. Hole den/die Artikel bei folgender Adresse ab:"
       cash_on_delivery: "Der Gesamtbetrag der Nachnahme ist %{total}."
       invoice: "Du erhälst eine Rechnung in Höhe von %{total}."
+      debit: ""
       voucher: ""
     payment_button:
       paypal: "Bezahlen über Paypal"

@@ -55,6 +55,7 @@ de:
         cash_on_delivery: ' Gesamte Kosten der Nachnahmesendung'
         invoice: 'Gesamter Rechnungsbetrag'
         voucher: 'Gesamtbetrag'
+        debit: 'Gesamter Lastschriftbetrag'
       totals:
         total_net_price: 'Zwischensumme ohne USt.:'
         total_vat: 'Umsatzsteuer:'
