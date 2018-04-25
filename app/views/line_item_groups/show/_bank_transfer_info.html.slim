@@ -3,7 +3,8 @@
   = bank_account_line(seller, :bank_account_owner)
   = bank_account_line(seller, :iban)
   = bank_account_line(seller, :bic)
-  = bank_account_line(seller, :bank_name)
+  - unless seller.bank_name.empty?
+    = bank_account_line(seller, :bank_name)
   .line
     .heading
       = "#{I18n.t("line_item_group.texts.bank_transfer_purpose")}:"
