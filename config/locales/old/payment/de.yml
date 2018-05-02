@@ -19,4 +19,12 @@ de:
     <p>Fairmondo&nbsp;eG, Glogauer Str. 21, 10999 Berlin<br> Gläubiger-Identifikationsnummer: DE15ZZZ00001452371</p>
     <p><h2>Mandatsreferenz:</h2> <p>Ich ermächtige die Fairmondo eG alle anfallenden Verkaufsgebühren von meinem Konto mittels Lastschrift einzuziehen.<br> Zugleich weise ich mein Kreditinstitut an, die von der Fairmondo eG auf mein Konto gezogene Lastschriften einzulösen.</p> <p>Hinweis: Ich kann innerhalb von acht Wochen, beginnend mit dem Belastungsdatum, die Erstattung des belasteten Betrags verlangen. Es gelten dabei die mit meinem Kreditinstitut vereinbarten Bedingungen.</p> <p>Im Fall einer Rücklastschrift mangels Deckung oder wegen Angabe einer falschen Kontoverbindung darf die Fairmondo eG mir die tatsächlichen Kosten für die Lastschriftrückbuchung in Rechnung stellen.</p>"
     confirm_mandate: "Mandat bestätigen"
+    confirm_mandate_and_add_bank_details: "Bankdaten speichern & Mandat bestätigen"
     direct_debit_mandate_created_html: "Der/die Händler*in hält ein Lastschriftmandat mit der Referenznummer <b>%{reference}</b> für das folgende Konto:"
+    # duplicate from de.formtastic.labels
+    bank_name: "Name der Bank"
+    bank_account_owner: "Kontoinhaber*in"
+    iban: "IBAN"
+    bic: "BIC"
+    direct_debit_mandate_created_notice: "Das Mandat wurde erteilt. Referenznummer: %{reference}"
+    bank_details_error: "Die Bankdaten konnten nicht gespeichert werden. Bitte überprüfe Deine Eingabe."

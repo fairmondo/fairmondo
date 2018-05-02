@@ -27,9 +27,6 @@
         = render 'payments/shared/show', payment: line_item_group.voucher_payment, total: total
       - else
         = render 'payments/shared/new', line_item_group: line_item_group, payment: payment
-    - when :debit
-      - unless line_item_group.buyer.has_active_direct_debit_mandate?
-        = button_to t("line_item_group.payment_button.debit"), '/direct_debit_mandate/create', params: {'after_create_path' => line_item_group_path(line_item_group_id: line_item_group.id)}, class: 'Button', method: :post
 
 - elsif line_item_group.seller == current_user
   - if payment == :voucher

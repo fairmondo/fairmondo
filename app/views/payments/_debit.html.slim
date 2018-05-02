@@ -1,6 +1,30 @@
+- buyer = line_item_group.buyer
 / show success if direct debit mandate exists between buyer and seller
 - if line_item_group.buyer.has_active_direct_debit_mandate?
   = t("DebitPayment.direct_debit_mandate_created_html", reference: line_item_group.buyer.active_direct_debit_mandate.reference)
+  = render 'line_item_groups/show/bankaccount_info', account_holder: buyer
 - else
-  div  style="text-align: left;" = t("DebitPayment.direct_debit_mandate_request_html")
-= render 'line_item_groups/show/bankaccount_info', account_holder: line_item_group.buyer
+  = form_tag controller: 'direct_debit_mandate', action: 'create', method: :post do
+    = hidden_field_tag :after_create_path, line_item_group_path(line_item_group_id: line_item_group.id)
+    div style="text-align: left;" = t("DebitPayment.direct_debit_mandate_request_html")
+
+    - if buyer.bank_account_exists?
+      = render 'line_item_groups/show/bankaccount_info', account_holder: buyer
+      = submit_tag(t("DebitPayment.confirm_mandate"), class: "Button")
+
+    - else
+      / todo: get translations from de.formtastic instead of de.payment
+        = link_to t('common.actions.edit_profile'), edit_user_registration_path, class: 'Button'
+      = hidden_field_tag :add_bank_details, 'add_bank_details'
+      p
+        /= label_tag :bank_account_owner, t("DebitPayment.bank_account_owner"), style: 'display:block'
+        = text_field_tag :bank_account_owner, buyer.bank_account_owner, placeholder: t("DebitPayment.bank_account_owner")
+      p
+        /= label_tag :iban, t("DebitPayment.iban"), style: 'display:block'
+        = text_field_tag :iban, buyer.iban, placeholder: t("DebitPayment.iban")
+
+      p
+        /= label_tag :bic, t("DebitPayment.bic"), style: 'display:block'
+        = text_field_tag :bic, buyer.bic, placeholder: t("DebitPayment.bic")
+      p = submit_tag t("DebitPayment.confirm_mandate_and_add_bank_details"), class: "Button"
+  end
