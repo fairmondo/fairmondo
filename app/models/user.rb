@@ -176,6 +176,15 @@ class User < ActiveRecord::Base
     end
   end
 
+  # checks if User may offer debit payment. restrict to fairmondo accounts for now by checking direct_debit_exemption
+  def can_offer_debit_payment?
+    if self.is_a?(LegalEntity) && direct_debit_exemption
+      true
+    else
+      false
+    end
+  end
+
   def paypal_account_exists?
     self.paypal_account?
   end

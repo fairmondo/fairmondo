@@ -1,0 +1,6 @@
+.bank_account_table
+  = bank_account_line(account_holder, :bank_account_owner)
+  = bank_account_line(account_holder, :iban)
+  = bank_account_line(account_holder, :bic)
+  - if account_holder.bank_name and !account_holder.bank_name.empty?
+    = bank_account_line(account_holder, :bank_name)

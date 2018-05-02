@@ -7,6 +7,8 @@
     - when :voucher
       - if line_item_group.voucher_payment && !line_item_group.voucher_payment.covers(total)
         = render 'line_item_groups/show/bank_transfer_info', line_item_group: line_item_group
+    - when :debit
+      = render 'payments/debit', line_item_group: line_item_group, total: total
   .payment_actions
     - case payment
     - when :cash
@@ -32,3 +34,9 @@
       p == t('payment.seller.pay_key_display', pay_key: line_item_group.voucher_payment_pay_key )
     - else
       p = t('payment.seller.no_voucher')
+  - if payment == :debit
+    - if line_item_group.buyer.has_active_direct_debit_mandate?
+      p = t("payment.seller.direct_debit_mandate_display_html", reference: line_item_group.buyer.active_direct_debit_mandate.reference)
+      p = render 'line_item_groups/show/bankaccount_info', account_holder: line_item_group.buyer
+    - else
+      p = t("payment.seller.no_direct_debit_mandate")

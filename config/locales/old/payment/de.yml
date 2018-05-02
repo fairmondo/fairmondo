@@ -6,8 +6,25 @@ de:
     seller:
       no_voucher: "Es wurde noch kein Gutschein eingelöst."
       pay_key_display: "Bezahlt mit Gutscheincode <b>%{pay_key}</b>."
+      direct_debit_mandate_display_html: "Es liegt ein Lastschriftmandat mit der Referenz <b>%{reference}</b> für folgendes Konto vor:"
+      no_direct_debit_mandate: "Der Käufer hat kein Lastschriftmandat erteilt."
   PaypalPayment:
     controller_error: "Es gab einen Fehler mit der Verbindung zu PayPal. Bitte versuche es später erneut. Falls dieser Fehler vermehrt auftreten sollte, logge Dich bitte unter <a href='http://www.paypal.de' target='_blank'>PayPal.de</a> ein und sende den Betrag manuell an %{email}."
   VoucherPayment:
     controller_error: "Dieser Gutscheincode wurde bereits benutzt."
     warning: "Achtung, wenn der Gutschein den Betrag überschreitet, wird der Restbetrag gespendet."
+  DebitPayment:
+    controller_error: "Fehler."
+    direct_debit_mandate_request_html: "<h2>Sepa-Lastschriftmandat</h2>
+    <p>Fairmondo&nbsp;eG, Glogauer Str. 21, 10999 Berlin<br> Gläubiger-Identifikationsnummer: DE15ZZZ00001452371</p>
+    <p><h2>Mandatsreferenz:</h2> <p>Ich ermächtige die Fairmondo eG alle anfallenden Verkaufsgebühren von meinem Konto mittels Lastschrift einzuziehen.<br> Zugleich weise ich mein Kreditinstitut an, die von der Fairmondo eG auf mein Konto gezogene Lastschriften einzulösen.</p> <p>Hinweis: Ich kann innerhalb von acht Wochen, beginnend mit dem Belastungsdatum, die Erstattung des belasteten Betrags verlangen. Es gelten dabei die mit meinem Kreditinstitut vereinbarten Bedingungen.</p> <p>Im Fall einer Rücklastschrift mangels Deckung oder wegen Angabe einer falschen Kontoverbindung darf die Fairmondo eG mir die tatsächlichen Kosten für die Lastschriftrückbuchung in Rechnung stellen.</p>"
+    confirm_mandate: "Mandat bestätigen"
+    confirm_mandate_and_add_bank_details: "Bankdaten speichern & Mandat bestätigen"
+    direct_debit_mandate_created_html: "Der/die Händler*in hält ein Lastschriftmandat mit der Referenznummer <b>%{reference}</b> für das folgende Konto:"
+    # duplicate from de.formtastic.labels
+    bank_name: "Name der Bank"
+    bank_account_owner: "Kontoinhaber*in"
+    iban: "IBAN"
+    bic: "BIC"
+    direct_debit_mandate_created_notice: "Das Mandat wurde erteilt. Referenznummer: %{reference}"
+    bank_details_error: "Die Bankdaten konnten nicht gespeichert werden. Bitte überprüfe Deine Eingabe."

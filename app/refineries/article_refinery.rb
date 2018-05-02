@@ -15,7 +15,7 @@ class ArticleRefinery < ApplicationRefinery
       :payment_details, :payment_bank_transfer, :payment_cash,
       :payment_paypal, :payment_invoice, :payment_voucher,
       :payment_cash_on_delivery, :payment_cash_on_delivery_price,
-      :payment_cash_on_delivery_price_cents,
+      :payment_cash_on_delivery_price_cents, :payment_debit, :subscription,  # should we change the name to :payment_subscription ?
       # Basic price attrs
       :basic_price, :basic_price_cents, :basic_price_amount,
       # Transport attrs
