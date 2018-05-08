@@ -25,6 +25,9 @@ Fairmondo::Application.routes.draw do
     collection do
       get 'image_errors'
     end
+    member do
+      get 'restart'
+    end
   end
 
   get 'exports/show'

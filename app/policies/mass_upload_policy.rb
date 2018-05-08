@@ -19,6 +19,10 @@ class MassUploadPolicy < Struct.new(:user, :mass_upload)
     own? && create?
   end
 
+  def restart?
+    own? && create?
+  end
+
   private
 
   def own?
