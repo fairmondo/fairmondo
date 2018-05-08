@@ -8,7 +8,7 @@ class MassUploadsController < ApplicationController
   respond_to :csv, only: :show
 
   before_action :ensure_complete_profile, only: [:new, :create]
-  before_action :set_mass_upload, only: [:show, :update]
+  before_action :set_mass_upload, only: [:show, :update, :restart]
   before_action :check_value_of_goods, only: [:update]
 
   def show
@@ -41,6 +41,12 @@ class MassUploadsController < ApplicationController
     @mass_upload.mass_activate
     flash[:notice] = I18n.t('article.notices.mass_upload_create_html').html_safe
     redirect_to user_path(@mass_upload.user)
+  end
+
+  def restart
+    authorize @mass_upload
+    ProcessMassUploadWorker.perform_async(@mass_upload.id)
+    redirect_to user_path(@mass_upload.user, anchor: 'my_mass_uploads')
   end
 
   private
