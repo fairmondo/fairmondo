@@ -248,7 +248,7 @@ RailsAdmin.config do |config|
     field :created_at
     field :updated_at
     field :admin
-    field(:confirmation_token) { read_only true }
+    # field(:confirmation_token) { read_only true }   # workaround for "exception-on-user-ban" bug: some users have confirmation_token => nil and sometimes the confirmation_token gets submitted on user edit, which results in a unique key validation error since confirmation_token is indexed to be unique (see db/schema.rb)
     field :confirmed_at
     field(:confirmation_sent_at) { read_only true }
     field :unconfirmed_email
