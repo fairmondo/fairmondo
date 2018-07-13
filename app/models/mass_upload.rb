@@ -44,6 +44,12 @@ class MassUpload < ActiveRecord::Base
   end
 
   def processed_articles_count
+
+    # todo: this might be the cause of "stuck" uploads. sometimes it doesn't add up to total row_count
+    #   > MassUpload.last.mass_upload_articles.where(article_id: nil).where(validation_errors: nil).count
+    #   gives the number of missing articles missing until total row_count
+    # workaround: lower
+
     self.valid_mass_upload_articles.count + self.erroneous_articles.count
   end
 
