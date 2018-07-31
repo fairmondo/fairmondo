@@ -1,0 +1,42 @@
+/**
+ * Fairphone 2 billboard
+ */
+
+
+// General stuff
+#billboard-dawanda > article > h2,
+#billboard-dawanda > article > a {
+  text-indent: -1000em;
+}
+
+#billboard-dawanda > article > a {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%
+}
+
+
+
+// Responsive code: small version
+@include till-breakpoint($bp-tablet) {
+  #billboard-dawanda {
+    background-image: image-url('welcome/billboard_dawanda_small.jpg');
+  }
+}
+
+
+// Responsive code: medium version
+@include between-breakpoints($bp-tablet, $bp-tablet-horizontal) {
+  #billboard-dawanda {
+    background-image: image-url('welcome/billboard_dawanda_medium.jpg');
+  }
+}
+
+
+// Responsive code: big version
+@include at-breakpoint($bp-tablet-horizontal) {
+  #billboard-dawanda {
+    background-image: image-url('welcome/billboard_dawanda_big.jpg');
+  }
+}

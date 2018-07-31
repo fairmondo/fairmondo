@@ -10,21 +10,13 @@
         span.slides-arrow.slides-arrow--right
           i.fa.fa-chevron-right
 
-      / Lacoppa
-      .billboard#billboard-lacoppa
+      / Dawanda
+      .billboard#billboard-dawanda
         article
-          h2 LaCoppa bei Fairmondo
-          = link_to 'Nachhaltige Kaffeekapseln jetzt im Abo erhältlich',
-                    content_path('lacoppa', pk_campaign: 'billboards',
-                    pk_keyword: 'lacoppa')
-
-      / Fairphone 2
-      .billboard#billboard-fairphone2
-        article
-          h2 Fairphone 2 jetzt bei Fairmondo
-          = link_to 'Hier geht\'s zum Vorverkauf',
-                    article_path('fairphone-2', pk_campaign: 'billboards',
-                      pk_keyword: 'fairphone2')
+          h2 Fairmondo wird zur Dawanda-Alternative
+          = link_to 'Handarbeit in Hand der Nutzer*innen',
+                  content_path('handarbeit', pk_campaign: 'billboards',
+                    pk_keyword: 'dawanda')
 
       / Bücher
       .billboard#billboard-books
@@ -58,3 +50,19 @@
               = link_to '/libraries/15360?pk_campaign=billboards&pk_kwd=books' do
                 div
                 p Klassiker
+
+      / Fairphone 2
+      .billboard#billboard-fairphone2
+        article
+          h2 Fairphone 2 jetzt bei Fairmondo
+          = link_to 'Hier geht\'s zum Vorverkauf',
+                  article_path('fairphone-2', pk_campaign: 'billboards',
+                          pk_keyword: 'fairphone2')
+
+      / Lacoppa
+      .billboard#billboard-lacoppa
+        article
+          h2 LaCoppa bei Fairmondo
+          = link_to 'Nachhaltige Kaffeekapseln jetzt im Abo erhältlich',
+          content_path('lacoppa', pk_campaign: 'billboards',
+          pk_keyword: 'lacoppa')
