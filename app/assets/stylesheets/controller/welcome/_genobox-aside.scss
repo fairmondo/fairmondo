@@ -1,0 +1,55 @@
+.genobox-aside {
+  margin-bottom: 1em;
+}
+
+.genobox-aside__inner {
+  @include whitebox;
+  padding: 0;
+  width: auto;
+  height: 410px;
+  min-height: 410px;
+  position: relative;
+  color: $white;
+  background-image: image-url('welcome/genobox-275-410.jpg');
+  background-repeat: no-repeat;
+  background-position: center top;
+  border-radius: 0.5em;  // Circumvent bug in Webkit browsers that would hide the rounded border
+  height: 410px;
+
+  h2, p {
+    margin: 0;
+    text-indent: -1000em;
+  }
+
+  a {
+    display: block;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+  }
+}
+
+/******************************** Breakpoints *********************************/
+
+@include between-breakpoints($bp-mobile-horizontal, $bp-tablet) {
+  .genobox-aside {
+    @include span(2 of 4);
+    @include omega;
+  }
+}
+
+@include between-breakpoints($bp-tablet, $bp-tablet-horizontal) {
+  .genobox-aside {
+    @include span(2 of 6);
+    @include omega;
+  }
+}
+
+@include at-breakpoint($bp-tablet-horizontal) {
+  .genobox-aside {
+    @include span(2 of 8);
+    @include omega;
+  }
+}
