@@ -571,7 +571,7 @@ ActiveRecord::Schema.define(version: 20180802092305) do
     t.boolean  "direct_debit_exemption",                       default: false
     t.integer  "next_direct_debit_mandate_number",             default: 1
     t.boolean  "marketplace_owner_account",                    default: false
-    t.text     "referral",                                     default: "f"
+    t.string   "referral",                                     default: ""
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
