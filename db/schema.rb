@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180418121439) do
+ActiveRecord::Schema.define(version: 20180802092305) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -571,6 +571,7 @@ ActiveRecord::Schema.define(version: 20180418121439) do
     t.boolean  "direct_debit_exemption",                       default: false
     t.integer  "next_direct_debit_mandate_number",             default: 1
     t.boolean  "marketplace_owner_account",                    default: false
+    t.text     "referral",                                     default: "f"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
