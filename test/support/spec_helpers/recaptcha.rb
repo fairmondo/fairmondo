@@ -3,5 +3,5 @@
 #   See the COPYRIGHT file for details.
 
 Recaptcha.configure do |config|
-  config.public_key = '12345'
+  config.site_key = '12345'
 end

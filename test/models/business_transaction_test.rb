@@ -34,7 +34,7 @@ class BusinessTransactionTest < ActiveSupport::TestCase
 
   describe 'enumerization' do # I asked for clarification on how to do this: https://github.com/brainspec/enumerize/issues/136 - maybe comment back in when we have a positive response.
     should enumerize(:selected_transport).in(:pickup, :type1, :type2, :bike_courier)
-    should enumerize(:selected_payment).in(:bank_transfer, :cash, :paypal, :cash_on_delivery, :invoice, :voucher)
+    should enumerize(:selected_payment).in(:bank_transfer, :cash, :paypal, :cash_on_delivery, :invoice, :voucher, :debit)
   end
 
   describe 'methods' do
