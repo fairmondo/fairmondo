@@ -15,7 +15,7 @@ class SearchIndexWorker
               ArticlesIndex::Article
             end
 
-    Chewy.atomic do
+    Chewy.strategy(:atomic) do # Chewy.atomic block is deprecated in Chewy v0.7.0
       type.import! ids, batch_size: 100
     end
   end
