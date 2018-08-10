@@ -48,7 +48,7 @@ class ArticleSearch
       condition_filter,
       category_aggregations,
       sorting
-    ].compact.reduce(:merge).query_mode(1)
+    ].compact.reduce(:merge)
   end
 
   private
@@ -61,24 +61,28 @@ class ArticleSearch
 
   def query
     if @query.search_by_term?
-      [query_string, query_gtin].reduce(:merge)
+
+      # query string includes full text search in all fields (including gtin)
+      query_string
     else
       index.all
     end
   end
 
   def query_string
-    index.query(simple_query_string: {
-                  query: @query.q,
-                  fields: query_fields,
-                  analyzer: 'german_search_analyzer',
-                  default_operator: 'and',
-                  lenient: true
-                })
-  end
+    index.query(
+      {simple_query_string: {
 
-  def query_gtin
-    index.query(term: { gtin: { value: @query.q, boost: 100 } })
+            # all_fields will be deprecated in ES6. use default_field: '*' instead
+            all_fields: true,
+            query: @query.q,
+
+            # fuzzy has more effect when the analyzer is diabled.
+            analyzer: 'german_search_analyzer',
+            default_operator: 'and',
+            lenient: true
+          }
+    })
   end
 
   def query_fields
