@@ -23,6 +23,11 @@ class Payment < ActiveRecord::Base
       transition pending: :errored
     end
 
+    # use reset to re-evaluate an errored payment
+    event :reset do
+      transition errored: :pending
+    end
+
     event :success do
       transition initialized: :succeeded
     end
