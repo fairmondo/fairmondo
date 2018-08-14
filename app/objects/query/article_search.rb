@@ -74,7 +74,7 @@ class ArticleSearch
       {simple_query_string: {
 
             # all_fields will be deprecated in ES6. use default_field: '*' instead
-            all_fields: true,
+            fields: ['title', 'content','gtin','slug','seller_nickname'],
             query: @query.q,
 
             # fuzzy has more effect when the analyzer is diabled.
