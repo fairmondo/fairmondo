@@ -41,8 +41,8 @@ class ArticlesIndex < Chewy::Index
   define_type Article.active.includes(:seller, :title_image, :categories), delete_if: ->(article) { article.sold? || article.closed? } do
     root _source: { excludes: ['content'] } do
       field :id, index: :not_analyzed
-      field :title, type: 'string', analyzer: 'german_analyzer'
-      field :title_completion, value: -> { title || '' }, type: 'completion'
+      field :title, type: 'text', analyzer: 'german_analyzer'
+      #field :title_completion, value: -> { title || '' }, type: 'completion'
 
       field :content,  analyzer: 'german_analyzer'
       field :gtin,  index: :not_analyzed
@@ -54,8 +54,10 @@ class ArticlesIndex < Chewy::Index
       field :small_and_precious, type: 'boolean'
       field :swappable, type: 'boolean'
       field :borrowable, type: 'boolean'
-      field :condition, index: :not_analyzed
-      field :categories, index: :not_analyzed, value: -> do
+
+      # @todo consider using keywords instead of fielddata for aggregations (https://www.elastic.co/guide/en/elasticsearch/reference/5.0/fielddata.html#fielddata)
+      field :condition, fielddata: true, index: :not_analyzed
+      field :categories, fielddata: true, index: :not_analyzed, value: -> do
         categories.map { |c| c.self_and_ancestors.map(&:id) }.flatten
       end
 

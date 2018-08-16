@@ -28,7 +28,7 @@ gem 'friendly_id', '>= 4.0.9' # Friendly_id for beautiful links
 gem 'active_data'
 
 ## Indexing /Searching
-gem 'chewy', '= 0.7.0'
+gem 'chewy', '= 5.0.0'
 gem 'elasticsearch', '= 2.0.0'
 # ---------- View ----------
 
