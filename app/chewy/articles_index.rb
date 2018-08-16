@@ -5,7 +5,9 @@
 class ArticlesIndex < Chewy::Index
   settings(
     index: {
-      store: { type: Rails.env.test? ? :memory : :niofs }
+        store: { type: :niofs }
+        # In-memory indices are no longer supported.
+        # https://www.elastic.co/guide/en/elasticsearch/reference/2.0/breaking_20_setting_changes.html#_in_memory_indices
     },
     analysis: {
       filter: {
