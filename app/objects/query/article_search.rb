@@ -25,7 +25,7 @@ class ArticleSearch
   # public api
 
   def category_facets
-    @_category_facets ||= Hash[@search.aggregations['category']['buckets'].map(&:values)] if @search && @search.facets
+    @_category_facets ||= Hash[@search.aggregations['category']['buckets'].map(&:values)] if @search && @search.aggregations # ArticlesIndex::Query.facets doesn't exist in newer version of elasticsearch
   end
 
   def result
