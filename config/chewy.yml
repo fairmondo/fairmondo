@@ -6,6 +6,6 @@ test:
 development:
   host: 'localhost:9200'
 production:
-  host: '10.0.2.181:9205' # ES 5.4.0
+  host: '10.0.2.181:9201'
 staging:
-  host: '10.0.2.177:9205' # ES 5.4.0
+  host: '10.0.2.181:9200'
