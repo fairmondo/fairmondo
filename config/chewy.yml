@@ -8,4 +8,4 @@ development:
 production:
   host: '10.0.2.181:9202' #ES 2.3.4
 staging:
-  host: '10.0.2.181:9200'
+  host: '10.0.2.177:9202' #ES 2.3.4
