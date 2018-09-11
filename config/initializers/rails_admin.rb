@@ -30,7 +30,9 @@ RailsAdmin.config do |config|
   ]
 
   config.actions do
-    dashboard                     # mandatory
+    dashboard do
+      statistics false            # hide statistics to speed up page gneration
+    end
     index                         # mandatory
     new do
       except ['User']
