@@ -43,8 +43,8 @@
 /- cache 'coop_teaser' do
 /  = render 'coop_teaser'
 
-- cache 'blog_teaser' do
-  = render 'blog_teaser'
+/- cache 'blog_teaser' do   / hide blog teaser temporarily since resources are not served via SSL, which makes fairmondo.de 'insecure'
+/  = render 'blog_teaser'
 
 - cache 'references' do
   = render 'references'

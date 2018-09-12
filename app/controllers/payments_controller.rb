@@ -38,6 +38,16 @@ class PaymentsController < ApplicationController
     render nothing: true
   end
 
+  def confirm_or_decline payment
+    payment.last_ipn = params.to_json
+    if params && params[:status].upcase == 'COMPLETED' # && params[:sender_email] == payment.line_item_group_buyer_email
+      payment.confirm
+      send_courier_notifications_for payment
+    else
+      payment.decline
+    end
+  end
+
   private
 
   def setup_ipn
@@ -50,16 +60,6 @@ class PaymentsController < ApplicationController
       confirm_or_decline payment
     else
       raise ActiveRecord::RecordNotFound
-    end
-  end
-
-  def confirm_or_decline payment
-    payment.last_ipn = params.to_json
-    if params && params[:status] == 'COMPLETED' # && params[:sender_email] == payment.line_item_group_buyer_email
-      payment.confirm
-      send_courier_notifications_for payment
-    else
-      payment.decline
     end
   end
 
