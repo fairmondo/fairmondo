@@ -16,7 +16,7 @@ removeNewsHeader = ->
     .remove()
 
 setCookie = ->
-  days_to_expire = 1
+  days_to_expire = 90
   expiration_date = new Date(Date.now() + (days_to_expire * 24 * 60 * 60 * 1000))
   document.cookie = "news-header-disabled=true; path=/; expires=#{expiration_date.toUTCString()}"
 
