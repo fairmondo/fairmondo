@@ -88,12 +88,7 @@ class ArticleSearch
 
   def query_isbn
     if /[0-9\- ]{10,}/.match(@query.q)
-      index.query(
-               {simple_query_string: {
-                   fields: ['gtin','title'],
-                   query: isbn_normalizer
-               }}
-      )
+      index.query({prefix: { gtin: isbn_normalizer }})
       end
   end
 
