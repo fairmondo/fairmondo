@@ -28,7 +28,10 @@ class ArticleAutocomplete
   end
 
   def prefix_query
-    index.query(prefix: { title: @query }).limit(LIMIT)
+    index
+        .query(prefix: { title: @query })
+        .query.or(prefix: { gtin: @query.chars.map {|x| x[/\d+/]}.join('') })   # extracts numbers from query and performs gtin search
+        .limit(LIMIT)
   end
 
   def suggest
