@@ -64,6 +64,7 @@ class ArticleSearch
 
       # query string includes full text search in all fields (including gtin)
       query_string
+      query_isbn
     else
       index.all
     end
@@ -83,6 +84,17 @@ class ArticleSearch
             lenient: true
           }
     })
+  end
+
+  def query_isbn
+    if /[0-9\- ]{10,}/.match(@query.q)
+      index.query(
+               {simple_query_string: {
+                   fields: ['gtin','title'],
+                   query: isbn_normalizer
+               }}
+      )
+      end
   end
 
   def query_fields
@@ -120,6 +132,11 @@ class ArticleSearch
   # facets
   def category_aggregations
     index.aggregations(category: { terms: { field: :categories, size: 10000 } })
+  end
+
+  # normalizer
+  def isbn_normalizer
+      @query.q.chars.map {|x| x[/\d+/]}.join('')
   end
 
   # sorting
