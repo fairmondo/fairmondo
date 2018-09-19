@@ -63,8 +63,7 @@ class ArticleSearch
     if @query.search_by_term?
 
       # query string includes full text search in all fields (including gtin)
-      query_string
-      query_isbn
+      [query_string, query_isbn].compact.reduce(:merge)
     else
       index.all
     end
