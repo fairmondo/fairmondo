@@ -91,9 +91,10 @@ class ArticleSearch
   def isbn_filter(q)
     # remove dashes from dash-number-groups
     isbn_candidate = q.gsub(/[\d\-*]/) {|s| s[/\d+/]}
+    numbergroup = isbn_candidate[/\d+/]
 
     # check if numbergroup has valid length
-    if isbn_candidate[/\d+/].length == 10 || isbn_candidate[/\d+/].length == 13
+    if numbergroup && (numbergroup.length == 10 || numbergroup.length == 13)
       isbn_candidate
     else
       q
