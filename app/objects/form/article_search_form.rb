@@ -36,13 +36,9 @@ class ArticleSearchForm
     results = @search.result.page(page).per(Kaminari.config.default_per_page)
     results.to_a # dont get rid of this as it will trigger the request and the rescue block can come in
     results
-  rescue Faraday::ClientError => error
-    puts "Faraday ClientError"
-    puts error
+  rescue Faraday::ClientError
     search_results_for_error_case page
-  rescue StandardError => error
-    puts "StandardError"
-    puts error
+  rescue StandardError
     search_results_for_error_case page
   end
 
