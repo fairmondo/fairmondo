@@ -24,14 +24,20 @@ class ArticleAutocomplete
   end
 
   def build
-    [suggest, prefix_query].compact.reduce(:merge) if @query.present?
+    [suggest, isbn_query].compact.reduce(:merge) if @query.present?
   end
 
   def prefix_query
-    index
-        .query(prefix: { title: @query })
-        .query.or(prefix: { gtin: @query.chars.map {|x| x[/\d+/]}.join('') })   # extracts numbers from query and performs gtin search
-        .limit(LIMIT)
+    index.query(prefix: { title: @query }).limit(LIMIT)
+  end
+
+  def isbn_query
+    isbn = @query.chars.map{|x| x[/\d+/]}.join('')
+    if isbn.length == 10 or isbn.length == 13
+      prefix_query.query.or(prefix: { gtin: isbn})
+    else
+      prefix_query
+    end
   end
 
   def suggest

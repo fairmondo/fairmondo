@@ -64,7 +64,6 @@ class ArticleSearch
 
       # query string includes full text search in all fields (including gtin)
       query_string
-      query_isbn
     else
       index.all
     end
@@ -75,8 +74,10 @@ class ArticleSearch
       {simple_query_string: {
 
             # all_fields will be deprecated in ES6. use default_field: '*' instead
-            fields: ['title', 'content','gtin','slug','seller_nickname'],
-            query: @query.q,
+            fields: ['title', 'gtin', 'content','slug','seller_nickname'],
+
+            # we remove dashs in isbns like 123-456-789 for gtin search
+            query: isbn_filter(@query.q),
 
             # fuzzy has more effect when the analyzer is diabled.
             analyzer: 'german_search_analyzer',
@@ -86,10 +87,18 @@ class ArticleSearch
     })
   end
 
-  def query_isbn
-    if /[0-9\- ]{10,}/.match(@query.q)
-      index.query({prefix: { gtin: isbn_normalizer }})
-      end
+  # removes dashes from dash-number groups only if there are 10 or 13 numbers
+  def isbn_filter(q)
+    # remove dashes from dash-number-groups
+    isbn_candidate = q.gsub(/[\d\-*]/) {|s| s[/\d+/]}
+    numbergroup = isbn_candidate[/\d+/]
+
+    # check if numbergroup has valid length
+    if numbergroup && (numbergroup.length == 10 || numbergroup.length == 13)
+      isbn_candidate
+    else
+      q
+    end
   end
 
   def query_fields
