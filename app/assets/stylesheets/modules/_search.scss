@@ -296,3 +296,24 @@ a.Search-colored-link {
     @include omega;
   }
 }
+
+.Search-exclude-category,
+.Search-include-category {
+  text-decoration:none;
+  &:hover {
+    text-decoration:none;
+  }
+}
+
+.Search-include-category {
+  opacity: 0.5;
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.Search-exclude-category:before { content: "✔"; }
+.Search-exclude-category:hover:before { content: "✘";}
+
+.Search-include-category:before { content: "✘";}
+.Search-include-category:hover:before { content: "✔";}

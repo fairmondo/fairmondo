@@ -2,14 +2,19 @@
 - if local_assigns.has_key? :ignore_counts
   - count = nil if ignore_counts
 - displayed_name = category.name
-- displayed_name += " (#{count})" if count
-- if count != 0
+- displayed_name += " (#{count})" if count.present? && count > 0
+- excluded_category_ids = search_cache.exclude_category_ids || []
+- if count != 0 or excluded_category_ids.map(&:to_i).include? category.id
   li
     span title=displayed_name
       - if search_cache && search_cache.searched_category == category
         b= displayed_name
       - else
-        = link_to displayed_name, category_path(category, article_search_form: search_cache.change(category_id: category.id)), data: { push: true }
+        - if count == 0
+          = link_to " " + displayed_name, articles_path(article_search_form: search_cache.change(:exclude_category_ids => excluded_category_ids.reject{|k| k.to_i == category.id})), data: { push: true}, class: "Search-include-category"
+        - else
+          = link_to " ", articles_path(article_search_form: search_cache.change(:exclude_category_ids => excluded_category_ids + [category.id.to_s])), data: { push: true }, class: "Search-exclude-category"
+          = link_to displayed_name, category_path(category, article_search_form: search_cache.change(category_id: category.id)), data: { push: true }
 
     - if local_assigns.has_key? :subtree
       ul.Search-tree

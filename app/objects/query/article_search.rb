@@ -45,6 +45,7 @@ class ArticleSearch
       zip_filter,
       price_filter,
       category_filter,
+      exclude_categories_filter,
       condition_filter,
       category_aggregations,
       sorting
@@ -133,6 +134,10 @@ class ArticleSearch
     index.filter(terms: { categories: [@query.category_id] }) if @query.category_id.present?
   end
 
+  def exclude_categories_filter
+    index.filter.not( terms: {categories: @query.exclude_category_ids.map(&:to_i) }) if @query.exclude_category_ids.present?
+  end
+
   # facets
   def category_aggregations
     index.aggregations(category: { terms: { field: :categories, size: 10000 } })
@@ -145,8 +150,13 @@ class ArticleSearch
 
   # sorting
   def sorting
+    # try to get order key from query
     order = @query.order_by
+
+    # if no order directive exists in query, order by relevance if we're searching for a specific term, otherwise order by newest
     order = @query.search_by_term? ? 'relevance' : 'newest' unless order
+
+    # sort index
     index.order(SORT[order])
   end
 end
