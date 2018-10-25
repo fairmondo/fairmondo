@@ -8,16 +8,17 @@ setNewsClickHandler = ->
   $('.l-news-header').on 'click', '.l-news-header-close', onClickCloseButton
 
 onClickCloseButton = (event) ->
-  removeNewsHeader()
-  setCookie()
+  removeNotice(event)
+  if($(event.target).hasClass('downtime-warning'))
+    setCookie('downtime-warning-disabled',10)
+  else
+    setCookie('news-header-disabled',90)
 
-removeNewsHeader = ->
-  $('.l-news-header')
-    .remove()
+removeNotice = (event) ->
+  $(event.target).parents('.l-news-header').remove()
 
-setCookie = ->
-  days_to_expire = 90
+setCookie = (label,days_to_expire) ->
   expiration_date = new Date(Date.now() + (days_to_expire * 24 * 60 * 60 * 1000))
-  document.cookie = "news-header-disabled=true; path=/; expires=#{expiration_date.toUTCString()}"
+  document.cookie = "#{label}=true; path=/; expires=#{expiration_date.toUTCString()}"
 
 $(document).ready setNewsClickHandler

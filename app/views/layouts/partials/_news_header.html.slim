@@ -5,3 +5,11 @@
       = news_header
     a.l-news-header-close
       i.fa.fa-times-circle.fa-lg
+
+- downtime_warning = tinycms_content_body("downtime_warning")
+- unless downtime_warning.empty? || cookies["downtime-warning-disabled"]
+  .l-news-header.l-downtime-warning
+    .l-news-header-inner
+      = downtime_warning
+    a.l-news-header-close
+      i.fa.fa-times-circle.fa-lg.downtime-warning
