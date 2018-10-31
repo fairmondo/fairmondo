@@ -32,6 +32,9 @@ class ArticleSearchForm
   end
 
   def search page
+    if page.to_i > 1000
+      return []
+    end
     @search = ArticleSearch.search(self)
     results = @search.result.page(page).per(Kaminari.config.default_per_page)
     results.to_a # dont get rid of this as it will trigger the request and the rescue block can come in
