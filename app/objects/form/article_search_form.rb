@@ -5,7 +5,7 @@
 class ArticleSearchForm
   include ActiveData::Model
   extend Enumerize
-  delegate :formated_prices, to: :@price_range
+  delegate :formated_prices, to: :price_range_parser
 
   attribute :q, type: String
   attribute :fair, type: Boolean
@@ -33,7 +33,7 @@ class ArticleSearchForm
 
   def search page
     if page.to_i > 1000
-      return []
+      return [].page(1)
     end
     @search = ArticleSearch.search(self)
     results = @search.result.page(page).per(Kaminari.config.default_per_page)
@@ -105,11 +105,14 @@ class ArticleSearchForm
     end
   end
 
-  def price_range
+  def price_range_parser
     @price_range ||= PriceRangeParser.new(price_from, price_to)
+  end
+
+  def price_range
     # set the values for proper formatting
-    self.price_from, self.price_to = @price_range.form_values
-    { gte: @price_range.from_cents, lte: @price_range.to_cents }
+    self.price_from, self.price_to = price_range_parser.form_values
+    { gte: price_range_parser.from_cents, lte: price_range_parser.to_cents }
   end
 
   private
