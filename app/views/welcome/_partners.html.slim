@@ -1,0 +1,14 @@
+- partners = [  ['gwo', 'https://www.ecogood.org/','GWÖ-Mitglied'],
+                ['byrd', 'https://getbyrd.com/','Logistik'],
+                ['packhelp', 'https://packhelp.com/','Verpackung'],
+                ['enyway', 'https://www.enyway.com/de','Strommarkt'],
+                ['ews', 'https://getbyrd.com/','Ökostrom'],
+  ]
+.teaser.teaser--full#partners
+  .teaser-inner
+    ul.image-list
+      - partners.each do |partner|
+        li
+          div
+            h5 = partner[2]
+            = link_to image_tag(image_path("welcome/#{partner[0]}_logo.png")), partner[1]

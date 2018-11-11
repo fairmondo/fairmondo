@@ -434,6 +434,26 @@
   border-radius: 0.9em;
 }
 
+#partners .image-list {
+  h5 {
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  div {
+    width: 10em;
+  }
+
+  a {
+    display: block;
+    text-align: center;
+  }
+
+  img {
+    height: 4em;
+  }
+}
+
 
 
 /******************************** Breakpoints *********************************/
