@@ -10,6 +10,15 @@
         span.slides-arrow.slides-arrow--right
           i.fa.fa-chevron-right
 
+      / Gebana
+      .billboard#billboard-gebana
+        article
+          div.centered
+            h2 Neu dabei:
+            = link_to user_path('gebana', pk_campaign: 'billboards', pk_keyword: 'gebana') do
+              div.logo &nbsp
+              span entdecken
+
       / Bücher
       .billboard#billboard-books
         article

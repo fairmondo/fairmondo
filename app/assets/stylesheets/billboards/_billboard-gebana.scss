@@ -1,0 +1,61 @@
+/**
+ * Books billboard
+ */
+
+#billboard-gebana {
+  background-image: image-url('welcome/billboard_gebana_big.jpg');
+  background-size: cover;
+  background-position: center;
+
+  & > article .centered {
+
+    position: absolute;
+    right: 0;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    height: 200px;
+    margin: auto;
+
+    h2 {
+      display: block;
+      position: static;
+      margin: 0 auto;
+      font-weight: bold;
+      text-transform: uppercase;
+      text-align: center;
+      color: $white;
+      text-shadow: black 0px 0px 3px;
+    }
+
+    a span {
+      background-color: #428ebd;
+      border-radius: 0.5em;
+      text-align: center;
+      display: block;
+      margin: 0 auto;
+      padding: 0.5em;
+      width: 120px;
+      font-weight: bold;
+      color: $white;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    .logo {
+      height: 100px;
+      width: 100px;
+
+      background-image: image-url('welcome/gebana_logo.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+
+      margin: 1rem auto;
+      display: block;
+      position: static;
+    }
+  }
+}
