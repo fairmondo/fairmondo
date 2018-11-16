@@ -2,7 +2,7 @@ de:
   layouts:
     partials:
       shared:
-        copyright_html: &copyright "&copy; Copyright 2017 Fairmondo eG"
+        copyright_html: &copyright "&copy; Copyright 2018 Fairmondo eG"
       footer:
         company:
           heading: "Fairmondo"
