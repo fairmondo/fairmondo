@@ -10,7 +10,8 @@
   min-height: 410px;
   position: relative;
   color: $white;
-  background-image: image-url('welcome/genobox-275-410.jpg');
+  background-image: image-url('welcome/advent-calendar-2018-bg.jpg');
+  background-size: cover;
   background-repeat: no-repeat;
   background-position: center top;
   border-radius: 0.5em;  // Circumvent bug in Webkit browsers that would hide the rounded border
