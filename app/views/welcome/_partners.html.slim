@@ -1,5 +1,7 @@
-- partners = [  %w(gwo https://www.ecogood.org/ GWÖ-Mitglied),
-                %w(byrd https://getbyrd.com/?utm_source=affiliate-program&utm_medium=fairmondo Logistik)]
+- partners = [  ['gwo', 'https://www.ecogood.org/', 'GWÖ-Mitglied'],
+                ['byrd', 'https://getbyrd.com/?utm_source=affiliate-program&utm_medium=fairmondo','Logistik'],
+                ['hilfswerft222','https://www.hilfswerft.de/poster-nachhaltiger-konsum-die-nachhaltigen-222-deutschlands','Die Nachhaltigen 222','Die Nachhaltigen 222, das Poster zu nachhaltigem Konsum 2019'],
+     			['ews', 'https://www.ews-schoenau.de', 'Ökostrom']]
 .teaser.teaser--full#partners
   .teaser-inner
     ul.image-list
@@ -7,4 +9,4 @@
         li
           div
             h5 = partner[2]
-            = link_to image_tag(image_path("welcome/#{partner[0]}_logo.png")), partner[1]
+            = link_to image_tag(image_path("welcome/#{partner[0]}_logo.png"), alt: partner[3]), partner[1]
