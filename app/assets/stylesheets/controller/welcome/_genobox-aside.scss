@@ -10,16 +10,28 @@
   min-height: 410px;
   position: relative;
   color: $white;
-  background-image: image-url('welcome/advent-calendar-2018-bg.jpg');
+  background-image: image-url('welcome/genobox-die-nachhaltigen-222-poster.small.jpg');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center top;
   border-radius: 0.5em;  // Circumvent bug in Webkit browsers that would hide the rounded border
   height: 410px;
 
-  h2, p {
+  p {
     margin: 0;
     text-indent: -1000em;
+  }
+
+  h2 {
+    display: block;
+    background: $blue;
+    text-align: center;
+    margin-top: 0px;
+    padding: 0.5em;
+    border-top-left-radius: 0.5em;
+    border-top-right-radius: 0.5em;
+    font-size: 1.5em;
+    font-weight: 600;
   }
 
   a {
