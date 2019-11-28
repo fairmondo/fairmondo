@@ -19,6 +19,11 @@
       /        div.logo &nbsp
       /        span entdecken
 
+      / Reisepassquartett
+      .billboard#billboard-reisepassquartett
+        article
+          = link_to 'Jetzt Reisequartett bestellen', 'https://www.fairmondo.de/articles/reisepass-quartett-ein-grenzwertiges-gesellschaftsspiel-2-auflage'
+
       / Bücher
       .billboard#billboard-books
         article
@@ -53,17 +58,17 @@
                 p Klassiker
 
       / Fairphone 2
-      .billboard#billboard-fairphone2
-        article
-          h2 Fairphone 2 jetzt bei Fairmondo
-          = link_to 'Hier geht\'s zum Vorverkauf',
-                  article_path('fairphone-2', pk_campaign: 'billboards',
-                          pk_keyword: 'fairphone2')
+      /.billboard#billboard-fairphone2
+      /  article
+      /    h2 Fairphone 2 jetzt bei Fairmondo
+      /    = link_to 'Hier geht\'s zum Vorverkauf',
+      /            article_path('fairphone-2', pk_campaign: 'billboards',
+      /                    pk_keyword: 'fairphone2')
 
       / Lacoppa
-      .billboard#billboard-lacoppa
-        article
-          h2 LaCoppa bei Fairmondo
-          = link_to 'Nachhaltige Kaffeekapseln jetzt im Abo erhältlich',
-          content_path('lacoppa', pk_campaign: 'billboards',
-          pk_keyword: 'lacoppa')
+      /.billboard#billboard-lacoppa
+      /  article
+      /    h2 LaCoppa bei Fairmondo
+      /    = link_to 'Nachhaltige Kaffeekapseln jetzt im Abo erhältlich',
+      /    content_path('lacoppa', pk_campaign: 'billboards',
+      /    pk_keyword: 'lacoppa')

@@ -1,0 +1,44 @@
+/**
+ * Fairphone 2 billboard
+ */
+
+
+// General stuff
+#billboard-reisepassquartett > article > h2,
+#billboard-reisepassquartett > article > a {
+  text-indent: -1000em;
+}
+
+#billboard-reisepassquartett > article > a {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  text-indent: -999px;
+  display: block;
+}
+
+
+
+// Responsive code: small version
+@include till-breakpoint($bp-tablet) {
+  #billboard-reisepassquartett {
+    background-image: image-url('welcome/billboard_reisepassquartett_small.jpg');
+  }
+}
+
+
+// Responsive code: medium version
+@include between-breakpoints($bp-tablet, $bp-tablet-horizontal) {
+  #billboard-reisepassquartett {
+    background-image: image-url('welcome/billboard_reisepassquartett_medium.jpg');
+  }
+}
+
+
+// Responsive code: big version
+@include at-breakpoint($bp-tablet-horizontal) {
+  #billboard-reisepassquartett {
+    background-image: image-url('welcome/billboard_reisepassquartett_big.jpg');
+  }
+}
