@@ -7,7 +7,6 @@ Fairmondo::Application.routes.draw do
 
   post 'direct_debit_mandate/revoke' # todo: move somewhere safe
 
-  mount Nkss::Engine => '/styleguides' if Rails.env.development? || Rails.env.staging?
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
 
   concern :heartable do
