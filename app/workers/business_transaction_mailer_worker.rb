@@ -14,9 +14,9 @@ class BusinessTransactionMailerWorker
     raise Exception.new("BusinessTransaction #{business_transaction_id} not sold when trying to send transaction emails!") unless business_transaction.sold?
     case type.to_sym
     when :seller
-      BusinessTransactionMailer.seller_notification(business_transaction).deliver
+      BusinessTransactionMailer.seller_notification(business_transaction).deliver_later
     when :buyer
-      BusinessTransactionMailer.buyer_notification(business_transaction).deliver
+      BusinessTransactionMailer.buyer_notification(business_transaction).deliver_later
     end
   end
 end

@@ -8,7 +8,7 @@ require "rails/test_help"
 require "minitest/rails"
 require "minitest/rails/capybara"
 require "minitest/pride"
-require "mocha/mini_test"
+require "mocha/minitest"
 require 'capybara/rails'
 require Rails.root.join('test/support/spec_helpers/coverage.rb')
 
@@ -106,13 +106,11 @@ class ActiveSupport::TestCase
   fixtures :all
 
   self.use_transactional_fixtures = true
-
   before :each do
     # Use fake Fastbill service
     stub_request(:any, /app.monsum.com/).to_rack(FakeFastbill)
   end
 
-  # Add more helper methods to be used by all tests here...
   include FactoryGirl::Syntax::Methods
   include ActiveSupport::Testing::TimeHelpers
 end

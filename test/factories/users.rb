@@ -11,17 +11,17 @@ FactoryGirl.define do
     sequence(:nickname) { |n| "User #{n}" }
     legal '1'
 
-    about_me    { Faker::Lorem.paragraph(rand(7) + 1) }
-    terms    { Faker::Lorem.paragraph(rand(7) + 1) }
-    cancellation    { Faker::Lorem.paragraph(rand(7) + 1) }
-    about    { Faker::Lorem.paragraph(rand(7) + 1) }
+    about_me    { FFaker::Lorem.paragraph(rand(7) + 1) }
+    terms    { FFaker::Lorem.paragraph(rand(7) + 1) }
+    cancellation    { FFaker::Lorem.paragraph(rand(7) + 1) }
+    about    { FFaker::Lorem.paragraph(rand(7) + 1) }
 
     confirmed_at Time.now
 
     bank_code { rand(99999999).to_s.center(8, rand(9).to_s) }
     bank_account_number { rand(99999999).to_s.center(8, rand(9).to_s) }
-    bank_account_owner Faker::Name.name
-    bank_name Faker::Name.name
+    bank_account_owner FFaker::Name.name
+    bank_name FFaker::Name.name
 
     iban { %w(DE AT CH).sample + rand(99999999999999999999).to_s.center(20, rand(9).to_s) }
     bic { %w(ABCDEF ZJFBLO TNAPIT EMLOAB).sample + rand(99).to_s.center(2, rand(9).to_s) }
@@ -62,7 +62,7 @@ FactoryGirl.define do
     end
 
     factory :non_german_user do
-      country Faker::Address.country
+      country FFaker::Address.country
     end
 
     factory :private_user, class: 'PrivateUser' do
@@ -89,7 +89,7 @@ FactoryGirl.define do
     end
 
     trait :paypal_data do
-      paypal_account Faker::Internet.email
+      paypal_account FFaker::Internet.email
     end
 
     trait :fastbill do

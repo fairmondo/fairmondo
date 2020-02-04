@@ -78,7 +78,7 @@ namespace :db do
         name = element.elements['name'].to_s.slice(0..65)
 
         if element.elements['otherDescription'].to_s == '<otherDescription/>'
-          articles[name] = Faker::Lorem.paragraph(rand(7) + 1)
+          articles[name] = FFaker::Lorem.paragraph(rand(7) + 1)
           faker_count += 1
         else
           articles[name] = element.elements['otherDescription'].to_s.slice(0..255)

@@ -14,7 +14,7 @@ class CommentMailerTest < ActiveSupport::TestCase
   let(:commentable_owner) { create(:user) }
 
   it '#report_comment' do
-    mail = CommentMailer.report_comment(comment, commentable_owner).deliver
+    mail = CommentMailer.report_comment(comment, commentable_owner).deliver_later
 
     assert_not ActionMailer::Base.deliveries.empty?
 

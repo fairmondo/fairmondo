@@ -1,14 +1,14 @@
 source 'http://rubygems.org'
 
 # Rails
-gem 'rails', '~> 4.1.16'
+gem 'rails', '~> 4.2.11.1'
 gem 'rails-observers' # observers got extracted since rails 4
 gem 'activerecord-session_store' # sessions in activerecord
 
 # Plattforms Ruby
 platforms :ruby do
   gem 'therubyracer' # js runtime
-  gem 'pg' # postgres
+  gem 'pg', '~> 0.21' # postgres
 end
 
 # ----------  Model ----------
@@ -41,10 +41,9 @@ gem 'bourbon', '<= 4.0.2'
 gem 'font-awesome-rails', '>= 4.2.0.0'
 gem 'sprite-factory'
 gem 'chunky_png' # needed for sprite-factory
-gem 'sprockets'
 
 ## JS
-gem 'jquery-ui-rails'
+gem 'jquery-ui-rails', '~> 5.0.4'
 gem 'qtip2-jquery-rails', '~> 2.1.107'
 gem 'i18n-js', '~> 3.0.0'
 gem 'coffee-rails'
@@ -97,7 +96,6 @@ gem 'rails_admin', '>= 0.6.6' # Administrative backend
 gem 'rails_admin_statistics', github: 'KonstantinKo/rails_admin_statistics'
 gem 'rails_admin_nested_set'
 gem 'rack-rewrite' # Redirects
-gem 'json'
 gem 'nokogiri', '~> 1.7.2'
 gem 'prawn_rails' # pdf generation
 
@@ -152,7 +150,6 @@ end
 group :test do
   gem 'memory_test_fix'  # Sqlite inmemory fix
   gem 'rake'
-  gem 'database_cleaner'
   gem 'colorize'
   gem 'fakeredis'
   gem 'fakeweb', '~> 1.3'
@@ -174,7 +171,6 @@ group :development, :test do
   gem 'capistrano-bundler', '~> 1.1.2'
   gem 'capistrano-rbenv'
 
-  gem 'minitest', '5.10.1'  # 5.10.2 is buggy with this Rails version
   gem 'minitest-matchers'
   gem 'minitest-line'
   gem 'minitest-spec-rails'
