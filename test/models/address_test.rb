@@ -4,7 +4,7 @@
 
 require_relative '../test_helper'
 
-describe Address do
+class AddressTest < ActiveSupport::TestCase
   let(:address) { create(:address) }
   subject { Address.new }
 

@@ -4,7 +4,7 @@
 
 require_relative '../test_helper'
 
-describe LineItemGroup do
+class LineItemGroupTest < ActiveSupport::TestCase
   let(:line_item_group) { create(:line_item_group) }
   let(:id) { 1 }
 

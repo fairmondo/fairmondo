@@ -4,7 +4,7 @@
 
 require_relative '../test_helper'
 
-describe ContentsController do
+class ContentsControllerTest < ActionController::TestCase
   def login_admin
     sign_in(create :admin_user)
   end

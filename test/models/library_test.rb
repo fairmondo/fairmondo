@@ -4,7 +4,7 @@
 
 require_relative '../test_helper'
 
-describe Library do
+class LibraryTest < ActiveSupport::TestCase
   subject { Library.new }
 
   describe 'associations' do

@@ -4,7 +4,7 @@
 
 require_relative '../test_helper'
 
-describe MassUploadsController do
+class MassUploadsControllerTest < ActionController::TestCase
   # Strictly speaking not necessary since already tested in the feature tests
   describe "GET 'new'" do
     describe 'for non-signed-in users' do

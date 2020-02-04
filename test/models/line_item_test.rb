@@ -4,7 +4,7 @@
 
 require_relative '../test_helper'
 
-describe LineItem do
+class LineItemTest < ActiveSupport::TestCase
   let(:line_item) { LineItem.new }
   let(:db_line_item) { create :line_item }
 

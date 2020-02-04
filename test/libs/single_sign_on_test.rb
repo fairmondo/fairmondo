@@ -4,7 +4,7 @@
 
 require_relative '../test_helper'
 
-describe 'SingleSignOn' do
+class SingleSignOnTest < ActiveSupport::TestCase
   describe '::sso_secret' do
     it 'should raise error' do
       -> { SingleSignOn.sso_secret }.must_raise RuntimeError

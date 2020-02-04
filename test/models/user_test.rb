@@ -4,7 +4,7 @@
 
 require_relative '../test_helper'
 
-describe User do
+class UserTest < ActiveSupport::TestCase
   let(:user) { create(:user) }
   let(:private_stubbed) { build_stubbed(:private_user) }
   let(:le_stubbed) { build_stubbed(:legal_entity) }

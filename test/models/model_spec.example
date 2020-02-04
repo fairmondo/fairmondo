@@ -1,7 +1,7 @@
 # A model / unit test example to copy, paste and fill in
 require 'spec_helper'
 
-describe Foobar do
+class FoobarTest < ActiveSupport::TestCase
   describe "attributes" do
     it { should respond_to 'foo' }
   end

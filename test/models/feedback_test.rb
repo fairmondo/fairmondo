@@ -4,7 +4,7 @@
 
 require_relative '../test_helper'
 
-describe Feedback do
+class FeedbackTest < ActiveSupport::TestCase
   subject { Feedback.new }
 
   describe 'attributes' do

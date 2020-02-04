@@ -4,7 +4,7 @@
 
 require_relative '../test_helper'
 
-describe FastbillAPI do
+class FastbillAPITest < ActiveSupport::TestCase
   let(:api) { FastbillAPI.new }
 
   describe 'methods' do

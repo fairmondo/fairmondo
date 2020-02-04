@@ -4,7 +4,7 @@
 
 require_relative '../test_helper'
 
-describe MassUploadArticle do
+class MassUploadArticleTest < ActiveSupport::TestCase
   subject { MassUploadArticle.new }
 
   describe 'attributes' do

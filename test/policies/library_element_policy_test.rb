@@ -4,7 +4,7 @@
 
 require_relative '../test_helper'
 
-describe LibraryElementPolicy do
+class LibraryElementPolicyTest < ActiveSupport::TestCase
   include PunditMatcher
 
   subject { LibraryElementPolicy.new(user, library_element)   }

@@ -22,7 +22,7 @@ def article_attributes_for prices, transport_prices, transport_numbers
   attributes
 end
 
-describe 'Abacus' do
+class AbacusTest < ActiveSupport::TestCase
   let(:abacus) {}
 
   it 'calculates a total price and a proper net price with pickup and cash that is the retail price of the articles' do

@@ -4,7 +4,7 @@
 
 require_relative '../test_helper'
 
-describe Article do
+class ArticleTest < ActiveSupport::TestCase
   let(:article) { Article.new }
   let(:db_article) { create(:article, :with_fixture_image) }
   let(:ngo_article) { create :article, :with_ngo }

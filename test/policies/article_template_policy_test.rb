@@ -4,7 +4,7 @@
 
 require_relative '../test_helper'
 
-describe ArticleTemplatePolicy do
+class ArticleTemplatePolicyTest < ActiveSupport::TestCase
   include PunditMatcher
 
   subject { ArticleTemplatePolicy.new(user, article_template)   }

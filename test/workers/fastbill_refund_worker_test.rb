@@ -2,9 +2,9 @@
 #   licensed under the GNU Affero General Public License version 3 or later.
 #   See the COPYRIGHT file for details.
 
-require 'test_helper'
+require_relative '../test_helper'
 
-describe FastbillRefundWorker do
+class FastbillRefundWorkerTest < ActiveSupport::TestCase
   it 'should refund normal customers' do
     fba = mock()
     FastbillAPI.stubs(:new).returns(fba)

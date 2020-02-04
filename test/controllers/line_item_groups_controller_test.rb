@@ -4,7 +4,7 @@
 
 require_relative '../test_helper'
 
-describe LineItemGroupsController do
+class LineItemGroupsControllerTest < ActionController::TestCase
   let(:lig) { create :line_item_group, :sold, :with_business_transactions, traits: [:paypal, :transport_type1] }
   let(:buyer) { lig.buyer }
 

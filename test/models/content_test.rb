@@ -4,7 +4,7 @@
 
 require_relative '../test_helper'
 
-describe Content do
+class ContentTest < ActiveSupport::TestCase
   subject { Content.new }
 
   describe 'attributes' do

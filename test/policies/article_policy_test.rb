@@ -4,7 +4,7 @@
 
 require_relative '../test_helper'
 
-describe ArticlePolicy do
+class ArticlePolicyTest < ActiveSupport::TestCase
   include ::PunditMatcher
   subject { ArticlePolicy.new(user, article)  }
   let(:article) { create :preview_article }

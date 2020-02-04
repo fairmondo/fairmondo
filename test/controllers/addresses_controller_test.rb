@@ -4,7 +4,7 @@
 
 require_relative '../test_helper'
 
-describe AddressesController do
+class AddressesControllerTest < ActionController::TestCase
   let(:user) { create :user }
   let(:address) { create :address, user: user }
   let(:referenced_address) { create :address, :referenced, user: user }

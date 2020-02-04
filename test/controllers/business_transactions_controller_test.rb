@@ -4,7 +4,7 @@
 
 require_relative '../test_helper'
 
-describe BusinessTransactionsController do
+class BusinessTransactionsControllerTest < ActionController::TestCase
   def login
     user = create(:legal_entity)
     sign_in user

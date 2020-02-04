@@ -4,7 +4,7 @@
 
 require_relative '../test_helper'
 
-describe RatingsController do
+class RatingsControllerTest < ActionController::TestCase
   let(:seller) { create :user }
   let(:buyer) { create :user }
   let(:line_item_group) { create :line_item_group, seller: seller, buyer: buyer }

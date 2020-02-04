@@ -4,7 +4,7 @@
 
 require_relative '../test_helper'
 
-describe PaymentsController do
+class PaymentsControllerTest < ActionController::TestCase
   let(:lig) { create :line_item_group, :sold, :with_business_transactions, traits: [:paypal, :transport_type1] }
   let(:bt) { lig.business_transactions.first }
   let(:buyer) { bt.buyer }

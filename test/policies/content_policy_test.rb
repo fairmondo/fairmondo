@@ -4,7 +4,7 @@
 
 require_relative '../test_helper'
 
-describe ContentPolicy do
+class ContentPolicyTest < ActiveSupport::TestCase
   include PunditMatcher
 
   subject { ContentPolicy.new(user, content)   }

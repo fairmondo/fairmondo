@@ -4,7 +4,7 @@
 
 require_relative '../test_helper'
 
-describe SessionsController do
+class SessionsControllerTest < ActionController::TestCase
   before(:each) do
     request.env['devise.mapping'] = Devise.mappings[:user]
   end

@@ -4,7 +4,7 @@
 
 require_relative '../test_helper'
 
-describe CartPolicy do
+class CartPolicyTest < ActiveSupport::TestCase
   include PunditMatcher
 
   subject { CartPolicy.new(user, cart) }

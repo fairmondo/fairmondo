@@ -4,7 +4,7 @@
 
 require_relative '../test_helper'
 
-describe WelcomeController do
+class WelcomeControllerTest < ActionController::TestCase
   describe "GET 'index" do
     describe 'for non-signed-in users' do
       it 'should be successful' do

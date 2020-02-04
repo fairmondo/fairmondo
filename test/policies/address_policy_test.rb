@@ -4,7 +4,7 @@
 
 require_relative '../test_helper'
 
-describe AddressPolicy do
+class AddressPolicyTest < ActiveSupport::TestCase
   include PunditMatcher
   subject { AddressPolicy.new(user, address) }
   let(:address) { create(:address) }

@@ -4,7 +4,7 @@
 
 require_relative '../test_helper'
 
-describe StatisticPolicy do
+class StatisticPolicyTest < ActiveSupport::TestCase
   include PunditMatcher
 
   subject { StatisticPolicy.new(user, statistic) }

@@ -4,7 +4,7 @@
 
 require_relative '../test_helper'
 
-describe PaymentPolicy do
+class PayementPolicyTest < ActiveSupport::TestCase
   include PunditMatcher
 
   subject { PaymentPolicy.new(user, payment)  }
