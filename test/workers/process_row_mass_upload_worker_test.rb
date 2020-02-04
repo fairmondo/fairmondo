@@ -2,9 +2,9 @@
 #   licensed under the GNU Affero General Public License version 3 or later.
 #   See the COPYRIGHT file for details.
 
-require 'test_helper'
+require_relative '../test_helper'
 
-describe ProcessRowMassUploadWorker do
+class ProcessRowMassUploadWorkerTest < ActiveSupport::TestCase
   it 'should cover exhausted row workers' do
     Sidekiq.logger.stubs(:warn)
     mu = create :mass_upload

@@ -4,7 +4,7 @@
 
 require_relative '../test_helper'
 
-describe BusinessTransactionExporter do
+class BusinessTransactionExporterTest < ActiveSupport::TestCase
   let(:bt) { create :business_transaction_from_legal_entity }
 
   describe 'csv export' do

@@ -4,7 +4,7 @@
 
 require_relative '../test_helper'
 
-describe Comment do
+class CommentTest < ActiveSupport::TestCase
   subject { Comment.new }
 
   describe 'associations' do

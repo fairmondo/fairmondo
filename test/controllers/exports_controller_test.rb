@@ -4,7 +4,7 @@
 
 require_relative '../test_helper'
 
-describe ExportsController do
+class ExportsControllerTest < ActionController::TestCase
   describe 'mass-upload creation' do
     before do
       @user = create :legal_entity, :paypal_data

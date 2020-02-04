@@ -4,7 +4,7 @@
 
 require_relative '../test_helper'
 
-describe CreatesDirectDebitMandate do
+class CreatesDirectDebitMandateTest < ActiveSupport::TestCase
   describe '#create' do
     it 'creates an active direct debit mandate' do
       alice = create :user_alice

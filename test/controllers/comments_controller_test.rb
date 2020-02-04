@@ -4,7 +4,7 @@
 
 require_relative '../test_helper'
 
-describe CommentsController do
+class CommentsControllerTest < ActionController::TestCase
   describe 'GET comments on library' do
     before :each do
       @library = create :library, public: true

@@ -3,9 +3,9 @@
 #   See the COPYRIGHT file for details.
 
 require_relative '../test_helper'
-include PunditMatcher
 
-describe RefundPolicy do
+class RefundPolicyTest < ActiveSupport::TestCase
+  include PunditMatcher
   let(:refund) { create :refund }
   subject { RefundPolicy.new(user, refund) }
 

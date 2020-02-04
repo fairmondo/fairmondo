@@ -4,7 +4,7 @@
 
 require_relative '../test_helper'
 
-describe DiscourseController do
+class DiscourseControllerTest < ActionController::TestCase
   it 'shoud GET discourse/sso' do
     get :sso
     assert_response :found

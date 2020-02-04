@@ -4,7 +4,7 @@
 
 require_relative '../test_helper'
 
-describe ToolboxController do
+class ToolboxControllerTest < ActionController::TestCase
   let(:user) { create :user }
 
   # render_views

@@ -4,7 +4,7 @@
 
 require_relative '../test_helper'
 
-describe CategoriesController do
+class CategoriesControllerTest < ActionController::TestCase
   let(:category) { create(:category) }
 
   describe 'GET ::index' do

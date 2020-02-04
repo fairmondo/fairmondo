@@ -4,7 +4,7 @@
 
 require_relative '../test_helper'
 
-describe CartsController do
+class CartsControllerTest < ActionController::TestCase
   it 'should render empty cart template when user has no cart' do
     get :empty_cart
     assert_response :success

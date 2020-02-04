@@ -4,7 +4,7 @@
 
 require_relative '../test_helper'
 
-describe Refund do
+class RefundTest < ActiveSupport::TestCase
   subject { Refund.new }
 
   describe 'associations' do

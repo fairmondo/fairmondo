@@ -4,7 +4,7 @@
 
 require_relative '../test_helper'
 
-describe RefundsController do
+class RefundsControllerTest < ActionController::TestCase
   let(:seller) { create :user }
   let(:line_item_group) { create :line_item_group, seller: seller }
   let(:business_transaction) { create :business_transaction, :old, line_item_group: line_item_group }

@@ -4,7 +4,7 @@
 
 require 'test_helper'
 
-describe FeaturedLibraryQuery do
+class FeaturedLibraryQueryTest < ActiveSupport::TestCase
   describe '#find' do
     it 'finds featured library elements and fills them if need be' do
       library = create :library, :public, exhibition_name: :queue1

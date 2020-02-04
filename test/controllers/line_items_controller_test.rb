@@ -4,7 +4,7 @@
 
 require_relative '../test_helper'
 
-describe LineItemsController do
+class LineItemsControllerTest < ActionController::TestCase
   let(:cart) { create :cart, user: nil }
   let(:buyer) { create :buyer }
   let(:article) { create :article, :with_larger_quantity }

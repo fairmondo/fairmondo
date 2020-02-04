@@ -4,7 +4,7 @@
 
 require_relative '../test_helper'
 
-describe NoticeHelper do
+class NoticeHelperTest < ActionView::TestCase
   # describe "#bootstrap_notice_mapper" do
   #   it "returns 'warning' when given :alert" do
   #     helper.bootstrap_notice_mapper(:alert).must_equal 'warning'

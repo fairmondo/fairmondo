@@ -8,7 +8,7 @@ def test_sanitize_mce field, admin = false
   Sanitization.send('sanitize_tiny_mce', field, admin)
 end
 
-describe 'Sanitization' do
+class SanitizationTest < ActiveSupport::TestCase
   # private methods
   describe '::sanitize_tiny_mce' do
     describe 'for standard users' do

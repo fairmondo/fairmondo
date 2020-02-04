@@ -4,7 +4,7 @@
 
 require_relative '../test_helper'
 
-describe LibraryPopularityWorker do
+class LibraryPopularityWorkerTest < ActiveSupport::TestCase
   let(:library) { Library.new }
   let(:worker) { LibraryPopularityWorker.new }
 

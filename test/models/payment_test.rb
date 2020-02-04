@@ -4,7 +4,7 @@
 
 require_relative '../test_helper'
 
-describe Payment do
+class PaymentTest < ActiveSupport::TestCase
   subject { payment }
   let(:payment) { create(:paypal_payment) }
 

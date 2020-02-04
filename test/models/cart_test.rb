@@ -4,7 +4,7 @@
 
 require 'test_helper'
 
-describe Cart do
+class CartTest < ActiveSupport::TestCase
   subject { Cart.new }
 
   describe 'attributes' do

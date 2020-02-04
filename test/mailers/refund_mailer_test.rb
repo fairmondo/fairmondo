@@ -5,7 +5,7 @@
 require_relative '../test_helper'
 require 'email_spec'
 
-describe RefundMailer do
+class RefundMailerTest < ActiveSupport::TestCase
   include EmailSpec::Helpers
   include EmailSpec::Matchers
 

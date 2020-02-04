@@ -4,7 +4,7 @@
 
 require_relative '../test_helper'
 
-describe ArticleTemplatesController do
+class ArticleTemplatesControllerTest < ActionController::TestCase
   before :each do
     @user = create(:user)
     sign_in @user

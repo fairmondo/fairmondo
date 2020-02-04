@@ -4,7 +4,7 @@
 
 require_relative '../test_helper'
 
-describe Category do
+class CategoryTest < ActiveSupport::TestCase
   subject { Category.new }
 
   describe 'attributes' do

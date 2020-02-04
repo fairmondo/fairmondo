@@ -4,7 +4,7 @@
 
 require_relative '../test_helper'
 
-describe StatisticsController do
+class StatisticsControllerTest < ActionController::TestCase
   context 'as an admin' do
     before { sign_in(create :admin_user) }
 

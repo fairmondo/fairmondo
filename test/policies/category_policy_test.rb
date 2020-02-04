@@ -4,7 +4,7 @@
 
 require_relative '../test_helper'
 
-describe CategoryPolicy do
+class CategoryPolicyTest < ActiveSupport::TestCase
   include PunditMatcher
 
   it { subject.must_permit(:select_category) }

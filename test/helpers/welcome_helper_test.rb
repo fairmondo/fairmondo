@@ -4,7 +4,7 @@
 
 require_relative '../test_helper'
 
-describe WelcomeHelper do
+class WelcomeHelperTest < ActionView::TestCase
   describe '#rss_image_extractor' do
     it 'returns an image when there is one' do
       content = "<p><img src=\"test.png\"/>"

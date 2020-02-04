@@ -4,7 +4,7 @@
 
 require_relative '../test_helper'
 
-describe DirectDebitMandate do
+class DirectDebitMandateTest < ActiveSupport::TestCase
   subject { DirectDebitMandate.new }
   let(:user) { build_stubbed :user }
   let(:mandate) { DirectDebitMandate.new(user: user) }

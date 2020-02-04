@@ -4,7 +4,7 @@
 
 require_relative '../test_helper'
 
-describe ArticlesController do
+class ArticlesControllerTest < ActionController::TestCase
   let(:user) { create(:user) }
 
   describe '#index' do

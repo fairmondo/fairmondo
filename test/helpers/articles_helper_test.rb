@@ -4,7 +4,7 @@
 
 require_relative '../test_helper'
 
-describe ArticlesHelper do
+class ArticlesHelperTest < ActionView::TestCase
   describe 'default_organisation_from' do
     it 'should rescue from error and return nil' do
       assert_nil(helper.default_organisation_from([]))

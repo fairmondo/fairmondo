@@ -4,7 +4,7 @@
 
 require_relative '../test_helper'
 
-describe RegistrationsMailer do
+class RegistrationsMailerTest < ActiveSupport::TestCase
   include EmailSpec::Helpers
   include EmailSpec::Matchers
 

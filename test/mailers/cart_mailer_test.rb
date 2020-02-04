@@ -4,7 +4,7 @@
 
 require_relative '../test_helper'
 
-describe CartMailer do
+class CartMailerTest < ActiveSupport::TestCase
   include Rails.application.routes.url_helpers
 
   include EmailSpec::Helpers

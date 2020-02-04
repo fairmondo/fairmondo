@@ -4,7 +4,7 @@
 
 require_relative '../test_helper'
 
-describe UsersController do
+class UsersControllerTest < ActionController::TestCase
   describe "GET 'show'" do
     describe 'for non-signed-in users' do
       before :each do

@@ -4,7 +4,7 @@
 
 require_relative '../test_helper'
 
-describe LibraryElementsController do
+class LibraryElementsControllerTest < ActionController::TestCase
   describe 'Library Elements' do
     describe 'for non-signed-in users' do
       before :each do

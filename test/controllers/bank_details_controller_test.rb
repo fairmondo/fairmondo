@@ -5,7 +5,7 @@
 require_relative '../test_helper'
 
 # KontoAPI::valid? and bank_name are automatically stubbed to true / Bankname
-describe BankDetailsController do
+class BankDetailsControllerTest < ActionController::TestCase
   setup do
     @user = create(:user)
     sign_in @user

@@ -4,7 +4,7 @@
 
 require 'test_helper'
 
-describe 'Fairtastic' do
+class FairtasticTest < ActiveSupport::TestCase
   # include RSpec::Rails::HelperExampleGroup
 
   describe 'InputSteps' do

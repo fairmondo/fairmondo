@@ -4,7 +4,7 @@
 
 require_relative '../test_helper'
 
-describe FeedbackMailer do
+class FeedbackMailerTest < ActiveSupport::TestCase
   include EmailSpec::Helpers
   include EmailSpec::Matchers
 

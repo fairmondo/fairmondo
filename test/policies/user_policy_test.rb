@@ -4,7 +4,7 @@
 
 require_relative '../test_helper'
 
-describe UserPolicy do
+class UserPolicyTest < ActiveSupport::TestCase
   include PunditMatcher
   subject { UserPolicy.new(user, resource)  }
   let(:resource) { create :user }

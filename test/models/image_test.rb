@@ -4,7 +4,7 @@
 
 require_relative '../test_helper'
 
-describe Image do
+class ImageTest < ActiveSupport::TestCase
   subject { Image.new }
   let(:image) { create(:article_image) }
 

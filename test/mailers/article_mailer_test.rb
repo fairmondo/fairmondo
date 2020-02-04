@@ -4,7 +4,7 @@
 
 require_relative '../test_helper'
 
-describe ArticleMailer do
+class ArticleMailerTest < ActiveSupport::TestCase
   include Rails.application.routes.url_helpers
 
   include EmailSpec::Helpers

@@ -4,7 +4,7 @@
 
 require_relative '../test_helper'
 
-describe HeartsController do
+class HeartsControllerTest < ActionController::TestCase
   describe 'POST Heart on libraries' do
     describe 'for non-signed-in users' do
       before :each do

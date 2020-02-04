@@ -4,7 +4,7 @@
 
 require_relative '../test_helper'
 
-describe FeedbacksController do
+class FeedbacksControllerTest < ActionController::TestCase
   describe "POST 'create'" do
     before :each do
       article = create :article

@@ -4,7 +4,7 @@
 
 require_relative '../test_helper'
 
-describe Discount do
+class DiscountTest < ActiveSupport::TestCase
   subject { Discount.new }
 
   describe 'associations' do

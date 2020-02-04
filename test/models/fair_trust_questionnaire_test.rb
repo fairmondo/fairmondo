@@ -4,7 +4,7 @@
 
 require_relative '../test_helper'
 
-describe FairTrustQuestionnaire do
+class FairTrustQuestionnaireTest < ActiveSupport::TestCase
   subject { FairTrustQuestionnaire.new }
 
   describe 'attributes' do

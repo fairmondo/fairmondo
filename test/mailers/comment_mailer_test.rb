@@ -4,7 +4,7 @@
 
 require_relative '../test_helper'
 
-describe CommentMailer do
+class CommentMailerTest < ActiveSupport::TestCase
   include Rails.application.routes.url_helpers
 
   include EmailSpec::Helpers

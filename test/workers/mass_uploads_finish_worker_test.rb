@@ -2,9 +2,9 @@
 #   licensed under the GNU Affero General Public License version 3 or later.
 #   See the COPYRIGHT file for details.
 
-require 'test_helper'
+require_relative '../test_helper'
 
-describe MassUploadsFinishWorker do
+class MassUploadsFinishWorkerTest < ActiveSupport::TestCase
   it 'finishes a processing mass_upload' do
     mass_upload = create(:mass_upload_to_finish)
     MassUploadsFinishWorker.new.perform

@@ -4,7 +4,7 @@
 
 require_relative '../test_helper'
 
-describe LibrariesController do
+class LibrariesControllerTest < ActionController::TestCase
   describe "GET 'index" do
     describe 'for non-signed-in users' do
       before :each do
