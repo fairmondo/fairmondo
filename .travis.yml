@@ -15,7 +15,7 @@ before_install:
   - curl -k -L -o elasticsearch.tar.gz https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-5.4.0.tar.gz
   - tar -zxvf elasticsearch.tar.gz
   - ./elasticsearch-5.4.0/bin/elasticsearch-plugin install http://xbib.org/repository/org/xbib/elasticsearch/plugin/elasticsearch-plugin-bundle/5.4.0.0/elasticsearch-plugin-bundle-5.4.0.0-plugin.zip
-  - ./elasticsearch-5.4.0/bin/elasticsearch &
+  - ./elasticsearch-5.4.0/bin/elasticsearch 1> /dev/null &
   - cp config/secrets.yml.example config/secrets.yml
 addons:
   apt:
