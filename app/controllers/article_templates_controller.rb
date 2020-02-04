@@ -6,7 +6,7 @@ class ArticleTemplatesController < ApplicationController
   include ArticleParams
 
   respond_to :html
-  responders :location, :flash
+  responders :flash
 
   before_action -> { render_css_from_controller('articles') }, except: [:destroy]
   before_action :set_article_template, only: [:edit, :update, :destroy]

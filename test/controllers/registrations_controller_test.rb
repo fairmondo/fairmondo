@@ -2,7 +2,7 @@
 #   licensed under the GNU Affero General Public License version 3 or later.
 #   See the COPYRIGHT file for details.
 
-require_relative '../test_helper'
+require 'test_helper'
 
 class RegistrationsControllerTest < ActionController::TestCase
   before(:each) do

@@ -1,4 +1,4 @@
-class AddDefaultValueToPercentageOfPositiveRatings < ActiveRecord::Migration
+class AddDefaultValueToPercentageOfPositiveRatings < ActiveRecord::Migration[4.2]
   def up
     change_column :users, :percentage_of_positive_ratings, :float, :default => 0.0
   end

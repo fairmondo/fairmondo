@@ -4,8 +4,7 @@
 
 class RefundsController < ApplicationController
   PERMITTED_PARAMS = %i(reason description).freeze
-
-  responders :location, :flash
+  responders :flash
   respond_to :html
 
   def new

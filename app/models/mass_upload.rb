@@ -2,7 +2,7 @@
 #   licensed under the GNU Affero General Public License version 3 or later.
 #   See the COPYRIGHT file for details.
 
-class MassUpload < ActiveRecord::Base
+class MassUpload < ApplicationRecord
   include Assets::Normalizer
   include Checks, Questionnaire, FeesAndDonations, Associations, State
 

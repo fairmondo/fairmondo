@@ -2,7 +2,7 @@
 #   licensed under the GNU Affero General Public License version 3 or later.
 #   See the COPYRIGHT file for details.
 
-class LineItem < ActiveRecord::Base
+class LineItem < ApplicationRecord
   attr_accessor :business_transaction # temporary saving the data
   attr_accessor :cart_cookie # temp storage to validate with pundit
 
@@ -55,8 +55,8 @@ class LineItem < ActiveRecord::Base
   #  end
 
   # Handle line_item_count on Cart
-  before_create -> { Cart.increment_counter(:line_item_count, cart.id) }
-  before_destroy -> { Cart.decrement_counter(:line_item_count, cart.id)  }
+  before_create -> { cart && Cart.increment_counter(:line_item_count, cart.id) }
+  before_destroy -> { cart && Cart.decrement_counter(:line_item_count, cart.id)  }
   after_destroy do |record|
     group = record.line_item_group
     group.destroy if group.line_items.empty?

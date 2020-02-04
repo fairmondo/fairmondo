@@ -4,7 +4,6 @@
 
 # https://github.com/plataformatec/devise/blob/master/app/controllers/devise/sessions_controller.rb
 class SessionsController < Devise::SessionsController
-  skip_before_action :check_new_terms
   after_action :save_belboon_tracking_token_in_user, only: :create
   before_action :clear_void_belboon_tracking_token_from_user, only: :destroy
 

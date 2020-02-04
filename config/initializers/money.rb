@@ -1,6 +1,7 @@
 #   Copyright (c) 2012-2017, Fairmondo eG.  This file is
 #   licensed under the GNU Affero General Public License version 3 or later.
 #   See the COPYRIGHT file for details.
+Money.locale_backend = :i18n
 
 MoneyRails.configure do |config|
 
@@ -42,6 +43,8 @@ MoneyRails.configure do |config|
   # }
 
 end
+
+Money.rounding_mode = BigDecimal::ROUND_HALF_EVEN
 
 # Monkey Patch
 # Url: https://github.com/RubyMoney/money-rails/blob/master/lib/money-rails/helpers/action_view_extension.rb

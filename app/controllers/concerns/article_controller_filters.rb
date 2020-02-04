@@ -9,10 +9,9 @@ module ArticleControllerFilters
     before_action :set_article, only: [:edit, :update, :destroy, :show]
 
     # Authorization
-    skip_before_action :authenticate_user!,
-                       only: [:show, :index, :new, :autocomplete]
+    skip_before_action :authenticate_user!, only: [:show, :index, :new, :autocomplete]
     before_action :seller_sign_in, only: :new
-    skip_after_filter :verify_authorized_with_exceptions, only: [:autocomplete]
+    skip_after_action :verify_authorized_with_exceptions, only: [:autocomplete]
 
     # Layout Requirements
     before_action :ensure_complete_profile, only: [:new, :create]

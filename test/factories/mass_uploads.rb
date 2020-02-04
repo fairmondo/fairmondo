@@ -4,6 +4,7 @@
 
 FactoryBot.define do
   factory :mass_upload do
+    state { :pending }
     file { fixture_file_upload('test/fixtures/mass_upload_correct.csv', 'text/csv') }
     association :user, factory: :legal_entity
 

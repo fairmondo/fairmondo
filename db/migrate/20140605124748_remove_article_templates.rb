@@ -1,9 +1,9 @@
-class RemoveArticleTemplates < ActiveRecord::Migration
-  class ArticleTemplate < ActiveRecord::Base
+class RemoveArticleTemplates < ActiveRecord::Migration[4.2]
+  class ArticleTemplate < ApplicationRecord
     has_one :article
   end
 
-  class Article < ActiveRecord::Base
+  class Article < ApplicationRecord
     belongs_to :article_template
   end
 

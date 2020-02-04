@@ -27,7 +27,7 @@ class RegistrationsController < Devise::RegistrationsController
     super
     if resource.valid? && resource.voluntary_contribution.present?
       RegistrationsMailer.voluntary_contribution_email(params[:user][:email],
-                                                       params[:user][:voluntary_contribution].to_i).deliver
+                                                       params[:user][:voluntary_contribution].to_i).deliver_later
     end
   end
 

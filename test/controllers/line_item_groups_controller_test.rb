@@ -2,7 +2,7 @@
 #   licensed under the GNU Affero General Public License version 3 or later.
 #   See the COPYRIGHT file for details.
 
-require_relative '../test_helper'
+require 'test_helper'
 
 class LineItemGroupsControllerTest < ActionController::TestCase
   let(:lig) { create :line_item_group, :sold, :with_business_transactions, traits: [:paypal, :transport_type1] }

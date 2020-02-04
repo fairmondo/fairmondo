@@ -2,7 +2,7 @@
 #   licensed under the GNU Affero General Public License version 3 or later.
 #   See the COPYRIGHT file for details.
 
-require_relative '../test_helper'
+require 'test_helper'
 
 class ImageTest < ActiveSupport::TestCase
   subject { Image.new }
@@ -13,18 +13,18 @@ class ImageTest < ActiveSupport::TestCase
   end
 
   describe 'attributes' do
-    it { subject.must_respond_to :id }
-    it { subject.must_respond_to :image_file_name }
-    it { subject.must_respond_to :image_content_type }
-    it { subject.must_respond_to :image_file_size }
-    it { subject.must_respond_to :image_updated_at }
-    it { subject.must_respond_to :created_at }
-    it { subject.must_respond_to :updated_at }
-    it { subject.must_respond_to :imageable_id }
-    it { subject.must_respond_to :type }
-    it { subject.must_respond_to :is_title }
-    it { subject.must_respond_to :external_url }
-    it { subject.must_respond_to :image_processing }
+    it { _(subject).must_respond_to :id }
+    it { _(subject).must_respond_to :image_file_name }
+    it { _(subject).must_respond_to :image_content_type }
+    it { _(subject).must_respond_to :image_file_size }
+    it { _(subject).must_respond_to :image_updated_at }
+    it { _(subject).must_respond_to :created_at }
+    it { _(subject).must_respond_to :updated_at }
+    it { _(subject).must_respond_to :imageable_id }
+    it { _(subject).must_respond_to :type }
+    it { _(subject).must_respond_to :is_title }
+    it { _(subject).must_respond_to :external_url }
+    it { _(subject).must_respond_to :image_processing }
   end
 
   describe 'associations' do

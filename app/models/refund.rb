@@ -2,7 +2,7 @@
 #   licensed under the GNU Affero General Public License version 3 or later.
 #   See the COPYRIGHT file for details.
 
-class Refund < ActiveRecord::Base
+class Refund < ApplicationRecord
   extend Enumerize
   extend Sanitization
   extend Tokenize

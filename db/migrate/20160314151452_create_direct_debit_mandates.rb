@@ -1,4 +1,4 @@
-class CreateDirectDebitMandates < ActiveRecord::Migration
+class CreateDirectDebitMandates < ActiveRecord::Migration[4.2]
   def change
     create_table :direct_debit_mandates do |t|
       t.string :reference

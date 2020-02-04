@@ -1,4 +1,4 @@
-class AddOtherToFairTrustQuestionnaire < ActiveRecord::Migration
+class AddOtherToFairTrustQuestionnaire < ActiveRecord::Migration[4.2]
   def change
     add_column :fair_trust_questionnaires, :support_other, :string
     add_column :fair_trust_questionnaires, :labor_conditions_other, :string

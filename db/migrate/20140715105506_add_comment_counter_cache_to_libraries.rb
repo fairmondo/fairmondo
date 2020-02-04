@@ -1,4 +1,4 @@
-class AddCommentCounterCacheToLibraries < ActiveRecord::Migration
+class AddCommentCounterCacheToLibraries < ActiveRecord::Migration[4.2]
   def self.up
     say_with_time "Adding Comments counter cache to libraries" do
       add_column :libraries, :comments_count, :integer, default: 0

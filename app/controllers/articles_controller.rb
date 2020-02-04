@@ -6,12 +6,8 @@ class ArticlesController < ApplicationController
   include ArticleControllerFilters
   include ArticleParams
 
-  responders :location
   respond_to :html
   respond_to :json, only: [:show, :index]
-
-  rescue_from ActiveRecord::RecordNotFound, with: :similar_articles,
-                                            only: :show
 
   # Autocomplete
   def autocomplete
@@ -29,6 +25,8 @@ class ArticlesController < ApplicationController
     @containing_libraries = @article.libraries.published.limit(10)
   rescue Pundit::NotAuthorizedError
     similar_articles @article.title
+  rescue ActiveRecord::RecordNotFound
+    similar_articles
   end
 
   def index

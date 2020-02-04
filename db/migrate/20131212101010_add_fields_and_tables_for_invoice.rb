@@ -1,4 +1,4 @@
-class AddFieldsAndTablesForInvoice < ActiveRecord::Migration
+class AddFieldsAndTablesForInvoice < ActiveRecord::Migration[4.2]
   def change
     # add tables
     create_table :discounts do |t|

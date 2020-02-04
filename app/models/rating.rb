@@ -2,7 +2,7 @@
 #   licensed under the GNU Affero General Public License version 3 or later.
 #   See the COPYRIGHT file for details.
 
-class Rating < ActiveRecord::Base
+class Rating < ApplicationRecord
   extend Enumerize
 
   belongs_to :line_item_group

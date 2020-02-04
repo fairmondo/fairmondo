@@ -6,6 +6,6 @@ class RefundObserver < ActiveRecord::Observer
   def after_create refund
     bt = refund.business_transaction
     FastbillRefundWorker.perform_async bt.id
-    RefundMailer.delay.refund_notification refund
+    RefundMailer.refund_notification(refund).deliver_later
   end
 end

@@ -29,7 +29,7 @@ class UserObserver < ActiveRecord::Observer
   end
 
   def update_cleverreach_settings_for user
-    if user.newsletter_changed?
+    if user.saved_change_to_newsletter?
       cr = CleverreachAPI
       user.newsletter? ? cr.add(user) : cr.remove(user)
     end

@@ -7,6 +7,8 @@ FactoryBot.define do
     association :seller, factory: [:user, :paypal_data]
     association :buyer, factory: :user
 
+    state { :sold }
+
     transient do
       article_attributes { Hash.new }
       article_all_attributes do

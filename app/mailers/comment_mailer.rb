@@ -4,7 +4,7 @@
 
 class CommentMailer < ActionMailer::Base
   include MailerHelper
-  before_filter :inline_logos
+  before_action :inline_logos
 
   default from: EMAIL_ADDRESSES['default']
   layout 'email'

@@ -1,4 +1,4 @@
-class RemoveDefaultPaymentFromArticles < ActiveRecord::Migration
+class RemoveDefaultPaymentFromArticles < ActiveRecord::Migration[4.2]
   def up
     remove_column :articles, :default_payment
   end
