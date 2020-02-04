@@ -23,13 +23,6 @@ class ToolboxController < ApplicationController
     end
   end
 
-  def rss
-    @items = acquire_feed_items
-    respond_to do |format|
-      format.html { render layout: false }
-    end
-  end
-
   # A site that's sole purpose is to reload the browser. Only useful for AJAX requests
   def reload
     render layout: false
@@ -61,25 +54,5 @@ class ToolboxController < ApplicationController
     end
 
     render json: { subscribed: is_subscribed }
-  end
-
-  private
-
-  def acquire_feed_items
-    begin
-      Timeout.timeout(10) do # 10 second timeout
-        #OpenSSL::SSL::SSLContext::DEFAULT_PARAMS[:ssl_version] = 'SSLv23' # See comment to http://stackoverflow.com/q/20169301/409087
-        # TODO Set /etc/ssl/certs as sll_ca_folder to remove this hack
-        #feed = open 'https://info.fairmondo.de/?feed=rss', ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE
-        #OpenSSL::SSL::SSLContext::DEFAULT_PARAMS[:ssl_version] = 'SSLv23'
-
-        # Get feed vial http as SSL is currently not in place.
-        feed = open 'http://info.fairmondo.de/feed/'
-        rss = RSS::Parser.parse(feed.read, false)
-        rss.items.first(3)
-      end
-    rescue Timeout::Error
-      nil
-    end
   end
 end

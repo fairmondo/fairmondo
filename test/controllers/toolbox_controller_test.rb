@@ -39,33 +39,6 @@ describe ToolboxController do
     end
   end
 
-  describe "GET 'rss'" do
-    before(:each) do
-      FakeWeb.register_uri(:get, 'https://info.fairmondo.de/?feed=rss', body: "<?xml version=\"1.0\" encoding=\"UTF-8\" ?><rss version=\"2.0\"></rss>")
-    end
-
-    describe 'as html' do
-      it 'should be successful' do
-        get :rss
-        assert_response :success
-      end
-    end
-
-    describe 'as json' do
-      it 'should fail' do
-        -> { get :rss, format: :json }.must_raise ActionController::UnknownFormat
-      end
-    end
-
-    describe 'on timeout' do
-      it 'should be sucessful and return nothing' do
-        Timeout.stubs(:timeout).raises(Timeout::Error)
-        get :rss
-        assert_response :success
-      end
-    end
-  end
-
   describe "GET 'reload'" do
     it 'should be successful' do
       get :reload
