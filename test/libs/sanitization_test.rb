@@ -15,7 +15,7 @@ describe 'Sanitization' do
       describe 'sanitizing protected tags' do
         it 'should disallow div and span tags + ids, classes, target, and style attributes' do
           field = '<div id="something"><span class="someclass"><a href="#x" target="_blank" style="color:red;">Test<img src="/test.jpg" alt="test"></a></span></div>'
-          test_sanitize_mce(field).strip.must_equal 'Test'
+          test_sanitize_mce(field).strip.must_equal '<a href="#x" target="_blank">Test</a>'
         end
       end
     end
