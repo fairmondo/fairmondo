@@ -388,6 +388,9 @@ GEM
       minitest-capybara (~> 0.7.0)
       minitest-metadata (~> 0.5.0)
       minitest-rails (~> 2.1)
+    minitest-spec-rails (6.0.2)
+      minitest (>= 5.0)
+      railties (>= 4.1)
     mocha (1.1.0)
       metaclass (~> 0.0.1)
     modernizr-rails (2.7.1)
@@ -763,6 +766,7 @@ DEPENDENCIES
   minitest-line
   minitest-matchers
   minitest-rails-capybara
+  minitest-spec-rails
   mocha
   modernizr-rails
   monetize

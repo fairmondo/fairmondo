@@ -177,6 +177,7 @@ group :development, :test do
   gem 'minitest', '5.10.1'  # 5.10.2 is buggy with this Rails version
   gem 'minitest-matchers'
   gem 'minitest-line'
+  gem 'minitest-spec-rails'
   gem 'launchy' # save_and_open_page
   gem 'shoulda'
   gem 'minitest-rails-capybara'
