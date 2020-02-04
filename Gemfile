@@ -7,9 +7,8 @@ gem 'activerecord-session_store' # sessions in activerecord
 
 # Plattforms Ruby
 platforms :ruby do
-  gem 'sqlite3', group: :test # sqlite3 for inmemory testing db
   gem 'therubyracer' # js runtime
-  gem 'pg', group: [:production, :staging, :development] # postgres
+  gem 'pg' # postgres
 end
 
 # ----------  Model ----------
@@ -148,9 +147,6 @@ group :development do
 
   # I18n Tools
   gem 'i18n-tasks', '~> 0.8.3'
-
-  # Rails application preloader
-  gem 'spring'
 end
 
 group :test do
