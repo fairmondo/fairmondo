@@ -28,10 +28,6 @@ rspec.failures
 /tmp
 # Gemfile.lock -> ER error without it
 
-# Ignore default SQLite database
-db/*.sqlite3
-db/*.sqlite3-journal
-
 # Ignore codecoverage report
 coverage
 
