@@ -88,6 +88,12 @@ Make sure you install <em>2.2.2</em>. and not <em>ruby 1.9.3-p392</em>.
    gem update --system
    bundle
 
+* (Mac) libv8 issues with Mac osx catalina
+
+   brew install v8@3.15
+   bundle config build.libv8 --with-system-v8
+   bundle config build.therubyracer --with-v8-dir=$(brew --prefix v8@3.15)
+   bundle install
 
 === Testing
 
