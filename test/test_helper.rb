@@ -66,16 +66,6 @@ setup_categories
 include Savon::SpecHelper
 savon.mock!
 
-Minitest.after_run do
-  if $suite_passing &&
-    # Don't run these if individual tests are run (TEST=tests/models/xxx_test.rb)
-    ENV['TEST'].blank?
-    rails_best_practices
-    brakeman
-    rubocop # TODO: uncomment and fix rubocop violations
-  end
-end
-
 class ActionController::TestCase
   include Devise::TestHelpers
 end
@@ -88,42 +78,14 @@ class ActiveSupport::TestCase
 
   fixtures :all
 
-  before :each do
-    DatabaseCleaner.start
+  self.use_transactional_fixtures = true
 
+  before :each do
     # Use fake Fastbill service
     stub_request(:any, /app.monsum.com/).to_rack(FakeFastbill)
-  end
-
-  after :each do
-    DatabaseCleaner.clean
-
-    $suite_passing = false if failure
-  end
-
-  # Add more helper methods to be used by all tests here...
-  include FactoryGirl::Syntax::Methods
-end
-
-class MiniTest::Spec
-  before :each do
-    DatabaseCleaner.start
-
-    # Use fake Fastbill service
-    stub_request(:any, /app.monsum.com/).to_rack(FakeFastbill)
-  end
-
-  after :each do
-    DatabaseCleaner.clean
-
-    $suite_passing = false if failure
   end
 
   # Add more helper methods to be used by all tests here...
   include FactoryGirl::Syntax::Methods
   include ActiveSupport::Testing::TimeHelpers
 end
-
-$suite_passing = true
-
-DatabaseCleaner.strategy = :transaction

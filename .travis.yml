@@ -1,12 +1,15 @@
 language: ruby
 sudo: false
-env:
-  - DB=sqlite
 bundler_args: --without development debug
 script:
+  - RAILS_ENV=test bundle exec rake db:create
   - RAILS_ENV=test bundle exec rake --trace db:migrate
+  - RAILS_ENV=test bundle exec rails_best_practices
+  - RAILS_ENV=test bundle exec brakeman
+  - RAILS_ENV=test bundle exec rubocop
   - RAILS_ENV=test bundle exec rake test:all
 services:
+  - postgresql
   - redis-server
 notifications:
   email:
@@ -17,7 +20,10 @@ before_install:
   - ./elasticsearch-5.4.0/bin/elasticsearch-plugin install http://xbib.org/repository/org/xbib/elasticsearch/plugin/elasticsearch-plugin-bundle/5.4.0.0/elasticsearch-plugin-bundle-5.4.0.0-plugin.zip
   - ./elasticsearch-5.4.0/bin/elasticsearch 1> /dev/null &
   - cp config/secrets.yml.example config/secrets.yml
+before_script:
+  - cp config/database.travis.yml config/database.yml
 addons:
+  postgresql: "9.4"
   apt:
     packages:
       - libssl1.0.0
