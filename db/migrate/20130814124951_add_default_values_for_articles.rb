@@ -1,4 +1,4 @@
-class AddDefaultValuesForArticles < ActiveRecord::Migration
+class AddDefaultValuesForArticles < ActiveRecord::Migration[4.2]
   def up
     change_column :articles, :quantity, :integer, :default => 1
     change_column :articles, :price_cents, :integer, :default => 100

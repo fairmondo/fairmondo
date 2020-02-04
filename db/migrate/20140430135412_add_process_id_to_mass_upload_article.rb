@@ -1,4 +1,4 @@
-class AddProcessIdToMassUploadArticle < ActiveRecord::Migration
+class AddProcessIdToMassUploadArticle < ActiveRecord::Migration[4.2]
   def change
     add_column :mass_upload_articles, :process_identifier, :string
     add_index "mass_upload_articles", ["row_index"], :name => "index_mass_upload_articles_on_row_index"

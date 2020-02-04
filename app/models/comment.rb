@@ -10,7 +10,7 @@
 # + render "comments/commentable_comments", commentable: resource (in view)
 # + make sure there is an ID on the element surrounding that render like #library17
 
-class Comment < ActiveRecord::Base
+class Comment < ApplicationRecord
   belongs_to :user
   belongs_to :commentable, polymorphic: true, counter_cache: true, inverse_of: :comments
 

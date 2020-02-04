@@ -2,7 +2,7 @@
 #   licensed under the GNU Affero General Public License version 3 or later.
 #   See the COPYRIGHT file for details.
 
-require_relative '../test_helper'
+require 'test_helper'
 
 class CommentMailerTest < ActiveSupport::TestCase
   include Rails.application.routes.url_helpers
@@ -14,7 +14,7 @@ class CommentMailerTest < ActiveSupport::TestCase
   let(:commentable_owner) { create(:user) }
 
   it '#report_comment' do
-    mail = CommentMailer.report_comment(comment, commentable_owner).deliver
+    mail = CommentMailer.report_comment(comment, commentable_owner).deliver_later
 
     assert_not ActionMailer::Base.deliveries.empty?
 

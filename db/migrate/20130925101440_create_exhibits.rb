@@ -1,4 +1,4 @@
-class CreateExhibits < ActiveRecord::Migration
+class CreateExhibits < ActiveRecord::Migration[4.2]
   def up
     create_table :exhibits do |t|
       t.integer :article_id

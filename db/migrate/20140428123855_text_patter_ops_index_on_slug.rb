@@ -1,4 +1,4 @@
-class TextPatterOpsIndexOnSlug < ActiveRecord::Migration
+class TextPatterOpsIndexOnSlug < ActiveRecord::Migration[4.2]
   # https://github.com/norman/friendly_id/issues/369
   def up
     sql = ActiveRecord::Base.connection();

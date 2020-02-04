@@ -4,7 +4,7 @@
 
 # Connector model for MassUpload <-> Articles
 # with additional action
-class MassUploadArticle < ActiveRecord::Base
+class MassUploadArticle < ApplicationRecord
   belongs_to :article
   belongs_to :mass_upload
   has_one :user, through: :mass_upload

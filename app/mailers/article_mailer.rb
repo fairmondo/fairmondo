@@ -6,7 +6,7 @@ class ArticleMailer < ActionMailer::Base
   include MailerHelper
 
   default from: EMAIL_ADDRESSES['default']
-  before_filter :inline_logos, except: :report_article
+  before_action :inline_logos, except: :report_article
   layout 'email', except: :report_article
 
   def report_article article, user, text

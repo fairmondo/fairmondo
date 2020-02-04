@@ -1,8 +1,8 @@
-class AddPurchaseEmailsSentToCartAndLineItemGroup < ActiveRecord::Migration
-  class Cart < ActiveRecord::Base
+class AddPurchaseEmailsSentToCartAndLineItemGroup < ActiveRecord::Migration[4.2]
+  class Cart < ApplicationRecord
   end
 
-  class LineItemGroup < ActiveRecord::Base
+  class LineItemGroup < ApplicationRecord
   end
 
   def change

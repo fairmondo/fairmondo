@@ -142,7 +142,7 @@ cannot be in controller specific code because it is used by multiple controllers
   overflow:hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  @include user-select(none);
+  user-select: none;
   &:hover {
     background: $lightest-gray;
   }

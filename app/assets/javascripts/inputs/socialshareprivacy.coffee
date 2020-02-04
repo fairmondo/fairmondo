@@ -9,4 +9,4 @@ socialshareprivacy = ->
     $('.socialshareprivacy').not('.socialshareprivacy--loaded').socialSharePrivacy()
     $('.socialshareprivacy').addClass('socialshareprivacy--loaded')
 
-$(document).always socialshareprivacy
+$(document).ready socialshareprivacy

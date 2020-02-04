@@ -8,7 +8,6 @@ class LineItemsController < ApplicationController
 
   respond_to :html
   respond_to :json, only: [:create]
-  responders :location
 
   skip_before_action :authenticate_user!, only: [:create, :update, :destroy]
   before_action :quantity_zero_means_destroy, only: [:update]

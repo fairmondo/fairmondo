@@ -2,7 +2,7 @@
 #   licensed under the GNU Affero General Public License version 3 or later.
 #   See the COPYRIGHT file for details.
 
-class Article < ActiveRecord::Base
+class Article < ApplicationRecord
   extend Enumerize
   extend FriendlyId
   extend Sanitization

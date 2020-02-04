@@ -1,4 +1,4 @@
-class RenameFreeAtPriceOnUsersAndLineItemGroups < ActiveRecord::Migration
+class RenameFreeAtPriceOnUsersAndLineItemGroups < ActiveRecord::Migration[4.2]
   def change
     rename_column :users, :unified_transport_free, :free_transport_available
     rename_column :users, :unified_transport_free_at_price_cents, :free_transport_at_price_cents

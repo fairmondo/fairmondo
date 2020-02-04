@@ -1,4 +1,4 @@
-class CreateMassUploadArticles < ActiveRecord::Migration
+class CreateMassUploadArticles < ActiveRecord::Migration[4.2]
   def change
     create_table :mass_upload_articles do |t|
       t.integer :mass_upload_id

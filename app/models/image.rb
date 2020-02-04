@@ -2,7 +2,7 @@
 #   licensed under the GNU Affero General Public License version 3 or later.
 #   See the COPYRIGHT file for details.
 
-class Image < ActiveRecord::Base
+class Image < ApplicationRecord
   include ::Assets::Normalizer
 
   def self.reprocess image_id, style = :thumb

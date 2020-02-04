@@ -2,8 +2,6 @@
 #   licensed under the GNU Affero General Public License version 3 or later.
 #   See the COPYRIGHT file for details.
 
-require 'ffaker'
-
 FactoryBot.define do
   factory :user, aliases: [:seller, :buyer, :sender, :rated_user], class: %w(PrivateUser LegalEntity).sample do
     sequence(:email) { |n| "user#{n}@example.com" }
@@ -11,10 +9,10 @@ FactoryBot.define do
     sequence(:nickname) { |n| "User #{n}" }
     legal { '1' }
 
-    about_me { Faker::Lorem.paragraph(rand(7) + 1) }
-    terms { Faker::Lorem.paragraph(rand(7) + 1) }
-    cancellation { Faker::Lorem.paragraph(rand(7) + 1) }
-    about { Faker::Lorem.paragraph(rand(7) + 1) }
+    about_me { Faker::Lorem.paragraph(sentence_count: rand(7) + 1) }
+    terms { Faker::Lorem.paragraph(sentence_count: rand(7) + 1) }
+    cancellation { Faker::Lorem.paragraph(sentence_count: rand(7) + 1) }
+    about { Faker::Lorem.paragraph(sentence_count: rand(7) + 1) }
 
     confirmed_at { Time.now }
 
@@ -30,8 +28,8 @@ FactoryBot.define do
     uses_vouchers { false }
     created_at { 2.month.ago }
 
-    seller_state { 'standard_seller' }
     buyer_state { 'standard_buyer' }
+    seller_state { :standard_seller }
 
     unified_transport_provider { 'DHL' }
     unified_transport_price_cents { 2000 }
@@ -69,6 +67,7 @@ FactoryBot.define do
     end
 
     factory :legal_entity, class: 'LegalEntity' do
+      seller_state { :standard_seller }
       invoicing_email { 'invoices@example.com' }
       order_notifications_email { 'orders@example.com' }
     end

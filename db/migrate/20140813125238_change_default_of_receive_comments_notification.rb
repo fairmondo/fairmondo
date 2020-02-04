@@ -1,4 +1,4 @@
-class ChangeDefaultOfReceiveCommentsNotification < ActiveRecord::Migration
+class ChangeDefaultOfReceiveCommentsNotification < ActiveRecord::Migration[4.2]
   def change
     change_column :users, :receive_comments_notification, :boolean, default: true
     User.reset_column_information

@@ -19,6 +19,8 @@ class ArticlePolicy < Struct.new(:user, :article)
   end
 
   def create?
+    return false if user.blank?
+
     original = article.original
     if original && original.seller != article.seller
       return false

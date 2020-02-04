@@ -2,9 +2,6 @@
 #   licensed under the GNU Affero General Public License version 3 or later.
 #   See the COPYRIGHT file for details.
 
-require 'rss'
-require 'timeout'
-
 class ToolboxController < ApplicationController
   respond_to :js, :json
 

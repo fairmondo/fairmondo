@@ -34,7 +34,7 @@ class ArticleObserver < ActiveRecord::Observer
 
   def after_activate(article, _transition)
     article.library_elements.update_all(inactive: false)
-    ArticleMailer.delay.article_activation_message(article.id)
+    ArticleMailer.article_activation_message(article.id).deliver_later
     Indexer.index_article article
   end
 

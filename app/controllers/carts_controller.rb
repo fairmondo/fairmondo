@@ -78,7 +78,7 @@ class CartsController < ApplicationController
   def send_via_email
     authorize @cart
     if params && params[:email]
-      CartMailer.send_cart(@cart, params[:email][:email]).deliver
+      CartMailer.send_cart(@cart, params[:email][:email]).deliver_later
       render :send_via_email
     else
       render layout: false

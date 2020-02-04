@@ -4,6 +4,7 @@
 
 FactoryBot.define do
   factory :paypal_payment do
+    state { :pending }
     association :line_item_group, factory: [:line_item_group, :sold, :with_business_transactions],
                                   traits: [:paypal, :transport_type1]
 
@@ -15,6 +16,7 @@ FactoryBot.define do
   end
 
   factory :voucher_payment do
+    state { :pending }
     sequence(:pay_key) { |n| "20abc#{n}" }
     association :line_item_group, factory: [:line_item_group, :sold, :with_business_transactions,
                                             :with_voucher_seller],

@@ -4,7 +4,7 @@
    See the COPYRIGHT file for details.
 ###
 
-$(document).always ->
+$(document).ready ->
 
   # Hide edit section per default (not doing this per CSS because our
   # current test suite doesn't support JavaScript

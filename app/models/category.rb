@@ -2,7 +2,7 @@
 #   licensed under the GNU Affero General Public License version 3 or later.
 #   See the COPYRIGHT file for details.
 
-class Category < ActiveRecord::Base
+class Category < ApplicationRecord
   extend FriendlyId
   friendly_id :slug_candidates, use: [:slugged, :finders]
 

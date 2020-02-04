@@ -69,7 +69,7 @@ class PaymentsController < ApplicationController
     # Only send email to courier service if bike_courier is the selected transport
     bts = payment.line_item_group.business_transactions.select { |bt| bt.bike_courier_selected? }
     bts.each do |bt|
-      CartMailer.courier_notification(bt).deliver
+      CartMailer.courier_notification(bt).deliver_later
     end
   end
 end

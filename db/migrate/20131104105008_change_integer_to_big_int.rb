@@ -1,4 +1,4 @@
-class ChangeIntegerToBigInt < ActiveRecord::Migration
+class ChangeIntegerToBigInt < ActiveRecord::Migration[4.2]
   change_column :article_templates, :user_id, :integer, limit: 8
 
   change_table :articles do |t|

@@ -1,4 +1,4 @@
-class MoveUnifiedTransportColumns < ActiveRecord::Migration
+class MoveUnifiedTransportColumns < ActiveRecord::Migration[4.2]
   def change
     remove_column :business_transactions, :unified_transport_provider
     remove_column :business_transactions, :unified_transport_maximum_articles

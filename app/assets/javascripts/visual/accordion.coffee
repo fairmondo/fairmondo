@@ -61,8 +61,7 @@ accordion = ->
 
 
   # Open specific accordion on load, either via fragment identifier
-  # or if one accordion has a class of .Accordion-item--active (workaround
-  # for wiselinks)
+  # or if one accordion has a class of .Accordion-item--active
   $target_el = $('.Accordion-item--active')
   if $target_el.length is 0 and window.location.hash
     $target_el = $('.Accordion-item' + window.location.hash)

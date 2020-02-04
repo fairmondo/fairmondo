@@ -1,10 +1,11 @@
-class DirectDebitMandate < ActiveRecord::Base
+class DirectDebitMandate < ApplicationRecord
   belongs_to :user
 
   validates :user_id, presence: true
   validates :reference, presence: true, uniqueness: true
 
   # state machine
+  after_initialize :initialize_state_machines
   state_machine initial: :new do
     state :new, :active, :inactive
 
@@ -36,7 +37,7 @@ class DirectDebitMandate < ActiveRecord::Base
 
   # instance methods
   def reference_date
-    created_at.to_date
+    created_at&.to_date
   end
 
   def to_s

@@ -2,9 +2,7 @@
 #   licensed under the GNU Affero General Public License version 3 or later.
 #   See the COPYRIGHT file for details.
 
-require 'friendly_id'
-
-class Content < ActiveRecord::Base
+class Content < ApplicationRecord
   extend Sanitization
 
   auto_sanitize :key

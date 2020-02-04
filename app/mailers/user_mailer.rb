@@ -6,7 +6,7 @@ class UserMailer < ActionMailer::Base
   include MailerHelper
 
   default from: EMAIL_ADDRESSES['default']
-  before_filter :inline_logos
+  before_action :inline_logos
   layout 'email'
 
   def contact(sender:, resource_id:, text:)

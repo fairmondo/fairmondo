@@ -11,7 +11,6 @@ class FeedbacksController < ApplicationController
     { image_attributes: IMAGE_PARAMS }
   ].freeze
 
-  responders :location
   respond_to :html
   skip_before_action :authenticate_user!
 

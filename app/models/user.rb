@@ -2,7 +2,7 @@
 #   licensed under the GNU Affero General Public License version 3 or later.
 #   See the COPYRIGHT file for details.
 
-class User < ActiveRecord::Base
+class User < ApplicationRecord
   extend Memoist
   extend Tokenize
   extend RailsAdminStatistics

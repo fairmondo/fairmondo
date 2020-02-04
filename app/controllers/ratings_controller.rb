@@ -4,12 +4,11 @@
 
 class RatingsController < ApplicationController
   PERMITTED_PARAMS = %i(rating rated_user_id text line_item_group_id).freeze
-
-  responders :location, :flash
+  responders :flash
   respond_to :html
 
   before_action :set_user
-  # before_filter :set_business_transaction, only: :new
+  # before_action :set_business_transaction, only: :new
   before_action :set_line_item_group, only: :new
   skip_before_action :authenticate_user!, only: :index
 

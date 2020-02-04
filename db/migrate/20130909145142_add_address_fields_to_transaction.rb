@@ -1,4 +1,4 @@
-class AddAddressFieldsToTransaction < ActiveRecord::Migration
+class AddAddressFieldsToTransaction < ActiveRecord::Migration[4.2]
   def change
   	add_column :transactions, :forename, :string
   	add_column :transactions, :surname, :string

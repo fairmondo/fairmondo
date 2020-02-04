@@ -2,24 +2,24 @@
 #   licensed under the GNU Affero General Public License version 3 or later.
 #   See the COPYRIGHT file for details.
 
-require_relative '../test_helper'
+require 'test_helper'
 
 class HeartTest < ActiveSupport::TestCase
   subject { Heart.new }
 
   describe 'model attributes' do
-    it { subject.must_respond_to :id }
-    it { subject.must_respond_to :created_at }
-    it { subject.must_respond_to :updated_at }
-    it { subject.must_respond_to :heartable_id }
-    it { subject.must_respond_to :heartable_type }
-    it { subject.must_respond_to :user_id }
-    it { subject.must_respond_to :user_token }
+    it { _(subject).must_respond_to :id }
+    it { _(subject).must_respond_to :created_at }
+    it { _(subject).must_respond_to :updated_at }
+    it { _(subject).must_respond_to :heartable_id }
+    it { _(subject).must_respond_to :heartable_type }
+    it { _(subject).must_respond_to :user_id }
+    it { _(subject).must_respond_to :user_token }
   end
 
   describe 'associations' do
-    it { subject.must belong_to :heartable }
-    it { subject.must belong_to :user  }
+    should belong_to :heartable
+    should belong_to :user
   end
 
   let(:heart) { Heart.new }
@@ -27,8 +27,8 @@ class HeartTest < ActiveSupport::TestCase
   let(:heartable) { create(:library) }
 
   describe 'validations' do
-    it { subject.must validate_presence_of(:user) }
-    it { subject.must validate_presence_of(:heartable) }
+    should validate_presence_of(:user)
+    should validate_presence_of(:heartable)
   end
 
   describe 'database uniqueness index' do

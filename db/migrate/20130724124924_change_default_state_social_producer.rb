@@ -1,4 +1,4 @@
-class ChangeDefaultStateSocialProducer < ActiveRecord::Migration
+class ChangeDefaultStateSocialProducer < ActiveRecord::Migration[4.2]
   def up
     change_column :social_producer_questionnaires ,:nonprofit_association, :boolean , :default => false
     change_column :social_producer_questionnaires ,:social_businesses_muhammad_yunus, :boolean , :default => false

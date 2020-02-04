@@ -1,4 +1,4 @@
-class CreateTableForRefund < ActiveRecord::Migration
+class CreateTableForRefund < ActiveRecord::Migration[4.2]
   create_table :refunds do |t|
     t.string :reason
     t.text :description

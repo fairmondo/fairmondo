@@ -46,4 +46,4 @@ createSliders = ->
         $("#slide#{n}").css('position', 'static')
         $("#slide#{o}").css('position', 'absolute')
 
-$(document).always createSliders
+$(document).ready createSliders

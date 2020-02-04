@@ -2,7 +2,7 @@
 #   licensed under the GNU Affero General Public License version 3 or later.
 #   See the COPYRIGHT file for details.
 
-class Address < ActiveRecord::Base
+class Address < ApplicationRecord
   belongs_to :user
   has_one :connected_user, class_name: 'User', foreign_key: :standard_address_id, inverse_of: :standard_address
 

@@ -5,7 +5,6 @@
 class MassUploadsController < ApplicationController
   PERMITTED_PARAMS = %i(file).freeze
 
-  responders :location
   respond_to :html
   respond_to :csv, only: :show
 

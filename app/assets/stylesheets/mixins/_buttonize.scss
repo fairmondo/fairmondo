@@ -2,7 +2,7 @@
 // Makes a Button like thing out of an element. Works for `<button>` and `<a>`
 @mixin buttonize {
   margin: 0.1em;
-  @include user-select(none);
+  user-select: none;
   white-space: normal;
   vertical-align: middle;
   display: inline-block;

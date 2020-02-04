@@ -1,4 +1,4 @@
-class Setup < ActiveRecord::Migration
+class Setup < ActiveRecord::Migration[4.2]
   def self.up
     # Cleaned up old migrations before launch
 

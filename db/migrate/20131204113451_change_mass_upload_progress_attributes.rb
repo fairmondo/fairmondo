@@ -1,4 +1,4 @@
-class ChangeMassUploadProgressAttributes < ActiveRecord::Migration
+class ChangeMassUploadProgressAttributes < ActiveRecord::Migration[4.2]
   def up
     remove_column :mass_uploads, :character_count
     rename_column :mass_uploads, :article_count, :row_count
