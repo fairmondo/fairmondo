@@ -2,7 +2,7 @@
 #   licensed under the GNU Affero General Public License version 3 or later.
 #   See the COPYRIGHT file for details.
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :mass_upload do
     file { fixture_file_upload('test/fixtures/mass_upload_correct.csv', 'text/csv') }
     association :user, factory: :legal_entity

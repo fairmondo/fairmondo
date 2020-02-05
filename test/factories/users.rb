@@ -4,7 +4,7 @@
 
 require 'ffaker'
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :user, aliases: [:seller, :buyer, :sender, :rated_user], class: %w(PrivateUser LegalEntity).sample do
     sequence(:email) { |n| "user#{n}@example.com" }
     password 'password'

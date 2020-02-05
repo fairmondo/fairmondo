@@ -2,7 +2,7 @@
 #   licensed under the GNU Affero General Public License version 3 or later.
 #   See the COPYRIGHT file for details.
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :paypal_payment do
     association :line_item_group, factory: [:line_item_group, :sold, :with_business_transactions],
                                   traits: [:paypal, :transport_type1]

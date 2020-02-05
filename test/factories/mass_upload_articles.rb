@@ -2,7 +2,7 @@
 #   licensed under the GNU Affero General Public License version 3 or later.
 #   See the COPYRIGHT file for details.
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :mass_upload_article do
     association :mass_upload
     action 'create'

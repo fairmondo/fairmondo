@@ -2,7 +2,7 @@
 #   licensed under the GNU Affero General Public License version 3 or later.
 #   See the COPYRIGHT file for details.
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :feedback do
     text 'That was a memorable day to me, for it made great changes in me. But it is the same '\
       'with any life. Imagine one selected day struck out of it, and think how different its '\

@@ -2,7 +2,7 @@
 #   licensed under the GNU Affero General Public License version 3 or later.
 #   See the COPYRIGHT file for details.
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :address do
     first_name 'Erika'
     last_name 'Mustermann'

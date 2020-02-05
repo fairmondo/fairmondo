@@ -9,7 +9,7 @@ class BusinessTransactionExporterTest < ActiveSupport::TestCase
 
   describe 'csv export' do
     it 'should return a csv string with the business transactions' do
-      FactoryGirl.reload
+      FactoryBot.reload
 
       travel_to Time.new(2016, 04, 01, 12) do
         user = bt.seller
@@ -27,7 +27,7 @@ class BusinessTransactionExporterTest < ActiveSupport::TestCase
     end
 
     it 'should return unified payment method and unified transport provider correctly' do
-      FactoryGirl.reload
+      FactoryBot.reload
 
       travel_to Time.new(2016, 04, 01, 12) do
         lig = create :line_item_group, :with_business_transactions, :with_unified_transport,

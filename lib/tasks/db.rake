@@ -43,7 +43,7 @@ namespace :db do
       counter = 0
       n.times do
         print '.'
-        user = FactoryGirl.build :user
+        user = FactoryBot.build :user
         user_list << user
         counter += 1
       end
@@ -98,7 +98,7 @@ namespace :db do
       print 'Creating an article for each entry.'
       articles.each_pair do |name, description|
         print '.'
-        @article = FactoryGirl.build :article, seller: user.sample,
+        @article = FactoryBot.build :article, seller: user.sample,
                                                title: name,
                                                content: description,
                                                categories: [category.sample]

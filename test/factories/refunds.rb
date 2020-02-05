@@ -2,7 +2,7 @@
 #   licensed under the GNU Affero General Public License version 3 or later.
 #   See the COPYRIGHT file for details.
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :refund do
     reason :not_paid
     description 'We spent as much money as we could, and got as little for it as people could '\

@@ -2,7 +2,7 @@
 #   licensed under the GNU Affero General Public License version 3 or later.
 #   See the COPYRIGHT file for details.
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :business_transaction do
     association :seller, factory: [:user, :paypal_data]
     association :buyer, factory: :user

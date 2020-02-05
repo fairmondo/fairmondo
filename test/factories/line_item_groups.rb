@@ -2,7 +2,7 @@
 #   licensed under the GNU Affero General Public License version 3 or later.
 #   See the COPYRIGHT file for details.
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :line_item_group do
     association :cart
     association :seller, factory: :user
@@ -46,7 +46,7 @@ FactoryGirl.define do
 
       after(:create) do |line_item_group, evaluator|
         evaluator.traits.each_with_index do |traits, index|
-          attributes = FactoryGirl
+          attributes = FactoryBot
             .attributes_for(:business_transaction, *traits,
                             line_item_group: line_item_group, seller: line_item_group.seller,
                             article_attributes: evaluator.articles_attributes[index] || {})

@@ -2,7 +2,7 @@
 #   licensed under the GNU Affero General Public License version 3 or later.
 #   See the COPYRIGHT file for details.
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :fair_trust_questionnaire do
     support true
     support_checkboxes [:prefinance, :minimum_wage, :direct_negotiations]
