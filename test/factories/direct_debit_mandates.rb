@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :direct_debit_mandate do
     association :user
   end
