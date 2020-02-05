@@ -193,7 +193,7 @@ GEM
       thor
     crack (0.4.2)
       safe_yaml (~> 1.0.0)
-    crass (1.0.1)
+    crass (1.0.6)
     css_parser (1.4.2)
       addressable
     daemons (1.1.9)
@@ -412,7 +412,7 @@ GEM
     nio4r (1.2.1)
     nokogiri (1.7.2)
       mini_portile2 (~> 2.1.0)
-    nokogumbo (1.2.0)
+    nokogumbo (1.5.0)
       nokogiri
     nori (2.4.0)
     notiffany (0.0.6)
@@ -568,10 +568,10 @@ GEM
     rubyntlm (0.4.0)
     rufus-scheduler (3.1.10)
     safe_yaml (1.0.4)
-    sanitize (3.1.0)
-      crass (~> 1.0.1)
+    sanitize (4.6.6)
+      crass (~> 1.0.2)
       nokogiri (>= 1.4.4)
-      nokogumbo (= 1.2.0)
+      nokogumbo (~> 1.4)
     sass (3.4.24)
     sass-rails (5.0.6)
       railties (>= 4.0.0, < 6)
