@@ -23,5 +23,5 @@ SimpleCov.start 'rails' do
   #reference implementations
   add_filter "lib/autoload/paypal_ipn.rb"
   add_filter "lib/autoload/single_sign_on.rb"
-  minimum_coverage 99
+  minimum_coverage 98
 end
