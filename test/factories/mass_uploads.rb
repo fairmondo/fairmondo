@@ -8,8 +8,8 @@ FactoryBot.define do
     association :user, factory: :legal_entity
 
     factory :mass_upload_to_finish do
-      state :processing
-      row_count 0
+      state { :processing }
+      row_count { 0 }
     end
   end
 end
