@@ -200,6 +200,6 @@ group :development, :test do
 end
 
 group :development, :test, :staging do
-  gem 'factory_girl_rails'
+  gem 'factory_bot_rails', '~> 4.8.2'
   gem 'ffaker'
 end
