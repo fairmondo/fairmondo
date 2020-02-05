@@ -99,9 +99,9 @@ namespace :db do
       articles.each_pair do |name, description|
         print '.'
         @article = FactoryBot.build :article, seller: user.sample,
-                                               title: name,
-                                               content: description,
-                                               categories: [category.sample]
+                                              title: name,
+                                              content: description,
+                                              categories: [category.sample]
         article_list << @article
         count += 1
       end
