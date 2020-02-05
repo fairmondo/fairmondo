@@ -175,7 +175,7 @@ group :development, :test do
   gem 'minitest-line'
   gem 'minitest-spec-rails'
   gem 'launchy' # save_and_open_page
-  gem 'shoulda'
+  gem 'shoulda-matchers'
   gem 'minitest-rails-capybara'
   gem 'mocha'
 
