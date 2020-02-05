@@ -135,14 +135,6 @@ group :development do
   gem 'rails-erd'
   gem 'thin' # Replace Webrick
 
-  # Guard
-  gem 'guard'
-  gem 'guard-ctags-bundler'
-  gem 'rb-readline', '~> 0.5.4'
-  gem 'guard-minitest'
-  gem 'guard-rubocop'
-  gem 'guard-livereload', '~> 2.4', require: false
-
   # I18n Tools
   gem 'i18n-tasks', '~> 0.8.3'
 end
@@ -176,6 +168,7 @@ group :development, :test do
   gem 'minitest-spec-rails'
   gem 'launchy' # save_and_open_page
   gem 'shoulda-matchers'
+  gem 'shoulda-context'
   gem 'minitest-rails-capybara'
   gem 'mocha'
 
