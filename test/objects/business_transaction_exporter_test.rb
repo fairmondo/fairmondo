@@ -17,7 +17,10 @@ class BusinessTransactionExporterTest < ActiveSupport::TestCase
 
         exporter = BusinessTransactionExporter.new(user)
 
-        expected_csv = File.read('test/fixtures/business_transaction_export1.csv')
+        expected_csv =
+          File
+            .read('test/fixtures/business_transaction_export1.csv')
+            .gsub('<--TRANSACTIONID-->', bt.id.to_s)
 
         assert_equal(expected_csv, exporter.csv_string)
       end
@@ -34,6 +37,8 @@ class BusinessTransactionExporterTest < ActiveSupport::TestCase
         exporter = BusinessTransactionExporter.new(user)
 
         expected_csv = File.read('test/fixtures/business_transaction_export2.csv')
+                         .gsub('<--TRANSACTIONID1-->', lig.business_transactions.first.id.to_s)
+                         .gsub('<--TRANSACTIONID2-->', lig.business_transactions.last.id.to_s)
 
         assert_equal(expected_csv, exporter.csv_string)
       end

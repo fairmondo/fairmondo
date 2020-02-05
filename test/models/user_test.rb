@@ -267,12 +267,14 @@ class UserTest < ActiveSupport::TestCase
     end
 
     describe '#customer_nr' do
+      let(:user) { build(:user, id: 1) }
+
       it 'should have 8 digits' do
         user.customer_nr.length.must_equal 8
       end
 
       it 'should use the user_id' do
-        user.customer_nr.must_equal "0000000#{user.id}"
+        user.customer_nr.must_equal "00000001"
       end
     end
 
