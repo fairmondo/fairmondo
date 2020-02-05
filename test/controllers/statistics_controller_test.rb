@@ -5,23 +5,19 @@
 require_relative '../test_helper'
 
 class StatisticsControllerTest < ActionController::TestCase
-  context 'as an admin' do
-    before { sign_in(create :admin_user) }
+  before { sign_in(create :admin_user) }
 
-    describe "GET 'general'" do
-      it 'should be successful' do
-        get :general
-        assert_response :success
-      end
-    end
-
-    describe "GET 'category_sales'" do
-      it 'should be successful' do
-        get :category_sales
-        assert_response :success
-      end
+  describe "GET 'general'" do
+    it 'should be successful' do
+      get :general
+      assert_response :success
     end
   end
 
-  # context "as a random user" do #-- gets tested by policy spec
+  describe "GET 'category_sales'" do
+    it 'should be successful' do
+      get :category_sales
+      assert_response :success
+    end
+  end
 end

@@ -12,6 +12,11 @@ def expect_cart_emails arg = :once
   CartMailer.expects(:buyer_email).returns(Mail::Message.new)
 end
 
+def page_must_include_notice_for(article)
+  cart = article.line_items.first.cart
+  page.html.must_include I18n.t('line_item.notices.success_create', href: "/carts/#{cart.id}").html_safe
+end
+
 feature 'Empty cart' do
   it 'header should show link to empty cart' do
     visit root_path
@@ -26,7 +31,7 @@ feature 'Adding an Article to the cart' do
     article = create(:article, title: 'foobar')
     visit article_path(article)
     click_button I18n.t('common.actions.to_cart')
-    page.html.must_include I18n.t('line_item.notices.success_create', href: '/carts/1').html_safe
+    page_must_include_notice_for(article)
     click_link(I18n.t('header.cart.title', count: 1), match: :first)
     page.must_have_content 'foobar'
   end
@@ -36,7 +41,7 @@ feature 'Adding an Article to the cart' do
     login_as create(:user)
     visit article_path(article)
     click_button I18n.t('common.actions.to_cart')
-    page.html.must_include I18n.t('line_item.notices.success_create', href: '/carts/1').html_safe
+    page_must_include_notice_for(article)
     click_link(I18n.t('header.cart.title', count: 1), match: :first)
     page.must_have_content 'foobar'
   end
@@ -47,7 +52,7 @@ feature 'Adding an Article to the cart' do
     login_as user
     visit article_path(article)
     click_button I18n.t('common.actions.to_cart')
-    page.html.must_include I18n.t('line_item.notices.success_create', href: '/carts/1').html_safe
+    page_must_include_notice_for(article)
     logout(:user) # simulate logout
     visit root_path
     page.wont_have_content I18n.t('header.cart.title', count: 1)
@@ -62,7 +67,7 @@ feature 'Adding an Article to the cart' do
     login_as user
     visit article_path(article)
     click_button I18n.t('common.actions.to_cart')
-    page.html.must_include I18n.t('line_item.notices.success_create', href: '/carts/1').html_safe
+    page_must_include_notice_for(article)
 
     within '.l-header-nav' do
       click_link I18n.t('common.actions.logout')
@@ -79,7 +84,7 @@ feature 'Adding an Article to the cart' do
     login_as create(:user)
     visit article_path(article)
     click_button I18n.t('common.actions.to_cart')
-    page.html.must_include I18n.t('line_item.notices.success_create', href: '/carts/1').html_safe
+    page_must_include_notice_for(article)
     page.wont_have_content I18n.t('common.actions.to_cart')
     Cart.last.line_items.count.must_equal 1
     Cart.last.line_items.first.requested_quantity.must_equal 1
@@ -90,9 +95,9 @@ feature 'Adding an Article to the cart' do
     login_as create(:user)
     visit article_path(article)
     click_button I18n.t('common.actions.to_cart')
-    page.html.must_include I18n.t('line_item.notices.success_create', href: '/carts/1').html_safe
+    page_must_include_notice_for(article)
     click_button I18n.t('common.actions.to_cart')
-    page.html.must_include I18n.t('line_item.notices.success_create', href: '/carts/1').html_safe
+    page_must_include_notice_for(article)
     Cart.last.line_items.count.must_equal 1
     Cart.last.line_items.first.requested_quantity.must_equal 2
   end
@@ -102,7 +107,7 @@ feature 'Adding an Article to the cart' do
     login_as create(:user)
     visit article_path(article)
     click_button I18n.t('common.actions.to_cart')
-    page.html.must_include I18n.t('line_item.notices.success_create', href: '/carts/1').html_safe
+    page_must_include_notice_for(article)
     fill_in 'line_item_requested_quantity', with: article.quantity
     click_button I18n.t('common.actions.to_cart')
     page.html.must_include I18n.t('line_item.notices.error_quantity')
@@ -117,7 +122,7 @@ feature 'updating quantity of the cart' do
     login_as create(:user)
     visit article_path(article)
     click_button I18n.t('common.actions.to_cart')
-    page.html.must_include I18n.t('line_item.notices.success_create', href: '/carts/1').html_safe
+    page_must_include_notice_for(article)
     click_link(I18n.t('header.cart.title', count: 1), match: :first)
 
     # within('.change_quantity') do
@@ -144,7 +149,8 @@ feature 'Checkout' do
     # Step 1
 
     click_link I18n.t('cart.actions.checkout')
-    page.check('cart_checkout_form_line_item_groups_1_tos_accepted')
+    line_item_group_id = article.line_items.first.line_item_group_id
+    page.check("cart_checkout_form_line_item_groups_#{line_item_group_id}_tos_accepted")
 
     # Step 2
 
@@ -185,9 +191,12 @@ feature 'Checkout' do
     # Step 1 errors
 
     click_link I18n.t('cart.actions.checkout')
-    page.check('cart_checkout_form_line_item_groups_1_tos_accepted')
-    page.find('select#cart_checkout_form_line_item_groups_1_unified_payment_method').find("option[value='cash']").select_option
-    page.find('select#cart_checkout_form_line_item_groups_1_unified_payment_method').find("option[value='cash']").select_option
+    first_line_item = articles.first.line_items.first
+    page.check("cart_checkout_form_line_item_groups_#{first_line_item.line_item_group_id}_tos_accepted")
+
+    page.find("select#cart_checkout_form_line_item_groups_#{first_line_item.line_item_group_id}_unified_payment_method")
+        .find("option[value='cash']")
+        .select_option
 
     click_button I18n.t('common.actions.continue')
 
@@ -196,8 +205,14 @@ feature 'Checkout' do
     page.must_have_content I18n.t 'transaction.errors.combination_invalid',
                                   selected_payment: I18n.t('enumerize.business_transaction.selected_payment.cash')
 
-    page.find('select#cart_checkout_form_line_items_1_business_transaction_selected_transport').find("option[value='pickup']").select_option
-    page.find('select#cart_checkout_form_line_items_2_business_transaction_selected_transport').find("option[value='pickup']").select_option
+    page.find("select#cart_checkout_form_line_items_#{first_line_item.id}_business_transaction_selected_transport")
+        .find("option[value='pickup']")
+        .select_option
+
+    second_line_item = articles.second.line_items.first
+    page.find("select#cart_checkout_form_line_items_#{second_line_item.id}_business_transaction_selected_transport")
+        .find("option[value='pickup']")
+        .select_option
 
     click_button I18n.t('common.actions.continue')
 
@@ -232,7 +247,8 @@ feature 'Checkout' do
     # Step 1
 
     click_link I18n.t('cart.actions.checkout')
-    page.check('cart_checkout_form_line_item_groups_1_tos_accepted')
+    line_item_group_id = article.line_items.first.line_item_group_id
+    page.check("cart_checkout_form_line_item_groups_#{line_item_group_id}_tos_accepted")
     page.choose("cart_checkout_form_transport_address_id_#{transport_address.id}")
     # Step 2
 
@@ -279,11 +295,17 @@ feature 'Checkout' do
       notice.must_have_content(I18n.t('cart.texts.unified_transport_notice', price: '3,00 €'))
     end
     transport_notices[2].must_have_content(I18n.t('cart.texts.unified_transport_impossible'))
-    page.check('cart_checkout_form_line_item_groups_1_tos_accepted')
-    page.check('cart_checkout_form_line_item_groups_2_tos_accepted')
 
-    (4..5).each do |num|
-      page.find("select#cart_checkout_form_line_items_#{ num }_business_transaction_selected_transport").find('option[value=type1]').select_option
+    first_line_item_group_id = articles.first.line_items.first.line_item_group_id
+    second_line_item_group_id = articles.last.line_items.first.line_item_group_id
+    page.check("cart_checkout_form_line_item_groups_#{first_line_item_group_id}_tos_accepted")
+    page.check("cart_checkout_form_line_item_groups_#{second_line_item_group_id}_tos_accepted")
+
+    [articles.fourth, articles.fifth].each do |article|
+      line_item_id = article.line_items.first.id
+      page.find("select#cart_checkout_form_line_items_#{ line_item_id }_business_transaction_selected_transport")
+          .find('option[value=type1]')
+          .select_option
     end
 
     # Step 2
@@ -325,7 +347,10 @@ feature 'Checkout' do
 
     click_link I18n.t('cart.actions.checkout')
 
-    page.find('select#cart_checkout_form_line_item_groups_1_unified_payment_method').find("option[value='cash_on_delivery']").select_option
+    first_line_item_group_id = articles.first.line_items.first.line_item_group_id
+    page.find("select#cart_checkout_form_line_item_groups_#{first_line_item_group_id}_unified_payment_method")
+        .find("option[value='cash_on_delivery']")
+        .select_option
     click_button I18n.t('common.actions.continue')
 
     # Step 1 errored
@@ -333,8 +358,10 @@ feature 'Checkout' do
     page.must_have_content I18n.t('transaction.errors.cash_on_delivery_with_unified_transport')
     page.must_have_content I18n.t('active_record.error_messages.accepted')
 
-    page.check('cart_checkout_form_line_item_groups_1_tos_accepted')
-    page.find('select#cart_checkout_form_line_item_groups_1_unified_payment_method').find("option[value='invoice']").select_option
+    page.check("cart_checkout_form_line_item_groups_#{first_line_item_group_id}_tos_accepted")
+    page.find("select#cart_checkout_form_line_item_groups_#{first_line_item_group_id}_unified_payment_method")
+        .find("option[value='invoice']")
+        .select_option
 
     click_button I18n.t('common.actions.continue')
     # checkout
@@ -357,7 +384,8 @@ feature 'Checkout' do
     # Step 1
 
     click_link I18n.t('cart.actions.checkout')
-    page.check('cart_checkout_form_line_item_groups_1_tos_accepted')
+    line_item_group_id = article.line_items.first.line_item_group_id
+    page.check("cart_checkout_form_line_item_groups_#{line_item_group_id}_tos_accepted")
 
     # Step 2
 
@@ -384,7 +412,8 @@ feature 'Checkout' do
     # Step 1
 
     click_link I18n.t('cart.actions.checkout')
-    page.check('cart_checkout_form_line_item_groups_1_tos_accepted')
+    line_item_group_id = article.line_items.first.line_item_group_id
+    page.check("cart_checkout_form_line_item_groups_#{line_item_group_id}_tos_accepted")
 
     # Step 2
 
@@ -419,7 +448,8 @@ feature 'Checkout' do
     click_link I18n.t('cart.actions.checkout')
 
     # Step 1
-    page.check('cart_checkout_form_line_item_groups_1_tos_accepted')
+    line_item_group_id = article.line_items.first.line_item_group_id
+    page.check("cart_checkout_form_line_item_groups_#{line_item_group_id}_tos_accepted")
 
     # only check agb to see if we get proper errors
     click_button I18n.t('common.actions.continue')
@@ -450,7 +480,7 @@ feature 'Checkout' do
       article = create(:article, title: 'foobar')
       visit article_path(article)
       click_button I18n.t('common.actions.to_cart')
-      page.html.must_include I18n.t('line_item.notices.success_create', href: '/carts/1').html_safe
+      page_must_include_notice_for(article)
       click_link(I18n.t('header.cart.title', count: 1), match: :first)
       page.must_have_content 'foobar'
       page.must_have_content 'Die Artikel als Merkliste per E-Mail versenden'

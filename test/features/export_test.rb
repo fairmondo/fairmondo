@@ -29,8 +29,7 @@ feature 'Exports' do
 
     click_link I18n.t('articles.export.inactive')
 
-    page.source.must_equal IO.read('test/fixtures/mass_upload_export.csv', encoding: 'ascii-8bit') # page source returns ascii-8 bit
-
+    page.source.must_equal expected_csv('test/fixtures/mass_upload_export.csv', Article.last.id)
     visit user_path(legal_entity)
     # activate all articles
     click_link I18n.t('mass_uploads.labels.show_report')
@@ -39,7 +38,7 @@ feature 'Exports' do
     visit user_path(legal_entity)
     click_link I18n.t('articles.export.active')
 
-    page.source.must_equal IO.read('test/fixtures/mass_upload_export.csv', encoding: 'ascii-8bit')
+    page.source.must_equal expected_csv('test/fixtures/mass_upload_export.csv', Article.last.id)
   end
 
   scenario 'export an article with a social producer questionnaire' do
@@ -49,7 +48,7 @@ feature 'Exports' do
     click_button I18n.t('mass_uploads.labels.upload_article')
     click_link I18n.t('articles.export.inactive')
 
-    page.source.must_equal IO.read('test/fixtures/export_social_producer.csv', encoding: 'ascii-8bit')
+    page.source.must_equal expected_csv('test/fixtures/export_social_producer.csv', Article.last.id)
   end
 
   scenario 'user exports erroneous articles' do
@@ -60,5 +59,10 @@ feature 'Exports' do
     visit mass_upload_path(MassUpload.last)
     click_link 'Fehlerhafte Artikel exportieren'
     page.source.must_equal IO.read('test/fixtures/mass_upload_wrong_article.csv')
+  end
+
+  def expected_csv(file_path, article_id)
+    string = IO.read(file_path, encoding: 'ascii-8bit')
+    string.gsub('<--ARTICLEID-->', article_id.to_s)
   end
 end

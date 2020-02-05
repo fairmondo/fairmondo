@@ -60,21 +60,22 @@ feature 'Uploading a CSV' do
 
     # change them
     visit new_mass_upload_path
-    attach_file('mass_upload_file', 'test/fixtures/mass_update_correct.csv')
+    file = replace_ids('test/fixtures/mass_update_correct.csv', '<--ARTICLEID-->' => Article.unscoped.first.id.to_s)
+    attach_file('mass_upload_file', file.path)
     click_button I18n.t('mass_uploads.labels.upload_article')
     first(:link, I18n.t('mass_uploads.labels.show_report')).click
     click_button I18n.t('mass_uploads.labels.mass_activate_articles')
 
     # validate changes
-    article1 = Article.find(1)
-    article2 = Article.find(2)
+    article1 = Article.unscoped.first
+    article2 = Article.unscoped.second
     article1.content.must_equal 'Andere Beschreibung'
     article1.condition.must_equal 'old'
     article2.title.must_equal 'Anderer Name'
     article2.gtin.must_equal '9999999999'
     article1.active?.must_equal true
     article2.active?.must_equal true
-    Article.find(3).title.must_equal 'Name von Artikel 3'
+    Article.unscoped.third.title.must_equal 'Name von Artikel 3'
   end
 
   scenario 'legal entity uploads some articles activates them; articles aresold and updated with another CSV' do
@@ -91,71 +92,78 @@ feature 'Uploading a CSV' do
 
     # change them
     visit new_mass_upload_path
-    attach_file('mass_upload_file', 'test/fixtures/mass_update_correct.csv')
+
+    file = replace_ids('test/fixtures/mass_update_correct.csv', '<--ARTICLEID-->' => Article.unscoped.first.id.to_s)
+    attach_file('mass_upload_file', file.path)
     click_button I18n.t('mass_uploads.labels.upload_article')
     first(:link, I18n.t('mass_uploads.labels.show_report')).click
     click_button I18n.t('mass_uploads.labels.mass_activate_articles')
 
     # validate changes
-    Article.find(1).active?.must_equal false
-    Article.find(2).active?.must_equal false
-    article1 = Article.find(4) # as it will edit them both as new
-    article2 = Article.find(5)
+    Article.unscoped.first.active?.must_equal false
+    Article.unscoped.second.active?.must_equal false
+    article1 = Article.unscoped.fourth # as it will edit them both as new
+    article2 = Article.unscoped.fifth
     article1.content.must_equal 'Andere Beschreibung'
     article1.condition.must_equal 'old'
     article2.title.must_equal 'Anderer Name'
     article2.gtin.must_equal '9999999999'
     article1.active?.must_equal true
     article2.active?.must_equal true
-    Article.find(3).title.must_equal 'Name von Artikel 3'
+    Article.unscoped.third.title.must_equal 'Name von Artikel 3'
   end
 
   scenario 'legal entity deletes an Articles via CSV' do
-    create :article, seller: @user
-    create :article, custom_seller_identifier: 'abc123', seller: @user
-    attach_file('mass_upload_file', 'test/fixtures/mass_delete.csv')
+    article = create :article, seller: @user
+    second_article = create :article, custom_seller_identifier: 'abc123', seller: @user
+    file = replace_ids('test/fixtures/mass_delete.csv', '<--ARTICLEID-->' => article.id.to_s)
+    attach_file('mass_upload_file', file.path)
     click_button I18n.t('mass_uploads.labels.upload_article')
-    Article.find(1).closed?.must_equal true
-    Article.find(2).closed?.must_equal true
+    article.reload.closed?.must_equal true
+    article.reload.closed?.must_equal true
   end
 
   scenario 'legal entity tries to delete an already closed Article via CSV' do
     create :closed_article, seller: @user
-    attach_file('mass_upload_file', 'test/fixtures/mass_upload_single_delete.csv')
+    file = replace_ids( 'test/fixtures/mass_upload_single_delete.csv', '<--ARTICLEID-->' => Article.unscoped.first.id.to_s)
+    attach_file('mass_upload_file', file.path)
     click_button I18n.t('mass_uploads.labels.upload_article')
     click_link I18n.t('mass_uploads.labels.show_report')
     page.must_have_content I18n.t('mass_uploads.errors.article_not_found')
   end
 
   scenario 'legal entity activates preview articles via CSV' do
-    create :preview_article, seller: @user
-    create :preview_article, custom_seller_identifier: 'abc123', seller: @user
-    attach_file('mass_upload_file', 'test/fixtures/mass_activate.csv')
+    article = create :preview_article, seller: @user
+    second_article = create :preview_article, custom_seller_identifier: 'abc123', seller: @user
+    file = replace_ids('test/fixtures/mass_activate.csv', '<--ARTICLEID-->' => article.id.to_s)
+    attach_file('mass_upload_file', file.path)
     click_button I18n.t('mass_uploads.labels.upload_article')
     click_link I18n.t('mass_uploads.labels.show_report')
     click_button I18n.t('mass_uploads.labels.mass_activate_articles')
-    Article.find(1).active?.must_equal true
-    Article.find(2).active?.must_equal true
+    article.reload.active?.must_equal true
+    second_article.reload.active?.must_equal true
   end
 
   scenario 'legal entity deactivates Articles via CSV' do
-    create :article, seller: @user
-    create :article, custom_seller_identifier: 'abc123', seller: @user
-    attach_file('mass_upload_file', 'test/fixtures/mass_deactivate.csv')
+    article = create :article, seller: @user
+    second_article = create :article, custom_seller_identifier: 'abc123', seller: @user
+    file = replace_ids('test/fixtures/mass_deactivate.csv', '<--ARTICLEID-->' => article.id.to_s)
+    attach_file('mass_upload_file', file.path)
     click_button I18n.t('mass_uploads.labels.upload_article')
-    Article.find(1).locked?.must_equal true
-    Article.find(2).locked?.must_equal true
+    article.reload.locked?.must_equal true
+    second_article.reload.locked?.must_equal true
   end
 
   scenario 'legal entity tries to delete an article that belongs to another user' do
-    create :article
+    article = create :article
 
-    attach_file('mass_upload_file', 'test/fixtures/mass_upload_single_delete.csv')
+    file = replace_ids('test/fixtures/mass_upload_single_delete.csv', '<--ARTICLEID-->' => article.id.to_s)
+    attach_file('mass_upload_file', file.path)
     click_button I18n.t('mass_uploads.labels.upload_article')
     click_link I18n.t('mass_uploads.labels.show_report')
 
     page.must_have_content I18n.t('mass_uploads.errors.article_not_found')
-    Article.find(1).closed?.must_equal false
+    article.reload.closed?.must_equal false
   end
 
   scenario 'legal entity tries to delete articles that are not present' do
@@ -186,7 +194,13 @@ feature 'Uploading a CSV' do
     a4 = create :article, seller: @user # problems with dup and images while testing
     a5 = create :preview_article, seller: @user
 
-    attach_file('mass_upload_file', 'test/fixtures/mass_upload_correct_multiple_action.csv')
+    file = replace_ids('test/fixtures/mass_upload_correct_multiple_action.csv',
+                       '<--ARTICLEID1-->' => a1.id.to_s,
+                       '<--ARTICLEID2-->' => a2.id.to_s,
+                       '<--ARTICLEID3-->' => a3.id.to_s,
+                       '<--ARTICLEID4-->' => a4.id.to_s,
+                       '<--ARTICLEID5-->' => a5.id.to_s)
+    attach_file('mass_upload_file', file.path)
     click_button I18n.t('mass_uploads.labels.upload_article')
     click_link I18n.t('mass_uploads.labels.show_report')
     click_button I18n.t('mass_uploads.labels.mass_activate_articles')
@@ -229,5 +243,16 @@ feature 'Uploading a CSV' do
     attach_file('mass_upload_file', 'test/fixtures/mass_upload_illegal_quoting.csv')
     click_button I18n.t('mass_uploads.labels.upload_article')
     page.must_have_content(I18n.t('mass_uploads.errors.illegal_quoting'))
+  end
+
+  def replace_ids(file, replace_ids)
+    string = File.read(file)
+    updated_string = replace_ids.inject(string) do |result, (k, v)|
+      result.gsub(k, v)
+    end
+    Tempfile.new(['upload', '.csv']).tap do |f|
+      f.write(updated_string)
+      f.close
+    end
   end
 end

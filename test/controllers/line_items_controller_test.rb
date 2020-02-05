@@ -17,7 +17,7 @@ class LineItemsControllerTest < ActionController::TestCase
           assert_difference 'Cart.count', 1 do
             post :create, line_item: { article_id: article.id }
           end
-          cookies.signed[:cart].must_equal 1
+          cookies.signed[:cart].must_equal Cart.last.id
         end
       end
 
@@ -47,14 +47,14 @@ class LineItemsControllerTest < ActionController::TestCase
           assert_difference 'Cart.count', 1 do
             post :create, line_item: { article_id: article.id }
           end
-          cookies.signed[:cart].must_equal 1
-          Cart.find(1).user.must_equal buyer
+          cookies.signed[:cart].must_equal Cart.last.id
+          Cart.last.user.must_equal buyer
         end
 
         it 'should use the old cart if there is an existing cart' do
           post :create, line_item: { article_id: article.id }
           Cart.last.line_items.map(&:article).must_include article
-          cookies.signed[:cart].must_equal 1
+          cookies.signed[:cart].must_equal Cart.last.id
         end
       end
     end

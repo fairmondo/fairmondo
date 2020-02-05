@@ -20,6 +20,11 @@ class DiscourseControllerTest < ActionController::TestCase
 
   describe 'for a logged in user' do
     before do
+      @url = 'http://test.de/sessions/sso_login?sso=bm9uY2U9Y2I2ODI1MWVlZmI1MjExZTU4YzAwZmYxMzk1ZjBjMGImbmFtZT0r%0AJnVzZXJuYW1lPXNhbXNhbSZlbWFpbD10ZXN0JTQwdGVzdC5jb20mZXh0ZXJu%0AYWxfaWQ9MQ%3D%3D%0A&sig=08c123f00949f1abe5305cba33e30c81d2211f3ee43d819415d6c7dca949140f'
+      sso_mock = mock()
+      SingleSignOn.expects(:parse).returns(sso_mock)
+      [:email, :name, :username, :external_id, :sso_secret].each { |attr| sso_mock.stubs("#{attr}=") }
+      sso_mock.stubs(:to_url).returns(@url)
       @user = create :user, email: 'test@test.com', nickname: 'samsam', create_standard_address: false
       sign_in @user
     end
@@ -28,7 +33,7 @@ class DiscourseControllerTest < ActionController::TestCase
       get :sso, sso: 'bm9uY2U9Y2I2ODI1MWVlZmI1MjExZTU4YzAwZmYxMzk1ZjBjMGI=\n',
                 sig: 'a265194763a84c4d9ad1f17e113f2bbc8d356441d44ec9dec13ad442928547d4'
 
-      response.must redirect_to 'http://test.de/sessions/sso_login?sso=bm9uY2U9Y2I2ODI1MWVlZmI1MjExZTU4YzAwZmYxMzk1ZjBjMGImbmFtZT0r%0AJnVzZXJuYW1lPXNhbXNhbSZlbWFpbD10ZXN0JTQwdGVzdC5jb20mZXh0ZXJu%0AYWxfaWQ9MQ%3D%3D%0A&sig=08c123f00949f1abe5305cba33e30c81d2211f3ee43d819415d6c7dca949140f'
+      response.must redirect_to @url
     end
   end
 end
