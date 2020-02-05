@@ -4,7 +4,7 @@
 
 FactoryBot.define do
   factory :rating do
-    rating 'positive'
+    rating { 'positive' }
     association :line_item_group, :with_business_transactions, :sold
     rated_user { line_item_group.seller }
 
@@ -14,19 +14,19 @@ FactoryBot.define do
     factory :rating_with_text, traits: [:with_text]
 
     trait :positive do
-      rating 'positive'
+      rating { 'positive' }
     end
 
     trait :negative do
-      rating 'negative'
+      rating { 'negative' }
     end
 
     trait :neutral do
-      rating 'neutral'
+      rating { 'neutral' }
     end
 
     trait :with_text do
-      text 'Ask no questions, and you\'ll be told no lies.'
+      text { 'Ask no questions, and you\'ll be told no lies.' }
     end
   end
 end

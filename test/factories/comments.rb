@@ -4,8 +4,11 @@
 
 FactoryBot.define do
   factory :comment do
-    text 'Heaven knows we need never be ashamed of our tears, for they are rain upon the blinding '\
+    text do
+      'Heaven knows we need never be ashamed of our tears, for they are rain upon the blinding '\
       'dust of earth, overlying our hard hearts.'
+    end
+
     association :user
     association :commentable, factory: :library
   end

@@ -4,7 +4,7 @@
 
 FactoryBot.define do
   factory :category do
-    name 'English literature'
+    name { 'English literature' }
 
     factory :child_category do
       association :parent, factory: :category, name: 'Literature'

@@ -10,7 +10,7 @@ FactoryBot.define do
 
   trait :with_line_item_groups do
     transient do
-      line_item_group_count 3
+      line_item_group_count { 3 }
     end
 
     after(:create) do |cart, evaluator|
@@ -24,7 +24,7 @@ FactoryBot.define do
 
   trait :with_line_item_groups_from_legal_entity do
     transient do
-      line_item_group_count 3
+      line_item_group_count { 3 }
     end
 
     after(:create) do |cart, evaluator|

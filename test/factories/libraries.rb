@@ -13,16 +13,16 @@ FactoryBot.define do
     factory :public_library_with_elements,  traits: [:public,  :with_elements]
 
     trait :private do
-      public false
+      public { false }
     end
 
     trait :public do
-      public true
+      public { true }
     end
 
     trait :with_elements do
       transient do
-        element_count 5
+        element_count { 5 }
       end
 
       after(:create) do |library, evaluator|

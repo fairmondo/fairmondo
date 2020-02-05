@@ -10,7 +10,7 @@ FactoryBot.define do
     factory :paypal_payment_with_pay_key, traits: [:with_pay_key]
 
     trait :with_pay_key do
-      pay_key 'foobar'
+      pay_key { 'foobar' }
     end
   end
 

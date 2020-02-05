@@ -4,7 +4,7 @@
 
 FactoryBot.define do
   factory :line_item do
-    requested_quantity 1
+    requested_quantity { 1 }
     association :article
     line_item_group { create :line_item_group, seller: article.seller }
 
