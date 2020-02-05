@@ -6,38 +6,37 @@ require_relative '../test_helper'
 
 class AddressPolicyTest < ActiveSupport::TestCase
   include PunditMatcher
-  subject { AddressPolicy.new(user, address) }
-  let(:address) { create(:address) }
+  let(:address) { build(:address) }
   let(:user) { nil }
 
   context 'for a visitor' do
-    it { subject.must_ultimately_deny(:create) }
-    it { subject.must_ultimately_deny(:new) }
-    it { subject.must_ultimately_deny(:edit) }
-    it { subject.must_ultimately_deny(:update) }
-    it { subject.must_ultimately_deny(:show) }
-    it { subject.must_ultimately_deny(:destroy) }
+    it { refute_permit(user, address, :create) }
+    it { refute_permit(user, address, :new) }
+    it { refute_permit(user, address, :edit) }
+    it { refute_permit(user, address, :update) }
+    it { refute_permit(user, address, :show) }
+    it { refute_permit(user, address, :destroy) }
   end
 
   context 'for a random logged in user' do
-    let(:user) { create(:user) }
-    it { subject.must_ultimately_deny(:create) }
-    it { subject.must_ultimately_deny(:new) }
-    it { subject.must_ultimately_deny(:edit) }
-    it { subject.must_ultimately_deny(:update) }
-    it { subject.must_ultimately_deny(:show) }
-    it { subject.must_ultimately_deny(:destroy) }
+    let(:user) { build(:user) }
+    it { refute_permit(user, address, :create) }
+    it { refute_permit(user, address, :new) }
+    it { refute_permit(user, address, :edit) }
+    it { refute_permit(user, address, :update) }
+    it { refute_permit(user, address, :show) }
+    it { refute_permit(user, address, :destroy) }
   end
 
   context 'for logged in owner of address' do
-    let(:user) { create(:incomplete_user) }
-    let(:address) { create(:address, user: user) }
+    let(:user) { build(:incomplete_user) }
+    let(:address) { build(:address, user: user) }
 
-    it { subject.must_permit(:create) }
-    it { subject.must_permit(:new) }
-    it { subject.must_permit(:edit) }
-    it { subject.must_permit(:update) }
-    it { subject.must_permit(:show) }
-    it { subject.must_permit(:destroy) }
+    it { assert_permit(user, address, :create) }
+    it { assert_permit(user, address, :new) }
+    it { assert_permit(user, address, :edit) }
+    it { assert_permit(user, address, :update) }
+    it { assert_permit(user, address, :show) }
+    it { assert_permit(user, address, :destroy) }
   end
 end

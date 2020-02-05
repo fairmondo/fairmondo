@@ -7,6 +7,6 @@ require_relative '../test_helper'
 class CategoryPolicyTest < ActiveSupport::TestCase
   include PunditMatcher
 
-  it { subject.must_permit(:select_category) }
-  it { subject.must_permit(:show) }
+  it { assert_permit(nil, nil, :select_category) }
+  it { assert_permit(nil, nil, :show) }
 end

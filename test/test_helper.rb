@@ -17,7 +17,6 @@ require File.expand_path("../../config/environment", __FILE__)
 require 'minitest/autorun'
 require 'minitest/spec'
 require 'minitest/mock'
-require "minitest-matchers"
 require 'minitest/hell'
 require 'sidekiq/testing'
 #require 'pry-rescue/minitest' if ENV['RESCUE']
@@ -33,7 +32,6 @@ WebMock.allow_net_connect!
 Dir[Rails.root.join("test/support/fake_services/*.rb")].each {|f| require f}
 
 # First matchers, then modules, then helpers. Helpers need to come after modules due to interdependencies.
-Dir[Rails.root.join("test/support/matchers/*.rb")].each {|f| require f}
 Dir[Rails.root.join("test/support/modules/*.rb")].each {|f| require f}
 Dir[Rails.root.join("test/support/spec_helpers/*.rb")].each {|f| require f}
 

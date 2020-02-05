@@ -360,7 +360,7 @@ GEM
       rake
     minitest-line (0.6.5)
       minitest (~> 5.0)
-    minitest-matchers (1.4.1)
+    minitest-matchers_vaccine (1.0.4)
       minitest (~> 5.0)
     minitest-metadata (0.6.0)
       minitest (>= 4.7, < 6.0)
@@ -732,7 +732,8 @@ DEPENDENCIES
   memory_test_fix
   meta_request
   minitest-line
-  minitest-matchers
+  minitest-matchers_vaccine
+  minitest-rails (~> 2.0)
   minitest-rails-capybara
   minitest-spec-rails
   mocha

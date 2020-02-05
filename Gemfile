@@ -163,8 +163,9 @@ group :development, :test do
   gem 'capistrano-bundler', '~> 1.1.2'
   gem 'capistrano-rbenv'
 
-  gem 'minitest-matchers'
+  gem 'minitest-matchers_vaccine'
   gem 'minitest-line'
+  gem "minitest-rails", "~> 2.0"
   gem 'minitest-spec-rails'
   gem 'launchy' # save_and_open_page
   gem 'shoulda-matchers'
