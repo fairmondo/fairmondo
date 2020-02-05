@@ -202,7 +202,4 @@ end
 group :development, :test, :staging do
   gem 'factory_girl_rails'
   gem 'ffaker'
-
-  # styleguides
-  gem 'nkss-rails', github: 'nadarei/nkss-rails'
 end
