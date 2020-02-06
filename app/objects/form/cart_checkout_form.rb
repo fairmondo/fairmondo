@@ -4,6 +4,7 @@
 
 class CartCheckoutForm
   include AddressParams
+  include BusinessTransactionParams
 
   attr_accessor :session, :cart, :form_objects, :checkout, :payment_address, :transport_address
 
@@ -101,7 +102,7 @@ class CartCheckoutForm
   def create_business_transaction_for group, item, transaction_params
     business_transaction =
       if transaction_params
-        group.business_transactions.build(transaction_params.for(BusinessTransaction).on(:create).refine)
+        group.business_transactions.build(transaction_params.require(:business_transaction).permit(*BUSINESS_TRANSACTION_PARAMS))
       else
         group.business_transactions.build
       end
