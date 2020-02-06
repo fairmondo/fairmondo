@@ -70,9 +70,6 @@ GEM
       nokogiri
     amoeba (3.0.0)
       activerecord (>= 3.2.6)
-    arcane (1.1.1)
-      actionpack (>= 3.0.0, < 5.0.0)
-      activesupport (>= 3.0.0, < 5.0.0)
     arel (5.0.1.20140414130214)
     ast (2.0.0)
     astrolabe (1.3.0)
@@ -692,7 +689,6 @@ DEPENDENCIES
   active_data
   activerecord-session_store
   amoeba
-  arcane
   awesome_nested_set (>= 3.0.0.rc.4)
   better_errors
   binding_of_caller
