@@ -3,6 +3,8 @@
 #   See the COPYRIGHT file for details.
 
 class ArticleRefinery < ApplicationRefinery
+  include ImageParams
+
   def create
     [
       # Common attrs
@@ -60,7 +62,7 @@ class ArticleRefinery < ApplicationRefinery
         :social_entrepreneur_explanation
       ] },
       # Image attrs
-      { images_attributes: ImageRefinery.new(Image.new, user).default(true) },
+      { images_attributes: NESTED_IMAGE_PARAMS },
       :image_2_url,
       # Legal Entity attrs
       :custom_seller_identifier, :gtin,

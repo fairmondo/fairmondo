@@ -3,6 +3,8 @@
 #   See the COPYRIGHT file for details.
 
 class UserRefinery < ApplicationRefinery
+  include ImageParams
+
   def self.root
     false
   end
@@ -26,7 +28,7 @@ class UserRefinery < ApplicationRefinery
       :iban, :bic, :bank_name, :bank_account_owner, :direct_debit_confirmation,
       :unified_transport_provider, :unified_transport_maximum_articles, :unified_transport_price,
       :free_transport_available, :free_transport_at_price,
-      { image_attributes: ImageRefinery.new(Image.new, user).default }
+      { image_attributes: IMAGE_PARAMS }
     ]
     permitted += [
       :terms, :cancellation, :about, :cancellation_form,
