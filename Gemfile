@@ -67,7 +67,7 @@ gem 'recaptcha', require: 'recaptcha/rails' # Captcha Gem
 # ---------- Controller ----------
 
 gem 'canonical-rails' # canonical view links
-gem 'devise', '~> 3.5.10' # authentication
+gem 'devise', '~> 4.7.1' # authentication
 gem 'pundit' # authorization
 gem 'kaminari' # pagination
 gem 'responders'
