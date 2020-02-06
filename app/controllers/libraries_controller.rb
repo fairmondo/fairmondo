@@ -3,6 +3,8 @@
 #   See the COPYRIGHT file for details.
 
 class LibrariesController < ApplicationController
+  PERMITTED_PARAMS = %i(name public user user_id).freeze
+
   include LibrariesControllerAdminActions
 
   helper_method :user_focused?
@@ -52,7 +54,7 @@ class LibrariesController < ApplicationController
   end
 
   def create
-    @library = current_user.libraries.build(params.for(Library).refine)
+    @library = current_user.libraries.build(params.require(:library).permit(permitted_params))
     authorize @library
 
     # Needed for the JS responses
@@ -65,7 +67,7 @@ class LibrariesController < ApplicationController
 
   def update
     authorize @library
-    if @library.update(params.for(@library).refine)
+    if @library.update(params.require(:library).permit(permitted_params))
       redirect_to library_path(@library)
     else
       redirect_to library_path(@library), alert: @library.errors.values.first.first
@@ -126,6 +128,14 @@ class LibrariesController < ApplicationController
     else
       format.html { redirect_to user_libraries_path(current_user), alert: @library.errors.values.first.first }
       format.js { render :new }
+    end
+  end
+
+  def permitted_params
+    if User.is_admin? current_user
+      PERMITTED_PARAMS + [:exhibition_name]
+    else
+      PERMITTED_PARAMS
     end
   end
 end
