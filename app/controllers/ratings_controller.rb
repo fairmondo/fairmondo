@@ -3,6 +3,8 @@
 #   See the COPYRIGHT file for details.
 
 class RatingsController < ApplicationController
+  PERMITTED_PARAMS = %i(rating rated_user_id text line_item_group_id).freeze
+
   responders :location, :flash
   respond_to :html
 
@@ -18,7 +20,7 @@ class RatingsController < ApplicationController
   end
 
   def create
-    @rating = Rating.new(params.for(Rating).refine)
+    @rating = Rating.new(params.require(:rating).permit(*PERMITTED_PARAMS))
     @rating.rating_user = current_user
     @rating.rated_user = @user
     authorize @rating
