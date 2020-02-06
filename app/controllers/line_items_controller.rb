@@ -3,6 +3,9 @@
 #   See the COPYRIGHT file for details.
 
 class LineItemsController < ApplicationController
+  PERMITTED_UPDATE_PARAMS = %i(requested_quantity).freeze
+  PERMITTED_CREATE_PARAMS = (PERMITTED_UPDATE_PARAMS + %i(article_id)).freeze
+
   respond_to :html
   respond_to :json, only: [:create]
   responders :location
@@ -11,7 +14,7 @@ class LineItemsController < ApplicationController
   before_action :quantity_zero_means_destroy, only: [:update]
 
   def create
-    @line_item = LineItem.find_or_new params.for(LineItem).refine, find_or_create_cart.id
+    @line_item = LineItem.find_or_new params.require(:line_item).permit(*PERMITTED_CREATE_PARAMS), find_or_create_cart.id
 
     begin
       @line_item.transaction do
@@ -30,7 +33,7 @@ class LineItemsController < ApplicationController
   def update
     find_and_authorize_line_item
 
-    unless @line_item.update(params.for(@line_item).refine)
+    unless @line_item.update(params.require(:line_item).permit(*PERMITTED_UPDATE_PARAMS))
       flash[:error] = I18n.t('line_item.notices.error_quantity')
     end
 

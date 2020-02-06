@@ -3,6 +3,16 @@
 #   See the COPYRIGHT file for details.
 
 class CartCheckoutForm
+  PERMITTED_UPDATE_PARAMS = %i(
+    unified_transport unified_payment unified_payment_method tos_accepted message
+  ).freeze
+  PERMITTED_CHECKOUT_SESSION_PARAMS = %i(
+    unified_transport_maximum_articles
+    unified_transport_provider
+    unified_transport_price_cents
+    free_transport_at_price_cents
+  ).freeze
+
   include AddressParams
   include BusinessTransactionParams
 
@@ -92,7 +102,7 @@ class CartCheckoutForm
 
     # assigns attributes to line_item_groups
     group_params = params[:line_item_groups][group.id.to_s] if params[:line_item_groups]
-    group.assign_attributes(group_params.for(group).on(:update).refine) if group_params
+    group.assign_attributes(group_params.permit(*PERMITTED_UPDATE_PARAMS)) if group_params
     group.payment_address = self.payment_address
     group.transport_address = self.transport_address
     group.buyer_id = cart.user_id
@@ -148,7 +158,7 @@ class CartCheckoutForm
     @cart.line_item_groups.each do |group|
       seller = group.seller
       checkout_session_params = ActionController::Parameters.new(session[:cart_checkout][:sellers][seller.id.to_s])
-      group.assign_attributes(checkout_session_params.for(group).on(:checkout_session).refine)
+      group.assign_attributes(checkout_session_params.permit(*PERMITTED_CHECKOUT_SESSION_PARAMS))
     end
   end
 end
