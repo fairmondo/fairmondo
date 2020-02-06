@@ -2,10 +2,9 @@
 #   licensed under the GNU Affero General Public License version 3 or later.
 #   See the COPYRIGHT file for details.
 
-class ImageRefinery < ApplicationRefinery
-  def default nested_attrs = false
-    output = [:image, :is_title]
-    output.push(:_destroy, :id) if nested_attrs
-    output
-  end
+module ImageParams
+  extend ActiveSupport::Concern
+
+  IMAGE_PARAMS = %i(image is_title).freeze
+  NESTED_IMAGE_PARAMS = (%i(_destroy, id) + IMAGE_PARAMS).freeze
 end
