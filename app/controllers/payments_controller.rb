@@ -3,6 +3,8 @@
 #   See the COPYRIGHT file for details.
 
 class PaymentsController < ApplicationController
+  PERMITTED_PARAMS = %i(type pay_key line_item_group_id).freeze
+
   before_action :setup_ipn, only: :ipn_notification
   skip_before_action :authenticate_user!, only: :ipn_notification
   protect_from_forgery except: :ipn_notification
@@ -11,7 +13,7 @@ class PaymentsController < ApplicationController
   # create happens on buy. this is to initialize the payment with paypal
   def create
     params[:payment].merge!(line_item_group_id: params[:line_item_group_id])
-    payment_attrs = params.for(Payment).refine
+    payment_attrs = params.require(:payment).permit(*PERMITTED_PARAMS)
     @payment = Payment.new payment_attrs
     authorize @payment
     if @payment.execute
