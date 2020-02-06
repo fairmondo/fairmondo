@@ -4,6 +4,7 @@
 
 class RegistrationsController < Devise::RegistrationsController
   include AddressParams
+  include UserParams
 
   before_action :dont_cache, only: [:edit]
   before_action :configure_permitted_parameters
@@ -14,7 +15,7 @@ class RegistrationsController < Devise::RegistrationsController
     build_resource({})
 
     # Check if parameters have been provided by a landing page and set object attributes accordingly
-    resource.assign_attributes(params[:external_user].for(resource).on(:create).refine) if params[:external_user]
+    resource.assign_attributes(params.require(:external_user).permit(*USER_CREATE_PARAMS)) if params[:external_user]
 
     if devise_mapping.validatable?
       @minimum_password_length = resource_class.password_length.min
@@ -126,10 +127,18 @@ class RegistrationsController < Devise::RegistrationsController
 
   def configure_permitted_parameters
     devise_parameter_sanitizer.for(:sign_up) do |u|
-      u.for(User.new).as(resource).on(:create).refine
+      u.permit(*USER_CREATE_PARAMS)
     end
     devise_parameter_sanitizer.for(:account_update) do |u|
-      u.for(User.new).as(resource).on(:update).refine # permit(*UserRefinery.new(resource).default, :current_password)
+      u.permit(*user_update_params)
+    end
+  end
+
+  def user_update_params
+    if current_user.is_a? LegalEntity
+      USER_UPDATE_PARAMS + USER_UPDATE_LEGAL_ENTITY_PARAMS
+    else
+      USER_UPDATE_PARAMS
     end
   end
 end
