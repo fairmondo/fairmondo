@@ -3,6 +3,8 @@
 #   See the COPYRIGHT file for details.
 
 class RegistrationsController < Devise::RegistrationsController
+  include AddressParams
+
   before_action :dont_cache, only: [:edit]
   before_action :configure_permitted_parameters
   skip_before_action :authenticate_user!, only: [:create, :new]
@@ -36,7 +38,8 @@ class RegistrationsController < Devise::RegistrationsController
 
   def update
     self.resource = resource_class.to_adapter.get!(send(:"current_#{ resource_name }").to_key)
-    address_params = params[:address] ? params.for(Address).refine : {}
+
+    address_params = params[:address] ? params.require(:address).permit(*ADDRESS_PARAMS) : {}
     resource.build_standard_address_from address_params
     prev_unconfirmed_email = resource.unconfirmed_email if resource.respond_to?(:unconfirmed_email)
 
