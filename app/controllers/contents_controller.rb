@@ -3,6 +3,8 @@
 #   See the COPYRIGHT file for details.
 
 class ContentsController < ApplicationController
+  REQUIRED_PARAMS = %i(body key layout).freeze
+
   responders :flash
   respond_to :html
   respond_to :js, if: lambda { request.xhr? }
@@ -36,7 +38,7 @@ class ContentsController < ApplicationController
   end
 
   def create
-    @content = Content.new(params.for(Content).refine)
+    @content = Content.new(params.require(:content).permit(*REQUIRED_PARAMS))
     authorize @content
     @content.save
     respond_with @content
@@ -49,7 +51,7 @@ class ContentsController < ApplicationController
 
   def update
     authorize @content
-    @content.update(params.for(@content).refine)
+    @content.update(params.require(:content).permit(*REQUIRED_PARAMS))
     respond_with @content
   end
 
