@@ -4,6 +4,7 @@
 
 class ArticlesController < ApplicationController
   include ArticleControllerFilters
+  include ArticleParams
 
   responders :location
   respond_to :html
@@ -36,7 +37,7 @@ class ArticlesController < ApplicationController
   end
 
   def create
-    @article = current_user.articles.build(params.for(Article).refine)
+    @article = current_user.articles.build(params.require(:article).permit(*ARTICLE_CREATE_PARAMS))
     if params && params[:article][:article_template_name].present?
       @article.save_as_template = '1'
     end
@@ -65,7 +66,7 @@ class ArticlesController < ApplicationController
       change_state
     else
       authorize @article
-      save_images unless @article.update(params.for(@article).refine)
+      save_images unless @article.update(params.require(:article).permit(*ARTICLE_UPDATE_PARAMS))
       respond_with @article
     end
   end
@@ -131,7 +132,7 @@ class ArticlesController < ApplicationController
   end
 
   def activate
-    @article.assign_attributes params.for(@article).refine
+    @article.assign_attributes params.require(:article).permit(*ARTICLE_UPDATE_PARAMS)
     authorize @article, :activate?
     if @article.activate
       flash[:notice] = I18n.t('article.notices.create_html')
