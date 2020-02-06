@@ -97,7 +97,7 @@ gem 'rails_admin_statistics', github: 'KonstantinKo/rails_admin_statistics'
 gem 'rails_admin_nested_set'
 gem 'rack-rewrite' # Redirects
 gem 'json'
-gem 'nokogiri', '~> 1.7.2'
+gem 'nokogiri', '~> 1.10.7'
 gem 'prawn_rails' # pdf generation
 
 # ---------- Monitoring ----------

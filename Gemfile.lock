@@ -352,7 +352,7 @@ GEM
     metaclass (0.0.4)
     method_source (0.8.2)
     mime-types (1.25.1)
-    mini_portile2 (2.1.0)
+    mini_portile2 (2.4.0)
     minitest (5.10.1)
     minitest-capybara (0.7.1)
       capybara (~> 2.2)
@@ -397,8 +397,8 @@ GEM
     netrc (0.11.0)
     newrelic_rpm (3.9.9.275)
     nio4r (1.2.1)
-    nokogiri (1.7.2)
-      mini_portile2 (~> 2.1.0)
+    nokogiri (1.10.7)
+      mini_portile2 (~> 2.4.0)
     nokogumbo (1.2.0)
       nokogiri
     nori (2.4.0)
@@ -755,7 +755,7 @@ DEPENDENCIES
   monetize
   money-rails (> 0.12.0)
   newrelic_rpm
-  nokogiri (~> 1.7.2)
+  nokogiri (~> 1.10.7)
   paperclip (~> 4.2.2)
   parallel_tests
   paypal_adaptive
