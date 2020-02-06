@@ -3,6 +3,8 @@
 #   See the COPYRIGHT file for details.
 
 class CartCheckoutForm
+  include AddressParams
+
   attr_accessor :session, :cart, :form_objects, :checkout, :payment_address, :transport_address
 
   def initialize session, cart, checkout
@@ -110,7 +112,7 @@ class CartCheckoutForm
   end
 
   def create_payment_address address_params
-    self.payment_address.assign_attributes(address_params.for(Address).on(:create).refine)
+    self.payment_address.assign_attributes(address_params.require(:address).permit(*ADDRESS_PARAMS))
     # save this to the db if validations do not fail
     saved = self.payment_address.save
     self.form_objects << self.payment_address # for form logic purposes
