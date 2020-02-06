@@ -3,11 +3,6 @@
 #   See the COPYRIGHT file for details.
 
 class ApplicationController < ActionController::Base
-  PERMITTED_SEARCH_FORM_PARAMS = %i(
-    q fair ecologic small_and_precious condition category_id zip order_by search_in_content
-    exclude_category_ids
-  ).freeze
-
   ## Global security
   before_action :authenticate_user!
 
@@ -74,8 +69,11 @@ class ApplicationController < ActionController::Base
   end
 
   def build_search_cache
-    form_search_params = ArticleSearchForm.new(params[:article_search_form]).attributes
-    search_params = ActionController::Parameters.new(form_search_params).to_h#.permit(*PERMITTED_SEARCH_FORM_PARAMS).to_h
+    if params[:article_search_form]
+      search_params = params[:article_search_form].permit(ArticleSearchForm.new.attributes.keys)
+    else
+      search_params = {}
+    end
     @search_cache = ArticleSearchForm.new(search_params)
   end
 
