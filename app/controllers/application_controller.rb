@@ -16,9 +16,6 @@ class ApplicationController < ActionController::Base
 
   layout :layout_by_param
 
-  # Arcane
-  include Arcane
-
   # Pundit
   include Pundit
   after_action :verify_authorized_with_exceptions, except: [:index, :feed, :ipn_notification, :contact]
