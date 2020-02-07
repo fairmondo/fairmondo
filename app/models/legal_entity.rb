@@ -11,7 +11,7 @@ class LegalEntity < User
   validates :cancellation, length: { maximum: 20000, tokenizer: tokenizer_without_html }
   validates_attachment :cancellation_form, size: { in: 1..2.megabytes }, file_name: { matches: [/pdf\Z/] }
 
-  validates :terms, :about, :cancellation, presence: true, on: :update, if: :wants_to_sell?
+  validates :terms, :about, :cancellation, presence: true, if: :wants_to_sell?
 
   validates :bank_account_owner, :iban, :bic,
             presence: true, on: :update, if: :wants_to_sell?, unless: :direct_debit_exemption

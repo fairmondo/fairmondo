@@ -9,7 +9,7 @@ module StubChainMocha
     def stub_chain(*methods)
       if methods.length > 1
         next_in_chain = ::Object.new
-        stubs(methods.shift).returns(next_in_chain)
+        stubs(methods.shift => next_in_chain)
         next_in_chain.stub_chain(*methods)
       else
         stubs(methods.shift)
