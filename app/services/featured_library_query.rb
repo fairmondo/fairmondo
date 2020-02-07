@@ -22,7 +22,7 @@ class FeaturedLibraryQuery
     exhibits.each do |exhibit|
       put_exhibition_date_of exhibit unless exhibit.exhibition_date # fills nil
     end
-    exhibits = fill_exhibits_randomly(exhibits, count) unless exhibits.length >= count
+    exhibits = fill_exhibits_randomly(exhibits.to_a, count) unless exhibits.length >= count
 
     { library: @library, exhibits: exhibits.map { |exhibit| exhibit.article } }
   end
@@ -45,7 +45,7 @@ class FeaturedLibraryQuery
       random_offset = rand 0..max_offset
       if filler_library_element = filler_query(exhibits).offset(random_offset).first
         put_exhibition_date_of filler_library_element
-        exhibits << filler_library_element
+        exhibits.push(filler_library_element)
       end
       max_offset -= 1
     end

@@ -26,7 +26,7 @@ class CommentTest < ActiveSupport::TestCase
     should validate_presence_of(:commentable)
     describe 'for text' do
       should validate_presence_of(:text)
-      should ensure_length_of(:text).is_at_most(1000)
+      should validate_length_of(:text).is_at_most(1000)
     end
   end
 

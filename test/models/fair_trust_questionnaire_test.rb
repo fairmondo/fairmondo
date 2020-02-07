@@ -43,15 +43,15 @@ class FairTrustQuestionnaireTest < ActiveSupport::TestCase
       subject { FairTrustQuestionnaire.new support: true }
       should validate_presence_of :support_checkboxes
       should validate_presence_of :support_explanation
-      should ensure_length_of(:support_explanation).is_at_least 150
+      should validate_length_of(:support_explanation).is_at_least 150
 
       should_not validate_presence_of :support_other
 
       describe "and 'other' was checked" do
         before { subject.support_checkboxes = [:other] }
         should validate_presence_of :support_other
-        should ensure_length_of(:support_other).is_at_least 5
-        should ensure_length_of(:support_other).is_at_most 100
+        should validate_length_of(:support_other).is_at_least 5
+        should validate_length_of(:support_other).is_at_most 100
       end
     end
 
@@ -60,29 +60,29 @@ class FairTrustQuestionnaireTest < ActiveSupport::TestCase
       subject { FairTrustQuestionnaire.new labor_conditions: true }
       should validate_presence_of :labor_conditions_checkboxes
       should validate_presence_of :labor_conditions_explanation
-      should ensure_length_of(:labor_conditions_explanation).is_at_least 150
+      should validate_length_of(:labor_conditions_explanation).is_at_least 150
 
-      it { subject.wont validate_presence_of :labor_conditions_other }
+      should_not validate_presence_of :labor_conditions_other
       describe "and 'other' was checked" do
         before { subject.labor_conditions_checkboxes = [:other] }
         should validate_presence_of :labor_conditions_other
-        should ensure_length_of(:labor_conditions_other).is_at_least 5
-        should ensure_length_of(:labor_conditions_other).is_at_most 100
+        should validate_length_of(:labor_conditions_other).is_at_least 5
+        should validate_length_of(:labor_conditions_other).is_at_most 100
       end
     end
 
-    it { subject.wont validate_presence_of :environment_protection }
+    should_not validate_presence_of :environment_protection
     describe 'when environment_protection is checked' do
       subject { FairTrustQuestionnaire.new environment_protection: true }
       should validate_presence_of :environment_protection_checkboxes
-      should ensure_length_of(:environment_protection_explanation).is_at_least 150
+      should validate_length_of(:environment_protection_explanation).is_at_least 150
 
-      it { subject.wont validate_presence_of :environment_protection_other }
+      should_not validate_presence_of :environment_protection_other
       describe "and 'other' was checked" do
         before { subject.environment_protection_checkboxes = [:other] }
         should validate_presence_of :environment_protection_other
-        should ensure_length_of(:environment_protection_other).is_at_least 5
-        should ensure_length_of(:environment_protection_other).is_at_most 100
+        should validate_length_of(:environment_protection_other).is_at_least 5
+        should validate_length_of(:environment_protection_other).is_at_most 100
       end
     end
 
@@ -91,29 +91,29 @@ class FairTrustQuestionnaireTest < ActiveSupport::TestCase
       subject { FairTrustQuestionnaire.new controlling: true }
       should validate_presence_of :controlling_checkboxes
       should validate_presence_of :controlling_explanation
-      should ensure_length_of(:controlling_explanation).is_at_least 150
+      should validate_length_of(:controlling_explanation).is_at_least 150
 
-      it { subject.wont validate_presence_of :controlling_other }
+      should_not validate_presence_of :controlling_other
       describe "and 'other' was checked" do
         before { subject.controlling_checkboxes = [:other] }
         should validate_presence_of :controlling_other
-        should ensure_length_of(:controlling_other).is_at_least 5
-        should ensure_length_of(:controlling_other).is_at_most 100
+        should validate_length_of(:controlling_other).is_at_least 5
+        should validate_length_of(:controlling_other).is_at_most 100
       end
     end
 
-    it { subject.wont validate_presence_of :awareness_raising }
+    should_not validate_presence_of :awareness_raising
     describe 'when awareness_raising is checked' do
       subject { FairTrustQuestionnaire.new awareness_raising: true }
       should validate_presence_of :awareness_raising_checkboxes
-      should ensure_length_of(:awareness_raising_explanation).is_at_least 150
+      should validate_length_of(:awareness_raising_explanation).is_at_least 150
 
-      it { subject.wont validate_presence_of :awareness_raising_other }
+      should_not validate_presence_of :awareness_raising_other
       describe "and 'other' was checked" do
         before { subject.awareness_raising_checkboxes = [:other] }
         should validate_presence_of :awareness_raising_other
-        should ensure_length_of(:awareness_raising_other).is_at_least 5
-        should ensure_length_of(:awareness_raising_other).is_at_most 100
+        should validate_length_of(:awareness_raising_other).is_at_least 5
+        should validate_length_of(:awareness_raising_other).is_at_most 100
       end
     end
   end
