@@ -58,7 +58,6 @@ class UserTest < ActiveSupport::TestCase
     it { _(subject).must_respond_to :direct_debit_exemption }
     it { _(subject).must_respond_to :next_direct_debit_mandate_number }
     it { _(subject).must_respond_to :value_of_goods_cents }
-    it {    user.must_respond_to :max_value_of_goods_cents } # implemented on all subclasses
     it { _(subject).must_respond_to :max_value_of_goods_cents_bonus }
     it { _(subject).must_respond_to :fastbill_subscription_id }
     it { _(subject).must_respond_to :fastbill_id }
@@ -72,6 +71,12 @@ class UserTest < ActiveSupport::TestCase
     it { _(subject).must_respond_to :invoicing_email }
     it { _(subject).must_respond_to :order_notifications_email }
     it { _(subject).must_respond_to :marketplace_owner_account }
+
+    User.subclasses.each do |subclass|
+      subject { subclass.new }
+
+      it { _(subject).must_respond_to :max_value_of_goods_cents } # implemented on all subclasses
+    end
   end
 
   describe 'associations' do
@@ -96,7 +101,7 @@ class UserTest < ActiveSupport::TestCase
     end
 
     describe 'on create' do
-      should validate_acceptance_of :legal
+      should (validate_acceptance_of :legal).on(:create)
     end
 
     describe 'voluntary_contribution' do
@@ -126,7 +131,7 @@ class UserTest < ActiveSupport::TestCase
       describe 'address validation' do
         subject { user.standard_address }
         should allow_value('Test Str. 1a').for :address_line_1
-        should allow_value('Test Str.').for :address_line_1
+        should_not allow_value('Test Str.').for :address_line_1
       end
     end
 
@@ -144,15 +149,17 @@ class UserTest < ActiveSupport::TestCase
     end
 
     describe 'if legal entity wants to sell' do
+      subject { le_stubbed }
+
       before :each do
         le_stubbed.wants_to_sell = true
         le_stubbed.direct_debit_exemption = false
         le_stubbed.standard_address = build_stubbed(:address_for_alice)
       end
 
-      it { le_stubbed.must validate_presence_of :iban }
-      it { le_stubbed.must validate_presence_of :bic }
-      it { le_stubbed.must validate_presence_of :bank_account_owner }
+      should validate_presence_of :iban
+      should validate_presence_of :bic
+      should validate_presence_of :bank_account_owner
 
       it 'should validate presence of active direct debit mandate' do
         le_stubbed.stubs(:has_active_direct_debit_mandate?).returns(true)
@@ -167,9 +174,9 @@ class UserTest < ActiveSupport::TestCase
         le_stubbed.standard_address = build_stubbed(:address_for_alice)
       end
 
-      it { le_stubbed.wont validate_presence_of :iban }
-      it { le_stubbed.wont validate_presence_of :bic }
-      it { le_stubbed.wont validate_presence_of :bank_account_owner }
+      should_not validate_presence_of :iban
+      should_not validate_presence_of :bic
+      should_not validate_presence_of :bank_account_owner
 
       it 'must not validate presence of active direct debit mandate' do
         le_stubbed.stubs(:has_active_direct_debit_mandate?).returns(false)
@@ -546,13 +553,15 @@ class UserTest < ActiveSupport::TestCase
 
       describe 'validations' do
         describe 'if LegalEntity wants to sell' do
+          subject { db_user }
+
           before :each do
             db_user.wants_to_sell = true
           end
 
-          it { db_user.must validate_presence_of :terms }
-          it { db_user.must validate_presence_of :cancellation }
-          it { db_user.must validate_presence_of :about }
+          should validate_presence_of :terms
+          should validate_presence_of :cancellation
+          should validate_presence_of :about
         end
       end
     end
