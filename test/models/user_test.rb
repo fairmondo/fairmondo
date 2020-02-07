@@ -126,7 +126,7 @@ class UserTest < ActiveSupport::TestCase
       describe 'address validation' do
         subject { user.standard_address }
         should allow_value('Test Str. 1a').for :address_line_1
-        it { user.standard_address.wont allow_value('Test Str.').for :address_line_1
+        should allow_value('Test Str.').for :address_line_1
       end
     end
 
