@@ -56,8 +56,7 @@ class FastbillAPITest < ActiveSupport::TestCase
             api.expects(:fastbill_create_customer).never
             api.expects(:fastbill_create_subscription).never
             api.fastbill_chain
-            assert_requested :post, 'https://my_email:my_fastbill_api_key@app.monsum.com'\
-                                    '/api/1.0/api.php', times: 2
+            assert_requested :post, 'https://app.monsum.com/api/1.0/api.php', times: 2
           end
         end
 
@@ -75,10 +74,10 @@ class FastbillAPITest < ActiveSupport::TestCase
           it 'should log error if creating the profile raises an exception' do
             bt_from_legal_entity # to trigger observers before
             api = FastbillAPI.new bt_from_legal_entity
-            Fastbill::Automatic::Customer.stub :create, -> (_arg) { raise StandardError.new } do
-              ExceptionNotifier.expects(:notify_exception)
-              api.fastbill_chain
-            end
+            Fastbill::Automatic::Customer.stubs(:create).then.raises(StandardError)
+            ExceptionNotifier.expects(:notify_exception)
+
+            api.fastbill_chain
           end
         end
 
@@ -92,10 +91,10 @@ class FastbillAPITest < ActiveSupport::TestCase
         it 'should log error if set usage data raises exception' do
           bt_from_legal_entity # to trigger observers before
           api = FastbillAPI.new bt_from_legal_entity
-          Fastbill::Automatic::Subscription.stub :setusagedata, -> (_arg) { raise StandardError.new } do
-            ExceptionNotifier.expects(:notify_exception).twice
-            api.fastbill_chain
-          end
+          Fastbill::Automatic::Subscription.stubs(:setusagedata).then.raises(StandardError)
+          ExceptionNotifier.expects(:notify_exception).twice
+
+          api.fastbill_chain
         end
       end
 

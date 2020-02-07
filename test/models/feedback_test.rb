@@ -36,11 +36,11 @@ class FeedbackTest < ActiveSupport::TestCase
   describe 'validations' do
     should validate_presence_of(:text)
     should validate_presence_of :variety
-    it { subject.wont allow_value('test@').for :from }
-    it { subject.wont allow_value('@test.').for :from }
-    it { subject.wont allow_value('test.com').for :from }
-    it { subject.must allow_value('test@test.museum').for :from }
-    it { subject.must allow_value('test@test.co.uk').for :from }
+    should_not allow_value('test@').for :from
+    should_not allow_value('@test.').for :from
+    should_not allow_value('test.com').for :from
+    should allow_value('test@test.museum').for :from
+    should allow_value('test@test.co.uk').for :from 
 
     describe 'when validating send_feedback' do
       before { subject.variety = 'send_feedback' }

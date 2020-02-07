@@ -6,7 +6,6 @@ require 'test_helper'
 
 class LineItemGroupTest < ActiveSupport::TestCase
   let(:line_item_group) { create(:line_item_group) }
-  let(:id) { 1 }
 
   subject { LineItemGroup.new }
 
@@ -34,10 +33,9 @@ class LineItemGroupTest < ActiveSupport::TestCase
 
   describe '#generate_purchase_id' do
     it 'generates a valid id' do
-      line_item_group.stub(:id, 1) do
-        line_item_group.generate_purchase_id
-        line_item_group.purchase_id.must_equal('F00000001')
-      end
+      line_item_group.id = 1
+      line_item_group.generate_purchase_id
+      line_item_group.purchase_id.must_equal('F00000001')
     end
   end
 end

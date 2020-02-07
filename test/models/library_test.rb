@@ -32,7 +32,7 @@ class LibraryTest < ActiveSupport::TestCase
     describe 'for name' do
       should validate_presence_of(:name)
       should validate_uniqueness_of(:name).scoped_to(:user_id)
-      should ensure_length_of(:name).is_at_most(70)
+      should validate_length_of(:name).is_at_most(70)
     end
 
     describe 'for user' do
