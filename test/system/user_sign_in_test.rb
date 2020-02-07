@@ -5,10 +5,6 @@
 require 'application_system_test_case'
 
 class UserSignInTest < ApplicationSystemTestCase
-  before :each do
-    CleverreachAPI.stubs(:call)
-  end
-
   test 'banned user wants to sign in' do
     user = create :user, banned: true
     create :content, key: 'banned', body: '<p>You are banned.</p>'

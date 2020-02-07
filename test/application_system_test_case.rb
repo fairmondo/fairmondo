@@ -9,4 +9,8 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
             options: { args: ["headless", "disable-gpu", "no-sandbox", "disable-dev-shm-usage"] }
 
   include Devise::Test::IntegrationHelpers
+
+  before :each do
+    CleverreachAPI.stubs(:call)
+  end
 end
