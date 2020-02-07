@@ -12,9 +12,9 @@ class DiscourseControllerTest < ActionController::TestCase
 
   describe 'for a logged out user' do
     it 'should redirect to login page' do
-      get :sso, sso: 'bm9uY2U9Y2I2ODI1MWVlZmI1MjExZTU4YzAwZmYxMzk1ZjBjMGI=\n',
-                sig: '2828aa29899722b35a2f191d34ef9b3ce695e0e6eeec47deb46d588d70c7cb56'
-      response.must redirect_to new_user_session_path
+      get :sso, params: { sso: 'bm9uY2U9Y2I2ODI1MWVlZmI1MjExZTU4YzAwZmYxMzk1ZjBjMGI=\n',
+                          sig: '2828aa29899722b35a2f191d34ef9b3ce695e0e6eeec47deb46d588d70c7cb56' }
+      assert_redirected_to new_user_session_path
     end
   end
 
@@ -30,10 +30,10 @@ class DiscourseControllerTest < ActionController::TestCase
     end
 
     it 'should redirect to discourse forum with right params' do
-      get :sso, sso: 'bm9uY2U9Y2I2ODI1MWVlZmI1MjExZTU4YzAwZmYxMzk1ZjBjMGI=\n',
-                sig: 'a265194763a84c4d9ad1f17e113f2bbc8d356441d44ec9dec13ad442928547d4'
+      get :sso, params: { sso: 'bm9uY2U9Y2I2ODI1MWVlZmI1MjExZTU4YzAwZmYxMzk1ZjBjMGI=\n',
+                          sig: 'a265194763a84c4d9ad1f17e113f2bbc8d356441d44ec9dec13ad442928547d4' }
 
-      response.must redirect_to @url
+      assert_redirected_to @url
     end
   end
 end

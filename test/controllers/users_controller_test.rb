@@ -12,13 +12,13 @@ class UsersControllerTest < ActionController::TestCase
       end
 
       it 'should be successful' do
-        get :show, id: @user
+        get :show, params: { id: @user }
         assert_response :success
       end
 
       it 'render deleted user for banned users' do
         @user.update_attribute(:banned, true)
-        get :show, id: @user
+        get :show, params: { id: @user }
         assert_response :success
         assert_template :user_deleted
       end
@@ -31,7 +31,7 @@ class UsersControllerTest < ActionController::TestCase
       end
 
       it 'should be successful' do
-        get :show, id: @user
+        get :show, params: { id: @user }
         assert_response :success
       end
     end
@@ -43,7 +43,7 @@ class UsersControllerTest < ActionController::TestCase
     end
 
     it 'should be successful' do
-      get :profile, id: @user, format: :pdf, print: 'terms'
+      get :profile, params: { id: @user, format: :pdf, print: 'terms' }
       assert_response :success
     end
   end
@@ -52,7 +52,7 @@ class UsersControllerTest < ActionController::TestCase
     let(:user) { create :user }
 
     it 'should be successful' do
-      xhr :get, :contact, id: user.id
+      get :contact, params: { id: user.id }, xhr: true
       assert_response :success
       assert_template :contact
     end

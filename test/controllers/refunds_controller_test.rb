@@ -15,7 +15,7 @@ class RefundsControllerTest < ActionController::TestCase
         @refund_attrs = attributes_for :refund
         sign_in seller
         assert_difference 'Refund.count', 1 do
-          post :create, refund: @refund_attrs, business_transaction_id: business_transaction.id
+          post :create, params:{ refund: @refund_attrs, business_transaction_id: business_transaction.id }
         end
       end
     end
@@ -25,7 +25,7 @@ class RefundsControllerTest < ActionController::TestCase
     describe 'for signed in users' do
       it 'should render "new" view ' do
         sign_in seller
-        get :new, user_id: seller.id, business_transaction_id: business_transaction.id
+        get :new, params:{ user_id: seller.id, business_transaction_id: business_transaction.id }
         assert_response :success
       end
     end

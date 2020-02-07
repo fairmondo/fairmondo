@@ -14,14 +14,14 @@ class FeedbacksControllerTest < ActionController::TestCase
     describe 'for non-signed-in users' do
       it 'should create a feedback with variety report_article' do
         assert_difference 'Feedback.count', 1 do
-          post :create, feedback: @attributes
+          post :create, params:{ feedback: @attributes }
         end
       end
 
       it 'should create no feedback if recaptcha is not verified' do
         @controller.stubs(:verify_recaptcha).returns(false)
         assert_no_difference 'Feedback.count' do
-          post :create, feedback: @attributes
+          post :create, params:{ feedback: @attributes }
         end
       end
     end
