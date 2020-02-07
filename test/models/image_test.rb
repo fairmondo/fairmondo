@@ -28,12 +28,23 @@ class ImageTest < ActiveSupport::TestCase
   end
 
   describe 'associations' do
-    let(:article_image) { ArticleImage.new }
-    let(:feedback_image) { FeedbackImage.new }
-    let(:user_image) { UserImage.new }
-    it { article_image.must belong_to :article }
-    it { feedback_image.must belong_to :feedback }
-    it { user_image.must belong_to :user }
+    describe 'article_image' do
+      subject { ArticleImage.new }
+
+      should belong_to :article
+    end
+
+    describe 'feedback image' do
+      subject { FeedbackImage.new }
+
+      should belong_to :feedback
+    end
+
+    describe 'user image' do
+      subject { UserImage.new }
+
+      should belong_to :user
+    end
   end
 
   describe 'methods' do
