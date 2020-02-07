@@ -15,12 +15,12 @@ class ArticleReportTest < ApplicationSystemTestCase
     fill_in 'feedback_text', with: 'foobar'
     click_button I18n.t 'article.actions.report'
 
-    page.must_have_content I18n.t 'article.actions.reported'
+    assert page.has_content? I18n.t 'article.actions.reported'
   end
 
   test 'user reports blank feedback'  do
     fill_in 'feedback_text', with: ''
     click_button I18n.t 'article.actions.report'
-    page.must_have_content I18n.t 'activerecord.errors.models.feedback.attributes.text.blank'
+    assert page.has_content? I18n.t 'activerecord.errors.models.feedback.attributes.text.blank'
   end
 end

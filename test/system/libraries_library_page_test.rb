@@ -11,6 +11,6 @@ class LibrariesLibraryPageTest < ApplicationSystemTestCase
     library2 = create(:public_library_with_elements, user: user)
 
     visit library_path(library1)
-    page.must_have_content(library2.name)
+    assert page.has_content?(library2.name)
   end
 end

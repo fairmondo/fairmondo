@@ -14,7 +14,7 @@ class LibraryVisibilityTest < ApplicationSystemTestCase
     pub_lib.articles << create(:article, title: 'exhibit-article')
     priv_lib = create :library, user: user, public: false
     visit user_libraries_path user
-    page.must_have_content pub_lib.name
+    assert page.has_content? pub_lib.name
     page.wont_have_content priv_lib.name
   end
 end

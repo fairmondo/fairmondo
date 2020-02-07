@@ -18,7 +18,7 @@ class UserExportTransactionsTest < ApplicationSystemTestCase
     login_as user
     visit user_path(user)
 
-    page.must_have_content 'CSV-Export Bestellungen'
+    assert page.has_content? 'CSV-Export Bestellungen'
 
     select('Mai', from: 'date_month')
     select('2016', from: 'date_year')

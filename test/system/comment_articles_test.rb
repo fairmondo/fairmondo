@@ -13,7 +13,7 @@ class CommentArticlesTest < ApplicationSystemTestCase
     visit article_path(article)
 
     within('.Comments-section') do
-      page.must_have_content('Kommentar erstellen')
+      assert page.has_content?('Kommentar erstellen')
     end
   end
 

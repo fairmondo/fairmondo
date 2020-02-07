@@ -9,8 +9,8 @@ class UserProfilePageTest < ApplicationSystemTestCase
     @user = create :user
     login_as @user
     visit user_path(@user)
-    page.must_have_content('Profil bearbeiten')
-    page.must_have_content('Sammlungen')
+    assert page.has_content?('Profil bearbeiten')
+    assert page.has_content?('Sammlungen')
     page.wont_have_content('Admin')
   end
 
@@ -18,7 +18,7 @@ class UserProfilePageTest < ApplicationSystemTestCase
     @user = create :user
     login_as @user
     visit profile_user_path(@user)
-    page.must_have_content @user.nickname
+    assert page.has_content? @user.nickname
   end
 
   test 'guest visits another users profile through an article' do

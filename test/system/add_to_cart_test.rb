@@ -11,7 +11,7 @@ class AddToCartTest < ApplicationSystemTestCase
     click_button I18n.t('common.actions.to_cart')
     page_must_include_notice_for(article)
     click_link(I18n.t('header.cart.title', count: 1), match: :first)
-    page.must_have_content 'foobar'
+    assert page.has_content? 'foobar'
   end
 
   test 'logged-in user adds article to his cart' do
@@ -21,7 +21,7 @@ class AddToCartTest < ApplicationSystemTestCase
     click_button I18n.t('common.actions.to_cart')
     page_must_include_notice_for(article)
     click_link(I18n.t('header.cart.title', count: 1), match: :first)
-    page.must_have_content 'foobar'
+    assert page.has_content? 'foobar'
   end
 
   test 'logged-in user adds article to his cart and is logged out by the system' do

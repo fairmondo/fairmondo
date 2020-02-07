@@ -21,6 +21,6 @@ class UserProfileContactTest < ApplicationSystemTestCase
       fill_in 'contact_form[text]', with: 'foobar'
       click_button I18n.t('article.show.contact.action')
     end
-    page.must_have_content I18n.t 'users.profile.contact.success_notice'
+    assert page.has_content? I18n.t 'users.profile.contact.success_notice'
   end
 end

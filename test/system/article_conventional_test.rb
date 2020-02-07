@@ -12,7 +12,7 @@ class ArticleConventionalTest < ApplicationSystemTestCase
 
   test 'user visits an article' do
     visit article_path @article_conventional
-    page.must_have_link('Transparency International', href: 'http://www.transparency.de/')
+    assert page.has_link?('Transparency International', href: 'http://www.transparency.de/')
   end
 
   test 'user visits article list' do

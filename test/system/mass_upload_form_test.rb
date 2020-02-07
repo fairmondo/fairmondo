@@ -21,6 +21,6 @@ class MassUploadFormTest < ApplicationSystemTestCase
     login_as user
 
     visit new_article_path
-    page.must_have_link(I18n.t('users.boxes.import'))
+    assert page.has_link?(I18n.t('users.boxes.import'))
   end
 end

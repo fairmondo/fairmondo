@@ -21,7 +21,7 @@ class FeedbackFormTest < ApplicationSystemTestCase
 
     FeedbackMailer.any_instance.expects(:mail)
     click_button I18n.t 'feedback.actions.get_help'
-    page.must_have_content I18n.t 'article.actions.reported'
+    assert page.has_content? I18n.t 'article.actions.reported'
   end
 
   test 'user sends feedback' do
@@ -35,7 +35,7 @@ class FeedbackFormTest < ApplicationSystemTestCase
 
     FeedbackMailer.any_instance.expects(:mail)
     click_button I18n.t 'feedback.actions.send_feedback'
-    page.must_have_content I18n.t 'article.actions.reported'
+    assert page.has_content? I18n.t 'article.actions.reported'
   end
 
   test 'user sends on 1st try false feedback and on 2nd try true feedback' do

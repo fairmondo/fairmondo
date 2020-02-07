@@ -9,14 +9,14 @@ class LibraryFeaturedTest < ApplicationSystemTestCase
     lib = create :library, :public, exhibition_name: 'donation_articles'
     lib.articles << create(:article, title: 'exhibit-article')
     visit root_path
-    page.must_have_content 'exhibit-article'
+    assert page.has_content? 'exhibit-article'
   end
 
   test 'user visits book category front page' do
     lib = create :library, :public, exhibition_name: 'book1'
     lib.articles << create(:article, title: 'exhibit-article')
     visit category_path create :category, name: 'bucher'
-    page.must_have_content 'exhibit-article'
+    assert page.has_content? 'exhibit-article'
   end
 
   test 'user visits two filter landing pages' do
@@ -28,10 +28,10 @@ class LibraryFeaturedTest < ApplicationSystemTestCase
 
     visit root_path
     find('#filter-fair').find('a').click
-    page.must_have_content 'exhibit-article'
+    assert page.has_content? 'exhibit-article'
 
     visit root_path
     find('#filter-used').find('a').click
-    page.must_have_content 'exhibit-article'
+    assert page.has_content? 'exhibit-article'
   end
 end

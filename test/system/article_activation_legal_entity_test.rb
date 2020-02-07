@@ -13,7 +13,7 @@ class ArticleActivationLegalEntitiesTest < ApplicationSystemTestCase
     login_as user
     visit article_path(article)
     click_button I18n.t('article.labels.submit')
-    page.must_have_content I18n.t('article.notices.max_limit')
+    assert page.has_content? I18n.t('article.notices.max_limit')
     article.active?.must_equal false
   end
 
@@ -21,7 +21,7 @@ class ArticleActivationLegalEntitiesTest < ApplicationSystemTestCase
     login_as user
     visit article_path(article)
     click_button I18n.t('article.labels.submit')
-    page.must_have_content I18n.t('article.notices.activation_failed')
+    assert page.has_content? I18n.t('article.notices.activation_failed')
     current_path.must_equal article_path article
     article.reload.active?.must_equal false
   end
