@@ -14,7 +14,7 @@ class UserSignInTest < ApplicationSystemTestCase
     fill_in 'user_password', with: 'password'
     click_button I18n.t('formtastic.actions.login')
 
-    page.must_have_content 'You are banned.'
+    assert page.has_content? 'You are banned.'
     page.wont_have_content I18n.t 'devise.sessions.signed_in'
   end
 
@@ -27,8 +27,8 @@ class UserSignInTest < ApplicationSystemTestCase
     fill_in 'user_password', with: 'password'
     click_button I18n.t('formtastic.actions.login')
 
-    page.must_have_content I18n.t 'devise.sessions.signed_in'
-    page.must_have_content I18n.t 'users.notices.sepa_missing'
+    assert page.has_content? I18n.t 'devise.sessions.signed_in'
+    assert page.has_content? I18n.t 'users.notices.sepa_missing'
     current_path.must_equal '/user/edit'
   end
 end

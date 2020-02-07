@@ -12,7 +12,7 @@ class LibraryManagementTest < ApplicationSystemTestCase
 
   test 'user creates new library' do
     visit user_libraries_path @user
-    page.must_have_content I18n.t 'library.new'
+    assert page.has_content? I18n.t 'library.new'
     within '#new_library' do
       fill_in 'new_library_name', with: 'foobar'
       click_button I18n.t('library.create')
@@ -23,7 +23,7 @@ class LibraryManagementTest < ApplicationSystemTestCase
   test 'user creates a library with a blank name' do
     visit user_libraries_path @user
     click_button I18n.t('library.create')
-    page.must_have_content I18n.t 'activerecord.errors.models.library.attributes.name.blank'
+    assert page.has_content? I18n.t 'activerecord.errors.models.library.attributes.name.blank'
   end
 
   test 'user updates name of existing Library' do
@@ -34,7 +34,7 @@ class LibraryManagementTest < ApplicationSystemTestCase
       fill_in "library#{library.id}_library_name", with: 'bazfuz'
       click_button I18n.t 'formtastic.actions.update'
     end
-    page.must_have_content 'bazfuz'
+    assert page.has_content? 'bazfuz'
   end
 
   test 'user updates library with a blank name' do
@@ -46,8 +46,8 @@ class LibraryManagementTest < ApplicationSystemTestCase
       click_button I18n.t 'formtastic.actions.update'
     end
 
-    page.must_have_content 'foobar'
-    page.must_have_content I18n.t('activerecord.errors.models.library.attributes.name.blank')
+    assert page.has_content? 'foobar'
+    assert page.has_content? I18n.t('activerecord.errors.models.library.attributes.name.blank')
   end
 
   test 'user deletes Library' do
@@ -68,12 +68,12 @@ class LibraryManagementTest < ApplicationSystemTestCase
     page.has_css?('div.libraries_list a', :count == 1) # There should be exactly one library link (default library) before adding
 
     click_link I18n.t 'library.default'
-    page.must_have_content I18n.t('library_element.notice.success')[0..10] # shorten string because library name doesn't get evaluated
+    assert page.has_content? I18n.t('library_element.notice.success')[0..10] # shorten string because library name doesn't get evaluated
     page.has_css?('div.libraries_list a', :count == 0) # After adding the article, the library link should be removed
 
     visit user_libraries_path @user
     click_link I18n.t 'library.default'
-    page.must_have_content @article.title[0..10] # characters get cut off on page as well
+    assert page.has_content? @article.title[0..10] # characters get cut off on page as well
   end
 
   test 'seller removes an article that buyer has in his library' do
@@ -89,6 +89,6 @@ class LibraryManagementTest < ApplicationSystemTestCase
     logout(:user)
     login_as buyer
     visit library_path library
-    page.must_have_content I18n.t('common.text.no_articles')
+    assert page.has_content? I18n.t('common.text.no_articles')
   end
 end

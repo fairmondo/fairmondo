@@ -27,7 +27,7 @@ class LibrariesCategoryPageTest < ApplicationSystemTestCase
     end
 
     visit category_path(@category)
-    page.must_have_content(@library.name)
+    assert page.has_content?(@library.name)
 
     login_as @user
     visit category_path(@category)
@@ -48,6 +48,6 @@ class LibrariesCategoryPageTest < ApplicationSystemTestCase
     end
 
     visit category_path(@category)
-    page.must_have_content(@library.name)
+    assert page.has_content?(@library.name)
   end
 end

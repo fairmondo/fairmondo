@@ -28,8 +28,8 @@ class UserDirectDebitMandateTest < ApplicationSystemTestCase
 
     visit edit_user_registration_path(@user)
 
-    page.must_have_content mandate.reference
-    page.must_have_content I18n.l(mandate.reference_date)
+    assert page.has_content? mandate.reference
+    assert page.has_content? I18n.l(mandate.reference_date)
   end
 
   test 'Direct debit mandate is revoked if user changes bank details' do
@@ -44,6 +44,6 @@ class UserDirectDebitMandateTest < ApplicationSystemTestCase
     # Assert 2 requests to Fastbill, one customer.get, one customer.update (both are POST requests)
     assert_requested :post, 'https://my_email:my_fastbill_api_key@app.monsum.com'\
                             '/api/1.0/api.php', times: 2
-    page.must_have_content I18n.t('devise.registrations.direct_debit_mandate_revoked')
+    assert page.has_content? I18n.t('devise.registrations.direct_debit_mandate_revoked')
   end
 end

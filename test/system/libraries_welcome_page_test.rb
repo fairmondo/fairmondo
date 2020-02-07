@@ -47,15 +47,15 @@ class LibrariesWelcomePageTest < ApplicationSystemTestCase
 
     # visit welcome page, library should be shown
     visit root_path
-    page.must_have_content I18n.t 'welcome.trending_libraries.heading'
-    page.must_have_content 'envogue'
+    assert page.has_content? I18n.t 'welcome.trending_libraries.heading'
+    assert page.has_content? 'envogue'
 
     logout
     login_as @user
     visit library_path(@library)
 
     # User should be warned before editing it
-    page.must_have_content I18n.t 'library.auditing.user_warning'
+    assert page.has_content? I18n.t 'library.auditing.user_warning'
 
     # User changes the name of an enabled library after which it gets disabled
     fill_in "library#{@library.id}_library_name", with: 'notanymore'

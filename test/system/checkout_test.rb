@@ -73,7 +73,7 @@ class CheckoutTest < ApplicationSystemTestCase
 
     # Step 1 correct errors
 
-    page.must_have_content I18n.t 'transaction.errors.combination_invalid',
+    assert page.has_content? I18n.t 'transaction.errors.combination_invalid',
                                   selected_payment: I18n.t('enumerize.business_transaction.selected_payment.cash')
 
     page.find("select#cart_checkout_form_line_items_#{first_line_item.id}_business_transaction_selected_transport")
@@ -130,7 +130,7 @@ class CheckoutTest < ApplicationSystemTestCase
 
     expect_cart_emails
     find('input.checkout_button').click
-    page.must_have_content(
+    assert page.has_content?(
       'Vielen Dank für Deinen Einkauf')
     Cart.last.sold?.must_equal true
     Cart.last.line_item_groups.first.transport_address.must_equal transport_address
@@ -226,8 +226,8 @@ class CheckoutTest < ApplicationSystemTestCase
 
     # Step 1 errored
 
-    page.must_have_content I18n.t('transaction.errors.cash_on_delivery_with_unified_transport')
-    page.must_have_content I18n.t('active_record.error_messages.accepted')
+    assert page.has_content? I18n.t('transaction.errors.cash_on_delivery_with_unified_transport')
+    assert page.has_content? I18n.t('active_record.error_messages.accepted')
 
     page.check("cart_checkout_form_line_item_groups_#{first_line_item_group_id}_tos_accepted")
     page.find("select#cart_checkout_form_line_item_groups_#{first_line_item_group_id}_unified_payment_method")
@@ -267,7 +267,7 @@ class CheckoutTest < ApplicationSystemTestCase
 
     find('input.checkout_button').click
     Cart.last.sold?.must_equal false
-    page.must_have_content I18n.t('cart.notices.checkout_failed')
+    assert page.has_content? I18n.t('cart.notices.checkout_failed')
   end
 
   test 'Buying a cart with one item that is already bought by the time he buys it' do
@@ -295,7 +295,7 @@ class CheckoutTest < ApplicationSystemTestCase
 
     find('input.checkout_button').click
     Cart.last.sold?.must_equal false
-    page.must_have_content I18n.t('cart.notices.checkout_failed')
+    assert page.has_content? I18n.t('cart.notices.checkout_failed')
   end
 
   test 'Buying a cart with an invalid line item' do
@@ -305,7 +305,7 @@ class CheckoutTest < ApplicationSystemTestCase
     click_button I18n.t('common.actions.to_cart')
     article.update_attribute(:quantity_available, 0)
     visit edit_cart_path(Cart.last)
-    page.must_have_content I18n.t('activerecord.errors.models.line_item.attributes.requested_quantity.less_than_or_equal_to', count: 0)
+    assert page.has_content? I18n.t('activerecord.errors.models.line_item.attributes.requested_quantity.less_than_or_equal_to', count: 0)
   end
 
   test 'Buying a cart with an incomplete user and adding address during checkout' do
@@ -352,11 +352,11 @@ class CheckoutTest < ApplicationSystemTestCase
     click_button I18n.t('common.actions.to_cart')
     page_must_include_notice_for(article)
     click_link(I18n.t('header.cart.title', count: 1), match: :first)
-    page.must_have_content 'foobar'
-    page.must_have_content 'Die Artikel als Merkliste per E-Mail versenden'
+    assert page.has_content? 'foobar'
+    assert page.has_content? 'Die Artikel als Merkliste per E-Mail versenden'
 
     click_link('Die Artikel als Merkliste per E-Mail versenden', match: :first)
-    page.must_have_content 'Als Merkliste per E-Mail versenden'
+    assert page.has_content? 'Als Merkliste per E-Mail versenden'
     page.html.must_include 'Jetzt versenden'
 
     page.fill_in 'email_email', with: 'test@test.com'

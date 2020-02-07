@@ -13,7 +13,7 @@ class CommentLibrariesTest < ApplicationSystemTestCase
     visit library_path(library)
 
     within('.Comments-section') do
-      page.must_have_content(I18n.t('comments.login_to_comment', href: I18n.t('comments.login_href')))
+      assert page.has_content?(I18n.t('comments.login_to_comment', href: I18n.t('comments.login_href')))
       page.wont_have_content(I18n.t('comments.create'))
     end
   end
@@ -24,7 +24,7 @@ class CommentLibrariesTest < ApplicationSystemTestCase
     visit library_path(library)
 
     within('.Comments-section') do
-      page.must_have_content(I18n.t('comments.no_comments'))
+      assert page.has_content?(I18n.t('comments.no_comments'))
     end
   end
 
@@ -36,7 +36,7 @@ class CommentLibrariesTest < ApplicationSystemTestCase
     visit library_path(library)
 
     within('.Comments-section') do
-      page.must_have_content('Test comment')
+      assert page.has_content?('Test comment')
       page.wont_have_content('Keine Kommentare')
       page.wont_have_content('Mehr Kommentare')
     end
@@ -50,7 +50,7 @@ class CommentLibrariesTest < ApplicationSystemTestCase
     visit library_path(library)
 
     within('.Comments-section') do
-      page.must_have_content('Mehr Kommentare')
+      assert page.has_content?('Mehr Kommentare')
     end
   end
 
@@ -62,7 +62,7 @@ class CommentLibrariesTest < ApplicationSystemTestCase
     visit library_path(library)
 
     within('.Comments-section') do
-      page.must_have_content('Kommentar erstellen')
+      assert page.has_content?('Kommentar erstellen')
     end
   end
 

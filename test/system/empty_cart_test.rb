@@ -9,6 +9,6 @@ class EmptyCartTest < ApplicationSystemTestCase
     visit root_path
     page.html.must_include I18n.t('header.cart.title', count: 0)
     click_link(I18n.t('header.cart.title', count: 0), match: :first)
-    page.must_have_content 'Dein Warenkorb ist leer.'
+    assert page.has_content? 'Dein Warenkorb ist leer.'
   end
 end

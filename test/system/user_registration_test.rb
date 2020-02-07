@@ -22,7 +22,7 @@ class UserRegistrationTest < ApplicationSystemTestCase
     fill_in 'user_password', with: 'password'
     click_button I18n.t('formtastic.actions.login')
 
-    page.must_have_content I18n.t 'devise.sessions.signed_in'
+    assert page.has_content? I18n.t 'devise.sessions.signed_in'
   end
 
   test 'guest registers a new user' do

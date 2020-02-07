@@ -18,16 +18,16 @@ class ArticleFairTrustQuestionnaireTest < ApplicationSystemTestCase
   test "user doesn't answer questions 1, 2, and 4" do
     click_button I18n.t('article.labels.continue_to_preview')
     within('#article_fair_trust_questionnaire_attributes_support_input') do
-      page.must_have_content I18n.t('errors.messages.blank')
+      assert page.has_content? I18n.t('errors.messages.blank')
     end
     within('#article_fair_trust_questionnaire_attributes_labor_conditions_input') do
-      page.must_have_content I18n.t('errors.messages.blank')
+      assert page.has_content? I18n.t('errors.messages.blank')
     end
     within('#article_fair_trust_questionnaire_attributes_environment_protection_input') do
       page.wont_have_content I18n.t('errors.messages.blank')
     end
     within('#article_fair_trust_questionnaire_attributes_controlling_input') do
-      page.must_have_content I18n.t('errors.messages.blank')
+      assert page.has_content? I18n.t('errors.messages.blank')
     end
     within('#article_fair_trust_questionnaire_attributes_awareness_raising_input') do
       page.wont_have_content I18n.t('errors.messages.blank')

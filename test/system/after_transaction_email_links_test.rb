@@ -12,11 +12,11 @@ class AfterTransationEmailLinksTest < ApplicationSystemTestCase
 
     login_as buyer
     visit line_item_group_path(transaction.line_item_group)
-    page.must_have_content I18n.t('line_item_group.texts.email_to_seller')
+    assert page.has_content? I18n.t('line_item_group.texts.email_to_seller')
 
     logout
     login_as seller
     visit line_item_group_path(transaction.line_item_group)
-    page.must_have_content I18n.t('line_item_group.texts.email_to_buyer')
+    assert page.has_content? I18n.t('line_item_group.texts.email_to_buyer')
   end
 end

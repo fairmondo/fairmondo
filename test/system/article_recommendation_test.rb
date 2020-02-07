@@ -15,7 +15,7 @@ class ArticleRecommendationTest < ApplicationSystemTestCase
 
   test 'user wants to see other articles of the same seller' do
     visit article_path @article
-    page.must_have_link('', href: article_path(@article_active))
+    assert page.has_link?('', href: article_path(@article_active))
     page.wont_have_link('', href: article_path(@article_locked))
   end
 end

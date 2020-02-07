@@ -30,7 +30,7 @@ class UserRatingsTest < ApplicationSystemTestCase
     choose 'rating_rating_positive'
     click_button 'Bewertung speichern'
     current_path.must_equal user_path(buyer)
-    page.must_have_content 'Deine Bewertung wurde gespeichert'
+    assert page.has_content? 'Deine Bewertung wurde gespeichert'
   end
 
   test 'user tries to give a rating without entering a value' do
@@ -53,8 +53,8 @@ class UserRatingsTest < ApplicationSystemTestCase
     login_as line_item_group.buyer
     visit user_ratings_path(user_id: line_item_group.seller.id)
 
-    page.must_have_content(line_item_group.seller.nickname)
-    page.must_have_content(@rating.text)
-    page.must_have_content(line_item_group.buyer.nickname)
+    assert page.has_content?(line_item_group.seller.nickname)
+    assert page.has_content?(@rating.text)
+    assert page.has_content?(line_item_group.buyer.nickname)
   end
 end

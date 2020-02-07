@@ -15,9 +15,9 @@ class MassUploadCSVTest < ApplicationSystemTestCase
     assert_difference 'Article.count', 3 do
       click_button I18n.t('mass_uploads.labels.upload_article')
     end
-    page.must_have_content I18n.t('users.boxes.my_mass_uploads')
+    assert page.has_content? I18n.t('users.boxes.my_mass_uploads')
     click_link I18n.t('mass_uploads.labels.show_report')
-    page.must_have_content('Name von Artikel 1')
+    assert page.has_content?('Name von Artikel 1')
     page.must_have_button I18n.t('mass_uploads.labels.mass_activate_articles')
     click_button I18n.t('mass_uploads.labels.mass_activate_articles')
     page.wont_have_selector('h1', text: I18n.t('mass_uploads.titles.uploaded_articles'))
@@ -25,7 +25,7 @@ class MassUploadCSVTest < ApplicationSystemTestCase
 
     click_link I18n.t('mass_uploads.labels.show_report')
     page.wont_have_selector('input.Btn.Btn--green.Btn--greenSmall')
-    page.must_have_content I18n.t('mass_uploads.labels.all_articles_activated')
+    assert page.has_content? I18n.t('mass_uploads.labels.all_articles_activated')
   end
 
   test 'legal entity uploads some articles activates them and updates some of them with another CSV' do
@@ -106,7 +106,7 @@ class MassUploadCSVTest < ApplicationSystemTestCase
     attach_file('mass_upload_file', file.path)
     click_button I18n.t('mass_uploads.labels.upload_article')
     click_link I18n.t('mass_uploads.labels.show_report')
-    page.must_have_content I18n.t('mass_uploads.errors.article_not_found')
+    assert page.has_content? I18n.t('mass_uploads.errors.article_not_found')
   end
 
   test 'legal entity activates preview articles via CSV' do
@@ -139,7 +139,7 @@ class MassUploadCSVTest < ApplicationSystemTestCase
     click_button I18n.t('mass_uploads.labels.upload_article')
     click_link I18n.t('mass_uploads.labels.show_report')
 
-    page.must_have_content I18n.t('mass_uploads.errors.article_not_found')
+    assert page.has_content? I18n.t('mass_uploads.errors.article_not_found')
     article.reload.closed?.must_equal false
   end
 
@@ -147,14 +147,14 @@ class MassUploadCSVTest < ApplicationSystemTestCase
     attach_file('mass_upload_file', 'test/fixtures/mass_deactivate.csv')
     click_button I18n.t('mass_uploads.labels.upload_article')
     click_link I18n.t('mass_uploads.labels.show_report')
-    page.must_have_content(I18n.t('mass_uploads.errors.article_not_found'))
+    assert page.has_content?(I18n.t('mass_uploads.errors.article_not_found'))
   end
 
   test 'legal entity uploads a file with an activate request but no id' do
     attach_file('mass_upload_file', 'test/fixtures/mass_activate_without_id.csv')
     click_button I18n.t('mass_uploads.labels.upload_article')
     click_link I18n.t('mass_uploads.labels.show_report')
-    page.must_have_content(I18n.t('mass_uploads.errors.no_identifier'))
+    assert page.has_content?(I18n.t('mass_uploads.errors.no_identifier'))
   end
 
   test 'legal entity uploads a file with an Article without an action but an id' do
@@ -198,7 +198,7 @@ class MassUploadCSVTest < ApplicationSystemTestCase
     click_button I18n.t('mass_uploads.labels.upload_article')
     click_link I18n.t('mass_uploads.labels.show_report')
 
-    page.must_have_content I18n.t('mass_uploads.errors.unknown_action')
+    assert page.has_content? I18n.t('mass_uploads.errors.unknown_action')
   end
 
   test 'legal entity uploads a file with invalid articles' do
@@ -207,19 +207,19 @@ class MassUploadCSVTest < ApplicationSystemTestCase
       click_button I18n.t('mass_uploads.labels.upload_article')
     end
     click_link I18n.t('mass_uploads.labels.show_report')
-    page.must_have_content(I18n.t('mass_uploads.errors.wrong_article_message'))
+    assert page.has_content?(I18n.t('mass_uploads.errors.wrong_article_message'))
   end
 
   test 'legal entity uploads a file with an invalid encoding' do
     attach_file('mass_upload_file', 'test/fixtures/mass_upload_wrong_encoding.csv')
     click_button I18n.t('mass_uploads.labels.upload_article')
-    page.must_have_content(I18n.t('mass_uploads.errors.wrong_encoding'))
+    assert page.has_content?(I18n.t('mass_uploads.errors.wrong_encoding'))
   end
 
   test 'legal entity uploads a file with illegal quoting' do
     attach_file('mass_upload_file', 'test/fixtures/mass_upload_illegal_quoting.csv')
     click_button I18n.t('mass_uploads.labels.upload_article')
-    page.must_have_content(I18n.t('mass_uploads.errors.illegal_quoting'))
+    assert page.has_content?(I18n.t('mass_uploads.errors.illegal_quoting'))
   end
 
   def replace_ids(file, replace_ids)

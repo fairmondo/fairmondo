@@ -14,41 +14,41 @@ class UserAccountManagementTest < ApplicationSystemTestCase
     page.must_have_css 'h1', text: I18n.t('common.actions.edit_profile')
 
     # Account Data
-    page.must_have_content I18n.t 'formtastic.labels.user.legal_entity'
-    page.must_have_content I18n.t 'formtastic.labels.user.nickname'
-    page.must_have_content user.nickname
-    page.must_have_content I18n.t 'formtastic.labels.user.customer_number'
-    page.must_have_content user.customer_nr
-    page.must_have_content I18n.t 'formtastic.labels.user.image'
+    assert page.has_content? I18n.t 'formtastic.labels.user.legal_entity'
+    assert page.has_content? I18n.t 'formtastic.labels.user.nickname'
+    assert page.has_content? user.nickname
+    assert page.has_content? I18n.t 'formtastic.labels.user.customer_number'
+    assert page.has_content? user.customer_nr
+    assert page.has_content? I18n.t 'formtastic.labels.user.image'
 
     # Account Fields
     page.must_have_css 'h3', text: I18n.t('users.title.login')
-    page.must_have_content I18n.t 'formtastic.labels.user.email'
-    page.must_have_content I18n.t 'users.change_password'
-    page.must_have_content I18n.t 'formtastic.labels.user.password'
-    page.must_have_content I18n.t 'formtastic.labels.user.current_password'
+    assert page.has_content? I18n.t 'formtastic.labels.user.email'
+    assert page.has_content? I18n.t 'users.change_password'
+    assert page.has_content? I18n.t 'formtastic.labels.user.password'
+    assert page.has_content? I18n.t 'formtastic.labels.user.current_password'
 
     # State Fields
     page.must_have_css 'h3', text: I18n.t('users.title.state')
-    page.must_have_content I18n.t 'formtastic.labels.user.vacationing'
-    page.must_have_content I18n.t 'formtastic.labels.user.newsletter'
-    page.must_have_content I18n.t 'formtastic.labels.user.receive_comments_notification'
+    assert page.has_content? I18n.t 'formtastic.labels.user.vacationing'
+    assert page.has_content? I18n.t 'formtastic.labels.user.newsletter'
+    assert page.has_content? I18n.t 'formtastic.labels.user.receive_comments_notification'
 
     # Contact Info Fields
-    page.must_have_content I18n.t 'formtastic.labels.address.title'
-    page.must_have_content I18n.t 'formtastic.labels.address.first_name'
-    page.must_have_content I18n.t 'formtastic.labels.address.last_name'
-    page.must_have_content I18n.t 'formtastic.labels.address.country'
-    page.must_have_content I18n.t 'formtastic.labels.address.address_line_1'
-    page.must_have_content I18n.t 'formtastic.labels.address.address_line_2'
-    page.must_have_content I18n.t 'formtastic.labels.address.city'
-    page.must_have_content I18n.t 'formtastic.labels.address.zip'
-    page.must_have_content I18n.t 'formtastic.labels.user.phone'
-    page.must_have_content I18n.t 'formtastic.labels.user.mobile'
-    page.must_have_content I18n.t 'formtastic.labels.user.fax'
+    assert page.has_content? I18n.t 'formtastic.labels.address.title'
+    assert page.has_content? I18n.t 'formtastic.labels.address.first_name'
+    assert page.has_content? I18n.t 'formtastic.labels.address.last_name'
+    assert page.has_content? I18n.t 'formtastic.labels.address.country'
+    assert page.has_content? I18n.t 'formtastic.labels.address.address_line_1'
+    assert page.has_content? I18n.t 'formtastic.labels.address.address_line_2'
+    assert page.has_content? I18n.t 'formtastic.labels.address.city'
+    assert page.has_content? I18n.t 'formtastic.labels.address.zip'
+    assert page.has_content? I18n.t 'formtastic.labels.user.phone'
+    assert page.has_content? I18n.t 'formtastic.labels.user.mobile'
+    assert page.has_content? I18n.t 'formtastic.labels.user.fax'
 
     # Profile Fields
-    page.must_have_content I18n.t 'formtastic.labels.user.about_me'
+    assert page.has_content? I18n.t 'formtastic.labels.user.about_me'
 
     page.must_have_button I18n.t 'formtastic.actions.update'
 
@@ -95,7 +95,7 @@ class UserAccountManagementTest < ApplicationSystemTestCase
     fill_in 'user_current_password', with: 'password'
     click_button I18n.t 'formtastic.actions.update'
 
-    page.must_have_content I18n.t 'devise.registrations.changed_email'
+    assert page.has_content? I18n.t 'devise.registrations.changed_email'
     @user.reload.unconfirmed_email.must_equal 'chunky@bacon.com'
   end
 
@@ -118,7 +118,7 @@ class UserAccountManagementTest < ApplicationSystemTestCase
     fill_in 'user_password_confirmation', with: 'changedpassword'
     click_button I18n.t 'formtastic.actions.update'
     @user.reload.valid_password?('changedpassword').must_equal true
-    page.must_have_content I18n.t 'devise.registrations.updated'
+    assert page.has_content? I18n.t 'devise.registrations.updated'
   end
 
   test 'user wants to change the password for account without current password' do
@@ -143,9 +143,9 @@ class UserAccountManagementTest < ApplicationSystemTestCase
     # Legal fields
     within '#terms_step' do # id of input step
       page.must_have_css 'a', text: I18n.t('formtastic.input_steps.user.terms')
-      page.must_have_content I18n.t 'formtastic.labels.user.terms'
-      page.must_have_content I18n.t 'formtastic.labels.user.cancellation'
-      page.must_have_content I18n.t 'formtastic.labels.user.about'
+      assert page.has_content? I18n.t 'formtastic.labels.user.terms'
+      assert page.has_content? I18n.t 'formtastic.labels.user.cancellation'
+      assert page.has_content? I18n.t 'formtastic.labels.user.about'
     end
 
     fill_in 'user_terms', with: 'foobar'

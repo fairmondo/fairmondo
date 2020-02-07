@@ -14,7 +14,7 @@ class ArticleCreationTest < ApplicationSystemTestCase
     @user.standard_address.first_name = nil
     visit new_article_path
     current_path.must_equal edit_user_registration_path
-    page.must_have_content I18n.t 'article.notices.incomplete_profile'
+    assert page.has_content? I18n.t 'article.notices.incomplete_profile'
   end
 
   def fill_form_with_valid_article
@@ -43,7 +43,7 @@ class ArticleCreationTest < ApplicationSystemTestCase
 
   test 'article and template creation with a valid user' do
     visit new_article_path
-    page.must_have_content(I18n.t('article.titles.new'))
+    assert page.has_content?(I18n.t('article.titles.new'))
 
     fill_form_with_valid_article
 
@@ -99,7 +99,7 @@ class ArticleCreationTest < ApplicationSystemTestCase
   test 'get article from template' do
     template = create :article_template, seller: @user
     visit new_article_path template: { article_id: template.id }
-    page.must_have_content I18n.t('template.notices.applied', name: template.article_template_name)
+    assert page.has_content? I18n.t('template.notices.applied', name: template.article_template_name)
   end
 
   test 'new private user wants to use bank_transfer for article that costs more than 100Euro' do
@@ -110,6 +110,6 @@ class ArticleCreationTest < ApplicationSystemTestCase
     fill_in 'article_price', with: '150'
     check 'article_payment_bank_transfer'
     click_button I18n.t('article.labels.continue_to_preview')
-    page.must_have_content I18n.t('article.form.errors.bank_transfer_not_allowed')
+    assert page.has_content? I18n.t('article.form.errors.bank_transfer_not_allowed')
   end
 end

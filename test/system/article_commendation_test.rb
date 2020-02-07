@@ -12,7 +12,7 @@ class ArticleCommendationTest < ApplicationSystemTestCase
 
   test 'user visits ecologic article' do
     visit article_path(@article)
-    page.must_have_link(I18n.t 'formtastic.labels.article.ecologic')
+    assert page.has_link?(I18n.t 'formtastic.labels.article.ecologic')
   end
 
   test 'user visits seller with ecologic article' do
@@ -20,7 +20,7 @@ class ArticleCommendationTest < ApplicationSystemTestCase
     Chewy::Query.any_instance.stubs(:to_a).raises(Faraday::ConnectionFailed.new('test')) # simulate connection error so that we dont have to use elastic
     visit user_path(@seller)
     within('.Article-tags') do
-      page.must_have_content(I18n.t 'formtastic.labels.article.ecologic')
+      assert page.has_content?(I18n.t 'formtastic.labels.article.ecologic')
     end
   end
 end

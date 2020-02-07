@@ -12,11 +12,11 @@ class AdminPagesTest < ApplicationSystemTestCase
   end
 
   test 'gets redirected to Admin Dashboard' do
-    page.must_have_content I18n.t('layouts.partials.header_nav.admin.title')
+    assert page.has_content? I18n.t('layouts.partials.header_nav.admin.title')
     within '.l-header-nav' do
       click_on I18n.t('layouts.partials.header_nav.admin.backend')
     end
-    page.must_have_content('Administration')
+    assert page.has_content?('Administration')
   end
 
   test 'can change user slug' do

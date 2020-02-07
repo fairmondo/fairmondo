@@ -17,7 +17,7 @@ class ArticleSocialProducerQuestionnaireTest < ApplicationSystemTestCase
 
   test 'user answers any question with no' do
     click_button I18n.t('article.labels.continue_to_preview')
-    page.must_have_content I18n.t('article.form.errors.social_producer_questionnaire.no_social_producer')
+    assert page.has_content? I18n.t('article.form.errors.social_producer_questionnaire.no_social_producer')
   end
 
   test 'user selects non profit association without answering any other question with yes' do

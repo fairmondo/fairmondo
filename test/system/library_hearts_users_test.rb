@@ -13,14 +13,14 @@ class LibraryHeartsUsersTest < ApplicationSystemTestCase
 
     visit library_path(library.id)
     page.must_have_selector('.Hearts-button')
-    within('.Hearts-button em') { page.must_have_content '0' }
+    within('.Hearts-button em') { assert page.has_content? '0' }
 
     h = user.hearts.create(heartable: library) # can't check JS
     visit library_path(library.id)
-    within('.Hearts-button em') { page.must_have_content '1' }
+    within('.Hearts-button em') { assert page.has_content? '1' }
 
     h.destroy # can't check JS
     visit library_path(library.id)
-    within('.Hearts-button em') { page.must_have_content '0' }
+    within('.Hearts-button em') { assert page.has_content? '0' }
   end
 end

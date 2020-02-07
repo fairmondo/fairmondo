@@ -10,7 +10,7 @@ class ContentSystemTest < ApplicationSystemTestCase
 
   test 'user visits an existing page' do
     visit content_path content
-    page.must_have_content content.body
+    assert page.has_content? content.body
   end
 
   test 'admin visits a non existing page' do
@@ -44,8 +44,8 @@ class ContentSystemTest < ApplicationSystemTestCase
       click_button I18n.t 'helpers.submit.create', model: (I18n.t 'activerecord.models.content.one')
     end
 
-    page.must_have_content 'CMS-Seite wurde erstellt.'
-    page.must_have_content 'Bazfuz'
+    assert page.has_content? 'CMS-Seite wurde erstellt.'
+    assert page.has_content? 'Bazfuz'
   end
 
   test 'admin updates content' do
@@ -54,8 +54,8 @@ class ContentSystemTest < ApplicationSystemTestCase
     fill_in 'content_key', with: 'foobar'
     fill_in 'content_body', with: 'Bazfuz'
     click_button I18n.t 'helpers.submit.update', model: (I18n.t 'activerecord.models.content.one')
-    page.must_have_content 'CMS-Seite wurde aktualisiert.'
-    page.must_have_content 'Bazfuz'
+    assert page.has_content? 'CMS-Seite wurde aktualisiert.'
+    assert page.has_content? 'Bazfuz'
   end
 
   test 'admin deletes content' do
@@ -74,7 +74,7 @@ class ContentSystemTest < ApplicationSystemTestCase
 
     visit content_path content
 
-    page.must_have_content 'Book 1'
+    assert page.has_content? 'Book 1'
   end
 
   test '[articles ids="a b"], [articles ids="a b c"] and [articles ids="a b c d"] are expanded accordingly' do
@@ -89,7 +89,7 @@ class ContentSystemTest < ApplicationSystemTestCase
     visit content_path content
 
     (1..9).each do |n|
-      page.must_have_content "Book #{n}"
+      assert page.has_content? "Book #{n}"
     end
   end
 
@@ -107,7 +107,7 @@ class ContentSystemTest < ApplicationSystemTestCase
 
     visit content_path content
 
-    page.must_have_content ActionController::Base.helpers
+    assert page.has_content? ActionController::Base.helpers
       .strip_tags(I18n.t('tinycms.content.article_not_found_html'))
   end
 end

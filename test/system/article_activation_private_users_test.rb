@@ -12,7 +12,7 @@ class ArticleActivationPrivateUsersTest < ApplicationSystemTestCase
     login_as user
     visit article_path(article)
     click_button I18n.t('article.labels.submit_free')
-    page.must_have_content I18n.t('article.notices.max_limit')
+    assert page.has_content? I18n.t('article.notices.max_limit')
     article.active?.must_equal false
   end
 
