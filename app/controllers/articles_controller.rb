@@ -208,9 +208,10 @@ class ArticlesController < ApplicationController
 
   def category_specific_search
     if @search_cache.category_id.present?
-      params[:article_search_form].delete(:category_id)
-      params.delete(:article_search_form) if params[:article_search_form].empty?
-      redirect_to category_path(@search_cache.category_id, params)
+      article_params = params[:article_search_form].presence || {}
+      permitted_params = article_params.permit(*ARTICLE_UPDATE_PARAMS)
+      permitted_params.delete(:category_id)
+      redirect_to category_path(@search_cache.category_id, permitted_params)
     end
   end
 end

@@ -36,29 +36,34 @@ class MassUploadsControllerTest < ActionController::TestCase
     describe 'POST ::create' do
       it 'should create a mass-upload object' do
         assert_difference 'MassUpload.count', 1 do
-          post :create, mass_upload: attributes
+          post :create, params:{ mass_upload: attributes }
         end
         assert_redirected_to user_path(user, anchor: 'my_mass_uploads')
-        MassUpload.last.articles.count.must_equal(3)
+        assert_equal(3, MassUpload.last.articles.count)
       end
       it 'should create a mass-upload object for heavy uploaders' do
         user.update_attribute(:heavy_uploader, true)
         assert_difference 'MassUpload.count', 1 do
-          post :create, mass_upload: attributes
+          post :create, params:{ mass_upload: attributes }
         end
         assert_redirected_to user_path(user, anchor: 'my_mass_uploads')
-        MassUpload.last.articles.count.must_equal(3)
+        assert_equal(3, MassUpload.last.articles.count)
       end
     end
 
     describe 'PUT ::update' do
       it 'should update description' do
-        post :create, mass_upload: attributes
+        post :create, params:{ mass_upload: attributes }
         mass_upload = MassUpload.last
         mass_upload.finish!
-        post :update, id: MassUpload.last.id
+
+        index_mock = mock()
+        index_mock.expects(:index_mass_upload).with(mass_upload.id)
+        Indexer.expects(:delay_for).with(3.seconds).returns(index_mock)
+
+        post :update, params:{ id: MassUpload.last.id }
         assert_redirected_to user_path(user)
-        MassUpload.last.articles.first.active?.must_equal true
+        assert MassUpload.last.articles.first.active?
       end
     end
   end

@@ -41,7 +41,7 @@ class RegistrationsController < Devise::RegistrationsController
     self.resource = resource_class.to_adapter.get!(send(:"current_#{ resource_name }").to_key)
 
     address_params = params[:address] ? params.require(:address).permit(*ADDRESS_PARAMS) : {}
-    resource.build_standard_address_from address_params
+    resource.build_standard_address_from address_params.to_h
     prev_unconfirmed_email = resource.unconfirmed_email if resource.respond_to?(:unconfirmed_email)
 
     revoke_direct_debit_mandate_if_bank_details_changed(resource, params)
@@ -126,12 +126,8 @@ class RegistrationsController < Devise::RegistrationsController
   protected
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.for(:sign_up) do |u|
-      u.permit(*USER_CREATE_PARAMS)
-    end
-    devise_parameter_sanitizer.for(:account_update) do |u|
-      u.permit(*user_update_params)
-    end
+    devise_parameter_sanitizer.permit(:sign_up, keys: USER_CREATE_PARAMS)
+    devise_parameter_sanitizer.permit(:account_update, keys: user_update_params)
   end
 
   def user_update_params

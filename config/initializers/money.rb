@@ -52,7 +52,7 @@ Money.rounding_mode = BigDecimal::ROUND_HALF_EVEN
 module MoneyRails
   module ActionViewExtension
     def humanized_money_with_symbol(value)
-      humanized_money(value, :symbol_position => :after, :symbol => true, :no_cents_if_whole => false)
+      humanized_money(value, format: '%n %u', symbol: true, no_cents_if_whole: false)
     end
   end
 end

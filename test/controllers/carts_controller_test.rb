@@ -18,7 +18,7 @@ class CartsControllerTest < ActionController::TestCase
     LineItem.any_instance.stubs(:qualifies_for_belboon?).returns true
 
     sign_in user
-    get :show, id: cart.id
+    get :show, params: { id: cart.id }
     assert_template :show
     assert_nil user.reload.belboon_tracking_token
     assert_nil user.reload.belboon_tracking_token_set_at

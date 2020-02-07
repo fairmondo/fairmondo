@@ -37,7 +37,7 @@ class PaymentsController < ApplicationController
     else
       raise StandardError, 'ipn could not be verified'
     end
-    render nothing: true
+    head :ok
   end
 
   def confirm_or_decline payment
