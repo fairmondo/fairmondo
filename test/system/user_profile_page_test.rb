@@ -11,7 +11,7 @@ class UserProfilePageTest < ApplicationSystemTestCase
     visit user_path(@user)
     assert page.has_content?('Profil bearbeiten')
     assert page.has_content?('Sammlungen')
-    page.wont_have_content('Admin')
+    refute page.has_content?('Admin')
   end
 
   test 'user looks at his profile' do
@@ -32,6 +32,6 @@ class UserProfilePageTest < ApplicationSystemTestCase
     user = create :legal_entity
     visit user_path user
     click_link I18n.t 'common.text.about_terms_short'
-    current_path.must_equal profile_user_path user
+    assert_equal profile_user_path(user), current_path
   end
 end

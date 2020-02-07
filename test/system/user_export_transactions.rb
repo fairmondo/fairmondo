@@ -10,7 +10,7 @@ class UserExportTransactionsTest < ApplicationSystemTestCase
     login_as user
     visit user_path(user)
 
-    page.wont_have_content 'CSV-Export Bestellungen'
+    refute page.has_content? 'CSV-Export Bestellungen'
   end
 
   test 'legal entity looks at her profile' do

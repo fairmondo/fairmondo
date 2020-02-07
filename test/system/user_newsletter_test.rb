@@ -14,10 +14,10 @@ class UserNewsletterTest < ApplicationSystemTestCase
     savon.expects(:receiver_add).with(message: :any).returns(fixture)
 
     visit edit_user_registration_path @user
-    check 'user_newsletter'
+    check 'user_newsletter', allow_label_click: true
     click_button I18n.t 'formtastic.actions.update'
 
-    @user.reload.newsletter.must_equal true
+    assert_equals true, @user.reload.newsletter
   end
   test 'user wants to unsubscribe to the newsletter' do
     fixture = File.read('test/fixtures/cleverreach_remove_success.xml')
@@ -25,9 +25,9 @@ class UserNewsletterTest < ApplicationSystemTestCase
 
     @user.update_column :newsletter, true
     visit edit_user_registration_path @user
-    uncheck 'user_newsletter'
+    uncheck 'user_newsletter', allow_label_click: true
     click_button I18n.t 'formtastic.actions.update'
 
-    @user.reload.newsletter.must_equal false
+    assert_equals false, @user.reload.newsletter
   end
 end
