@@ -32,9 +32,9 @@ class UserRegistrationTest < ApplicationSystemTestCase
       fill_in 'user_nickname',              with: 'nickname'
       fill_in 'user_email',                 with: 'email@example.com'
       fill_in 'user_password',              with: 'password'
-      check 'user_type'
-      choose 'user_voluntary_contribution_5'
-      check 'user_legal'
+      check 'user_type', allow_label_click: true
+      choose 'user_voluntary_contribution_5', allow_label_click: true
+      check 'user_legal', allow_label_click: true
     end
     assert_difference 'User.count', 1 do
       click_button 'sign_up'
