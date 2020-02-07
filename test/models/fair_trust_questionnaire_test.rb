@@ -45,7 +45,8 @@ class FairTrustQuestionnaireTest < ActiveSupport::TestCase
       should validate_presence_of :support_explanation
       should ensure_length_of(:support_explanation).is_at_least 150
 
-      it { subject.wont validate_presence_of :support_other }
+      should_not validate_presence_of :support_other
+
       describe "and 'other' was checked" do
         before { subject.support_checkboxes = [:other] }
         should validate_presence_of :support_other
