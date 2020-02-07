@@ -5,7 +5,11 @@
 require 'application_system_test_case'
 
 class UserSignInTest < ApplicationSystemTestCase
-  test 'banned user wants to sing in' do
+  before :each do
+    CleverreachAPI.stubs(:call)
+  end
+
+  test 'banned user wants to sign in' do
     user = create :user, banned: true
     create :content, key: 'banned', body: '<p>You are banned.</p>'
     visit new_user_session_path
@@ -15,7 +19,7 @@ class UserSignInTest < ApplicationSystemTestCase
     click_button I18n.t('formtastic.actions.login')
 
     assert page.has_content? 'You are banned.'
-    page.wont_have_content I18n.t 'devise.sessions.signed_in'
+    refute page.has_content? I18n.t 'devise.sessions.signed_in'
   end
 
   test 'Legal entity who needs to reaccept direct debit signs in' do
@@ -29,6 +33,6 @@ class UserSignInTest < ApplicationSystemTestCase
 
     assert page.has_content? I18n.t 'devise.sessions.signed_in'
     assert page.has_content? I18n.t 'users.notices.sepa_missing'
-    current_path.must_equal '/user/edit'
+    assert_equal '/user/edit', current_path
   end
 end
