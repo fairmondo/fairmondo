@@ -38,6 +38,7 @@ de:
       invoice: "Du erhälst eine Rechnung in Höhe von %{total}."
       debit: ""
       voucher: ""
+      payment_confirmed: "Bezahlung wurde bestätigt."
     payment_button:
       paypal: "Bezahlen über Paypal"
       bank_transfer: "Als bezahlt markieren"

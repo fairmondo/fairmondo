@@ -10,7 +10,10 @@
       = line_item_group.sold_at.strftime('%d.%m.%Y %H:%M')
   .Lineitemgroup-actions>
     - if line_item_group.buyer == current_user
-      span>= link_to t('line_item_group.texts.show_order_and_pay'), line_item_group_path(line_item_group), class: 'Button', data: { push: true }
+      - if line_item_group.paypal_payment && line_item_group.paypal_payment.confirmed?
+        span>= link_to t('line_item_group.texts.show_order'), line_item_group_path(line_item_group), class: 'Button', data: { push: true }
+      - else
+        span>= link_to t('line_item_group.texts.show_order_and_pay'), line_item_group_path(line_item_group), class: 'Button', data: { push: true }
       - unless line_item_group.rating.present?
         span>= link_to t('line_item_group.texts.rate'),line_item_group_path(line_item_group, tab: 'rating'), class: 'Button', data: { push: true }
     - else
