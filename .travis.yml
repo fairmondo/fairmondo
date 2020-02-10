@@ -2,12 +2,14 @@ language: ruby
 sudo: false
 bundler_args: --without development debug
 script:
+  - set -e
   - RAILS_ENV=test bundle exec rake db:create
   - RAILS_ENV=test bundle exec rake --trace db:migrate
   - RAILS_ENV=test bundle exec rails_best_practices
   - RAILS_ENV=test bundle exec brakeman
   - RAILS_ENV=test bundle exec rubocop
-  - RAILS_ENV=test bundle exec rails test
+  - RAILS_ENV=test bundle exec test:system test
+  - set +e
 services:
   - postgresql
   - redis-server
