@@ -1,6 +1,7 @@
 - if line_item_group.buyer == current_user
   .payment_information
-    = t("line_item_group.payment_information.#{payment}", total: money(total))
+    - unless line_item_group.paypal_payment && line_item_group.paypal_payment.confirmed?
+      = t("line_item_group.payment_information.#{payment}", total: money(total))
     - case payment
     - when :bank_transfer
       = render 'line_item_groups/show/bank_transfer_info', line_item_group: line_item_group
@@ -19,7 +20,10 @@
       /= button_tag t("line_item_group.payment_button.#{payment}"), class: 'Button'
     - when :paypal
       - if line_item_group.paypal_payment
-        = link_to t("line_item_group.payment_button.#{payment}"), line_item_group_payment_path(line_item_group, line_item_group.paypal_payment), class: 'Button'
+        - if line_item_group.paypal_payment.confirmed?
+          span = t('line_item_group.payment_information.payment_confirmed')
+        - else
+          = link_to t("line_item_group.payment_button.#{payment}"), line_item_group_payment_path(line_item_group, line_item_group.paypal_payment), class: 'Button'
       - else
         = button_to t("line_item_group.payment_button.#{payment}"), line_item_group_payments_path(line_item_group_id: line_item_group.id), params: {'payment[type]' => 'PaypalPayment'}, class: 'Button', method: :post
     - when :voucher
