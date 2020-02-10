@@ -145,7 +145,7 @@ group :test do
   gem 'shoulda-matchers', '~> 2.0'
 
   # System testst
-  gem 'capybara', '~> 2.13'
+  gem 'capybara'
 	gem 'selenium-webdriver'
 
   # mocks and stubs

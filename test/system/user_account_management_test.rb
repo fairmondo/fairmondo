@@ -7,7 +7,7 @@ require 'application_system_test_case'
 class UserAccountManagementTest < ApplicationSystemTestCase
   test 'user updates his profile' do
     user = create :user
-    login_as user
+    sign_in user
 
     visit edit_user_registration_path user
     # Heading
@@ -87,7 +87,7 @@ class UserAccountManagementTest < ApplicationSystemTestCase
 
   test 'user wants to change the email for his account' do
     @user = create :user
-    login_as @user
+    sign_in @user
     visit edit_user_registration_path @user
     select 'Herr', from: 'address_title'
     select 'Deutschland', from: 'address_country'
@@ -101,7 +101,7 @@ class UserAccountManagementTest < ApplicationSystemTestCase
 
   test 'user wants to change the email for account without a password' do
     @user = create :user
-    login_as @user
+    sign_in @user
     visit edit_user_registration_path @user
     fill_in 'user_email', with: 'chunky@bacon.com'
     click_button I18n.t 'formtastic.actions.update'
@@ -111,7 +111,7 @@ class UserAccountManagementTest < ApplicationSystemTestCase
 
   test 'user wants to change the password for his account without having address' do
     @user = create :incomplete_user
-    login_as @user
+    sign_in @user
     visit edit_user_registration_path @user
     fill_in 'user_current_password', with: 'password'
     fill_in 'user_password', with: 'changedpassword'
@@ -123,7 +123,7 @@ class UserAccountManagementTest < ApplicationSystemTestCase
 
   test 'user wants to change the password for account without current password' do
     @user = create :user
-    login_as @user
+    sign_in @user
     visit edit_user_registration_path @user
     fill_in 'user_password', with: 'changedpassword'
     fill_in 'user_password_confirmation', with: 'changedpassword'
@@ -136,7 +136,7 @@ class UserAccountManagementTest < ApplicationSystemTestCase
 
   test 'legal entity wants to update terms/cancelation/about' do
     user = create :legal_entity
-    login_as user
+    sign_in user
     visit edit_user_registration_path @user
     page.must_have_css 'h3', text: I18n.t('users.form_titles.contact_person')
 
@@ -164,7 +164,7 @@ class UserAccountManagementTest < ApplicationSystemTestCase
     user.email_for_invoicing.must_equal user.email
     user.email_for_order_notifications.must_equal user.email
 
-    login_as user
+    sign_in user
     visit edit_user_registration_path user
 
     fill_in 'user_invoicing_email', with: 'invoices@example.com'
@@ -179,7 +179,7 @@ class UserAccountManagementTest < ApplicationSystemTestCase
 
   test 'private user wants to edit his account' do
     @user =  create :private_user
-    login_as @user
+    sign_in @user
     visit edit_user_registration_path @user
     page.wont_have_css 'h3', text: I18n.t('users.form_titles.contact_person')
 

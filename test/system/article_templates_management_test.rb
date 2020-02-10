@@ -7,7 +7,7 @@ require 'application_system_test_case'
 class ArticleTemplatesManagementTest < ApplicationSystemTestCase
   before do
     @user = create :user
-    login_as @user, scope: :user
+    sign_in @user, scope: :user
   end
 
   test 'article template creation has at least one correct label for the questionnaires' do

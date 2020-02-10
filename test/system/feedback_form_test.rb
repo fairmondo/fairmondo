@@ -7,7 +7,7 @@ require 'application_system_test_case'
 class FeedbackFormTest < ApplicationSystemTestCase
   setup do
     @user = create :user
-    login_as @user
+    sign_in @user
   end
 
   test 'user wants help' do

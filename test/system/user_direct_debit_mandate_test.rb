@@ -7,7 +7,7 @@ require 'application_system_test_case'
 class UserDirectDebitMandateTest < ApplicationSystemTestCase
   setup do
     @user = create :legal_entity, :fastbill
-    login_as @user
+    sign_in @user
   end
 
   test 'User accepts direct debit after which a mandate is created' do

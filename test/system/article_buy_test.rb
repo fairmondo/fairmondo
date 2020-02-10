@@ -10,7 +10,7 @@ class ArticleBuyTest < ApplicationSystemTestCase
   end
   test 'user clicks buy button' do
     user = create :user
-    login_as user
+    sign_in user
 
     visit article_path @article
     click_button I18n.t 'common.actions.to_cart'

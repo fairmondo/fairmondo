@@ -12,7 +12,7 @@ class LibraryElement < ApplicationRecord
 
   # Relations
   belongs_to :article
-  belongs_to :article_reduced, ->(_o) { reduced }, class_name: 'Article', foreign_key: 'article_id'
+  belongs_to :article_reduced, -> { reduced }, class_name: 'Article', foreign_key: 'article_id'
   belongs_to :library, counter_cache: true
   has_one :user, through: :library
 

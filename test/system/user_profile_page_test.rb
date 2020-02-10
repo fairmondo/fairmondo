@@ -7,7 +7,7 @@ require 'application_system_test_case'
 class UserProfilePageTest < ApplicationSystemTestCase
   test 'user visits his profile' do
     @user = create :user
-    login_as @user
+    sign_in @user
     visit user_path(@user)
     assert page.has_content?('Profil bearbeiten')
     assert page.has_content?('Sammlungen')
@@ -16,7 +16,7 @@ class UserProfilePageTest < ApplicationSystemTestCase
 
   test 'user looks at his profile' do
     @user = create :user
-    login_as @user
+    sign_in @user
     visit profile_user_path(@user)
     assert page.has_content? @user.nickname
   end

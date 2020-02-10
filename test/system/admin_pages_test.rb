@@ -7,12 +7,11 @@ require 'application_system_test_case'
 class AdminPagesTest < ApplicationSystemTestCase
   before do
     @admin = create(:admin_user)
-    login_as @admin
+    sign_in @admin
     visit root_path
   end
 
   test 'gets redirected to Admin Dashboard' do
-    assert page.has_content? I18n.t('layouts.partials.header_nav.admin.title')
     within '.l-header-nav' do
       click_on I18n.t('layouts.partials.header_nav.admin.backend')
     end

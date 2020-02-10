@@ -1,12 +1,14 @@
 # frozen_string_literal: true
 
-require "test_helper"
+require 'test_helper'
+require 'capybara/minitest/spec'
 
 # Capybara.asset_host = "http://localhost:3000"
 
 class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
-  driven_by :selenium, using: :chrome, screen_size: [1400, 1400],
-            options: { args: ["headless", "disable-gpu", "no-sandbox", "disable-dev-shm-usage"] }
+  # driven_by :selenium_chrome_headless
+
+  driven_by :rack_test
 
   include Devise::Test::IntegrationHelpers
 

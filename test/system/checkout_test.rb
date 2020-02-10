@@ -8,7 +8,7 @@ class CheckoutTest < ApplicationSystemTestCase
   test 'Buying a cart with one item (default) from private user' do
     seller = create :private_user
     article = create(:article, title: 'foobar', seller: seller)
-    login_as create(:user)
+    sign_in create(:user)
     visit article_path(article)
 
     # add things to cart ( hard to generate this via factory because it is
@@ -50,7 +50,7 @@ class CheckoutTest < ApplicationSystemTestCase
     seller = create :legal_entity, :paypal_data
     articles = [create(:article, :with_all_payments, :with_all_transports, seller: seller, unified_transport: false)]
     articles << create(:article, :with_all_payments, :with_all_transports, seller: seller, unified_transport: false)
-    login_as create(:user)
+    sign_in create(:user)
 
     articles.each do |article|
       visit article_path(article)
@@ -107,7 +107,7 @@ class CheckoutTest < ApplicationSystemTestCase
     buyer = create(:user)
     transport_address = create(:address, user: buyer)
     buyer.addresses << transport_address
-    login_as buyer
+    sign_in buyer
     visit article_path(article)
 
     # add things to cart ( hard to generate this via factory because it is kinda hard to set a signed cookie in capybara )
@@ -147,7 +147,7 @@ class CheckoutTest < ApplicationSystemTestCase
     articles << create(:article, :with_all_payments, :with_all_transports, title: 'single_transport3', seller: single_seller, unified_transport: false)
 
     buyer = create(:user)
-    login_as buyer
+    sign_in buyer
 
     articles.each do |article|
       visit article_path(article)
@@ -204,7 +204,7 @@ class CheckoutTest < ApplicationSystemTestCase
     articles = [create(:article, :with_all_payments, :with_all_transports, title: 'foobar', seller: seller)]
     articles << create(:article, :with_all_payments, :with_all_transports, title: 'foobar2', seller: seller)
 
-    login_as create(:user)
+    sign_in create(:user)
     articles.each do |article|
       visit article_path(article)
       click_button I18n.t('common.actions.to_cart')
@@ -244,7 +244,7 @@ class CheckoutTest < ApplicationSystemTestCase
 
   test 'Buying a cart with one item that is already deactivated by the time he buys it' do
     article = create(:article, title: 'foobar')
-    login_as create(:user)
+    sign_in create(:user)
     visit article_path(article)
 
     # add things to cart ( hard to generate this via factory because it is kinda hard to set a signed cookie in capybara )
@@ -272,7 +272,7 @@ class CheckoutTest < ApplicationSystemTestCase
 
   test 'Buying a cart with one item that is already bought by the time he buys it' do
     article = create(:article, title: 'foobar')
-    login_as create(:user)
+    sign_in create(:user)
     visit article_path(article)
 
     # add things to cart ( hard to generate this via factory because it is kinda hard to set a signed cookie in capybara )
@@ -300,7 +300,7 @@ class CheckoutTest < ApplicationSystemTestCase
 
   test 'Buying a cart with an invalid line item' do
     article = create(:article, title: 'foobar')
-    login_as create(:user)
+    sign_in create(:user)
     visit article_path(article)
     click_button I18n.t('common.actions.to_cart')
     article.update_attribute(:quantity_available, 0)
@@ -310,7 +310,7 @@ class CheckoutTest < ApplicationSystemTestCase
 
   test 'Buying a cart with an incomplete user and adding address during checkout' do
     article = create(:article, title: 'foobar')
-    login_as create(:incomplete_user)
+    sign_in create(:incomplete_user)
     visit article_path(article)
 
     # add things to cart
@@ -371,6 +371,6 @@ class CheckoutTest < ApplicationSystemTestCase
 
   def page_must_include_notice_for(article)
     cart = article.line_items.first.cart
-    page.html.must_include I18n.t('line_item.notices.success_create', href: "/carts/#{cart.id}").html_safe
+    _(page.html).must_include I18n.t('line_item.notices.success_create', href: "/carts/#{cart.id}").html_safe
   end
 end

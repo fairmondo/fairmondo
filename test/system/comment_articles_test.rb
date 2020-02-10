@@ -8,7 +8,7 @@ class CommentArticlesTest < ApplicationSystemTestCase
   test 'User visits article to create a comment' do
     article = create :article
     user = create(:user)
-    login_as user
+    sign_in user
 
     visit article_path(article)
 
@@ -20,7 +20,7 @@ class CommentArticlesTest < ApplicationSystemTestCase
   test "User can't create a comment on a vacationing seller's article" do
     article = create(:article, seller: create(:seller, vacationing: true))
     user = create(:user)
-    login_as user
+    sign_in user
 
     visit article_path(article)
     refute page.has_selector?('#new_comment_1')
@@ -29,7 +29,7 @@ class CommentArticlesTest < ApplicationSystemTestCase
   test "A comment on a legal entity's article wont be shown after 5pm" do
     article = create(:article, seller: create(:legal_entity))
     user = create(:user)
-    login_as user
+    sign_in user
     time5pm = (Time.now.utc.beginning_of_day + 17.hours)
     create(:comment, text: 'Earlier Comment', commentable: article, user: user,
                      created_at: time5pm - 1.minute)
@@ -49,7 +49,7 @@ class CommentArticlesTest < ApplicationSystemTestCase
   test "A comment on a legal entity's article wont be shown before 10am" do
     article = create(:article, seller: create(:legal_entity))
     user = create(:user)
-    login_as user
+    sign_in user
     time10am = (Time.now.utc.beginning_of_day + 10.hours)
     create(:comment, text: 'Some Comment', commentable: article, user: user,
                      created_at: time10am - 2.minutes)

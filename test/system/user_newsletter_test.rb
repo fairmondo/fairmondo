@@ -7,7 +7,7 @@ require 'application_system_test_case'
 class UserNewsletterTest < ApplicationSystemTestCase
   setup do
     @user = create :user
-    login_as @user
+    sign_in @user
   end
   test 'user wants to receive newsletter' do
     fixture = File.read('test/fixtures/cleverreach_add_success.xml')
@@ -17,7 +17,7 @@ class UserNewsletterTest < ApplicationSystemTestCase
     check 'user_newsletter', allow_label_click: true
     click_button I18n.t 'formtastic.actions.update'
 
-    assert_equals true, @user.reload.newsletter
+    assert_equal true, @user.reload.newsletter
   end
   test 'user wants to unsubscribe to the newsletter' do
     fixture = File.read('test/fixtures/cleverreach_remove_success.xml')
@@ -28,6 +28,6 @@ class UserNewsletterTest < ApplicationSystemTestCase
     uncheck 'user_newsletter', allow_label_click: true
     click_button I18n.t 'formtastic.actions.update'
 
-    assert_equals false, @user.reload.newsletter
+    assert_equal false, @user.reload.newsletter
   end
 end

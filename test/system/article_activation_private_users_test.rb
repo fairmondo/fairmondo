@@ -9,7 +9,7 @@ class ArticleActivationPrivateUsersTest < ApplicationSystemTestCase
     user = create :private_user
     create :article, seller: user, price_cents: 600000
     article = create :preview_article, user_id: user.id
-    login_as user
+    sign_in user
     visit article_path(article)
     click_button I18n.t('article.labels.submit_free')
     assert page.has_content? I18n.t('article.notices.max_limit')
@@ -20,7 +20,7 @@ class ArticleActivationPrivateUsersTest < ApplicationSystemTestCase
     user = create :private_user, max_value_of_goods_cents_bonus: 200000
     create :article, seller: user, price_cents: 600000
     article = create :preview_article, seller: user
-    login_as user
+    sign_in user
     visit article_path(article)
     click_button I18n.t('article.labels.submit_free')
     page.wont_have_content I18n.t('article.notices.max_limit')

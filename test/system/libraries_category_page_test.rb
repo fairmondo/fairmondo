@@ -29,7 +29,7 @@ class LibrariesCategoryPageTest < ApplicationSystemTestCase
     visit category_path(@category)
     assert page.has_content?(@library.name)
 
-    login_as @user
+    sign_in @user
     visit category_path(@category)
     page.wont_have_content(@library.name)
   end

@@ -26,14 +26,14 @@ class LibrariesWelcomePageTest < ApplicationSystemTestCase
     refute page.has_content?(heart2.heartable.name)
 
     # When the user is logged in has hearted at least two libraries they should be displayed.
-    login_as @user
+    sign_in @user
     visit root_path
     assert page.has_content?(heart1.heartable.name)
     assert page.has_content?(heart2.heartable.name)
   end
 
   test 'Combined test for trending libraries' do
-    login_as @admin
+    sign_in @admin
 
     # When no libraries are audited, the box on the welcome page should not be displayed
     visit root_path
@@ -51,7 +51,7 @@ class LibrariesWelcomePageTest < ApplicationSystemTestCase
     assert page.has_content? 'envogue'
 
     logout
-    login_as @user
+    sign_in @user
     visit library_path(@library)
 
     # User should be warned before editing it

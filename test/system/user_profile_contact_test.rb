@@ -8,7 +8,7 @@ class UserProfileContactTest < ApplicationSystemTestCase
   before do
     receiver = create :legal_entity
     sender   = create :user
-    login_as sender
+    sign_in sender
     visit profile_user_path receiver
 
     within('.user-menu') do

@@ -7,7 +7,7 @@ require 'application_system_test_case'
 class UserExportTransactionsTest < ApplicationSystemTestCase
   test 'private user looks at his profile' do
     user = create :private_user
-    login_as user
+    sign_in user
     visit user_path(user)
 
     refute page.has_content? 'CSV-Export Bestellungen'
@@ -15,7 +15,7 @@ class UserExportTransactionsTest < ApplicationSystemTestCase
 
   test 'legal entity looks at her profile' do
     user = create :legal_entity
-    login_as user
+    sign_in user
     visit user_path(user)
 
     assert page.has_content? 'CSV-Export Bestellungen'

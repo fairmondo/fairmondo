@@ -57,7 +57,7 @@ class CommentLibrariesTest < ApplicationSystemTestCase
   test 'User visits library to create a comment' do
     library = create(:library, public: true)
     user = create(:user)
-    login_as user
+    sign_in user
 
     visit library_path(library)
 
@@ -69,7 +69,7 @@ class CommentLibrariesTest < ApplicationSystemTestCase
   test 'User is able to delete their own comment' do
     library = create(:library, public: true)
     user = create(:user)
-    login_as user
+    sign_in user
     create(:comment, text: 'Test comment', commentable: library, user: user)
 
     visit library_path(library)
@@ -82,7 +82,7 @@ class CommentLibrariesTest < ApplicationSystemTestCase
   test "Admin is able to delete another's comment" do
     library = create(:library, public: true)
     user = create(:admin_user)
-    login_as user
+    sign_in user
     create(:comment, text: 'Test comment', commentable: library, user: library.user)
 
     visit library_path(library)
@@ -108,7 +108,7 @@ class CommentLibrariesTest < ApplicationSystemTestCase
     library = create(:library, public: true)
     user = create(:user)
     user2 = create(:user)
-    login_as user2
+    sign_in user2
 
     create(:comment, text: 'Test comment', commentable: library, user: user)
 

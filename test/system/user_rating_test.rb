@@ -14,7 +14,7 @@ class UserRatingsTest < ApplicationSystemTestCase
   end
 
   test "user rates a line_item_group he didn't make" do
-    login_as create :user
+    sign_in create :user
 
     visit line_item_group_new_user_rating_path(line_item_group.seller, line_item_group)
     # TODO: Should this not be handled instead?
@@ -22,7 +22,7 @@ class UserRatingsTest < ApplicationSystemTestCase
   end
 
   test 'user gives a rating for a line_item_group he made' do
-    login_as buyer
+    sign_in buyer
     visit line_item_group_new_user_rating_path(line_item_group.seller, line_item_group)
 
     assert "input#rating_rating_positive[value='positive']"
@@ -37,14 +37,14 @@ class UserRatingsTest < ApplicationSystemTestCase
   end
 
   test 'user tries to give a rating without entering a value' do
-    login_as buyer
+    sign_in buyer
     visit line_item_group_new_user_rating_path(line_item_group.seller, line_item_group)
     click_button 'Bewertung speichern'
     assert page.has_button? 'Bewertung speichern' # test if still on same page
   end
 
   test 'user tries to rate a line_item_group a second time' do
-    login_as buyer
+    sign_in buyer
     rating = create(:positive_rating)
     visit line_item_group_new_user_rating_path(rating.rated_user, rating.line_item_group)
 
@@ -56,7 +56,7 @@ class UserRatingsTest < ApplicationSystemTestCase
     @rating = create :rating_with_text, line_item_group: line_item_group,
                                         rated_user: line_item_group.seller,
                                         rating_user: line_item_group.buyer
-    login_as line_item_group.buyer
+    sign_in line_item_group.buyer
     visit user_ratings_path(user_id: line_item_group.seller.id)
 
     assert page.has_content?(line_item_group.seller.nickname)
