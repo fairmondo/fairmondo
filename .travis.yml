@@ -7,7 +7,7 @@ script:
   - RAILS_ENV=test bundle exec rails_best_practices
   - RAILS_ENV=test bundle exec brakeman
   - RAILS_ENV=test bundle exec rubocop
-  - RAILS_ENV=test bundle exec rake test:all
+  - RAILS_ENV=test bundle exec rails test
 services:
   - postgresql
   - redis-server

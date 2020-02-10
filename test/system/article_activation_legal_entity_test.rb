@@ -10,7 +10,7 @@ class ArticleActivationLegalEntitiesTest < ApplicationSystemTestCase
 
   test 'legal entity adds goods for more than 5000000' do
     6.times { create :article, seller: user, price_cents: 1000000 }
-    login_as user
+    sign_in user
     visit article_path(article)
     click_button I18n.t('article.labels.submit')
     assert page.has_content? I18n.t('article.notices.max_limit')
@@ -18,7 +18,7 @@ class ArticleActivationLegalEntitiesTest < ApplicationSystemTestCase
   end
 
   test "user doesn't accept TOS" do
-    login_as user
+    sign_in user
     visit article_path(article)
     click_button I18n.t('article.labels.submit')
     assert page.has_content? I18n.t('article.notices.activation_failed')

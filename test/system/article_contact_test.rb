@@ -7,7 +7,7 @@ require 'application_system_test_case'
 class ArticleContactTest < ApplicationSystemTestCase
   before do
     user = create :user
-    login_as user
+    sign_in user
     visit article_path create :article, :with_private_user
   end
 

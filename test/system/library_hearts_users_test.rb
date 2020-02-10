@@ -9,7 +9,7 @@ class LibraryHeartsUsersTest < ApplicationSystemTestCase
        'then likes a library and finds his heart' do
     user = create(:user)
     library = create(:public_library_with_elements)
-    login_as user
+    sign_in user
 
     visit library_path(library.id)
     page.must_have_selector('.Hearts-button')

@@ -7,7 +7,7 @@ require 'application_system_test_case'
 class LibraryManagementTest < ApplicationSystemTestCase
   setup do
     @user = create :user
-    login_as @user.reload # reload to get default library
+    sign_in @user.reload # reload to get default library
   end
 
   test 'user creates new library' do
@@ -83,11 +83,11 @@ class LibraryManagementTest < ApplicationSystemTestCase
     library = create :library, user: buyer, public: true
     create :library_element, article: article, library: library
 
-    login_as seller
+    sign_in seller
     visit article_path article
     click_button I18n.t('article.labels.deactivate')
     logout(:user)
-    login_as buyer
+    sign_in buyer
     visit library_path library
     assert page.has_content? I18n.t('common.text.no_articles')
   end

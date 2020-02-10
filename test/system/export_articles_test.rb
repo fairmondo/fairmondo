@@ -10,13 +10,13 @@ class ExportArticlesTest < ApplicationSystemTestCase
   let(:legal_entity_buyer) { create :legal_entity, email: 'hans@dampf.de' }
 
   test 'private user is on his profile and should not see export link' do
-    login_as private_user
+    sign_in private_user
     visit user_path(private_user)
     page.wont_have_link I18n.t('articles.export.inactive')
   end
 
   test 'legal entity exports his inactive and active articles' do
-    login_as legal_entity
+    sign_in legal_entity
     visit new_mass_upload_path
 
     # first upload some articles for comparison
@@ -40,7 +40,7 @@ class ExportArticlesTest < ApplicationSystemTestCase
   end
 
   test 'export an article with a social producer questionnaire' do
-    login_as legal_entity
+    sign_in legal_entity
     visit new_mass_upload_path
     attach_file('mass_upload_file', 'test/fixtures/export_upload_social_producer.csv')
     click_button I18n.t('mass_uploads.labels.upload_article')
@@ -50,7 +50,7 @@ class ExportArticlesTest < ApplicationSystemTestCase
   end
 
   test 'user exports erroneous articles' do
-    login_as legal_entity
+    sign_in legal_entity
     visit new_mass_upload_path
     attach_file('mass_upload_file', 'test/fixtures/mass_upload_wrong_article.csv')
     click_button I18n.t('mass_uploads.labels.upload_article')

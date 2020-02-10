@@ -7,7 +7,7 @@ require 'application_system_test_case'
 class MassUploadCSVTest < ApplicationSystemTestCase
   setup do
     @user = create :legal_entity, :paypal_data
-    login_as @user
+    sign_in @user
     visit new_mass_upload_path
   end
   test 'legal entity uploads a CSV with new articles and activates them and checks report again' do

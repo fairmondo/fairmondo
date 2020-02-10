@@ -14,7 +14,7 @@ class ContentSystemTest < ApplicationSystemTestCase
   end
 
   test 'admin visits a non existing page' do
-    login_as admin
+    sign_in admin
     visit content_path 'not-there'
     current_path.must_equal new_content_path
   end
@@ -23,7 +23,7 @@ class ContentSystemTest < ApplicationSystemTestCase
   end
 
   test 'admin visits content index' do
-    login_as admin
+    sign_in admin
     visit contents_path
     current_path.must_equal contents_path
   end
@@ -34,7 +34,7 @@ class ContentSystemTest < ApplicationSystemTestCase
   end
 
   test 'admin creates content' do
-    login_as admin
+    sign_in admin
     visit new_content_path
 
     fill_in 'content_key', with: 'foobar'
@@ -49,7 +49,7 @@ class ContentSystemTest < ApplicationSystemTestCase
   end
 
   test 'admin updates content' do
-    login_as admin
+    sign_in admin
     visit edit_content_path content
     fill_in 'content_key', with: 'foobar'
     fill_in 'content_body', with: 'Bazfuz'
@@ -59,7 +59,7 @@ class ContentSystemTest < ApplicationSystemTestCase
   end
 
   test 'admin deletes content' do
-    login_as admin
+    sign_in admin
     content
     visit contents_path
     assert_difference 'Content.count', -1 do

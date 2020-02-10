@@ -10,9 +10,6 @@ class AfterTransationRefundTest < ApplicationSystemTestCase
     assert page.has_content?(I18n.t('refund.heading'))
     assert page.has_content?(I18n.t('formtastic.labels.refund.reason'))
     assert page.has_content?(I18n.t('formtastic.labels.refund.description'))
-    page.must_have_selector('#refund_reason')
-    page.must_have_selector('#refund_description')
-    page.must_have_button(I18n.t('common.actions.send'))
     fill_in 'refund_description', with: 'a' * 160
     click_button I18n.t('common.actions.send')
     assert page.has_content?(I18n.t('flash.refunds.create.notice'))
@@ -20,7 +17,7 @@ class AfterTransationRefundTest < ApplicationSystemTestCase
 
   test 'legal entity does a refund after 44 days' do
     seller = create :legal_entity, :paypal_data
-    login_as seller
+    sign_in seller
     transaction = create :business_transaction, :older, seller: seller
     visit line_item_group_path(transaction.line_item_group, tab: :payments)
     do_refund
@@ -28,7 +25,7 @@ class AfterTransationRefundTest < ApplicationSystemTestCase
 
   test 'private user does a refund after 27 days' do
     seller = create :private_user, :paypal_data
-    login_as seller
+    sign_in seller
     transaction = create :business_transaction, :old, seller: seller
     visit line_item_group_path(transaction.line_item_group, tab: :payments)
     do_refund

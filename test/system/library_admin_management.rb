@@ -8,7 +8,7 @@ class LibraryAdminManagementTest < ApplicationSystemTestCase
   let(:featured_library) { create :library, :public, exhibition_name: 'donation_articles' }
   let(:article) { create :article, title: 'Foobar' }
   setup do
-    login_as create :admin_user
+    sign_in create :admin_user
   end
 
   test 'admin adds Article to a random Library' do

@@ -10,12 +10,12 @@ class AfterTransationEmailLinksTest < ApplicationSystemTestCase
     buyer       = create :private_user
     transaction = create :business_transaction, seller: seller, buyer: buyer
 
-    login_as buyer
+    sign_in buyer
     visit line_item_group_path(transaction.line_item_group)
     assert page.has_content? I18n.t('line_item_group.texts.email_to_seller')
 
     logout
-    login_as seller
+    sign_in seller
     visit line_item_group_path(transaction.line_item_group)
     assert page.has_content? I18n.t('line_item_group.texts.email_to_buyer')
   end

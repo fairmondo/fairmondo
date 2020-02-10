@@ -113,7 +113,7 @@ class RegistrationsController < Devise::RegistrationsController
       creator.create
     end
 
-    sign_in resource_name, resource, bypass: true
+    bypass_sign_in resource, scope: resource_name if sign_in_after_change_password?
     respond_with resource, location: after_update_path_for(resource)
   end
 

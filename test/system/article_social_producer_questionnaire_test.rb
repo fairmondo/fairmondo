@@ -7,7 +7,7 @@ require 'application_system_test_case'
 class ArticleSocialProducerQuestionnaireTest < ApplicationSystemTestCase
   setup do
     @user = create :user
-    login_as @user
+    sign_in @user
     visit new_article_path
     check 'article_fair'
     within('#article_fair_kind_input') do

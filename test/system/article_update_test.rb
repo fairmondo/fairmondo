@@ -8,7 +8,7 @@ class ArticleUpdateTest < ApplicationSystemTestCase
   before do
     user = create :user
     @article = create :preview_article, seller: user
-    login_as user
+    sign_in user
     visit edit_article_path @article
   end
 
