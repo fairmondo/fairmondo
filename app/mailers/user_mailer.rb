@@ -14,6 +14,6 @@ class UserMailer < ActionMailer::Base
     @receiver = User.find resource_id
     @text     = text
     @subject  = I18n.t('email.user.contact.subject', sender_name: @sender.name)
-    mail to: @receiver.email, subject: @subject
+    mail to: @receiver.email, subject: @subject, reply_to: @sender.email
   end
 end
