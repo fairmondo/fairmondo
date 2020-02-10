@@ -15,8 +15,5 @@ AllCops:
 Style/Documentation:
   Enabled: false
 
-Layout/LineLength:
-  Max: 120
-
 Style/SignalException:
   Enabled: false
