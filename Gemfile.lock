@@ -392,7 +392,7 @@ GEM
     qtip2-jquery-rails (2.2.100)
       railties (>= 3.1)
     raabro (1.1.6)
-    rack (2.1.2)
+    rack (2.1.0)
     rack-contrib (2.1.0)
       rack (~> 2.0)
     rack-mini-profiler (1.1.6)
@@ -590,10 +590,10 @@ GEM
     timers (4.3.0)
     tins (1.24.0)
       sync
-    tinymce-rails (4.9.8)
+    tinymce-rails (4.1.10)
       railties (>= 3.1.1)
-    tinymce-rails-langs (4.20180103)
-      tinymce-rails (~> 4.1, >= 4.1.10)
+    tinymce-rails-langs (4.20140129)
+      tinymce-rails (~> 4.0)
     ttfunk (1.5.1)
     tzinfo (1.2.6)
       thread_safe (~> 0.1)
@@ -721,8 +721,8 @@ DEPENDENCIES
   susy
   therubyracer
   therubyrhino
-  tinymce-rails
-  tinymce-rails-langs
+  tinymce-rails (= 4.1.10)
+  tinymce-rails-langs (= 4.20140129)
   uglifier
   webmock
 
