@@ -104,7 +104,7 @@ Fairmondo::Application.routes.draw do
 
   # the user routes
 
-  resources :users, only: [:show] do
+  resources :users, only: [:show, :destroy] do
     resources :addresses, except: [:index, :show]
     resources :libraries, except: [:new, :edit]
     resources :library_elements, only: [:create, :destroy]

@@ -92,6 +92,10 @@ de:
       send: 'Absenden'
       more: "mehr"
       send: 'Absenden'
+      destroy_profile:
+        button: "Account löschen"
+        confirmation_dialog: "<b>Willst du deinen Account wirklich löschen?</b><br><br>Ja, ich möchte meinen Account wirklich löschen. Ich bin einverstanden, dass Fairmondo meine Account-Daten für 12 Monate für eine mögliche Nachvollziehung von Transaktionen bei Konfliktfällen speichert. In diesem Zeitraum ist eine Reaktivierung des Accounts per Email an kundenservice@fairmondo.de möglich."
+        confirmation_notice: "Der Account wurde erfolgreich gelöscht. Hoffentlich bis bald!"
     title:
       man: "Herr"
       woman: "Frau"

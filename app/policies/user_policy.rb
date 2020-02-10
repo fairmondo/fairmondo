@@ -17,6 +17,12 @@ class UserPolicy < Struct.new(:user, :resource)
     true unless banned?
   end
 
+  def destroy?
+    return false if banned?
+    return true if User.is_admin?(user)
+    user == resource
+  end
+
   private
 
   def banned?

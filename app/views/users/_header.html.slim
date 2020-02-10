@@ -31,5 +31,8 @@
         a.Button href="#{ contact_user_path(user_resource) }" class='ungrouped_colorbox'
           span= fa_icon 'envelope-o', class: 'fa-lg fa-fw'
           =< t 'users.profile.contact.heading'
+      = link_to(user_path(user_resource), method: :delete, data: {confirm: t('common.actions.destroy_profile.confirmation_dialog')}, class: "Button Button--red") do
+        span= fa_icon 'trash', class: 'fa-lg fa-fw'
+        = t 'common.actions.destroy_profile.button'
   .user-extra
     = render '/shared/take_part'

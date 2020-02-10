@@ -29,6 +29,13 @@ class UsersController < ApplicationController
     render layout: false
   end
 
+  def destroy
+    authorize @user
+    @user.update!(banned: true)
+    reset_session if @user == current_user
+    redirect_to root_path, notice: t('common.actions.destroy_profile.confirmation_notice')
+  end
+
   private
 
   def user_deleted
