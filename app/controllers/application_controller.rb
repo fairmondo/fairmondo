@@ -3,6 +3,8 @@
 #   See the COPYRIGHT file for details.
 
 class ApplicationController < ActionController::Base
+  protect_from_forgery with: :exception
+
   ## Global security
   before_action :authenticate_user!
 
@@ -23,7 +25,6 @@ class ApplicationController < ActionController::Base
   include BrowsingHistory # (lib/autoload) browsing history for redirects and feedback
   after_action :store_location
 
-  protect_from_forgery
   skip_before_action :verify_authenticity_token, if: :json_request?
 
   helper :all
