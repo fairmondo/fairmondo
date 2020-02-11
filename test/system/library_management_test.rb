@@ -65,11 +65,13 @@ class LibraryManagementTest < ApplicationSystemTestCase
   test 'user adds an Article to his default Library' do
     @article = create :article
     visit article_path(@article)
-    page.has_css?('div.libraries_list a', :count == 1) # There should be exactly one library link (default library) before adding
+    assert page.has_css?('div#libraries_list a', count: 1) # There should be exactly one library link (default library) before adding
 
-    click_link I18n.t 'library.default'
+    within '#libraries_list' do
+      click_link I18n.t 'library.default'
+    end
     assert page.has_content? I18n.t('library_element.notice.success')[0..10] # shorten string because library name doesn't get evaluated
-    page.has_css?('div.libraries_list a', :count == 0) # After adding the article, the library link should be removed
+    assert page.has_css?('div#libraries_list a', count: 0) # After adding the article, the library link should be removed
 
     visit user_libraries_path @user
     click_link I18n.t 'library.default'
