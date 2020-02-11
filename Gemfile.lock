@@ -108,9 +108,8 @@ GEM
       i18n
       rake (>= 10.0.0)
       sshkit (>= 1.9.0)
-    capistrano-bundler (1.1.4)
+    capistrano-bundler (1.6.0)
       capistrano (~> 3.1)
-      sshkit (~> 1.2)
     capistrano-rails (1.1.8)
       capistrano (~> 3.1)
       capistrano-bundler (~> 1.1)
@@ -639,7 +638,7 @@ DEPENDENCIES
   brakeman
   bullet
   canonical-rails
-  capistrano-bundler (~> 1.1.2)
+  capistrano-bundler (~> 1.6)
   capistrano-rails (~> 1.1.3)
   capistrano-rbenv
   capybara
