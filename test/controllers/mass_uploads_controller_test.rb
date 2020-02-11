@@ -57,9 +57,7 @@ class MassUploadsControllerTest < ActionController::TestCase
         mass_upload = MassUpload.last
         mass_upload.finish!
 
-        index_mock = mock()
-        index_mock.expects(:index_mass_upload).with(mass_upload.id)
-        Indexer.expects(:delay_for).with(3.seconds).returns(index_mock)
+        Indexer.expects(:index_mass_upload).with(mass_upload.id)
 
         post :update, params:{ id: MassUpload.last.id }
         assert_redirected_to user_path(user)

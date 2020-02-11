@@ -47,10 +47,10 @@ class UserRatingsTest < ApplicationSystemTestCase
   test 'user tries to rate a line_item_group a second time' do
     sign_in buyer
     rating = create(:positive_rating)
-    visit line_item_group_new_user_rating_path(rating.rated_user, rating.line_item_group)
-
     # TODO: Should this not be handled instead?
-    assert page.has_content?('Pundit::NotAuthorizedError')
+    assert_raises Pundit::NotAuthorizedError do
+      visit line_item_group_new_user_rating_path(rating.rated_user, rating.line_item_group)
+    end
   end
 
   test 'user visits profile of another user and checks his ratings' do
