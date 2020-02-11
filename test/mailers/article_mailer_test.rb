@@ -33,26 +33,26 @@ class ArticleMailerTest < ActiveSupport::TestCase
   end
 
   it '#article_activation_message' do
-    mail = ArticleMailer.article_activation_message(article)
+    mail = ArticleMailer.article_activation_message(article.id)
 
     mail.must deliver_to article.seller_email
   end
 
   it '#mass_upload_activation_message' do
-    mail = ArticleMailer.mass_upload_activation_message(mass_upload)
+    mail = ArticleMailer.mass_upload_activation_message(mass_upload.id)
 
     mail.must deliver_to mass_upload.user.email
   end
 
   it '#mass_upload_finished_message' do
-    mail = ArticleMailer.mass_upload_finished_message(mass_upload)
+    mail = ArticleMailer.mass_upload_finished_message(mass_upload.id)
 
     mail.must deliver_to mass_upload.user.email
     mail.must have_body_text 'mass_upload_correct.csv'
   end
 
   it '#mass_upload_failed_message' do
-    mail = ArticleMailer.mass_upload_failed_message(mass_upload)
+    mail = ArticleMailer.mass_upload_failed_message(mass_upload.id)
 
     mail.must deliver_to mass_upload.user.email
     mail.must have_body_text 'mass_upload_correct.csv'

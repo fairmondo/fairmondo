@@ -95,6 +95,7 @@ module Fairmondo
     # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
     config.assets.precompile += %w(
       session_expire.js unactivated_article_warning.js inputs/bank_details.js inputs/newsletter_status.js
+      email/email.css
     )
 
     config.generators.assets :controller_based_assets
