@@ -59,7 +59,7 @@ class ArticleSearchForm
   # Did this form get request parameters or is this an empty search where
   # someone just wants to look around? (category doesn't count)
   def search_request?
-    !filter_attributes.reject { |k, _v| k == :category_id }.empty?
+    !filter_attributes.reject { |k, _v| k == "category_id" }.empty?
   end
 
   # Check if an attribute has a specific value and if it is set exclusively,
@@ -68,7 +68,7 @@ class ArticleSearchForm
   #   # true, if the fair filter and no other attributes are set
   def exclusive_value?(key, value)
     attrs = filter_attributes
-    attrs.length == 1 && attrs[key] == value
+    attrs.length == 1 && attrs[key.to_s] == value
   end
 
   def fresh?
@@ -88,7 +88,7 @@ class ArticleSearchForm
   end
 
   def search_form_attributes
-    filter_attributes.reject { |k, _v| [:q, :category_id].include?(k) }
+    filter_attributes.reject { |k, _v| %w(q category_id).include?(k) }
   end
 
   def category_collection
