@@ -13,7 +13,7 @@ class SessionsControllerTest < ActionController::TestCase
     context 'when format is html' do
       it 'should use application layout' do
         get :new
-        assert_template layout: true
+        assert_template
       end
     end
 
