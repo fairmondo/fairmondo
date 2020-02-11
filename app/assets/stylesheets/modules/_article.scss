@@ -27,7 +27,7 @@ Styleguide Article
 }
 
 .Article-info {
-  padding: em(7) em(19);
+  padding: 0.4375em 1.1875em;
   min-height: 6.5em;
 
   h3 {
@@ -54,7 +54,7 @@ Styleguide Article
 
 
 .Article-tags, .Article-admin {
-  padding: em(7) em(19);
+  padding: 0.4375em 1.1875em;
   border-top: 1px solid $lighter-gray;
 }
 
@@ -72,5 +72,5 @@ Styleguide Article
 
 .Article-extra {
   border-top: 1px solid $lighter-gray;
-  padding: em(7) em(19);
+  padding: 0.4375em 1.1875em
 }

@@ -7,7 +7,7 @@
 }
 
 .GrayBox > .GrayBox-heading {
-  padding: rem(10) rem(20);
+  padding: 0.625rem 1.25rem;
   font-size: 1.3rem;
   border-top-left-radius: 0.5em;
   border-top-right-radius: 0.5em;
@@ -18,10 +18,10 @@
 }
 
 .GrayBox > .GrayBox-heading > .GrayBoy-heading-addition {
-  font-size: rem(12);
+  font-size:0.75rem;
   padding-top: 1px;
   @include at-breakpoint($bp-tablet) {
-    padding: rem(5) rem(20);
+    padding: 0.3125rem 1.25rem;
     position: absolute;
     bottom: 0;
     right: 0;
@@ -29,7 +29,7 @@
 }
 
 .GrayBox > .GrayBox-content {
-  padding: rem(10) rem(20);
+  padding: 0.625rem 1.25rem;
 }
 
 .GrayBox > .GrayBox-content > hr {
