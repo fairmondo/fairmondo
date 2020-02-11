@@ -1,5 +1,5 @@
 .Payment {
-  margin-bottom: rem(20);
+  margin-bottom: 1.25rem;
 }
 .Payment > h3, .Payment > table, .Payment .Payment-cell, .Payment .Payment-value {
   background:white;
@@ -7,7 +7,7 @@
 }
 .Payment > h3 {
   display: inline;
-  padding: rem(5);
+  padding: 0.3125rem;
   border-bottom: none;
   font-size: 13px;
   font-weight: bold;
@@ -30,15 +30,15 @@
   text-align: center;
   vertical-align: middle;
   position: relative;
-  padding: rem(5);
+  padding: 0.3125rem;
   &.Payment-cell--business_transaction, &.Payment-value--prices { // almost; right can always use some space
-    padding: 0 rem(5) 0 0;
+    padding: 0 0.3125rem 0 0;
   }
 }
 
 .Payment .Payment-cell .Payment-article-image {
   float: left;
-  margin-right: rem(12);
+  margin-right: 0.75rem;
   line-height: 0;
   & img {
     max-height: 73px;
@@ -66,14 +66,14 @@
     font-weight: normal;
     @include at-breakpoint($bp-mobile-horizontal) {
       text-align: left;
-      padding: rem(5) 0 0 rem(10);
+      padding: 0.3125rem 0 0 0.625rem;
     }
   }
   &.Payment-value-info--right {
     font-weight: normal;
     @include at-breakpoint($bp-mobile-horizontal) {
       text-align: right;
-      padding: 0 rem(5) rem(5) 0;
+      padding: 0 0.3125rem 0.3125rem 0;
     }
   }
 }
