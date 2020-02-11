@@ -475,7 +475,11 @@ class UserTest < ActiveSupport::TestCase
         1.times { last_ratings << Rating.new(rating: 'negative') }
         2.times { last_ratings << Rating.new(rating: 'neutral') }
 
-        user.stub_chain(:ratings, :select, :limit).returns last_ratings
+        limit_mock = mock()
+        limit_mock.stubs(:limit).returns(last_ratings)
+        select_mock = mock()
+        select_mock.stubs(:select).returns(limit_mock)
+        user.stubs(:ratings).returns(select_mock)
       end
 
       it 'should be calculated correctly for positive ratings' do
