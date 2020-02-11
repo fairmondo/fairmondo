@@ -10,7 +10,7 @@ module LibrariesControllerAdminActions
     def admin_add
       authorize @exhibition
       add_articles_to_exhibition if can_add_to_exhibition?
-      redirect_to :back, flash: @admin_add_notice
+      redirect_back fallback_location: root_path, flash: @admin_add_notice
     end
     #
     # for admins to quickly remove an article from a featured library
@@ -19,7 +19,7 @@ module LibrariesControllerAdminActions
       authorize library
 
       library.articles.delete Article.find(params[:article_id])
-      redirect_to :back, notice: 'Deleted from library.'
+      redirect_back fallback_location: root_path, notice: 'Deleted from library.'
     end
 
     # for admins to audit libraries for display on the welcome page

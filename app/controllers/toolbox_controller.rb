@@ -28,7 +28,7 @@ class ToolboxController < ApplicationController
   def reindex
     raise Pundit::NotAuthorizedError unless current_user.admin?
     Indexer.index_article Article.find(params[:article_id])
-    redirect_to :back, notice: I18n.t('article.show.reindexed')
+    redirect_back(fallback_location: root_path, notice: I18n.t('article.show.reindexed'))
   end
 
   # Send a single email to a private user, should be refactored when we have a real messaging system
