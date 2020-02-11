@@ -42,7 +42,7 @@ class PaymentsControllerTest < ActionController::TestCase
         assert_difference 'Payment.count', 1 do
           post :create, params: { line_item_group_id: lig.id, payment: { type: 'VoucherPayment', pay_key: '123abc' } }
         end
-        assert_redirected_to :back
+        assert_redirected_to 'http://test.host'
       end
     end
   end

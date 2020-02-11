@@ -17,7 +17,7 @@ class PaymentsController < ApplicationController
     @payment = Payment.new payment_attrs
     authorize @payment
     if @payment.execute
-      redirect_to @payment.after_create_path
+      redirect_to_payment_path
     else
       redirect_back fallback_location: root_path, flash: { error: I18n.t("#{@payment.type}.controller_error", email: @payment.line_item_group_seller_paypal_account).html_safe }
     end
@@ -55,6 +55,16 @@ class PaymentsController < ApplicationController
   def setup_ipn
     @ipn = PaypalAdaptive::IpnNotification.new
     @ipn.send_back(request.raw_post)
+  end
+
+  def redirect_to_payment_path
+    redirect_path = @payment.after_create_path
+    case redirect_path
+    when :back
+      redirect_back fallback_location: root_path
+    else
+      redirect_to redirect_path
+    end
   end
 
   def handle_payment
