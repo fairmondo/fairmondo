@@ -27,20 +27,22 @@ class CheckoutTest < ApplicationSystemTestCase
 
     click_button I18n.t('common.actions.continue')
     page.find('.Payment-value--total').must_have_content(
-      article.price + article.transport_type1_price)
+      (article.price + article.transport_type1_price).to_s
+    )
 
     # checkout
 
-    expect_cart_emails
     FastbillAPI.any_instance.expects(:fastbill_chain).never
 
     find('input.checkout_button').click
+    expect_cart_emails
     # No donation display, because private seller:
     page.wont_have_content('Einkäufen hast Du Fairmondo bisher eine Spende')
-    Cart.last.sold?.must_equal true
+    assert Cart.last.sold?
     visit line_item_group_path(LineItemGroup.last)
     page.find('.Payment-value--total').must_have_content(
-      article.price + article.transport_type1_price)
+      (article.price + article.transport_type1_price).to_s
+    )
     visit line_item_group_path(LineItemGroup.last, tab: 'transports')
     page.must_have_selector('.transport_table')
     visit line_item_group_path(LineItemGroup.last, tab: 'rating')
@@ -89,14 +91,14 @@ class CheckoutTest < ApplicationSystemTestCase
 
     # Step 2
 
-    page.find('.Payment-value--total').must_have_content(articles.map(&:price).sum)
+    page.find('.Payment-value--total').must_have_content(articles.map(&:price).sum.to_s)
 
     # checkout
 
-    expect_cart_emails
     find('input.checkout_button').click
+    expect_cart_emails
 
-    Cart.last.sold?.must_equal true
+    assert Cart.last.sold?
   end
 
   test 'Buying a cart with one item and free transport and change the
@@ -124,15 +126,15 @@ class CheckoutTest < ApplicationSystemTestCase
     # Step 2
 
     click_button I18n.t('common.actions.continue')
-    page.find('.Payment-value--total').must_have_content(article.price)
+    page.find('.Payment-value--total').must_have_content(article.price.to_s)
 
     # checkout
 
-    expect_cart_emails
     find('input.checkout_button').click
+    expect_cart_emails
     assert page.has_content?(
       'Vielen Dank für Deinen Einkauf')
-    Cart.last.sold?.must_equal true
+    assert Cart.last.sold?
     Cart.last.line_item_groups.first.transport_address.must_equal transport_address
   end
 
@@ -186,17 +188,17 @@ class CheckoutTest < ApplicationSystemTestCase
 
     totals_expected =
       [articles[0..2].map(&:price).sum + unified_seller.unified_transport_price + articles[2].transport_type1_price,
-       articles[3..4].map(&:price).sum + articles[3..4].map(&:transport_type1_price).sum].map { |t| t.format_with_settings(symbol_position: :after) }.sort
+       articles[3..4].map(&:price).sum + articles[3..4].map(&:transport_type1_price).sum].map { |t| t.format(format: '%n %u') }.sort
 
     totals.map(&:text).sort.each_with_index do |total, i|
-      total.must_equal totals_expected[i]
+      assert_equal total, totals_expected[i]
     end
 
     # checkout
 
-    expect_cart_emails :twice
     find('input.checkout_button').click
-    buyer.carts.last.sold?.must_equal true
+    expect_cart_emails(seller: 2)
+    assert buyer.carts.last.sold?
   end
 
   test 'Trying to buy a cart with unified transport and cash on delivery and dont check agb. Afterwards try to resume with single transports' do
@@ -237,9 +239,9 @@ class CheckoutTest < ApplicationSystemTestCase
     click_button I18n.t('common.actions.continue')
     # checkout
 
-    expect_cart_emails
     find('input.checkout_button').click
-    Cart.last.sold?.must_equal true
+    expect_cart_emails
+    assert Cart.last.sold?
   end
 
   test 'Buying a cart with one item that is already deactivated by the time he buys it' do
@@ -266,7 +268,7 @@ class CheckoutTest < ApplicationSystemTestCase
     article.deactivate
 
     find('input.checkout_button').click
-    Cart.last.sold?.must_equal false
+    refute Cart.last.sold?
     assert page.has_content? I18n.t('cart.notices.checkout_failed')
   end
 
@@ -294,7 +296,7 @@ class CheckoutTest < ApplicationSystemTestCase
     article.update_attribute(:quantity_available, 0)
 
     find('input.checkout_button').click
-    Cart.last.sold?.must_equal false
+    refute Cart.last.sold?
     assert page.has_content? I18n.t('cart.notices.checkout_failed')
   end
 
@@ -339,11 +341,11 @@ class CheckoutTest < ApplicationSystemTestCase
     # Step 2
 
     click_button I18n.t('common.actions.continue')
-    expect_cart_emails
     find('input.checkout_button').click
-    Cart.last.sold?.must_equal true
-    Cart.last.line_item_groups.first.transport_address.first_name.must_equal 'first_name_is_here'
-    Cart.last.line_item_groups.first.payment_address.first_name.must_equal 'first_name_is_here'
+    expect_cart_emails
+    assert Cart.last.sold?
+    assert_equal Cart.last.line_item_groups.first.transport_address.first_name, 'first_name_is_here'
+    assert_equal Cart.last.line_item_groups.first.payment_address.first_name, 'first_name_is_here'
   end
 
   test 'send open cart via emailcart page should have all the right contents' do
@@ -363,10 +365,11 @@ class CheckoutTest < ApplicationSystemTestCase
     click_button 'Jetzt versenden'
   end
 
-  def expect_cart_emails arg = :once
-    Mail::Message.any_instance.stubs(:deliver)
-    CartMailer.expects(:seller_email).returns(Mail::Message.new).send arg
-    CartMailer.expects(:buyer_email).returns(Mail::Message.new)
+  def expect_cart_emails(buyer: 1, seller: 1)
+    seller_mails = ActionMailer::Base.deliveries.select { |mail| mail.subject.include?('Artikel auf Fairmondo verkauft') }
+    buyer_mails = ActionMailer::Base.deliveries.select { |mail| mail.subject.include?('Dein Einkauf') }
+    assert_equal seller_mails.size, seller
+    assert_equal buyer_mails.size, buyer
   end
 
   def page_must_include_notice_for(article)
