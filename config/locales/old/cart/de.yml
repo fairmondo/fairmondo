@@ -75,5 +75,4 @@ de:
       checkout_success: |
         Deine Bestellung wurde erfolgreich abgeschickt. Vielen Dank für Deinen Einkauf.
       checkout_failed: |
-        Dein Einkauf konnte leider nicht abgeschlossen werden, da ein Artikel den du kaufen
-        wolltest bereits nicht mehr verfügbar ist.
+        Dein Einkauf konnte leider nicht abgeschlossen werden, da ein Artikel den du kaufen wolltest bereits nicht mehr verfügbar ist.
