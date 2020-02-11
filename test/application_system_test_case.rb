@@ -2,8 +2,7 @@
 
 require 'test_helper'
 require 'capybara/minitest/spec'
-
-# Capybara.asset_host = "http://localhost:3000"
+require 'capybara/rails'
 
 class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   # driven_by :selenium_chrome_headless
