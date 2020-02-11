@@ -21,7 +21,7 @@ SimpleCov.start 'rails' do
   #reference implementations
   add_filter "lib/autoload/paypal_ipn.rb"
   add_filter "lib/autoload/single_sign_on.rb"
-  minimum_coverage 98
+  minimum_coverage 90
 end
 
 require File.expand_path("../../config/environment", __FILE__)
