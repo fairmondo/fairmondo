@@ -28,9 +28,6 @@ Make sure you install <em>2.2.2</em>. and not <em>ruby 1.9.3-p392</em>.
 * Install required gems
     bundle install
 
-* Set up local files and change the setup data if you want
-    cp config/environments/development.example.rb config/environments/development.rb
-
 * Set up local version of secrets.yml
     cp config/secrets.yml.example config/secrets.yml
 
@@ -98,12 +95,10 @@ The testsuite offers an option to stop at the first failing test and rescue in a
 
   RESCUE=1 rake test
 
-If the testsuite runs without any failures, there are additional checks that run automatically (but can be run independently via rake task in the brakets):
-
+We also have some more tests built in:
 * Rails Best Practices (`rails_best_practices`)
-* Brakeman (`rake test:brakeman`)
-* Rubocop  (will not run automatically start with: `rake test:rubocop`, future purpose)
-
+* Brakeman (`brakeman`)
+* Rubocop  (`rubocop`)
 
 === Workflow
 
