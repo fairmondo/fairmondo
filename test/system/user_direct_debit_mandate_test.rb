@@ -19,8 +19,7 @@ class UserDirectDebitMandateTest < ApplicationSystemTestCase
 
     # Assert 2 requests to Fastbill, one customer.get, one customer.update (both are POST requests)
     # User is saved two times, therefore 4 requests
-    assert_requested :post, 'https://my_email:my_fastbill_api_key@app.monsum.com'\
-                            '/api/1.0/api.php', times: 4
+    assert_requested :post, 'https://app.monsum.com/api/1.0/api.php', times: 4
   end
 
   test 'Direct debit mandate reference is shown if present' do
@@ -42,8 +41,7 @@ class UserDirectDebitMandateTest < ApplicationSystemTestCase
 
     refute @user.reload.has_active_direct_debit_mandate?
     # Assert 2 requests to Fastbill, one customer.get, one customer.update (both are POST requests)
-    assert_requested :post, 'https://my_email:my_fastbill_api_key@app.monsum.com'\
-                            '/api/1.0/api.php', times: 2
+    assert_requested :post, 'https://app.monsum.com/api/1.0/api.php', times: 2
     assert page.has_content? I18n.t('devise.registrations.direct_debit_mandate_revoked')
   end
 end
