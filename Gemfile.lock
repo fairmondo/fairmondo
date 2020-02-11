@@ -165,7 +165,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.12.2)
-    concurrent-ruby (1.1.5)
+    concurrent-ruby (1.1.6)
     connection_pool (2.2.2)
     coveralls (0.7.1)
       multi_json (~> 1.3)
@@ -345,7 +345,7 @@ GEM
     netrc (0.11.0)
     newrelic_rpm (6.8.0.360)
     nio4r (2.5.2)
-    nokogiri (1.10.7)
+    nokogiri (1.10.8)
       mini_portile2 (~> 2.4.0)
     nokogumbo (2.0.2)
       nokogiri (~> 1.8, >= 1.8.4)
@@ -393,7 +393,7 @@ GEM
     qtip2-jquery-rails (2.2.100)
       railties (>= 3.1)
     raabro (1.1.6)
-    rack (2.2.1)
+    rack (2.2.2)
     rack-contrib (2.1.0)
       rack (~> 2.0)
     rack-mini-profiler (1.1.6)
@@ -590,7 +590,7 @@ GEM
     thwait (0.1.0)
     tilt (2.0.10)
     timers (4.3.0)
-    tins (1.24.0)
+    tins (1.24.1)
       sync
     tinymce-rails (4.1.10)
       railties (>= 3.1.1)

@@ -123,9 +123,6 @@ group :development do
 
   gem 'letter_opener' # emails in browser
 
-  # er diagramm generation
-  gem 'puma' # Replace Webrick
-
   # I18n Tools
   # gem 'i18n-tasks', '~> 0.8.3' # uncomment if needed
 
@@ -173,6 +170,7 @@ group :development, :test do
   gem 'brakeman'
   gem 'rubocop' # style enforcement
   gem 'bullet' # Notify about n+1 queries
+  gem 'puma' # Replace Webrick
 end
 
 group :development, :test, :staging do
