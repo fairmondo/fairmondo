@@ -155,6 +155,8 @@ group :test do
 
   # Gem for testing emails
   gem 'email_spec'
+  # email_spec uses minitest-matchers, it's incompatible to minitest 6 though; in consequence
+  # mailer tests that use email_spec need to be updated when migrating to minitest 6
   gem 'minitest-matchers'
 
   # Code Coverage
