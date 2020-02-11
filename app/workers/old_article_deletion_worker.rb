@@ -12,11 +12,7 @@ class OldArticleDeletionWorker
   def perform
     ref_ids = BusinessTransaction.pluck(:article_id) # could get dangerous in the future with more sales
     Article.where.not(id: ref_ids).where(state: :closed).where('updated_at <= ?', 1.month.ago).select(:id).find_in_batches(batch_size: 100) do |group|
-      OldArticleDeletionWorker.delay(queue: :cleanup).do_delete(group.map(&:id))
+      Article.where(id: group.map(&:id)).delete_all
     end
-  end
-
-  def self.do_delete ids
-    Article.where(id: ids).delete_all
   end
 end

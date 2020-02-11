@@ -39,7 +39,7 @@ module MassUpload::State
 
       after_transition to: :activated do |mass_upload, _transition|
         mass_upload.articles_for_mass_activation.update_all(state: 'active')
-        Indexer.delay_for(3.seconds).index_mass_upload mass_upload.id
+        Indexer.index_mass_upload mass_upload.id
         ArticleMailer.mass_upload_activation_message(mass_upload.id).deliver_later
       end
     end
