@@ -19,7 +19,7 @@ class PaymentsController < ApplicationController
     if @payment.execute
       redirect_to @payment.after_create_path
     else
-      redirect_to :back, flash: { error: I18n.t("#{@payment.type}.controller_error", email: @payment.line_item_group_seller_paypal_account).html_safe }
+      redirect_back fallback_location: root_path, flash: { error: I18n.t("#{@payment.type}.controller_error", email: @payment.line_item_group_seller_paypal_account).html_safe }
     end
   end
 
