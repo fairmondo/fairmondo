@@ -475,9 +475,9 @@ class UserTest < ActiveSupport::TestCase
         1.times { last_ratings << Rating.new(rating: 'negative') }
         2.times { last_ratings << Rating.new(rating: 'neutral') }
 
-        limit_mock = mock()
+        limit_mock = mock
         limit_mock.stubs(:limit).returns(last_ratings)
-        select_mock = mock()
+        select_mock = mock
         select_mock.stubs(:select).returns(limit_mock)
         user.stubs(:ratings).returns(select_mock)
       end
