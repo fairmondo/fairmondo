@@ -16,9 +16,10 @@ class UserRatingsTest < ApplicationSystemTestCase
   test "user rates a line_item_group he didn't make" do
     sign_in create :user
 
-    visit line_item_group_new_user_rating_path(line_item_group.seller, line_item_group)
     # TODO: Should this not be handled instead?
-    assert page.has_content?('Pundit::NotAuthorizedError')
+    assert_raises Pundit::NotAuthorizedError do
+      visit line_item_group_new_user_rating_path(line_item_group.seller, line_item_group)
+    end
   end
 
   test 'user gives a rating for a line_item_group he made' do
