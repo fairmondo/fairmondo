@@ -157,7 +157,7 @@ class CartCheckoutForm
   def get_seller_specifics_from session
     @cart.line_item_groups.each do |group|
       seller = group.seller
-      checkout_session_params = ActionController::Parameters.new(session[:cart_checkout][:sellers][seller.id.to_s])
+      checkout_session_params = session[:cart_checkout][:sellers][seller.id.to_s]
       group.assign_attributes(checkout_session_params.permit(*PERMITTED_CHECKOUT_SESSION_PARAMS))
     end
   end
