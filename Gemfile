@@ -155,6 +155,7 @@ group :test do
 
   # Gem for testing emails
   gem 'email_spec'
+  gem 'minitest-matchers'
 
   # Code Coverage
   gem 'simplecov'

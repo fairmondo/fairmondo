@@ -23,6 +23,7 @@ class ArticleMailer < ActionMailer::Base
     @article  = Article.find(resource_id)
     @from     = @user.email
     @subject  = I18n.t('article.show.contact.mail_subject')
+    @article_path = Rails.application.routes.url_helpers.article_path(@article.id)
     mail to: @article.seller_email, from: @from, subject: @subject
   end
 

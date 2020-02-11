@@ -6,7 +6,7 @@
 p
   = link_to @user.nickname, user_url(@user)
   =< t('email.article.contact.text_beginning')
-  =< link_to "\"#{@article.title}\"", article_path(@article.id)
+  =< link_to "\"#{@article.title}\"", @article_path
   =< t('email.article.contact.text_end')
 .message
   = simple_format @text
