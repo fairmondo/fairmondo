@@ -13,7 +13,7 @@ section.Comments-section#comments
       = link_to_next_page comments.order(created_at: :desc).page(comments_page),
         t('comments.more'),
         param_name: :comments_page,
-        params: { :"#{commentable.class.to_s.parameterize}_id" => commentable.id, controller: "comments" },
+        params: { :"#{commentable.class.to_s.parameterize}_id" => commentable.id, controller: "comments", action: :index},
         class: 'next_link',
         remote: true
       - if commentable.comments_count > Comment.default_per_page
