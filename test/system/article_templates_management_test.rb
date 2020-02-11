@@ -12,6 +12,6 @@ class ArticleTemplatesManagementTest < ApplicationSystemTestCase
 
   test 'article template creation has at least one correct label for the questionnaires' do
     visit new_article_template_path
-    assert page.has_content?(I18n.t 'formtastic.labels.fair_trust_questionnaire.support')
+    assert page.has_content?(I18n.t('formtastic.labels.fair_trust_questionnaire.support').strip)
   end
 end
