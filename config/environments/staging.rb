@@ -79,5 +79,5 @@ Fairmondo::Application.configure do
   Rails.application.routes.default_url_options[:host] = 'staging.fairmondo.de'
   Rails.application.routes.default_url_options[:protocol] = 'https'
   #Memcached
-  config.cache_store = :dalli_store, 'localhost', { :namespace => "fairmondo", :expires_in => 1.day, :compress => true }
+  config.cache_store = :dalli_store, '10.0.2.181', { :namespace => "fairmondo_stage", :expires_in => 1.day, :compress => true }
 end
