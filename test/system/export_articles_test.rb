@@ -16,6 +16,10 @@ class ExportArticlesTest < ApplicationSystemTestCase
   end
 
   test 'legal entity exports his inactive and active articles' do
+    index_mock = mock()
+    index_mock.stubs(:index_mass_upload)
+    Indexer.stubs(:delay_for).returns(index_mock)
+
     sign_in legal_entity
     visit new_mass_upload_path
 
