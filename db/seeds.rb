@@ -10,11 +10,6 @@
 #   cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
 #   Mayor.create(:name => 'Emanuel', :city => cities.first)
 
-# skip the devise mailer callback
-[User, Article].each do |model|
-  model.skip_callback(:create, :after, :send_on_create_confirmation_instructions)
-end
-
 admin = User.find_by_email("admin@admin.com")
 unless admin
   admin = FactoryBot.create(:admin_user, :email => "admin@admin.com", :password => "password")

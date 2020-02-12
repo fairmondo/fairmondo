@@ -191,13 +191,13 @@ GEM
     domain_name (0.5.20190701)
       unf (>= 0.0.5, < 1.0.0)
     e2mmap (0.1.0)
-    elasticsearch (2.0.0)
-      elasticsearch-api (= 2.0.0)
-      elasticsearch-transport (= 2.0.0)
-    elasticsearch-api (2.0.0)
+    elasticsearch (5.0.5)
+      elasticsearch-api (= 5.0.5)
+      elasticsearch-transport (= 5.0.5)
+    elasticsearch-api (5.0.5)
       multi_json
     elasticsearch-dsl (0.1.9)
-    elasticsearch-transport (2.0.0)
+    elasticsearch-transport (5.0.5)
       faraday
       multi_json
     email_spec (2.2.0)
@@ -229,8 +229,7 @@ GEM
       i18n (>= 1.6, < 2)
     fakeredis (0.7.0)
       redis (>= 3.2, < 5.0)
-    fakeweb (1.3.0)
-    faraday (1.0.0)
+    faraday (0.15.4)
       multipart-post (>= 1.2, < 3)
     ffi (1.12.2)
     font-awesome-rails (4.7.0.5)
@@ -649,7 +648,7 @@ DEPENDENCIES
   dalli
   delayed_paperclip (= 2.9.2)
   devise
-  elasticsearch (= 2.0.0)
+  elasticsearch (= 5.0.5)
   email_spec
   enumerize (>= 0.5.1)
   exception_notification
@@ -657,7 +656,7 @@ DEPENDENCIES
   factory_bot_rails (~> 4.11.1)
   faker
   fakeredis
-  fakeweb (~> 1.3)
+  faraday (= 0.15.4)
   fastbill-automatic!
   font-awesome-rails (>= 4.2.0.0)
   formtastic
