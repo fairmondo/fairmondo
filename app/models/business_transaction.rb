@@ -9,7 +9,9 @@ class BusinessTransaction < ApplicationRecord
   extend Sanitization
   extend RailsAdminStatistics
 
-  include BusinessTransaction::Refundable, BusinessTransaction::Discountable, BusinessTransaction::Scopes
+  include BusinessTransactionConcerns::Refundable
+  include BusinessTransactionConcerns::Discountable
+  include BusinessTransactionConcerns::Scopes
 
   belongs_to :article, inverse_of: :business_transactions
 

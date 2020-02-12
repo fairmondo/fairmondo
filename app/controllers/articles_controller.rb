@@ -121,7 +121,7 @@ class ArticlesController < ApplicationController
 
   def change_state
     # For changing the state of an article
-    # Refer to Article::State
+    # Refer to ArticleConcerns::State
     if params[:activate]
       activate
     elsif params[:deactivate]

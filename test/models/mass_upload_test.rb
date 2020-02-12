@@ -28,24 +28,24 @@ class MassUploadTest < ActiveSupport::TestCase
 
     describe '#get_csv_encoding' do
       it 'should detect a Windows-1252 encoding' do
-        MassUpload::Checks.get_csv_encoding('test/fixtures/mass_upload_cp1252.csv').must_equal 'Windows-1252'
+        MassUploadConcerns::Checks.get_csv_encoding('test/fixtures/mass_upload_cp1252.csv').must_equal 'Windows-1252'
       end
 
       it 'should detect a Mac Roman encoding' do
-        MassUpload::Checks.get_csv_encoding('test/fixtures/mass_upload_mac.csv').must_equal 'MacRoman'
+        MassUploadConcerns::Checks.get_csv_encoding('test/fixtures/mass_upload_mac.csv').must_equal 'MacRoman'
       end
 
       it 'should detect a DOS encoding' do
         # still not sure if this actually works. Does DOS have the euro sign? What about ISO-8859-1?
-        MassUpload::Checks.get_csv_encoding('test/fixtures/mass_upload_ibm437.csv').must_equal 'IBM437'
+        MassUploadConcerns::Checks.get_csv_encoding('test/fixtures/mass_upload_ibm437.csv').must_equal 'IBM437'
       end
 
       it 'should detect an ISO-8859-15 encoding' do
-        MassUpload::Checks.get_csv_encoding('test/fixtures/mass_upload_iso15.csv').must_equal 'ISO-8859-15'
+        MassUploadConcerns::Checks.get_csv_encoding('test/fixtures/mass_upload_iso15.csv').must_equal 'ISO-8859-15'
       end
 
       it 'should default to a utf-8 encoding' do
-        MassUpload::Checks.get_csv_encoding('test/fixtures/mass_upload_correct.csv').must_equal 'utf-8'
+        MassUploadConcerns::Checks.get_csv_encoding('test/fixtures/mass_upload_correct.csv').must_equal 'utf-8'
       end
     end
   end

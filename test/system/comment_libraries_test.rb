@@ -32,6 +32,7 @@ class CommentLibrariesTest < ApplicationSystemTestCase
     library = create(:library, public: true)
     user = create(:user)
     create(:comment, text: 'Test comment', commentable: library, user: user)
+    wait_for_comment_mails
 
     visit library_path(library)
 
@@ -46,6 +47,7 @@ class CommentLibrariesTest < ApplicationSystemTestCase
     library = create(:library, public: true)
     user = create(:user)
     create_list(:comment, 10, text: 'Test comment', commentable: library, user: user)
+    wait_for_comment_mails
 
     visit library_path(library)
 
@@ -71,6 +73,7 @@ class CommentLibrariesTest < ApplicationSystemTestCase
     user = create(:user)
     sign_in user
     create(:comment, text: 'Test comment', commentable: library, user: user)
+    wait_for_comment_mails
 
     visit library_path(library)
 
@@ -84,6 +87,7 @@ class CommentLibrariesTest < ApplicationSystemTestCase
     user = create(:admin_user)
     sign_in user
     create(:comment, text: 'Test comment', commentable: library, user: library.user)
+    wait_for_comment_mails
 
     visit library_path(library)
 
@@ -96,6 +100,7 @@ class CommentLibrariesTest < ApplicationSystemTestCase
     library = create(:library, public: true)
     user = create(:user)
     create(:comment, text: 'Test comment', commentable: library, user: user)
+    wait_for_comment_mails
 
     visit library_path(library)
 
@@ -111,11 +116,19 @@ class CommentLibrariesTest < ApplicationSystemTestCase
     sign_in user2
 
     create(:comment, text: 'Test comment', commentable: library, user: user)
+    wait_for_comment_mails
 
     visit library_path(library)
 
     within('.Comments-section') do
       page.wont_have_content('Kommentar löschen')
     end
+  end
+
+  # On comment creation mails are sent out. This can lead to
+  # ActiveRecord::StatementInvalid: PG::InFailedSqlTransaction errors;
+  # Sleep shortly here to avoid this!
+  def wait_for_comment_mails
+    sleep 1
   end
 end
