@@ -4,7 +4,12 @@
 
 class MassUpload < ApplicationRecord
   include Assets::Normalizer
-  include Checks, Questionnaire, FeesAndDonations, Associations, State
+
+  include MassUploadConcerns::Checks
+  include MassUploadConcerns::Questionnaire
+  include MassUploadConcerns::FeesAndDonations
+  include MassUploadConcerns::Associations
+  include MassUploadConcerns::State
 
   scope :processing, -> { where(state: :processing) }
 

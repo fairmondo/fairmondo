@@ -12,7 +12,13 @@ class User < ApplicationRecord
 
   friendly_id :nickname, use: [:slugged, :finders]
 
-  include Associations, ExtendedAttributes, Validations, State, Ratings, Scopes
+  include UserConcerns::Associations
+  include UserConcerns::ExtendedAttributes
+  include UserConcerns::Validations
+  include UserConcerns::State
+  include UserConcerns::Ratings
+  include UserConcerns::Scopes
+
   include Assets::Normalizer # for cancellation form
 
   # Include default devise modules. Others available are: :rememberable,

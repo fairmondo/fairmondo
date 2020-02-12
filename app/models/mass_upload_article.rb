@@ -97,8 +97,8 @@ class MassUploadArticle < ApplicationRecord
   end
 
   def prepare_questionaires
-    MassUpload::Questionnaire.include_fair_questionnaires(@article_attributes)
-    MassUpload::Questionnaire.add_commendation(@article_attributes)
+    MassUploadConcerns::Questionnaire.include_fair_questionnaires(@article_attributes)
+    MassUploadConcerns::Questionnaire.add_commendation(@article_attributes)
   end
 
   # Defaults: create when no ID is set, does nothing when an ID exists
