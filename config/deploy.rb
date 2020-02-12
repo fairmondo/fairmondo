@@ -6,7 +6,7 @@
 lock '3.11.2'
 
 set :application, 'fairnopoly'
-set :repo_url, 'git://github.com/fairnopoly/fairnopoly.git'
+set :repo_url, 'git://github.com/fairmondo/fairmondo.git'
 
 set :rbenv_type, :user # or :system, depends on your rbenv setup
 set :rbenv_ruby, File.read('.ruby-version').strip # set ruby version from the file
