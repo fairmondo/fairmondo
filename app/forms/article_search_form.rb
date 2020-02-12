@@ -76,7 +76,7 @@ class ArticleSearchForm
   end
 
   def change changes
-    clean_hash self.attributes.merge(changes)
+    clean_hash self.attributes.merge(changes.stringify_keys)
   end
 
   def flip parameter
