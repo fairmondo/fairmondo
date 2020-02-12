@@ -28,7 +28,9 @@ gem 'active_data'
 
 ## Indexing /Searching
 gem 'chewy', '= 5.0.0'
-gem 'elasticsearch', '= 2.0.0'
+gem 'elasticsearch', '= 5.0.5'
+gem 'faraday', '0.15.4'
+
 # ---------- View ----------
 
 gem 'slim-rails'
@@ -150,7 +152,6 @@ group :test do
   gem 'mocha'
   gem 'webmock'
   gem 'fakeredis'
-  gem 'fakeweb', '~> 1.3'
   gem 'rack-contrib' # fake fastbill
 
   # Gem for testing emails
