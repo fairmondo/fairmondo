@@ -393,7 +393,7 @@ GEM
     qtip2-jquery-rails (2.2.100)
       railties (>= 3.1)
     raabro (1.1.6)
-    rack (2.2.2)
+    rack (2.2.3)
     rack-contrib (2.1.0)
       rack (~> 2.0)
     rack-mini-profiler (1.1.6)
