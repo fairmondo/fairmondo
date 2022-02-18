@@ -9,7 +9,7 @@ h1= t('common.actions.sign_up')
   = f.inputs do
     = f.input :nickname, label: 'Dein Nutzername', tooltip: false
     = f.input :type, as: :boolean, required: false, tooltip: true, unchecked_value: "PrivateUser", checked_value: "LegalEntity"
-    = f.input :referral, as: :boolean, label: "Ich komme von Dawanda", required: false, tooltip: false, checked_value: "Dawanda"
+    / = f.input :referral, as: :boolean, label: "Ich komme von Dawanda", required: false, tooltip: false, checked_value: "Dawanda"
     = f.input :email, label: 'Deine E-Mail-Adresse', tooltip: false
     = f.input :password, label: 'Dein Passwort', tooltip: true
     / render partial: "/devise/registrations/password_complexity"
