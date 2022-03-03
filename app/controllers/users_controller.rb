@@ -15,7 +15,7 @@ class UsersController < ApplicationController
   skip_before_action :authenticate_user!, only: [:show, :profile, :contact]
 
   rescue_from Pundit::NotAuthorizedError, with: :user_deleted
-  
+
   def profile
     authorize @user
   end
@@ -34,7 +34,7 @@ class UsersController < ApplicationController
   def user_deleted
     render :user_deleted
   end
-    
+
   def set_user
     @user = User.find(params[:id])
   end
