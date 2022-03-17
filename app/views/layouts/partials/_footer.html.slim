@@ -21,10 +21,11 @@ footer.l-footer
             = link_to t('.company.jobs'), '/jobs'
           li
             = link_to t('.company.press'), '/presse'
-          li
-            = link_to t('.company.blog'), 'https://info.fairmondo.de',
-                      target: '_blank'
-
+         
+		/ li
+		/ = link_to t('.company.blog'),'https://info.fairmondo.de', Auskommentiert Blog ist tot seit 2018
+       	/ target: '_blank' 
+             
       / Marketplace
       section#l-footer-nav-marketplace
         h4
@@ -37,12 +38,16 @@ footer.l-footer
           li
             = link_to t('.marketplace.sell'), new_article_path
           li
-            = link_to t('.marketplace.affiliate'), '/partnerprogramm'
-          li
             = link_to t('.marketplace.fairmondo_shop'), '/libraries/8561',
                       data: navigation_push
           li
-            = link_to t('.marketplace.categories'), categories_path
+            = link_to t('.marketplace.categories'), categories_path        
+          
+        / li
+        /   = link_to t('.marketplace.affiliate'), '/partnerprogramm' Partnerprogramm läuft derzeit nicht mehr
+          
+          
+
 
       / Subscription
       section#l-footer-nav-subscription
@@ -53,18 +58,20 @@ footer.l-footer
             = link_to t('.subscription.order'), 'http://abo.fairmondo.de/',
                       target: '_blank'
           li
-            = link_to t('.subscription.chocolate'),
-                      'http://abo.fairmondo.de/gridpage/das-schoko-abo',
-                      target: '_blank'
-          li
-            = link_to t('.subscription.coffee'),
-                      'http://abo.fairmondo.de/gridpage/das-richtig-guter-kaffee-abo',
-                      target: '_blank'
-          li
             = link_to t('.subscription.fair_world'),
                       'http://abo.fairmondo.de/gridpage/das-fairmondo-soli-abo',
                       target: '_blank'
-
+          
+        / li
+        /   = link_to t('.subscription.chocolate'),								Abo derzeit eingestellt
+        /              'http://abo.fairmondo.de/gridpage/das-schoko-abo',
+        /             target: '_blank'
+        / li																	Abo derzeit eingestellt
+        /   = link_to t('.subscription.coffee'),
+        /             'http://abo.fairmondo.de/gridpage/das-richtig-guter-kaffee-abo',
+        /             target: '_blank'
+          
+          
       / Cooperative
       section#l-footer-nav-cooperative
         h4
@@ -83,11 +90,11 @@ footer.l-footer
         h4
           = t('.community.heading')
         ul
-          li
+          / li													mitmachen.fairmondo abgeschaltet
             = link_to t('.community.participate'),
                       'http://mitmachen.fairmondo.de/',
                       target: '_blank'
-          li
+          / li													mitmachen.fairmondo abgeschaltet
             = link_to t('.community.ambassador_programme'),
                       'http://mitmachen.fairmondo.de/botschafterprogramm/was-ist-das-botschafterprogramm/',
                       target: '_blank'
@@ -95,8 +102,8 @@ footer.l-footer
             = link_to t('.community.materials'),
                       'http://mitmachen.fairmondo.de/materialecke/',
                       target: '_blank'
-          li
-            = link_to t('.community.events'),
+          / li
+          /   = link_to t('.community.events'),							mitmachen.fairmondo abgeschaltet
                       'http://mitmachen.fairmondo.de/veranstaltungen/',
                       target: '_blank'
           li
@@ -143,10 +150,13 @@ footer.l-footer
                 target: '_blank'
 
 
-    / Copyright
+    / Copyright 
     p.l-footer-copyright
       = t('.copyright_html')
-
+      = zeit = Time.now.year 
+            
+        
+      
     / Legal links
     p.l-footer-legal
       = link_to t('.legal.agb'), '/agb'
