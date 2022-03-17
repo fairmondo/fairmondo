@@ -22,7 +22,7 @@ h1= t('common.actions.sign_up')
               as: :radio, tooltip: true,
               collection: { 'Kein Beitrag' => '', '3 €' => 3, '5 €' => 5, '10 €' => 10 }
 
-    = f.input :newsletter, as: :boolean, label: 'Ich möchte den monatlichen Newsletter mit besonderen Produktvorstellungen erhalten (jederzeit abbestellbar).', required: false, tooltip: false
+    = f.input :newsletter, as: :boolean, label: 'Ich möchte den Newsletter erhalten (jederzeit abbestellbar).', required: false, tooltip: false
 
   = f.actions do
     = f.action :submit, button_html: { class: "Button Button--action", id: "sign_up" }, label: :sign_up
