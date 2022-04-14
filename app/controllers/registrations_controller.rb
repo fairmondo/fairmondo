@@ -26,8 +26,8 @@ class RegistrationsController < Devise::RegistrationsController
   def create
     super
     if resource.valid? && resource.voluntary_contribution.present?
-      RegistrationsMailer.voluntary_contribution_email(params[:user][:email],
-                                                       params[:user][:voluntary_contribution].to_i).deliver_later
+      RegistrationsMailer.voluntary_contribution_email(params[:user][:email]) # , pruefen ob jeder sei eigenes profil hat
+      # params[:user][:voluntary_contribution].to_i).deliver_later
     end
   end
 
@@ -112,6 +112,10 @@ class RegistrationsController < Devise::RegistrationsController
       creator = CreatesDirectDebitMandate.new(resource)
       creator.create
     end
+
+    # if resource.confirmed? && resource.voluntary_contribution.present? # funktioniert noch nicht. irgendeine Methode fehlt
+    #  registrationsMailer.voluntary_contribution_email(params[:user][:voluntary_contribution].to_i).deliver_later
+    # end
 
     bypass_sign_in resource, scope: resource_name if sign_in_after_change_password?
     respond_with resource, location: after_update_path_for(resource)
