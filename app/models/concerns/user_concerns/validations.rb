@@ -9,9 +9,9 @@ module UserConcerns
     included do
       validates :slug, presence: true
 
-      # Registration validations Nickname alphanumerisch mit Untertrich ohne Leerzeichen und Umlaute mind. 3 max 26 Zeichen
+      # Registration validations Nickname alphanumerisch mit Untertrich Leerzeichen und Minus und Umlauten ohne Sonderzeichen mind. 2 max 26 Zeichen
       validates :type, inclusion: { in: %w(PrivateUser LegalEntity) }
-      validates :nickname, presence: true, uniqueness: true, format: { with: /\A[a-zA-Z0-9_]{3,26}\z/, message: 'Bitte gebe einen aussagekraeftigen Nickname an' }
+      validates :nickname, presence: true, uniqueness: true, format: { with: /\A[\-äÄöÖüÜa-zA-Z0-9_ ]{2,26}\z/, message: 'Bitte gebe einen aussagekraeftigen Nickname ohne Umlaute an' }
       validates :legal, acceptance: true, on: :create
       validates_associated :standard_address, unless: Proc.new { |u| u.encrypted_password_changed? }
       # Registration security validations
