@@ -1,12 +1,12 @@
-class MegaMigration < ActiveRecord::Migration
+class MegaMigration < ActiveRecord::Migration[4.2]
 
-  class Article < ActiveRecord::Base
+  class Article < ApplicationRecord
     has_many :business_transactions
     belongs_to :seller, class_name: 'PseudoUser', foreign_key: 'user_id'
   end
 
   # From "Make Ready for Battle"
-  class BusinessTransaction < ActiveRecord::Base
+  class BusinessTransaction < ApplicationRecord
     belongs_to :line_item_group
     belongs_to :article
     belongs_to :seller, class_name: 'PseudoUser', foreign_key: 'seller_id'
@@ -14,23 +14,23 @@ class MegaMigration < ActiveRecord::Migration
     has_one :rating
   end
 
-  class LineItemGroup < ActiveRecord::Base
+  class LineItemGroup < ApplicationRecord
     has_many :business_transactions
     has_one :rating
   end
 
   # From "MoveAddressesFromUserModelToAddressModel"
-  class PseudoUser < ActiveRecord::Base
+  class PseudoUser < ApplicationRecord
     self.table_name =  "users"
     has_many :addresses, foreign_key: 'user_id'
     has_many :bought_business_transactions, class_name: 'BusinessTransaction', foreign_key: 'buyer_id' # As buyer
   end
 
-  class Address < ActiveRecord::Base
+  class Address < ApplicationRecord
     belongs_to :user, class_name: 'PseudoUser', foreign_key: 'user_id' # As buyer
   end
 
-  class Rating < ActiveRecord::Base
+  class Rating < ApplicationRecord
     belongs_to :line_item_group
     belongs_to :business_transaction
   end

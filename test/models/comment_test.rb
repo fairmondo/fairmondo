@@ -2,31 +2,31 @@
 #   licensed under the GNU Affero General Public License version 3 or later.
 #   See the COPYRIGHT file for details.
 
-require_relative '../test_helper'
+require 'test_helper'
 
-describe Comment do
+class CommentTest < ActiveSupport::TestCase
   subject { Comment.new }
 
   describe 'associations' do
-    it { subject.must belong_to :user }
-    it { subject.must belong_to :commentable }
+    should belong_to :user
+    should belong_to :commentable
   end
 
   describe 'model attributes' do
-    it { subject.must_respond_to :id }
-    it { subject.must_respond_to :created_at }
-    it { subject.must_respond_to :updated_at }
-    it { subject.must_respond_to :commentable_id }
-    it { subject.must_respond_to :commentable_type }
-    it { subject.must_respond_to :user_id }
+    it { _(subject).must_respond_to :id }
+    it { _(subject).must_respond_to :created_at }
+    it { _(subject).must_respond_to :updated_at }
+    it { _(subject).must_respond_to :commentable_id }
+    it { _(subject).must_respond_to :commentable_type }
+    it { _(subject).must_respond_to :user_id }
   end
 
   describe 'validations' do
-    it { subject.must validate_presence_of(:user) }
-    it { subject.must validate_presence_of(:commentable) }
+    should validate_presence_of(:user)
+    should validate_presence_of(:commentable)
     describe 'for text' do
-      it { subject.must validate_presence_of(:text) }
-      it { subject.must ensure_length_of(:text).is_at_most(1000) }
+      should validate_presence_of(:text)
+      should validate_length_of(:text).is_at_most(1000)
     end
   end
 

@@ -2,17 +2,17 @@
 #   licensed under the GNU Affero General Public License version 3 or later.
 #   See the COPYRIGHT file for details.
 
-require_relative '../test_helper'
+require 'test_helper'
 
-describe Content do
+class ContentTest < ActiveSupport::TestCase
   subject { Content.new }
 
   describe 'attributes' do
-    it { subject.must_respond_to :key }
-    it { subject.must_respond_to :body }
-    it { subject.must_respond_to :id }
-    it { subject.must_respond_to :created_at }
-    it { subject.must_respond_to :updated_at }
+    it { _(subject).must_respond_to :key }
+    it { _(subject).must_respond_to :body }
+    it { _(subject).must_respond_to :id }
+    it { _(subject).must_respond_to :created_at }
+    it { _(subject).must_respond_to :updated_at }
   end
 
   describe 'fields' do
@@ -26,6 +26,6 @@ describe Content do
   end
 
   describe 'validations' do
-    it { subject.must validate_presence_of :key }
+    should validate_presence_of :key
   end
 end

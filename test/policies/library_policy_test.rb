@@ -2,47 +2,46 @@
 #   licensed under the GNU Affero General Public License version 3 or later.
 #   See the COPYRIGHT file for details.
 
-require_relative '../test_helper'
+require 'test_helper'
 
-describe LibraryPolicy do
+class LibraryPolicyTest < ActiveSupport::TestCase
   include PunditMatcher
 
-  subject { LibraryPolicy.new(user, library)  }
-  let(:library) { create :library }
-  let(:user)    { nil                         }
+  let(:library) { build :library }
+  let(:user)    { nil }
 
   describe 'for a visitor' do
-    it { subject.must_deny(:show)         }
-    it { subject.must_deny(:create)       }
-    it { subject.must_deny(:update)       }
-    it { subject.must_deny(:destroy)      }
-    it { subject.must_deny(:admin_add)    }
-    it { subject.must_deny(:admin_remove) }
+    it { refute_permit(user, library, :show)         }
+    it { refute_permit(user, library, :create)       }
+    it { refute_permit(user, library, :update)       }
+    it { refute_permit(user, library, :destroy)      }
+    it { refute_permit(user, library, :admin_add)    }
+    it { refute_permit(user, library, :admin_remove) }
   end
 
   describe 'for a random logged-in user' do
-    let(:user) { create :user }
-    it { subject.must_deny(:show)               }
-    it { subject.must_deny(:create)             }
-    it { subject.must_deny(:update)             }
-    it { subject.must_deny(:destroy)            }
-    it { subject.must_deny(:admin_add)          }
-    it { subject.must_deny(:admin_remove)       }
+    let(:user) { build :user }
+    it { refute_permit(user, library, :show)               }
+    it { refute_permit(user, library, :create)             }
+    it { refute_permit(user, library, :update)             }
+    it { refute_permit(user, library, :destroy)            }
+    it { refute_permit(user, library, :admin_add)          }
+    it { refute_permit(user, library, :admin_remove)       }
   end
 
   describe 'for the library owning user' do
     let(:user) { library.user       }
-    it { subject.must_permit(:show)       }
-    it { subject.must_permit(:create)     }
-    it { subject.must_permit(:update)     }
-    it { subject.must_permit(:destroy)    }
-    it { subject.must_deny(:admin_add)    }
-    it { subject.must_deny(:admin_remove) }
+    it { assert_permit(user, library, :show)       }
+    it { assert_permit(user, library, :create)     }
+    it { assert_permit(user, library, :update)     }
+    it { assert_permit(user, library, :destroy)    }
+    it { refute_permit(user, library, :admin_add)    }
+    it { refute_permit(user, library, :admin_remove) }
   end
 
   describe 'for an admin' do
-    let(:user) { create :admin_user }
-    it { subject.must_permit(:admin_add)              }
-    it { subject.must_permit(:admin_remove)           }
+    let(:user) { build :admin_user }
+    it { assert_permit(user, library, :admin_add)              }
+    it { assert_permit(user, library, :admin_remove)           }
   end
 end

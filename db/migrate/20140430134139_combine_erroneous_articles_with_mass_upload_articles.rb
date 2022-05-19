@@ -1,4 +1,4 @@
-class CombineErroneousArticlesWithMassUploadArticles < ActiveRecord::Migration
+class CombineErroneousArticlesWithMassUploadArticles < ActiveRecord::Migration[4.2]
   def up
     drop_table :erroneous_articles
     add_column :mass_upload_articles, :row_index , :integer

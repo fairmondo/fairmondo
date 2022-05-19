@@ -2,7 +2,7 @@
 #   licensed under the GNU Affero General Public License version 3 or later.
 #   See the COPYRIGHT file for details.
 
-class User < ActiveRecord::Base
+class User < ApplicationRecord
   extend Memoist
   extend Tokenize
   extend RailsAdminStatistics
@@ -12,7 +12,13 @@ class User < ActiveRecord::Base
 
   friendly_id :nickname, use: [:slugged, :finders]
 
-  include Associations, ExtendedAttributes, Validations, State, Ratings, Scopes
+  include UserConcerns::Associations
+  include UserConcerns::ExtendedAttributes
+  include UserConcerns::Validations
+  include UserConcerns::State
+  include UserConcerns::Ratings
+  include UserConcerns::Scopes
+
   include Assets::Normalizer # for cancellation form
 
   # Include default devise modules. Others available are: :rememberable,
@@ -199,11 +205,19 @@ class User < ActiveRecord::Base
 
   # hashes the ip-addresses which are stored by devise :trackable
   def last_sign_in_ip= value
-    super Digest::MD5.hexdigest(value)
+    if value.present?
+      super Digest::MD5.hexdigest(value)
+    else
+      super
+    end
   end
 
   def current_sign_in_ip= value
-    super Digest::MD5.hexdigest(value)
+    if value.present?
+      super Digest::MD5.hexdigest(value)
+    else
+      super
+    end
   end
 
   # FastBill: this method checks if a user already has fastbill profile

@@ -2,9 +2,9 @@
 #   licensed under the GNU Affero General Public License version 3 or later.
 #   See the COPYRIGHT file for details.
 
-require_relative '../test_helper'
+require 'test_helper'
 
-describe LibrariesController do
+class LibrariesControllerTest < ActionController::TestCase
   describe "GET 'index" do
     describe 'for non-signed-in users' do
       before :each do
@@ -12,7 +12,7 @@ describe LibrariesController do
       end
 
       it 'should allow access' do
-        get :index, user_id: @user.id
+        get :index, params:{ user_id: @user.id }
         assert_response :success
       end
     end
@@ -25,12 +25,12 @@ describe LibrariesController do
       end
 
       it 'should be successful' do
-        get :index, user_id: @library.user
+        get :index, params:{ user_id: @library.user }
         assert_response :success
       end
 
       it 'should be successful' do
-        get :show, user_id: @library.user, id: @library.id
+        get :show, params:{ user_id: @library.user, id: @library.id }
         assert_response :success
       end
     end
@@ -39,28 +39,28 @@ describe LibrariesController do
       it 'should be successful if user is logged in' do
         user = create :user
         @controller.stubs(:current_user).returns(user)
-        get :index, mode: 'myfavorite'
+        get :index, params:{ mode: 'myfavorite' }
         assert_response :success
       end
     end
 
     describe "with parameter 'mode=new'" do
       it 'should be successful' do
-        get :index, mode: 'new'
+        get :index, params:{ mode: 'new' }
         assert_response :success
       end
     end
 
     describe "with parameter 'mode=trending'" do
       it 'should be successful' do
-        get :index, mode: 'trending'
+        get :index, params:{ mode: 'trending' }
         assert_response :success
       end
     end
 
     describe "with parameter 'iframe=true'" do
       it 'should render the iframe layout' do
-        get :index, iframe: true
+        get :index, params:{ iframe: true }
         assert_template layout: 'iframe'
       end
     end
@@ -96,12 +96,12 @@ describe LibrariesController do
       assert_equal(library.audited, false)
 
       # ...true after first request...
-      xhr :patch, :admin_audit, id: library.id
+      patch :admin_audit, params: { id: library.id }, xhr: true
       assert_equal(library.reload.audited, true)
       assert_response :success
 
       # ...false after second request.
-      xhr :patch, :admin_audit, id: library.id
+      patch :admin_audit, params: { id: library.id }, xhr: true
       assert_equal(library.reload.audited, false)
       assert_response :success
     end

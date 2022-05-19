@@ -1,10 +1,13 @@
+# Includes default deployment tasks
+require 'capistrano/deploy'
+
+require 'capistrano/scm/git'
+install_plugin Capistrano::SCM::Git
+
 # Load DSL and Setup Up Stages
 require 'capistrano/setup'
 
 require 'capistrano/rbenv'
-
-# Includes default deployment tasks
-require 'capistrano/deploy'
 
 require 'capistrano/bundler'
 

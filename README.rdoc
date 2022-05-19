@@ -28,9 +28,6 @@ Make sure you install <em>2.2.2</em>. and not <em>ruby 1.9.3-p392</em>.
 * Install required gems
     bundle install
 
-* Set up local files and change the setup data if you want
-    cp config/environments/development.example.rb config/environments/development.rb
-
 * Set up local version of secrets.yml
     cp config/secrets.yml.example config/secrets.yml
 
@@ -64,21 +61,6 @@ Make sure you install <em>2.2.2</em>. and not <em>ruby 1.9.3-p392</em>.
   Run Bundler
    bundle install
 
-* Could not find SQLite3 headers
-  If you have an error like
-   ...
-   Gem::Ext::BuildError: ERROR: Failed to build gem native extension.
-
-   /usr/bin/ruby2.1 extconf.rb
-   checking for sqlite3.h... no
-   ...
-
-  Install the Sqlite3 Library:
-   sudo apt-get install libsqlite3-dev
-
-  Run Bundler
-   bundle install
-
 * (Mac) Invalid gemspec [...ZenTest-4.9.1.gemspec]
 
   If bundler constantly complains about an invalid ZenTest gemspec, run the following:
@@ -88,6 +70,12 @@ Make sure you install <em>2.2.2</em>. and not <em>ruby 1.9.3-p392</em>.
    gem update --system
    bundle
 
+* (Mac) libv8 issues with Mac osx catalina
+
+   brew install v8@3.15
+   bundle config build.libv8 --with-system-v8
+   bundle config build.therubyracer --with-v8-dir=$(brew --prefix v8@3.15)
+   bundle install
 
 === Testing
 
@@ -107,12 +95,10 @@ The testsuite offers an option to stop at the first failing test and rescue in a
 
   RESCUE=1 rake test
 
-If the testsuite runs without any failures, there are additional checks that run automatically (but can be run independently via rake task in the brakets):
-
+We also have some more tests built in:
 * Rails Best Practices (`rails_best_practices`)
-* Brakeman (`rake test:brakeman`)
-* Rubocop  (will not run automatically start with: `rake test:rubocop`, future purpose)
-
+* Brakeman (`brakeman`)
+* Rubocop  (`rubocop`)
 
 === Workflow
 
@@ -146,10 +132,10 @@ Hint: When a vim window opened after you typed "git commit" without a commit mes
 
 To make the search available in your local environment you have to install Elasticsearch:
 
-    curl -k -L -o elasticsearch-1.3.4.tar.gz https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-1.3.4.tar.gz
-    tar -zxvf elasticsearch-1.3.4.tar.gz
-    ./elasticsearch-1.3.4/bin/plugin -install bundle -url http://xbib.org/repository/org/xbib/elasticsearch/plugin/elasticsearch-plugin-bundle/1.4.0.6/elasticsearch-plugin-bundle-1.4.0.6-plugin.zip
-    ./elasticsearch-1.3.4/bin/elasticsearch
+    curl -k -L -o elasticsearch.tar.gz https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-5.4.0.tar.gz
+    tar -zxvf elasticsearch.tar.gz
+    ./elasticsearch-5.4.0/bin/elasticsearch-plugin install http://xbib.org/repository/org/xbib/elasticsearch/plugin/elasticsearch-plugin-bundle/5.4.0.0/elasticsearch-plugin-bundle-5.4.0.0-plugin.zip
+    ./elasticsearch-5.4.0/bin/elasticsearch
 
 Links for Elasticsearch:
 http://www.elasticsearch.org

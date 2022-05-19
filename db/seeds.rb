@@ -10,24 +10,19 @@
 #   cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
 #   Mayor.create(:name => 'Emanuel', :city => cities.first)
 
-# skip the devise mailer callback
-[User, Article].each do |model|
-  model.skip_callback(:create, :after, :send_on_create_confirmation_instructions)
-end
-
 admin = User.find_by_email("admin@admin.com")
 unless admin
-  admin = FactoryGirl.create(:admin_user, :email => "admin@admin.com", :password => "password")
+  admin = FactoryBot.create(:admin_user, :email => "admin@admin.com", :password => "password")
 end
 
 user = User.find_by_email("user@user.com")
 unless user
-  user = FactoryGirl.create(:private_user, :email => "user@user.com", :password => "password")
+  user = FactoryBot.create(:private_user, :email => "user@user.com", :password => "password")
 end
 
 user_legal = User.find_by_email("le@le.com")
 unless user_legal
-  user_legal = FactoryGirl.create(:legal_entity, :paypal_data, :with_unified_transport_information, :email => "le@le.com", :password => "password")
+  user_legal = FactoryBot.create(:legal_entity, :paypal_data, :with_unified_transport_information, :email => "le@le.com", :password => "password")
 end
 
 require_relative 'fixtures/category_seed_data.rb'
@@ -35,18 +30,18 @@ include CategorySeedData
 seed_categories
 
 15.times do
-  FactoryGirl.create :article, :categories => [@categories.sample]
+  FactoryBot.create :article, :categories => [@categories.sample]
 end
 15.times do
-  FactoryGirl.create :article, :with_larger_quantity, :categories => [@categories.sample]
+  FactoryBot.create :article, :with_larger_quantity, :categories => [@categories.sample]
 end
 # Different articles to test transactions
-FactoryGirl.create :article, :with_larger_quantity, :with_all_transports,
+FactoryBot.create :article, :with_larger_quantity, :with_all_transports,
                    :with_all_payments, :with_private_user, title: 'Tester By Private User', :categories => [@categories.sample]
-FactoryGirl.create :article, :with_larger_quantity, :with_all_transports,
+FactoryBot.create :article, :with_larger_quantity, :with_all_transports,
                    :with_all_payments, :with_legal_entity,  title: 'Tester By Legal Entity', :categories => [@categories.sample]
 5.times do |number|
-  FactoryGirl.create :article, :with_larger_quantity, :with_all_transports,
+  FactoryBot.create :article, :with_larger_quantity, :with_all_transports,
                      :with_all_payments, :with_private_user , categories: [@categories.sample],
                      title: "Cart Tester #{number}", seller: user_legal
 end
@@ -54,7 +49,7 @@ end
 # Fill Exhibitions
 max_offset = Article.count - 4
 [:queue1,:queue2,:queue3,:queue4,:old,:donation_articles,:book1,:book2,:book3,:book4,:book5,:book6,:book7,:book8].each do |queue|
-  lib = FactoryGirl.create :library, :public, exhibition_name: queue
+  lib = FactoryBot.create :library, :public, exhibition_name: queue
   lib.articles << Article.offset(rand(0..max_offset)).first(4)
 end
 

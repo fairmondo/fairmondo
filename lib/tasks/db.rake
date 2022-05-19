@@ -43,7 +43,7 @@ namespace :db do
       counter = 0
       n.times do
         print '.'
-        user = FactoryGirl.build :user
+        user = FactoryBot.build :user
         user_list << user
         counter += 1
       end
@@ -78,7 +78,7 @@ namespace :db do
         name = element.elements['name'].to_s.slice(0..65)
 
         if element.elements['otherDescription'].to_s == '<otherDescription/>'
-          articles[name] = Faker::Lorem.paragraph(rand(7) + 1)
+          articles[name] = Faker::Lorem.paragraph(sentence_count: rand(7) + 1)
           faker_count += 1
         else
           articles[name] = element.elements['otherDescription'].to_s.slice(0..255)
@@ -98,10 +98,10 @@ namespace :db do
       print 'Creating an article for each entry.'
       articles.each_pair do |name, description|
         print '.'
-        @article = FactoryGirl.build :article, seller: user.sample,
-                                               title: name,
-                                               content: description,
-                                               categories: [category.sample]
+        @article = FactoryBot.build :article, seller: user.sample,
+                                              title: name,
+                                              content: description,
+                                              categories: [category.sample]
         article_list << @article
         count += 1
       end

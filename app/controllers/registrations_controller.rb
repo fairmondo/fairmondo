@@ -3,6 +3,9 @@
 #   See the COPYRIGHT file for details.
 
 class RegistrationsController < Devise::RegistrationsController
+  include AddressParams
+  include UserParams
+
   before_action :dont_cache, only: [:edit]
   before_action :configure_permitted_parameters
   skip_before_action :authenticate_user!, only: [:create, :new]
@@ -12,7 +15,7 @@ class RegistrationsController < Devise::RegistrationsController
     build_resource({})
 
     # Check if parameters have been provided by a landing page and set object attributes accordingly
-    resource.assign_attributes(params[:external_user].for(resource).on(:create).refine) if params[:external_user]
+    resource.assign_attributes(params.require(:external_user).permit(*USER_CREATE_PARAMS)) if params[:external_user]
 
     if devise_mapping.validatable?
       @minimum_password_length = resource_class.password_length.min
@@ -23,8 +26,8 @@ class RegistrationsController < Devise::RegistrationsController
   def create
     super
     if resource.valid? && resource.voluntary_contribution.present?
-      RegistrationsMailer.voluntary_contribution_email(params[:user][:email],
-                                                       params[:user][:voluntary_contribution].to_i).deliver
+      RegistrationsMailer.voluntary_contribution_email(params[:user][:email]) # , pruefen ob jeder sei eigenes profil hat
+      # params[:user][:voluntary_contribution].to_i).deliver_later
     end
   end
 
@@ -36,8 +39,9 @@ class RegistrationsController < Devise::RegistrationsController
 
   def update
     self.resource = resource_class.to_adapter.get!(send(:"current_#{ resource_name }").to_key)
-    address_params = params[:address] ? params.for(Address).refine : {}
-    resource.build_standard_address_from address_params
+
+    address_params = params[:address] ? params.require(:address).permit(*ADDRESS_PARAMS) : {}
+    resource.build_standard_address_from address_params.to_h
     prev_unconfirmed_email = resource.unconfirmed_email if resource.respond_to?(:unconfirmed_email)
 
     revoke_direct_debit_mandate_if_bank_details_changed(resource, params)
@@ -109,7 +113,11 @@ class RegistrationsController < Devise::RegistrationsController
       creator.create
     end
 
-    sign_in resource_name, resource, bypass: true
+    # if resource.confirmed? && resource.voluntary_contribution.present? # funktioniert noch nicht. irgendeine Methode fehlt
+    #  registrationsMailer.voluntary_contribution_email(params[:user][:voluntary_contribution].to_i).deliver_later
+    # end
+
+    bypass_sign_in resource, scope: resource_name if sign_in_after_change_password?
     respond_with resource, location: after_update_path_for(resource)
   end
 
@@ -122,11 +130,15 @@ class RegistrationsController < Devise::RegistrationsController
   protected
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.for(:sign_up) do |u|
-      u.for(User.new).as(resource).on(:create).refine
-    end
-    devise_parameter_sanitizer.for(:account_update) do |u|
-      u.for(User.new).as(resource).on(:update).refine # permit(*UserRefinery.new(resource).default, :current_password)
+    devise_parameter_sanitizer.permit(:sign_up, keys: USER_CREATE_PARAMS)
+    devise_parameter_sanitizer.permit(:account_update, keys: user_update_params)
+  end
+
+  def user_update_params
+    if current_user.is_a? LegalEntity
+      USER_UPDATE_PARAMS + USER_UPDATE_LEGAL_ENTITY_PARAMS
+    else
+      USER_UPDATE_PARAMS
     end
   end
 end

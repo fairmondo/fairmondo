@@ -2,9 +2,9 @@
 #   licensed under the GNU Affero General Public License version 3 or later.
 #   See the COPYRIGHT file for details.
 
-require_relative '../test_helper'
+require 'test_helper'
 
-describe ArticleTemplatesController do
+class ArticleTemplatesControllerTest < ActionController::TestCase
   before :each do
     @user = create(:user)
     sign_in @user
@@ -35,7 +35,7 @@ describe ArticleTemplatesController do
     end
 
     it 'assigns the requested article_template as @article_template' do
-      get :edit, id: @article_template.to_param
+      get :edit, params:{ id: @article_template.to_param }
       assigns(:article_template).must_equal(@article_template)
       assert_template(:edit)
     end
@@ -45,18 +45,18 @@ describe ArticleTemplatesController do
     context 'with valid params' do
       it 'creates a new ArticleTemplate' do
         assert_difference 'Article.unscoped.count', 1 do
-          post :create, article: valid_attributes
+          post :create, params:{ article: valid_attributes }
         end
       end
 
       it 'assigns a newly created article_template as @article_template' do
-        post :create, article: valid_attributes
+        post :create, params:{ article: valid_attributes }
         assigns(:article_template).must_be_instance_of Article
         assigns(:article_template).persisted?.must_equal true
       end
 
       it 'redirects to the collection' do
-        post :create, article: valid_attributes
+        post :create, params:{ article: valid_attributes }
         assert_redirected_to(user_url @user, anchor: 'my_article_templates')
       end
     end
@@ -68,11 +68,11 @@ describe ArticleTemplatesController do
 
         Image.any_instance.expects(:save)
 
-        post :create, article: attrs
+        post :create, params:{ article: attrs }
       end
 
       it 'should re-render the :new template' do
-        post :create, article: invalid_attributes
+        post :create, params:{ article: invalid_attributes }
         assert_template(:new)
       end
     end
@@ -85,18 +85,18 @@ describe ArticleTemplatesController do
 
     context 'with valid params' do
       it 'updates the requested article_template' do
-        put :update, :id => @article_template.to_param, 'article' => { 'title' => 'updated Title' }
+        put :update, params: { id: @article_template.to_param, article: { title: 'updated Title' } }
         @article_template.reload
         @article_template.title.must_equal 'updated Title'
       end
 
       it 'assigns the requested article_template as @article_template' do
-        put :update, id: @article_template.to_param, article: valid_update_attributes
+        put :update, params:{ id: @article_template.to_param, article: valid_update_attributes }
         assigns(:article_template).must_equal(@article_template)
       end
 
       it 'redirects to the collection' do
-        put :update, id: @article_template.to_param, article: valid_update_attributes
+        put :update, params:{ id: @article_template.to_param, article: valid_update_attributes }
         assert_redirected_to(user_url(@user, anchor: 'my_article_templates'))
       end
     end
@@ -104,11 +104,11 @@ describe ArticleTemplatesController do
     context 'with invalid params' do
       it 'should try to save the images anyway' do
         @controller.expects(:save_images)
-        put :update, id: @article_template.to_param, article: invalid_attributes
+        put :update, params:{ id: @article_template.to_param, article: invalid_attributes }
       end
 
       it 'should re-render the :edit template' do
-        put :update, id: @article_template.to_param, article: invalid_attributes
+        put :update, params:{ id: @article_template.to_param, article: invalid_attributes }
         assert_template(:edit)
       end
     end
@@ -121,12 +121,12 @@ describe ArticleTemplatesController do
 
     it 'destroys the requested article_template' do
       assert_difference 'Article.unscoped.count', -1 do
-        delete :destroy, id: @article_template.to_param
+        delete :destroy, params:{ id: @article_template.to_param }
       end
     end
 
     it 'redirects to the article_templates list' do
-      delete :destroy, id: @article_template.to_param
+      delete :destroy, params:{ id: @article_template.to_param }
       assert_redirected_to(user_url(@user, anchor: 'my_article_templates'))
     end
   end

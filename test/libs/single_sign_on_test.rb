@@ -2,9 +2,9 @@
 #   licensed under the GNU Affero General Public License version 3 or later.
 #   See the COPYRIGHT file for details.
 
-require_relative '../test_helper'
+require 'test_helper'
 
-describe 'SingleSignOn' do
+class SingleSignOnTest < ActiveSupport::TestCase
   describe '::sso_secret' do
     it 'should raise error' do
       -> { SingleSignOn.sso_secret }.must_raise RuntimeError

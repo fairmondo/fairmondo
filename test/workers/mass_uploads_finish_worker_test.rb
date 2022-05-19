@@ -4,7 +4,7 @@
 
 require 'test_helper'
 
-describe MassUploadsFinishWorker do
+class MassUploadsFinishWorkerTest < ActiveSupport::TestCase
   it 'finishes a processing mass_upload' do
     mass_upload = create(:mass_upload_to_finish)
     MassUploadsFinishWorker.new.perform

@@ -2,9 +2,9 @@
 #   licensed under the GNU Affero General Public License version 3 or later.
 #   See the COPYRIGHT file for details.
 
-require_relative '../test_helper'
+require 'test_helper'
 
-describe UsersController do
+class UsersControllerTest < ActionController::TestCase
   describe "GET 'show'" do
     describe 'for non-signed-in users' do
       before :each do
@@ -12,13 +12,13 @@ describe UsersController do
       end
 
       it 'should be successful' do
-        get :show, id: @user
+        get :show, params: { id: @user }
         assert_response :success
       end
 
       it 'render deleted user for banned users' do
         @user.update_attribute(:banned, true)
-        get :show, id: @user
+        get :show, params: { id: @user }
         assert_response :success
         assert_template :user_deleted
       end
@@ -31,7 +31,7 @@ describe UsersController do
       end
 
       it 'should be successful' do
-        get :show, id: @user
+        get :show, params: { id: @user }
         assert_response :success
       end
     end
@@ -43,7 +43,7 @@ describe UsersController do
     end
 
     it 'should be successful' do
-      get :profile, id: @user, format: :pdf, print: 'terms'
+      get :profile, params: { id: @user, format: :pdf, print: 'terms' }
       assert_response :success
     end
   end
@@ -52,7 +52,7 @@ describe UsersController do
     let(:user) { create :user }
 
     it 'should be successful' do
-      xhr :get, :contact, id: user.id
+      get :contact, params: { id: user.id }, xhr: true
       assert_response :success
       assert_template :contact
     end

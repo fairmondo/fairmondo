@@ -2,9 +2,9 @@
 #   licensed under the GNU Affero General Public License version 3 or later.
 #   See the COPYRIGHT file for details.
 
-require_relative '../test_helper'
+require 'test_helper'
 
-describe LineItem do
+class LineItemTest < ActiveSupport::TestCase
   let(:line_item) { LineItem.new }
   let(:db_line_item) { create :line_item }
 

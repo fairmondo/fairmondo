@@ -2,9 +2,9 @@
 #   licensed under the GNU Affero General Public License version 3 or later.
 #   See the COPYRIGHT file for details.
 
-require_relative '../test_helper'
+require 'test_helper'
 
-describe ApplicationHelper do
+class ApplicationHelperTest < ActionView::TestCase
   describe 'clickable_legal_links' do
     it 'should put a link around an ODR URL' do
       html = '<p>Please read http://ec.europa.eu/odr for legal stuff on online stores.</p>'

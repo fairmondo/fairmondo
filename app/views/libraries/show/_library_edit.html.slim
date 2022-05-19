@@ -30,5 +30,5 @@
         = link_to t('library.delete'),
           user_library_path(library.user.id, library.id.to_s),
           class: 'Button Button--red',
-          confirm: t('library.delete_confirm', name: library.name),
+          data: { confirm: t('library.delete_confirm', name: library.name) },
           method: :delete

@@ -2,9 +2,9 @@
 #   licensed under the GNU Affero General Public License version 3 or later.
 #   See the COPYRIGHT file for details.
 
-require_relative '../test_helper'
+require 'test_helper'
 
-describe Article do
+class ArticleTest < ActiveSupport::TestCase
   let(:article) { Article.new }
   let(:db_article) { create(:article, :with_fixture_image) }
   let(:ngo_article) { create :article, :with_ngo }
@@ -12,86 +12,87 @@ describe Article do
   subject { article }
 
   describe 'attributes' do
-    it { subject.must_respond_to :id }
-    it { subject.must_respond_to :title }
-    it { subject.must_respond_to :content }
-    it { subject.must_respond_to :created_at }
-    it { subject.must_respond_to :updated_at }
-    it { subject.must_respond_to :user_id }
-    it { subject.must_respond_to :condition }
-    it { subject.must_respond_to :price_cents }
-    it { subject.must_respond_to :currency }
-    it { subject.must_respond_to :fair }
-    it { subject.must_respond_to :fair_kind }
-    it { subject.must_respond_to :fair_seal }
-    it { subject.must_respond_to :ecologic }
-    it { subject.must_respond_to :ecologic_seal }
-    it { subject.must_respond_to :small_and_precious }
-    it { subject.must_respond_to :small_and_precious_reason }
-    it { subject.must_respond_to :small_and_precious_handmade }
-    it { subject.must_respond_to :quantity }
-    it { subject.must_respond_to :transport_details }
-    it { subject.must_respond_to :payment_details }
-    it { subject.must_respond_to :friendly_percent }
-    it { subject.must_respond_to :friendly_percent_organisation }
-    it { subject.must_respond_to :article_template_name }
-    it { subject.must_respond_to :calculated_fair_cents }
-    it { subject.must_respond_to :calculated_friendly_cents }
-    it { subject.must_respond_to :calculated_fee_cents }
-    it { subject.must_respond_to :condition_extra }
-    it { subject.must_respond_to :small_and_precious_eu_small_enterprise }
-    it { subject.must_respond_to :ecologic_kind }
-    it { subject.must_respond_to :upcycling_reason }
-    it { subject.must_respond_to :slug }
-    it { subject.must_respond_to :transport_pickup }
-    it { subject.must_respond_to :transport_type1 }
-    it { subject.must_respond_to :transport_type2 }
-    it { subject.must_respond_to :transport_type1_provider }
-    it { subject.must_respond_to :transport_type2_provider }
-    it { subject.must_respond_to :transport_type1_price_cents }
-    it { subject.must_respond_to :transport_type2_price_cents }
-    it { subject.must_respond_to :transport_time }
-    it { subject.must_respond_to :payment_bank_transfer }
-    it { subject.must_respond_to :payment_cash }
-    it { subject.must_respond_to :payment_paypal }
-    it { subject.must_respond_to :payment_invoice }
-    it { subject.must_respond_to :payment_voucher }
-    it { subject.must_respond_to :payment_cash_on_delivery_price_cents }
-    it { subject.must_respond_to :basic_price_cents }
-    it { subject.must_respond_to :basic_price_amount }
-    it { subject.must_respond_to :state }
-    it { subject.must_respond_to :vat }
-    it { subject.must_respond_to :custom_seller_identifier }
-    it { subject.must_respond_to :gtin }
-    it { subject.must_respond_to :transport_type1_number }
-    it { subject.must_respond_to :transport_type2_number }
-    it { subject.must_respond_to :discount_id }
-    it { subject.must_respond_to :transport_bike_courier }
-    it { subject.must_respond_to :transport_bike_courier_number }
+    it { _(subject).must_respond_to :id }
+    it { _(subject).must_respond_to :title }
+    it { _(subject).must_respond_to :content }
+    it { _(subject).must_respond_to :created_at }
+    it { _(subject).must_respond_to :updated_at }
+    it { _(subject).must_respond_to :user_id }
+    it { _(subject).must_respond_to :condition }
+    it { _(subject).must_respond_to :price_cents }
+    it { _(subject).must_respond_to :currency }
+    it { _(subject).must_respond_to :fair }
+    it { _(subject).must_respond_to :fair_kind }
+    it { _(subject).must_respond_to :fair_seal }
+    it { _(subject).must_respond_to :ecologic }
+    it { _(subject).must_respond_to :ecologic_seal }
+    it { _(subject).must_respond_to :small_and_precious }
+    it { _(subject).must_respond_to :small_and_precious_reason }
+    it { _(subject).must_respond_to :small_and_precious_handmade }
+    it { _(subject).must_respond_to :quantity }
+    it { _(subject).must_respond_to :transport_details }
+    it { _(subject).must_respond_to :payment_details }
+    it { _(subject).must_respond_to :friendly_percent }
+    it { _(subject).must_respond_to :friendly_percent_organisation }
+    it { _(subject).must_respond_to :article_template_name }
+    it { _(subject).must_respond_to :calculated_fair_cents }
+    it { _(subject).must_respond_to :calculated_friendly_cents }
+    it { _(subject).must_respond_to :calculated_fee_cents }
+    it { _(subject).must_respond_to :condition_extra }
+    it { _(subject).must_respond_to :small_and_precious_eu_small_enterprise }
+    it { _(subject).must_respond_to :ecologic_kind }
+    it { _(subject).must_respond_to :upcycling_reason }
+    it { _(subject).must_respond_to :slug }
+    it { _(subject).must_respond_to :transport_pickup }
+    it { _(subject).must_respond_to :transport_type1 }
+    it { _(subject).must_respond_to :transport_type2 }
+    it { _(subject).must_respond_to :transport_type1_provider }
+    it { _(subject).must_respond_to :transport_type2_provider }
+    it { _(subject).must_respond_to :transport_type1_price_cents }
+    it { _(subject).must_respond_to :transport_type2_price_cents }
+    it { _(subject).must_respond_to :transport_time }
+    it { _(subject).must_respond_to :payment_bank_transfer }
+    it { _(subject).must_respond_to :payment_cash }
+    it { _(subject).must_respond_to :payment_paypal }
+    it { _(subject).must_respond_to :payment_invoice }
+    it { _(subject).must_respond_to :payment_voucher }
+    it { _(subject).must_respond_to :payment_cash_on_delivery_price_cents }
+    it { _(subject).must_respond_to :basic_price_cents }
+    it { _(subject).must_respond_to :basic_price_amount }
+    it { _(subject).must_respond_to :state }
+    it { _(subject).must_respond_to :vat }
+    it { _(subject).must_respond_to :custom_seller_identifier }
+    it { _(subject).must_respond_to :gtin }
+    it { _(subject).must_respond_to :transport_type1_number }
+    it { _(subject).must_respond_to :transport_type2_number }
+    it { _(subject).must_respond_to :discount_id }
+    it { _(subject).must_respond_to :transport_bike_courier }
+    it { _(subject).must_respond_to :transport_bike_courier_number }
 
     # Statemachine state
-    it { subject.must_respond_to :preview? }
-    it { subject.must_respond_to :locked? }
-    it { subject.must_respond_to :template? }
-    it { subject.must_respond_to :sold? }
-    it { subject.must_respond_to :active? }
-    it { subject.must_respond_to :closed? }
+    it { _(subject).must_respond_to :preview? }
+    it { _(subject).must_respond_to :locked? }
+    it { _(subject).must_respond_to :template? }
+    it { _(subject).must_respond_to :sold? }
+    it { _(subject).must_respond_to :active? }
+    it { _(subject).must_respond_to :closed? }
   end
 
   describe '::Base' do
     describe 'associations' do
-      it { subject.must have_many :images }
-      it { subject.must have_and_belong_to_many :categories }
-      it { subject.must belong_to :seller }
-      it { subject.must have_many(:business_transactions) }
+      should have_many :images
+      should have_and_belong_to_many :categories
+      should belong_to :seller
+      should have_many(:business_transactions)
     end
 
     describe 'validations' do
       describe 'legal_entity seller' do
-        let(:special_article) do
+        subject do
           Article.new seller: LegalEntity.new, basic_price: 2
         end
-        it { special_article.must validate_presence_of :basic_price_amount }
+
+        should validate_presence_of :basic_price_amount
       end
 
       it 'should not throw an exception when slug is already present' do
@@ -224,8 +225,8 @@ describe Article do
         db_article.errors[:transport_time].must_equal []
       end
 
-      it { subject.must validate_numericality_of(:transport_type1_number) }
-      it { subject.must validate_numericality_of(:transport_type2_number) }
+      should validate_numericality_of(:transport_type1_number)
+      should validate_numericality_of(:transport_type2_number)
     end
 
     describe 'methods' do
@@ -259,7 +260,7 @@ describe Article do
     describe 'methods' do
       describe '#title_image_url' do
         it "should return the first image's URL when one exists" do
-          db_article.title_image_url.must_match %r#/system/images/000/000/001/original/test.png#
+          db_article.title_image_url.must_match %r#/system/images/.*/original/test.png#
         end
 
         it 'should return the missing-image-url when no image is set' do

@@ -1,4 +1,4 @@
-class AddExhibitionDateToExhibits < ActiveRecord::Migration
+class AddExhibitionDateToExhibits < ActiveRecord::Migration[4.2]
   def up
     add_column :exhibits, :exhibition_date, :datetime
   end

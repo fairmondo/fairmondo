@@ -1,4 +1,4 @@
-class AddHearts < ActiveRecord::Migration
+class AddHearts < ActiveRecord::Migration[4.2]
   def change
     create_table :hearts do |t|
       t.references :user, index: true

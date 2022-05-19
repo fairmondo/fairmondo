@@ -6,7 +6,6 @@
 //= require setup
 
 //= require jquery
-//= require wiselinks
 //= require jquery_ujs
 
 //= require jquery-ui/accordion
@@ -27,10 +26,6 @@
 //= require locales/jquery.timeago.de.js
 
 //= require lazy/feed
-//= require lazy/wiselinks
-
-//= require customize/wiselinks_ready
-//= require customize/wiselinks_scroll
 
 //= require vendor/jquery.slides.min.js
 //= require vendor/jquery.ba-dotimeout.min.js

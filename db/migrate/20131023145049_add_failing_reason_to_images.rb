@@ -1,4 +1,4 @@
-class AddFailingReasonToImages < ActiveRecord::Migration
+class AddFailingReasonToImages < ActiveRecord::Migration[4.2]
   def up
     add_column :images, :failing_reason, :string
   end

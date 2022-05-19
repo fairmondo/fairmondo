@@ -2,24 +2,24 @@
 #   licensed under the GNU Affero General Public License version 3 or later.
 #   See the COPYRIGHT file for details.
 
-require_relative '../test_helper'
+require 'test_helper'
 
-describe Refund do
+class RefundTest < ActiveSupport::TestCase
   subject { Refund.new }
 
   describe 'associations' do
-    it { subject.must belong_to :business_transaction }
+    should belong_to :business_transaction
   end
 
   describe 'attributes' do
-    it { subject.must_respond_to :reason }
-    it { subject.must_respond_to :description }
-    it { subject.must_respond_to :business_transaction_id }
+    it { _(subject).must_respond_to :reason }
+    it { _(subject).must_respond_to :description }
+    it { _(subject).must_respond_to :business_transaction_id }
   end
 
   describe 'validations' do
-    it { subject.must validate_presence_of :reason }
-    it { subject.must validate_presence_of :description }
-    it { subject.must validate_presence_of :business_transaction_id }
+    should validate_presence_of :reason
+    should validate_presence_of :description
+    should validate_presence_of :business_transaction_id
   end
 end

@@ -2,38 +2,37 @@
 #   licensed under the GNU Affero General Public License version 3 or later.
 #   See the COPYRIGHT file for details.
 
-require_relative '../test_helper'
+require 'test_helper'
 
-describe ArticleTemplatePolicy do
+class ArticleTemplatePolicyTest < ActiveSupport::TestCase
   include PunditMatcher
 
-  subject { ArticleTemplatePolicy.new(user, article_template)   }
-  let(:article_template) { create :article_template, :with_private_user }
+  let(:article_template) { build :article_template, :with_private_user }
   let(:user) { nil }
 
   describe 'for a visitor' do
-    it { subject.must_deny(:new)     }
-    it { subject.must_deny(:create)  }
-    it { subject.must_deny(:edit)    }
-    it { subject.must_deny(:update)  }
-    it { subject.must_deny(:destroy) }
+    it { refute_permit(user, article_template, :new)     }
+    it { refute_permit(user, article_template, :create)  }
+    it { refute_permit(user, article_template, :edit)    }
+    it { refute_permit(user, article_template, :update)  }
+    it { refute_permit(user, article_template, :destroy) }
   end
 
   describe 'for a random logged-in user' do
-    let(:user) { create :user }
-    it { subject.must_deny(:new)                }
-    it { subject.must_deny(:create)             }
-    it { subject.must_deny(:edit)               }
-    it { subject.must_deny(:update)             }
-    it { subject.must_deny(:destroy)            }
+    let(:user) { build :user }
+    it { refute_permit(user, article_template, :new)                }
+    it { refute_permit(user, article_template, :create)             }
+    it { refute_permit(user, article_template, :edit)               }
+    it { refute_permit(user, article_template, :update)             }
+    it { refute_permit(user, article_template, :destroy)            }
   end
 
   describe 'for the template owning user' do
     let(:user) { article_template.seller }
-    it { subject.must_permit(:new)           }
-    it { subject.must_permit(:create)        }
-    it { subject.must_permit(:edit)          }
-    it { subject.must_permit(:update)        }
-    it { subject.must_permit(:destroy)       }
+    it { assert_permit(user, article_template, :new)           }
+    it { assert_permit(user, article_template, :create)        }
+    it { assert_permit(user, article_template, :edit)          }
+    it { assert_permit(user, article_template, :update)        }
+    it { assert_permit(user, article_template, :destroy)       }
   end
 end

@@ -2,42 +2,40 @@
 #   licensed under the GNU Affero General Public License version 3 or later.
 #   See the COPYRIGHT file for details.
 
-require_relative '../test_helper'
+require 'test_helper'
 
-describe AddressPolicy do
+class AddressPolicyTest < ActiveSupport::TestCase
   include PunditMatcher
-  subject { AddressPolicy.new(user, address) }
-  let(:address) { create(:address) }
-  let(:user) { nil }
+  let(:address) { build(:address) }
 
-  context 'for a visitor' do
-    it { subject.must_ultimately_deny(:create) }
-    it { subject.must_ultimately_deny(:new) }
-    it { subject.must_ultimately_deny(:edit) }
-    it { subject.must_ultimately_deny(:update) }
-    it { subject.must_ultimately_deny(:show) }
-    it { subject.must_ultimately_deny(:destroy) }
+  describe 'for a visitor' do
+    it { refute_permit(nil, address, :create) }
+    it { refute_permit(nil, address, :new) }
+    it { refute_permit(nil, address, :edit) }
+    it { refute_permit(nil, address, :update) }
+    it { refute_permit(nil, address, :show) }
+    it { refute_permit(nil, address, :destroy) }
   end
 
-  context 'for a random logged in user' do
-    let(:user) { create(:user) }
-    it { subject.must_ultimately_deny(:create) }
-    it { subject.must_ultimately_deny(:new) }
-    it { subject.must_ultimately_deny(:edit) }
-    it { subject.must_ultimately_deny(:update) }
-    it { subject.must_ultimately_deny(:show) }
-    it { subject.must_ultimately_deny(:destroy) }
+  describe 'for a random logged in user' do
+    let(:user) { build(:user) }
+    it { refute_permit(user, address, :create) }
+    it { refute_permit(user, address, :new) }
+    it { refute_permit(user, address, :edit) }
+    it { refute_permit(user, address, :update) }
+    it { refute_permit(user, address, :show) }
+    it { refute_permit(user, address, :destroy) }
   end
 
-  context 'for logged in owner of address' do
-    let(:user) { create(:incomplete_user) }
-    let(:address) { create(:address, user: user) }
+  describe 'for logged in owner of address' do
+    let(:user) { build(:incomplete_user) }
+    let(:address) { build(:address, user: user) }
 
-    it { subject.must_permit(:create) }
-    it { subject.must_permit(:new) }
-    it { subject.must_permit(:edit) }
-    it { subject.must_permit(:update) }
-    it { subject.must_permit(:show) }
-    it { subject.must_permit(:destroy) }
+    it { assert_permit(user, address, :create) }
+    it { assert_permit(user, address, :new) }
+    it { assert_permit(user, address, :edit) }
+    it { assert_permit(user, address, :update) }
+    it { assert_permit(user, address, :show) }
+    it { assert_permit(user, address, :destroy) }
   end
 end

@@ -63,7 +63,9 @@ module ApplicationHelper
   # overwrite if you need somehing else
   def controller_specific_css_path
     @controller_specific_css ||= controller_name
-    "controller/#{@controller_specific_css}.css"
+    css_path = "controller/#{@controller_specific_css}.css"
+    return nil unless Rails.application.assets.find_asset(css_path).present?
+    css_path
   end
 
   def money value

@@ -2,9 +2,9 @@
 #   licensed under the GNU Affero General Public License version 3 or later.
 #   See the COPYRIGHT file for details.
 
-require_relative '../test_helper'
+require 'test_helper'
 
-describe MassUploadsController do
+class MassUploadsControllerTest < ActionController::TestCase
   # Strictly speaking not necessary since already tested in the feature tests
   describe "GET 'new'" do
     describe 'for non-signed-in users' do
@@ -36,29 +36,32 @@ describe MassUploadsController do
     describe 'POST ::create' do
       it 'should create a mass-upload object' do
         assert_difference 'MassUpload.count', 1 do
-          post :create, mass_upload: attributes
+          post :create, params:{ mass_upload: attributes }
         end
         assert_redirected_to user_path(user, anchor: 'my_mass_uploads')
-        MassUpload.last.articles.count.must_equal(3)
+        assert_equal(3, MassUpload.last.articles.count)
       end
       it 'should create a mass-upload object for heavy uploaders' do
         user.update_attribute(:heavy_uploader, true)
         assert_difference 'MassUpload.count', 1 do
-          post :create, mass_upload: attributes
+          post :create, params:{ mass_upload: attributes }
         end
         assert_redirected_to user_path(user, anchor: 'my_mass_uploads')
-        MassUpload.last.articles.count.must_equal(3)
+        assert_equal(3, MassUpload.last.articles.count)
       end
     end
 
     describe 'PUT ::update' do
       it 'should update description' do
-        post :create, mass_upload: attributes
+        post :create, params:{ mass_upload: attributes }
         mass_upload = MassUpload.last
         mass_upload.finish!
-        post :update, id: MassUpload.last.id
+
+        Indexer.expects(:index_mass_upload).with(mass_upload.id)
+
+        post :update, params:{ id: MassUpload.last.id }
         assert_redirected_to user_path(user)
-        MassUpload.last.articles.first.active?.must_equal true
+        assert MassUpload.last.articles.first.active?
       end
     end
   end

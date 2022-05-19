@@ -4,12 +4,14 @@
 
 # A transaction handles the purchase process of an article.
 
-class BusinessTransaction < ActiveRecord::Base
+class BusinessTransaction < ApplicationRecord
   extend Enumerize
   extend Sanitization
   extend RailsAdminStatistics
 
-  include BusinessTransaction::Refundable, BusinessTransaction::Discountable, BusinessTransaction::Scopes
+  include BusinessTransactionConcerns::Refundable
+  include BusinessTransactionConcerns::Discountable
+  include BusinessTransactionConcerns::Scopes
 
   belongs_to :article, inverse_of: :business_transactions
 
@@ -64,6 +66,8 @@ class BusinessTransaction < ActiveRecord::Base
     bt.validate :transport_address_in_area?
     # bt.validate :right_time_frame_for_bike_courier?
   end
+
+  after_initialize :initialize_state_machines
 
   state_machine initial: :sold do
     state :sold, :paid, :ready, :sent, :completed do

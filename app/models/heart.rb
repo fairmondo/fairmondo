@@ -2,7 +2,7 @@
 #   licensed under the GNU Affero General Public License version 3 or later.
 #   See the COPYRIGHT file for details.
 
-class Heart < ActiveRecord::Base
+class Heart < ApplicationRecord
   belongs_to :user
   belongs_to :heartable, polymorphic: true, counter_cache: true
 

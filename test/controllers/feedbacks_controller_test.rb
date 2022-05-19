@@ -2,9 +2,9 @@
 #   licensed under the GNU Affero General Public License version 3 or later.
 #   See the COPYRIGHT file for details.
 
-require_relative '../test_helper'
+require 'test_helper'
 
-describe FeedbacksController do
+class FeedbacksControllerTest < ActionController::TestCase
   describe "POST 'create'" do
     before :each do
       article = create :article
@@ -14,14 +14,14 @@ describe FeedbacksController do
     describe 'for non-signed-in users' do
       it 'should create a feedback with variety report_article' do
         assert_difference 'Feedback.count', 1 do
-          post :create, feedback: @attributes
+          post :create, params:{ feedback: @attributes }
         end
       end
 
       it 'should create no feedback if recaptcha is not verified' do
         @controller.stubs(:verify_recaptcha).returns(false)
         assert_no_difference 'Feedback.count' do
-          post :create, feedback: @attributes
+          post :create, params:{ feedback: @attributes }
         end
       end
     end

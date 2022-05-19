@@ -2,7 +2,7 @@
 #   licensed under the GNU Affero General Public License version 3 or later.
 #   See the COPYRIGHT file for details.
 
-class Feedback < ActiveRecord::Base
+class Feedback < ApplicationRecord
   extend Enumerize
   extend ActiveModel::Naming
 

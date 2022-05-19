@@ -2,16 +2,24 @@
 #   licensed under the GNU Affero General Public License version 3 or later.
 #   See the COPYRIGHT file for details.
 
-class Article < ActiveRecord::Base
+class Article < ApplicationRecord
   extend Enumerize
   extend FriendlyId
   extend Sanitization
 
   # Article module concerns
-  include Validations, ActiveRecordOverwrites, Associations,
-          Commendation, FeesAndDonations,
-          Images, ExtendedAttributes, State, Scopes,
-          Checks, Delegates, Commentable
+  include ArticleConcerns::Validations
+  include ArticleConcerns::ActiveRecordOverwrites
+  include ArticleConcerns::Associations
+  include ArticleConcerns::Commendation
+  include ArticleConcerns::FeesAndDonations
+  include ArticleConcerns::Images
+  include ArticleConcerns::ExtendedAttributes
+  include ArticleConcerns::State
+  include ArticleConcerns::Scopes
+  include ArticleConcerns::Checks
+  include ArticleConcerns::Delegates
+  include ArticleConcerns::Commentable
 
   ############### Friendly_id for beautiful links
   def slug_candidates

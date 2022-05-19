@@ -1,4 +1,4 @@
-class AddQuantityFieldsToTransactions < ActiveRecord::Migration
+class AddQuantityFieldsToTransactions < ActiveRecord::Migration[4.2]
   def change
     add_column :transactions, :quantity_available, :integer, default: nil
     add_column :transactions, :quantity_bought, :integer, default: nil

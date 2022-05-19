@@ -6,7 +6,7 @@ class ArticleMailer < ActionMailer::Base
   include MailerHelper
 
   default from: EMAIL_ADDRESSES['default']
-  before_filter :inline_logos, except: :report_article
+  before_action :inline_logos, except: :report_article
   layout 'email', except: :report_article
 
   def report_article article, user, text
@@ -23,6 +23,7 @@ class ArticleMailer < ActionMailer::Base
     @article  = Article.find(resource_id)
     @from     = @user.email
     @subject  = I18n.t('article.show.contact.mail_subject')
+    @article_path = Rails.application.routes.url_helpers.article_path(@article.id)
     mail to: @article.seller_email, from: @from, subject: @subject
   end
 

@@ -3,7 +3,8 @@
 #   See the COPYRIGHT file for details.
 
 class MassUploadsController < ApplicationController
-  responders :location
+  PERMITTED_PARAMS = %i(file).freeze
+
   respond_to :html
   respond_to :csv, only: :show
 
@@ -30,7 +31,7 @@ class MassUploadsController < ApplicationController
   end
 
   def create
-    @mass_upload = current_user.mass_uploads.build(params.for(MassUpload).refine)
+    @mass_upload = current_user.mass_uploads.build(params.require(:mass_upload).permit(*PERMITTED_PARAMS))
     authorize @mass_upload
     @mass_upload.process if @mass_upload.save
     respond_with @mass_upload, location: -> { user_path(@mass_upload.user, anchor: 'my_mass_uploads') }

@@ -2,12 +2,13 @@
 #   licensed under the GNU Affero General Public License version 3 or later.
 #   See the COPYRIGHT file for details.
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :mass_upload_article do
     association :mass_upload
-    action 'create'
-    row_index 1
-    article_csv ';;Richard Fischer: Tabellenbuch Kraftfahrzeugtechnik mit Formelsammlung '\
+    action { 'create' }
+    row_index { 1 }
+    article_csv do
+      ';;Richard Fischer: Tabellenbuch Kraftfahrzeugtechnik mit Formelsammlung '\
       '(Taschenbuch, EAN 9783808521366);309;new;;<h3>Tabellenbuch Kraftfahrzeugtechnik mit '\
       'Formelsammlung</h3><p>von <b>Richard Fischer</b></p><p>Deutsch, September 2008, Europa '\
       'Lehrmittel Verlag, Taschenbuch, ISBN 3808521368, EAN 9783808521366</p><p><b>Beschreibung'\
@@ -20,9 +21,10 @@ FactoryGirl.define do
       ';100;3120;;;7;http://media.ecobookstore.de/366/EAN_9783808521366.jpg;;;true;Postversand;0;9'\
       ';;;;;1-3;;false;true;;true;;true;;false;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;9783808521366;'\
       'LIB-9783808521366;update\n'
+    end
 
     factory :update_mass_upload_article do
-      action 'update'
+      action { 'update' }
     end
   end
 end

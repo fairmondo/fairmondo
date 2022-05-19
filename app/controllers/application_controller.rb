@@ -3,6 +3,8 @@
 #   See the COPYRIGHT file for details.
 
 class ApplicationController < ActionController::Base
+  protect_from_forgery with: :exception
+
   ## Global security
   before_action :authenticate_user!
 
@@ -16,9 +18,6 @@ class ApplicationController < ActionController::Base
 
   layout :layout_by_param
 
-  # Arcane
-  include Arcane
-
   # Pundit
   include Pundit
   after_action :verify_authorized_with_exceptions, except: [:index, :feed, :ipn_notification, :contact]
@@ -26,7 +25,6 @@ class ApplicationController < ActionController::Base
   include BrowsingHistory # (lib/autoload) browsing history for redirects and feedback
   after_action :store_location
 
-  protect_from_forgery
   skip_before_action :verify_authenticity_token, if: :json_request?
 
   helper :all
@@ -72,9 +70,11 @@ class ApplicationController < ActionController::Base
   end
 
   def build_search_cache
-    search_params = {}
-    form_search_params = params.for(ArticleSearchForm)[:article_search_form]
-    search_params.merge!(form_search_params) if form_search_params.is_a?(Hash)
+    if params[:article_search_form]
+      search_params = params[:article_search_form].permit(ArticleSearchForm.new.attributes.keys)
+    else
+      search_params = {}
+    end
     @search_cache = ArticleSearchForm.new(search_params)
   end
 

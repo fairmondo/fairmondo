@@ -2,9 +2,9 @@
 #   licensed under the GNU Affero General Public License version 3 or later.
 #   See the COPYRIGHT file for details.
 
-require_relative '../test_helper'
+require 'test_helper'
 
-describe WelcomeHelper do
+class WelcomeHelperTest < ActionView::TestCase
   describe '#rss_image_extractor' do
     it 'returns an image when there is one' do
       content = "<p><img src=\"test.png\"/>"

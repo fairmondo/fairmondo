@@ -2,7 +2,7 @@
 #   licensed under the GNU Affero General Public License version 3 or later.
 #   See the COPYRIGHT file for details.
 
-class Library < ActiveRecord::Base
+class Library < ApplicationRecord
   extend Sanitization, Enumerize
   include Commentable
 

@@ -1,6 +1,7 @@
 #   Copyright (c) 2012-2017, Fairmondo eG.  This file is
 #   licensed under the GNU Affero General Public License version 3 or later.
 #   See the COPYRIGHT file for details.
+Money.locale_backend = :i18n
 
 MoneyRails.configure do |config|
 
@@ -43,13 +44,15 @@ MoneyRails.configure do |config|
 
 end
 
+Money.rounding_mode = BigDecimal::ROUND_HALF_EVEN
+
 # Monkey Patch
 # Url: https://github.com/RubyMoney/money-rails/blob/master/lib/money-rails/helpers/action_view_extension.rb
 # Patch to have the symbol after the amount and always have 2 digits after the seperator
 module MoneyRails
   module ActionViewExtension
     def humanized_money_with_symbol(value)
-      humanized_money(value, :symbol_position => :after, :symbol => true, :no_cents_if_whole => false)
+      humanized_money(value, format: '%n %u', symbol: true, no_cents_if_whole: false)
     end
   end
 end

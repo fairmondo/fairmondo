@@ -3,11 +3,13 @@
 #   See the COPYRIGHT file for details.
 
 class LibraryElementsController < ApplicationController
+  REQUIRED_PARAMS = %i(article library library_id article_id).freeze
+
   before_action :set_library_element, except: :create
 
   def create
     @library_element =
-      current_user.library_elements.build(params.for(LibraryElement).refine)
+      current_user.library_elements.build(params.require(:library_element).permit(*REQUIRED_PARAMS))
     authorize @library_element
     if @library_element.save
       flash[:notice] =
@@ -17,7 +19,7 @@ class LibraryElementsController < ApplicationController
         ).html_safe
     end
 
-    redirect_to :back
+    redirect_back(fallback_location: root_path)
   end
 
   def destroy

@@ -1,8 +1,8 @@
 de:
   users:
     deleted:
-      text: "Diese*r Nutzer*in wurde gelöscht."
-      headline: "Nutzer*in gelöscht."
+      text: "Diese*r Nutzer*in wurde gelöscht oder die Anmeldung ist noch nicht bestätigt."
+      headline: "Nutzer*in gelöscht oder noch nicht bestaetigt."
     legal_status:
       new:
         legal_entity: "Ich möchte gewerblich verkaufen oder bin eine Spendenpartnerorganisation"

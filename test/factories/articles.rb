@@ -2,24 +2,24 @@
 #   licensed under the GNU Affero General Public License version 3 or later.
 #   See the COPYRIGHT file for details.
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :article do
     association :seller, factory: :user
     categories { |c| [c.association(:category)] }
     sequence(:title) { |n| "Book #{n}" }
-    content 'Content of the book'
-    condition :new
-    price_cents 3995
-    vat 19
-    quantity 1
-    state 'active'
+    content { 'Content of the book' }
+    condition { :new }
+    price_cents { 3995 }
+    vat { 19 }
+    quantity { 1 }
+    state { 'active' }
 
     trait :no_vat do
-      vat 0
+      vat { 0 }
     end
 
     trait :reduced_vat do
-      vat 7
+      vat { 7 }
     end
 
     trait :index_article do
@@ -28,33 +28,33 @@ FactoryGirl.define do
       end
     end
 
-    basic_price_cents 50000
-    basic_price_amount :kilogram
+    basic_price_cents { 50000 }
+    basic_price_amount { :kilogram }
 
     before :create do |article, _evaluator|
       article.calculate_fees_and_donations
     end
 
-    transport_type1 true
-    transport_type1_provider 'DHL Päckchen'
-    transport_type1_price_cents 400
-    transport_details 'transport_details'
-    payment_bank_transfer true
+    transport_type1 { true }
+    transport_type1_provider { 'DHL Päckchen' }
+    transport_type1_price_cents { 400 }
+    transport_details { 'transport_details' }
+    payment_bank_transfer { true }
 
-    payment_details 'payment_details'
+    payment_details { 'payment_details' }
 
     factory :article_template do
-      article_template_name 'book template'
-      state 'template'
+      article_template_name { 'book template' }
+      state { 'template' }
     end
 
     factory :second_hand_article do
-      condition :old
-      condition_extra :as_good_as_new
+      condition { :old }
+      condition_extra { :as_good_as_new }
     end
 
     factory :no_second_hand_article do
-      condition :new
+      condition { :new }
     end
 
     factory :preview_article do
@@ -76,14 +76,14 @@ FactoryGirl.define do
     end
 
     factory :social_production do
-      fair true
-      fair_kind :social_producer
+      fair { true }
+      fair_kind { :social_producer }
       association :social_producer_questionnaire
     end
 
     factory :fair_trust do
-      fair true
-      fair_kind :fair_trust
+      fair { true }
+      fair_kind { :fair_trust }
       association :fair_trust_questionnaire
     end
 
@@ -126,30 +126,30 @@ FactoryGirl.define do
     end
 
     trait :with_all_transports do
-      transport_pickup true
-      transport_bike_courier true
-      transport_type1 true
-      transport_type2 true
-      transport_type1_price 20
-      transport_type2_price 10
-      transport_type1_provider 'DHL'
-      transport_type2_provider 'Hermes'
-      transport_type1_number 3
-      transport_type2_number 4
-      transport_bike_courier_number 5
-      unified_transport true
-      transport_details 'Some transport details'
+      transport_pickup { true }
+      transport_bike_courier { true }
+      transport_type1 { true }
+      transport_type2 { true }
+      transport_type1_price { 20 }
+      transport_type2_price { 10 }
+      transport_type1_provider { 'DHL' }
+      transport_type2_provider { 'Hermes' }
+      transport_type1_number { 3 }
+      transport_type2_number { 4 }
+      transport_bike_courier_number { 5 }
+      unified_transport { true }
+      transport_details { 'Some transport details' }
     end
 
     trait :with_all_payments do
-      payment_bank_transfer true
-      payment_cash true
-      payment_paypal true
-      payment_cash_on_delivery true
-      payment_cash_on_delivery_price 5
-      payment_invoice true
-      payment_voucher true
-      payment_details 'Some payment details'
+      payment_bank_transfer { true }
+      payment_cash { true }
+      payment_paypal { true }
+      payment_cash_on_delivery { true }
+      payment_cash_on_delivery_price { 5 }
+      payment_invoice { true }
+      payment_voucher { true }
+      payment_details { 'Some payment details' }
 
       association :seller, factory: [:user, :paypal_data]
     end
@@ -167,42 +167,44 @@ FactoryGirl.define do
     end
 
     trait :with_friendly_percent do
-      friendly_percent 75
+      friendly_percent { 75 }
       association :friendly_percent_organisation, factory: :legal_entity, ngo: true
     end
 
     trait :with_friendly_percent_and_missing_bank_data do
-      friendly_percent 75
+      friendly_percent { 75 }
       association :friendly_percent_organisation, factory: [:legal_entity, :missing_bank_data],
                                                   ngo: true
     end
 
     trait :simple_fair do
-      fair true
-      fair_kind :fair_seal
-      fair_seal :trans_fair
+      fair { true }
+      fair_kind { :fair_seal }
+      fair_seal { :trans_fair }
     end
 
     trait :simple_ecologic do
-      ecologic true
-      ecologic_kind :ecologic_seal
-      ecologic_seal :bio_siegel
+      ecologic { true }
+      ecologic_kind { :ecologic_seal }
+      ecologic_seal { :bio_siegel }
     end
 
     trait :simple_small_and_precious do
-      small_and_precious true
-      small_and_precious_eu_small_enterprise true
-      small_and_precious_reason 'This is a so-called small and precious article because it was '\
+      small_and_precious { true }
+      small_and_precious_eu_small_enterprise { true }
+      small_and_precious_reason do
+        'This is a so-called small and precious article because it was '\
         'manufactured in small quantities by people who work largely by hand in small factories '\
         'using traditional methods.'
+      end
     end
 
     trait :with_larger_quantity do
-      quantity 100
+      quantity { 100 }
     end
 
     trait :with_custom_seller_identifier do
-      custom_seller_identifier 'CUSTOM-004'
+      custom_seller_identifier { 'CUSTOM-004' }
     end
 
     trait :with_discount do
@@ -210,7 +212,7 @@ FactoryGirl.define do
     end
 
     trait :invalid do
-      title ''
+      title { '' }
     end
   end
 end

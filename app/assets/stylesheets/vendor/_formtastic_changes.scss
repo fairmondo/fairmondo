@@ -14,7 +14,7 @@
 .formtastic .input .label {
    float: none;
    width:auto;
-   margin-bottom: em(3,13);
+   margin-bottom: 0.23077em;
    color: $black;
 }
 
@@ -39,11 +39,8 @@ input[type='password'],
 input[type='tel'],
 input[type='number'],
 textarea {
-  @include box-sizing(border-box);
+  box-sizing: border-box;
   @include bubbleize;
-  @include placeholder {
-    color: black;
-  }
   border: 2px solid $light-gray;
   font-size: inherit;
   font-family: inherit;
@@ -51,7 +48,7 @@ textarea {
   &:focus {
     outline: 0;
   }
-  @include placeholder {
+  &::placeholder {
     color: $gray;
   }
 }
@@ -136,5 +133,3 @@ span.sprite_helper {
 .formtastic .input .inline-hints {
   margin: 0.5em 0 0 0;
 }
-
-

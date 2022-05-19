@@ -2,9 +2,9 @@
 #   licensed under the GNU Affero General Public License version 3 or later.
 #   See the COPYRIGHT file for details.
 
-require_relative '../test_helper'
+require 'test_helper'
 
-describe CategoriesController do
+class CategoriesControllerTest < ActionController::TestCase
   let(:category) { create(:category) }
 
   describe 'GET ::index' do
@@ -25,37 +25,37 @@ describe CategoriesController do
 
   describe 'GET select_category' do
     it 'should allow to select a category' do
-      get :select_category, id: category.id, object_name: 'article'
+      get :select_category, params: { id: category.id, object_name: 'article' }
       assert_response :success
     end
   end
 
   describe "GET 'show'" do
     it 'should show a category when format is html' do
-      get :show, id: category.id
+      get :show, params: { id: category.id }
       assert_response :success
     end
 
     it 'should show a category when format is json' do
-      get :show, id: category.id, format: :json
+      get :show, params: { id: category.id, format: :json }
       assert_response :success
     end
 
     it 'should rescue a StandardError error' do
       Chewy::Query.any_instance.stubs(:to_a).raises(StandardError.new('test'))
-      get :show, id: category.id, article_search_form: { q: 'foobar' }
+      get :show, params: { id: category.id, article_search_form: { q: 'foobar' } }
       assert_response :success
     end
 
     it 'should rescue an Faraday::TimeoutError error' do
       Chewy::Query.any_instance.stubs(:to_a).raises(Faraday::TimeoutError.new('test'))
-      get :show, id: category.id, article_search_form: { q: 'foobar' }
+      get :show, params: { id: category.id, article_search_form: { q: 'foobar' } }
       assert_response :success
     end
 
     it 'should rescue an Faraday::ClientError error' do
       Chewy::Query.any_instance.stubs(:to_a).raises(Faraday::ClientError.new('test'))
-      get :show, id: category.id, article_search_form: { q: 'foobar' }
+      get :show, params: { id: category.id, article_search_form: { q: 'foobar' } }
       assert_response :success
     end
 
@@ -73,29 +73,29 @@ describe CategoriesController do
       end
 
       it "should find the article in category 'Hardware' when filtering for 'Hardware'" do
-        get :show, id: @hardware_category.id
+        get :show, params: { id: @hardware_category.id }
         @controller.instance_variable_get(:@articles).map { |a| a.id.to_i }.sort.must_equal [@no_second_hand_article, @hardware_article].map(&:id).sort
       end
 
       it "should find the article in category 'Hardware' when filtering for the ancestor 'Elektronik'" do
-        get :show, id: @electronic_category.id
+        get :show, params: { id: @electronic_category.id }
         @controller.instance_variable_get(:@articles).map { |a| a.id.to_i }.sort.must_equal [@no_second_hand_article, @hardware_article, @second_hand_article].map(&:id).sort
       end
 
       it 'should ignore the category_id field and always search in the given category' do
-        get :show, id: @hardware_category.id, article_search_form: { category_id: @software_category.id }
+        get :show, params: { id: @hardware_category.id, article_search_form: { category_id: @software_category.id } }
         @controller.instance_variable_get(:@articles).map { |a| a.id.to_i }.sort.must_equal [@no_second_hand_article, @hardware_article].map(&:id).sort
       end
 
       context "and searching for 'muscheln'" do
         it 'should chain both filters' do
-          get :show, id: @hardware_category.id, article_search_form: { q: 'muscheln' }
+          get :show, params: { id: @hardware_category.id, article_search_form: { q: 'muscheln' } }
           @controller.instance_variable_get(:@articles).map { |a| a.id.to_i }.sort.must_equal [@hardware_article, @no_second_hand_article].map(&:id).sort
         end
 
         context 'and filtering for condition' do
           it 'should chain all filters' do
-            get :show, id: @hardware_category.id, article_search_form: { q: 'muscheln', condition: :old }
+            get :show, params: { id: @hardware_category.id, article_search_form: { q: 'muscheln', condition: :old } }
             @controller.instance_variable_get(:@articles).map { |a| a.id.to_i }.must_equal [@hardware_article].map(&:id)
           end
         end

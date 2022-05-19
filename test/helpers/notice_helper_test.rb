@@ -2,9 +2,9 @@
 #   licensed under the GNU Affero General Public License version 3 or later.
 #   See the COPYRIGHT file for details.
 
-require_relative '../test_helper'
+require 'test_helper'
 
-describe NoticeHelper do
+class NoticeHelperTest < ActionView::TestCase
   # describe "#bootstrap_notice_mapper" do
   #   it "returns 'warning' when given :alert" do
   #     helper.bootstrap_notice_mapper(:alert).must_equal 'warning'

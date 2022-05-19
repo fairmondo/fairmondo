@@ -2,11 +2,11 @@
 #   licensed under the GNU Affero General Public License version 3 or later.
 #   See the COPYRIGHT file for details.
 
-require_relative '../test_helper'
+require 'test_helper'
 
-describe CategoryPolicy do
+class CategoryPolicyTest < ActiveSupport::TestCase
   include PunditMatcher
 
-  it { subject.must_permit(:select_category) }
-  it { subject.must_permit(:show) }
+  it { assert_permit(nil, nil, :select_category) }
+  it { assert_permit(nil, nil, :show) }
 end

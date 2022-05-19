@@ -23,31 +23,11 @@ module Fairmondo
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
 
-    # Custom directories with classes and modules you want to be autoloadable.
-    config.autoload_paths += %W(
-      #{config.root}/lib/autoload/
-      #{config.root}/app/models/business_transactions/
-      #{config.root}/app/models/images/
-      #{config.root}/app/models/users/
-      #{config.root}/app/models/payments/
-    )
-    config.autoload_paths += %W(
-      #{config.root}/app/objects/decorator/ #{config.root}/app/objects/form/
-      #{config.root}/app/objects/query/ #{config.root}/app/objects/service/
-      #{config.root}/app/objects/value/ #{config.root}/app/objects/view/
-      #{config.root}/app/objects/coercers/  #{config.root}/app/objects/abaci/
-      #{config.root}/app/observers #{config.root}/app/objects/pdf/
-    )
-
-    config.autoload_paths += %W(
-      #{config.root}/config/initializers/sidekiq_pro.rb
-      #{config.root}/config/initializers/belboon_config.rb
-    )
-
-
     # Only load the plugins named here, in the order given (default is alphabetical).
     # :all can be used as a placeholder for all plugins not explicitly named.
     # config.plugins = [ :exception_notification, :ssl_requirement, :all ]
+
+    config.eager_load_paths << Rails.root.join('lib/autoload')
 
     # Activate observers that should always be running.
 
@@ -114,12 +94,17 @@ module Fairmondo
     config.assets.precompile += Dir["app/assets/stylesheets/controller/*.scss"].map{|file| "controller/#{File.basename file,'.scss'}.css" }
     # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
     config.assets.precompile += %w(
-      session_expire.js unactivated_article_warning.js
+      session_expire.js unactivated_article_warning.js inputs/bank_details.js inputs/newsletter_status.js
+      email/email.css
     )
 
     config.generators.assets :controller_based_assets
     config.generators.test_framework :minitest, spec: true
 
     config.action_view.field_error_proc = Proc.new { |html_tag, instance| "#{html_tag}".html_safe }
+
+    config.active_record.belongs_to_required_by_default = false
+    config.action_controller.per_form_csrf_tokens = true
+    config.action_controller.forgery_protection_origin_check = true
   end
 end

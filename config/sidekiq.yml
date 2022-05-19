@@ -13,7 +13,6 @@ production:
   - [mass_uploads_finish, 1]
   - [paperclip_background, 1]
   - [paperclip_foreground, 4]
-  - [fastbill, 5]
   - [indexing, 4]
   - [statistics, 2]
   - [after_buy, 5]

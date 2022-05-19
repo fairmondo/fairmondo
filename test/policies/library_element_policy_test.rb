@@ -2,29 +2,28 @@
 #   licensed under the GNU Affero General Public License version 3 or later.
 #   See the COPYRIGHT file for details.
 
-require_relative '../test_helper'
+require 'test_helper'
 
-describe LibraryElementPolicy do
+class LibraryElementPolicyTest < ActiveSupport::TestCase
   include PunditMatcher
 
-  subject { LibraryElementPolicy.new(user, library_element)   }
-  let(:library_element) { create :library_element }
+  let(:library_element) { build :library_element }
   let(:user) { nil }
 
   describe 'for a visitor' do
-    it { subject.must_deny(:create)  }
-    it { subject.must_deny(:destroy) }
+    it { refute_permit(user, library_element, :create)  }
+    it { refute_permit(user, library_element, :destroy) }
   end
 
   describe 'for a random logged-in user' do
     let(:user) { create :user }
-    it { subject.must_deny(:create)             }
-    it { subject.must_deny(:destroy)            }
+    it { refute_permit(user, library_element, :create)             }
+    it { refute_permit(user, library_element, :destroy)            }
   end
 
   describe 'for the template owning user' do
     let(:user) { library_element.library.user }
-    it { subject.must_permit(:create)               }
-    it { subject.must_permit(:destroy)              }
+    it { assert_permit(user, library_element, :create)               }
+    it { assert_permit(user, library_element, :destroy)              }
   end
 end

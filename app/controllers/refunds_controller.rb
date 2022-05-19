@@ -3,7 +3,8 @@
 #   See the COPYRIGHT file for details.
 
 class RefundsController < ApplicationController
-  responders :location, :flash
+  PERMITTED_PARAMS = %i(reason description).freeze
+  responders :flash
   respond_to :html
 
   def new
@@ -13,7 +14,7 @@ class RefundsController < ApplicationController
   end
 
   def create
-    @refund = Refund.new(params.for(Refund).refine)
+    @refund = Refund.new(params.require(:refund).permit(*PERMITTED_PARAMS))
     @refund.business_transaction = BusinessTransaction.find(params[:business_transaction_id])
     authorize @refund
     @refund.save

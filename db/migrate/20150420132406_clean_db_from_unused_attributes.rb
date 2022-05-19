@@ -1,4 +1,4 @@
-class CleanDbFromUnusedAttributes < ActiveRecord::Migration
+class CleanDbFromUnusedAttributes < ActiveRecord::Migration[4.2]
   def change
     remove_column :users, :forename
     remove_column :users, :surname

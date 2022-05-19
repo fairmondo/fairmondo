@@ -2,31 +2,31 @@
 #   licensed under the GNU Affero General Public License version 3 or later.
 #   See the COPYRIGHT file for details.
 
-require_relative '../test_helper'
+require 'test_helper'
 
-describe DirectDebitMandate do
+class DirectDebitMandateTest < ActiveSupport::TestCase
   subject { DirectDebitMandate.new }
   let(:user) { build_stubbed :user }
   let(:mandate) { DirectDebitMandate.new(user: user) }
 
   describe 'attributes' do
-    it { subject.must_respond_to :id }
-    it { subject.must_respond_to :user_id }
-    it { subject.must_respond_to :reference }
-    it { subject.must_respond_to :state }
-    it { subject.must_respond_to :activated_at }
-    it { subject.must_respond_to :last_used_at }
-    it { subject.must_respond_to :revoked_at }
+    it { _(subject).must_respond_to :id }
+    it { _(subject).must_respond_to :user_id }
+    it { _(subject).must_respond_to :reference }
+    it { _(subject).must_respond_to :state }
+    it { _(subject).must_respond_to :activated_at }
+    it { _(subject).must_respond_to :last_used_at }
+    it { _(subject).must_respond_to :revoked_at }
   end
 
   describe 'associations' do
-    it { subject.must belong_to(:user) }
+    should belong_to(:user)
   end
 
   describe 'validations' do
-    it { subject.must validate_presence_of :user_id }
-    it { subject.must validate_presence_of :reference }
-    it { subject.must validate_uniqueness_of :reference }
+    should validate_presence_of :user_id
+    should validate_presence_of :reference
+    should validate_uniqueness_of :reference
   end
 
   describe 'class methods' do

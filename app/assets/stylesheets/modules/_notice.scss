@@ -44,5 +44,5 @@ Styleguide Notice
   right: 0;
   padding: 1em;
   @include clear-links;
-  @include user-select(none);
+  user-select: none;
 }

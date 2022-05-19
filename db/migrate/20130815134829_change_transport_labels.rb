@@ -1,4 +1,4 @@
-class ChangeTransportLabels < ActiveRecord::Migration
+class ChangeTransportLabels < ActiveRecord::Migration[4.2]
   def change
     rename_column(:articles,:transport_insured,:transport_type1)
     rename_column(:articles,:transport_uninsured,:transport_type2)

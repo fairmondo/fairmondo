@@ -2,9 +2,9 @@
 #   licensed under the GNU Affero General Public License version 3 or later.
 #   See the COPYRIGHT file for details.
 
-require_relative '../test_helper'
+require 'test_helper'
 
-describe User do
+class UserTest < ActiveSupport::TestCase
   let(:user) { create(:user) }
   let(:private_stubbed) { build_stubbed(:private_user) }
   let(:le_stubbed) { build_stubbed(:legal_entity) }
@@ -15,96 +15,103 @@ describe User do
   end
 
   describe 'attributes' do
-    it { subject.must_respond_to :id }
-    it { subject.must_respond_to :slug }
-    it { subject.must_respond_to :email }
-    it { subject.must_respond_to :encrypted_password }
-    it { subject.must_respond_to :reset_password_token }
-    it { subject.must_respond_to :sign_in_count }
-    it { subject.must_respond_to :reset_password_sent_at }
-    it { subject.must_respond_to :current_sign_in_at }
-    it { subject.must_respond_to :last_sign_in_ip }
-    it { subject.must_respond_to :created_at }
-    it { subject.must_respond_to :updated_at }
-    it { subject.must_respond_to :nickname }
-    it { subject.must_respond_to :confirmation_token }
-    it { subject.must_respond_to :confirmed_at }
-    it { subject.must_respond_to :confirmation_sent_at }
-    it { subject.must_respond_to :unconfirmed_email }
-    it { subject.must_respond_to :banned }
-    it { subject.must_respond_to :about_me }
-    it { subject.must_respond_to :terms }
-    it { subject.must_respond_to :cancellation }
-    it { subject.must_respond_to :about }
-    it { subject.must_respond_to :phone }
-    it { subject.must_respond_to :mobile }
-    it { subject.must_respond_to :fax }
-    it { subject.must_respond_to :type }
-    it { subject.must_respond_to :ngo }
-    it { subject.must_respond_to :bank_account_owner }
-    it { subject.must_respond_to :bank_account_number }
-    it { subject.must_respond_to :bank_code }
-    it { subject.must_respond_to :bank_name }
-    it { subject.must_respond_to :iban }
-    it { subject.must_respond_to :bic }
-    it { subject.must_respond_to :paypal_account }
-    it { subject.must_respond_to :seller_state }
-    it { subject.must_respond_to :buyer_state }
-    it { subject.must_respond_to :verified }
-    it { subject.must_respond_to :bankaccount_warning }
-    it { subject.must_respond_to :percentage_of_positive_ratings }
-    it { subject.must_respond_to :percentage_of_negative_ratings }
-    it { subject.must_respond_to :percentage_of_neutral_ratings }
-    it { subject.must_respond_to :direct_debit_exemption }
-    it { subject.must_respond_to :next_direct_debit_mandate_number }
-    it { subject.must_respond_to :value_of_goods_cents }
-    it {    user.must_respond_to :max_value_of_goods_cents } # implemented on all subclasses
-    it { subject.must_respond_to :max_value_of_goods_cents_bonus }
-    it { subject.must_respond_to :fastbill_subscription_id }
-    it { subject.must_respond_to :fastbill_id }
-    it { subject.must_respond_to :vacationing }
-    it { subject.must_respond_to :standard_address_id }
-    it { subject.must_respond_to :receive_comments_notification }
-    it { subject.must_respond_to :admin }
-    it { subject.must_respond_to :heavy_uploader }
-    it { subject.must_respond_to :belboon_tracking_token }
-    it { subject.must_respond_to :voluntary_contribution }
-    it { subject.must_respond_to :invoicing_email }
-    it { subject.must_respond_to :order_notifications_email }
-    it { subject.must_respond_to :marketplace_owner_account }
+    it { _(subject).must_respond_to :id }
+    it { _(subject).must_respond_to :slug }
+    it { _(subject).must_respond_to :email }
+    it { _(subject).must_respond_to :encrypted_password }
+    it { _(subject).must_respond_to :reset_password_token }
+    it { _(subject).must_respond_to :sign_in_count }
+    it { _(subject).must_respond_to :reset_password_sent_at }
+    it { _(subject).must_respond_to :current_sign_in_at }
+    it { _(subject).must_respond_to :last_sign_in_ip }
+    it { _(subject).must_respond_to :created_at }
+    it { _(subject).must_respond_to :updated_at }
+    it { _(subject).must_respond_to :nickname }
+    it { _(subject).must_respond_to :confirmation_token }
+    it { _(subject).must_respond_to :confirmed_at }
+    it { _(subject).must_respond_to :confirmation_sent_at }
+    it { _(subject).must_respond_to :unconfirmed_email }
+    it { _(subject).must_respond_to :banned }
+    it { _(subject).must_respond_to :about_me }
+    it { _(subject).must_respond_to :terms }
+    it { _(subject).must_respond_to :cancellation }
+    it { _(subject).must_respond_to :about }
+    it { _(subject).must_respond_to :phone }
+    it { _(subject).must_respond_to :mobile }
+    it { _(subject).must_respond_to :fax }
+    it { _(subject).must_respond_to :type }
+    it { _(subject).must_respond_to :ngo }
+    it { _(subject).must_respond_to :bank_account_owner }
+    it { _(subject).must_respond_to :bank_account_number }
+    it { _(subject).must_respond_to :bank_code }
+    it { _(subject).must_respond_to :bank_name }
+    it { _(subject).must_respond_to :iban }
+    it { _(subject).must_respond_to :bic }
+    it { _(subject).must_respond_to :paypal_account }
+    it { _(subject).must_respond_to :seller_state }
+    it { _(subject).must_respond_to :buyer_state }
+    it { _(subject).must_respond_to :verified }
+    it { _(subject).must_respond_to :bankaccount_warning }
+    it { _(subject).must_respond_to :percentage_of_positive_ratings }
+    it { _(subject).must_respond_to :percentage_of_negative_ratings }
+    it { _(subject).must_respond_to :percentage_of_neutral_ratings }
+    it { _(subject).must_respond_to :direct_debit_exemption }
+    it { _(subject).must_respond_to :next_direct_debit_mandate_number }
+    it { _(subject).must_respond_to :value_of_goods_cents }
+    it { _(subject).must_respond_to :max_value_of_goods_cents_bonus }
+    it { _(subject).must_respond_to :fastbill_subscription_id }
+    it { _(subject).must_respond_to :fastbill_id }
+    it { _(subject).must_respond_to :vacationing }
+    it { _(subject).must_respond_to :standard_address_id }
+    it { _(subject).must_respond_to :receive_comments_notification }
+    it { _(subject).must_respond_to :admin }
+    it { _(subject).must_respond_to :heavy_uploader }
+    it { _(subject).must_respond_to :belboon_tracking_token }
+    it { _(subject).must_respond_to :voluntary_contribution }
+    it { _(subject).must_respond_to :invoicing_email }
+    it { _(subject).must_respond_to :order_notifications_email }
+    it { _(subject).must_respond_to :marketplace_owner_account }
+
+    User.subclasses.each do |subclass|
+      subject { subclass.new }
+
+      it { _(subject).must_respond_to :max_value_of_goods_cents } # implemented on all subclasses
+    end
   end
 
   describe 'associations' do
-    it { subject.must have_many(:addresses).dependent(:destroy) }
-    it { subject.must belong_to(:standard_address) }
-    it { subject.must have_many(:articles).dependent(:destroy) }
-    it { subject.must have_many(:libraries).dependent(:destroy) }
-    it { subject.must have_many(:comments).dependent(:destroy) }
-    it { subject.must have_many(:hearts) }
-    it { subject.must have_one(:image) }
-    it { subject.must have_many(:seller_line_item_groups) }
-    it { subject.must have_many(:buyer_line_item_groups) }
-    it { subject.must have_many(:direct_debit_mandates) }
+    should have_many(:addresses).dependent(:destroy)
+    should belong_to(:standard_address)
+    should have_many(:articles).dependent(:destroy)
+    should have_many(:libraries).dependent(:destroy)
+    should have_many(:comments).dependent(:destroy)
+    should have_many(:hearts)
+    should have_one(:image)
+    should have_many(:seller_line_item_groups)
+    should have_many(:buyer_line_item_groups)
+    should have_many(:direct_debit_mandates)
   end
 
   describe 'validations' do
+    subject { user }
     describe 'always' do
-      it { user.must validate_presence_of :email }
-      it { user.must validate_presence_of :nickname }
-      it { user.must validate_uniqueness_of :nickname }
+      should validate_presence_of :email
+      should validate_presence_of :nickname
+      should validate_uniqueness_of :nickname
     end
 
     describe 'on create' do
-      it { subject.must validate_acceptance_of :legal }
+      should (validate_acceptance_of :legal).on(:create)
     end
 
     describe 'voluntary_contribution' do
-      it { user.must allow_value(nil).for :voluntary_contribution }
-      it { user.must allow_value(3).for :voluntary_contribution }
-      it { user.must allow_value(5).for :voluntary_contribution }
-      it { user.must allow_value(10).for :voluntary_contribution }
-      it { user.wont allow_value(6).for :voluntary_contribution }
-      it { user.wont allow_value(-1).for :voluntary_contribution }
+      subject { user }
+      should allow_value(nil).for :voluntary_contribution
+      should allow_value(3).for :voluntary_contribution
+      should allow_value(5).for :voluntary_contribution
+      should allow_value(10).for :voluntary_contribution
+      should_not allow_value(6).for :voluntary_contribution
+      should_not allow_value(-1).for :voluntary_contribution
     end
 
     describe 'on update' do
@@ -113,40 +120,46 @@ describe User do
           user.standard_address.country = 'Deutschland'
         end
 
-        it { user.standard_address.must allow_value('12345').for :zip }
-        it { user.standard_address.wont allow_value('a1b2c').for :zip }
-        it { user.standard_address.wont allow_value('123456').for :zip }
-        it { user.standard_address.wont allow_value('1234').for :zip }
+        subject { user.standard_address }
+
+        should allow_value('12345').for :zip
+        should_not allow_value('a1b2c').for :zip
+        should_not allow_value('123456').for :zip
+        should_not allow_value('1234').for :zip
       end
 
       describe 'address validation' do
-        it { user.standard_address.must allow_value('Test Str. 1a').for :address_line_1 }
-        it { user.standard_address.wont allow_value('Test Str.').for :address_line_1 }
+        subject { user.standard_address }
+        should allow_value('Test Str. 1a').for :address_line_1
+        should_not allow_value('Test Str.').for :address_line_1
       end
     end
 
     describe 'if user wants to sell' do
+      subject { user.standard_address }
       before :each do
         user.wants_to_sell = true
       end
-      it { user.standard_address.must validate_presence_of :first_name }
-      it { user.standard_address.must validate_presence_of :last_name }
-      it { user.standard_address.must validate_presence_of :address_line_1 }
-      it { user.standard_address.must validate_presence_of :zip }
-      it { user.standard_address.must validate_presence_of :city }
-      it { user.standard_address.must validate_presence_of :country }
+      should validate_presence_of :first_name
+      should validate_presence_of :last_name
+      should validate_presence_of :address_line_1
+      should validate_presence_of :zip
+      should validate_presence_of :city
+      should validate_presence_of :country
     end
 
     describe 'if legal entity wants to sell' do
+      subject { le_stubbed }
+
       before :each do
         le_stubbed.wants_to_sell = true
         le_stubbed.direct_debit_exemption = false
         le_stubbed.standard_address = build_stubbed(:address_for_alice)
       end
 
-      it { le_stubbed.must validate_presence_of :iban }
-      it { le_stubbed.must validate_presence_of :bic }
-      it { le_stubbed.must validate_presence_of :bank_account_owner }
+      should validate_presence_of :iban
+      should validate_presence_of :bic
+      should validate_presence_of :bank_account_owner
 
       it 'should validate presence of active direct debit mandate' do
         le_stubbed.stubs(:has_active_direct_debit_mandate?).returns(true)
@@ -161,9 +174,9 @@ describe User do
         le_stubbed.standard_address = build_stubbed(:address_for_alice)
       end
 
-      it { le_stubbed.wont validate_presence_of :iban }
-      it { le_stubbed.wont validate_presence_of :bic }
-      it { le_stubbed.wont validate_presence_of :bank_account_owner }
+      should_not validate_presence_of :iban
+      should_not validate_presence_of :bic
+      should_not validate_presence_of :bank_account_owner
 
       it 'must not validate presence of active direct debit mandate' do
         le_stubbed.stubs(:has_active_direct_debit_mandate?).returns(false)
@@ -267,12 +280,14 @@ describe User do
     end
 
     describe '#customer_nr' do
+      let(:user) { build(:user, id: 1) }
+
       it 'should have 8 digits' do
         user.customer_nr.length.must_equal 8
       end
 
       it 'should use the user_id' do
-        user.customer_nr.must_equal "0000000#{user.id}"
+        user.customer_nr.must_equal "00000001"
       end
     end
 
@@ -460,7 +475,11 @@ describe User do
         1.times { last_ratings << Rating.new(rating: 'negative') }
         2.times { last_ratings << Rating.new(rating: 'neutral') }
 
-        user.stub_chain(:ratings, :select, :limit).returns last_ratings
+        limit_mock = mock
+        limit_mock.stubs(:limit).returns(last_ratings)
+        select_mock = mock
+        select_mock.stubs(:select).returns(limit_mock)
+        user.stubs(:ratings).returns(select_mock)
       end
 
       it 'should be calculated correctly for positive ratings' do
@@ -538,13 +557,15 @@ describe User do
 
       describe 'validations' do
         describe 'if LegalEntity wants to sell' do
+          subject { db_user }
+
           before :each do
             db_user.wants_to_sell = true
           end
 
-          it { db_user.must validate_presence_of :terms }
-          it { db_user.must validate_presence_of :cancellation }
-          it { db_user.must validate_presence_of :about }
+          should validate_presence_of :terms
+          should validate_presence_of :cancellation
+          should validate_presence_of :about
         end
       end
     end

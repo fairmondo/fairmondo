@@ -4,36 +4,36 @@
 
 require 'test_helper'
 
-describe Cart do
+class CartTest < ActiveSupport::TestCase
   subject { Cart.new }
 
   describe 'attributes' do
-    it { subject.must_respond_to :sold }
-    it { subject.must_respond_to :line_item_count }
-    it { subject.must_respond_to :purchase_emails_sent }
-    it { subject.must_respond_to :purchase_emails_sent_at }
-    it { subject.must_respond_to :created_at }
-    it { subject.must_respond_to :updated_at }
-    it { subject.must_respond_to :user_id }
-    it { subject.must_respond_to :id }
+    it { _(subject).must_respond_to :sold }
+    it { _(subject).must_respond_to :line_item_count }
+    it { _(subject).must_respond_to :purchase_emails_sent }
+    it { _(subject).must_respond_to :purchase_emails_sent_at }
+    it { _(subject).must_respond_to :created_at }
+    it { _(subject).must_respond_to :updated_at }
+    it { _(subject).must_respond_to :user_id }
+    it { _(subject).must_respond_to :id }
   end
 
   it 'must be valid' do
-    subject.must_be :valid?
+    _(subject).must_be :valid?
   end
 
   describe 'associations' do
-    it { subject.must belong_to :user }
-    it { subject.must have_many :line_item_groups }
-    it { subject.must have_many :line_items }
-    it { subject.must have_many :articles }
+    should belong_to :user
+    should have_many :line_item_groups
+    should have_many :line_items
+    should have_many :articles
   end
 
   describe 'methods' do
     describe '#empty?' do
       it 'should not be empty' do
         @cart = create :cart, :with_line_item_groups
-        @cart.empty?.must_equal false
+        _(@cart.empty?).must_equal false
       end
     end
   end

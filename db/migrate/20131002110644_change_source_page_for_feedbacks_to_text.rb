@@ -1,4 +1,4 @@
-class ChangeSourcePageForFeedbacksToText < ActiveRecord::Migration
+class ChangeSourcePageForFeedbacksToText < ActiveRecord::Migration[4.2]
   def up
     change_column :feedbacks, :source_page, :text
   end

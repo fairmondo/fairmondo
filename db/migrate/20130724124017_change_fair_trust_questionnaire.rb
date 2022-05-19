@@ -1,4 +1,4 @@
-class ChangeFairTrustQuestionnaire < ActiveRecord::Migration
+class ChangeFairTrustQuestionnaire < ActiveRecord::Migration[4.2]
   def up
     # old fields
     remove_column :fair_trust_questionnaires, :transparency

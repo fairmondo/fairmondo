@@ -2,9 +2,9 @@
 #   licensed under the GNU Affero General Public License version 3 or later.
 #   See the COPYRIGHT file for details.
 
-require_relative '../test_helper'
+require 'test_helper'
 
-describe LibraryElementsController do
+class LibraryElementsControllerTest < ActionController::TestCase
   describe 'Library Elements' do
     describe 'for non-signed-in users' do
       before :each do
@@ -13,12 +13,12 @@ describe LibraryElementsController do
       end
 
       it 'should deny access to create' do
-        put :create, user_id: @user
+        put :create, params: { user_id: @user }
         assert_redirected_to(new_user_session_path)
       end
 
       it 'should deny access to destroy' do
-        put :destroy, user_id: @user, id: @library_element
+        put :destroy, params: { user_id: @user, id: @library_element }
         assert_redirected_to(new_user_session_path)
       end
     end
@@ -35,20 +35,23 @@ describe LibraryElementsController do
 
       it 'destroy a library element' do
         assert_difference 'LibraryElement.count', -1 do
-          delete :destroy, user_id: @user, id: @library_element
+          delete :destroy, params: { user_id: @user, id: @library_element }
         end
       end
 
       it 'shouldnt be possible to delete another users elements' do
-        @user.id.wont_be_same_as @different_user.id # by design
-        -> { delete :destroy, user_id: @different_user, id: @different_library_element }.must_raise(Pundit::NotAuthorizedError)
+        assert @user.id != @different_user.id # by design
+        assert_raises(Pundit::NotAuthorizedError) {
+          delete :destroy, params: { user_id: @different_user, id: @different_library_element }
+        }
       end
 
       it 'shouldnt be possible to add elements to another users libraries' do
-        @user.id.wont_be_same_as @different_user.id # by design
-        -> do
-          post :create, user_id: @different_user, library_element: { library_id: @different_library_element.library }
-        end.must_raise(Pundit::NotAuthorizedError)
+        assert @user.id != @different_user.id # by design
+
+        assert_raises(Pundit::NotAuthorizedError) {
+          post :create, params: { user_id: @different_user, library_element: { library_id: @different_library_element.library } }
+        }
       end
     end
   end

@@ -1,4 +1,4 @@
-class FiendlyPercentOrganisationTypeChange < ActiveRecord::Migration
+class FiendlyPercentOrganisationTypeChange < ActiveRecord::Migration[4.2]
   def up
     add_column :articles, :friendly_percent_organisation_id, :integer, :limit => 8
     Article.unscoped.where("friendly_percent_organisation IS NOT NULL").each do |article|

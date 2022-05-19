@@ -11,10 +11,9 @@ head
 
   meta name="viewport" content="width=device-width"
   = csrf_meta_tags
-  = wiselinks_meta_tag
   = favicon_link_tag "favicon.ico" , rel: "shortcut icon", type: "image/x-icon"
   = stylesheet_link_tag 'application'
-  = stylesheet_link_tag asset_path(controller_specific_css_path), id: 'controller_css'
+  = stylesheet_link_tag asset_path(controller_specific_css_path), id: 'controller_css' if controller_specific_css_path.present?
   /= javascript_include_tag 'https://widget.wegreen.de/js/easyXDM.min.js' # uncomment when wegreen allows https again
 
   = javascript_include_tag :application

@@ -1,9 +1,9 @@
-class MegaMigration < ActiveRecord::Migration
+class MegaMigration < ActiveRecord::Migration[4.2]
   def change
   end
 end
 
-class CreateAddresses < ActiveRecord::Migration
+class CreateAddresses < ActiveRecord::Migration[4.2]
   def change
     create_table :addresses do |t|
       t.string :first_name
@@ -16,32 +16,32 @@ class CreateAddresses < ActiveRecord::Migration
     end
   end
 end
-class AddUserIdToAddress < ActiveRecord::Migration
+class AddUserIdToAddress < ActiveRecord::Migration[4.2]
   change_table :addresses do |t|
     t.integer :user_id
   end
 end
-class AddTitleToAddresses < ActiveRecord::Migration
+class AddTitleToAddresses < ActiveRecord::Migration[4.2]
   def change
     add_column :addresses, :title, :string
   end
 end
-class AddUserIdIndexToAddresses < ActiveRecord::Migration
+class AddUserIdIndexToAddresses < ActiveRecord::Migration[4.2]
   def change
     add_index :addresses, :user_id, name: :addresses_user_id_index
   end
 end
-class AddBillingAddressIdToUsers < ActiveRecord::Migration
+class AddBillingAddressIdToUsers < ActiveRecord::Migration[4.2]
   def change
     add_column :users, :billing_address_id, :bigint
   end
 end
-class AddShippingAddressIdToUsers < ActiveRecord::Migration
+class AddShippingAddressIdToUsers < ActiveRecord::Migration[4.2]
   def change
     add_column :users, :shipping_address_id, :bigint
   end
 end
-class CreateCarts < ActiveRecord::Migration
+class CreateCarts < ActiveRecord::Migration[4.2]
   def change
     create_table :carts do |t|
 
@@ -49,7 +49,7 @@ class CreateCarts < ActiveRecord::Migration
     end
   end
 end
-class CreateLineItems < ActiveRecord::Migration
+class CreateLineItems < ActiveRecord::Migration[4.2]
   def change
     create_table :line_items do |t|
       t.integer  "cart_id",                                limit: 8
@@ -59,33 +59,33 @@ class CreateLineItems < ActiveRecord::Migration
     end
   end
 end
-class AddStandardAddressIdToUsers < ActiveRecord::Migration
+class AddStandardAddressIdToUsers < ActiveRecord::Migration[4.2]
   def change
     remove_column :users, :billing_address_id
     remove_column :users, :shipping_address_id
     add_column :users, :standard_address_id, :bigint
   end
 end
-class AddShippingAndBillingAddressToBusinessTransactions < ActiveRecord::Migration
+class AddShippingAndBillingAddressToBusinessTransactions < ActiveRecord::Migration[4.2]
   def change
     add_column :business_transactions, :shipping_address_id, :bigint
     add_column :business_transactions, :billing_address_id, :bigint
   end
 end
-class AddIndiceToUsersAndBusinessTransactions < ActiveRecord::Migration
+class AddIndiceToUsersAndBusinessTransactions < ActiveRecord::Migration[4.2]
   def change
     add_index :users, :standard_address_id, name: 'standard_user_address'
     add_index :business_transactions, :shipping_address_id, name: 'bt_shipping_addresses'
     add_index :business_transactions, :billing_address_id, name: 'bt_billing_addresses'
   end
 end
-class AddStateAndUserIdToCart < ActiveRecord::Migration
+class AddStateAndUserIdToCart < ActiveRecord::Migration[4.2]
   def change
     add_column :carts, :user_id, :integer,  limit: 8
     add_column :carts, :sold, :boolean
   end
 end
-class CreateLineItemGroups < ActiveRecord::Migration
+class CreateLineItemGroups < ActiveRecord::Migration[4.2]
   def change
     create_table :line_item_groups do |t|
       t.text :message
@@ -100,19 +100,19 @@ class CreateLineItemGroups < ActiveRecord::Migration
     end
   end
 end
-class ChangeCartIdToLineItemGroupId < ActiveRecord::Migration
+class ChangeCartIdToLineItemGroupId < ActiveRecord::Migration[4.2]
   def change
     rename_column :line_items, :cart_id, :line_item_group_id
   end
 end
 
-class AddCompanyNameToAddress < ActiveRecord::Migration
+class AddCompanyNameToAddress < ActiveRecord::Migration[4.2]
   def change
     add_column :addresses, :company_name, :string
   end
 end
 
-class AddIndicesToCartsAndLineItems < ActiveRecord::Migration
+class AddIndicesToCartsAndLineItems < ActiveRecord::Migration[4.2]
   def change
     add_index :carts, ["user_id"], :name => "index_carts_on_user_id"
     add_index :line_item_groups, ["cart_id"], :name => "index_line_item_groups_on_cart_id"
@@ -121,20 +121,20 @@ class AddIndicesToCartsAndLineItems < ActiveRecord::Migration
     add_index :line_items, ["business_transaction_id"], :name => "index_line_items_on_business_transaction_id"
   end
 end
-class AddUniqueHashToCart < ActiveRecord::Migration
+class AddUniqueHashToCart < ActiveRecord::Migration[4.2]
   def change
     add_column :carts, :unique_hash, :string, limit: 40
   end
 end
-class MakeTransactionModelReadyForBattle < ActiveRecord::Migration
+class MakeTransactionModelReadyForBattle < ActiveRecord::Migration[4.2]
 
-  class BusinessTransaction < ActiveRecord::Base
+  class BusinessTransaction < ApplicationRecord
     belongs_to :line_item_group
     belongs_to :article
     belongs_to :seller, class_name: 'User', foreign_key: 'seller_id'
   end
 
-  class LineItemGroup < ActiveRecord::Base
+  class LineItemGroup < ApplicationRecord
     has_many :business_transactions
   end
 
@@ -173,23 +173,23 @@ class MakeTransactionModelReadyForBattle < ActiveRecord::Migration
     raise ActiveRecord::IrreversibleMigration
   end
 end
-class ChangeLineItemId < ActiveRecord::Migration
+class ChangeLineItemId < ActiveRecord::Migration[4.2]
   def change
     rename_column :line_items, :business_transaction_id, :article_id
   end
 end
 
-class MoveAddressesFromUserModelToAddressModel < ActiveRecord::Migration
-  class User < ActiveRecord::Base
+class MoveAddressesFromUserModelToAddressModel < ActiveRecord::Migration[4.2]
+  class User < ApplicationRecord
     has_many :addresses
     has_many :bought_business_transactions, class_name: 'BusinessTransaction', foreign_key: 'buyer_id' # As buyer
   end
 
-  class BusinessTransaction < ActiveRecord::Base
+  class BusinessTransaction < ApplicationRecord
     belongs_to :buyer, class_name: 'User', foreign_key: 'buyer_id'
   end
 
-  class Address < ActiveRecord::Base
+  class Address < ApplicationRecord
     belongs_to :user
   end
 
@@ -274,7 +274,7 @@ class MoveAddressesFromUserModelToAddressModel < ActiveRecord::Migration
     remove_column :business_transactions, :country
   end
 end
-class UnifiedTransportMethod < ActiveRecord::Migration
+class UnifiedTransportMethod < ActiveRecord::Migration[4.2]
   def change
     add_column :users, :unified_transport_maximum_articles, :integer, default: 1
     add_column :users, :unified_transport_provider, :string
@@ -290,32 +290,32 @@ class UnifiedTransportMethod < ActiveRecord::Migration
     add_column :articles, :unified_transport, :boolean
   end
 end
-class ChangeRequestedQuantityDefaultInLineItems < ActiveRecord::Migration
+class ChangeRequestedQuantityDefaultInLineItems < ActiveRecord::Migration[4.2]
   def change
     change_column :line_items, :requested_quantity, :integer, default: 1
   end
 end
-class AddUnifiedPaymentMethodToLineItemGroups < ActiveRecord::Migration
+class AddUnifiedPaymentMethodToLineItemGroups < ActiveRecord::Migration[4.2]
   def change
     add_column :line_item_groups, :unified_payment_method, :string
   end
 end
-class RemoveUniqueHashFromCart < ActiveRecord::Migration
+class RemoveUniqueHashFromCart < ActiveRecord::Migration[4.2]
   def change
     remove_column :carts, :unique_hash, :string # I found out we can just use cookies.signed
   end
 end
-class ChangeDefaultSoldOfCarts < ActiveRecord::Migration
+class ChangeDefaultSoldOfCarts < ActiveRecord::Migration[4.2]
   def change
     change_column :carts, :sold, :boolean, default: false
   end
 end
-class MoveBillingAndShippingAddressToLineItemGroup < ActiveRecord::Migration
-  class BusinessTransaction < ActiveRecord::Base
+class MoveBillingAndShippingAddressToLineItemGroup < ActiveRecord::Migration[4.2]
+  class BusinessTransaction < ApplicationRecord
     belongs_to :line_item_group
   end
 
-  class LineItemGroup < ActiveRecord::Base
+  class LineItemGroup < ApplicationRecord
     has_many :business_transactions
   end
 
@@ -330,13 +330,13 @@ class MoveBillingAndShippingAddressToLineItemGroup < ActiveRecord::Migration
     remove_column :business_transactions,  :billing_address_id
   end
 end
-class RenameShippingAndBillingAddresses < ActiveRecord::Migration
+class RenameShippingAndBillingAddresses < ActiveRecord::Migration[4.2]
   def change
     rename_column :line_item_groups, :shipping_address_id, :transport_address_id
     rename_column :line_item_groups, :billing_address_id, :payment_address_id
   end
 end
-class AddStashedToAddress < ActiveRecord::Migration
+class AddStashedToAddress < ActiveRecord::Migration[4.2]
   def change
     add_column :addresses, :stashed, :boolean, default: false
   end

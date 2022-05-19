@@ -3,8 +3,10 @@
 #   See the COPYRIGHT file for details.
 
 class ArticleTemplatesController < ApplicationController
+  include ArticleParams
+
   respond_to :html
-  responders :location, :flash
+  responders :flash
 
   before_action -> { render_css_from_controller('articles') }, except: [:destroy]
   before_action :set_article_template, only: [:edit, :update, :destroy]
@@ -21,12 +23,12 @@ class ArticleTemplatesController < ApplicationController
   def update
     authorize @article_template
 
-    save_images unless @article_template.update(params.for(@article_template).refine)
+    save_images unless @article_template.update(params.require(:article).permit(*ARTICLE_UPDATE_PARAMS))
     respond_with(@article_template, location: -> { collection_url })
   end
 
   def create
-    @article_template = current_user.articles.build(params.for(Article).refine)
+    @article_template = current_user.articles.build(params.require(:article).permit(*ARTICLE_CREATE_PARAMS))
     authorize @article_template
     @article_template.state = :template
 

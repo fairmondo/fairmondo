@@ -2,22 +2,22 @@
 #   licensed under the GNU Affero General Public License version 3 or later.
 #   See the COPYRIGHT file for details.
 
-require_relative '../test_helper'
+require 'test_helper'
 
-describe MassUploadArticle do
+class MassUploadArticleTest < ActiveSupport::TestCase
   subject { MassUploadArticle.new }
 
   describe 'attributes' do
-    it { subject.must_respond_to :id }
-    it { subject.must_respond_to :mass_upload_id }
-    it { subject.must_respond_to :article_id }
-    it { subject.must_respond_to :action }
-    it { subject.must_respond_to :created_at }
-    it { subject.must_respond_to :updated_at }
-    it { subject.must_respond_to :row_index }
-    it { subject.must_respond_to :validation_errors }
-    it { subject.must_respond_to :article_csv }
-    it { subject.must_respond_to :process_identifier }
+    it { _(subject).must_respond_to :id }
+    it { _(subject).must_respond_to :mass_upload_id }
+    it { _(subject).must_respond_to :article_id }
+    it { _(subject).must_respond_to :action }
+    it { _(subject).must_respond_to :created_at }
+    it { _(subject).must_respond_to :updated_at }
+    it { _(subject).must_respond_to :row_index }
+    it { _(subject).must_respond_to :validation_errors }
+    it { _(subject).must_respond_to :article_csv }
+    it { _(subject).must_respond_to :process_identifier }
   end
   describe 'methods' do
     describe '#done?' do

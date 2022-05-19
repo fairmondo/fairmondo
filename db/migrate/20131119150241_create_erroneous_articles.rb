@@ -1,4 +1,4 @@
-class CreateErroneousArticles < ActiveRecord::Migration
+class CreateErroneousArticles < ActiveRecord::Migration[4.2]
   def change
     create_table :erroneous_articles do |t|
       t.integer :mass_upload_id

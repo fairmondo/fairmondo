@@ -19,11 +19,8 @@ Fairmondo::Application.configure do
   # Compress JavaScripts and CSS
   config.assets.js_compressor = :uglifier
 
-  # Compile assets that are not required in the application.js
-  config.assets.precompile += %w(ajax_history.js)
-
   # Don't fallback to assets pipeline if a precompiled asset is missed
-  config.assets.compile = true
+  config.assets.compile = false
 
   # Generate digests for assets URLs
   config.assets.digest = true
@@ -39,7 +36,7 @@ Fairmondo::Application.configure do
   config.action_dispatch.default_headers = { 'X-Frame-Options' => '' }
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
-  # config.force_ssl = true
+  config.force_ssl = true # Vermeidung von Session Hijacking bzw Cookies stehlen
 
   # See everything in the log (default is :info)
   # config.log_level = :debug
@@ -65,7 +62,7 @@ Fairmondo::Application.configure do
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation can not be found)
-  config.i18n.fallbacks = true
+  config.i18n.fallbacks = [I18n.default_locale]
 
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify

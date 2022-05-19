@@ -1,4 +1,4 @@
-class AddImageProcessingToImage < ActiveRecord::Migration
+class AddImageProcessingToImage < ActiveRecord::Migration[4.2]
    def self.up
       add_column :images, :image_processing, :boolean
     end

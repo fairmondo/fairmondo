@@ -2,30 +2,29 @@
 #   licensed under the GNU Affero General Public License version 3 or later.
 #   See the COPYRIGHT file for details.
 
-require_relative '../test_helper'
+require 'test_helper'
 
-describe PaymentPolicy do
+class PaymentPolicyTest < ActiveSupport::TestCase
   include PunditMatcher
 
-  subject { PaymentPolicy.new(user, payment)  }
   let(:lig) { payment.line_item_group }
-  let(:payment) { create(:paypal_payment) }
+  let(:payment) { build(:paypal_payment) }
 
   describe 'for a visitor' do
     let(:user) { nil }
-    it { subject.must_deny(:show)   }
-    it { subject.must_deny(:create) }
+    it { refute_permit(user, payment, :show) }
+    it { refute_permit(user, payment, :create) }
   end
 
   describe 'for a random logged-in user' do
     let(:user) { create :user }
-    it { subject.must_deny(:show)         }
-    it { subject.must_deny(:create)       }
+    it { refute_permit(user, payment, :show) }
+    it { refute_permit(user, payment, :create) }
   end
 
   describe 'for the buying user' do
     let(:user) { payment.line_item_group_buyer }
-    it { subject.must_permit(:show)        }
-    it { subject.must_permit(:create)      }
+    it { assert_permit(user, payment, :show) }
+    it { assert_permit(user, payment, :create) }
   end
 end

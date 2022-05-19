@@ -8,6 +8,7 @@ class CommentsController < ApplicationController
   # If you want to make another Class commentable,
   # add it to the COMMENTABLES-array
   COMMENTABLES = [Library, Article]
+  REQUIRED_PARAMS = %i(text).freeze
 
   respond_to :js
 
@@ -32,7 +33,7 @@ class CommentsController < ApplicationController
   end
 
   def create
-    comment_data = { user: current_user }.merge(params.for(Comment).refine)
+    comment_data = { user: current_user }.merge(params.require(:comment).permit(REQUIRED_PARAMS))
     @comment = @commentable.comments.build(comment_data)
     authorize @comment
     respond_to do |format|

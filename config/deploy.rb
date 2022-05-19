@@ -3,10 +3,10 @@
 #   See the COPYRIGHT file for details.
 
 # config valid only for Capistrano 3.1
-lock '3.3.5'
+lock '3.11.2'
 
 set :application, 'fairnopoly'
-set :repo_url, 'git://github.com/fairnopoly/fairnopoly.git'
+set :repo_url, 'git@github.com:fairmondo/fairmondo.git'
 
 set :rbenv_type, :user # or :system, depends on your rbenv setup
 set :rbenv_ruby, File.read('.ruby-version').strip # set ruby version from the file
@@ -16,9 +16,6 @@ set :rbenv_roles, :all # default value
 
 # Default branch is :master
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }
-
-# Default value for :scm is :git
-set :scm, :git
 
 # Default value for :format is :pretty
 # set :format, :pretty

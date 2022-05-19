@@ -2,7 +2,7 @@
 #   licensed under the GNU Affero General Public License version 3 or later.
 #   See the COPYRIGHT file for details.
 
-class LineItemGroup < ActiveRecord::Base
+class LineItemGroup < ApplicationRecord
   extend Sanitization
 
   belongs_to :seller, class_name: 'User', foreign_key: 'seller_id', inverse_of: :seller_line_item_groups

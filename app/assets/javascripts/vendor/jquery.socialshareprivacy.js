@@ -90,13 +90,6 @@
                     'tweet_text'        : getTweetText,
                     'language'          : 'en'
                 },
-                'gplus' : {
-                    'status'            : 'on',
-                    'txt_gplus'         : 'Mit Google+ verbinden',
-                    'display_name'      : 'Google+',
-                    'referrer_track'    : '',
-                    'language'          : 'de'
-                },
                 'pinterest' : {
                 	'status'			: 'on',
                     'txt_pinterest'     : 'Mit Pinterest verbinden',
@@ -116,11 +109,10 @@
 
         var facebook_on = (options.services.facebook.status === 'on');
         var twitter_on  = (options.services.twitter.status  === 'on');
-        var gplus_on    = (options.services.gplus.status    === 'on');
 		var pinterest_on    = (options.services.pinterest.status    === 'on');
 
         // check if at least one service is "on"
-        if (!facebook_on && !twitter_on && !gplus_on &&!pinterest_on) {
+        if (!facebook_on && !twitter_on &&!pinterest_on) {
             return;
         }
 
@@ -204,38 +196,10 @@
             }
 
             //
-            // Google+
-            //
-            if (gplus_on) {
-                // fuer G+ wird die URL nicht encoded, da das zu einem Fehler fuehrt
-                var gplus_uri = uri + options.services.gplus.referrer_track;
-
-                // we use the Google+ "asynchronous" code, standard code is flaky if inserted into dom after load
-                var gplus_code = '<div class="g-plusone" data-size="medium" data-href="' + gplus_uri + '"></div><script type="text/javascript">window.___gcfg = {lang: "' + options.services.gplus.language + '"}; (function() { var po = document.createElement("script"); po.type = "text/javascript"; po.async = true; po.src = "https://apis.google.com/js/plusone.js"; var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(po, s); })(); </script>';
-                var gplus_dummy_btn = '<i class="fa fa-google-plus-square fa-2x" id="gplusone-dummy" title="' + options.services.gplus.txt_gplus + '"></i>';
-
-                context.append('<li class="gplus help_info"><span class="switch fa lock"></span><div class="gplusone dummy_btn">' + gplus_dummy_btn + '</div></li>');
-
-                var $container_gplus = $('li.gplus', context);
-
-                $('li.gplus i,li.gplus span.switch', context).on('click', function () {
-                    if ($container_gplus.find('span.switch').hasClass('lock')) {
-                        $container_gplus.addClass('info_off');
-                        $container_gplus.find('span.switch').addClass('unlock').removeClass('lock').attr('title', options.services.gplus.txt_gplus_on);
-                        $container_gplus.find('#gplusone-dummy').replaceWith(gplus_code);
-                    } else {
-                        $container_gplus.removeClass('info_off');
-                        $container_gplus.find('span.switch').addClass('lock').removeClass('unlock').attr('title', options.services.gplus.txt_gplus_off);
-                        $container_gplus.find('.gplusone').html(gplus_dummy_btn);
-                    }
-                });
-            }
-
-            //
             // Pinterest
             //
             if (pinterest_on) {
-                // fuer G+ wird die URL nicht encoded, da das zu einem Fehler fuehrt
+                // fuer Pinterest wird die URL nicht encoded, da das zu einem Fehler fuehrt
                 var pinterest_uri = uri + options.services.pinterest.referrer_track;
 
                 // we use the Google+ "asynchronous" code, standard code is flaky if inserted into dom after load

@@ -2,7 +2,7 @@
 #   licensed under the GNU Affero General Public License version 3 or later.
 #   See the COPYRIGHT file for details.
 
-class Discount < ActiveRecord::Base
+class Discount < ApplicationRecord
   extend Sanitization
 
   has_many :business_transactions

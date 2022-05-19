@@ -220,7 +220,7 @@ form.change_quantity > .inputs >  ol > li.action {
 }
 
 .formtastic .line_items > .line_item[data-unified-transport="false"] {
-  margin: rem(20) 0;
+  margin: 1.25rem 0;
   &:last-child {
     margin-bottom: 0.2em;
   }
@@ -361,7 +361,7 @@ form.change_quantity > .inputs >  ol > li.action {
 }
 
 .bt-totals {
-  margin-bottom: rem(15);
+  margin-bottom: 0.9375rem;
 }
 .total_overview .total_table {
   width: 100%;

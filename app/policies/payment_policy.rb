@@ -14,7 +14,7 @@ class PaymentPolicy < Struct.new(:user, :payment)
   private
 
   def buyer_is_user?
-    payment.line_item_group_buyer_id == user.id
+    payment.line_item_group_buyer == user
   end
 
   def type_allowed?

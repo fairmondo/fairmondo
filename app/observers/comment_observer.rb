@@ -5,8 +5,7 @@
 class CommentObserver < ActiveRecord::Observer
   def after_create(comment)
     if receives_notifications?(comment.commentable_user)
-      CommentMailer.delay.report_comment(comment,
-                                         comment.commentable_user)
+      CommentMailer.report_comment(comment, comment.commentable_user).deliver_later
     end
   end
 

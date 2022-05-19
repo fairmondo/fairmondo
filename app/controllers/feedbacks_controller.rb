@@ -3,16 +3,23 @@
 #   See the COPYRIGHT file for details.
 
 class FeedbacksController < ApplicationController
-  responders :location
+  include ImageParams
+
+  REQUIRED_PARAMS = [
+    :from, :subject, :text, :variety, :article_id, :feedback_subject,
+    :help_subject, :forename, :lastname, :organisation, :phone, :recaptcha,
+    { image_attributes: IMAGE_PARAMS }
+  ].freeze
+
   respond_to :html
   skip_before_action :authenticate_user!
 
   def create
     handle_recaptcha
-    @feedback = Feedback.new(params.for(Feedback).refine)
+    @feedback = Feedback.new(params.require(:feedback).permit(*REQUIRED_PARAMS))
     authorize @feedback
     @feedback.put_user_id current_user
-    @feedback.source_page = JSON.pretty_generate session[:previous_urls]
+    @feedback.source_page = JSON.pretty_generate(session[:previous_urls] || [])
     @feedback.user_agent = request.env['HTTP_USER_AGENT']
     flash[:notice] = I18n.t('article.actions.reported') if @feedback.save
     respond_with @feedback, location: -> { redirect_path }

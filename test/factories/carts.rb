@@ -2,7 +2,7 @@
 #   licensed under the GNU Affero General Public License version 3 or later.
 #   See the COPYRIGHT file for details.
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :cart do
     user
     sold { false }
@@ -10,7 +10,7 @@ FactoryGirl.define do
 
   trait :with_line_item_groups do
     transient do
-      line_item_group_count 3
+      line_item_group_count { 3 }
     end
 
     after(:create) do |cart, evaluator|
@@ -24,7 +24,7 @@ FactoryGirl.define do
 
   trait :with_line_item_groups_from_legal_entity do
     transient do
-      line_item_group_count 3
+      line_item_group_count { 3 }
     end
 
     after(:create) do |cart, evaluator|

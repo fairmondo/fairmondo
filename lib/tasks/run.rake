@@ -16,8 +16,6 @@ namespace :run do
   task :migrations do
     system 'rake db:migrate'
     system 'rake db:test:prepare'
-    system 'rake parallel:create'
-    system 'rake parallel:prepare'
   end
 end
 

@@ -27,5 +27,5 @@
   padding: 1em;
   color: $dark-gray;
   @include clear-links;
-  @include user-select(none);
+  user-select: none;
 }

@@ -2,9 +2,9 @@
 #   licensed under the GNU Affero General Public License version 3 or later.
 #   See the COPYRIGHT file for details.
 
-require_relative '../test_helper'
+require 'test_helper'
 
-describe AddressesController do
+class AddressesControllerTest < ActionController::TestCase
   let(:user) { create :user }
   let(:address) { create :address, user: user }
   let(:referenced_address) { create :address, :referenced, user: user }
@@ -12,7 +12,7 @@ describe AddressesController do
   describe 'GET ::new' do
     it 'should render addresse\'s new_template' do
       sign_in user
-      xhr :get, :new, user_id: user.id
+      get :new, params: { user_id: user.id }, xhr: true
       assert_response :success
       assert_template :new
     end
@@ -23,7 +23,7 @@ describe AddressesController do
       @address_attrs = attributes_for :address
       sign_in user
       assert_difference('Address.count', 1) do
-        xhr :post, :create, user_id: user.id, address: @address_attrs
+        post :create, params: { user_id: user.id, address: @address_attrs }, xhr: true
       end
     end
 
@@ -32,7 +32,7 @@ describe AddressesController do
       @address_attrs[:first_name] = nil
       sign_in user
       assert_no_difference('Address.count') do
-        xhr :post, :create, user_id: user.id, address: @address_attrs
+        post :create, params: { user_id: user.id, address: @address_attrs }, xhr: true
       end
       assert_template :new
     end
@@ -41,7 +41,7 @@ describe AddressesController do
   describe 'GET ::edit' do
     it 'should render addresse\'s edit_template' do
       sign_in user
-      xhr :get, :edit, user_id: user.id, id: address.id
+      get :edit, params: { user_id: user.id, id: address.id }, xhr: true
       assert_response :success
       assert_template :edit
     end
@@ -55,7 +55,7 @@ describe AddressesController do
       sign_in user
 
       assert_no_difference('Address.count') do
-        xhr :patch, :update, user_id: user.id, id: update_address.id, address: @address_attrs
+        patch :update, params: { user_id: user.id, id: update_address.id, address: @address_attrs }, xhr: true
       end
       update_address.reload.first_name.must_equal 'test update'
     end
@@ -68,7 +68,7 @@ describe AddressesController do
       sign_in user
 
       assert_no_difference('Address.count') do
-        xhr :patch, :update, user_id: user.id, id: update_address.id, address: @address_attrs
+        patch :update, params: { user_id: user.id, id: update_address.id, address: @address_attrs }, xhr: true
       end
       assert_template :edit
     end
@@ -82,7 +82,7 @@ describe AddressesController do
       sign_in user
 
       assert_difference('Address.count', 1) do
-        xhr :patch, :update, user_id: user.id, id: referenced_address.id, address: @address_attrs
+        patch :update, params: { user_id: user.id, id: referenced_address.id, address: @address_attrs }, xhr: true
       end
       referenced_address.reload.first_name.must_equal fist_name_referenced
       user.addresses.last.first_name.must_equal 'test update'
@@ -95,7 +95,7 @@ describe AddressesController do
       address = create :address, user: user
       sign_in user
       assert_difference('Address.count', -1) do
-        xhr :delete, :destroy, user_id: user.id, id: address.id
+        delete :destroy, params: { user_id: user.id, id: address.id }, xhr: true
       end
     end
 
@@ -105,7 +105,7 @@ describe AddressesController do
       create(:line_item_group, payment_address: referenced_address)
       sign_in user
       assert_difference('Address.count', 0) do
-        xhr :delete, :destroy, user_id: referenced_address.user.id, id: referenced_address.id
+        delete :destroy, params: { user_id: referenced_address.user.id, id: referenced_address.id }, xhr: true
       end
       referenced_address.reload.stashed?.must_equal true
     end

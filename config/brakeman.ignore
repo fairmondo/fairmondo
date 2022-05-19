@@ -3,22 +3,44 @@
     {
       "warning_type": "Redirect",
       "warning_code": 18,
-      "fingerprint": "0bd7b4a16bfd85106690bafcf978967a8754b7129cf4246bfe1490fe1bc48c75",
+      "fingerprint": "65cbb49b32e31aa153b6f6e7c3d18d306233fc8ef55b429eeb969cc743baa3be",
+      "check_name": "Redirect",
       "message": "Possible unprotected redirect",
-      "file": "app/controllers/payments_controller.rb",
-      "line": 32,
-      "link": "http://brakemanscanner.org/docs/warning_types/redirect/",
-      "code": "redirect_to(Payment.new(params.for(Payment).refine).after_create_path)",
+      "file": "app/controllers/direct_debit_mandate_controller.rb",
+      "line": 16,
+      "link": "https://brakemanscanner.org/docs/warning_types/redirect/",
+      "code": "redirect_to(params[:after_create_path], :notice => t(\"DebitPayment.direct_debit_mandate_created_notice\", :reference => CreatesDirectDebitMandate.new(current_user).create.reference))",
       "render_path": null,
       "location": {
         "type": "method",
-        "class": "PaymentsController",
+        "class": "DirectDebitMandateController",
         "method": "create"
       },
-      "user_input": "Payment.new(params.for(Payment).refine).after_create_path",
-      "confidence": "High"
+      "user_input": "params[:after_create_path]",
+      "confidence": "High",
+      "note": ""
+    },
+    {
+      "warning_type": "Redirect",
+      "warning_code": 18,
+      "fingerprint": "8b985d9b07f740b5d8b99ebfe048aae6d1cea3b74a7b235d692bed18607dce13",
+      "check_name": "Redirect",
+      "message": "Possible unprotected redirect",
+      "file": "app/controllers/direct_debit_mandate_controller.rb",
+      "line": 10,
+      "link": "https://brakemanscanner.org/docs/warning_types/redirect/",
+      "code": "redirect_to(params[:after_create_path], :notice => t(\"DebitPayment.bank_details_error\"))",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "DirectDebitMandateController",
+        "method": "create"
+      },
+      "user_input": "params[:after_create_path]",
+      "confidence": "High",
+      "note": ""
     }
   ],
-  "updated": "2014-07-24 17:28:39 +0200",
-  "brakeman_version": "2.6.0"
+  "updated": "2020-02-10 19:27:20 +0100",
+  "brakeman_version": "4.7.2"
 }

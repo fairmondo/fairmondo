@@ -33,7 +33,7 @@ Fairmondo::Application.configure do
   # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for nginx
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
-  # config.force_ssl = true
+  config.force_ssl = true
 
   # See everything in the log (default is :info)
   # config.log_level = :debug
@@ -59,7 +59,7 @@ Fairmondo::Application.configure do
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation can not be found)
-  config.i18n.fallbacks = true
+  config.i18n.fallbacks = [I18n.default_locale]
 
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
@@ -79,5 +79,5 @@ Fairmondo::Application.configure do
   Rails.application.routes.default_url_options[:host] = 'staging.fairmondo.de'
   Rails.application.routes.default_url_options[:protocol] = 'https'
   #Memcached
-  config.cache_store = :dalli_store, 'localhost', { :namespace => "fairmondo", :expires_in => 1.day, :compress => true }
+  config.cache_store = :dalli_store, '10.0.2.181', { :namespace => "fairmondo_stage", :expires_in => 1.day, :compress => true }
 end

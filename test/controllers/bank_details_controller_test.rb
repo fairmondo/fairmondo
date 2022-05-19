@@ -2,10 +2,10 @@
 #   licensed under the GNU Affero General Public License version 3 or later.
 #   See the COPYRIGHT file for details.
 
-require_relative '../test_helper'
+require 'test_helper'
 
 # KontoAPI::valid? and bank_name are automatically stubbed to true / Bankname
-describe BankDetailsController do
+class BankDetailsControllerTest < ActionController::TestCase
   setup do
     @user = create(:user)
     sign_in @user

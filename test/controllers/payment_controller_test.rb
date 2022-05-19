@@ -2,9 +2,9 @@
 #   licensed under the GNU Affero General Public License version 3 or later.
 #   See the COPYRIGHT file for details.
 
-require_relative '../test_helper'
+require 'test_helper'
 
-describe PaymentsController do
+class PaymentsControllerTest < ActionController::TestCase
   let(:lig) { create :line_item_group, :sold, :with_business_transactions, traits: [:paypal, :transport_type1] }
   let(:bt) { lig.business_transactions.first }
   let(:buyer) { bt.buyer }
@@ -19,7 +19,7 @@ describe PaymentsController do
 
       it 'should create a paypal payment and forward to show' do
         assert_difference 'Payment.count', 1 do
-          post :create, line_item_group_id: lig.id, payment: { type: 'PaypalPayment' }
+          post :create, params: { line_item_group_id: lig.id, payment: { type: 'PaypalPayment' } }
         end
         lig.paypal_payment.pay_key.must_be_kind_of String
         assert_redirected_to 'https://www.sandbox.paypal.com/de/webscr?cmd=_ap-payment&paykey=foobar'
@@ -29,7 +29,7 @@ describe PaymentsController do
         request.env['HTTP_REFERER'] = root_path
         PaypalPayment.any_instance.stubs(:initialize_payment).returns(false)
         assert_difference 'Payment.count', 1 do
-          post :create, line_item_group_id: lig.id, payment: { type: 'PaypalPayment' }
+          post :create, params: { line_item_group_id: lig.id, payment: { type: 'PaypalPayment' } }
         end
         flash[:error].must_equal I18n.t('PaypalPayment.controller_error', email: lig.seller_paypal_account)
       end
@@ -40,9 +40,9 @@ describe PaymentsController do
       it 'should create a voucher payment and redirect back' do
         request.env['HTTP_REFERER'] = 'http://test.host'
         assert_difference 'Payment.count', 1 do
-          post :create, line_item_group_id: lig.id, payment: { type: 'VoucherPayment', pay_key: '123abc' }
+          post :create, params: { line_item_group_id: lig.id, payment: { type: 'VoucherPayment', pay_key: '123abc' } }
         end
-        assert_redirected_to :back
+        assert_redirected_to 'http://test.host'
       end
     end
   end
@@ -52,7 +52,7 @@ describe PaymentsController do
     let(:payment) { create :paypal_payment_with_pay_key, line_item_group: lig }
 
     it 'should redirect to paypal' do
-      get :show, line_item_group_id: lig.id, id: payment.id
+      get :show, params: { line_item_group_id: lig.id, id: payment.id }
       assert_redirected_to 'https://www.sandbox.paypal.com/de/webscr?cmd=_ap-payment&paykey=foobar'
     end
   end
@@ -66,32 +66,37 @@ describe PaymentsController do
 
     it 'should confirm payment when request contains "complete"' do
       payment
-      post :ipn_notification, pay_key: '1234', status: 'COMPLETED'
+      post :ipn_notification, params: { pay_key: '1234', status: 'COMPLETED' }
       payment.reload.state.must_equal 'confirmed'
     end
 
     # TODO find out why this test passes and coverall thinks corresponding line is not touched
     it "should send email for each business transaction in payment's line item group if  bike_courier is selected" do
-      payment
-      payment.line_item_group.business_transactions.select { |bt| bt.selected_payment == 'paypal' }.first.update_attribute(:selected_transport, :bike_courier)
-      CartMailer.any_instance.expects(:courier_notification).with(payment.line_item_group.business_transactions.first)
-      post :ipn_notification, pay_key: '1234', status: 'COMPLETED'
+      business_transaction = payment.line_item_group.business_transactions.select { |bt| bt.selected_payment == 'paypal' }.first
+      business_transaction.update_attribute(:selected_transport, :bike_courier)
+      mail_mock = mock()
+      mail_mock.expects(:deliver_later)
+      CartMailer.expects(:courier_notification).with(business_transaction).returns(mail_mock)
+      post :ipn_notification, params: { pay_key: '1234', status: 'COMPLETED' }
     end
 
     it 'should throw an error, when payment_status is "Invalid"' do
       payment
-      post :ipn_notification, pay_key: '1234', status: 'Invalid'
+      post :ipn_notification, params: { pay_key: '1234', status: 'Invalid' }
       payment.reload.state.must_equal 'errored'
     end
 
     it 'should throw ActiveRecord::RecordNotFound if no payment is found' do
-      assert_raises(ActiveRecord::RecordNotFound) { post :ipn_notification, pay_key: 'ashfakjsdf', status: 'Invalid' }
+      assert_raises(ActiveRecord::RecordNotFound) {
+        post :ipn_notification, params: { pay_key: 'ashfakjsdf', status: 'Invalid' }
+      }
     end
 
     it 'should throw an error if ipn is not verified' do
       PaypalAdaptive::IpnNotification.any_instance.stubs(:verified?).returns(false)
-      exception = -> { post :ipn_notification, pay_key: 'ashfakjsdf', status: 'Invalid' }.must_raise(StandardError)
-      exception.message.must_equal 'ipn could not be verified'
+      assert_raises(StandardError, 'ipn could not be verified') {
+        post :ipn_notification, params: { pay_key: 'ashfakjsdf', status: 'Invalid' }
+      }
     end
   end
 end

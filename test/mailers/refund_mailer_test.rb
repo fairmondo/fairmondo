@@ -2,10 +2,10 @@
 #   licensed under the GNU Affero General Public License version 3 or later.
 #   See the COPYRIGHT file for details.
 
-require_relative '../test_helper'
+require 'test_helper'
 require 'email_spec'
 
-describe RefundMailer do
+class RefundMailerTest < ActiveSupport::TestCase
   include EmailSpec::Helpers
   include EmailSpec::Matchers
 

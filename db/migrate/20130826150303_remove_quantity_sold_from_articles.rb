@@ -1,4 +1,4 @@
-class RemoveQuantitySoldFromArticles < ActiveRecord::Migration
+class RemoveQuantitySoldFromArticles < ActiveRecord::Migration[4.2]
   def up
     remove_column :articles, :quantity_sold
   end

@@ -2,7 +2,7 @@
 #   licensed under the GNU Affero General Public License version 3 or later.
 #   See the COPYRIGHT file for details.
 
-class LibraryElement < ActiveRecord::Base
+class LibraryElement < ApplicationRecord
   delegate :name, :user_id, to: :library, prefix: true
   delegate :title, to: :article_reduced, prefix: true
 
@@ -12,7 +12,7 @@ class LibraryElement < ActiveRecord::Base
 
   # Relations
   belongs_to :article
-  belongs_to :article_reduced, ->(_o) { reduced }, class_name: 'Article', foreign_key: 'article_id'
+  belongs_to :article_reduced, -> { reduced }, class_name: 'Article', foreign_key: 'article_id'
   belongs_to :library, counter_cache: true
   has_one :user, through: :library
 

@@ -2,9 +2,9 @@
 #   licensed under the GNU Affero General Public License version 3 or later.
 #   See the COPYRIGHT file for details.
 
-require_relative '../test_helper'
+require 'test_helper'
 
-describe RegistrationsController do
+class RegistrationsControllerTest < ActionController::TestCase
   before(:each) do
     request.env['devise.mapping'] = Devise.mappings[:user]
   end
@@ -36,7 +36,7 @@ describe RegistrationsController do
       it 'should sucessfully update a user' do
         @attr = { about_me: 'Ich bin eine Profilbeschreibung', email: @user.email }
 
-        put :update, user: @attr
+        put :update, params: { user: @attr }
 
         assert_redirected_to @user.reload
         @controller.instance_variable_get(:@user).about_me.must_equal @attr[:about_me]
@@ -72,17 +72,15 @@ describe RegistrationsController do
     end
 
     it 'should send out an extra email if voluntary contribution was checked' do
-      post :create, @valid_params2
-      assert_equal 2, ActionMailer::Base.deliveries.size
-      email = ActionMailer::Base.deliveries.last
-      assert_equal 'Dein freiwilliger Grundbeitrag für Fairmondo', email.subject
-      assert_equal ['jdoe@example.com'], email.to
-      assert_match(/vielen Dank für Deine Bereitschaft, die Weiterentwicklung von Fairmondo zu unterstützen!/,
-                   email.body.to_s)
+      mail_mock = mock()
+      mail_mock.expects(:deliver_later)
+      RegistrationsMailer.expects(:voluntary_contribution_email).with('jdoe@example.com', 5).returns(mail_mock)
+
+      post :create, params: @valid_params2
     end
 
     it 'should not send out an extra email if voluntary contribution was not checked' do
-      post :create, @valid_params
+      post :create, params: @valid_params
       assert_equal 1, ActionMailer::Base.deliveries.size
     end
   end
@@ -92,7 +90,7 @@ describe RegistrationsController do
       user = create :user
       sign_in user
       Image.any_instance.expects(:save)
-      put :update, user: { nickname: user.nickname, image_attributes: attributes_for(:user_image) }, address: { first_name: '' } # invalid params
+      put :update, params: { user: { nickname: user.nickname, image_attributes: attributes_for(:user_image) }, address: { first_name: '' } } # invalid params
     end
   end
 end

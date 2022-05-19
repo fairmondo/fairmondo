@@ -2,9 +2,9 @@
 #   licensed under the GNU Affero General Public License version 3 or later.
 #   See the COPYRIGHT file for details.
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :line_item do
-    requested_quantity 1
+    requested_quantity { 1 }
     association :article
     line_item_group { create :line_item_group, seller: article.seller }
 

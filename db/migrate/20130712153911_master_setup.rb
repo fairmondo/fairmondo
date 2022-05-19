@@ -1,4 +1,4 @@
-class MasterSetup < ActiveRecord::Migration
+class MasterSetup < ActiveRecord::Migration[4.2]
   def up
     # Change Transaction Table
     add_column :transactions, :selected_transport, :string

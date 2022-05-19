@@ -4,7 +4,7 @@
 
 require 'test_helper'
 
-describe FastbillRefundWorker do
+class FastbillRefundWorkerTest < ActiveSupport::TestCase
   it 'should refund normal customers' do
     fba = mock()
     FastbillAPI.stubs(:new).returns(fba)

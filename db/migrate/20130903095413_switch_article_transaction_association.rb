@@ -1,6 +1,6 @@
-class SwitchArticleTransactionAssociation < ActiveRecord::Migration
+class SwitchArticleTransactionAssociation < ActiveRecord::Migration[4.2]
 
-  class Transaction < ActiveRecord::Base
+  class Transaction < ApplicationRecord
   end
 
   def up

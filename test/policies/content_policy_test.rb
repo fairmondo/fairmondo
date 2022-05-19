@@ -2,47 +2,47 @@
 #   licensed under the GNU Affero General Public License version 3 or later.
 #   See the COPYRIGHT file for details.
 
-require_relative '../test_helper'
+require 'test_helper'
 
-describe ContentPolicy do
+class ContentPolicyTest < ActiveSupport::TestCase
   include PunditMatcher
 
   subject { ContentPolicy.new(user, content)   }
-  let(:content) { create :content }
+  let(:content) { build :content }
   let(:user) { nil }
 
   describe 'for a visitor' do
-    it { subject.must_permit(:show)      }
-    it { subject.must_permit(:not_found) }
-    it { subject.must_deny(:index)       }
-    it { subject.must_deny(:new)         }
-    it { subject.must_deny(:create)      }
-    it { subject.must_deny(:edit)        }
-    it { subject.must_deny(:update)      }
-    it { subject.must_deny(:destroy)     }
+    it { assert_permit(user, content, :show)      }
+    it { assert_permit(user, content, :not_found) }
+    it { refute_permit(user, content, :index)       }
+    it { refute_permit(user, content, :new)         }
+    it { refute_permit(user, content, :create)      }
+    it { refute_permit(user, content, :edit)        }
+    it { refute_permit(user, content, :update)      }
+    it { refute_permit(user, content, :destroy)     }
   end
 
   describe 'for a random logged-in user' do
-    let(:user) { create :user }
-    it { subject.must_permit(:show)      }
-    it { subject.must_permit(:not_found) }
-    it { subject.must_deny(:index)              }
-    it { subject.must_deny(:new)                }
-    it { subject.must_deny(:create)             }
-    it { subject.must_deny(:edit)               }
-    it { subject.must_deny(:update)             }
-    it { subject.must_deny(:destroy)            }
+    let(:user) { build :user }
+    it { assert_permit(user, content, :show)      }
+    it { assert_permit(user, content, :not_found) }
+    it { refute_permit(user, content, :index)              }
+    it { refute_permit(user, content, :new)                }
+    it { refute_permit(user, content, :create)             }
+    it { refute_permit(user, content, :edit)               }
+    it { refute_permit(user, content, :update)             }
+    it { refute_permit(user, content, :destroy)            }
   end
 
   describe 'for an admin user' do
-    let(:user) { create :admin_user }
-    it { subject.must_permit(:show)      }
-    it { subject.must_permit(:not_found) }
-    it { subject.must_permit(:index) }
-    it { subject.must_permit(:new)                    }
-    it { subject.must_permit(:create)                 }
-    it { subject.must_permit(:edit)                   }
-    it { subject.must_permit(:update)                 }
-    it { subject.must_permit(:destroy)                }
+    let(:user) { build :admin_user }
+    it { assert_permit(user, content, :show)      }
+    it { assert_permit(user, content, :not_found) }
+    it { assert_permit(user, content, :index) }
+    it { assert_permit(user, content, :new)                    }
+    it { assert_permit(user, content, :create)                 }
+    it { assert_permit(user, content, :edit)                   }
+    it { assert_permit(user, content, :update)                 }
+    it { assert_permit(user, content, :destroy)                }
   end
 end

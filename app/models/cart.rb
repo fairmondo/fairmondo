@@ -2,7 +2,7 @@
 #   licensed under the GNU Affero General Public License version 3 or later.
 #   See the COPYRIGHT file for details.
 
-class Cart < ActiveRecord::Base
+class Cart < ApplicationRecord
   attr_accessor :cookie_content # temp storage for pundit validation
 
   # Associations

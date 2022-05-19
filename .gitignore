@@ -1,6 +1,5 @@
 # Configuration files
 # config/database.yml -> needed for travis-ci
-config/environments/development.rb
 public/system
 config/initializers/secret_token.rb
 config/actionmailer.yml
@@ -27,10 +26,6 @@ rspec.failures
 /log/*.log.*
 /tmp
 # Gemfile.lock -> ER error without it
-
-# Ignore default SQLite database
-db/*.sqlite3
-db/*.sqlite3-journal
 
 # Ignore codecoverage report
 coverage

@@ -1,4 +1,4 @@
-class AddTotalPurchaseDonationsCentsToUsers < ActiveRecord::Migration
+class AddTotalPurchaseDonationsCentsToUsers < ActiveRecord::Migration[4.2]
   def up
     add_column :users, :total_purchase_donations_cents, :integer, limit:   8,
                                                                   default: 0

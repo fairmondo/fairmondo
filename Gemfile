@@ -1,27 +1,26 @@
 source 'http://rubygems.org'
 
 # Rails
-gem 'rails', '~> 4.1.16'
+gem 'rails', '~> 5.1.7'
 gem 'rails-observers' # observers got extracted since rails 4
 gem 'activerecord-session_store' # sessions in activerecord
 
 # Plattforms Ruby
 platforms :ruby do
-  gem 'sqlite3', group: :test # sqlite3 for inmemory testing db
   gem 'therubyracer' # js runtime
-  gem 'pg', group: [:production, :staging, :development] # postgres
+  gem 'pg', '~> 0.21' # postgres
 end
 
 # ----------  Model ----------
 
-gem 'paperclip', '~> 4.2.2'
+gem 'paperclip', '4.2.4'
 gem 'money-rails', '> 0.12.0' # dealing with money in activerecord
 gem 'monetize' # parsing money
 gem 'enumerize', '>= 0.5.1' # enums as symbols in ar
-gem 'state_machine' # State Machines in Rails
+gem 'state_machines' # State Machines in Rails
 gem 'amoeba'
 gem 'sanitize' # Parser based sanitization
-gem 'awesome_nested_set', '>= 3.0.0.rc.4' # tree structure for categories
+gem 'awesome_nested_set', '3.1.3'
 gem 'friendly_id', '>= 4.0.9' # Friendly_id for beautiful links
 
 # pseudo models
@@ -29,66 +28,65 @@ gem 'active_data'
 
 ## Indexing /Searching
 gem 'chewy', '= 5.0.0'
-gem 'elasticsearch', '= 2.0.0'
+gem 'elasticsearch', '= 5.0.5'
+gem 'faraday', '0.15.4'
+
 # ---------- View ----------
 
-gem 'slim-rails', '~> 3.1.2'
+gem 'slim-rails'
 gem 'jbuilder'
 
 ## CSS
-gem 'susy', '~> 2.1.1'
-gem 'sass-rails', '~> 5.0.6'
-gem 'bourbon', '<= 4.0.2'
+gem 'susy'
+gem 'sass-rails'
+gem 'bourbon', '4.3.4'
 gem 'font-awesome-rails', '>= 4.2.0.0'
 gem 'sprite-factory'
 gem 'chunky_png' # needed for sprite-factory
-gem 'sprockets'
 
 ## JS
-gem 'jquery-ui-rails'
-gem 'qtip2-jquery-rails', '~> 2.1.107'
-gem 'i18n-js', '~> 3.0.0'
+gem 'jquery-ui-rails', '~> 5.0.4'
+gem 'qtip2-jquery-rails'
+gem 'i18n-js'
 gem 'coffee-rails'
 gem 'therubyrhino'
 gem 'selectivizr-rails'
-gem 'uglifier', '~> 2.7.2'
+gem 'uglifier'
 gem 'modernizr-rails'
-gem 'tinymce-rails', '~> 4.1.10'
-gem 'tinymce-rails-langs'
-gem 'jquery-rails', '~> 3.1.3'
+gem 'tinymce-rails', '4.1.10'
+gem 'tinymce-rails-langs', '4.20140129'
+gem 'jquery-rails'
 gem 'rails-timeago'
-gem 'wiselinks'
 gem 'handlebars_assets'
 
 ## Forms
 
-gem 'formtastic', '~> 2.3.0.rc3'
+gem 'formtastic'
 gem 'recaptcha', require: 'recaptcha/rails' # Captcha Gem
 
 # ---------- Controller ----------
 
-gem 'arcane' # Parameter management for strong_parameters
 gem 'canonical-rails' # canonical view links
-gem 'devise', '~> 3.5.10' # authentication
+gem 'devise'
 gem 'pundit' # authorization
 gem 'kaminari' # pagination
 gem 'responders'
 
-# ---------- Mail ----------
+# # ---------- Mail ----------
 
-gem 'premailer-rails', '~> 1.9.3' # creates emails with inline css from html files with external css-file
+gem 'premailer-rails'
 
-# ---------- Background Processing ----------
+# # ---------- Background Processing ----------
 
-gem 'sidekiq', '~> 4.1.2'
-gem 'sidekiq-scheduler', '~> 2.0'
+gem 'sidekiq'
+gem 'sidekiq-scheduler'
 gem 'sinatra', '>= 1.3.0', require: nil
-gem 'delayed_paperclip', '~> 2.9.2'
+gem 'delayed_paperclip', '2.9.2'
 gem 'bluepill' # legacy, remove when eye stable
-gem 'eye', '~> 0.8.1' # sidekiq process monitoring
-gem 'redis-namespace', '~> 1.5.2'
+gem 'eye'
+gem 'redis-namespace'
 
-# ---------- Tools ----------
+# # ---------- Tools ----------
 
 gem 'dalli' # Memcached Client
 gem 'kontoapi-ruby' # KontoAPI checks bank data
@@ -98,13 +96,12 @@ gem 'rails_admin', '>= 0.6.6' # Administrative backend
 gem 'rails_admin_statistics', github: 'KonstantinKo/rails_admin_statistics'
 gem 'rails_admin_nested_set'
 gem 'rack-rewrite' # Redirects
-gem 'json'
-gem 'nokogiri', '~> 1.7.2'
+gem 'nokogiri'
 gem 'prawn_rails' # pdf generation
 
 # ---------- Monitoring ----------
 gem 'newrelic_rpm',  group: [:production, :staging]
-gem 'rack-mini-profiler', '~> 0.10.1'
+gem 'rack-mini-profiler'
 gem 'lograge'
 gem 'exception_notification'
 
@@ -128,84 +125,59 @@ group :development do
 
   gem 'letter_opener' # emails in browser
 
-  # debugging in chrome with RailsPanel
-  gem 'meta_request'
-
-  # Quiet Assets to disable asset pipeline in log
-  gem 'quiet_assets'
-
-  # er diagramm generation
-  gem 'rails-erd'
-  gem 'thin' # Replace Webrick
-
-  # Guard
-  gem 'guard'
-  gem 'guard-ctags-bundler'
-  gem 'rb-readline', '~> 0.5.4'
-  gem 'guard-minitest'
-  gem 'guard-rubocop'
-  gem 'guard-livereload', '~> 2.4', require: false
-
   # I18n Tools
-  gem 'i18n-tasks', '~> 0.8.3'
+  # gem 'i18n-tasks', '~> 0.8.3' # uncomment if needed
 
-  # Rails application preloader
-  gem 'spring'
+  # Capistrano deployment
+  gem 'capistrano-rails', '~> 1.1.3'
+  gem 'capistrano-bundler', '~> 1.6'
+  gem 'capistrano-rbenv'
 end
 
 group :test do
-  gem 'memory_test_fix'  # Sqlite inmemory fix
-  gem 'rake'
-  gem 'database_cleaner'
-  gem 'colorize'
-  gem 'fakeredis'
-  gem 'fakeweb', '~> 1.3'
-  gem 'webmock'
-  gem 'rack-contrib'
-end
+  # rails
+  gem 'rails-controller-testing'
 
-group :development, :test do
-  gem 'parallel_tests'
-  gem 'pry-rescue'
-  gem 'pry-rails' # pry is awsome
-  gem 'hirb' # hirb makes pry output even more awesome
-  gem 'pry-byebug' # kickass debugging
-  gem 'pry-stack_explorer'
+  gem 'minitest-spec-rails'
 
-  # Capistrano
-  gem 'capistrano-rails', '~> 1.1.3'
-  gem 'capistrano'
-  gem 'capistrano-bundler', '~> 1.1.2'
-  gem 'capistrano-rbenv'
+  gem 'shoulda', '~> 3.5'
+  gem 'shoulda-matchers', '~> 2.0'
 
-  gem 'minitest', '5.10.1'  # 5.10.2 is buggy with this Rails version
-  gem 'minitest-matchers'
-  gem 'minitest-line'
-  gem 'launchy' # save_and_open_page
-  gem 'shoulda'
-  gem 'minitest-rails-capybara'
+  # System testst
+  gem 'capybara'
+	gem 'selenium-webdriver'
+
+  # mocks and stubs
+  gem 'minitest-rails', '~> 3.0'
   gem 'mocha'
+  gem 'webmock'
+  gem 'fakeredis'
+  gem 'rack-contrib' # fake fastbill
 
   # Gem for testing emails
   gem 'email_spec'
+  # email_spec uses minitest-matchers, it's incompatible to minitest 6 though; in consequence
+  # mailer tests that use email_spec need to be updated when migrating to minitest 6
+  gem 'minitest-matchers'
 
   # Code Coverage
   gem 'simplecov'
-  gem 'simplecov-json', require: false
   gem 'coveralls', require: false
+end
 
-  # test suite additions
+group :development, :test do
+  gem 'pry-rails' # pry is awsome
+  gem 'pry-byebug' # kickass debugging
+
+  # static code analysis
   gem 'rails_best_practices'
-  gem 'brakeman', github: 'presidentbeef/brakeman'  # security test: execute with 'brakeman' locked because of slim https://github.com/presidentbeef/brakeman/pull/602/files
+  gem 'brakeman'
   gem 'rubocop' # style enforcement
-
   gem 'bullet' # Notify about n+1 queries
+  gem 'puma' # Replace Webrick
 end
 
 group :development, :test, :staging do
-  gem 'factory_girl_rails'
-  gem 'ffaker'
-
-  # styleguides
-  gem 'nkss-rails', github: 'nadarei/nkss-rails'
+  gem 'factory_bot_rails', '~> 4.11.1'
+  gem 'faker'
 end

@@ -65,7 +65,7 @@
 }
 
 .message {
-  .GrayBox-content { padding:  0 rem(20); }
+  .GrayBox-content { padding:  0 1.25rem; }
 }
 
 @include at-breakpoint($bp-tablet-horizontal) {

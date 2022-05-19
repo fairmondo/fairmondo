@@ -3,6 +3,8 @@
 #   See the COPYRIGHT file for details.
 
 class PaymentsController < ApplicationController
+  PERMITTED_PARAMS = %i(type pay_key line_item_group_id).freeze
+
   before_action :setup_ipn, only: :ipn_notification
   skip_before_action :authenticate_user!, only: :ipn_notification
   protect_from_forgery except: :ipn_notification
@@ -11,13 +13,13 @@ class PaymentsController < ApplicationController
   # create happens on buy. this is to initialize the payment with paypal
   def create
     params[:payment].merge!(line_item_group_id: params[:line_item_group_id])
-    payment_attrs = params.for(Payment).refine
+    payment_attrs = params.require(:payment).permit(*PERMITTED_PARAMS)
     @payment = Payment.new payment_attrs
     authorize @payment
     if @payment.execute
-      redirect_to @payment.after_create_path
+      redirect_to_payment_path
     else
-      redirect_to :back, flash: { error: I18n.t("#{@payment.type}.controller_error", email: @payment.line_item_group_seller_paypal_account).html_safe }
+      redirect_back fallback_location: root_path, flash: { error: I18n.t("#{@payment.type}.controller_error", email: @payment.line_item_group_seller_paypal_account).html_safe }
     end
   end
 
@@ -35,7 +37,7 @@ class PaymentsController < ApplicationController
     else
       raise StandardError, 'ipn could not be verified'
     end
-    render nothing: true
+    head :ok
   end
 
   def confirm_or_decline payment
@@ -55,6 +57,16 @@ class PaymentsController < ApplicationController
     @ipn.send_back(request.raw_post)
   end
 
+  def redirect_to_payment_path
+    redirect_path = @payment.after_create_path
+    case redirect_path
+    when :back
+      redirect_back fallback_location: root_path
+    else
+      redirect_to redirect_path
+    end
+  end
+
   def handle_payment
     if payment = Payment.find_by(pay_key: params['pay_key'])
       confirm_or_decline payment
@@ -67,7 +79,7 @@ class PaymentsController < ApplicationController
     # Only send email to courier service if bike_courier is the selected transport
     bts = payment.line_item_group.business_transactions.select { |bt| bt.bike_courier_selected? }
     bts.each do |bt|
-      CartMailer.courier_notification(bt).deliver
+      CartMailer.courier_notification(bt).deliver_later
     end
   end
 end

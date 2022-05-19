@@ -2,7 +2,7 @@
 #   licensed under the GNU Affero General Public License version 3 or later.
 #   See the COPYRIGHT file for details.
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :library do
     sequence(:name) { |n| "Library_#{n}" }
     association :user
@@ -13,16 +13,16 @@ FactoryGirl.define do
     factory :public_library_with_elements,  traits: [:public,  :with_elements]
 
     trait :private do
-      public false
+      public { false }
     end
 
     trait :public do
-      public true
+      public { true }
     end
 
     trait :with_elements do
       transient do
-        element_count 5
+        element_count { 5 }
       end
 
       after(:create) do |library, evaluator|

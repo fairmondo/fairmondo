@@ -1,4 +1,4 @@
-class AddCounterCacheToLibraries < ActiveRecord::Migration
+class AddCounterCacheToLibraries < ActiveRecord::Migration[4.2]
   def self.up
     say_with_time "Adding Hearts counter cache to libraries" do
       add_column :libraries, :hearts_count, :integer, default: 0

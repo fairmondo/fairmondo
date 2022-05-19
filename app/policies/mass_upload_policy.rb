@@ -26,6 +26,6 @@ class MassUploadPolicy < Struct.new(:user, :mass_upload)
   private
 
   def own?
-    user.id == mass_upload.user.id
+    user == mass_upload.user
   end
 end

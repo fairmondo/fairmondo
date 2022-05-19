@@ -4,6 +4,8 @@
 
 class RefundPolicy < Struct.new(:user, :refund)
   def create?
+    return false if user.blank?
+
     own? && refund_possible?
   end
 
@@ -14,7 +16,7 @@ class RefundPolicy < Struct.new(:user, :refund)
   private
 
   def own?
-    user && user.id == refund.business_transaction_seller.id
+    user == refund.business_transaction_seller
   end
 
   # this method checks if the business_transaction is in a state in which it is possible

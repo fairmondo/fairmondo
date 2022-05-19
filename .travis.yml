@@ -1,23 +1,30 @@
 language: ruby
 sudo: false
-env:
-  - DB=sqlite
+cache: bundler
 bundler_args: --without development debug
 script:
+  - RAILS_ENV=test bundle exec rake db:create
   - RAILS_ENV=test bundle exec rake --trace db:migrate
-  - RAILS_ENV=test bundle exec rake test:all
+  - RAILS_ENV=test bundle exec rails_best_practices
+  - RAILS_ENV=test bundle exec brakeman
+  - RAILS_ENV=test bundle exec rubocop
+  - RAILS_ENV=test bundle exec rails test:system test
 services:
+  - postgresql
   - redis-server
 notifications:
   email:
     - travis-notifications@fairmondo.de
 before_install:
-  - curl -k -L -o elasticsearch-1.3.4.tar.gz https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-1.3.4.tar.gz
-  - tar -zxvf elasticsearch-1.3.4.tar.gz
-  - ./elasticsearch-1.3.4/bin/plugin -install bundle -url http://xbib.org/repository/org/xbib/elasticsearch/plugin/elasticsearch-plugin-bundle/1.4.0.6/elasticsearch-plugin-bundle-1.4.0.6-plugin.zip
-  - ./elasticsearch-1.3.4/bin/elasticsearch 1> /dev/null 2> /dev/null &
+  - curl -k -L -o elasticsearch.tar.gz https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-5.4.0.tar.gz
+  - tar -zxvf elasticsearch.tar.gz
+  - ./elasticsearch-5.4.0/bin/elasticsearch-plugin install http://xbib.org/repository/org/xbib/elasticsearch/plugin/elasticsearch-plugin-bundle/5.4.0.0/elasticsearch-plugin-bundle-5.4.0.0-plugin.zip
+  - ./elasticsearch-5.4.0/bin/elasticsearch 1> /dev/null &
   - cp config/secrets.yml.example config/secrets.yml
+before_script:
+  - cp config/database.travis.yml config/database.yml
 addons:
+  postgresql: "9.4"
   apt:
     packages:
       - libssl1.0.0

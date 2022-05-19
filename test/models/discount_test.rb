@@ -2,26 +2,26 @@
 #   licensed under the GNU Affero General Public License version 3 or later.
 #   See the COPYRIGHT file for details.
 
-require_relative '../test_helper'
+require 'test_helper'
 
-describe Discount do
+class DiscountTest < ActiveSupport::TestCase
   subject { Discount.new }
 
   describe 'associations' do
-    it { subject.must have_many :business_transactions }
+    should have_many :business_transactions
   end
 
   describe 'attributes' do
-    it { subject.must_respond_to :id }
-    it { subject.must_respond_to :title }
-    it { subject.must_respond_to :description }
-    it { subject.must_respond_to :start_time }
-    it { subject.must_respond_to :end_time }
-    it { subject.must_respond_to :percent }
-    it { subject.must_respond_to :max_discounted_value_cents }
-    it { subject.must_respond_to :num_of_discountable_articles }
-    it { subject.must_respond_to :created_at }
-    it { subject.must_respond_to :updated_at }
+    it { _(subject).must_respond_to :id }
+    it { _(subject).must_respond_to :title }
+    it { _(subject).must_respond_to :description }
+    it { _(subject).must_respond_to :start_time }
+    it { _(subject).must_respond_to :end_time }
+    it { _(subject).must_respond_to :percent }
+    it { _(subject).must_respond_to :max_discounted_value_cents }
+    it { _(subject).must_respond_to :num_of_discountable_articles }
+    it { _(subject).must_respond_to :created_at }
+    it { _(subject).must_respond_to :updated_at }
   end
 
   describe 'methods' do

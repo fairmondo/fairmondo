@@ -2,10 +2,12 @@
 #   licensed under the GNU Affero General Public License version 3 or later.
 #   See the COPYRIGHT file for details.
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :business_transaction do
     association :seller, factory: [:user, :paypal_data]
     association :buyer, factory: :user
+
+    state { :sold }
 
     transient do
       article_attributes { Hash.new }
@@ -20,11 +22,11 @@ FactoryGirl.define do
     end
     line_item_group { create :line_item_group, :sold, seller: seller, buyer: buyer }
 
-    selected_transport 'type1'
-    selected_payment 'bank_transfer'
+    selected_transport { 'type1' }
+    selected_payment { 'bank_transfer' }
     sold_at { Time.now }
-    discount_value_cents 0
-    quantity_bought 1
+    discount_value_cents { 0 }
+    quantity_bought { 1 }
 
     factory :business_transaction_from_private_user, traits: [:from_private_user]
     factory :business_transaction_from_legal_entity, traits: [:from_legal_entity]
@@ -32,19 +34,19 @@ FactoryGirl.define do
     factory :business_transaction_from_marketplace_owner_account, traits: [:from_marketplace_owner_account]
 
     trait :incomplete do
-      shipping_address nil
+      shipping_address { nil }
     end
 
     trait :bought_nothing do
-      quantity_bought 0
+      quantity_bought { 0 }
     end
 
     trait :bought_ten do
-      quantity_bought 10
+      quantity_bought { 10 }
     end
 
     trait :bought_five do
-      quantity_bought 5
+      quantity_bought { 5 }
     end
 
     trait :clear_fastbill do
@@ -87,48 +89,50 @@ FactoryGirl.define do
     end
 
     trait :pickup do
-      selected_transport :pickup
+      selected_transport { :pickup }
     end
 
     trait :transport_type1 do
-      selected_transport :type1
+      selected_transport { :type1 }
     end
 
     trait :transport_type2 do
-      selected_transport :type2
+      selected_transport { :type2 }
     end
 
     trait :transport_bike_courier do
-      selected_transport :bike_courier
-      tos_bike_courier_accepted true
+      selected_transport { :bike_courier }
+      tos_bike_courier_accepted { true }
       bike_courier_time { self.seller.pickup_time.sample }
-      bike_courier_message 'Suffering has been stronger than all other teaching, and has taught '\
+      bike_courier_message do
+        'Suffering has been stronger than all other teaching, and has taught '\
         'me to understand what your heart used to be. I have been bent and broken, but - I hope '\
         '- into a better shape.'
+      end
     end
 
     trait :cash do
-      selected_payment 'cash'
+      selected_payment { 'cash' }
     end
 
     trait :paypal do
-      selected_payment 'paypal'
+      selected_payment { 'paypal' }
     end
 
     trait :invoice do
-      selected_payment 'invoice'
+      selected_payment { 'invoice' }
     end
 
     trait :cash_on_delivery do
-      selected_payment :cash_on_delivery
+      selected_payment { :cash_on_delivery }
     end
 
     trait :bank_transfer do
-      selected_payment 'bank_transfer'
+      selected_payment { 'bank_transfer' }
     end
 
     trait :voucher do
-      selected_payment 'voucher'
+      selected_payment { 'voucher' }
     end
   end
 end

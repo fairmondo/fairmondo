@@ -4,13 +4,10 @@
 
 class ArticlesController < ApplicationController
   include ArticleControllerFilters
+  include ArticleParams
 
-  responders :location
   respond_to :html
   respond_to :json, only: [:show, :index]
-
-  rescue_from ActiveRecord::RecordNotFound, with: :similar_articles,
-                                            only: :show
 
   # Autocomplete
   def autocomplete
@@ -28,6 +25,8 @@ class ArticlesController < ApplicationController
     @containing_libraries = @article.libraries.published.limit(10)
   rescue Pundit::NotAuthorizedError
     similar_articles @article.title
+  rescue ActiveRecord::RecordNotFound
+    similar_articles
   end
 
   def index
@@ -37,7 +36,7 @@ class ArticlesController < ApplicationController
   end
 
   def create
-    @article = current_user.articles.build(params.for(Article).refine)
+    @article = current_user.articles.build(params.require(:article).permit(*ARTICLE_CREATE_PARAMS))
     if params && params[:article][:article_template_name].present?
       @article.save_as_template = '1'
     end
@@ -66,7 +65,7 @@ class ArticlesController < ApplicationController
       change_state
     else
       authorize @article
-      save_images unless @article.update(params.for(@article).refine)
+      save_images unless @article.update(params.require(:article).permit(*ARTICLE_UPDATE_PARAMS))
       respond_with @article
     end
   end
@@ -123,7 +122,7 @@ class ArticlesController < ApplicationController
 
   def change_state
     # For changing the state of an article
-    # Refer to Article::State
+    # Refer to ArticleConcerns::State
     if params[:activate]
       activate
     elsif params[:deactivate]
@@ -132,7 +131,7 @@ class ArticlesController < ApplicationController
   end
 
   def activate
-    @article.assign_attributes params.for(@article).refine
+    @article.assign_attributes params.require(:article).permit(*ARTICLE_UPDATE_PARAMS)
     authorize @article, :activate?
     if @article.activate
       flash[:notice] = I18n.t('article.notices.create_html')
@@ -210,9 +209,10 @@ class ArticlesController < ApplicationController
 
   def category_specific_search
     if @search_cache.category_id.present?
-      params[:article_search_form].delete(:category_id)
-      params.delete(:article_search_form) if params[:article_search_form].empty?
-      redirect_to category_path(@search_cache.category_id, params)
+      article_params = params[:article_search_form].presence || {}
+      permitted_params = article_params.permit(*ARTICLE_UPDATE_PARAMS)
+      permitted_params.delete(:category_id)
+      redirect_to category_path(@search_cache.category_id, permitted_params)
     end
   end
 end

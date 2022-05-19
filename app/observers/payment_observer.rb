@@ -5,7 +5,7 @@
 class PaymentObserver < ActiveRecord::Observer
   def after_create(payment)
     if payment.type == 'VoucherPayment'
-      CartMailer.delay.voucher_paid_email(payment.id)
+      CartMailer.voucher_paid_email(payment.id).deliver_later
     end
   end
 end

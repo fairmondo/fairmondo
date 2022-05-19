@@ -1,7 +1,6 @@
 inherit_from: .rubocop_todo.yml # TODO: remove this once worked through list
 
 AllCops:
-  RunRailsCops: true
   Exclude:
     - 'bin/**/*'
     - 'db/**/*'
@@ -13,19 +12,7 @@ AllCops:
     - 'test/test_helper.rb'
     - 'test/support/**/*'
 
-Documentation:
-  Enabled: false
-
-MethodDefParentheses:
-  Enabled: false
-
-GuardClause:
-  Enabled: false
-
-RedundantSelf:
-  Enabled: false
-
-LineLength:
+Style/Documentation:
   Enabled: false
 
 Style/SignalException:

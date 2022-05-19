@@ -2,9 +2,9 @@
 #   licensed under the GNU Affero General Public License version 3 or later.
 #   See the COPYRIGHT file for details.
 
-require_relative '../test_helper'
+require 'test_helper'
 
-describe HeartsController do
+class HeartsControllerTest < ActionController::TestCase
   describe 'POST Heart on libraries' do
     describe 'for non-signed-in users' do
       before :each do
@@ -13,26 +13,26 @@ describe HeartsController do
       end
 
       it 'should allow posting using ajax' do
-        post :create, library_id: @library.id, format: :js
+        post :create, params: { library_id: @library.id, format: :js }
         assert_response :success
       end
 
       it 'change the heart count when posting' do
         assert_difference '@library.hearts.count', 1 do
-          post :create, library_id: @library.id, format: :js
+          post :create, params: { library_id: @library.id, format: :js }
         end
       end
 
       it 'adds maximally one heart even when posting multiple times' do
         assert_difference '@library.hearts.count', 1 do
-          3.times { post :create, library_id: @library.id, format: :js }
+          3.times { post :create, params: { library_id: @library.id, format: :js } }
         end
       end
 
       it 'should allow hearting a second library' do
         assert_difference '@library_2.hearts.count', 1 do
-          post :create, library_id: @library.id, format: :js
-          post :create, library_id: @library_2.id, format: :js
+          post :create, params: { library_id: @library.id, format: :js }
+          post :create, params: { library_id: @library_2.id, format: :js }
         end
       end
     end
@@ -46,26 +46,26 @@ describe HeartsController do
       end
 
       it 'should allow posting using ajax' do
-        post :create, library_id: @library.id, format: :js
+        post :create, params: { library_id: @library.id, format: :js }
         assert_response :success
       end
 
       it 'increases the heart count when posting' do
         assert_difference '@library.hearts.count', 1 do
-          post :create, library_id: @library.id, format: :js
+          post :create, params: { library_id: @library.id, format: :js }
         end
       end
 
       it 'adds maximally one heart even when posting multiple times' do
         assert_difference '@library.hearts.count', 1 do
-          3.times { post :create, library_id: @library.id, format: :js }
+          3.times { post :create, params: { library_id: @library.id, format: :js } }
         end
       end
 
       it 'should allow hearting a second library' do
         assert_difference '@library_2.hearts.count', 1 do
-          post :create, library_id: @library.id, format: :js
-          post :create, library_id: @library_2.id, format: :js
+          post :create, params: { library_id: @library.id, format: :js }
+          post :create, params: { library_id: @library_2.id, format: :js }
         end
       end
     end
@@ -82,13 +82,13 @@ describe HeartsController do
 
       it 'will not delete an owned heart' do
         assert_difference '@library.hearts.count', 0 do
-          delete :destroy, library_id: @library.id, id: @owned_heart.id
+          delete :destroy, params: { library_id: @library.id, id: @owned_heart.id }
         end
       end
 
       it 'will not delete an anonymous heart' do
         assert_difference '@library.hearts.count', 0 do
-          delete :destroy, library_id: @library.id, id: @anonymous_heart.id
+          delete :destroy, params: { library_id: @library.id, id: @anonymous_heart.id }
         end
       end
     end
@@ -103,8 +103,7 @@ describe HeartsController do
       it 'will delete his own heart' do
         @owned_heart = @library.hearts.create(heartable: @library, user: @user)
         assert_difference '@library.hearts.count', -1 do
-          delete :destroy, library_id: @library.id,
-                           id: @owned_heart.id, format: :js
+          delete :destroy, params: { library_id: @library.id, id: @owned_heart.id, format: :js }
         end
       end
 
@@ -112,8 +111,7 @@ describe HeartsController do
         @anonymous_heart = @library.hearts.create(heartable: @library,
                                                   user_token: 'RandomUserTokenThiswouldActuallyBeRandomData')
         assert_raises Pundit::NotAuthorizedError do
-          delete :destroy, library_id: @library.id,
-                           id: @anonymous_heart.id, format: :js
+          delete :destroy, params: { library_id: @library.id, id: @anonymous_heart.id, format: :js }
         end
       end
 
@@ -122,8 +120,7 @@ describe HeartsController do
         @another_users_heart = @library.hearts.create(heartable: @library,
                                                       user: @another_user)
         assert_raises Pundit::NotAuthorizedError do
-          delete :destroy, library_id: @library.id,
-                           id: @another_users_heart.id, format: :js
+          delete :destroy, params: { library_id: @library.id, id: @another_users_heart.id, format: :js }
         end
       end
     end

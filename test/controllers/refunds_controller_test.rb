@@ -2,9 +2,9 @@
 #   licensed under the GNU Affero General Public License version 3 or later.
 #   See the COPYRIGHT file for details.
 
-require_relative '../test_helper'
+require 'test_helper'
 
-describe RefundsController do
+class RefundsControllerTest < ActionController::TestCase
   let(:seller) { create :user }
   let(:line_item_group) { create :line_item_group, seller: seller }
   let(:business_transaction) { create :business_transaction, :old, line_item_group: line_item_group }
@@ -15,7 +15,7 @@ describe RefundsController do
         @refund_attrs = attributes_for :refund
         sign_in seller
         assert_difference 'Refund.count', 1 do
-          post :create, refund: @refund_attrs, business_transaction_id: business_transaction.id
+          post :create, params:{ refund: @refund_attrs, business_transaction_id: business_transaction.id }
         end
       end
     end
@@ -25,7 +25,7 @@ describe RefundsController do
     describe 'for signed in users' do
       it 'should render "new" view ' do
         sign_in seller
-        get :new, user_id: seller.id, business_transaction_id: business_transaction.id
+        get :new, params:{ user_id: seller.id, business_transaction_id: business_transaction.id }
         assert_response :success
       end
     end

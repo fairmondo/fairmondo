@@ -4,7 +4,7 @@
 
 require 'test_helper'
 
-describe ProcessRowMassUploadWorker do
+class ProcessRowMassUploadWorkerTest < ActiveSupport::TestCase
   it 'should cover exhausted row workers' do
     Sidekiq.logger.stubs(:warn)
     mu = create :mass_upload

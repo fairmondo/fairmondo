@@ -2,9 +2,9 @@
 #   licensed under the GNU Affero General Public License version 3 or later.
 #   See the COPYRIGHT file for details.
 
-require_relative '../test_helper'
+require 'test_helper'
 
-describe ArticlesController do
+class ArticlesControllerTest < ActionController::TestCase
   let(:user) { create(:user) }
 
   describe '#index' do
@@ -36,85 +36,84 @@ describe ArticlesController do
 
       it 'should work with all filters' do
         # should find the article with title 'muscheln' when searching for muscheln
-        get :index, article_search_form: { q: 'muscheln' }
+        get :index, params: { article_search_form: { q: 'muscheln' } }
         @controller.instance_variable_get(:@articles).map { |a| a.id.to_i }.sort.must_equal [@second_hand_article, @hardware_article, @no_second_hand_article].map(&:id).sort
 
         # should find the article with title 'muscheln' when searching for muschel
-        get :index, article_search_form: { q: 'muschel' }
+        get :index, params: { article_search_form: { q: 'muschel' } }
         @controller.instance_variable_get(:@articles).map { |a| a.id.to_i }.sort.must_equal [@second_hand_article, @hardware_article, @no_second_hand_article].map(&:id).sort
 
         # should find the article with content 'meer' when searching for meer
-        get :index, article_search_form: { q: 'meer', search_in_content: '1' }
+        get :index, params: { article_search_form: { q: 'meer', search_in_content: '1' } }
         @controller.instance_variable_get(:@articles).map { |a| a.id.to_i }.sort.must_equal [@second_hand_article].map(&:id).sort
 
         # should find the article with price 1 when filtering <= 1
-        get :index, article_search_form: { price_to: '0,01' }
+        get :index, params: { article_search_form: { price_to: '0,01' } }
         @controller.instance_variable_get(:@articles).map { |a| a.id.to_i }.sort.must_equal [@normal_article].map(&:id).sort
 
         # should find the article with price 4 when filtering >= 4
-        get :index, article_search_form: { price_from: '0,04' }
+        get :index, params: { article_search_form: { price_from: '0,04' } }
         @controller.instance_variable_get(:@articles).map { |a| a.id.to_i }.sort.must_equal [@no_second_hand_article].map(&:id).sort
 
         # should find the article with price 2 and 3 when filtering >= 2 <= 3
-        get :index, article_search_form: { price_to: '0,03', price_from: '0,02' }
+        get :index, params: { article_search_form: { price_to: '0,03', price_from: '0,02' } }
         @controller.instance_variable_get(:@articles).map { |a| a.id.to_i }.sort.must_equal [@second_hand_article, @hardware_article].map(&:id).sort
 
         # order by price asc
-        get :index, article_search_form: { order_by: 'cheapest' }
+        get :index, params: { article_search_form: { order_by: 'cheapest' } }
         @controller.instance_variable_get(:@articles).map { |a| a.id.to_i }.must_equal [@normal_article, @second_hand_article, @hardware_article, @no_second_hand_article].map(&:id)
 
         # order by newest
-        get :index, article_search_form: { order_by: 'newest' }
+        get :index, params: { article_search_form: { order_by: 'newest' } }
         @controller.instance_variable_get(:@articles).map { |a| a.id.to_i }.must_equal [@no_second_hand_article, @hardware_article, @second_hand_article, @normal_article].map(&:id)
 
         # order by condition old
-        get :index, article_search_form: { order_by: 'old', q: 'muscheln' }
+        get :index, params: { article_search_form: { order_by: 'old', q: 'muscheln' } }
         result = @controller.instance_variable_get(:@articles)
         result.map { |a| a.id.to_i }.last.must_equal @no_second_hand_article.id
         result.size.must_equal 3
 
         # order by condition new"
-        get :index, article_search_form: { order_by: 'new', q: 'muscheln' }
+        get :index, params: { article_search_form: { order_by: 'new', q: 'muscheln' } }
         result = @controller.instance_variable_get(:@articles)
         result.map { |a| a.id.to_i }.first.must_equal @no_second_hand_article.id
         result.size.must_equal 3
 
         # order by fair
-        get :index, article_search_form: { order_by: 'fair' }
+        get :index, params: { article_search_form: { order_by: 'fair' } }
         @controller.instance_variable_get(:@articles)
         result = @controller.instance_variable_get(:@articles)
         result.map { |a| a.id.to_i }.first.must_equal @hardware_article.id
         result.size.must_equal 4
 
         # order by ecologic
-        get :index, article_search_form: { order_by: 'ecologic' }
+        get :index, params: { article_search_form: { order_by: 'ecologic' } }
         result = @controller.instance_variable_get(:@articles)
         result.map { |a| a.id.to_i }.first.must_equal @hardware_article.id
         result.size.must_equal 4
 
         # order by small_and_precious
-        get :index, article_search_form: { order_by: 'small_and_precious' }
+        get :index, params: { article_search_form: { order_by: 'small_and_precious' } }
         result = @controller.instance_variable_get(:@articles)
         result.map { |a| a.id.to_i }.first.must_equal @hardware_article.id
         result.size.must_equal 4
 
         # order by price desc
-        get :index, article_search_form: { order_by: 'most_expensive' }
+        get :index, params: { article_search_form: { order_by: 'most_expensive' } }
         @controller.instance_variable_get(:@articles).map { |a| a.id.to_i }.must_equal [@normal_article, @second_hand_article, @hardware_article, @no_second_hand_article].reverse.map(&:id)
 
         # order by friendly_percent desc
-        get :index, article_search_form: { order_by: 'most_donated' }
+        get :index, params: { article_search_form: { order_by: 'most_donated' } }
         result = @controller.instance_variable_get(:@articles)
         result.map { |a| a.id.to_i }.first.must_equal @hardware_article.id
         result.size.must_equal 4
 
-        search_params = { article_search_form: { category_id: @hardware_category.id } }
-        get :index, search_params
+        get :index, params: { article_search_form: { category_id: @hardware_category.id } }
         assert_redirected_to(category_path(@hardware_category.id))
       end
 
       it 'for string with no suggestions must return empty array' do
-        get :index, article_search_form: { q: '@#$!' }
+        get :index, params: { article_search_form: { q: '@#$!' } }
         @controller.instance_variable_get(:@articles).must_equal []
       end
 
@@ -167,54 +166,54 @@ describe ArticlesController do
     describe 'for all users' do
       it 'should be successful' do
         article_fair_trust = create :fair_trust
-        get :show, id: article_fair_trust
+        get :show, params: { id: article_fair_trust }
         assert_response :success
       end
 
       it 'should be successful' do
         article_social_production = create :social_production
-        get :show, id: article_social_production
+        get :show, params: { id: article_social_production }
         assert_response :success
       end
 
       it 'should be successful' do
-        get :show, id: article
+        get :show, params: { id: article }
         assert_response :success
       end
 
       it 'should render the :show view' do
-        get :show, id: article
+        get :show, params: { id: article }
         assert_template :show
       end
 
       it 'should render 404 on closed article' do
         article.deactivate
         article.close
-        get :show, id: article.id
+        get :show, params: { id: article.id }
         assert_template :article_closed
       end
 
       it "doesn't throw an error when the search for other users articles breaks" do
         Chewy::Query.any_instance.stubs(:to_a).raises(StandardError.new('test')) # simulate connection error so that we dont have to use elastic
-        get :show, id: article.id
+        get :show, params: { id: article.id }
         assert_template :show
       end
 
       it "doesn't throw an error when the search for other users articles breaks" do
         Chewy::Query.any_instance.stubs(:to_a).raises(Faraday::ConnectionFailed.new('test')) # simulate connection error so that we dont have to use elastic
-        get :show, id: article.id
+        get :show, params: { id: article.id }
         assert_template :show
       end
 
       it "doesn't throw an error when the search for other users articles breaks" do
         Chewy::Query.any_instance.stubs(:to_a).raises(Faraday::TimeoutError.new('test')) # simulate connection error so that we dont have to use elastic
-        get :show, id: article.id
+        get :show, params: { id: article.id }
         assert_template :show
       end
 
       it "doesn't throw an error when the search for other users articles breaks" do
         Chewy::Query.any_instance.stubs(:to_a).raises(Faraday::ClientError.new('test')) # simulate connection error so that we dont have to use elastic
-        get :show, id: article.id
+        get :show, params: { id: article.id }
         assert_template :show
       end
 
@@ -222,7 +221,7 @@ describe ArticlesController do
         slug = article.slug
         article.deactivate
         article.close
-        get :show, id: slug
+        get :show, params: { id: slug }
         assert_template :article_closed
       end
     end
@@ -233,18 +232,18 @@ describe ArticlesController do
       end
 
       it 'should be successful' do
-        get :show, id: article
+        get :show, params: { id: article }
         assert_response :success
       end
 
       it 'should render the :show view' do
-        get :show, id: article
+        get :show, params: { id: article }
         assert_template :show
       end
 
       it 'should render a flash message for the owner when it still has a processing image' do
         @controller.expects(:at_least_one_image_processing?).returns true
-        get :show, id: article
+        get :show, params: { id: article }
         flash.now[:notice].must_equal I18n.t('article.notices.image_processing')
       end
     end
@@ -270,7 +269,7 @@ describe ArticlesController do
 
       it 'should be possible to get a new article from an existing one' do
         article = create :article, seller: user
-        get :new, edit_as_new: article.id
+        get :new, params: { edit_as_new: article.id }
         assert_template :new
         draftarticle = @controller.instance_variable_get(:@article)
         assert draftarticle.new_record?
@@ -284,7 +283,7 @@ describe ArticlesController do
     describe 'for non-signed-in users' do
       it 'should deny access' do
         @article = create :article
-        get :edit, id: @article.id
+        get :edit, params: { id: @article.id }
         assert_redirected_to(new_user_session_path)
       end
     end
@@ -296,14 +295,16 @@ describe ArticlesController do
 
       it 'should be successful for the seller' do
         @article = create :preview_article, seller: user
-        get :edit, id: @article.id
+        get :edit, params: { id: @article.id }
         assert_template :edit
       end
 
       it 'should not be able to edit other users articles' do
         @article = create :preview_article, seller: (create(:user))
 
-        -> { get :edit, id: @article.id }.must_raise Pundit::NotAuthorizedError
+        assert_raises(Pundit::NotAuthorizedError) {
+          get :edit, params: { id: @article.id }
+        }
       end
     end
   end
@@ -316,7 +317,7 @@ describe ArticlesController do
     describe 'for non-signed-in users' do
       it 'should not create an article' do
         assert_no_difference 'Article.count' do
-          post :create, article: @article_attrs
+          post :create, params: { article: @article_attrs }
         end
       end
     end
@@ -328,7 +329,7 @@ describe ArticlesController do
 
       it 'should create an article' do
         assert_difference 'Article.count', 1 do
-          post :create, article: @article_attrs
+          post :create, params: { article: @article_attrs }
         end
       end
 
@@ -336,13 +337,12 @@ describe ArticlesController do
         @article_attrs = attributes_for :article, :invalid, categories: [create(:category).id]
         @article_attrs[:images_attributes] = { '0' => { image: fixture_file_upload('/test.png', 'image/png') } }
         assert_difference 'Image.count', 1 do
-          post :create, article: @article_attrs
+          post :create, params: { article: @article_attrs }
         end
       end
 
       it 'should not raise an error for very high quantity values' do
-        post :create,
-             article: @article_attrs.merge(quantity: '100000000000000000000000')
+        post :create, params: { article: @article_attrs.merge(quantity: '100000000000000000000000') }
         assert_template :new
       end
 
@@ -353,7 +353,7 @@ describe ArticlesController do
         original_slug = original_article.slug
 
         assert_difference 'Article.count', 1 do
-          post :create, article: @article_attrs.merge(original_id: original_article.id)
+          post :create, params: { article: @article_attrs.merge(original_id: original_article.id) }
         end
         new_article = @controller.instance_variable_get(:@article)
 
@@ -380,17 +380,16 @@ describe ArticlesController do
 
       it 'should delete the preview article' do
         assert_difference 'Article.count', -1 do
-          put :destroy, id: @article.id
+          put :destroy, params: { id: @article.id }
           assert_redirected_to(user_path(user))
         end
       end
 
       it 'should softdelete the locked article' do
         assert_no_difference 'Article.count' do
-          put :update, id: @article.id, activate: true,
-                       article: { tos_accepted: '1' }
+          put :update, params: { id: @article.id, activate: true, article: { tos_accepted: '1' } }
           # put :update, id: @article.id, deactivate: true
-          put :destroy, id: @article.id
+          put :destroy, params: { id: @article.id }
         end
       end
     end
@@ -406,12 +405,12 @@ describe ArticlesController do
       end
 
       it 'should update the article with new information' do
-        put :update, id: @article.id, article: @article_attrs
+        put :update, params: { id: @article.id, article: @article_attrs }
         assert_redirected_to @article.reload
       end
 
       it 'changes the articles informations' do
-        put :update, id: @article.id, article: @article_attrs
+        put :update, params: { id: @article.id, article: @article_attrs }
         assert_redirected_to @article.reload
         @controller
           .instance_variable_get(:@article)
@@ -426,8 +425,7 @@ describe ArticlesController do
       end
 
       it 'should work' do
-        put :update, id: @article.id, article: { tos_accepted: '1' },
-                     activate: true
+        put :update, params: { id: @article.id, article: { tos_accepted: '1' }, activate: true }
         assert_redirected_to @article
         flash[:notice].must_equal I18n.t 'article.notices.create_html'
       end
@@ -436,8 +434,7 @@ describe ArticlesController do
         @article.title = nil
         @article.save validate: false
         ## we now have an invalid record
-        put :update, id: @article.id, article: { tos_accepted: '1' },
-                     activate: true
+        put :update, params: { id: @article.id, article: { tos_accepted: '1' }, activate: true }
         assert_redirected_to new_article_path(edit_as_new: @article.id)
       end
     end
@@ -449,7 +446,7 @@ describe ArticlesController do
       end
 
       it 'should work' do
-        put :update, id: @article.id, deactivate: true
+        put :update, params: { id: @article.id, deactivate: true }
         assert_redirected_to @article
         flash[:notice].must_equal(I18n.t 'article.notices.deactivated')
       end
@@ -458,7 +455,7 @@ describe ArticlesController do
         @article.title = nil
         @article.save validate: false
         ## we now have an invalid record
-        put :update, id: @article.id, deactivate: true
+        put :update, params: { id: @article.id, deactivate: true }
         assert_redirected_to @article
         @article.reload.locked?.must_equal true
       end
@@ -469,7 +466,7 @@ describe ArticlesController do
     it 'should be successful' do
       ArticlesIndex.reset!
       @article = create :article, :index_article, title: 'chunky bacon'
-      get :autocomplete, q: 'chunky'
+      get :autocomplete, params: { q: 'chunky' }
       assert_response :success
       response.body.must_equal({
         query: 'chunky',
@@ -478,12 +475,12 @@ describe ArticlesController do
           data: {
             type: 'result',
             url: '/articles/chunky-bacon',
-            thumb: '<img alt="Missing" src="/assets/missing.png" />'
+            thumb: '<img src="/assets/missing.png" alt="Missing" />'
           }
         }]
       }.to_json)
 
-      get :autocomplete, q: '@#%$#@'
+      get :autocomplete, params: { q: '@#%$#@' }
       assert_response :success
       response.body.must_equal({
         query: '@#%$#@',
@@ -493,49 +490,49 @@ describe ArticlesController do
 
     it 'should rescue a StandardError error' do
       ArticleAutocomplete.any_instance.stubs(:autocomplete).raises(StandardError.new('test'))
-      get :autocomplete, keywords: 'chunky'
+      get :autocomplete, params: { keywords: 'chunky' }
       assert_response :success
       response.body.must_equal({ 'query' => nil, 'suggestions' => [] }.to_json)
     end
 
     it 'should rescue an Faraday::ConnectionFailed error' do
       ArticleAutocomplete.any_instance.stubs(:autocomplete).raises(Faraday::ConnectionFailed.new('test'))
-      get :autocomplete, keywords: 'chunky'
+      get :autocomplete, params: { keywords: 'chunky' }
       assert_response :success
       response.body.must_equal({ 'query' => nil, 'suggestions' => [] }.to_json)
     end
 
     it 'should rescue an Faraday::TimeoutError error' do
       ArticleAutocomplete.any_instance.stubs(:autocomplete).raises(Faraday::TimeoutError.new('test'))
-      get :autocomplete, keywords: 'chunky'
+      get :autocomplete, params: { keywords: 'chunky' }
       assert_response :success
       response.body.must_equal({ 'query' => nil, 'suggestions' => [] }.to_json)
     end
 
     it 'should rescue an Faraday::ClientError error' do
       ArticleAutocomplete.any_instance.stubs(:autocomplete).raises(Faraday::ClientError.new('test'))
-      get :autocomplete, keywords: 'chunky'
+      get :autocomplete, params: { keywords: 'chunky' }
       assert_response :success
       response.body.must_equal({ 'query' => nil, 'suggestions' => [] }.to_json)
     end
 
     it 'should rescue an Faraday::ParsingError error' do
       ArticleAutocomplete.any_instance.stubs(:autocomplete).raises(Faraday::ParsingError.new('test'))
-      get :autocomplete, keywords: 'chunky'
+      get :autocomplete, params: { keywords: 'chunky' }
       assert_response :success
       response.body.must_equal({ 'query' => nil, 'suggestions' => [] }.to_json)
     end
 
     it 'should rescue an Faraday::SSLError error' do
       ArticleAutocomplete.any_instance.stubs(:autocomplete).raises(Faraday::SSLError.new('test'))
-      get :autocomplete, keywords: 'chunky'
+      get :autocomplete, params: { keywords: 'chunky' }
       assert_response :success
       response.body.must_equal({ 'query' => nil, 'suggestions' => [] }.to_json)
     end
 
     it 'should rescue an Faraday::ResourceNotFound error' do
       ArticleAutocomplete.any_instance.stubs(:autocomplete).raises(Faraday::ResourceNotFound.new('test'))
-      get :autocomplete, keywords: 'chunky'
+      get :autocomplete, params: { keywords: 'chunky' }
       assert_response :success
       response.body.must_equal({ 'query' => nil, 'suggestions' => [] }.to_json)
     end

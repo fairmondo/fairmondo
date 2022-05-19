@@ -2,24 +2,24 @@
 #   licensed under the GNU Affero General Public License version 3 or later.
 #   See the COPYRIGHT file for details.
 
-require_relative '../test_helper'
+require 'test_helper'
 
-describe Payment do
+class PaymentTest < ActiveSupport::TestCase
   subject { payment }
   let(:payment) { create(:paypal_payment) }
 
   describe 'attributes' do
-    it { subject.must_respond_to 'pay_key' }
-    it { subject.must_respond_to 'line_item_group' }
-    it { subject.must_respond_to 'error' }
-    it { subject.must_respond_to 'last_ipn' }
-    it { subject.must_respond_to 'created_at' }
-    it { subject.must_respond_to 'updated_at' }
+    it { _(subject).must_respond_to 'pay_key' }
+    it { _(subject).must_respond_to 'line_item_group' }
+    it { _(subject).must_respond_to 'error' }
+    it { _(subject).must_respond_to 'last_ipn' }
+    it { _(subject).must_respond_to 'created_at' }
+    it { _(subject).must_respond_to 'updated_at' }
   end
 
   describe 'associations' do
-    # it { subject.must have_many :business_transactions }
-    it { subject.must belong_to :line_item_group }
+    # should have_many :business_transactions
+    should belong_to :line_item_group
   end
 
   # describe "validations" do
