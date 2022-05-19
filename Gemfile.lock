@@ -6,13 +6,6 @@ GIT
       rails
       railties
 
-GIT
-  remote: git://github.com/marcaltmann/fastbill-automatic.git
-  revision: 709778c050c82accfecb3c7a2a714b0bc3cc2d30
-  specs:
-    fastbill-automatic (0.2.0)
-      json
-
 GEM
   remote: http://rubygems.org/
   specs:
@@ -657,7 +650,6 @@ DEPENDENCIES
   faker
   fakeredis
   faraday (= 0.15.4)
-  fastbill-automatic!
   font-awesome-rails (>= 4.2.0.0)
   formtastic
   friendly_id (>= 4.0.9)
