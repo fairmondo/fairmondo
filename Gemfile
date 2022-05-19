@@ -108,7 +108,7 @@ gem 'exception_notification'
 # ---------- API ----------
 
 # Gem for connecting to FastBill Automatic
-gem 'fastbill-automatic', github: 'marcaltmann/fastbill-automatic'
+# gem 'fastbill-automatic', github: 'marcaltmann/fastbill-automatic'
 
 gem 'savon' # interacing with other SOAP apis:
 gem 'rubyntlm' # https://github.com/savonrb/savon/issues/593
