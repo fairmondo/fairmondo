@@ -108,7 +108,7 @@ gem 'exception_notification'
 # ---------- API ----------
 
 # Gem for connecting to FastBill Automatic
-# gem 'fastbill-automatic', github: 'marcaltmann/fastbill-automatic'
+gem 'fastbill-automatic', '= 0.0.3', :git => 'https://github.com/ekomi-ltd/fastbill-automatic' #ehemals marcaltmann nicht mehr verfuegbar bei marcaltmann, jetzt neueste Version bei ekomi
 
 gem 'savon' # interacing with other SOAP apis:
 gem 'rubyntlm' # https://github.com/savonrb/savon/issues/593
