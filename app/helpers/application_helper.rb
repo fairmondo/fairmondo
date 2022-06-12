@@ -64,7 +64,12 @@ module ApplicationHelper
   def controller_specific_css_path
     @controller_specific_css ||= controller_name
     css_path = "controller/#{@controller_specific_css}.css"
-    return nil unless Rails.application.assets.find_asset(css_path).present?
+  # behavior of Rails.application.assets changed in rails 3.5.2 for production environment
+  # see https://github.com/rails/sprockets-rails/issues/294
+    if Rails.application.config.assets.compile
+      Rails.application.assets.find_asset(css_path)
+    end
+  #  return nil unless Rails.application.assets.find_asset(css_path).present?
     css_path
   end
 
