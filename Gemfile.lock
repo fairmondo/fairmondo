@@ -1,5 +1,5 @@
 GIT
-  remote: git://github.com/KonstantinKo/rails_admin_statistics.git
+  remote: https://github.com/KonstantinKo/rails_admin_statistics.git
   revision: 25296f01efc4defa0d3bf285a275a2cc59184471
   specs:
     rails_admin_statistics (0.0.7)
@@ -7,7 +7,7 @@ GIT
       railties
 
 GIT
-  remote: git://github.com/marcaltmann/fastbill-automatic.git
+  remote: https://github.com/marcaltmann/fastbill-automatic.git
   revision: 709778c050c82accfecb3c7a2a714b0bc3cc2d30
   specs:
     fastbill-automatic (0.2.0)
@@ -393,7 +393,7 @@ GEM
     qtip2-jquery-rails (2.2.100)
       railties (>= 3.1)
     raabro (1.1.6)
-    rack (2.2.2)
+    rack (2.2.3)
     rack-contrib (2.1.0)
       rack (~> 2.0)
     rack-mini-profiler (1.1.6)
@@ -401,7 +401,7 @@ GEM
     rack-pjax (1.1.0)
       nokogiri (~> 1.5)
       rack (>= 1.1)
-    rack-protection (2.0.8.1)
+    rack-protection (2.2.0)
       rack
     rack-rewrite (1.5.1)
     rack-test (1.1.0)
@@ -490,7 +490,7 @@ GEM
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 1.4.0, < 1.7)
     ruby-progressbar (1.10.1)
-    ruby2_keywords (0.0.2)
+    ruby2_keywords (0.0.5)
     rubyntlm (0.6.2)
     rubyzip (1.3.0)
     rufus-scheduler (3.6.0)
@@ -547,10 +547,10 @@ GEM
       json (>= 1.8, < 3)
       simplecov-html (~> 0.10.0)
     simplecov-html (0.10.2)
-    sinatra (2.0.8.1)
+    sinatra (2.2.0)
       mustermann (~> 1.0)
-      rack (~> 2.0)
-      rack-protection (= 2.0.8.1)
+      rack (~> 2.2)
+      rack-protection (= 2.2.0)
       tilt (~> 2.0)
     slim (4.0.1)
       temple (>= 0.7.6, < 0.9)
