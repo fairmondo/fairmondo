@@ -1,5 +1,5 @@
 GIT
-  remote: git://github.com/KonstantinKo/rails_admin_statistics.git
+  remote: https://github.com/KonstantinKo/rails_admin_statistics.git
   revision: 25296f01efc4defa0d3bf285a275a2cc59184471
   specs:
     rails_admin_statistics (0.0.7)
@@ -7,7 +7,7 @@ GIT
       railties
 
 GIT
-  remote: git://github.com/marcaltmann/fastbill-automatic.git
+  remote: https://github.com/marcaltmann/fastbill-automatic.git
   revision: 709778c050c82accfecb3c7a2a714b0bc3cc2d30
   specs:
     fastbill-automatic (0.2.0)
@@ -344,7 +344,7 @@ GEM
     net-ssh (5.2.0)
     netrc (0.11.0)
     newrelic_rpm (6.8.0.360)
-    nio4r (2.5.2)
+    nio4r (2.5.8)
     nokogiri (1.10.8)
       mini_portile2 (~> 2.4.0)
     nokogumbo (2.0.2)
@@ -386,7 +386,7 @@ GEM
     pry-rails (0.3.9)
       pry (>= 0.10.4)
     public_suffix (4.0.3)
-    puma (4.3.1)
+    puma (4.3.12)
       nio4r (~> 2.0)
     pundit (2.1.0)
       activesupport (>= 3.0.0)
