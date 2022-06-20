@@ -12,7 +12,7 @@ class WelcomeController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.ics { render nothing: true, status: 200 }
+      format.ics { head :ok }
     end
   end
 
