@@ -4,6 +4,8 @@ source 'http://rubygems.org'
 gem 'rails', '~> 5.1.7'
 gem 'rails-observers' # observers got extracted since rails 4
 gem 'activerecord-session_store' # sessions in activerecord
+gem 'i18n', '1.8.2' # wegen Loaderror bei Update tinymce
+gem 'sprockets', '4.0.0' # wegen update tinymce
 
 # Plattforms Ruby
 platforms :ruby do
