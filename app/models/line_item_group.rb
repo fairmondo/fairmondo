@@ -23,7 +23,8 @@ class LineItemGroup < ApplicationRecord
            to: :seller, prefix: true
 
   delegate :email, :nickname,
-           to: :buyer, prefix: true
+           to: :buyer, prefix: true, allow_nil: true #m200622 bugfix erlaubt nil wegen geloeschter Kaeufer
+
   delegate :value, to: :rating, prefix: true
   delegate :pay_key, to: :voucher_payment, prefix: true
 
