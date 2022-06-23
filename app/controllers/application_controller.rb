@@ -5,6 +5,10 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
+  rescue_from ActionController::InvalidAuthenticityToken do
+    head :bad_request
+  end
+
   ## Global security
   before_action :authenticate_user!
 
