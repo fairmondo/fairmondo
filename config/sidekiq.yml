@@ -3,7 +3,7 @@
 staging:
   :concurrency: 10
 production:
-  :concurrency: 30
+  :concurrency: 10
   :timeout: 550
 :queues:
   - [sidekiq_pro, 1]
