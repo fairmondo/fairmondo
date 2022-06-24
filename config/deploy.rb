@@ -24,7 +24,7 @@ set :rbenv_roles, :all # default value
 set :log_level, :info
 
 # Default value for :linked_files is []
-set :linked_files, %w{config/database.yml config/secrets.yml config/newrelic.yml config/email_addresses.yml config/sidekiq.yml config/sidekiq_pro_path.yml config/paypal_adaptive.yml}
+set :linked_files, %w{config/database.yml config/secrets.yml config/newrelic.yml config/email_addresses.yml config/sidekiq_pro_path.yml config/paypal_adaptive.yml}
 
 # Default value for linked_dirs is []
 set :linked_dirs, %w{log tmp/pids public/system public/assets tmp/cache}
