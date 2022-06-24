@@ -34,6 +34,7 @@ coverage
 rails_best_practices_output.html
 
 config/secrets.yml
+config/sidekiq.yml
 
 #api keys
 config/paypal_adaptive.yml
