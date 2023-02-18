@@ -140,6 +140,6 @@ de:
       purchase_id: 'Transaktionsnummer:'
     user:
       contact:
-        subject: '[Fairmondo] ein/e Nutzer*in hat eine Frage an Dich'
+        subject: '[Fairmondo] %{sender_name} hat eine Frage an Dich'
         text_beginning: 'hat Dir eine Frage gestellt:'
 
